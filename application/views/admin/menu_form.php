@@ -1,4 +1,4 @@
-<?php echo form_open_multipart($this->config->item('admin_folder').'/menus/form/'.$menu_id); ?>
+<?php  echo form_open_multipart($this->config->item('admin_folder').'/menus/form/'.$menuid.'/'.$restaurant_id); ?>
 
 <div class="tabbable">
 

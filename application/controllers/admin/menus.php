@@ -16,12 +16,14 @@ class Menus extends Admin_Controller {
 	}
 
 	function index($res_id){
-		
+		$data['res_id'] = $res_id;
 		$data['menus'] = $this->Menu_model->GetMenus($res_id);
 		$this->view($this->config->item('admin_folder').'/menu', $data);
 	}
 	
-	function form($menu_id=false){
+	function form($menu_id=false,$res_id){
+		$data['menuid']  = $menuid = isset($menu_id) ? $menu_id : 0;
+		
 		$config['upload_path']      = 'uploads/images/full';
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']         = $this->config->item('size_limit');
@@ -37,7 +39,7 @@ class Menus extends Admin_Controller {
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         
         $data['categories']     = $this->Category_model->get_categories_tiered();
-		
+		$data['restaurant_id'] = $res_id;
 		$data['menu_id']         = '';
 		$data['menu']		= '';
         $data['price']      = '';
@@ -47,25 +49,26 @@ class Menus extends Admin_Controller {
 		$data['product_categories']	= array();
 		
 		if($menu_id){
-			$menu       = $this->Menu_model->GetMenu($menu_id);
-
+			$menus       = $this->Menu_model->GetMenu($menu_id);
+		
             //if the category does not exist, redirect them to the category list with an error
-            if (!$menu)
+            if (!$menus)
             {
                 $this->session->set_flashdata('error', lang('error_not_found'));
                 redirect($this->config->item('admin_folder').'/menus');
-            }
-			$data['menu']		= $menu->menu;
-			$data['price']      = $menu->price;
-			$data['enabled']       = $menu->enabled;
-			$data['image']          = $menu->image;
-			$data['menu'] = $this->Menu_model->GetMenu($menu_id);
+            } 
+			$data['restaurant_id'] = $menus->restaurant_id;
+			$data['menu']		= $menus->menu;
+			$data['price']      = $menus->price;
+			$data['enabled']       = $menus->enabled;
+			$data['image']          = $menus->image;
+			$data['menus'] = $this->Menu_model->GetMenu($menu_id);
 			$data['menu_id'] =$menu_id;
 			if(!$this->input->post('submit'))
 			{
 				
 				$data['product_categories']	= array();
-				foreach($menu->categories as $product_category)
+				foreach($menus->categories as $product_category)
 				{
 					$data['product_categories'][] = $product_category->id;
 				}
@@ -78,7 +81,7 @@ class Menus extends Admin_Controller {
 			$data['product_categories']	= array();
 		}
 		
-        $this->form_validation->set_rules('menu', 'lang:menu', 'trim|required|max_length[64]');
+        $this->form_validation->set_rules('menu', 'lang:menu', 'trim|required');
         $this->form_validation->set_rules('price', 'lang:price', 'trim');
 		$this->form_validation->set_rules('image', 'lang:image', 'trim');
 		 
@@ -87,9 +90,11 @@ class Menus extends Admin_Controller {
 			$data['product_categories']	= $this->input->post('categories');
 		}
 		
+		
 		if ($this->form_validation->run() == FALSE)
         {
-            $this->view($this->config->item('admin_folder').'/menu_form', $data);
+          
+			$this->view($this->config->item('admin_folder').'/menu_form', $data);
         }
         else
         {
@@ -171,6 +176,7 @@ class Menus extends Admin_Controller {
                 $this->image_lib->resize(); 
                 $this->image_lib->clear();
             }
+			$save['restaurant_id'] = $res_id;
 			$save['menu_id']         = $menu_id;
 			$save['menu'] 		=  $this->input->post('menu');
             $save['price']      = $this->input->post('price');
@@ -182,8 +188,28 @@ class Menus extends Admin_Controller {
 				$categories	= array();
 			}
 			
+			
 			$category_id    = $this->Menu_model->save($save,$categories);
-			redirect($this->config->item('admin_folder').'index/menu_form');
+			redirect($this->config->item('admin_folder').'/menus/index/'.$res_id);
 		}
 	}
+	
+	function delete($id,$res_id)
+    {
+        
+        $menu   = $this->Menu_model->GetMenu($id);
+        //if the category does not exist, redirect them to the customer list with an error
+        if ($menu)
+        {
+            
+            $this->Menu_model->delete($id,$res_id);
+            
+            $this->session->set_flashdata('message', lang('message_delete_category'));
+            redirect($this->config->item('admin_folder').'/menus/index/'.$res_id);
+        }
+        else
+        {
+            $this->session->set_flashdata('error', lang('error_not_found'));
+        }
+    }
 }

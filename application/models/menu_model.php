@@ -27,6 +27,7 @@ Class Menu_model extends CI_Model
 	
 	function save($menu, $categories=false)
 	{
+		
 		 if($menu['menu_id'] == ""){$menu['menu_id'] = false;}
 		if ($menu['menu_id'])
 		{
@@ -43,10 +44,11 @@ Class Menu_model extends CI_Model
 		
 		if($categories !== false)
 		{
+			
 			if($menu['menu_id'])
 			{
 				//get all the categories that the product is in
-				$cats	= $this->get_menu_categories($menu_id);
+				$cats	= $this->get_menu_categories($menu['menu_id']);
 				
 				//generate cat_id array
 				$ids	= array();
@@ -92,4 +94,12 @@ Class Menu_model extends CI_Model
 	{
 		return $this->db->where('menu_category', $id)->join('categories', 'category_id = categories.id')->get('menu_categories')->result();
 	}
+	
+	  function delete($id,$res_id)
+    {
+        $this->db->where('menu_id', $id);
+		$this->db->where('restaurant_id', $res_id);
+        $this->db->delete('restaurant_menu');
+       
+    }
 }
