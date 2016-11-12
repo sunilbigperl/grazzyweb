@@ -113,19 +113,19 @@ $(document).ready(function(){
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_catalog') ?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo $admin_url;?>categories"><?php echo lang('common_categories') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>products"><?php echo lang('common_products') ?></a></li>
+                            <li><a href="<?php echo $admin_url;?>restaurant">Restaurants</a></li>
                             <!--<li><a href="<?php echo $admin_url;?>digital_products"><?php echo lang('common_digital_products') ?></a></li>-->
                         </ul>
                     </li>
                     
-                    <li class="dropdown">
+                   <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_content') ?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo $admin_url;?>banners"><?php echo lang('common_banners') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>pages"><?php echo lang('common_pages') ?></a></li>
 							<li><a href="<?php echo $admin_url;?>numbers">Numbers</a></li>
                         </ul>
-                    </li>
+                    </li>-->
                     
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_administrative') ?> <b class="caret"></b></a>
