@@ -114,6 +114,7 @@ $(document).ready(function(){
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo $admin_url;?>categories"><?php echo lang('common_categories') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>restaurant">Restaurants</a></li>
+							<li><a href="<?php echo $admin_url;?>pitstop">Pitstops</a></li>
                             <!--<li><a href="<?php echo $admin_url;?>digital_products"><?php echo lang('common_digital_products') ?></a></li>-->
                         </ul>
                     </li>
