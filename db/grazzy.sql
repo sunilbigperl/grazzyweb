@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2016 at 02:48 PM
+-- Generation Time: Nov 15, 2016 at 01:57 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `firstname`, `lastname`, `username`, `email`, `access`, `password`) VALUES
-(1, NULL, NULL, 'admin', NULL, 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997'),
+(1, 'admin', 'admin', 'admin', 'admin@gmail.com', 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997'),
 (2, 'Anwar', 'hussain', 'anwar99a', 'anwar99a@gmail.com', 'Admin', 'a15db337b77d3ceec56ba80cc0745817e7ccc26d');
 
 -- --------------------------------------------------------
@@ -4305,8 +4305,16 @@ CREATE TABLE `country_zone_areas` (
   `id` int(9) UNSIGNED NOT NULL,
   `zone_id` int(9) UNSIGNED NOT NULL,
   `code` varchar(15) NOT NULL,
+  `name` varchar(250) NOT NULL,
   `tax` float(10,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `country_zone_areas`
+--
+
+INSERT INTO `country_zone_areas` (`id`, `zone_id`, `code`, `name`, `tax`) VALUES
+(1, 1489, 'BNG', 'Bangalore', 0.00);
 
 -- --------------------------------------------------------
 
@@ -4431,13 +4439,55 @@ INSERT INTO `delivery_boy` (`id`, `name`, `address`, `phone`, `email`, `enabled`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `gc_migrations`
+--
+
+CREATE TABLE `gc_migrations` (
+  `version` int(3) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `gc_migrations`
+--
+
+INSERT INTO `gc_migrations` (`version`) VALUES
+(0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `menu_categories`
 --
 
 CREATE TABLE `menu_categories` (
-  `category_id` int(11) NOT NULL,
+  `category_id` bigint(20) NOT NULL,
   `menu_category` varchar(200) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `menu_categories`
+--
+
+INSERT INTO `menu_categories` (`category_id`, `menu_category`) VALUES
+(1, '6'),
+(1, '7');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `version` int(3) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`version`) VALUES
+(0);
 
 -- --------------------------------------------------------
 
@@ -4515,6 +4565,45 @@ CREATE TABLE `order_items` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pitstops`
+--
+
+CREATE TABLE `pitstops` (
+  `pitstop_id` int(11) NOT NULL,
+  `pitstop_name` varchar(300) NOT NULL,
+  `latitude` varchar(200) NOT NULL,
+  `langitude` varchar(200) NOT NULL,
+  `enabled` tinyint(2) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pitstops`
+--
+
+INSERT INTO `pitstops` (`pitstop_id`, `pitstop_name`, `latitude`, `langitude`, `enabled`) VALUES
+(1, 'test', '877878', '8787879', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pitstop_restaurants`
+--
+
+CREATE TABLE `pitstop_restaurants` (
+  `pitstop_id` bigint(30) NOT NULL,
+  `restaurants_id` bigint(30) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pitstop_restaurants`
+--
+
+INSERT INTO `pitstop_restaurants` (`pitstop_id`, `restaurants_id`) VALUES
+(1, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `restaurant`
 --
 
@@ -4524,11 +4613,20 @@ CREATE TABLE `restaurant` (
   `restaurant_address` text NOT NULL,
   `restaurant_phone` varchar(100) NOT NULL,
   `restaurant_email` varchar(250) NOT NULL,
-  `restaurant_image` varchar(300) NOT NULL,
+  `image` varchar(300) NOT NULL,
   `restaurant_latitude` varchar(100) NOT NULL,
   `restaurant_langitude` varchar(100) NOT NULL,
-  `restaurant_branch` varchar(200) NOT NULL
+  `restaurant_branch` varchar(200) NOT NULL,
+  `enabled` tinyint(2) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `restaurant`
+--
+
+INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `image`, `restaurant_latitude`, `restaurant_langitude`, `restaurant_branch`, `enabled`) VALUES
+(1, 'test1213', '<p>&lt;p&gt;&lt;p&gt;&lt;p&gt;tettst&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;</p>', '6876787767', 'tets@gmail.com', '75c61fe984d3862b35f4bde6d067b62a.jpg', '9089', '88888', 'Bangalore', 1),
+(2, 'restaurant', '<p>&lt;p&gt;restaurant&lt;/p&gt;</p>', '897676677', 'restaurant@gmail.com', '643b66f28913b6de98931a7f1f149875.jpg', '7878667', '898998', 'Bangalore', 1);
 
 -- --------------------------------------------------------
 
@@ -4542,8 +4640,18 @@ CREATE TABLE `restaurant_menu` (
   `category` int(11) NOT NULL,
   `menu` varchar(300) NOT NULL,
   `price` int(11) NOT NULL,
-  `image` varchar(200) NOT NULL
+  `image` varchar(200) NOT NULL,
+  `enabled` tinyint(2) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `restaurant_menu`
+--
+
+INSERT INTO `restaurant_menu` (`menu_id`, `restaurant_id`, `category`, `menu`, `price`, `image`, `enabled`) VALUES
+(1, 1, 0, 'kabab', 210, 'd93990a28944009944670d40fa35f3c3.jpg', 1),
+(4, 1, 0, 'biryani', 210, '', 1),
+(7, 2, 0, 'kabab', 120, '', 1);
 
 -- --------------------------------------------------------
 
@@ -4686,7 +4794,7 @@ ALTER TABLE `delivery_boy`
 -- Indexes for table `menu_categories`
 --
 ALTER TABLE `menu_categories`
-  ADD PRIMARY KEY (`category_id`);
+  ADD PRIMARY KEY (`menu_category`);
 
 --
 -- Indexes for table `orders`
@@ -4699,6 +4807,12 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pitstops`
+--
+ALTER TABLE `pitstops`
+  ADD PRIMARY KEY (`pitstop_id`);
 
 --
 -- Indexes for table `restaurant`
@@ -4754,12 +4868,12 @@ ALTER TABLE `country_zones`
 -- AUTO_INCREMENT for table `country_zone_areas`
 --
 ALTER TABLE `country_zone_areas`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `customers_address_bank`
 --
@@ -4786,11 +4900,6 @@ ALTER TABLE `deliveryboy_locations`
 ALTER TABLE `delivery_boy`
   MODIFY `id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `menu_categories`
---
-ALTER TABLE `menu_categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
@@ -4801,15 +4910,20 @@ ALTER TABLE `orders`
 ALTER TABLE `order_items`
   MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `pitstops`
+--
+ALTER TABLE `pitstops`
+  MODIFY `pitstop_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `restaurant_id` bigint(30) NOT NULL AUTO_INCREMENT;
+  MODIFY `restaurant_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `restaurant_menu`
 --
 ALTER TABLE `restaurant_menu`
-  MODIFY `menu_id` bigint(30) NOT NULL AUTO_INCREMENT;
+  MODIFY `menu_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `routes`
 --
