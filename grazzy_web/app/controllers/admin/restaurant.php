@@ -6,7 +6,7 @@ class Restaurant extends Admin_Controller {
     {       
         parent::__construct();
         
-        $this->auth->check_access('Admin', true);
+        //$this->auth->check_access('Admin', true);
         $this->lang->load('category');
         $this->load->model('Restaurant_model');
     }
@@ -27,6 +27,7 @@ class Restaurant extends Admin_Controller {
         $config['max_width']        = '1024';
         $config['max_height']       = '768';
         $config['encrypt_name']     = true;
+		$data['related_pitstops']	= array();
         $this->load->library('upload', $config);
         
         
@@ -35,6 +36,7 @@ class Restaurant extends Admin_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         
+		$data['managers'] = $this->Restaurant_model->get_managers();
         $data['restaurants']     = $this->Restaurant_model->get_restaurants();
         $data['page_title']     = lang('category_form');
         
@@ -49,6 +51,7 @@ class Restaurant extends Admin_Controller {
         $data['restaurant_latitude']          = '';
         $data['restaurant_langitude']      = '';
         $data['restaurant_branch']           = '';
+		$data['restaurant_manager']           = '';
         $data['enabled']        = '';
         
         //create the photos array for later use
@@ -78,9 +81,16 @@ class Restaurant extends Admin_Controller {
             $data['restaurant_langitude']      = $restaurant->restaurant_langitude;
             $data['image']          = $restaurant->image;
             $data['restaurant_branch']      = $restaurant->restaurant_branch;
-            
+            $data['restaurant_manager']           = $restaurant->restaurant_manager;
             $data['enabled']        = $restaurant->enabled;
-			
+			if(!$this->input->post('submit'))
+			{
+				$data['related_pitstops']	= $restaurant->related_pitstops;
+			}
+			if(!is_array($data['related_pitstops']))
+			{
+				$data['related_pitstops']	= array();
+			}
             
         }
         
@@ -91,7 +101,10 @@ class Restaurant extends Admin_Controller {
         $this->form_validation->set_rules('image', 'lang:restaurant_image', 'trim');
        
         $this->form_validation->set_rules('enabled', 'lang:enabled', 'trim|numeric');
-        
+        if($this->input->post('submit'))
+		{
+			$data['related_pitstops']	= $this->input->post('related_pitstops');
+		}
         
         // validate the form
         if ($this->form_validation->run() == FALSE)
@@ -193,10 +206,18 @@ class Restaurant extends Admin_Controller {
             $save['restaurant_latitude']       = $this->input->post('restaurant_latitude');
             $save['restaurant_langitude']      = $this->input->post('restaurant_langitude');
             $save['restaurant_branch']           = $this->input->post('restaurant_branch');
+			$save['restaurant_manager']           = $this->input->post('restaurant_manager');
             $save['enabled']        = $this->input->post('enabled');
-           
+			if($this->input->post('related_pitstops'))
+			{
+				$related_pitstops = $this->input->post('related_pitstops');
+			}
+			else
+			{
+				$related_pitstops = array();
+			}
 			
-            $restaurant_id    = $this->Restaurant_model->save($save);
+            $restaurant_id    = $this->Restaurant_model->save($save,$related_pitstops);
             
             $this->session->set_flashdata('message', lang('message_category_saved'));
             
@@ -223,4 +244,28 @@ class Restaurant extends Admin_Controller {
             $this->session->set_flashdata('error', lang('error_not_found'));
         }
     }
+	
+	function pitstops_autocomplete()
+	{
+		$name	= trim($this->input->post('name'));
+		$limit	= $this->input->post('limit');
+		
+		if(empty($name))
+		{
+			echo json_encode(array());
+		}
+		else
+		{
+			$results	= $this->Restaurant_model->pitstops_autocomplete($name, $limit);
+			
+			$return		= array();
+			
+			foreach($results as $r)
+			{
+				$return[$r->pitstop_id]	= $r->pitstop_name;
+			}
+			echo json_encode($return);
+		}
+		
+	}
 }

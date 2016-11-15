@@ -2,7 +2,9 @@
 <?php echo theme_js('bootstrap-table.js', true);?>
 
 <div class="btn-group pull-right">
+	<?php if($this->auth->check_access('Admin')){ ?>
 	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form'); ?>"><i class="icon-plus-sign"></i> Add new restaurant</a>
+	<?php } ?>
 </div>
 
 <table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
@@ -34,8 +36,12 @@
 				<td>
 					<?=$restaurant->restaurant_email; ?>
 				</td>
-				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form/'.$restaurant->restaurant_id); ?>">Edit</a>
-				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/delete/'.$restaurant->restaurant_id); ?>">delete</a></td>
+				<td>
+				<?php if($this->auth->check_access('Admin')){ ?>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form/'.$restaurant->restaurant_id); ?>">Edit</a>
+				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/delete/'.$restaurant->restaurant_id); ?>">delete</a>
+				<?php } ?>
+				</td>
 			
 				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Add menus</a></td>
 			</tr>

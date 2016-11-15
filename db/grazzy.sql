@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2016 at 01:57 AM
+-- Generation Time: Nov 15, 2016 at 05:23 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -32,7 +32,7 @@ CREATE TABLE `admin` (
   `lastname` varchar(32) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `email` varchar(128) DEFAULT NULL,
-  `access` varchar(11) NOT NULL,
+  `access` varchar(200) NOT NULL,
   `password` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -42,7 +42,7 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `firstname`, `lastname`, `username`, `email`, `access`, `password`) VALUES
 (1, 'admin', 'admin', 'admin', 'admin@gmail.com', 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997'),
-(2, 'Anwar', 'hussain', 'anwar99a', 'anwar99a@gmail.com', 'Admin', 'a15db337b77d3ceec56ba80cc0745817e7ccc26d');
+(3, 'vijetha', 'l', 'vijetha', 'lvijetha90@gmail.com', 'Restaurant manager', '717f1cc273ee989c1667ce089441d9e88b92c129');
 
 -- --------------------------------------------------------
 
@@ -4599,6 +4599,7 @@ CREATE TABLE `pitstop_restaurants` (
 --
 
 INSERT INTO `pitstop_restaurants` (`pitstop_id`, `restaurants_id`) VALUES
+(1, 1),
 (1, 2);
 
 -- --------------------------------------------------------
@@ -4617,6 +4618,7 @@ CREATE TABLE `restaurant` (
   `restaurant_latitude` varchar(100) NOT NULL,
   `restaurant_langitude` varchar(100) NOT NULL,
   `restaurant_branch` varchar(200) NOT NULL,
+  `restaurant_manager` int(11) NOT NULL,
   `enabled` tinyint(2) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -4624,9 +4626,9 @@ CREATE TABLE `restaurant` (
 -- Dumping data for table `restaurant`
 --
 
-INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `image`, `restaurant_latitude`, `restaurant_langitude`, `restaurant_branch`, `enabled`) VALUES
-(1, 'test1213', '<p>&lt;p&gt;&lt;p&gt;&lt;p&gt;tettst&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;</p>', '6876787767', 'tets@gmail.com', '75c61fe984d3862b35f4bde6d067b62a.jpg', '9089', '88888', 'Bangalore', 1),
-(2, 'restaurant', '<p>&lt;p&gt;restaurant&lt;/p&gt;</p>', '897676677', 'restaurant@gmail.com', '643b66f28913b6de98931a7f1f149875.jpg', '7878667', '898998', 'Bangalore', 1);
+INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `image`, `restaurant_latitude`, `restaurant_langitude`, `restaurant_branch`, `restaurant_manager`, `enabled`) VALUES
+(1, 'test1213', '<p>&lt;p&gt;&lt;p&gt;&lt;p&gt;tettst&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;</p>', '6876787767', 'tets@gmail.com', '75c61fe984d3862b35f4bde6d067b62a.jpg', '9089', '88888', 'Bangalore', 3, 1),
+(2, 'restaurant', '<p>&lt;p&gt;restaurant&lt;/p&gt;</p>', '897676677', 'restaurant@gmail.com', '643b66f28913b6de98931a7f1f149875.jpg', '7878667', '898998', 'Bangalore', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -4848,7 +4850,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `categories`
 --

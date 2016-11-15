@@ -6,10 +6,11 @@ class Dashboard extends Admin_Controller {
 	{
 		parent::__construct();
 
-		if($this->auth->check_access('Orders'))
+		if($this->auth->check_access('Restaurant manager'))
 		{
-			redirect($this->config->item('admin_folder').'/orders');
+			redirect($this->config->item('admin_folder').'/restaurant');
 		}
+		$this->auth->check_access('Admin', true);
 		
 		$this->load->model('Order_model');
 		$this->load->model('Customer_model');

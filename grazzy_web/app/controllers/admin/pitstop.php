@@ -74,7 +74,6 @@ class Pitstop extends Admin_Controller {
             $data['enabled']        = $pitstop->enabled;
 			if(!$this->input->post('submit'))
 			{
-				
 				$data['related_restaurants']	= $pitstop->related_restaurants;
 			}
 			if(!is_array($data['related_restaurants']))
