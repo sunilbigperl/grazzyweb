@@ -27,7 +27,9 @@
 		<label><?php echo lang('access');?></label>
 		<?php
 		$options = array(	'Admin'		=> 'Admin',
-							'Orders'	=> 'Orders'
+							'Restaurant manager'	=> 'Restaurant manager',
+							'Deliver boy'	=> 'Delivery boy',
+							'Deliver manager' => 'Deliver manager'
 		                );
 		echo form_dropdown('access', $options, set_value('phone', $access));
 		?>

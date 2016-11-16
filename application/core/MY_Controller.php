@@ -80,7 +80,7 @@ class Front_Controller extends Base_Controller
 		$this->load->library('Banners');
 
 		//load needed models
-		$this->load->model(array('Page_model', 'Product_model', 'Digital_Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model','Home_model'));
+		$this->load->model(array('Page_model', 'Product_model', 'Gift_card_model', 'Option_model', 'Order_model', 'Settings_model','Home_model'));
 		
 		//load helpers
 		$this->load->helper(array('form_helper', 'formatting_helper'));

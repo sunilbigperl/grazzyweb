@@ -8,7 +8,7 @@ class Customers extends Admin_Controller {
 	function __construct()
 	{		
 		parent::__construct();
-
+		$this->auth->check_access('Admin', true);
 		$this->load->model(array('Customer_model', 'Location_model'));
 		$this->load->helper('formatting_helper');
 		$this->lang->load('customer');
