@@ -1,4 +1,5 @@
 <?php
+$entry_name	= array('name'=>'entry_name','class'=>'span3', 'value'=> set_value('entry_name',$entry_name));
 $f_company	= array('name'=>'company','class'=>'span3', 'value'=> set_value('company',$company));
 $f_address1	= array('name'=>'address1', 'class'=>'span6','value'=>set_value('address1',$address1));
 $f_address2	= array('name'=>'address2', 'class'=>'span6','value'=> set_value('address2',$address2));
@@ -13,7 +14,14 @@ $f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> se
 
 	<div class="row">
 		<div class="span3">
-			<label><?php echo lang('company');?></label>
+			<label>Entry Name</label>
+			<?php echo form_input($entry_name);?>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="span3">
+			<label>Office</label>
 			<?php echo form_input($f_company);?>
 		</div>
 	</div>

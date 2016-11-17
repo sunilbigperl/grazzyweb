@@ -1,6 +1,21 @@
 <?php if(!defined('BASEPATH')) exit('No direct script allowed access');
 class Api_model extends CI_Model
 {
+	
+	public function customercheck($data){
+		$sql = "select id from customers where firstname='".$data['firstname']."' and phone ='".$data['phone']."'";
+		$query = $this->db->query($sql);
+		if($query->num_rows() == 0){
+			$sql = "insert into customers (firstname, phone) values('".$data['firstname']."','".$data['phone']."')";	
+			$query = $this->db->query($sql);
+			$id = $this->db->insert_id();
+			
+		}else{
+			$id = $query->result();
+		}
+		return $id;
+	}
+	
 	public function getUsers(){
 		
 		$threadmsg = $this->db->query("select * from customers");
@@ -18,6 +33,24 @@ class Api_model extends CI_Model
 		
 	}
 	
+	public function getAddress($id){
+		
+		$addresses = $this->db->where('customer_id', $id)->get('customers_address_bank')->result_array();
+		
+        // unserialize the field data
+        if($addresses)
+        {
+            foreach($addresses as $add)
+            {
+                $addr[] = unserialize($add['field_data']);
+            }
+			return $addr;
+        }
+        else{
+			return false;
+		}
+		
+	}
 	
 	public function RestaurantMenuDetails($input_data){
 		

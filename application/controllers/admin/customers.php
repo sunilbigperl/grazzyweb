@@ -353,6 +353,7 @@ class Customers extends Admin_Controller {
 	function address_form($customer_id, $id = false)
 	{
 		$data['id']				= $id;
+		$data['entry_name']		= '';
 		$data['company']		= '';
 		$data['firstname']		= '';
 		$data['lastname']		= '';
@@ -387,11 +388,12 @@ class Customers extends Admin_Controller {
 		{
 			//if there is no set ID, the get the zones of the first country in the countries menu
 			$countries_menu = $data['countries_menu'];
-			$res = array_shift(array_keys($countries_menu));
+			$res1 = array_keys($countries_menu);
+			$res = array_shift($res1);
 			$data['zones_menu']	= $this->Location_model->get_zones_menu($res);
 		}
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('company', 'lang:company', 'trim|max_length[128]');
+		$this->form_validation->set_rules('entry_name', 'lang:entry_name', 'trim|max_length[128]');
 		$this->form_validation->set_rules('firstname', 'lang:firstname', 'trim|required|max_length[32]');
 		$this->form_validation->set_rules('lastname', 'lang:lastname', 'trim|required|max_length[32]');
 		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]');
@@ -412,6 +414,7 @@ class Customers extends Admin_Controller {
 			
 			$a['customer_id']				= $customer_id; // this is needed for new records
 			$a['id']						= (empty($id))?'':$id;
+			$a['field_data']['entry_name']				= $this->input->post('entry_name');
 			$a['field_data']['company']		= $this->input->post('company');
 			$a['field_data']['firstname']	= $this->input->post('firstname');
 			$a['field_data']['lastname']	= $this->input->post('lastname');
@@ -429,7 +432,7 @@ class Customers extends Admin_Controller {
 			$country	= $this->Location_model->get_country($this->input->post('country_id'));
 			$zone		= $this->Location_model->get_zone($this->input->post('zone_id'));
 			
-			$a['field_data']['zone']			= $zone->code;  // save the state for output formatted addresses
+			$a['field_data']['zone']			= $zone->name;  // save the state for output formatted addresses
 			$a['field_data']['country']			= $country->name; // some shipping libraries require country name
 			$a['field_data']['country_code']	= $country->iso_code_2; // some shipping libraries require the code 
 			

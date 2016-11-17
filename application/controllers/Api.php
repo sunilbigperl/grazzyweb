@@ -30,12 +30,18 @@ class Api extends REST_Controller {
         $this->methods['user_delete']['limit'] = 50; // 50 requests per hour per user/key
     }
 	
-	public function RestMenu_get(){
-		$users = $this->api_model->RestaurantMenuDetails(7);
-		print_r($users); exit;
+	public function customercheck_post(){
+		 $data = [
+            'firstname' => $this->post('firstname'),
+            'phone' => $this->post('phone')
+        ];
+
+		$message = $this->api_model->customercheck($data);
+		
+        $this->set_response($message, REST_Controller::HTTP_OK);
 	}
 	
-    public function users_get()
+    public function customer_get()
     {
 		
 		$users = $this->api_model->getUsers();
@@ -104,7 +110,34 @@ class Api extends REST_Controller {
             ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
         }
     }
+	
+	 public function customeraddress_get($id)
+    { 
+      
+		$address = $this->api_model->getAddress($id);
+		
+        if ($id <= 0)
+        {
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
+        }
 
+       
+        
+
+        if (!empty($address))
+        {
+            $this->set_response($address, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'User address could not be found'
+            ], REST_Controller::HTTP_NOT_FOUND);
+        }
+    }
+
+	
     public function users_post()
     {
         // $this->some_model->update_user( ... );
