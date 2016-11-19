@@ -219,7 +219,7 @@ class Restaurant extends Admin_Controller {
 			
             $restaurant_id    = $this->Restaurant_model->save($save,$related_pitstops);
             
-            $this->session->set_flashdata('message', lang('message_category_saved'));
+            $this->session->set_flashdata('message', "Restaurant saved");
             
             //go back to the category list
             redirect($this->config->item('admin_folder').'/restaurant');
@@ -236,7 +236,7 @@ class Restaurant extends Admin_Controller {
             
             $this->Restaurant_model->delete($id);
             
-            $this->session->set_flashdata('message', lang('message_delete_category'));
+            $this->session->set_flashdata('message', "The restaurant has been deleted.");
             redirect($this->config->item('admin_folder').'/restaurant');
         }
         else

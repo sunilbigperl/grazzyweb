@@ -130,17 +130,14 @@ class Pitstop extends Admin_Controller {
     function delete($id)
     {
         
-        $category   = $this->Pitstop_model->get_category($id);
+        $pitstop   = $this->Pitstop_model->get_pitstop($id);
         //if the category does not exist, redirect them to the customer list with an error
-        if ($category)
+        if ($pitstop)
         {
-            $this->load->model('Routes_model');
-            
-            $this->Routes_model->delete($category->route_id);
             $this->Pitstop_model->delete($id);
             
-            $this->session->set_flashdata('message', lang('message_delete_category'));
-            redirect($this->config->item('admin_folder').'/pitstops');
+            $this->session->set_flashdata('message', "The pitstop has been deleted.");
+            redirect($this->config->item('admin_folder').'/pitstop');
         }
         else
         {

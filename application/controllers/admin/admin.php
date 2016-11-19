@@ -81,7 +81,7 @@ class Admin extends Admin_Controller
 		if ($this->input->post('password') != '' || $this->input->post('confirm') != '' || !$id)
 		{
 			$this->form_validation->set_rules('password', 'lang:password', 'required|min_length[6]|sha1');
-			$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]');
+			$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]|sha1');
 		}
 		
 		if ($this->form_validation->run() == FALSE)

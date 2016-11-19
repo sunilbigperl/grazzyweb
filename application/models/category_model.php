@@ -155,6 +155,6 @@ Class Category_model extends CI_Model
         
         //delete references to this category in the product to category table
         $this->db->where('category_id', $id);
-        $this->db->delete('category_products');
+        $this->db->delete('menu_categories');
     }
 }

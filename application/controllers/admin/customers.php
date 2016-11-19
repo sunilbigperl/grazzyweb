@@ -133,8 +133,9 @@ class Customers extends Admin_Controller {
 		//if this is a new account require a password, or if they have entered either a password or a password confirmation
 		if ($this->input->post('password') != '' || $this->input->post('confirm') != '' || !$id)
 		{
+			//echo $this->input->post('confirm'); exit;
 			$this->form_validation->set_rules('password', 'lang:password', 'required|min_length[6]|sha1');
-			$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]');
+			$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]|sha1');
 		}
 		
 				

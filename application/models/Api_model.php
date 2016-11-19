@@ -33,6 +33,30 @@ class Api_model extends CI_Model
 		
 	}
 	
+	public function getRestaurants($id){
+		
+		$threadmsg = $this->db->query("select a.* from restaurant a, pitstops b, pitstop_restaurants c where 
+		a.restaurant_id = c.restaurants_id and b.pitstop_id=c.pitstop_id and b.pitstop_id=".$id);
+
+			if($threadmsg->num_rows()>0){
+				$result = array();
+				$i=0;
+				foreach($threadmsg->result_array() as $row){ 
+					$result[$i]['restaurant_id'] = $row['restaurant_id'];
+					$result[$i]['restaurant_name'] = $row['restaurant_name'];
+					$result[$i]['image'] = 'uploads/images/thumbnails/'.$row['image']; 
+				$i++;
+				}
+				return $result;
+			}else{
+			
+				return false;
+				
+			}
+			
+		
+	}
+	
 	public function getAddress($id){
 		
 		$addresses = $this->db->where('customer_id', $id)->get('customers_address_bank')->result_array();
@@ -52,6 +76,14 @@ class Api_model extends CI_Model
 		
 	}
 	
+	public function adduserslocation($data){
+		$sql = "insert into customer_locations (customer_id,latitude,langitude) values('".$data['customer_id']."','".$data['latitude']."','".$data['langitude']."')";
+		//echo $sql; exit;
+		$query = $this->db->query($sql);
+		if($query){
+			return true;
+		}
+	}
 	public function RestaurantMenuDetails($input_data){
 		
 		$sql=$this->db->query("select id,name,logo  from restaurants where id=".$input_data);
@@ -100,10 +132,6 @@ class Api_model extends CI_Model
 				$group_count++;
 			}
 
-//		print_r($result);
-//	print_r("\n");	
-//		print_r($group_count);
-//	print_r("service model BASE URL @@@");exit();
 
 		}else{
 			$result[0] = false;
