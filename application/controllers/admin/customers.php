@@ -82,6 +82,8 @@ class Customers extends Admin_Controller {
 		$data['firstname']			= '';
 		$data['lastname']			= '';
 		$data['email']				= '';
+		$data['dob']				= '';
+		$data['gender']				= '';
 		$data['phone']				= '';
 		$data['company']			= '';
 		$data['email_subscribe']	= '';
@@ -114,6 +116,8 @@ class Customers extends Admin_Controller {
 			$data['firstname']			= $customer->firstname;
 			$data['lastname']			= $customer->lastname;
 			$data['email']				= $customer->email;
+			$data['dob']				= $customer->dob;
+			$data['gender']				= $customer->gender;
 			$data['phone']				= $customer->phone;
 			$data['company']			= $customer->company;
 			$data['active']				= $customer->active;
@@ -127,6 +131,8 @@ class Customers extends Admin_Controller {
 		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[32]');
 		$this->form_validation->set_rules('company', 'lang:company', 'trim|max_length[128]');
 		$this->form_validation->set_rules('active', 'lang:active');
+		$this->form_validation->set_rules('dob', 'lang:dob', 'trim|required');
+		$this->form_validation->set_rules('gender', 'lang:gender', 'trim|required');
 		$this->form_validation->set_rules('group_id', 'group_id', 'numeric');
 		$this->form_validation->set_rules('email_subscribe', 'email_subscribe', 'numeric|max_length[1]');
 		
@@ -152,6 +158,8 @@ class Customers extends Admin_Controller {
 			$save['email']		= $this->input->post('email');
 			$save['phone']		= $this->input->post('phone');
 			$save['company']	= $this->input->post('company');
+			$save['dob']	= $this->input->post('dob');
+			$save['gender']	= $this->input->post('gender');
 			$save['active']		= $this->input->post('active');
 			$save['email_subscribe'] = $this->input->post('email_subscribe');
 

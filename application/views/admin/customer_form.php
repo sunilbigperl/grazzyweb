@@ -53,6 +53,23 @@
 			echo form_password($data); ?>
 		</div>
 	</div>
+	
+	<div class="row">
+		<div class="span3">
+			<label>DOB</label>
+			<?php
+			$data	= array('name'=>'dob', 'class'=>'span3','value'=>set_value('dob', $dob),);
+			echo form_input($data); ?>
+		</div>
+		<div class="span3">
+			<label>Gender</label>
+			<select name="gender" class="sapn3">
+				<option value=""></option>
+				<option value="Male" <?php if($gender == "Male"){ echo "selected"; } ?>>Male</option>
+				<option value="Female" <?php if($gender == "Female"){ echo "selected"; } ?>>Female</option>
+			</select>
+		</div>
+	</div>
 
 	<div class="row">
 		<div class="span3">

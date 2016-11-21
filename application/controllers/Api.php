@@ -41,16 +41,11 @@ class Api extends REST_Controller {
         $this->set_response($message, REST_Controller::HTTP_OK);
 	}
 	
-    public function customer_get()
+    public function customer_get($id)
     {
-		
+		$id = isset($id) ? $id : "";
 		$users = $this->api_model->getUsers();
-		//print_r($users); exit;
-     
-
-        $id = $this->get('id');
-
-        // If the id parameter doesn't exist return all the users
+	
 
         if ($id === NULL)
         {
@@ -159,7 +154,28 @@ class Api extends REST_Controller {
             ], REST_Controller::HTTP_NOT_FOUND);
         }
     }
+	
+	public function menus_get($id){
+		$menus =  $this->api_model->getMenus($id);
+		
+		if ($id <= 0)
+        {
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
+        }
 
+       
+        if (!empty($menus))
+        {
+            $this->set_response($menus, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'menus  could not be found for the restaurant'
+            ], REST_Controller::HTTP_NOT_FOUND);
+        }
+	}
 	
     public function adduserslocation_post()
     {
@@ -173,7 +189,61 @@ class Api extends REST_Controller {
 
         $this->set_response($userslocation, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
     }
+	
+	public function updateprofile_post()
+    {
+		$d = explode("/",$this->post('dob'));
+		$dob = $d[2]."-".$d[1]."-".$d[0];
+		
+		$data = [
+			'id' => $this->post('id'),
+            'firstname' => $this->post('firstname'),
+            'email' => $this->post('email'),
+            'dob' => $dob,
+			'gender' => $this->post('gender'),
+        ];
+        $updateprofile =  $this->api_model->updateprofile($data);
+        
+		if($updateprofile){
+			$status = array('status'=>true);
+		}
+        $this->set_response($status, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
+    }
+	
+	public function orderlist_get($id){
+		$orderlist =  $this->api_model->orderlist($id);
+		
+		if ($id <= 0)
+        {
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
+        }
 
+       
+        if (!empty($orderlist))
+        {
+            $this->set_response($orderlist, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'order list  could not be found for the customer'
+            ], REST_Controller::HTTP_NOT_FOUND);
+        }
+	}
+	
+	public function pitstopsuser_post(){
+		$data = [
+			'southwest_lat' => $this->post('southwest_lat'),
+            'southwest_lng' => $this->post('southwest_lng'),
+            'northeast_lat' => $this->post('northeast_lat'),
+			'northeast_lng' => $this->post('northeast_lng'),
+        ];
+		$pitstopsuser =  $this->api_model->pitstopsuser($data);
+		
+
+	}
+	
     public function users_delete()
     {
         $id = (int) $this->get('id');
@@ -193,5 +263,21 @@ class Api extends REST_Controller {
 
         $this->set_response($message, REST_Controller::HTTP_NO_CONTENT); // NO_CONTENT (204) being the HTTP response code
     }
-
+	
+	public function restaurantforloctaion_delete($data)
+    {
+		$restaurants = $this->api_model->restaurantforloctaion($data);
+		if (!empty($restaurants))
+        {
+            $this->set_response($restaurants, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'restaurants  could not be found for the location'
+            ], REST_Controller::HTTP_NOT_FOUND);
+        }
+	}
+	
 }
