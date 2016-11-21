@@ -240,7 +240,37 @@ class Api extends REST_Controller {
 			'northeast_lng' => $this->post('northeast_lng'),
         ];
 		$pitstopsuser =  $this->api_model->pitstopsuser($data);
-		
+		if (!empty($pitstopsuser))
+        {
+            $this->set_response($pitstopsuser, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'pitstop list  could not be found'
+            ], REST_Controller::HTTP_NOT_FOUND);
+        }
+
+	}
+	
+	public function restaurantuser_post(){
+		$data = [
+			'latitude' => $this->post('latitude'),
+            'langitude' => $this->post('langitude'),
+        ];
+		$restaurantuser =  $this->api_model->restaurantuser($data);
+		if (!empty($restaurantuser))
+        {
+            $this->set_response($restaurantuser, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'restaurant list  could not be found'
+            ], REST_Controller::HTTP_NOT_FOUND);
+        }
 
 	}
 	

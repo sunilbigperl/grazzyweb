@@ -87,7 +87,7 @@ class Api_model extends CI_Model
 				$result[$row['pitstop_id']]['pitstop_id'] = $row['pitstop_id'];
 				$result[$row['pitstop_id']]['latitude'] = $row['latitude'];
 				$result[$row['pitstop_id']]['langitude'] = $row['langitude'];
-				$sql1 = "SELECT * FROM `pitstop_restaurants` a, restaurant b where a.pitstop_id ='".$row['pitstop_id']."' and a.restaurants_id = b.restaurant_id"
+				$sql1 = "SELECT * FROM `pitstop_restaurants` a, restaurant b where a.pitstop_id ='".$row['pitstop_id']."' and a.restaurants_id = b.restaurant_id";
 				$query1 = $this->db->query($sql1);
 				if($query1->num_rows()>0){
 					$j=0;
@@ -99,6 +99,15 @@ class Api_model extends CI_Model
 				}
 			$i++;
 			}
+		}
+	}
+	
+	public function restaurantuser($data){
+		$sql = "SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant HAVING distance < 2";
+		
+		$query = $this->db->query($sql);
+		if($query->num_rows()>0){
+			return $query->result_array();
 		}
 	}
 	
@@ -120,7 +129,7 @@ class Api_model extends CI_Model
 			foreach($query->result_array() as $row){ 
 				$result[$row['order_number']][$i]['id'] = $row['order_id'];
 				$result[$row['order_number']][$i]['ordered_on'] = $row['ordered_on'];
-				$result[$row['order_number']][$i]['product_id'] = $row['ordered_on'];
+				$result[$row['order_number']][$i]['menu_id'] = $row['product_id'];
 				$result[$row['order_number']][$i]['quantity'] = $row['quantity'];
 				$result[$row['order_number']][$i]['price'] = $row['subtotal'];
 			$i++;
@@ -173,6 +182,7 @@ class Api_model extends CI_Model
 				foreach($me as $mn){ //print_r($mn);
 					if(isset($mn['category'])){
 						$menus[$mn['category']]['subcategory'] = isset($mn['subcategory']) ? $mn['subcategory'] : "";
+						$menus[$mn['category']][$mn['id']]['menu_id'] = $mn['id'];
 						$menus[$mn['category']][$mn['id']]['menu'] = $mn['menu'];
 						$menus[$mn['category']][$mn['id']]['price'] = $mn['price'];
 						$menus[$mn['category']][$mn['id']]['image'] = $mn['image'];
