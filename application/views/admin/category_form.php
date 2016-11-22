@@ -5,7 +5,7 @@
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#description_tab" data-toggle="tab"><?php echo lang('description');?></a></li>
 		<li><a href="#attributes_tab" data-toggle="tab"><?php echo lang('attributes');?></a></li>
-		<li><a href="#seo_tab" data-toggle="tab"><?php echo lang('seo');?></a></li>
+		<li style="display:none;"><a href="#seo_tab" data-toggle="tab"><?php echo lang('seo');?></a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -45,18 +45,8 @@
 				echo form_input($data);
 				?>
 				
-				<label for="parent_id"><?php echo lang('parent');?> </label>
-				<?php
-				$data	= array(0 => lang('top_level_category'));
-				foreach($categories as $parent)
-				{
-					if($parent->id != $id)
-					{
-						$data[$parent->id] = $parent->name;
-					}
-				}
-				echo form_dropdown('parent_id', $data, $parent_id);
-				?>
+				
+				<input type="hidden" name="parent_id" value="0">
 				
 				<label for="excerpt"><?php echo lang('excerpt');?> </label>
 				<?php
@@ -79,7 +69,7 @@
 			
 		</div>
 		
-		<div class="tab-pane" id="seo_tab">
+		<div class="tab-pane" id="seo_tab" style="display:none">
 			<fieldset>
 				<label for="seo_title"><?php echo lang('seo_title');?> </label>
 				<?php

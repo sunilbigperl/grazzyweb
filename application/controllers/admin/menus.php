@@ -45,6 +45,7 @@ class Menus extends Admin_Controller {
         $data['price']      = '';
         $data['enabled']     = '';
 		$data['image']          = '';
+		$data['type']          = '';
 		$data['photos']     = array();
 		$data['product_categories']	= array();
 		
@@ -62,6 +63,7 @@ class Menus extends Admin_Controller {
 			$data['price']      = $menus->price;
 			$data['enabled']       = $menus->enabled;
 			$data['image']          = $menus->image;
+			$data['type']          = $menus->type;
 			$data['menus'] = $this->Menu_model->GetMenu($menu_id);
 			$data['menu_id'] =$menu_id;
 			if(!$this->input->post('submit'))
@@ -82,6 +84,7 @@ class Menus extends Admin_Controller {
 		}
 		
         $this->form_validation->set_rules('menu', 'lang:menu', 'trim|required');
+		$this->form_validation->set_rules('type', 'lang:type', 'trim|required');
         $this->form_validation->set_rules('price', 'lang:price', 'trim');
 		$this->form_validation->set_rules('image', 'lang:image', 'trim');
 		 
@@ -179,6 +182,7 @@ class Menus extends Admin_Controller {
 			$save['restaurant_id'] = $res_id;
 			$save['menu_id']         = $menu_id;
 			$save['menu'] 		=  $this->input->post('menu');
+			$save['type'] 		=  $this->input->post('type');
             $save['price']      = $this->input->post('price');
             $save['enabled']     = $this->input->post('enabled');
 			//save categories

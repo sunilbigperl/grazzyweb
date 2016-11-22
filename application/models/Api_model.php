@@ -150,50 +150,37 @@ class Api_model extends CI_Model
 	}
 	
 	public function getMenus($id){
-		$sql ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id";
+		$sql ="SELECT DISTINCT b.category_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id";
 		$query = $this->db->query($sql);
 		$result = array();
-		$menus = array();
 		if($query->num_rows()>0){
 			$data = $query->result_array();
-			//print_r($data); exit;
 			$i=0;
 			foreach($data as $menu){
-				if($menu['parent_id'] == 0){
-					$result[$menu['menu_id']][$menu['id']]['id'] = $menu['menu_id'];
-					$result[$menu['menu_id']][$menu['id']]['category'] = $menu['name'];
-					$result[$menu['menu_id']][$menu['id']]['menu'] = $menu['menu'];
-					$result[$menu['menu_id']][$menu['id']]['price'] = $menu['price'];
-					$result[$menu['menu_id']][$menu['id']]['image'] = $menu['image'];
-				}else{
-					$result[$menu['menu_id']][$menu['id']]['id'] = $menu['menu_id'];
-					$result[$menu['menu_id']][$menu['parent_id']]['subcategory'] = $menu['name'];
-					$result[$menu['menu_id']][$menu['id']]['menu'] = $menu['menu'];
-					$result[$menu['menu_id']][$menu['id']]['price'] = $menu['price'];
-					$result[$menu['menu_id']][$menu['id']]['image'] = $menu['image'];
+				$result[$i]['category_id'] = $menu['category_id'];
+				$result[$i]['category'] = $menu['name'];
+				$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' and a.menu_id = b.menu_category and b.category_id = c.id";
+				$query1 = $this->db->query($sql1);
+				if($query1->num_rows()>0){
+					$data1 = $query1->result_array();
+					$j=0;
+					foreach($data1 as $mn){
+						$result[$i]['menus'][$j]['menu_id'] = $mn['menu_id'];
+						$result[$i]['menus'][$j]['menu'] = $mn['menu'];
+						$result[$i]['menus'][$j]['price'] = $mn['price'];
+						$result[$i]['menus'][$j]['image'] = $mn['image'];
+						$result[$i]['menus'][$j]['type'] = $mn['type'];
+					$j++;
+					}
 				}
 			$i++;
 			}
 		}
 		
-		//print_r($result); exit;
-		if(count($result) > 0){
-			foreach($result as $me){
-				foreach($me as $mn){ //print_r($mn);
-					if(isset($mn['category'])){
-						$menus[$mn['category']]['subcategory'] = isset($mn['subcategory']) ? $mn['subcategory'] : "";
-						$menus[$mn['category']][$mn['id']]['menu_id'] = $mn['id'];
-						$menus[$mn['category']][$mn['id']]['menu'] = $mn['menu'];
-						$menus[$mn['category']][$mn['id']]['price'] = $mn['price'];
-						$menus[$mn['category']][$mn['id']]['image'] = $mn['image'];
-					}
-				}
-			}
-		}
-		return $menus;
+		return $result;
 	}
 	
-	public function restaurantforloctaion($data){
+	public function restaurantforlocation($data){
 		
 		
 	}

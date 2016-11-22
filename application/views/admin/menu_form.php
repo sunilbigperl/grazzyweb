@@ -18,7 +18,12 @@
 				$data	= array('name'=>'menu', 'value'=>set_value('menu', $menu), 'class'=>'span12');
 				echo form_input($data);
 				?>
-				
+				<label for="type">Type</label>
+				<select name="type">
+					<option value="">Select veg/nonveg</option>
+					<option value="veg" <?php if($type == "veg"){echo "selected";}?>>veg</option>
+					<option value="non veg" <?php if($type == "non veg"){echo "selected";}?>>non veg</option>
+				</select>
 				<label for="description">Price</label>
 				<?php
 				$data	= array('name'=>'price', 'value'=>set_value('price', $price), 'class'=>'span12');
