@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2016 at 05:23 PM
+-- Generation Time: Nov 22, 2016 at 03:15 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -42,7 +42,8 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `firstname`, `lastname`, `username`, `email`, `access`, `password`) VALUES
 (1, 'admin', 'admin', 'admin', 'admin@gmail.com', 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997'),
-(3, 'vijetha', 'l', 'vijetha', 'lvijetha90@gmail.com', 'Restaurant manager', '717f1cc273ee989c1667ce089441d9e88b92c129');
+(3, 'vijetha', 'l', 'vijetha', 'lvijetha90@gmail.com', 'Restaurant manager', '717f1cc273ee989c1667ce089441d9e88b92c129'),
+(4, 'sunil', 'yadav', 'sunil', 'sunil@bigperl.com', 'Deliver manager', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601');
 
 -- --------------------------------------------------------
 
@@ -70,7 +71,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `route_id`, `description`, `excerpt`, `sequence`, `image`, `seo_title`, `meta`, `enabled`) VALUES
-(1, 0, 'chinees', 'chinees', 1, '', '', 0, NULL, '', '', 1);
+(2, 0, 'Chinees', 'chinees', 2, '', '', 0, NULL, '', '', 1),
+(3, 0, 'dessert', 'dessert', 3, '', '', 0, NULL, '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -4330,6 +4332,8 @@ CREATE TABLE `customers` (
   `email_subscribe` tinyint(1) NOT NULL DEFAULT '0',
   `phone` varchar(32) NOT NULL,
   `company` varchar(128) NOT NULL,
+  `dob` date NOT NULL,
+  `gender` varchar(100) NOT NULL,
   `default_billing_address` int(9) NOT NULL,
   `default_shipping_address` int(9) NOT NULL,
   `ship_to_bill_address` enum('false','true') NOT NULL DEFAULT 'true',
@@ -4344,8 +4348,9 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `firstname`, `lastname`, `email`, `email_subscribe`, `phone`, `company`, `default_billing_address`, `default_shipping_address`, `ship_to_bill_address`, `password`, `active`, `group_id`, `confirmed`, `fb_login`) VALUES
-(1, 'vijetha', 'l', 'lvijetha90@gmail.com', 0, '9886656363', '', 0, 0, 'true', '717f1cc273ee989c1667ce089441d9e88b92c129', 1, 1, 0, 0);
+INSERT INTO `customers` (`id`, `firstname`, `lastname`, `email`, `email_subscribe`, `phone`, `company`, `dob`, `gender`, `default_billing_address`, `default_shipping_address`, `ship_to_bill_address`, `password`, `active`, `group_id`, `confirmed`, `fb_login`) VALUES
+(1, 'viju', 'l', 'viju@gmail.com', 0, '9886656363', '', '1993-08-25', 'female', 0, 0, 'true', '717f1cc273ee989c1667ce089441d9e88b92c129', 1, 1, 0, 0),
+(2, 'sunil', 'yadav', 'sunil@bigperl.com', 1, '977656655', 'Bigperl', '0000-00-00', '', 0, 0, 'true', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -4355,8 +4360,8 @@ INSERT INTO `customers` (`id`, `firstname`, `lastname`, `email`, `email_subscrib
 
 CREATE TABLE `customers_address_bank` (
   `id` int(9) UNSIGNED NOT NULL,
+  `Entry_name` varchar(200) NOT NULL,
   `customer_id` int(9) UNSIGNED NOT NULL,
-  `entry_name` varchar(20) NOT NULL,
   `field_data` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -4364,9 +4369,11 @@ CREATE TABLE `customers_address_bank` (
 -- Dumping data for table `customers_address_bank`
 --
 
-INSERT INTO `customers_address_bank` (`id`, `customer_id`, `entry_name`, `field_data`) VALUES
-(4, 9, '', 'a:14:{s:7:"company";s:3:"BPD";s:9:"firstname";s:7:"Nagaraj";s:8:"lastname";s:1:"v";s:5:"email";s:25:"nagaraj.bigperl@gmail.com";s:5:"phone";s:10:"9880474628";s:8:"address1";s:15:"kalena agrahara";s:8:"address2";s:17:"bannerghatta road";s:4:"city";s:9:"bangalore";s:3:"zip";s:6:"560076";s:4:"zone";s:2:"AL";s:7:"country";s:13:"United States";s:12:"country_code";s:2:"US";s:10:"country_id";s:3:"223";s:7:"zone_id";s:4:"3613";}'),
-(6, 29, '', 'a:14:{s:7:"company";s:3:"dsf";s:9:"firstname";s:2:"ff";s:8:"lastname";s:1:"f";s:5:"email";s:15:"fgfdh@gmail.com";s:5:"phone";s:9:"445654654";s:8:"address1";s:3:"hjg";s:8:"address2";s:5:"hjhgj";s:4:"city";s:4:"bnhg";s:3:"zip";s:10:"5654654654";s:7:"zone_id";s:4:"1385";s:10:"country_id";s:2:"93";s:4:"zone";s:2:"OU";s:7:"country";s:5:"Haiti";s:12:"country_code";s:2:"HT";}');
+INSERT INTO `customers_address_bank` (`id`, `Entry_name`, `customer_id`, `field_data`) VALUES
+(4, '', 9, 'a:14:{s:7:"company";s:3:"BPD";s:9:"firstname";s:7:"Nagaraj";s:8:"lastname";s:1:"v";s:5:"email";s:25:"nagaraj.bigperl@gmail.com";s:5:"phone";s:10:"9880474628";s:8:"address1";s:15:"kalena agrahara";s:8:"address2";s:17:"bannerghatta road";s:4:"city";s:9:"bangalore";s:3:"zip";s:6:"560076";s:4:"zone";s:2:"AL";s:7:"country";s:13:"United States";s:12:"country_code";s:2:"US";s:10:"country_id";s:3:"223";s:7:"zone_id";s:4:"3613";}'),
+(6, '', 29, 'a:14:{s:7:"company";s:3:"dsf";s:9:"firstname";s:2:"ff";s:8:"lastname";s:1:"f";s:5:"email";s:15:"fgfdh@gmail.com";s:5:"phone";s:9:"445654654";s:8:"address1";s:3:"hjg";s:8:"address2";s:5:"hjhgj";s:4:"city";s:4:"bnhg";s:3:"zip";s:10:"5654654654";s:7:"zone_id";s:4:"1385";s:10:"country_id";s:2:"93";s:4:"zone";s:2:"OU";s:7:"country";s:5:"Haiti";s:12:"country_code";s:2:"HT";}'),
+(7, '', 1, 'a:15:{s:10:"entry_name";s:0:"";s:7:"company";s:4:"HOME";s:9:"firstname";s:7:"vijetha";s:8:"lastname";s:1:"l";s:5:"email";s:20:"lvijetha90@gmail.com";s:5:"phone";s:9:"787667656";s:8:"address1";s:5:"#4444";s:8:"address2";s:9:"bangalore";s:4:"city";s:9:"bangalore";s:3:"zip";s:6:"787878";s:7:"zone_id";s:4:"1489";s:10:"country_id";s:2:"99";s:4:"zone";s:9:"Karnataka";s:7:"country";s:5:"India";s:12:"country_code";s:2:"IN";}'),
+(8, '', 1, 'a:15:{s:10:"entry_name";s:4:"jkjk";s:7:"company";s:6:"office";s:9:"firstname";s:4:"test";s:8:"lastname";s:4:"test";s:5:"email";s:14:"test@gmail.com";s:5:"phone";s:7:"7787887";s:8:"address1";s:6:"768778";s:8:"address2";s:7:"fhdsjkj";s:4:"city";s:9:"bangalore";s:3:"zip";s:6:"787878";s:7:"zone_id";s:4:"1489";s:10:"country_id";s:2:"99";s:4:"zone";s:2:"KA";s:7:"country";s:5:"India";s:12:"country_code";s:2:"IN";}');
 
 -- --------------------------------------------------------
 
@@ -4397,9 +4404,16 @@ INSERT INTO `customer_groups` (`id`, `discount`, `name`, `discount_type`) VALUES
 CREATE TABLE `customer_locations` (
   `location_id` bigint(30) NOT NULL,
   `customer_id` bigint(30) NOT NULL,
-  `latitude` varchar(200) DEFAULT NULL,
-  `langitude` varchar(200) DEFAULT NULL
+  `latitude` float DEFAULT NULL,
+  `langitude` float DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `customer_locations`
+--
+
+INSERT INTO `customer_locations` (`location_id`, `customer_id`, `latitude`, `langitude`) VALUES
+(1, 1, 988665, 877778);
 
 -- --------------------------------------------------------
 
@@ -4410,8 +4424,8 @@ CREATE TABLE `customer_locations` (
 CREATE TABLE `deliveryboy_locations` (
   `location_id` bigint(30) NOT NULL,
   `deliveryboy_id` bigint(30) NOT NULL,
-  `latitude` varchar(200) DEFAULT NULL,
-  `langitude` varchar(200) DEFAULT NULL
+  `latitude` float DEFAULT NULL,
+  `langitude` float DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -4439,6 +4453,32 @@ INSERT INTO `delivery_boy` (`id`, `name`, `address`, `phone`, `email`, `enabled`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `destination`
+--
+
+CREATE TABLE `destination` (
+  `id` int(11) NOT NULL,
+  `place_name` varchar(100) NOT NULL,
+  `address` varchar(250) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `lat` float(10,6) NOT NULL,
+  `lng` float(10,6) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `destination`
+--
+
+INSERT INTO `destination` (`id`, `place_name`, `address`, `city`, `lat`, `lng`) VALUES
+(1, 'Golconda Fort', 'Golconda Fort', 'Hyderabad', 17.379065, 78.403343),
+(2, 'NTR Gardens', 'NTR Marg, Central Secretariat, Khairatabad, Hyderabad, Telangana 500004, India', 'Hyderabad', 17.412617, 78.468781),
+(3, 'Lumbini Park', 'Opposite Secretariat New Gate, Khairatabad, Hyderabad, Andhra Pradesh 500004, India', 'Hyderabad', 17.412617, 78.468781),
+(4, 'Birla Mandir', 'Hill Fort Road, Hyderabad, Telangana 500004, India', 'Hyderabad', 17.405458, 78.469429),
+(5, 'Prasads', 'NTR Gardens, LIC Division P.O., Hyderabad, Telangana 500063, India', 'Hyderabad', 17.412849, 78.465881);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `gc_migrations`
 --
 
@@ -4461,7 +4501,7 @@ INSERT INTO `gc_migrations` (`version`) VALUES
 
 CREATE TABLE `menu_categories` (
   `category_id` bigint(20) NOT NULL,
-  `menu_category` varchar(200) NOT NULL
+  `menu_category` varchar(300) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -4469,8 +4509,10 @@ CREATE TABLE `menu_categories` (
 --
 
 INSERT INTO `menu_categories` (`category_id`, `menu_category`) VALUES
-(1, '6'),
-(1, '7');
+(2, '11'),
+(3, '8'),
+(3, '9'),
+(2, '9');
 
 -- --------------------------------------------------------
 
@@ -4571,8 +4613,8 @@ CREATE TABLE `order_items` (
 CREATE TABLE `pitstops` (
   `pitstop_id` int(11) NOT NULL,
   `pitstop_name` varchar(300) NOT NULL,
-  `latitude` varchar(200) NOT NULL,
-  `langitude` varchar(200) NOT NULL,
+  `latitude` float NOT NULL,
+  `langitude` float NOT NULL,
   `enabled` tinyint(2) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -4581,7 +4623,8 @@ CREATE TABLE `pitstops` (
 --
 
 INSERT INTO `pitstops` (`pitstop_id`, `pitstop_name`, `latitude`, `langitude`, `enabled`) VALUES
-(1, 'test', '877878', '8787879', 1);
+(2, 'pitstop1', 10987, 8978, 1),
+(3, 'pitstop2', 87787, 88778900, 1);
 
 -- --------------------------------------------------------
 
@@ -4600,7 +4643,10 @@ CREATE TABLE `pitstop_restaurants` (
 
 INSERT INTO `pitstop_restaurants` (`pitstop_id`, `restaurants_id`) VALUES
 (1, 1),
-(1, 2);
+(1, 2),
+(3, 3),
+(2, 4),
+(2, 3);
 
 -- --------------------------------------------------------
 
@@ -4615,8 +4661,8 @@ CREATE TABLE `restaurant` (
   `restaurant_phone` varchar(100) NOT NULL,
   `restaurant_email` varchar(250) NOT NULL,
   `image` varchar(300) NOT NULL,
-  `restaurant_latitude` varchar(100) NOT NULL,
-  `restaurant_langitude` varchar(100) NOT NULL,
+  `restaurant_latitude` float NOT NULL,
+  `restaurant_langitude` float NOT NULL,
   `restaurant_branch` varchar(200) NOT NULL,
   `restaurant_manager` int(11) NOT NULL,
   `enabled` tinyint(2) NOT NULL
@@ -4627,8 +4673,8 @@ CREATE TABLE `restaurant` (
 --
 
 INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `image`, `restaurant_latitude`, `restaurant_langitude`, `restaurant_branch`, `restaurant_manager`, `enabled`) VALUES
-(1, 'test1213', '<p>&lt;p&gt;&lt;p&gt;&lt;p&gt;tettst&lt;/p&gt;&lt;/p&gt;&lt;/p&gt;</p>', '6876787767', 'tets@gmail.com', '75c61fe984d3862b35f4bde6d067b62a.jpg', '9089', '88888', 'Bangalore', 3, 1),
-(2, 'restaurant', '<p>&lt;p&gt;restaurant&lt;/p&gt;</p>', '897676677', 'restaurant@gmail.com', '643b66f28913b6de98931a7f1f149875.jpg', '7878667', '898998', 'Bangalore', 1, 1);
+(4, 'retaurants2', '', '87889', 'retaurants2@gmail.com', '', 17.3791, 78.4099, 'bangalore', 3, 1),
+(3, 'restaurant1', '', '77887', 'restaurant1@gmail.com', '7fca09a10d55c8dcfc71854676cf997f.jpg', 17.309, 78.41, 'bangalore', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -4643,6 +4689,7 @@ CREATE TABLE `restaurant_menu` (
   `menu` varchar(300) NOT NULL,
   `price` int(11) NOT NULL,
   `image` varchar(200) NOT NULL,
+  `type` varchar(100) NOT NULL,
   `enabled` tinyint(2) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -4650,10 +4697,11 @@ CREATE TABLE `restaurant_menu` (
 -- Dumping data for table `restaurant_menu`
 --
 
-INSERT INTO `restaurant_menu` (`menu_id`, `restaurant_id`, `category`, `menu`, `price`, `image`, `enabled`) VALUES
-(1, 1, 0, 'kabab', 210, 'd93990a28944009944670d40fa35f3c3.jpg', 1),
-(4, 1, 0, 'biryani', 210, '', 1),
-(7, 2, 0, 'kabab', 120, '', 1);
+INSERT INTO `restaurant_menu` (`menu_id`, `restaurant_id`, `category`, `menu`, `price`, `image`, `type`, `enabled`) VALUES
+(10, 4, 0, 'menuu1', 100, '', 'veg', 1),
+(9, 3, 0, 'menu2', 100, '', 'veg', 1),
+(8, 3, 0, 'menu1', 200, '', 'non veg', 1),
+(11, 3, 0, 'menu3', 1000, '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -4672,7 +4720,8 @@ CREATE TABLE `routes` (
 --
 
 INSERT INTO `routes` (`id`, `slug`, `route`) VALUES
-(1, 'chinees', 'cart/category/1');
+(2, 'chinees', 'cart/category/2'),
+(3, 'dessert', 'cart/category/3');
 
 -- --------------------------------------------------------
 
@@ -4793,10 +4842,10 @@ ALTER TABLE `delivery_boy`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `menu_categories`
+-- Indexes for table `destination`
 --
-ALTER TABLE `menu_categories`
-  ADD PRIMARY KEY (`menu_category`);
+ALTER TABLE `destination`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `orders`
@@ -4850,12 +4899,12 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `countries`
 --
@@ -4875,12 +4924,12 @@ ALTER TABLE `country_zone_areas`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `customers_address_bank`
 --
 ALTER TABLE `customers_address_bank`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `customer_groups`
 --
@@ -4890,7 +4939,7 @@ ALTER TABLE `customer_groups`
 -- AUTO_INCREMENT for table `customer_locations`
 --
 ALTER TABLE `customer_locations`
-  MODIFY `location_id` bigint(30) NOT NULL AUTO_INCREMENT;
+  MODIFY `location_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `deliveryboy_locations`
 --
@@ -4901,6 +4950,11 @@ ALTER TABLE `deliveryboy_locations`
 --
 ALTER TABLE `delivery_boy`
   MODIFY `id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `destination`
+--
+ALTER TABLE `destination`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `orders`
 --
@@ -4915,22 +4969,22 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT for table `pitstops`
 --
 ALTER TABLE `pitstops`
-  MODIFY `pitstop_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `pitstop_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `restaurant_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `restaurant_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `restaurant_menu`
 --
 ALTER TABLE `restaurant_menu`
-  MODIFY `menu_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `menu_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `settings`
 --

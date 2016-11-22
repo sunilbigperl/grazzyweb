@@ -168,7 +168,7 @@ class Api_model extends CI_Model
 						$result[$i]['menus'][$j]['menu_id'] = $mn['menu_id'];
 						$result[$i]['menus'][$j]['menu'] = $mn['menu'];
 						$result[$i]['menus'][$j]['price'] = $mn['price'];
-						$result[$i]['menus'][$j]['image'] = $mn['image'];
+						$result[$i]['menus'][$j]['image'] = 'uploads/images/thumbnails/'.$mn['image'];
 						$result[$i]['menus'][$j]['type'] = $mn['type'];
 					$j++;
 					}
