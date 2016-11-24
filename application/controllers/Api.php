@@ -254,7 +254,7 @@ class Api extends REST_Controller {
 
 	}
 	
-	public function restaurantuser_post(){
+	public function restaurantNearbyUser_post(){
 		$data = [
 			'latitude' => $this->post('latitude'),
             'langitude' => $this->post('langitude'),
@@ -294,8 +294,9 @@ class Api extends REST_Controller {
         $this->set_response($message, REST_Controller::HTTP_NO_CONTENT); // NO_CONTENT (204) being the HTTP response code
     }
 	
-	public function restaurantforloctaion_delete($data)
+	public function restaurantforloctaion_post()
     {
+		$data=array('restaurant_latitude'=>$this->input->post('latitude'),'restaurant_langitude'=>$this->input->post('langitude'));
 		$restaurants = $this->api_model->restaurantforloctaion($data);
 		if (!empty($restaurants))
         {
@@ -309,5 +310,75 @@ class Api extends REST_Controller {
             ], REST_Controller::HTTP_NOT_FOUND);
         }
 	}
+	
+	public function saveAddress_post(){
+		$id = isset($this->input->post('id')) ? $this->input->post('id') : '';
+		$address1 = isset($this->input->post('address1')) ? $this->input->post('address1') : '';
+		$address2 = isset($this->input->post('address2')) ? $this->input->post('address2') : '';
+		$city_state =  isset($this->input->post('city_state')) ? $this->input->post('city_state') : '';
+		$location0 =  isset($this->input->post('location0')) ? $this->input->post('location0') : '';
+		$location1 =  isset($this->input->post('location1')) ? $this->input->post('location1') : '';
+		$location2 =  isset($this->input->post('location2')) ? $this->input->post('location2') : '';
+		$zip =  isset($this->input->post('zip')) ? $this->input->post('zip') : '';
+		$field_data = array('address1' => $address1,'address2' => $address2,'city_state' => $city_state,
+		'location0' => $location0,'location1' => $location1,'location2' => $location2,'zip' => $this->input->post('zip'));
+		$data = array('id'=>$id,'company'=>$this->input->post('company'),'customer_id'=>$this->input->post('customer_id'),'field_data'=>$field_data);
+		$saveAddress = $this->api_model->saveAddress($data);
+		if($saveAddress > 1){
+			 $this->set_response([
+                'status' => "success",
+            ], REST_Controller::HTTP_OK);
+		}else{
+			 $this->set_response([
+                'status' => FALSE,
+                'message' => 'restaurants  could not be found for the location'
+            ], REST_Controller::HTTP_NOT_FOUND);
+		}
+	}
+	
+	 public function suggestRestaurant_post(){
+		  
+		$data=array('restaurant_name'=>$this->post('restaurant_name'),'restaurant_address'=>$this->post('location'),
+		  'restaurant_phone'=>$this->post('phone number'),'restaurant_email'=>$this->post('email'));
+		$result=$this->api_model->restaurantSuggest($data);
+		
+		if (isset($result)){
+			  $message=[
+			  'Status'=> 'Success',
+			  ];
+			  $this->set_response($message, REST_Controller::HTTP_CREATED);  
+			  
+		  }else{
+		   $this->set_response([
+			
+			'status'=>FALSE,
+			'message'=>'Customers Address Information Could not be found'
+			],REST_Controller::HTTP_NOT_FOUND);
+			
+				  	  
+		  }
+		  
+	  }  
+
+	public function suggestPitstop_post(){
+		 
+		$data=array('restaurant_address'=>$this->post('location'));
+        $result=$this->api_model->pitstopSuggest($data);
+        if(isset($result)){
+			
+		$message=[
+		  'Status'=>'Success',
+		];	
+		  $this->set_response($message, REST_Controller::HTTP_CREATED);  	
+			
+		}else{
+			 $this->set_response([
+			
+			'status'=>FALSE,
+			'message'=>'Pit stop Information Could not be found'
+			],REST_Controller::HTTP_NOT_FOUND);
+				
+		}	 
+	 }	  
 	
 }

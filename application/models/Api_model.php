@@ -76,6 +76,21 @@ class Api_model extends CI_Model
 		
 	}
 	
+	 function saveAddress($data)
+    {
+        $data['field_data'] = serialize($data['field_data']);
+       
+        if(!empty($data['id']))
+        {
+            $this->db->where('id', $data['id']);
+            $this->db->update('customers_address_bank', $data);
+            return $data['id'];
+        } else {
+            $this->db->insert('customers_address_bank', $data);
+            return $this->db->insert_id();
+        }
+    }
+	
 	public function pitstopsuser($data){
 		$sql = "SELECT * FROM `pitstops` WHERE `latitude` > '".$data['southwest_lat']."' and `latitude` < '".$data['northeast_lat']."'
 		and `langitude` > '".$data['southwest_lng']."' and`langitude` < '".$data['northeast_lng']."'";
@@ -182,6 +197,26 @@ class Api_model extends CI_Model
 	
 	public function restaurantforlocation($data){
 		
+	}
+	
+	public function restaurantSuggest($data){
 		
+		$sql =$this->db->query("insert into  restaurant_suggest (id,restaurant_name,restaurant_phone,restaurant_email) values('".$data['id']."','".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_email']."')");
+		
+		if($sql){
+			return true;
+		}else{
+			return false;
+		}		
+			
+	}
+	public function pitstopSuggest($data){
+		
+		$sql =$this->db->query("insert into  pitstop_suggest (id,restaurant_address) values('".$data['id']."','".$data['restaurant_address']."')");
+		
+		if($sql){
+			return true;
+		}
+			
 	}
 }
