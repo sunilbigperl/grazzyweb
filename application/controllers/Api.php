@@ -312,14 +312,15 @@ class Api extends REST_Controller {
 	}
 	
 	public function saveAddress_post(){
-		$id = isset($this->input->post('id')) ? $this->input->post('id') : '';
-		$address1 = isset($this->input->post('address1')) ? $this->input->post('address1') : '';
-		$address2 = isset($this->input->post('address2')) ? $this->input->post('address2') : '';
-		$city_state =  isset($this->input->post('city_state')) ? $this->input->post('city_state') : '';
-		$location0 =  isset($this->input->post('location0')) ? $this->input->post('location0') : '';
-		$location1 =  isset($this->input->post('location1')) ? $this->input->post('location1') : '';
-		$location2 =  isset($this->input->post('location2')) ? $this->input->post('location2') : '';
-		$zip =  isset($this->input->post('zip')) ? $this->input->post('zip') : '';
+		if($this->input->post('id') != ""){ $id = $this->input->post('id'); }else{ $id ='';}
+		if($this->input->post('address1') != ""){ $address1 = $this->input->post('address1'); }else{ $address1 ='';}
+		if($this->input->post('address2') != ""){ $address2 = $this->input->post('address2'); }else{ $address2 ='';}
+		if($this->input->post('city_state') != ""){ $city_state = $this->input->post('city_state'); }else{ $city_state ='';}
+		if($this->input->post('location0') != ""){ $location0 = $this->input->post('location0'); }else{ $location0 ='';}
+		if($this->input->post('location1') != ""){ $location1 = $this->input->post('location1'); }else{ $location1 ='';}
+		if($this->input->post('location2') != ""){ $location2 = $this->input->post('location2'); }else{ $location2 ='';}
+		if($this->input->post('zip') != ""){ $zip = $this->input->post('zip'); }else{ $zip ='';}
+		
 		$field_data = array('address1' => $address1,'address2' => $address2,'city_state' => $city_state,
 		'location0' => $location0,'location1' => $location1,'location2' => $location2,'zip' => $this->input->post('zip'));
 		$data = array('id'=>$id,'company'=>$this->input->post('company'),'customer_id'=>$this->input->post('customer_id'),'field_data'=>$field_data);
@@ -380,5 +381,105 @@ class Api extends REST_Controller {
 				
 		}	 
 	 }	  
+	 
+	  public function displayProfilepicture_post(){
+		 $data=array('id'=>$this->post('user_id')); 
+		 $result=$this->api_model->displayProfile($data);
+		 if(!empty($result)){
+		$message=[
+			'Status'=>'Success',
+			'url'=>$result['data']
+			
+			];
+			 $this->set_response($message, REST_Controller::HTTP_OK); // 
+			 
+		}else{
+			$message=[
+			'url'=>'No picture'
+			];
+			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 			
+		}
+	  }
+	  
+	  public function updateProfilepicture_post(){
+		 
+		 $data=array('id'=>$this->post('user_id'),'profile_image'=>$this->post('image'));
+		 $result=$this->api_model->profilePictureUpdate($data);
+		  if(!empty($result)){
+		 $message=[
+		  'Status'=>'Success',
+		];	
+		  $this->set_response($message, REST_Controller::HTTP_OK);  	
+			
+		}else{
+			 $this->set_response([
+			
+			'status'=>FALSE,
+			'message'=>'Sorry profile picture not updated'
+			],REST_Controller::HTTP_NOT_FOUND);
+				
+		}	
+	 }
+	/*api number 20*/	
+	public function checkCouponcode_post(){
+		
+		$data=array('coupon_code'=>$this->post('coupon_code'));
+		$result=$this->api_model->validateCoupon($data);
+		if(!empty ($result)){
+			
+			 $this->set_response($result, REST_Controller::HTTP_OK); 
+			
+		}else{
+			$message=[
+			'Status'=>'Coupon code could not be found'
+			];
+			$this->response(NULL, REST_Controller::HTTP_NOT_FOUND); 	
+			
+		}
+	}
 	
+	/* api number 21*/
+	public function insertFeedback_post(){
+		
+        $data=array('customer_id'=>$this->post('user_id'),'user_feedback'=>$this->post('feedback'));
+		$result=$this->api_model->addFeedback($data);
+		if(isset($result[0])){
+			$message=[
+			'Status'=>'Success'
+			]; 
+			$this->set_response($message, REST_Controller::HTTP_OK); 
+		}else{
+			$message=[
+			'Status'=>'Error'
+			];
+			 $this->response($message, REST_Controller::HTTP_NOT_FOUND); 	
+		}
+	}
+	
+	/*api number 19*/
+	public function insertOrder_post(){
+		$data = (array) json_decode(file_get_contents("php://input"),true);
+		print_r($data); exit;
+		$data=array('customer_id'=>$this->post('user_id'),'shipping'=>$this->post('shipping'),'tax'=>$this->post('tax'),
+         'coupon_discount'=>$this->post('coupon_discount'),'coupon_id'=>$this->post('coupon_id'),
+         'order_type'=>$this->post('order_type'),'total_cost'=>$this->post('total_cost'),
+         'shipping_lat'=>$this->post('shipping_lat'),'shipping_lang'=>$this->post('shipping_lang'));
+		 
+		$result=$this->api_model->orderInsert($data);
+     	if(!empty ($result)){
+			 $message=[
+			 'Status'=>'Success',
+			 'Passcode'=>$result['passcode']
+			
+			 ]; 
+			 $this->response($message, REST_Controller::HTTP_CREATED); 	
+		}else{
+					  
+				$message=[
+				'Status'=>'Error'
+				];
+				$this->response($message, REST_Controller::HTTP_BAD_REQUEST); 	
+					  
+		  }
+    }	
 }

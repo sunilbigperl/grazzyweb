@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2016 at 03:15 PM
+-- Generation Time: Nov 25, 2016 at 07:17 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -4321,6 +4321,28 @@ INSERT INTO `country_zone_areas` (`id`, `zone_id`, `code`, `name`, `tax`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `id` int(11) NOT NULL,
+  `coupon_code` varchar(250) NOT NULL,
+  `used` tinyint(1) NOT NULL,
+  `cost` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `coupon_code`, `used`, `cost`) VALUES
+(1, 'A1X34', 0, 0),
+(2, 'A1X35', 1, 0),
+(3, 'A1X36', 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `customers`
 --
 
@@ -4349,7 +4371,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `firstname`, `lastname`, `email`, `email_subscribe`, `phone`, `company`, `dob`, `gender`, `default_billing_address`, `default_shipping_address`, `ship_to_bill_address`, `password`, `active`, `group_id`, `confirmed`, `fb_login`) VALUES
-(1, 'viju', 'l', 'viju@gmail.com', 0, '9886656363', '', '1993-08-25', 'female', 0, 0, 'true', '717f1cc273ee989c1667ce089441d9e88b92c129', 1, 1, 0, 0),
+(1, 'viju', 'l', 'viju@gmail.com', 0, '9886656363', '', '1993-08-25', 'Female', 0, 0, 'true', '717f1cc273ee989c1667ce089441d9e88b92c129', 1, 1, 0, 0),
 (2, 'sunil', 'yadav', 'sunil@bigperl.com', 1, '977656655', 'Bigperl', '0000-00-00', '', 0, 0, 'true', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', 1, 1, 0, 0);
 
 -- --------------------------------------------------------
@@ -4479,6 +4501,28 @@ INSERT INTO `destination` (`id`, `place_name`, `address`, `city`, `lat`, `lng`) 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `id` int(11) NOT NULL,
+  `customer_id` int(50) UNSIGNED NOT NULL,
+  `user_feedback` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `customer_id`, `user_feedback`) VALUES
+(1, 9, ''),
+(3, 1, 'something'),
+(4, 1, 'something'),
+(5, 0, '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `gc_migrations`
 --
 
@@ -4538,6 +4582,27 @@ INSERT INTO `migrations` (`version`) VALUES
 --
 
 CREATE TABLE `orders` (
+  `id` bigint(20) NOT NULL,
+  `customer_id` bigint(20) NOT NULL,
+  `ordered_on` date NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `shipping` varchar(100) NOT NULL,
+  `tax` varchar(100) NOT NULL,
+  `coupon_discount` varchar(100) NOT NULL,
+  `coupon_id` int(11) NOT NULL,
+  `order_type` int(11) NOT NULL,
+  `total_cost` int(11) NOT NULL,
+  `shipping_lat` float NOT NULL,
+  `shipping_long` float NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders-old`
+--
+
+CREATE TABLE `orders-old` (
   `id` int(10) UNSIGNED NOT NULL,
   `order_number` varchar(60) NOT NULL,
   `customer_id` int(9) UNSIGNED DEFAULT NULL,
@@ -4587,7 +4652,10 @@ CREATE TABLE `orders` (
   `bill_zone_id` int(9) UNSIGNED DEFAULT NULL,
   `bill_country` varchar(255) DEFAULT NULL,
   `bill_country_code` varchar(10) DEFAULT NULL,
-  `bill_country_id` int(9) UNSIGNED DEFAULT NULL
+  `bill_country_id` int(9) UNSIGNED DEFAULT NULL,
+  `coupon_id` varchar(200) NOT NULL,
+  `passcode` varchar(200) NOT NULL,
+  `order_type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -4599,10 +4667,29 @@ CREATE TABLE `orders` (
 CREATE TABLE `order_items` (
   `id` int(9) UNSIGNED NOT NULL,
   `order_id` int(9) UNSIGNED NOT NULL,
-  `product_id` int(9) UNSIGNED NOT NULL,
+  `menu_id` int(9) UNSIGNED NOT NULL,
   `quantity` int(11) NOT NULL,
   `contents` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `passcode`
+--
+
+CREATE TABLE `passcode` (
+  `id` int(11) NOT NULL,
+  `passcode` varchar(200) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `passcode`
+--
+
+INSERT INTO `passcode` (`id`, `passcode`) VALUES
+(1, 'Dhoni'),
+(2, 'Vijetha');
 
 -- --------------------------------------------------------
 
@@ -4651,6 +4738,26 @@ INSERT INTO `pitstop_restaurants` (`pitstop_id`, `restaurants_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pitstop_suggest`
+--
+
+CREATE TABLE `pitstop_suggest` (
+  `id` int(11) NOT NULL,
+  `restaurant_address` varchar(250) NOT NULL,
+  `restaurant_latitude` float NOT NULL,
+  `restaurant_langitude` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pitstop_suggest`
+--
+
+INSERT INTO `pitstop_suggest` (`id`, `restaurant_address`, `restaurant_latitude`, `restaurant_langitude`) VALUES
+(1, 'Banagalore Kengeri', 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `restaurant`
 --
 
@@ -4674,7 +4781,7 @@ CREATE TABLE `restaurant` (
 
 INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `image`, `restaurant_latitude`, `restaurant_langitude`, `restaurant_branch`, `restaurant_manager`, `enabled`) VALUES
 (4, 'retaurants2', '', '87889', 'retaurants2@gmail.com', '', 17.3791, 78.4099, 'bangalore', 3, 1),
-(3, 'restaurant1', '', '77887', 'restaurant1@gmail.com', '7fca09a10d55c8dcfc71854676cf997f.jpg', 17.309, 78.41, 'bangalore', 3, 1);
+(3, 'restaurant1', '', '77887', 'restaurant1@gmail.com', '7fca09a10d55c8dcfc71854676cf997f.jpg', 17.4126, 78.4688, 'bangalore', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -4702,6 +4809,38 @@ INSERT INTO `restaurant_menu` (`menu_id`, `restaurant_id`, `category`, `menu`, `
 (9, 3, 0, 'menu2', 100, '', 'veg', 1),
 (8, 3, 0, 'menu1', 200, '', 'non veg', 1),
 (11, 3, 0, 'menu3', 1000, '', '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `restaurant_suggest`
+--
+
+CREATE TABLE `restaurant_suggest` (
+  `id` int(11) NOT NULL,
+  `restaurant_name` varchar(250) NOT NULL,
+  `restaurant_address` varchar(250) NOT NULL,
+  `restaurant_phone` bigint(250) NOT NULL,
+  `restaurant_email` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `restaurant_suggest`
+--
+
+INSERT INTO `restaurant_suggest` (`id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`) VALUES
+(1, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(2, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(3, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(4, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(5, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(6, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(7, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(8, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(9, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(10, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(11, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(12, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -4804,6 +4943,12 @@ ALTER TABLE `country_zone_areas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
@@ -4848,9 +4993,21 @@ ALTER TABLE `destination`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders-old`
+--
+ALTER TABLE `orders-old`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -4860,10 +5017,22 @@ ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `passcode`
+--
+ALTER TABLE `passcode`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pitstops`
 --
 ALTER TABLE `pitstops`
   ADD PRIMARY KEY (`pitstop_id`);
+
+--
+-- Indexes for table `pitstop_suggest`
+--
+ALTER TABLE `pitstop_suggest`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `restaurant`
@@ -4878,6 +5047,12 @@ ALTER TABLE `restaurant_menu`
   ADD PRIMARY KEY (`menu_id`),
   ADD KEY `restaurant_id` (`restaurant_id`),
   ADD KEY `category` (`category`);
+
+--
+-- Indexes for table `restaurant_suggest`
+--
+ALTER TABLE `restaurant_suggest`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `routes`
@@ -4921,6 +5096,11 @@ ALTER TABLE `country_zones`
 ALTER TABLE `country_zone_areas`
   MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
@@ -4956,9 +5136,19 @@ ALTER TABLE `delivery_boy`
 ALTER TABLE `destination`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
+-- AUTO_INCREMENT for table `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `orders-old`
+--
+ALTER TABLE `orders-old`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `order_items`
@@ -4966,10 +5156,20 @@ ALTER TABLE `orders`
 ALTER TABLE `order_items`
   MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `passcode`
+--
+ALTER TABLE `passcode`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `pitstops`
 --
 ALTER TABLE `pitstops`
   MODIFY `pitstop_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `pitstop_suggest`
+--
+ALTER TABLE `pitstop_suggest`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `restaurant`
 --
@@ -4980,6 +5180,11 @@ ALTER TABLE `restaurant`
 --
 ALTER TABLE `restaurant_menu`
   MODIFY `menu_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `restaurant_suggest`
+--
+ALTER TABLE `restaurant_suggest`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `routes`
 --

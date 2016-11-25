@@ -219,4 +219,79 @@ class Api_model extends CI_Model
 		}
 			
 	}
+	
+	public function displayProfile($data){
+		
+		$sql=$this->db->query("select id,profile_image from customers where id='".$data['id']."'");
+        $i=0;
+		if($sql->num_rows()>0){
+			$result[$i] = true;
+			//echo $this->db->last_query(); exit;
+			foreach($sql->result_array() as $row){
+         	
+                $profile_image_path=$row['profile_image'];
+			    $profile_image_path=$this->config->base_url()."uploads/".$profile_image_path;
+			    $result['data'][$i]['profile_image']=$profile_image_path;
+				
+			};
+		}else{
+			$result[0] = false;
+		}
+		return $result;	
+			
+	}
+	
+	public function profilePictureUpdate($data){
+		
+		$sql=$this->db->query("UPDATE customers SET 
+		profile_image='".$data['profile_image']."' where id='".$data['id']."'");
+	    if($sql==true){
+			$result[0] = true;
+		//	$result['data'] = $sql;
+		}else{
+			$result[0] = false;
+		}
+		return $result;
+		
+	}
+	
+	public function validateCoupon($data){
+		
+		$sql=$this->db->query("select * from coupons where coupon_code='".$data['coupon_code']."' and used =0");
+       
+		if($sql->num_rows()>0){
+			$data = $sql->result_array();
+			
+			$result['id'] = $data[0]['id'];
+			$result['cost'] = $data[0]['cost'];
+			
+		}else{
+				$result['id'] = 0;
+				
+		}
+			return $result;
+		
+	}
+	
+	public function addFeedback($data){
+	
+		$sql =$this->db->query("insert into  feedback (customer_id,user_feedback) values('".$data['customer_id']."','".$data['user_feedback']."')");
+		if($sql){
+			$result[0] = true;
+		}else{
+			$result[0] = false;
+		}
+		return $result;
+	}
+	
+	 public function orderInsert($data){
+		  
+		  $sql=$this->db->query("insert into orders (id,order_number,customer_id,shipping,tax,coupon_discount,coupon_id,order_type,shipping_lat,shipping_lang)
+		   values ('".$data['id']."','".$data['order_number']."','".$data['customer_id']."','".$data['shipping']."','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."','".$data['order_type']."',
+		   '".$data['shipping_lat']."','".$data['shipping_lang']."') ");
+		   $sql2=$this->db->query("insert into order_items (menu_id,quantity) values ('".$data['menu_id']."','".$data['quantity']."') ");
+		  
+		  
+	  }
+	
 }
