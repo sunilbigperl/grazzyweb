@@ -134,19 +134,97 @@ class Api_model extends CI_Model
 			return true;
 		}
 	}
-	
-	public function orderlist($id){
-		$sql = "SELECT * FROM `gc_orders`a, gc_order_items b WHERE a.`customer_id` = ".$id." and a.id = b.order_id order by a.ordered_on desc";
+	public function orderlistnotshipped($id){
+		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status='Order Placed'  order by a.ordered_on desc";
 		$query = $this->db->query($sql);
 		if($query->num_rows()>0){
 			$result = array();
 			$i=0;
 			foreach($query->result_array() as $row){ 
-				$result[$row['order_number']][$i]['id'] = $row['order_id'];
-				$result[$row['order_number']][$i]['ordered_on'] = $row['ordered_on'];
-				$result[$row['order_number']][$i]['menu_id'] = $row['product_id'];
-				$result[$row['order_number']][$i]['quantity'] = $row['quantity'];
-				$result[$row['order_number']][$i]['price'] = $row['subtotal'];
+				$result[$i]['order_number'] = $row['id'];
+				$sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
+				$query1 = $this->db->query($sql1);
+				if($query1->num_rows()>0){
+					$res = $query1->result_array();
+					$result[$i]['restaurant_name'] = $res[0]['restaurant_name'];
+				}
+				$result[$i]['order_type'] = $row['order_type'];
+				$result[$i]['delivered_by'] = $row['delivered_by'];
+				$result[$i]['passcode'] = $row['passcode'];
+				
+				$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id";
+				$query2 = $this->db->query($sql2);
+				if($query2->num_rows()>0){
+					$j=0;
+					foreach($query2->result_array() as $row1){
+						$result[$i]['items'][]=$row1['menu'];
+					$j++;
+					}
+				}
+				$result[$i]['items']= implode(",",$result[$i]['items']);
+				$result[$i]['shipping_lat'] = $row['shipping_lat'];
+				$result[$i]['shipping_long'] = $row['shipping_long'];
+				if($result[$i]['order_type'] == 1 || $result[$i]['order_type'] == 2 || $result[$i]['order_type'] == 4){
+					if($result[$i]['delivered_by'] != 0){
+						$sql4  = $this->db->query("select * from admin where id='".$result[$i]['delivered_by']."'");
+						$res_del = $sql4->result_array();
+						$result[$i]['name'] = $res_del[0]['firstname'];
+						$result[$i]['phone'] = $res_del[0]['phone'];
+					}else{
+						$result[$i]['name'] = 0;
+						$result[$i]['phone'] = 0;
+					}
+				}elseif($result[$i]['order_type'] == 3){
+					if($result[$i]['delivered_by'] != 0){
+						$sql4  = $this->db->query("select * from restaurant where restaurant_id='".$result[$i]['delivered_by']."'");
+						$res_del = $sql4->result_array();
+						$result[$i]['name'] = $res_del[0]['restaurant_name'];
+						$result[$i]['phone'] = $res_del[0]['restaurant_phone'];
+					}else{
+						$result[$i]['name'] = 0;
+						$result[$i]['phone'] = 0;
+					}
+				}else{
+					$result[$i]['name'] = 0;
+					$result[$i]['phone'] = 0;
+				}
+			$i++;
+			}
+			return $result;
+		}else{
+			return false;
+		}
+	}
+	public function orderlist($id){
+		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status='Order Shipped'  order by a.ordered_on desc";
+		$query = $this->db->query($sql);
+		if($query->num_rows()>0){
+			$result = array();
+			$i=0;
+			foreach($query->result_array() as $row){ 
+				$result[$i]['order_number'] = $row['id'];
+				$sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
+				$query1 = $this->db->query($sql1);
+				if($query1->num_rows()>0){
+					$res = $query1->result_array();
+					$result[$i]['restaurant_name'] = $res[0]['restaurant_name'];
+				}
+				$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id";
+				
+				$query2 = $this->db->query($sql2);
+				if($query2->num_rows()>0){
+					$j=0;
+					foreach($query2->result_array() as $row1){
+						
+						$result[$i]['items'][$j]['id'] = $row1['id'];
+						$result[$i]['items'][$j]['ordered_on'] = $row['ordered_on'];
+						$result[$i]['items'][$j]['menu_id'] = $row1['menu_id'];
+						$result[$i]['items'][$j]['menu'] = $row1['menu'];
+						$result[$i]['items'][$j]['quantity'] = $row1['quantity'];
+						$result[$i]['items'][$j]['cost'] = $row1['cost'];
+					$j++;
+					}
+				}
 			$i++;
 			}
 			return $result;
@@ -242,12 +320,13 @@ class Api_model extends CI_Model
 	}
 	
 	public function profilePictureUpdate($data){
+		$image =$data['id'].".png";
+		$sql=$this->db->query("UPDATE customers SET profile_image='".$image."' where id='".$data['id']."'");
 		
-		$sql=$this->db->query("UPDATE customers SET 
-		profile_image='".$data['profile_image']."' where id='".$data['id']."'");
 	    if($sql==true){
+			$path = "uploads/.".$data['id'].".png";
+			file_put_contents($path,base64_decode($image));
 			$result[0] = true;
-		//	$result['data'] = $sql;
 		}else{
 			$result[0] = false;
 		}
@@ -285,13 +364,51 @@ class Api_model extends CI_Model
 	}
 	
 	 public function orderInsert($data){
-		  
-		  $sql=$this->db->query("insert into orders (id,order_number,customer_id,shipping,tax,coupon_discount,coupon_id,order_type,shipping_lat,shipping_lang)
-		   values ('".$data['id']."','".$data['order_number']."','".$data['customer_id']."','".$data['shipping']."','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."','".$data['order_type']."',
-		   '".$data['shipping_lat']."','".$data['shipping_lang']."') ");
-		   $sql2=$this->db->query("insert into order_items (menu_id,quantity) values ('".$data['menu_id']."','".$data['quantity']."') ");
-		  
-		  
+	
+		  $date = date('Y-m-d');
+		  $sql="insert into orders (customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long)
+		   values ('".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Order Placed','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
+		   '".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."')";
+		   $this->db->query($sql);
+		   $id = $this->db->insert_id();
+		if($id > 0){
+			if(count($data['products']) > 0){
+				foreach($data['products'] as $item){
+					$sql2 = "insert into order_items (order_id,menu_id,quantity,cost) values ('".$id."','".$item['menu_id']."','".$item['quantity']."','".$item['cost']."') ";
+					 $this->db->query($sql2);
+				}
+				$sql3 = "SELECT * FROM passcode ORDER BY RAND() limit 1";
+				$query3 = $this->db->query($sql3);
+				if($query3->num_rows()>0){
+					$data = $query3->result_array();
+					$sql4 =  $this->db->query("update orders set passcode='".$data[0]['passcode']."' where id='".$id."'");
+					$result['data'] = $data[0]['passcode'];
+					$result[0] = true;
+				}
+			}else{
+				$result[0] = false;
+			}
+			
+		}else{
+			$result[0] = false;
+		}
+		return $result;
+	  }
+	  
+	  public function deliveryboylocation($id){
+		$sql=$this->db->query("select * from deliveryboy_locations where deliveryboy_id='".$id."'");
+       
+		if($sql->num_rows()>0){
+			$data = $sql->result_array();
+			
+			$result['id'] = $data[0]['langitude'];
+			$result['cost'] = $data[0]['langitude'];
+			
+		}else{
+				$result['id'] = 0;
+				
+		}
+			return $result;
 	  }
 	
 }

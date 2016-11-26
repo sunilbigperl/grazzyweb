@@ -210,6 +210,7 @@ class Api extends REST_Controller {
         $this->set_response($status, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
     }
 	
+	
 	public function orderlist_get($id){
 		$orderlist =  $this->api_model->orderlist($id);
 		
@@ -222,6 +223,50 @@ class Api extends REST_Controller {
         if (!empty($orderlist))
         {
             $this->set_response($orderlist, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'order list  could not be found for the customer'
+            ], REST_Controller::HTTP_NOT_FOUND);
+        }
+	}
+	
+	public function orderlistnotshipped_get($id){
+		$orderlist =  $this->api_model->orderlistnotshipped($id);
+		
+		if ($id <= 0)
+        {
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
+        }
+
+       
+        if (!empty($orderlist))
+        {
+            $this->set_response($orderlist, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'order list  could not be found for the customer'
+            ], REST_Controller::HTTP_NOT_FOUND);
+        }
+	}
+	
+	public function deliveryboylocation_get($id){
+		$deliveryboylocation =  $this->api_model->deliveryboylocation($id);
+		
+		if ($id <= 0)
+        {
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
+        }
+
+       
+        if (!empty($deliveryboylocation))
+        {
+            $this->set_response($deliveryboylocation, REST_Controller::HTTP_OK); 
         }
         else
         {
@@ -405,11 +450,11 @@ class Api extends REST_Controller {
 		 
 		 $data=array('id'=>$this->post('user_id'),'profile_image'=>$this->post('image'));
 		 $result=$this->api_model->profilePictureUpdate($data);
-		  if(!empty($result)){
-		 $message=[
-		  'Status'=>'Success',
-		];	
-		  $this->set_response($message, REST_Controller::HTTP_OK);  	
+		 if(!empty($result)){
+			$message=[
+			'Status'=>'Success',
+			];	
+			$this->set_response($message, REST_Controller::HTTP_OK);  	
 			
 		}else{
 			 $this->set_response([
@@ -458,19 +503,14 @@ class Api extends REST_Controller {
 	
 	/*api number 19*/
 	public function insertOrder_post(){
-		$data = (array) json_decode(file_get_contents("php://input"),true);
-		print_r($data); exit;
-		$data=array('customer_id'=>$this->post('user_id'),'shipping'=>$this->post('shipping'),'tax'=>$this->post('tax'),
-         'coupon_discount'=>$this->post('coupon_discount'),'coupon_id'=>$this->post('coupon_id'),
-         'order_type'=>$this->post('order_type'),'total_cost'=>$this->post('total_cost'),
-         'shipping_lat'=>$this->post('shipping_lat'),'shipping_lang'=>$this->post('shipping_lang'));
-		 
+		
+		$data = json_decode(file_get_contents("php://input"),true);
 		$result=$this->api_model->orderInsert($data);
-     	if(!empty ($result)){
+		
+     	if(isset($result)){
 			 $message=[
 			 'Status'=>'Success',
-			 'Passcode'=>$result['passcode']
-			
+			 'Passcode'=>$result['data']
 			 ]; 
 			 $this->response($message, REST_Controller::HTTP_CREATED); 	
 		}else{

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2016 at 07:17 PM
+-- Generation Time: Nov 26, 2016 at 07:19 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -32,6 +32,7 @@ CREATE TABLE `admin` (
   `lastname` varchar(32) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `email` varchar(128) DEFAULT NULL,
+  `phone` varchar(10) NOT NULL,
   `access` varchar(200) NOT NULL,
   `password` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -40,10 +41,10 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `firstname`, `lastname`, `username`, `email`, `access`, `password`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin@gmail.com', 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997'),
-(3, 'vijetha', 'l', 'vijetha', 'lvijetha90@gmail.com', 'Restaurant manager', '717f1cc273ee989c1667ce089441d9e88b92c129'),
-(4, 'sunil', 'yadav', 'sunil', 'sunil@bigperl.com', 'Deliver manager', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601');
+INSERT INTO `admin` (`id`, `firstname`, `lastname`, `username`, `email`, `phone`, `access`, `password`) VALUES
+(1, 'admin', 'admin', 'admin', 'admin@gmail.com', '', 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997'),
+(3, 'vijetha', 'l', 'vijetha', 'lvijetha90@gmail.com', '', 'Restaurant manager', '717f1cc273ee989c1667ce089441d9e88b92c129'),
+(4, 'sunil', 'yadav', 'sunil', 'sunil@bigperl.com', '', 'Deliver manager', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601');
 
 -- --------------------------------------------------------
 
@@ -4584,8 +4585,9 @@ INSERT INTO `migrations` (`version`) VALUES
 CREATE TABLE `orders` (
   `id` bigint(20) NOT NULL,
   `customer_id` bigint(20) NOT NULL,
+  `restaurant_id` bigint(20) NOT NULL,
   `ordered_on` date NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `status` varchar(200) NOT NULL DEFAULT '1',
   `shipping` varchar(100) NOT NULL,
   `tax` varchar(100) NOT NULL,
   `coupon_discount` varchar(100) NOT NULL,
@@ -4593,8 +4595,28 @@ CREATE TABLE `orders` (
   `order_type` int(11) NOT NULL,
   `total_cost` int(11) NOT NULL,
   `shipping_lat` float NOT NULL,
-  `shipping_long` float NOT NULL
+  `shipping_long` float NOT NULL,
+  `delivered_by` bigint(20) NOT NULL DEFAULT '0',
+  `passcode` varchar(100) NOT NULL,
+  `delivered_on` date DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `customer_id`, `restaurant_id`, `ordered_on`, `status`, `shipping`, `tax`, `coupon_discount`, `coupon_id`, `order_type`, `total_cost`, `shipping_lat`, `shipping_long`, `delivered_by`, `passcode`, `delivered_on`) VALUES
+(8, 3, 3, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
+(7, 3, 3, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
+(6, 3, 4, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
+(9, 3, 3, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 2, 818, 1.23232, 1.23232, 4, '', NULL),
+(10, 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
+(11, 3, 4, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
+(12, 3, 4, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
+(13, 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
+(14, 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
+(15, 3, 3, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
+(16, 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -4669,8 +4691,33 @@ CREATE TABLE `order_items` (
   `order_id` int(9) UNSIGNED NOT NULL,
   `menu_id` int(9) UNSIGNED NOT NULL,
   `quantity` int(11) NOT NULL,
+  `cost` int(10) NOT NULL,
   `contents` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `menu_id`, `quantity`, `cost`, `contents`) VALUES
+(4, 6, 9, 8, 0, ''),
+(5, 7, 9, 8, 0, ''),
+(6, 9, 9, 8, 0, ''),
+(7, 9, 8, 6, 0, ''),
+(8, 10, 9, 8, 0, ''),
+(9, 10, 8, 6, 0, ''),
+(10, 11, 9, 8, 0, ''),
+(11, 11, 8, 6, 0, ''),
+(12, 12, 9, 8, 0, ''),
+(13, 12, 8, 6, 0, ''),
+(14, 8, 9, 8, 0, ''),
+(15, 8, 8, 6, 0, ''),
+(16, 14, 9, 8, 0, ''),
+(17, 14, 8, 6, 0, ''),
+(18, 15, 9, 8, 0, ''),
+(19, 15, 8, 6, 0, ''),
+(20, 16, 9, 8, 0, ''),
+(21, 16, 8, 6, 0, '');
 
 -- --------------------------------------------------------
 
@@ -5144,7 +5191,7 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `orders-old`
 --
@@ -5154,7 +5201,7 @@ ALTER TABLE `orders-old`
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `passcode`
 --
