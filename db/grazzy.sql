@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2016 at 07:19 PM
+-- Generation Time: Nov 27, 2016 at 06:40 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -4372,8 +4372,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `firstname`, `lastname`, `email`, `email_subscribe`, `phone`, `company`, `dob`, `gender`, `default_billing_address`, `default_shipping_address`, `ship_to_bill_address`, `password`, `active`, `group_id`, `confirmed`, `fb_login`) VALUES
-(1, 'viju', 'l', 'viju@gmail.com', 0, '9886656363', '', '1993-08-25', 'Female', 0, 0, 'true', '717f1cc273ee989c1667ce089441d9e88b92c129', 1, 1, 0, 0),
-(2, 'sunil', 'yadav', 'sunil@bigperl.com', 1, '977656655', 'Bigperl', '0000-00-00', '', 0, 0, 'true', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', 1, 1, 0, 0);
+(2, 'sunil', 'yadav', 'sunil@bigperl.com', 1, '977656655', 'Bigperl', '0000-00-00', '', 0, 0, 'true', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', 1, 1, 0, 0),
+(3, 'viju', 'l', 'viju@gmail.com', 0, '9886656363', '', '1993-08-25', 'Female', 0, 0, 'true', '717f1cc273ee989c1667ce089441d9e88b92c129', 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -4508,18 +4508,43 @@ INSERT INTO `destination` (`id`, `place_name`, `address`, `city`, `lat`, `lng`) 
 CREATE TABLE `feedback` (
   `id` int(11) NOT NULL,
   `customer_id` int(50) UNSIGNED NOT NULL,
-  `user_feedback` text NOT NULL
+  `user_feedback` text NOT NULL,
+  `feedbackfrom` bigint(20) NOT NULL,
+  `feedbackto` bigint(20) NOT NULL,
+  `comments` text NOT NULL,
+  `ratings` int(5) NOT NULL,
+  `feedbacktype` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `feedback`
 --
 
-INSERT INTO `feedback` (`id`, `customer_id`, `user_feedback`) VALUES
-(1, 9, ''),
-(3, 1, 'something'),
-(4, 1, 'something'),
-(5, 0, '');
+INSERT INTO `feedback` (`id`, `customer_id`, `user_feedback`, `feedbackfrom`, `feedbackto`, `comments`, `ratings`, `feedbacktype`) VALUES
+(1, 9, '', 0, 0, '', 0, 1),
+(3, 1, 'something', 0, 0, '', 0, 1),
+(4, 1, 'something', 0, 0, '', 0, 1),
+(5, 0, '', 0, 0, '', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedbacktype`
+--
+
+CREATE TABLE `feedbacktype` (
+  `feedbacktype_id` int(11) NOT NULL,
+  `feedbacktype` varchar(200) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `feedbacktype`
+--
+
+INSERT INTO `feedbacktype` (`feedbacktype_id`, `feedbacktype`) VALUES
+(1, 'app feedback'),
+(2, 'restaurant to customer'),
+(3, 'restaurant to delivery boy');
 
 -- --------------------------------------------------------
 
@@ -4584,6 +4609,7 @@ INSERT INTO `migrations` (`version`) VALUES
 
 CREATE TABLE `orders` (
   `id` bigint(20) NOT NULL,
+  `order_number` varchar(50) NOT NULL,
   `customer_id` bigint(20) NOT NULL,
   `restaurant_id` bigint(20) NOT NULL,
   `ordered_on` date NOT NULL,
@@ -4598,25 +4624,32 @@ CREATE TABLE `orders` (
   `shipping_long` float NOT NULL,
   `delivered_by` bigint(20) NOT NULL DEFAULT '0',
   `passcode` varchar(100) NOT NULL,
-  `delivered_on` date DEFAULT NULL
+  `delivered_on` date DEFAULT NULL,
+  `delivery_location` text NOT NULL,
+  `restaurant_manager_status` varchar(100) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `customer_id`, `restaurant_id`, `ordered_on`, `status`, `shipping`, `tax`, `coupon_discount`, `coupon_id`, `order_type`, `total_cost`, `shipping_lat`, `shipping_long`, `delivered_by`, `passcode`, `delivered_on`) VALUES
-(8, 3, 3, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
-(7, 3, 3, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
-(6, 3, 4, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
-(9, 3, 3, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 2, 818, 1.23232, 1.23232, 4, '', NULL),
-(10, 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
-(11, 3, 4, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
-(12, 3, 4, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
-(13, 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
-(14, 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
-(15, 3, 3, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL),
-(16, 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL);
+INSERT INTO `orders` (`id`, `order_number`, `customer_id`, `restaurant_id`, `ordered_on`, `status`, `shipping`, `tax`, `coupon_discount`, `coupon_id`, `order_type`, `total_cost`, `shipping_lat`, `shipping_long`, `delivered_by`, `passcode`, `delivered_on`, `delivery_location`, `restaurant_manager_status`) VALUES
+(8, '', 3, 3, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
+(7, '', 3, 3, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
+(6, '', 3, 4, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
+(9, '', 3, 3, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 2, 818, 1.23232, 1.23232, 4, '', NULL, '', '0'),
+(10, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
+(11, '', 3, 4, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
+(12, '', 3, 4, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
+(13, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
+(14, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
+(15, '', 3, 3, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
+(16, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
+(17, '1480229676', 3, 0, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Dhoni', NULL, '', '0'),
+(18, '1480229700', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 3, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', 'Accepted'),
+(19, '1480229720', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0'),
+(20, '1480229742', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0'),
+(21, '1480229782', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0');
 
 -- --------------------------------------------------------
 
@@ -4717,7 +4750,39 @@ INSERT INTO `order_items` (`id`, `order_id`, `menu_id`, `quantity`, `cost`, `con
 (18, 15, 9, 8, 0, ''),
 (19, 15, 8, 6, 0, ''),
 (20, 16, 9, 8, 0, ''),
-(21, 16, 8, 6, 0, '');
+(21, 16, 8, 6, 0, ''),
+(22, 17, 9, 8, 0, ''),
+(23, 17, 8, 6, 0, ''),
+(24, 18, 9, 8, 0, ''),
+(25, 18, 8, 6, 0, ''),
+(26, 19, 9, 8, 0, ''),
+(27, 19, 8, 6, 200, ''),
+(28, 20, 9, 8, 0, ''),
+(29, 20, 8, 6, 200, ''),
+(30, 21, 9, 8, 100, ''),
+(31, 21, 8, 6, 200, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_type`
+--
+
+CREATE TABLE `order_type` (
+  `ordertype_id` int(11) NOT NULL,
+  `order_type` varchar(300) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_type`
+--
+
+INSERT INTO `order_type` (`ordertype_id`, `order_type`, `description`) VALUES
+(1, 'In Car', 'Customer will pickup from pitstop'),
+(2, 'Here', 'Get delivery to the selected location'),
+(3, 'I\'ll pickup', 'customer will pick up from restaurant'),
+(4, 'Home', 'Delivery to the home');
 
 -- --------------------------------------------------------
 
@@ -4819,6 +4884,7 @@ CREATE TABLE `restaurant` (
   `restaurant_langitude` float NOT NULL,
   `restaurant_branch` varchar(200) NOT NULL,
   `restaurant_manager` int(11) NOT NULL,
+  `preparation_time` int(11) NOT NULL,
   `enabled` tinyint(2) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -4826,9 +4892,9 @@ CREATE TABLE `restaurant` (
 -- Dumping data for table `restaurant`
 --
 
-INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `image`, `restaurant_latitude`, `restaurant_langitude`, `restaurant_branch`, `restaurant_manager`, `enabled`) VALUES
-(4, 'retaurants2', '', '87889', 'retaurants2@gmail.com', '', 17.3791, 78.4099, 'bangalore', 3, 1),
-(3, 'restaurant1', '', '77887', 'restaurant1@gmail.com', '7fca09a10d55c8dcfc71854676cf997f.jpg', 17.4126, 78.4688, 'bangalore', 3, 1);
+INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `image`, `restaurant_latitude`, `restaurant_langitude`, `restaurant_branch`, `restaurant_manager`, `preparation_time`, `enabled`) VALUES
+(4, 'retaurants2', '', '87889', 'retaurants2@gmail.com', '', 17.3791, 78.4099, 'bangalore', 3, 0, 1),
+(3, 'restaurant1', '', '77887', 'restaurant1@gmail.com', '7fca09a10d55c8dcfc71854676cf997f.jpg', 12.694, 77.5305, 'bangalore', 3, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -5046,6 +5112,12 @@ ALTER TABLE `feedback`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `feedbacktype`
+--
+ALTER TABLE `feedbacktype`
+  ADD PRIMARY KEY (`feedbacktype_id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -5062,6 +5134,12 @@ ALTER TABLE `orders-old`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_type`
+--
+ALTER TABLE `order_type`
+  ADD PRIMARY KEY (`ordertype_id`);
 
 --
 -- Indexes for table `passcode`
@@ -5126,7 +5204,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `countries`
 --
@@ -5188,10 +5266,15 @@ ALTER TABLE `destination`
 ALTER TABLE `feedback`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
+-- AUTO_INCREMENT for table `feedbacktype`
+--
+ALTER TABLE `feedbacktype`
+  MODIFY `feedbacktype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `orders-old`
 --
@@ -5201,7 +5284,12 @@ ALTER TABLE `orders-old`
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+--
+-- AUTO_INCREMENT for table `order_type`
+--
+ALTER TABLE `order_type`
+  MODIFY `ordertype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `passcode`
 --
@@ -5236,7 +5324,7 @@ ALTER TABLE `restaurant_suggest`
 -- AUTO_INCREMENT for table `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `settings`
 --

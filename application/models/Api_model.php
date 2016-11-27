@@ -169,7 +169,7 @@ class Api_model extends CI_Model
 						$sql4  = $this->db->query("select * from admin where id='".$result[$i]['delivered_by']."'");
 						$res_del = $sql4->result_array();
 						$result[$i]['name'] = $res_del[0]['firstname'];
-						$result[$i]['phone'] = $res_del[0]['phone'];
+						$result[$i]['phone'] = isset($res_del[0]['phone']) ? $res_del[0]['phone'] : "";
 					}else{
 						$result[$i]['name'] = 0;
 						$result[$i]['phone'] = 0;
@@ -364,10 +364,10 @@ class Api_model extends CI_Model
 	}
 	
 	 public function orderInsert($data){
-	
-		  $date = date('Y-m-d');
-		  $sql="insert into orders (customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long)
-		   values ('".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Order Placed','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
+		$order_number = strtotime(date("Y-m-d H:i:s",time()));
+		  $date = date('Y-m-d H:i:s');
+		  $sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long)
+		   values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Order Placed','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
 		   '".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."')";
 		   $this->db->query($sql);
 		   $id = $this->db->insert_id();

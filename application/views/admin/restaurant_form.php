@@ -6,6 +6,7 @@
 		<li class="active"><a href="#description_tab" data-toggle="tab"><?php echo lang('description');?></a></li>
 		<li><a href="#attributes_tab" data-toggle="tab">Image</a></li>
 		<li><a href="#pitstop_tab" data-toggle="tab">Pitstop</a></li>
+		<li><a href="#location_tab" data-toggle="tab">Location</a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -36,18 +37,6 @@
 				echo form_input($data);
 				?>
 				
-				<label for="restaurant_address">Restaurant latitude</label>
-				<?php
-				$data	= array('name'=>'restaurant_latitude', 'value'=>set_value('restaurant_latitude', $restaurant_latitude), 'class'=>'span12');
-				echo form_input($data);
-				?>
-				
-				<label for="restaurant_address">Restaurant langitude</label>
-				<?php
-				$data	= array('name'=>'restaurant_langitude', 'value'=>set_value('restaurant_langitude', $restaurant_langitude), 'class'=>'span12');
-				echo form_input($data);
-				?>
-				
 				<label for="restaurant_address">Restaurant branch</label>
 				<?php
 				$data	= array('name'=>'restaurant_branch', 'value'=>set_value('restaurant_branch', $restaurant_branch), 'class'=>'span12');
@@ -65,6 +54,12 @@
 				
 				<label for="enabled"><?php echo lang('enabled');?> </label>
         		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled)); ?>
+				
+				<label for="preparation_time">Preparation time(In mins)</label>
+        		<?php
+				$data	= array('name'=>'preparation_time', 'value'=>set_value('preparation_time', $preparation_time), 'class'=>'span12');
+				echo form_input($data);
+				?>
 			</fieldset>
 		</div>
 
@@ -88,7 +83,7 @@
 			
 		</div>
 		
-		<div class="tab-pane active" id="pitstop_tab">
+		<div class="tab-pane" id="pitstop_tab">
 				<div class="row">
 					<div class="span8">
 						<label><strong>Select pitstops</strong></label>
@@ -150,6 +145,18 @@
 					</div>
 				</div>
 		</div>
+	
+		<div class="tab-pane" id="location_tab">
+			
+				<label for="restaurant_address">Restaurant latitude</label>
+				<input type="text" class="form-control" value="<?=$restaurant_latitude;?>" name="restaurant_latitude" id="lat">
+				
+				
+				<label for="restaurant_address">Restaurant langitude</label>
+				<input type="text" class="form-control" value="<?=$restaurant_langitude;?>" name="restaurant_langitude" id="lng">
+				
+			<div id="map_canvas" style="width:500px;height:500px;" class="col-sm-8"></div>	
+		</div>
 	</div>
 
 </div>
@@ -159,6 +166,53 @@
 </div>
 </form>
 
+<?php  
+$lat='';
+$lon='';
+if(isset($restaurant_latitude) && $restaurant_latitude !='' ) {
+	$lat=$restaurant_latitude;
+}
+else {
+	 $lat=54.95869420484606;
+}
+if(isset($restaurant_langitude) && $restaurant_langitude!='' ) {
+	$lon=$restaurant_langitude;
+}
+else {
+	$lon=-2.7575678906250687;
+}
+
+?>
+<script type="text/javascript">
+ var map;
+jQuery(document).ready(function() {
+	  
+  var myLatlng = new google.maps.LatLng(<?php echo $lat;  ?>,<?php echo $lon; ?>);
+
+  var myOptions = {
+     zoom: 6,
+     center: myLatlng,
+     mapTypeId: google.maps.MapTypeId.ROADMAP
+     }
+  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+
+  var marker = new google.maps.Marker({
+  draggable: true,
+  position: myLatlng, 
+  map: map,
+  title: "Your location"
+  });
+
+google.maps.event.addListener(marker, 'dragend', function (event) {
+
+ document.getElementById("lat").value = this.getPosition().lat();
+    document.getElementById("lng").value = this.getPosition().lng();
+
+ });
+
+});
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKUsjUabpe8-dBedcqnKchPAVfsNqFnlE"></script>
 <script type="text/javascript">
 $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');

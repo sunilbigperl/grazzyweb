@@ -1,6 +1,5 @@
-<?php echo theme_css('bootstrap-table.css', true);?>
-<?php echo theme_js('bootstrap-table.js', true);?>
-
+<script src="assets/js/bootstrap-table.js"></script>
+<link href="assets/css/bootstrap-table.css">
 <div class="btn-group pull-right">
 	<?php if($this->auth->check_access('Admin')){ ?>
 	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form'); ?>"><i class="icon-plus-sign"></i> Add new restaurant</a>

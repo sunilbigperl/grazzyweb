@@ -37,113 +37,40 @@ Class order_model extends CI_Model
 		return $years;
 	}
 	
-	function get_orders($search=false, $sort_by='', $sort_order='DESC', $limit=0, $offset=0)
-	{			
-		if ($search)
-		{
-			if(!empty($search->term))
-			{
-				//support multiple words
-				$term = explode(' ', $search->term);
-
-				foreach($term as $t)
-				{
-					$not		= '';
-					$operator	= 'OR';
-					if(substr($t,0,1) == '-')
-					{
-						$not		= 'NOT ';
-						$operator	= 'AND';
-						//trim the - sign off
-						$t		= substr($t,1,strlen($t));
-					}
-
-					$like	= '';
-					$like	.= "( `order_number` ".$not."LIKE '%".$t."%' " ;
-					$like	.= $operator." `bill_firstname` ".$not."LIKE '%".$t."%'  ";
-					$like	.= $operator." `bill_lastname` ".$not."LIKE '%".$t."%'  ";
-					$like	.= $operator." `ship_firstname` ".$not."LIKE '%".$t."%'  ";
-					$like	.= $operator." `ship_lastname` ".$not."LIKE '%".$t."%'  ";
-					$like	.= $operator." `status` ".$not."LIKE '%".$t."%' ";
-					$like	.= $operator." `notes` ".$not."LIKE '%".$t."%' )";
-
-					$this->db->where($like);
-				}	
-			}
-			if(!empty($search->start_date))
-			{
-				$this->db->where('ordered_on >=',$search->start_date);
-			}
-			if(!empty($search->end_date))
-			{
-				//increase by 1 day to make this include the final day
-				//I tried <= but it did not function. Any ideas why?
-				$search->end_date = date('Y-m-d', strtotime($search->end_date)+86400);
-				$this->db->where('ordered_on <',$search->end_date);
-			}
-			
+	function get_neworders(){
+		$userdata = $this->session->userdata('admin');
+		$date = date("Y-m-d");
+		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager = '".$userdata['id']."' and a.ordered_on='".$date."'");
+		if($sql->num_rows() > 0){
+			$result	= $sql->result();
+		}else{
+			$result = 0;
 		}
-		
-		if($limit>0)
-		{
-			$this->db->limit($limit, $offset);
-		}
-		if(!empty($sort_by))
-		{
-			$this->db->order_by($sort_by, $sort_order);
-		}
-		
-		return $this->db->get('orders')->result();
+		return $result;
 	}
 	
-	function get_orders_count($search=false)
-	{			
-		if ($search)
-		{
-			if(!empty($search->term))
-			{
-				//support multiple words
-				$term = explode(' ', $search->term);
-
-				foreach($term as $t)
-				{
-					$not		= '';
-					$operator	= 'OR';
-					if(substr($t,0,1) == '-')
-					{
-						$not		= 'NOT ';
-						$operator	= 'AND';
-						//trim the - sign off
-						$t		= substr($t,1,strlen($t));
-					}
-
-					$like	= '';
-					$like	.= "( `order_number` ".$not."LIKE '%".$t."%' " ;
-					$like	.= $operator." `bill_firstname` ".$not."LIKE '%".$t."%'  ";
-					$like	.= $operator." `bill_lastname` ".$not."LIKE '%".$t."%'  ";
-					$like	.= $operator." `ship_firstname` ".$not."LIKE '%".$t."%'  ";
-					$like	.= $operator." `ship_lastname` ".$not."LIKE '%".$t."%'  ";
-					$like	.= $operator." `status` ".$not."LIKE '%".$t."%' ";
-					$like	.= $operator." `notes` ".$not."LIKE '%".$t."%' )";
-
-					$this->db->where($like);
-				}	
-			}
-			if(!empty($search->start_date))
-			{
-				$this->db->where('ordered_on >=',$search->start_date);
-			}
-			if(!empty($search->end_date))
-			{
-				$this->db->where('ordered_on <',$search->end_date);
-			}
-			
-		}
+	function GetMenudetails($data){
 		
-		return $this->db->count_all_results('orders');
+		$sql = $this->db->query("select a.*,b.menu from order_items a, restaurant_menu b where a.menu_id=b.menu_id and order_id='".$data['id']."'");
+		if($sql->num_rows() > 0){
+			$result	= $sql->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
 	}
-
 	
+	function ChangeRestMangerStatus($status,$id){
+		if($status == "1"){ $data = "Accepted"; }else{ $data = "Rejected"; }
+		echo 'update orders set restaurant_manager_status="'.$data.'" where id="'.$id.'"'; exit;
+		$sql = $this->db->query('update orders set restaurant_manager_status="'.$data.'" where id="'.$id.'"');
+		if($sql){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	//get an individual customers orders
 	function get_customer_orders($id, $offset=0)

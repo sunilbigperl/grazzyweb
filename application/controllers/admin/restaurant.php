@@ -53,6 +53,7 @@ class Restaurant extends Admin_Controller {
         $data['restaurant_branch']           = '';
 		$data['restaurant_manager']           = '';
         $data['enabled']        = '';
+		$data['preparation_time'] ="";
         
         //create the photos array for later use
         $data['photos']     = array();
@@ -82,6 +83,7 @@ class Restaurant extends Admin_Controller {
             $data['image']          = $restaurant->image;
             $data['restaurant_branch']      = $restaurant->restaurant_branch;
             $data['restaurant_manager']           = $restaurant->restaurant_manager;
+			$data['preparation_time'] = $restaurant->preparation_time;
             $data['enabled']        = $restaurant->enabled;
 			if(!$this->input->post('submit'))
 			{
@@ -208,6 +210,7 @@ class Restaurant extends Admin_Controller {
             $save['restaurant_branch']           = $this->input->post('restaurant_branch');
 			$save['restaurant_manager']           = $this->input->post('restaurant_manager');
             $save['enabled']        = $this->input->post('enabled');
+			$save['preparation_time'] = $this->input->post('preparation_time');
 			if($this->input->post('related_pitstops'))
 			{
 				$related_pitstops = $this->input->post('related_pitstops');
@@ -216,6 +219,7 @@ class Restaurant extends Admin_Controller {
 			{
 				$related_pitstops = array();
 			}
+		
 			
             $restaurant_id    = $this->Restaurant_model->save($save,$related_pitstops);
             

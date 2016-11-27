@@ -1,0 +1,180 @@
+<?php
+
+class Orders extends Admin_Controller { 
+    
+    function __construct()
+    {       
+        parent::__construct();
+        
+        //$this->auth->check_access('Admin', true);
+        $this->lang->load('category');
+        $this->load->model('Order_model');
+		$this->load->model('Customer_model');
+		$this->load->helper('url');
+    }
+    
+    function index()
+    {
+        $data['orders'] = $this->Order_model->get_neworders();
+        $this->view($this->config->item('admin_folder').'/neworders', $data);
+    }
+    
+    function GetMenudetails(){
+		$data = $this->input->post('data');
+		$menus = $this->Order_model->GetMenudetails($data);
+		$html="";
+		if($menus != 0){
+			if($data['order_type'] == 3){
+			 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
+			 $name = $customer_details->firstname." ".$customer_details->lastname;
+			 $phone = $customer_details->phone;
+			 $email = $customer_details->email;
+			}else{
+				$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
+				$name = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "";
+				$phone = isset($deliveryboy_details->phone) ? $deliveryboy_details->phone : "";
+				$email = isset($deliveryboy_details->email) ? $deliveryboy_details->email : "";
+			}
+			$html.="<div class='modal-header'>
+					<button type='button' class='close' data-dismiss='modal'>&times;</button>
+					<h4 class='modal-title'>Delivery of order id: ".$data['order_number']."</h4>
+				  </div>
+				  <div class='modal-body' class='form-horizontal'>
+					<div class='form-group'>
+						<label><strong>Customer name:</strong>".$name."</label>
+						<label><strong>Mobile No:</strong>".$phone."</label>
+						<label><strong>Email:</strong>".$email."</label>
+						<label><strong>Delivery location:</strong>".$data['delivery_location']."</label>
+					</div>
+					<table class='table table-bordered'>
+					<thead>
+						<tr><th>Item name</th><th>Item code</th><th>Amount</th><th></th><tr>
+					</thead>
+					<tbody>";
+			foreach($menus as $menu){
+					$html.="<tr><td>".$menu->menu."</td><td>".$menu->menu_id."</td><td>".$menu->cost."</td><td></td></td>";
+					
+			}
+			$html.="</tbody>
+				</table> 
+				</div>
+			  <div class='modal-footer'>
+				<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+			  </div>";
+		}
+		echo $html;
+	}
+	
+	function ChangeRestMangerStatus($status,$id){
+		$status = $this->Order_model->ChangeRestMangerStatus($status,$id);
+		if($status){
+			 redirect('admin/orders', 'refresh');
+		}
+	}
+
+	function Review($type){
+		
+		$html="";
+		$userdata = $this->session->userdata('admin');
+		$data = $this->input->post('data');
+		if($type ==  2){$title = "Review Customer";}elseif($type == 3){ $title ="Review Delivery boy";}else{$title="";}
+		if($data['order_type'] == 3){
+		 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
+		 $name = $customer_details->firstname." ".$customer_details->lastname;
+		}else{
+			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
+			$name = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "";
+		}
+		$html.='<link href="'.base_url().'assets/css/star-rating.min.css">';
+		$html.="<div class='modal-header'>
+				<button type='button' class='close' data-dismiss='modal'>&times;</button>
+				<h4 class='modal-title'>".$title."</h4>
+			  </div>
+			  <div class='modal-body' class='form-horizontal'>
+					<form id='review' class='form-horizontal' method='post'  action='orders/InserReview'>
+				
+						<input type='hidden' name='feedbackfrom' value='".$userdata['id']."'>
+						<div class='form-group col-sm-12 col-xs-12'>
+							<label for='review' class='col-xs-12 col-sm-3'>Feedback to</label>
+							<div class='col-sm-8 col-xs-12'>
+							<input type='text' name='feedbackto' class='form-control' value='".$name."'>
+							</div>
+						</div>
+						<div class='form-group col-sm-12 col-xs-12'>
+							<label for='review' class='col-xs-12 col-sm-3'>Review</label>
+							<div class='col-sm-8 col-xs-12'>
+								<textarea class='form-control'  id='Comments'  name='Comments'></textarea>
+							</div>
+						</div>
+						<h4 style='color: #fff;'>OR</h4>
+						<div class='form-group col-sm-12 col-xs-12'>
+							<label for='email' class='col-xs-12 col-sm-3'>Rating</label>
+							<div class='col-sm-6 col-xs-12'>
+								<input id='rating-input' type='number' />
+							</div>
+							<div class='col-sm-3 col-xs-12'>
+								<input type='hidden' name='rate' id='rate' value=''>
+							</div>
+						</div>
+						<div class='pop-btn'>
+							<button type='submit' class='btn btn-danger'>Review</button>&nbsp;
+						</div>
+					</form>
+			</div>
+		  <div class='modal-footer'>
+			<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+		  </div>";
+		$html.="
+			<script>
+			 $('#rating-input').rating({
+			  min: 0,
+			  max: 5,
+			  step: 1,
+			  size: 'xs'
+			});
+			</script>";
+		echo $html;
+	}
+    function delete($id)
+    {
+        
+        $category   = $this->Restaurant_model->get_restaurant($id);
+        //if the category does not exist, redirect them to the customer list with an error
+        if ($category)
+        {
+            
+            $this->Restaurant_model->delete($id);
+            
+            $this->session->set_flashdata('message', "The restaurant has been deleted.");
+            redirect($this->config->item('admin_folder').'/restaurant');
+        }
+        else
+        {
+            $this->session->set_flashdata('error', lang('error_not_found'));
+        }
+    }
+	
+	function pitstops_autocomplete()
+	{
+		$name	= trim($this->input->post('name'));
+		$limit	= $this->input->post('limit');
+		
+		if(empty($name))
+		{
+			echo json_encode(array());
+		}
+		else
+		{
+			$results	= $this->Restaurant_model->pitstops_autocomplete($name, $limit);
+			
+			$return		= array();
+			
+			foreach($results as $r)
+			{
+				$return[$r->pitstop_id]	= $r->pitstop_name;
+			}
+			echo json_encode($return);
+		}
+		
+	}
+}
