@@ -1,6 +1,26 @@
 <link href="<?=base_url();?>assets/css/bootstrap-table.css">
 <script src="<?=base_url();?>assets/js/bootstrap-table.js"></script>
 <script src="<?=base_url();?>assets/js/star-rating.min.js"></script>
+
+<div class="container">
+	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/GetPreviousOrders'); ?>" method="post">
+		<div class="form-group span4">
+		  <label for="from date"><strong>from date:</strong></label>
+		  <input type="date" class="form-control" id="fromdate" name="fromdate">
+		</div>
+		<div class="form-group span4">
+		  <label for="to date"><strong>To date:</strong></label>
+		  <input type="date" class="form-control" id="todate" name="todate">
+		</div>
+		<div class="form-group span2"><input type="submit" class="btn btn-primary" value="Go" name="action"></div>
+	<br/>
+		<div class="span12" style="margin-top:20px;">
+			<div class="form-group span6"><input type="submit" class="btn btn-primary" value="PreviousMonth" name="action"></div>
+			<div class="form-group span4"><input type="submit" class="btn btn-primary" value="CurrentMonth" name="action"></div>
+		</div>
+	</form>
+</div>
+<?php if(count($orders) > 1){ ?>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
@@ -12,7 +32,7 @@
 			<th data-field="type">Order type</th>
 			<th>Keep ready by</th>
 			<th>Info</th>
-			<th>Action</th>
+			<th>Status</th>
 		</tr>
 	</thead>
 	
@@ -51,8 +71,6 @@
 				</td>
 				<td>
 				<?php if($order->restaurant_manager_status == "0"){ ?>
-					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-sucess btn-xs">Accept</a>
-					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
 				<?php }else{
 					echo $order->restaurant_manager_status;
 				} ?>
@@ -77,7 +95,7 @@
 
   </div>
 </div>
-
+<?php } ?>
 <script>
 	function showdetails(url,data){
 		$.ajax({

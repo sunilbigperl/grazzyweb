@@ -9,13 +9,11 @@
 <link type="text/css" href="<?php echo base_url('assets/css/jquery-ui.css');?>" rel="stylesheet" />
 <link type="text/css" href="<?php echo base_url('assets/css/redactor.css');?>" rel="stylesheet" />
 
-
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('assets/js/redactor.min.js');?>"></script>
-
-<script src="<?=base_url();?>assets/js/star-rating.min.js"></script>
+<style>.fixed-table-loading{display:none;}</style>
 
 <?php if($this->auth->is_logged_in(false, false)):?>
     
@@ -102,8 +100,8 @@ $(document).ready(function(){
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="<?php echo $admin_url;?>neworders">New orders</a></li>
-								<li><a href="<?php echo $admin_url;?>previousorders">Previous orders</a></li>
+								<li><a href="<?php echo $admin_url;?>orders/neworders">New orders</a></li>
+								<li><a href="<?php echo $admin_url;?>orders/previousorders">Previous orders</a></li>
 							</ul>
 						</li>
 					<?php endif; ?>

@@ -13,11 +13,32 @@ class Orders extends Admin_Controller {
 		$this->load->helper('url');
     }
     
-    function index()
+    function neworders()
     {
         $data['orders'] = $this->Order_model->get_neworders();
         $this->view($this->config->item('admin_folder').'/neworders', $data);
     }
+	
+	function previousorders(){
+		//$data['orders'] = $this->Order_model->get_previousorders();
+		$data['orders'] = "";
+        $this->view($this->config->item('admin_folder').'/previousorders',$data);
+	}
+	function GetPreviousOrders(){
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
+			$data['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
+			$data['todate'] =  date('Y-m-d',strtotime('last day of last month'));
+		}else{
+			$data['fromdate'] =  date('Y-m-d',strtotime('first day of this month'));
+			$data['todate'] =  date('Y-m-d',strtotime('last day of this month'));
+		}
+		
+		$data['orders'] = $this->Order_model->get_previousorders($data);
+		$this->view($this->config->item('admin_folder').'/previousorders',$data);
+	}
     
     function GetMenudetails(){
 		$data = $this->input->post('data');
@@ -85,14 +106,15 @@ class Orders extends Admin_Controller {
 			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
 			$name = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "";
 		}
-		$html.='<link href="'.base_url().'assets/css/star-rating.min.css">';
+		
 		$html.="<div class='modal-header'>
 				<button type='button' class='close' data-dismiss='modal'>&times;</button>
 				<h4 class='modal-title'>".$title."</h4>
 			  </div>
+			  
+					<form id='review' class='form-horizontal' method='post'  action='InserReview'>
 			  <div class='modal-body' class='form-horizontal'>
-					<form id='review' class='form-horizontal' method='post'  action='orders/InserReview'>
-				
+						<input type='hidden' name='feedbacktype' value='".$type."'>
 						<input type='hidden' name='feedbackfrom' value='".$userdata['id']."'>
 						<div class='form-group col-sm-12 col-xs-12'>
 							<label for='review' class='col-xs-12 col-sm-3'>Feedback to</label>
@@ -103,27 +125,27 @@ class Orders extends Admin_Controller {
 						<div class='form-group col-sm-12 col-xs-12'>
 							<label for='review' class='col-xs-12 col-sm-3'>Review</label>
 							<div class='col-sm-8 col-xs-12'>
-								<textarea class='form-control'  id='Comments'  name='Comments'></textarea>
+								<textarea class='form-control'  id='Comments'  name='comments'></textarea>
 							</div>
 						</div>
 						<h4 style='color: #fff;'>OR</h4>
-						<div class='form-group col-sm-12 col-xs-12'>
-							<label for='email' class='col-xs-12 col-sm-3'>Rating</label>
-							<div class='col-sm-6 col-xs-12'>
-								<input id='rating-input' type='number' />
+						
+							<label '>Rating</label>
+							<div >
+								
 							</div>
 							<div class='col-sm-3 col-xs-12'>
-								<input type='hidden' name='rate' id='rate' value=''>
+								<input type='text' name='rate' id='ratings' value=''>
 							</div>
 						</div>
 						<div class='pop-btn'>
-							<button type='submit' class='btn btn-danger'>Review</button>&nbsp;
+							
 						</div>
-					</form>
+					
 			</div>
 		  <div class='modal-footer'>
-			<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
-		  </div>";
+			<input type='submit' class='btn btn-danger' value='Review'>&nbsp;<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+		  </div></form>";
 		$html.="
 			<script>
 			 $('#rating-input').rating({
@@ -135,9 +157,13 @@ class Orders extends Admin_Controller {
 			</script>";
 		echo $html;
 	}
+	
+	function InserReview(){
+		$data = $this->input->post();
+		$this->Order_model->InserReview($data);
+	}
     function delete($id)
     {
-        
         $category   = $this->Restaurant_model->get_restaurant($id);
         //if the category does not exist, redirect them to the customer list with an error
         if ($category)
