@@ -47,7 +47,7 @@
 					<?php }else{ 
 						if($order->delivered_by != 0){?>
 						<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/3');?>',<?=htmlspecialchars(json_encode($order));?>);">Review delivery boy</a>
-						<?php } } ?>
+					<?php } } ?>
 				</td>
 				<td>
 				<?php if($order->restaurant_manager_status == "0"){ ?>

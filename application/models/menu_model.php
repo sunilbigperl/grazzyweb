@@ -102,4 +102,14 @@ Class Menu_model extends CI_Model
         $this->db->delete('restaurant_menu');
        
     }
+	
+	function MenuStatusChange($data){
+		
+		 if ($data['restaurant_id'] && $data['menu_id'])
+        {
+			$this->db->where('menu_id', $data['menu_id']);
+            $this->db->where('restaurant_id', $data['restaurant_id']);
+            $this->db->update('restaurant_menu', $data);
+        }
+	}
 }

@@ -15,7 +15,7 @@
 			<fieldset>
 				<label for="name">Restaurant name</label>
 				<?php
-				$data	= array('name'=>'restaurant_name', 'value'=>set_value('restaurant_name', $restaurant_name), 'class'=>'span12');
+				$data	= array('name'=>'restaurant_name', 'value'=>set_value('restaurant_name', $restaurant_name), 'class'=>'span6');
 				echo form_input($data);
 				?>
 				
@@ -27,24 +27,24 @@
 				
 				<label for="restaurant_address">Restaurant phone</label>
 				<?php
-				$data	= array('name'=>'restaurant_phone', 'value'=>set_value('restaurant_phone', $restaurant_phone), 'class'=>'span12');
+				$data	= array('name'=>'restaurant_phone', 'value'=>set_value('restaurant_phone', $restaurant_phone), 'class'=>'span6');
 				echo form_input($data);
 				?>
 				
 				<label for="restaurant_address">Restaurant email</label>
 				<?php
-				$data	= array('name'=>'restaurant_email', 'value'=>set_value('restaurant_email', $restaurant_email), 'class'=>'span12');
+				$data	= array('name'=>'restaurant_email', 'value'=>set_value('restaurant_email', $restaurant_email), 'class'=>'span6');
 				echo form_input($data);
 				?>
 				
 				<label for="restaurant_address">Restaurant branch</label>
 				<?php
-				$data	= array('name'=>'restaurant_branch', 'value'=>set_value('restaurant_branch', $restaurant_branch), 'class'=>'span12');
+				$data	= array('name'=>'restaurant_branch', 'value'=>set_value('restaurant_branch', $restaurant_branch), 'class'=>'span6');
 				echo form_input($data);
 				?>
 				
 				<label for="restaurant_manager">Restaurant manager</label>
-				<select name="restaurant_manager" class="form-control">
+				<select name="restaurant_manager" class="form-control span6">
 					<option value="">Select Restaurant manager</option>
 					<?php foreach($managers as $manager){
 						if($restaurant_manager == $manager->id){$select="selected";}else{$select="";}?>
@@ -57,7 +57,23 @@
 				
 				<label for="preparation_time">Preparation time(In mins)</label>
         		<?php
-				$data	= array('name'=>'preparation_time', 'value'=>set_value('preparation_time', $preparation_time), 'class'=>'span12');
+				$data	= array('name'=>'preparation_time', 'value'=>set_value('preparation_time', $preparation_time), 'class'=>'span6');
+				echo form_input($data);
+				?>
+				
+				<label for="commission">Commission(%)</label>
+				<?php
+				$data	= array('name'=>'commission', 'value'=>set_value('commission', $commission), 'class'=>'span6');
+				echo form_input($data);
+				?>
+				<label for="penalty">Penalty(%)</label>
+				<?php
+				$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'span6');
+				echo form_input($data);
+				?>
+				<label for="servicetax">Service tax(%)</label>
+				<?php
+				$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'span6');
 				echo form_input($data);
 				?>
 			</fieldset>

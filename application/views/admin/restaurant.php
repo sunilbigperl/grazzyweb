@@ -36,19 +36,54 @@
 					<?=$restaurant->restaurant_email; ?>
 				</td>
 				<td>
-				<?php if($this->auth->check_access('Admin')){ ?>
 				<a href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form/'.$restaurant->restaurant_id); ?>">Edit</a>
-				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/delete/'.$restaurant->restaurant_id); ?>">delete</a>
-				<?php } ?>
+				&nbsp;<a href="#" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/restaurant/delete/'.$restaurant->restaurant_id); ?>'; }">delete</a>
+				
 				</td>
 			
-				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Add menus</a></td>
+				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Add menus</a>&nbsp;&nbsp;&nbsp;
+					<?php if($restaurant->enabled == 1){ ?> 
+						<a href="#" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate restaurant</a>
+					<?php }else{ ?>
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id); ?>" >Activate restaurant</a>
+					<?php } ?>
+				</td>
 			</tr>
 			<?php
-			
+			$i++;
 			}
 		
 		?>
 	</tbody>
 	<?php endif;?>
 </table>
+<div class="modal fade" id="DeactivateRest" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+	<form action="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange'); ?>" method="post">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Deactivate Restaurant</h4>
+		</div>
+		<div class="modal-body">
+		  <div class="form-group">
+			<input type="hidden" name="id" id="restid" value="">
+			<label><strong>From date</strong></label>
+			<input type="date" name="FromDate" id="FromDate">
+			<label><strong>To date</strong></label>
+			<input type="date" name="ToDate" id="ToDate">
+			<input type="hidden" name="enabled" value="0">
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <input type="submit" name="submit" value="submit" class="btn btn-primary">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	</form>
+  </div>
+  
+</div>
+</div>
+  

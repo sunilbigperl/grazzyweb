@@ -13,6 +13,7 @@
 			<th data-field="id">Id</th>
 			<th data-field="name">menu</th>
 			<th data-field="price">price</th>
+			<th data-field="time">Item preparation time(In mins)</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -34,8 +35,18 @@
 				<td>
 					<?=$menu->price; ?>
 				</td>
-				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/'.$menu->menu_id.'/'.$res_id.''); ?>">Edit</a>
-				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/menus/delete/'.$menu->menu_id.'/'.$res_id.''); ?>">delete</a></td>
+				<td>
+					<?=$menu->itemPreparation_time; ?>
+				</td>
+				<td>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/'.$menu->menu_id.'/'.$res_id.''); ?>">Edit</a>
+				&nbsp;<a href="#" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/menus/delete/'.$menu->menu_id.'/'.$res_id.''); ?>'; }">delete</a>
+					&nbsp;&nbsp;<?php if($menu->enabled == 1){ ?> 
+						<a href="#" data-toggle="modal" data-target="#DeactivateMenu" onclick="$('#restid').val('<?=$res_id;?>');$('#menuid').val('<?=$menu->menu_id;?>')">Deactivate menu</a>
+					<?php }else{ ?>
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/menus/MenuStatusChange/'.$menu->menu_id.'/'.$res_id.''); ?>" >Activate restaurant</a>
+					<?php } ?>
+				</td>
 			</tr>
 			<?php
 			
@@ -45,3 +56,33 @@
 	</tbody>
 	<?php endif;?>
 </table>
+<div class="modal fade" id="DeactivateMenu" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+	<form action="<?php echo site_url($this->config->item('admin_folder').'/menus/MenuStatusChange'); ?>" method="post">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Deactivate Menu</h4>
+		</div>
+		<div class="modal-body">
+		  <div class="form-group">
+			<input type="hidden" name="restid" id="restid">
+			<input type="hidden" name="menuid" id="menuid">
+			<label><strong>From date</strong></label>
+			<input type="date" name="FromDate" id="FromDate">
+			<label><strong>To date</strong></label>
+			<input type="date" name="ToDate" id="ToDate">
+			<input type="hidden" name="enabled" value="0">
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <input type="submit" name="submit" value="submit" class="btn btn-primary">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	</form>
+  </div>
+  
+</div>
+</div>

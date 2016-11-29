@@ -98,4 +98,13 @@ Class Restaurant_model extends CI_Model
 	{
 		return	$this->db->like('pitstop_name', $name)->get('pitstops', $limit)->result();
 	}
+	
+	function RestaurantStatusChange($data){
+		
+		 if ($data['restaurant_id'])
+        {
+            $this->db->where('restaurant_id', $data['restaurant_id']);
+            $this->db->update('restaurant', $data);
+        }
+	}
 }

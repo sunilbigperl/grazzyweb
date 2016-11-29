@@ -2,7 +2,7 @@
 <script src="<?=base_url();?>assets/js/bootstrap-table.js"></script>
 <script src="<?=base_url();?>assets/js/star-rating.min.js"></script>
 
-<div class="container">
+<div class="container" style="margin-top:20px;margin-bottom:20px;">
 	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/GetPreviousOrders'); ?>" method="post">
 		<div class="form-group span4">
 		  <label for="from date"><strong>from date:</strong></label>
@@ -12,7 +12,7 @@
 		  <label for="to date"><strong>To date:</strong></label>
 		  <input type="date" class="form-control" id="todate" name="todate">
 		</div>
-		<div class="form-group span2"><input type="submit" class="btn btn-primary" value="Go" name="action"></div>
+		<div class="form-group span2"><input type="submit" class="btn btn-default" value="Go" name="action"></div>
 	<br/>
 		<div class="span12" style="margin-top:20px;">
 			<div class="form-group span6"><input type="submit" class="btn btn-primary" value="PreviousMonth" name="action"></div>
@@ -26,13 +26,13 @@
 	<thead>
 		<tr>
 			<th data-field="id">Order id</th>
-			<th data-field="name">Order Number</th>
-			<th data-field="price">Cost(Rs)</th>
-			<th data-field="date">Ordered on</th>
-			<th data-field="type">Order type</th>
-			<th>Keep ready by</th>
-			<th>Info</th>
+			<th data-field="name">Order number</th>
+			<th data-field="price">Customer bill amount(Rs)</th>
+			<th data-field="Commission">Commission</th>
+			<th data-field="Penalty">Penalty</th>
+			<th>Net amount</th>
 			<th>Status</th>
+			<th>Del partner remarks</th>
 		</tr>
 	</thead>
 	
@@ -53,28 +53,28 @@
 				<td>
 					<?=$order->total_cost; ?>
 				</td>
+				
 				<td>
-					<?=$order->ordered_on; ?>
+					<?=$order->commission;?>
+				</td>
+				<td>
+					<?=$order->penalty;?>
+				</td>
+				<td>
+					
 				</td>
 			
 				<td>
-					<?=$order->order_type;?>
+					<?php if($order->restaurant_manager_status == "0"){ ?>
+					<?php }else{
+						echo $order->restaurant_manager_status;
+					} ?>
 				</td>
-				<td></td>
 				<td> 
-					<?php if($order->ordertype_id == 3){ ?>
-						<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/2');?>',<?=htmlspecialchars(json_encode($order));?>);">Review customer</a>
-					<?php }else{ 
-						if($order->delivered_by != 0){?>
-						<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/3');?>',<?=htmlspecialchars(json_encode($order));?>);">Review delivery boy</a>
-						<?php } } ?>
+					<?php $remarks = $this->Order_model->get_delpartnerremarks($order);
+					echo isset($remarks[0]->comments) ? $remarks[0]->comments : "" ; ?>
 				</td>
-				<td>
-				<?php if($order->restaurant_manager_status == "0"){ ?>
-				<?php }else{
-					echo $order->restaurant_manager_status;
-				} ?>
-				</td>
+				
 			</tr>
 			<?php
 			$i++;
@@ -95,7 +95,9 @@
 
   </div>
 </div>
-<?php } ?>
+<?php }else{
+	echo "<div class='container'><h3>No data found</h3></div>";
+} ?>
 <script>
 	function showdetails(url,data){
 		$.ajax({

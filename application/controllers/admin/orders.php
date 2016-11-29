@@ -52,7 +52,7 @@ class Orders extends Admin_Controller {
 			 $email = $customer_details->email;
 			}else{
 				$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
-				$name = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "";
+				$name = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "Not assigned yet";
 				$phone = isset($deliveryboy_details->phone) ? $deliveryboy_details->phone : "";
 				$email = isset($deliveryboy_details->email) ? $deliveryboy_details->email : "";
 			}
@@ -114,6 +114,7 @@ class Orders extends Admin_Controller {
 			  
 					<form id='review' class='form-horizontal' method='post'  action='InserReview'>
 			  <div class='modal-body' class='form-horizontal'>
+						<input type='hidden' name='order_number' value='".$data['order_number']."'>
 						<input type='hidden' name='feedbacktype' value='".$type."'>
 						<input type='hidden' name='feedbackfrom' value='".$userdata['id']."'>
 						<div class='form-group col-sm-12 col-xs-12'>

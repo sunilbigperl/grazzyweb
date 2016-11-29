@@ -63,8 +63,8 @@ Class order_model extends CI_Model
 		return $result;
 	}
 	function InserReview($data){
-		$sql = "insert into feedback (feedbackfrom,feedbackto,comments,ratings,feedbacktype) values('".$data['feedbackfrom']."',
-		'".$data['feedbackto']."','".$data['comments']."','".$data['ratings']."','".$data['feedbacktype']."')";
+		$sql = "insert into feedback (feedbackfrom,feedbackto,comments,ratings,feedbacktypem,order_number) values('".$data['feedbackfrom']."',
+		'".$data['feedbackto']."','".$data['comments']."','".$data['ratings']."','".$data['feedbacktype']."','".$data['order_number']."')";
 		 $this->db->query($sql);
 	}
 	function GetMenudetails($data){
@@ -260,4 +260,9 @@ Class order_model extends CI_Model
 		return $return;
 	}
 	
+	public function get_delpartnerremarks($data){ 
+		$sql =$this->db->query("select comments from feedback where feedbackto=".$data->restaurant_id." and order_number='".$data->order_number."' and feedbacktype=5");
+		$result = $sql->result();
+		return $result;
+	}
 }

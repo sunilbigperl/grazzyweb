@@ -54,6 +54,9 @@ class Restaurant extends Admin_Controller {
 		$data['restaurant_manager']           = '';
         $data['enabled']        = '';
 		$data['preparation_time'] ="";
+		$data['servicetax'] = '';
+		$data['commission'] = '';
+		$data['penalty'] ='';
         
         //create the photos array for later use
         $data['photos']     = array();
@@ -85,6 +88,9 @@ class Restaurant extends Admin_Controller {
             $data['restaurant_manager']           = $restaurant->restaurant_manager;
 			$data['preparation_time'] = $restaurant->preparation_time;
             $data['enabled']        = $restaurant->enabled;
+			$data['servicetax'] = $restaurant->servicetax;
+			$data['commission'] = $restaurant->commission;
+			$data['penalty']	= $restaurant->penalty;
 			if(!$this->input->post('submit'))
 			{
 				$data['related_pitstops']	= $restaurant->related_pitstops;
@@ -209,6 +215,9 @@ class Restaurant extends Admin_Controller {
             $save['restaurant_langitude']      = $this->input->post('restaurant_langitude');
             $save['restaurant_branch']           = $this->input->post('restaurant_branch');
 			$save['restaurant_manager']           = $this->input->post('restaurant_manager');
+			$save['servicetax']	= $this->input->post('servicetax');
+			$save['commission'] = $this->input->post('commission');
+			$save['penalty'] = $this->input->post('penalty');
             $save['enabled']        = $this->input->post('enabled');
 			$save['preparation_time'] = $this->input->post('preparation_time');
 			if($this->input->post('related_pitstops'))
@@ -270,6 +279,18 @@ class Restaurant extends Admin_Controller {
 			}
 			echo json_encode($return);
 		}
+		
+	}
+	
+	function RestaurantStatusChange($id=false){
+		$enabled = $this->input->post('enabled');
+		$data['restaurant_id'] = false == $this->input->post('id') ? $id : $this->input->post('id');
+		$data['enabled'] = isset($enabled) ? $enabled : 1;
+		$data['deactivatefrom'] = date('Y-m-d',strtotime($this->input->post('FromDate')));
+		$data['deactivateto'] = date('Y-m-d',strtotime($this->input->post('ToDate')));
+		
+		$this->Restaurant_model->RestaurantStatusChange($data);
+		redirect('admin/restaurant', 'refresh');
 		
 	}
 }

@@ -46,6 +46,9 @@ class Menus extends Admin_Controller {
         $data['enabled']     = '';
 		$data['image']          = '';
 		$data['type']          = '';
+		$data['itemPreparation_time'] = '';
+		$data['code'] = '';
+		$data['description'] = '';
 		$data['photos']     = array();
 		$data['product_categories']	= array();
 		
@@ -64,6 +67,9 @@ class Menus extends Admin_Controller {
 			$data['enabled']       = $menus->enabled;
 			$data['image']          = $menus->image;
 			$data['type']          = $menus->type;
+			$data['code'] = $menus->code;
+			$data['description'] = $menus->description;
+			$data['itemPreparation_time'] = $menus->itemPreparation_time;
 			$data['menus'] = $this->Menu_model->GetMenu($menu_id);
 			$data['menu_id'] =$menu_id;
 			if(!$this->input->post('submit'))
@@ -184,6 +190,9 @@ class Menus extends Admin_Controller {
 			$save['menu'] 		=  $this->input->post('menu');
 			$save['type'] 		=  $this->input->post('type');
             $save['price']      = $this->input->post('price');
+			$save['code']		 = $this->input->post('code');
+			$save['description']		 = $this->input->post('description');
+			$save['itemPreparation_time']		 = $this->input->post('itemPreparation_time');
             $save['enabled']     = $this->input->post('enabled');
 			//save categories
 			$categories			= $this->input->post('categories');
@@ -216,4 +225,17 @@ class Menus extends Admin_Controller {
             $this->session->set_flashdata('error', lang('error_not_found'));
         }
     }
+	
+	function MenuStatusChange($menuid=false,$restid=false){
+		$enabled = $this->input->post('enabled');
+		$data['restaurant_id'] = false == $this->input->post('restid') ? $restid : $this->input->post('restid');
+		$data['menu_id'] = false == $this->input->post('menuid') ? $menuid : $this->input->post('menuid');
+		$data['enabled'] = isset($enabled) ? $enabled : 1;
+		$data['deactivatefrom'] = date('Y-m-d',strtotime($this->input->post('FromDate')));
+		$data['deactivateto'] = date('Y-m-d',strtotime($this->input->post('ToDate')));
+		
+		$this->Menu_model->MenuStatusChange($data);
+		redirect('admin/menus/index/'.$data['restaurant_id'], 'refresh');
+		
+	}
 }
