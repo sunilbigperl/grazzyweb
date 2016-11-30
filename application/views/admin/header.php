@@ -104,6 +104,7 @@ $(document).ready(function(){
 								<li><a href="<?php echo $admin_url;?>orders/previousorders">Previous orders</a></li>
 							</ul>
 						</li>
+						<li><a href="<?php echo $admin_url;?>orders/RequestBill">Request Bill</a></li>
 					<?php endif; ?>
                     <?php if($this->auth->check_access('Admin')) : ?>
 					

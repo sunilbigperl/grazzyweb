@@ -204,4 +204,65 @@ class Orders extends Admin_Controller {
 		}
 		
 	}
+	
+	public function RequestBill(){
+		$data['orders'] = "";
+        $this->view($this->config->item('admin_folder').'/requestbill',$data);
+	}
+	
+	public function GenerateBillMail()
+	{
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
+			$data['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
+			$data['todate'] =  date('Y-m-d',strtotime('last day of last month'));
+		}else{
+			$data['fromdate'] =  date('Y-m-d',strtotime('first day of this month'));
+			$data['todate'] =  date('Y-m-d',strtotime('last day of this month'));
+		}
+		$data['orders'] = $this->Order_model->get_previousorders($data);
+		$userdata = $this->session->userdata('admin');
+		$config = Array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'ssl://smtp.gmail.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'lvijetha90@gmail.com',
+			'smtp_pass' => '',
+			'mailtype'  => 'html', 
+			'charset'   => 'utf-8',
+			'newline'    => "\r\n"
+		);
+		$this->load->library('email',$config);
+		$this->email->from('lvijetha90@gmail.com', 'vijetha');
+		$this->email->to($userdata['email']);
+		 
+		$this->email->subject('Email Test');
+		$this->email->message('Testing the email class.');
+		
+		
+		
+		$html= $this->load->view($this->config->item('admin_folder').'/bill',$data,true);
+		
+        $filename  = "bill.pdf";
+		
+        $this->load->library('m_pdf');
+        $this->m_pdf->pdf->WriteHTML($html);
+		$this->m_pdf->pdf->Output($filename, "F");  
+		$this->email->attach($filename);
+		
+		 //Send mail 
+         if($this->email->send()) 
+		 {
+			echo "Your bill will be emailed to registred email id."; 
+         }
+		 else
+		 {	
+			// print_r($this->email->print_debugger());
+			echo "Error in sending Email."; 
+         }
+	}
+	
+	
 }
