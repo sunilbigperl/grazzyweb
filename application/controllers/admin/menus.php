@@ -238,4 +238,29 @@ class Menus extends Admin_Controller {
 		redirect('admin/menus/index/'.$data['restaurant_id'], 'refresh');
 		
 	}
+	
+	function ImportMenu($id)
+	{
+			$target_file =  basename($_FILES["menufile"]["name"]);
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+			$uploadOk = 0;
+			if($imageFileType == "csv"){
+				$uploadOk = 1;
+			}
+			if ($uploadOk == 1) {
+				
+				if (move_uploaded_file($_FILES["menufile"]["tmp_name"], "uploads/" . basename($_FILES["menufile"]["name"]))) {
+						$this->load->library('csvreader');
+						$result =   $this->csvreader->parse_file("uploads/".$_FILES["menufile"]["name"]);//path to csv file
+
+						$data['menus'] =  $result;
+						$this->Menu_model->InsertMenus($data,$id);
+						unlink("uploads/".$_FILES["menufile"]["name"]); 
+						redirect('admin/menus/index/'.$id, 'refresh');
+						
+				}
+			
+			}
+		
+	}
 }

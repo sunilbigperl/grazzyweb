@@ -15,6 +15,7 @@
 			<th data-field="price">Email</th>
 			<th>Action</th>
 			<th></th>
+			<th>Import menus<a href="../../restaurant_menu.csv">Download the format</a></th>
 		</tr>
 	</thead>
 	
@@ -41,12 +42,18 @@
 				
 				</td>
 			
-				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Add menus</a>&nbsp;&nbsp;&nbsp;
+				<td>
+					<a href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Add menus</a>&nbsp;&nbsp;&nbsp;
 					<?php if($restaurant->enabled == 1){ ?> 
 						<a href="#" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate restaurant</a>
 					<?php }else{ ?>
 						<a href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id); ?>" >Activate restaurant</a>
 					<?php } ?>
+				</td>
+				<td>
+					<form action="<?php echo site_url($this->config->item('admin_folder').'/menus/ImportMenu/'.$restaurant->restaurant_id); ?>" method="post" enctype="multipart/form-data">
+						<input type="file" name="menufile"><input type="submit" name="submit" value="submit">
+					</form>
 				</td>
 			</tr>
 			<?php

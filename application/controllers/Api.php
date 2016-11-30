@@ -357,18 +357,20 @@ class Api extends REST_Controller {
 	}
 	
 	public function saveAddress_post(){
-		if($this->input->post('id') != ""){ $id = $this->input->post('id'); }else{ $id ='';}
+		$data = json_decode(file_get_contents("php://input"),true);
+		
+		/* if($this->input->post('id') != ""){ $id = $this->input->post('id'); }else{ $id ='';}
 		if($this->input->post('address1') != ""){ $address1 = $this->input->post('address1'); }else{ $address1 ='';}
 		if($this->input->post('address2') != ""){ $address2 = $this->input->post('address2'); }else{ $address2 ='';}
 		if($this->input->post('city_state') != ""){ $city_state = $this->input->post('city_state'); }else{ $city_state ='';}
 		if($this->input->post('location0') != ""){ $location0 = $this->input->post('location0'); }else{ $location0 ='';}
 		if($this->input->post('location1') != ""){ $location1 = $this->input->post('location1'); }else{ $location1 ='';}
 		if($this->input->post('location2') != ""){ $location2 = $this->input->post('location2'); }else{ $location2 ='';}
-		if($this->input->post('zip') != ""){ $zip = $this->input->post('zip'); }else{ $zip ='';}
+		if($this->input->post('zip') != ""){ $zip = $this->input->post('zip'); }else{ $zip ='';} */
 		
-		$field_data = array('address1' => $address1,'address2' => $address2,'city_state' => $city_state,
-		'location0' => $location0,'location1' => $location1,'location2' => $location2,'zip' => $this->input->post('zip'));
-		$data = array('id'=>$id,'company'=>$this->input->post('company'),'customer_id'=>$this->input->post('customer_id'),'field_data'=>$field_data);
+		$field_data = array('address1' => $data['address1'],'address2' => $data['address2'],'city_state' => $data['city_state'],
+		'location0' => $data['location0'],'location1' => $data['location1'],'location2' => $data['location2'],'zip' => $data['zip']);
+		$data = array('id'=>$data['id'],'Entry_name'=>$data['company'],'customer_id'=>$data['customer_id'],'field_data'=>$field_data);
 		$saveAddress = $this->api_model->saveAddress($data);
 		if($saveAddress > 1){
 			 $this->set_response([
@@ -377,7 +379,7 @@ class Api extends REST_Controller {
 		}else{
 			 $this->set_response([
                 'status' => FALSE,
-                'message' => 'restaurants  could not be found for the location'
+                'message' => 'Error inserting details'
             ], REST_Controller::HTTP_NOT_FOUND);
 		}
 	}

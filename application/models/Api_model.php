@@ -306,10 +306,12 @@ class Api_model extends CI_Model
 			$result[$i] = true;
 			//echo $this->db->last_query(); exit;
 			foreach($sql->result_array() as $row){
-         	
-                $profile_image_path=$row['profile_image'];
-			    $profile_image_path=$this->config->base_url()."uploads/".$profile_image_path;
-			    $result['data'][$i]['profile_image']=$profile_image_path;
+				if(isset($row['profile_image']) && $row['profile_image'] != ""){
+					$profile_image_path=$this->config->base_url()."uploads/".$row['profile_image'];
+					$result['data']=$profile_image_path;
+				}else{
+					$result['data'] = "no_picture";
+				}
 				
 			};
 		}else{
