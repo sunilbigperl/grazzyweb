@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2016 at 06:28 PM
+-- Generation Time: Nov 30, 2016 at 06:18 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -4364,16 +4364,17 @@ CREATE TABLE `customers` (
   `active` tinyint(1) NOT NULL,
   `group_id` int(11) NOT NULL DEFAULT '1',
   `confirmed` tinyint(1) NOT NULL DEFAULT '0',
-  `fb_login` tinyint(2) NOT NULL DEFAULT '0'
+  `fb_login` tinyint(2) NOT NULL DEFAULT '0',
+  `profile_image` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `firstname`, `lastname`, `email`, `email_subscribe`, `phone`, `company`, `dob`, `gender`, `default_billing_address`, `default_shipping_address`, `ship_to_bill_address`, `password`, `active`, `group_id`, `confirmed`, `fb_login`) VALUES
-(2, 'sunil', 'yadav', 'sunil@bigperl.com', 1, '977656655', 'Bigperl', '0000-00-00', '', 0, 0, 'true', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', 1, 1, 0, 0),
-(3, 'viju', 'l', 'viju@gmail.com', 0, '9886656363', '', '1993-08-25', 'Female', 0, 0, 'true', '717f1cc273ee989c1667ce089441d9e88b92c129', 1, 1, 0, 0);
+INSERT INTO `customers` (`id`, `firstname`, `lastname`, `email`, `email_subscribe`, `phone`, `company`, `dob`, `gender`, `default_billing_address`, `default_shipping_address`, `ship_to_bill_address`, `password`, `active`, `group_id`, `confirmed`, `fb_login`, `profile_image`) VALUES
+(2, 'sunil', 'yadav', 'sunil@bigperl.com', 1, '977656655', 'Bigperl', '0000-00-00', '', 0, 0, 'true', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', 1, 1, 0, 0, ''),
+(3, 'viju', 'l', 'viju@gmail.com', 0, '9886656363', '', '1993-08-25', 'Female', 0, 0, 'true', '717f1cc273ee989c1667ce089441d9e88b92c129', 1, 1, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -4939,7 +4940,10 @@ CREATE TABLE `restaurant_menu` (
 INSERT INTO `restaurant_menu` (`menu_id`, `restaurant_id`, `code`, `menu`, `description`, `price`, `image`, `type`, `itemPreparation_time`, `enabled`, `deactivatefrom`, `deactivateto`) VALUES
 (10, 4, '0', 'menuu1', '', 100, '', 'veg', '', 1, NULL, NULL),
 (8, 3, '123', 'menu1', 'test', 200, '', 'non veg', '10', 0, '2016-11-11', '2016-11-25'),
-(11, 3, '0', 'menu3', '', 1000, '', '', '', 1, NULL, NULL);
+(11, 3, '0', 'menu3', '', 1000, '', '', '', 1, NULL, NULL),
+(12, 3, '0', 'menuu1', '', 100, '', 'veg', '', 1, NULL, NULL),
+(13, 3, '123', 'menu1', 'test', 200, '', 'non veg', '10', 0, NULL, NULL),
+(14, 3, '0', 'menu3', '', 1000, '', '', '', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5247,7 +5251,7 @@ ALTER TABLE `coupons`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `customers_address_bank`
 --
@@ -5332,7 +5336,7 @@ ALTER TABLE `restaurant`
 -- AUTO_INCREMENT for table `restaurant_menu`
 --
 ALTER TABLE `restaurant_menu`
-  MODIFY `menu_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `menu_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `restaurant_suggest`
 --
