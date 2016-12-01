@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2016 at 06:18 PM
+-- Generation Time: Dec 01, 2016 at 06:05 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -4373,7 +4373,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `firstname`, `lastname`, `email`, `email_subscribe`, `phone`, `company`, `dob`, `gender`, `default_billing_address`, `default_shipping_address`, `ship_to_bill_address`, `password`, `active`, `group_id`, `confirmed`, `fb_login`, `profile_image`) VALUES
-(2, 'sunil', 'yadav', 'sunil@bigperl.com', 1, '977656655', 'Bigperl', '0000-00-00', '', 0, 0, 'true', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', 1, 1, 0, 0, ''),
+(2, 'sunil', 'yadav', 'sunil@bigperl.com', 1, '977656655', 'Bigperl', '0000-00-00', '', 0, 0, 'true', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', 1, 1, 0, 0, 'image2.png'),
 (3, 'viju', 'l', 'viju@gmail.com', 0, '9886656363', '', '1993-08-25', 'Female', 0, 0, 'true', '717f1cc273ee989c1667ce089441d9e88b92c129', 1, 1, 0, 0, '');
 
 -- --------------------------------------------------------
@@ -4629,32 +4629,34 @@ CREATE TABLE `orders` (
   `passcode` varchar(100) NOT NULL,
   `delivered_on` date DEFAULT NULL,
   `delivery_location` text NOT NULL,
-  `restaurant_manager_status` varchar(100) NOT NULL DEFAULT '0'
+  `restaurant_manager_status` varchar(100) NOT NULL DEFAULT '0',
+  `customer_image` varchar(300) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `order_number`, `customer_id`, `restaurant_id`, `ordered_on`, `status`, `shipping`, `tax`, `coupon_discount`, `coupon_id`, `order_type`, `total_cost`, `shipping_lat`, `shipping_long`, `delivered_by`, `passcode`, `delivered_on`, `delivery_location`, `restaurant_manager_status`) VALUES
-(8, '', 3, 3, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
-(7, '', 3, 3, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
-(6, '', 3, 4, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
-(9, '', 3, 3, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 2, 818, 1.23232, 1.23232, 4, '', NULL, '', '0'),
-(10, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
-(11, '', 3, 4, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
-(12, '', 3, 4, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
-(13, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
-(14, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
-(15, '', 3, 3, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
-(16, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0'),
-(17, '1480229676', 3, 0, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Dhoni', NULL, '', '0'),
-(18, '1480229700', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 3, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', 'Accepted'),
-(19, '1480229720', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0'),
-(20, '1480229742', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0'),
-(21, '1480229782', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0'),
-(22, '1480345682', 3, 3, '2016-11-28', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0'),
-(23, '1480443312', 3, 3, '2016-11-29', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, 'place name here', '0');
+INSERT INTO `orders` (`id`, `order_number`, `customer_id`, `restaurant_id`, `ordered_on`, `status`, `shipping`, `tax`, `coupon_discount`, `coupon_id`, `order_type`, `total_cost`, `shipping_lat`, `shipping_long`, `delivered_by`, `passcode`, `delivered_on`, `delivery_location`, `restaurant_manager_status`, `customer_image`) VALUES
+(8, '', 3, 3, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', ''),
+(7, '', 3, 3, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', ''),
+(6, '', 3, 4, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', ''),
+(9, '', 3, 3, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 2, 818, 1.23232, 1.23232, 4, '', NULL, '', '0', ''),
+(10, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', ''),
+(11, '', 3, 4, '2016-11-26', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', ''),
+(12, '', 3, 4, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', ''),
+(13, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', ''),
+(14, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', ''),
+(15, '', 3, 3, '2016-11-26', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', ''),
+(16, '', 3, 0, '2016-11-26', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', ''),
+(17, '1480229676', 3, 0, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Dhoni', NULL, '', '0', ''),
+(18, '1480229700', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 3, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', 'Accepted', ''),
+(19, '1480229720', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', ''),
+(20, '1480229742', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', ''),
+(21, '1480229782', 3, 3, '2016-11-27', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', ''),
+(22, '1480345682', 3, 3, '2016-11-28', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', ''),
+(23, '1480443312', 3, 3, '2016-11-29', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, 'place name here', '0', ''),
+(24, '1480613855', 3, 3, '2016-12-01', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '');
 
 -- --------------------------------------------------------
 
@@ -4769,7 +4771,9 @@ INSERT INTO `order_items` (`id`, `order_id`, `menu_id`, `quantity`, `cost`, `con
 (32, 22, 9, 8, 100, ''),
 (33, 22, 8, 6, 200, ''),
 (34, 23, 9, 8, 100, ''),
-(35, 23, 8, 6, 200, '');
+(35, 23, 8, 6, 200, ''),
+(36, 24, 9, 8, 100, ''),
+(37, 24, 8, 6, 200, '');
 
 -- --------------------------------------------------------
 
@@ -4954,7 +4958,7 @@ INSERT INTO `restaurant_menu` (`menu_id`, `restaurant_id`, `code`, `menu`, `desc
 CREATE TABLE `restaurant_suggest` (
   `id` int(11) NOT NULL,
   `restaurant_name` varchar(250) NOT NULL,
-  `restaurant_address` varchar(250) NOT NULL,
+  `restaurant_address` text NOT NULL,
   `restaurant_phone` bigint(250) NOT NULL,
   `restaurant_email` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -4975,7 +4979,9 @@ INSERT INTO `restaurant_suggest` (`id`, `restaurant_name`, `restaurant_address`,
 (9, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
 (10, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
 (11, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
-(12, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com');
+(12, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com'),
+(13, 'test', '', 0, 'tets@gmail.com'),
+(14, 'test', '', 0, 'tets@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -5296,7 +5302,7 @@ ALTER TABLE `feedbacktype`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `orders-old`
 --
@@ -5306,7 +5312,7 @@ ALTER TABLE `orders-old`
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `order_type`
 --
@@ -5341,7 +5347,7 @@ ALTER TABLE `restaurant_menu`
 -- AUTO_INCREMENT for table `restaurant_suggest`
 --
 ALTER TABLE `restaurant_suggest`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `routes`
 --

@@ -273,13 +273,31 @@ class Api_model extends CI_Model
 		return $result;
 	}
 	
-	public function restaurantforlocation($data){
-		
+	public function pitstopsuser1($data){
+		$sql = $this->db->query("select * from pitstops where enabled=1");
+		if($sql->num_rows()>0){
+			$data = $sql->result_array();
+			$i=0;
+			foreach($data as $pitstop){
+				$result[$i] = $pitstop;
+				$sql1=$this->db->query("select b.image from pitstop_restaurants a, restaurant b where a.pitstop_id='".$pitstop['pitstop_id']."' and a.restaurants_id=b.restaurant_id");
+				if($sql1->num_rows()>0){
+					$data1 = $sql1->result_array();
+					foreach($data1 as $rest){
+						$result[$i]['restaurants'][] = "uploads/images/thumbnails/".$rest['image'];
+					}
+				}
+			$i++;
+			}
+		}else{
+			$result =0;
+		}
+		print_r($result); exit;
 	}
 	
 	public function restaurantSuggest($data){
-		
-		$sql =$this->db->query("insert into  restaurant_suggest (id,restaurant_name,restaurant_phone,restaurant_email) values('".$data['id']."','".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_email']."')");
+		$sql =$this->db->query("insert into  restaurant_suggest (restaurant_name,restaurant_phone,restaurant_address,restaurant_email) 
+		values('".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_address']."','".$data['restaurant_email']."')");
 		
 		if($sql){
 			return true;
@@ -307,7 +325,7 @@ class Api_model extends CI_Model
 			//echo $this->db->last_query(); exit;
 			foreach($sql->result_array() as $row){
 				if(isset($row['profile_image']) && $row['profile_image'] != ""){
-					$profile_image_path=$this->config->base_url()."uploads/".$row['profile_image'];
+					$profile_image_path="uploads/images/small".$row['profile_image'];
 					$result['data']=$profile_image_path;
 				}else{
 					$result['data'] = "no_picture";
@@ -322,11 +340,12 @@ class Api_model extends CI_Model
 	}
 	
 	public function profilePictureUpdate($data){
-		$image =$data['id'].".png";
+		$image ="image".$data['id'].".png";
+		
 		$sql=$this->db->query("UPDATE customers SET profile_image='".$image."' where id='".$data['id']."'");
 		
 	    if($sql==true){
-			$path = "uploads/.".$data['id'].".png";
+			$path = "uploads/".$image;
 			file_put_contents($path,base64_decode($image));
 			$result[0] = true;
 		}else{
@@ -367,12 +386,16 @@ class Api_model extends CI_Model
 	
 	 public function orderInsert($data){
 		$order_number = strtotime(date("Y-m-d H:i:s",time()));
-		  $date = date('Y-m-d H:i:s');
-		  $sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long)
-		   values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Order Placed','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
-		   '".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."')";
-		   $this->db->query($sql);
-		   $id = $this->db->insert_id();
+		$date = date('Y-m-d H:i:s');
+		$image =$order_number.".png";
+		$path = "uploads/".$image;
+		file_put_contents($path,base64_decode($image));
+		
+		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image)
+		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Order Placed','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
+		'".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."')";
+		$this->db->query($sql);
+		$id = $this->db->insert_id();
 		if($id > 0){
 			if(count($data['products']) > 0){
 				foreach($data['products'] as $item){

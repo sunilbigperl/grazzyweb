@@ -1,55 +1,81 @@
-<?php if(!$payment_module_installed):?>
-	
-	<div class="alert">
-		<a class="close" data-dismiss="alert">×</a>
-		<strong><?php echo lang('common_note') ?>:</strong> <?php echo lang('no_payment_module_installed'); ?>
-	</div>
 
-<?php endif;?>
-
-<?php if(!$shipping_module_installed):?>
-	<div class="alert">
-		<a class="close" data-dismiss="alert">×</a>
-		<strong><?php echo lang('common_note') ?>:</strong> <?php echo lang('no_shipping_module_installed'); ?>
-	</div>
-
-<?php endif;?>
 
 <h2><?php echo lang('recent_orders') ?></h2>
-<table class="table table-striped">
-    <thead>
+<link href="<?=base_url();?>assets/css/bootstrap-table.css">
+<script src="<?=base_url();?>assets/js/bootstrap-table.js"></script>
+<script src="<?=base_url();?>assets/js/star-rating.min.js"></script>
+<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
+		 data-search="true" id="table-pagination" data-sort-order="desc">
+	<thead>
 		<tr>
-			<th class="gc_cell_left"><?php echo lang('order_number') ?></th>
-			<th><?php echo lang('bill_to') ?></th>
-			<th><?php echo lang('ship_to') ?></th>
-			<th><?php echo lang('ordered_on') ?></th>
-			<th><?php echo lang('status') ?></th>
-			<th class="gc_cell_right"><?php echo lang('notes') ?></th>
-	    </tr>
+			<th data-field="id">Order id</th>
+			<th data-field="name">Order Number</th>
+			<th data-field="price">Cost(Rs)</th>
+			<th data-field="date">Ordered on</th>
+			<th data-field="type">Order type</th>
+			<th>Keep ready by</th>
+			<th>Info</th>
+			<th>Action</th>
+		</tr>
 	</thead>
-
-    <tbody>
-    <?php foreach($orders as $order): ?>
-	<tr>
-		<td  class="gc_cell_left"><a href="<?php echo site_url($this->config->item('admin_folder').'/orders/order/'.$order->id); ?>"><?php echo $order->order_number; ?></a></td>
-		<td><?php echo $order->bill_lastname.', '.$order->bill_firstname; ?></td>
-		<td><?php echo $order->ship_lastname.', '.$order->ship_firstname; ?></td>
-		<td><?php echo format_date($order->ordered_on); ?></td>
-		<td style="width:150px;">
-			<?php echo $order->status ?> 
-				
-		</td>
-		<td class="gc_cell_right"><div class="MainTableNotes"><?php echo $order->notes; ?></div></td>
-	</tr>
-    <?php endforeach; ?>
-    </tbody>
+	
+	<?php echo (count($orders) < 1)?	'<tr><td style="text-align:center;" colspan="2">No new orders found</td></tr>'	:	''; ?>
+	<?php if($orders):?>
+	<tbody>
+		
+		<?php
+		$GLOBALS['admin_folder'] = $this->config->item('admin_folder');
+			$i=1;
+			foreach($orders as $order)
+			{?>
+			<tr class="gc_row">
+				<td><?=$i;?></td>
+				<td>
+					<a href="#" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
+				</td>
+				<td>
+					<?=$order->total_cost; ?>
+				</td>
+				<td>
+					<?=$order->ordered_on; ?>
+				</td>
+			
+				<td>
+					<?=$order->order_type;?>
+				</td>
+				<td></td>
+				<td> 
+					<?php if($order->ordertype_id == 3){ ?>
+						<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/2');?>',<?=htmlspecialchars(json_encode($order));?>);">Review customer</a>
+					<?php }else{ 
+						if($order->delivered_by != 0){?>
+						<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/3');?>',<?=htmlspecialchars(json_encode($order));?>);">Review delivery boy</a>
+					<?php } } ?>
+				</td>
+				<td>
+				<?php if($order->restaurant_manager_status == "0"){ ?>
+					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-sucess btn-xs">Accept</a>
+					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
+				<?php }else{
+					echo $order->restaurant_manager_status;
+				} ?>
+				</td>
+			</tr>
+			<?php
+			$i++;
+			}
+		
+		?>
+	</tbody>
+	<?php endif;?>
 </table>
 
-<div class="row">
+
+<!--<div class="row">
 	<div class="span12" style="text-align:center;">
 		<a class="btn btn-large" href="<?php echo site_url(config_item('admin_folder').'/orders');?>"><?php echo lang('view_all_orders');?></a>
 	</div>
-</div>
+</div>-->
 
 
 <h2><?php echo lang('recent_customers') ?></h2>

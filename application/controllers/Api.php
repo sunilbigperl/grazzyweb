@@ -284,7 +284,7 @@ class Api extends REST_Controller {
             'northeast_lat' => $this->post('northeast_lat'),
 			'northeast_lng' => $this->post('northeast_lng'),
         ];
-		$pitstopsuser =  $this->api_model->pitstopsuser($data);
+		$pitstopsuser =  $this->api_model->pitstopsuser1($data);
 		if (!empty($pitstopsuser))
         {
             $this->set_response($pitstopsuser, REST_Controller::HTTP_OK); 
@@ -387,7 +387,7 @@ class Api extends REST_Controller {
 	 public function suggestRestaurant_post(){
 		  
 		$data=array('restaurant_name'=>$this->post('restaurant_name'),'restaurant_address'=>$this->post('location'),
-		  'restaurant_phone'=>$this->post('phone number'),'restaurant_email'=>$this->post('email'));
+		  'restaurant_phone'=>$this->post('phone_number'),'restaurant_email'=>$this->post('email'));
 		$result=$this->api_model->restaurantSuggest($data);
 		
 		if (isset($result)){
