@@ -19,6 +19,12 @@ class Orders extends Admin_Controller {
         $this->view($this->config->item('admin_folder').'/neworders', $data);
     }
 	
+	function orders()
+    {
+        $data['orders'] = $this->Order_model->get_deliverypartnerneworders();
+        $this->view($this->config->item('admin_folder').'/delorders', $data);
+    }
+	
 	function previousorders(){
 		//$data['orders'] = $this->Order_model->get_previousorders();
 		$data['orders'] = "";
@@ -62,7 +68,7 @@ class Orders extends Admin_Controller {
 				  </div>
 				  <div class='modal-body' class='form-horizontal'>
 					<div class='form-group'>
-						<label><strong>Customer name:</strong>".$name."</label>
+						<label><strong>"; if($data['order_type'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":</strong>".$name."</label>
 						<label><strong>Mobile No:</strong>".$phone."</label>
 						<label><strong>Email:</strong>".$email."</label>
 						<label><strong>Delivery location:</strong>".$data['delivery_location']."</label>
@@ -89,23 +95,34 @@ class Orders extends Admin_Controller {
 	function ChangeRestMangerStatus($status,$id){
 		$status = $this->Order_model->ChangeRestMangerStatus($status,$id);
 		if($status){
-			 redirect('admin/orders', 'refresh');
+			 redirect('orders/neworders', 'refresh');
 		}
 	}
-
+	
+	function ChangeDelPartnerStatus($status,$id){
+		$status = $this->Order_model->ChangeDelPartnerStatus($status,$id);
+		if($status){
+			 redirect('orders/orders', 'refresh');
+		}
+	}
 	function Review($type){
 		
 		$html="";
 		$userdata = $this->session->userdata('admin');
 		$data = $this->input->post('data');
-		if($type ==  2){$title = "Review Customer";}elseif($type == 3){ $title ="Review Delivery boy";}else{$title="";}
-		if($data['order_type'] == 3){
-		 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
-		 $name = $customer_details->firstname." ".$customer_details->lastname;
-		}else{
+		if($type ==  4){
+			$title = "Review Restaurant";
+			$name = $data['restaurant_name'];
+			$id= $data['restaurant_id'];
+		}elseif($type == 5){ 
+			$title ="Review Delivery boy";
 			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
 			$name = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "";
+			$id= $data['id'];
+		}else{
+			$title="";
 		}
+		
 		
 		$html.="<div class='modal-header'>
 				<button type='button' class='close' data-dismiss='modal'>&times;</button>
@@ -120,7 +137,8 @@ class Orders extends Admin_Controller {
 						<div class='form-group col-sm-12 col-xs-12'>
 							<label for='review' class='col-xs-12 col-sm-3'>Feedback to</label>
 							<div class='col-sm-8 col-xs-12'>
-							<input type='text' name='feedbackto' class='form-control' value='".$name."'>
+							<input type='text' name='' class='form-control' value='".$name."' readonly>
+							<input type='text' name='feedbackto' class='form-control' value='".$id."' readonly>
 							</div>
 						</div>
 						<div class='form-group col-sm-12 col-xs-12'>
@@ -136,7 +154,7 @@ class Orders extends Admin_Controller {
 								
 							</div>
 							<div class='col-sm-3 col-xs-12'>
-								<input type='text' name='rate' id='ratings' value=''>
+								<input type='text' name='ratings' id='ratings' value=''>
 							</div>
 						</div>
 						<div class='pop-btn'>
@@ -162,6 +180,7 @@ class Orders extends Admin_Controller {
 	function InserReview(){
 		$data = $this->input->post();
 		$this->Order_model->InserReview($data);
+		redirect('orders/orders');
 	}
     function delete($id)
     {

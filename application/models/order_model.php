@@ -50,6 +50,18 @@ Class order_model extends CI_Model
 		return $result;
 	}
 	
+	function get_deliverypartnerneworders(){
+		$userdata = $this->session->userdata('admin');
+		$date = date("Y-m-d");
+		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.order_type != 3 and a.ordered_on='".$date."' and a.delivery_partner = ''");
+		if($sql->num_rows() > 0){
+			$result	= $sql->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
 	function get_previousorders($data){
 		$userdata = $this->session->userdata('admin');
 		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
@@ -62,8 +74,19 @@ Class order_model extends CI_Model
 		}
 		return $result;
 	}
+	
+	function CheckFeedback($order,$type){
+		$sql = $this->db->query("select * from feedback where order_number='".$order."' and feedbacktype=".$type."");
+		
+		if($sql->num_rows() > 0){
+			$result	= 1;
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
 	function InserReview($data){
-		$sql = "insert into feedback (feedbackfrom,feedbackto,comments,ratings,feedbacktypem,order_number) values('".$data['feedbackfrom']."',
+		$sql = "insert into feedback (feedbackfrom,feedbackto,comments,ratings,feedbacktype,order_number) values('".$data['feedbackfrom']."',
 		'".$data['feedbackto']."','".$data['comments']."','".$data['ratings']."','".$data['feedbacktype']."','".$data['order_number']."')";
 		 $this->db->query($sql);
 	}
@@ -80,7 +103,6 @@ Class order_model extends CI_Model
 	
 	function ChangeRestMangerStatus($status,$id){
 		if($status == "1"){ $data = "Accepted"; }else{ $data = "Rejected"; }
-		echo 'update orders set restaurant_manager_status="'.$data.'" where id="'.$id.'"'; exit;
 		$sql = $this->db->query('update orders set restaurant_manager_status="'.$data.'" where id="'.$id.'"');
 		if($sql){
 			return true;
@@ -89,6 +111,17 @@ Class order_model extends CI_Model
 		}
 	}
 	
+	function ChangeDelPartnerStatus($status,$id){
+		if($status == "1"){ $data = "Accepted"; }else{ $data = "Rejected"; }
+		$userdata = $this->session->userdata('admin');
+		
+		$sql = $this->db->query('update orders set delivery_partner ="'.$userdata['id'].'",delivery_partner_status="'.$data.'" where id="'.$id.'"');
+		if($sql){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	//get an individual customers orders
 	function get_customer_orders($id, $offset=0)
 	{

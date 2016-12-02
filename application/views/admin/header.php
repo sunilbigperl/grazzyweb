@@ -106,6 +106,16 @@ $(document).ready(function(){
 						</li>
 						<li><a href="<?php echo $admin_url;?>orders/RequestBill">Request Bill</a></li>
 					<?php endif; ?>
+					<?php if($this->auth->check_access('Deliver manager')) : ?>
+						
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="<?php echo $admin_url;?>orders/orders">New orders</a></li>
+								<li><a href="<?php echo $admin_url;?>orders/previousorders">Previous orders</a></li>
+							</ul>
+						</li>
+					<?php endif; ?>
                     <?php if($this->auth->check_access('Admin')) : ?>
 					
 					<li><a href="<?php echo $admin_url;?>"><?php echo lang('common_home');?></a></li>

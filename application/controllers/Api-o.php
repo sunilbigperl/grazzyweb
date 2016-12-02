@@ -357,31 +357,14 @@ class Api extends REST_Controller {
 	}
 	
 	public function saveAddress_post(){
-		
 		$data = json_decode(file_get_contents("php://input"),true);
-		
-		/* if($this->input->post('id') != ""){ $id = $this->input->post('id'); }else{ $id ='';}
-		if($this->input->post('address1') != ""){ $address1 = $this->input->post('address1'); }else{ $address1 ='';}
-		if($this->input->post('address2') != ""){ $address2 = $this->input->post('address2'); }else{ $address2 ='';}
-		if($this->input->post('city_state') != ""){ $city_state = $this->input->post('city_state'); }else{ $city_state ='';}
-		if($this->input->post('location0') != ""){ $location0 = $this->input->post('location0'); }else{ $location0 ='';}
-		if($this->input->post('location1') != ""){ $location1 = $this->input->post('location1'); }else{ $location1 ='';}
-		if($this->input->post('location2') != ""){ $location2 = $this->input->post('location2'); }else{ $location2 ='';}
-		if($this->input->post('zip') != ""){ $zip = $this->input->post('zip'); }else{ $zip ='';} */
-		
-	/*	$field_data = array('address1' => $data['address1'],'address2' => $data['address2'],'city_state' => $data['city_state'],
-		'location0' => $data['location0'],'location1' => $data['location1'],'location2' => $data['location2'],'zip' => $data['zip']);
-		$data = array('id'=>$data['id'],'Entry_name'=>$data['company'],'customer_id'=>$data['customer_id'],'field_data'=>$field_data);*/
-		
 		
 		$field_data=array('address1'=>$this->post('address1'),'address2'=>$this->post('address2'),'city_state'=>$this->post('city_state'),
 		       'location0'=>$this->post('location0'),'location1'=>$this->post('location1'),'location2'=>$this->post('location2'),
 			   'zip'=>$this->post('zip'));
-	    $data=array('id'=>$this->post('id'),'Entry_name'=>$this->post('company'),'customer_id'=>$this->post('customer_id'),'field_data'=>$field_data);  
-		
+	    $data1=array('id'=>$this->post('id'),'Entry_name'=>$this->post('company'),'customer_id'=>$this->post('customer_id'),'field_data'=>$field_data);  
 		
 		$saveAddress = $this->api_model->saveAddress($data);
-		//print_r($data);exit;
 		if($saveAddress > 1){
 			 $this->set_response([
                 'status' => "success",
@@ -533,73 +516,5 @@ class Api extends REST_Controller {
 				$this->response($message, REST_Controller::HTTP_BAD_REQUEST); 	
 					  
 		  }
-    }
-	/*api number 23*/
-    public function orderEmail_post(){
-		
-		$data=array('customer_id'=>$this->post('user_id'));
-		$result=$this->api_model->userOrderEmail($data);
-        if(isset($result)){
-			$message=[
-			'Status'=>'Success'
-		//	'data'=>$result['data']
-			
-			]; 
-			$this->set_response($message, REST_Controller::HTTP_OK); 
-			
-			$this->load->library('email');
-			//$msg=$result;
-			$config = Array(
-			'protocol' => 'smtp',
-			'smtp_host' => 'ssl://smtp.googlemail.com',
-			'smtp_port' => 465,
-			'smtp_user' => 'laxman.bigperl@gmail.com',
-			'smtp_pass' => 'bigperl@123',
-			'mailtype'  => 'html', 
-			'charset'   => 'iso-8859-1',
-			'crlf' => "\r\n",
-			'newline' => "\r\n"
-		);
-
-		$this->email->from('laxman.bigperl@gmail.com', 'Grazzy');
-		$this->email->to('laxman.bigperl@gmail.com');
-		//$this->email->cc('laxman.bigperl@gmail.com');
-		//$this->email->bcc('them@their-example.com');
-
-		$this->email->subject('Order Details From Grazzy ');
-		$this->email->message('Order id is '.$message.'');
-
-		$this->email->send();
-		}else{
-			$message=[
-			'Status'=>'Error'
-			];
-			 $this->response($message, REST_Controller::HTTP_NOT_FOUND); 	
-		}	
-		
-	}
-
-  /*api number 25*/
-  public function addressDelete_post(){
-	  
-	  $data=array('id'=>$this->post('customers_address_bank_id'));
-	  $result=$this->api_model->delete_customer($data);
-      if(!empty ($result)){
-      $message=[
-	  'Status'=>'Success'
-	  
-	  ];$this->set_response($message,REST_Controller::HTTP_OK);
-
-	  }else{
-		  
-		  $message=[
-		  'Status'=>'Error'
-		
-		  ]; $this->response($message, REST_Controller::HTTP_NOT_FOUND); 	
-
-	  }
-
-  
-	
-}
+    }	
 }

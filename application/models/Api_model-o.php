@@ -64,14 +64,9 @@ class Api_model extends CI_Model
         // unserialize the field data
         if($addresses)
         {
-			$i=0;
             foreach($addresses as $add)
             {
-				
-                $addr[$i] = unserialize($add['field_data']);
-				$addr[$i]['id'] = $add['id'];
-				$addr[$i]['company'] = $add['Entry_name'];
-			$i++;
+                $addr[] = unserialize($add['field_data']);
             }
 			return $addr;
         }
@@ -91,11 +86,8 @@ class Api_model extends CI_Model
             $this->db->update('customers_address_bank', $data);
             return $data['id'];
         } else {
-			///print_r($data);exit;
             $this->db->insert('customers_address_bank', $data);
             return $this->db->insert_id();
-
-
         }
     }
 	
@@ -300,7 +292,7 @@ class Api_model extends CI_Model
 		}else{
 			$result =0;
 		}
-print_r(json_encode($result)); exit;
+		print_r($result); exit;
 	}
 	
 	public function restaurantSuggest($data){
@@ -326,14 +318,14 @@ print_r(json_encode($result)); exit;
 	
 	public function displayProfile($data){
 		
-			$sql=$this->db->query("select profile_image from customers where id='".$data['id']."'");
+		$sql=$this->db->query("select id,profile_image from customers where id='".$data['id']."'");
         $i=0;
 		if($sql->num_rows()>0){
 			$result[$i] = true;
 			//echo $this->db->last_query(); exit;
 			foreach($sql->result_array() as $row){
 				if(isset($row['profile_image']) && $row['profile_image'] != ""){
-					$profile_image_path=$this->config->base_url()."uploads/images/thumbnails/".$row['profile_image'];
+					$profile_image_path="uploads/images/small".$row['profile_image'];
 					$result['data']=$profile_image_path;
 				}else{
 					$result['data'] = "no_picture";
@@ -344,18 +336,16 @@ print_r(json_encode($result)); exit;
 			$result[0] = false;
 		}
 		return $result;	
-		
+			
 	}
 	
 	public function profilePictureUpdate($data){
-		$image ="image".$data['id'].".jpg";
-		if(file_exists("uploads/images/thumbnails/".$image)){
-			unlink("uploads/images/thumbnails/".$image);
-		}
+		$image ="image".$data['id'].".png";
+		
 		$sql=$this->db->query("UPDATE customers SET profile_image='".$image."' where id='".$data['id']."'");
 		
-	    if($sql){
-			$path = "uploads/images/thumbnails/".$image;
+	    if($sql==true){
+			$path = "uploads/".$image;
 			file_put_contents($path,base64_decode($image));
 			$result[0] = true;
 		}else{
@@ -398,12 +388,12 @@ print_r(json_encode($result)); exit;
 		$order_number = strtotime(date("Y-m-d H:i:s",time()));
 		$date = date('Y-m-d H:i:s');
 		$image =$order_number.".png";
-		$path = "uploads/images/thumbnails/".$image;
+		$path = "uploads/".$image;
 		file_put_contents($path,base64_decode($image));
 		
-		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivered_location)
+		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image)
 		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Order Placed','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
-		'".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$data['shipping_address']."')";
+		'".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."')";
 		$this->db->query($sql);
 		$id = $this->db->insert_id();
 		if($id > 0){
@@ -445,38 +435,5 @@ print_r(json_encode($result)); exit;
 		}
 			return $result;
 	  }
-	   public function userOrderEmail($data){
-		  
-		 $sql=$this->db->query("select order_id from order_items  "); 
-		 if($sql->num_rows()>0){
-			$data = $sql->result_array();
-			
-			$result['data']['order_id'] =['order_id'];
-		//	$result['cost'] = $data[0]['langitude'];
-			
-		}else{
-				$result['order_id'] = 0;
-				
-		}
-			return $result;
-		  
-		  
-		  
-		  
-		  
-	  
-	   }
-	   public function delete_customer($data){
-	   
-	   $sql=$this->db->query("delete from customers_address_bank where id='".$data['id']."'");
-		if($sql){
-			$result[0] = true;
-		}else{
-			$result[0] = false;
-		}
-		return $result;
-
-	   }   
-	
 	
 }
