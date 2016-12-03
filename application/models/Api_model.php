@@ -162,6 +162,7 @@ class Api_model extends CI_Model
 				
 				$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id";
 				$query2 = $this->db->query($sql2);
+				//print_r($query2->result_array()); exit;
 				if($query2->num_rows()>0){
 					$j=0;
 					foreach($query2->result_array() as $row1){
@@ -169,7 +170,11 @@ class Api_model extends CI_Model
 					$j++;
 					}
 				}
-				$result[$i]['items']= implode(",",$result[$i]['items']);
+				
+				if($j > 0 && isset($result[$i]['items'])){
+					
+					$result[$i]['items']= implode(",",$result[$i]['items']);
+				}
 				$result[$i]['shipping_lat'] = $row['shipping_lat'];
 				$result[$i]['shipping_long'] = $row['shipping_long'];
 				if($result[$i]['order_type'] == 1 || $result[$i]['order_type'] == 2 || $result[$i]['order_type'] == 4){
@@ -401,7 +406,7 @@ print_r(json_encode($result)); exit;
 		$path = "uploads/images/thumbnails/".$image;
 		file_put_contents($path,base64_decode($image));
 		
-		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivered_location)
+		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivery_location)
 		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Order Placed','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
 		'".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$data['shipping_address']."')";
 		$this->db->query($sql);
