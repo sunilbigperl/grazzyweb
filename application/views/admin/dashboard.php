@@ -1,5 +1,55 @@
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKUsjUabpe8-dBedcqnKchPAVfsNqFnlE"></script>
+<div id="map" style="width: 1200px; height: 800px;"></div>
 
+  <script type="text/javascript">
+    var locations = <?=$restaurant;?>;
+	var locations1 = <?=$pitstops;?>;
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(-33.92, 151.25),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+	var icon = {
+		url: "http://localhost/grazzyweb/assets/img/Map.png", // url
+		scaledSize: new google.maps.Size(50, 50), // scaled size
+		origin: new google.maps.Point(0,0), // origin
+		anchor: new google.maps.Point(0, 0) // anchor
+	};
+	for (i = 0; i < locations1.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations1[i][1], locations1[i][2]),
+        map: map,
+		icon: icon
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations1[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+</script>
+  
 <h2><?php echo lang('recent_orders') ?></h2>
 <link href="<?=base_url();?>assets/css/bootstrap-table.css">
 <script src="<?=base_url();?>assets/js/bootstrap-table.js"></script>

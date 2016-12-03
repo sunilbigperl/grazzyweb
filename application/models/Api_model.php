@@ -149,7 +149,7 @@ class Api_model extends CI_Model
 			$result = array();
 			$i=0;
 			foreach($query->result_array() as $row){ 
-				$result[$i]['order_number'] = $row['id'];
+				$result[$i]['order_id'] = $row['id'];
 				$sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
 				$query1 = $this->db->query($sql1);
 				if($query1->num_rows()>0){
@@ -159,6 +159,8 @@ class Api_model extends CI_Model
 				$result[$i]['order_type'] = $row['order_type'];
 				$result[$i]['delivered_by'] = $row['delivered_by'];
 				$result[$i]['passcode'] = $row['passcode'];
+				$result[$i]['total_cost'] = $row['total_cost'];
+				$result[$i]['order_number'] = $row['order_number'];
 				
 				$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id";
 				$query2 = $this->db->query($sql2);
@@ -171,8 +173,7 @@ class Api_model extends CI_Model
 					}
 				}
 				
-				if($j > 0 && isset($result[$i]['items'])){
-					
+				if(isset($result[$i]['items'])){	
 					$result[$i]['items']= implode(",",$result[$i]['items']);
 				}
 				$result[$i]['shipping_lat'] = $row['shipping_lat'];
@@ -181,6 +182,7 @@ class Api_model extends CI_Model
 					if($result[$i]['delivered_by'] != 0){
 						$sql4  = $this->db->query("select * from admin where id='".$result[$i]['delivered_by']."'");
 						$res_del = $sql4->result_array();
+						
 						$result[$i]['name'] = $res_del[0]['firstname'];
 						$result[$i]['phone'] = isset($res_del[0]['phone']) ? $res_del[0]['phone'] : "";
 					}else{

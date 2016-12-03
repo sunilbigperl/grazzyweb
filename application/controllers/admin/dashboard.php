@@ -33,7 +33,18 @@ class Dashboard extends Admin_Controller {
 		// get 5 latest customers
 		$data['customers'] = $this->Customer_model->get_customers(5);
 				
-		
+		$restaurant = $this->Customer_model->get_restaurants();
+		if($restaurant != 0 ){
+			$data['restaurant'] = json_encode($restaurant);
+		}else{
+			$data['restaurant'] = "";
+		}
+		$pitstops = $this->Customer_model->get_pitstops();
+		if($pitstops != 0 ){
+			$data['pitstops'] = json_encode($pitstops);
+		}else{
+			$data['pitstops'] = "";
+		}
 		$this->view($this->config->item('admin_folder').'/dashboard', $data);
 	}
 

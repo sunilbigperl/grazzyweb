@@ -13,6 +13,33 @@ Class Customer_model extends CI_Model
         $this->CI->load->helper('url');
     }
     
+	function get_restaurants(){
+		$sql = $this->db->query("select restaurant_name, restaurant_latitude,restaurant_langitude from restaurant");
+		if($sql->num_rows() > 0){
+			$results	= $sql->result_array();
+			foreach($results as $res){
+				$result[] = array_values($res);
+			}
+		}else{
+			$result = 0;
+		}
+		return $result;
+		
+	}
+	function get_pitstops(){
+		$sql = $this->db->query("select pitstop_name, latitude,langitude from pitstops");
+		if($sql->num_rows() > 0){
+			$results	= $sql->result_array();
+			foreach($results as $res){
+				$result[] = array_values($res);
+			}
+		}else{
+			$result = 0;
+		}
+		return $result;
+		
+	}
+	
     function get_customers($limit=0, $offset=0, $order_by='id', $direction='DESC')
     {
         $this->db->order_by($order_by, $direction);
