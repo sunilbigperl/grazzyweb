@@ -118,7 +118,7 @@ $(document).ready(function(){
 					<?php endif; ?>
                     <?php if($this->auth->check_access('Admin')) : ?>
 					
-					<li><a href="<?php echo $admin_url;?>"><?php echo lang('common_home');?></a></li>
+					<li><a href="<?php echo $admin_url;?>dashboard"><?php echo lang('common_home');?></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_sales') ?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">

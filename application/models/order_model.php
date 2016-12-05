@@ -75,6 +75,42 @@ Class order_model extends CI_Model
 		return $result;
 	}
 	
+	function GetCustomerReview($id){
+		$sql = $this->db->query("select a.*,b.firstname from feedback a, customers b where a.feedbackfrom=b.id and a.feedbacktype=6 and a.feedbackto='".$id."'");
+		if($sql->num_rows() > 0){
+			$result['data']	= $sql->result();
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=6 and feedbackto='".$id."'");
+			$result['avg']	= $sql1->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
+	
+	function GetDelPartnerReview($id){
+		$sql = $this->db->query("select a.*,b.firstname from feedback a, admin b  where a.feedbackfrom=b.id and a.feedbacktype=4 and a.feedbackto='".$id."'");
+		if($sql->num_rows() > 0){
+			$result['data']	= $sql->result();
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=4 and feedbackto='".$id."'");
+			$result['avg']	= $sql1->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
+	
+	function get_restpreviousorders($data){
+		$userdata = $this->session->userdata('admin');
+		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_id='".$data['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."'");
+		
+		if($sql->num_rows() > 0){
+			$result	= $sql->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
 	function CheckFeedback($order,$type){
 		$sql = $this->db->query("select * from feedback where order_number='".$order."' and feedbacktype=".$type."");
 		

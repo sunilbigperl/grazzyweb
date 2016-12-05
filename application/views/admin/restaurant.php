@@ -1,12 +1,12 @@
-<script src="assets/js/bootstrap-table.js"></script>
-<link href="assets/css/bootstrap-table.css">
-<div class="btn-group pull-right">
+<link href="<?=base_url();?>assets/css/bootstrap-table.css">
+<script src="<?=base_url();?>assets/js/bootstrap-table.js"></script>
+<div class="btn-group pull-left">
 	<?php if($this->auth->check_access('Admin')){ ?>
 	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form'); ?>"><i class="icon-plus-sign"></i> Add new restaurant</a>
 	<?php } ?>
 </div>
 
-<table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
+<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
@@ -15,7 +15,8 @@
 			<th data-field="price">Email</th>
 			<th>Action</th>
 			<th></th>
-			<th>Import menus<a href="../../restaurant_menu.csv">Download the format</a></th>
+			<th>Import menus<a href="../../restaurant_menu.csv"> Download the format</a></th>
+			<th>Previous orders/ Sales</th>
 		</tr>
 	</thead>
 	
@@ -55,6 +56,11 @@
 						<input type="file" name="menufile"><input type="submit" name="submit" value="submit">
 					</form>
 				</td>
+				<td>
+					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/GetRestPreviousOrders/'.$restaurant->restaurant_id); ?>">previous orders/sales</a>
+					<a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/ShowReviewDetails/'.$restaurant->restaurant_id.'');?>');">Reviews/Ratings</a>
+					
+				</td>
 			</tr>
 			<?php
 			$i++;
@@ -93,4 +99,27 @@
   
 </div>
 </div>
-  
+<div id="ratingdetails" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content" id="modaldetails">
+     
+    </div>
+
+  </div>
+</div>
+
+<script>
+	function showdetails(url,data){
+		$.ajax({
+			url:url,
+			method:"post",
+			datatype:'json',
+			data:{data:data},
+			success:function(data){
+				$("#modaldetails").html(data);
+			}
+		});
+	}
+</script>  

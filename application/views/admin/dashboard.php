@@ -1,4 +1,3 @@
-
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKUsjUabpe8-dBedcqnKchPAVfsNqFnlE"></script>
 <div id="map" style="width: 1200px; height: 800px;"></div>
 
@@ -7,7 +6,7 @@
 	var locations1 = <?=$pitstops;?>;
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
-      center: new google.maps.LatLng(-33.92, 151.25),
+      center: new google.maps.LatLng(19.0760, 72.8777),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 

@@ -45,6 +45,15 @@ class Orders extends Admin_Controller {
 		$data['orders'] = $this->Order_model->get_previousorders($data);
 		$this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
+	
+	function GetRestPreviousOrders($id){
+	
+		$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
+		$data['todate'] =  date('Y-m-d',strtotime('last day of last month'));
+		$data['id'] = $id;
+		$data['orders'] = $this->Order_model->get_restpreviousorders($data);
+		$this->view($this->config->item('admin_folder').'/previousorders',$data);
+	}
     
     function GetMenudetails(){
 		$data = $this->input->post('data');
@@ -222,6 +231,31 @@ class Orders extends Admin_Controller {
 			echo json_encode($return);
 		}
 		
+	}
+	
+	public function ShowReviewDetails($id){
+		$customerreview = $this->Order_model->GetCustomerReview($id);
+		$customerreviewavg= isset($customerreview['avg'][0]->avg) ? $customerreview['avg'][0]->avg : 0;
+		$delpartnerreview = $this->Order_model->GetDelPartnerReview($id);
+		$delpartnerreviewavg = isset($delpartnerreview['avg'][0]->avg) ? $delpartnerreview['avg'][0]->avg :0;
+		
+		echo  "<div class=''><strong>Ratings By customer:</strong> ".$customerreviewavg."</div>";
+		echo  "<div class=''><strong>Ratings By delivery partner:</strong> ".$delpartnerreviewavg."</div>";
+		echo "<table class='table table-bordered'>
+			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
+			<tbody>";
+			if($delpartnerreview['data']){
+				foreach($delpartnerreview['data'] as $customer){ 
+					echo "<tr><td>".$customer->date."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
+				}
+			}
+			if($customerreviewavg['data']){
+				foreach($customerreviewavg['data'] as $customer1){ 
+					echo "<tr><td>".$customer1->date."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->firstname."</td></tr>";
+				}
+			}
+		echo "</tbody>
+		</table>";
 	}
 	
 	public function RequestBill(){

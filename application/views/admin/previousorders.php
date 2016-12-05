@@ -1,7 +1,7 @@
 <link href="<?=base_url();?>assets/css/bootstrap-table.css">
 <script src="<?=base_url();?>assets/js/bootstrap-table.js"></script>
 <script src="<?=base_url();?>assets/js/star-rating.min.js"></script>
-
+<?php $url = $this->uri->segment(4);  if(!isset($url)){ ?>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">
 	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/GetPreviousOrders'); ?>" method="post">
 		<div class="form-group span4">
@@ -20,6 +20,7 @@
 		</div>
 	</form>
 </div>
+<?php } ?>
 <?php if(count($orders) > 1){ ?>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
