@@ -60,7 +60,7 @@ class Orders extends Admin_Controller {
 		$menus = $this->Order_model->GetMenudetails($data);
 		$html="";
 		if($menus != 0){
-			if($data['order_type'] == 3){
+			if($data['ordertype_id'] == 3){ 
 			 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
 			 $name = $customer_details->firstname." ".$customer_details->lastname;
 			 $phone = $customer_details->phone;
@@ -77,7 +77,7 @@ class Orders extends Admin_Controller {
 				  </div>
 				  <div class='modal-body' class='form-horizontal'>
 					<div class='form-group'>
-						<label><strong>"; if($data['order_type'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":</strong>".$name."</label>
+						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":</strong>".$name."</label>
 						<label><strong>Mobile No:</strong>".$phone."</label>
 						<label><strong>Email:</strong>".$email."</label>
 						<label><strong>Delivery location:</strong>".$data['delivery_location']."</label>
@@ -119,11 +119,11 @@ class Orders extends Admin_Controller {
 		$html="";
 		$userdata = $this->session->userdata('admin');
 		$data = $this->input->post('data');
-		if($type ==  4){
+		if($type ==  2){
 			$title = "Review Restaurant";
 			$name = $data['restaurant_name'];
 			$id= $data['restaurant_id'];
-		}elseif($type == 5){ 
+		}elseif($type == 3){ 
 			$title ="Review Delivery boy";
 			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
 			$name = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "";

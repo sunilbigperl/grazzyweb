@@ -328,6 +328,27 @@ class Auth
         }
     }
 
+	function check_phone($str, $id=false)
+    {
+        $this->CI->db->select('phone');
+        $this->CI->db->from('admin');
+        $this->CI->db->where('phone', $str);
+        if ($id)
+        {
+            $this->CI->db->where('id !=', $id);
+        }
+        $count = $this->CI->db->count_all_results();
+        
+        if ($count > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+	
     function delete($id)
     {
         if ($this->check_id($id))

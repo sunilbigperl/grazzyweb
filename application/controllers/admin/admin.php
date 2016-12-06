@@ -50,6 +50,7 @@ class Admin extends Admin_Controller
 		$data['lastname']	= '';
 		$data['email']		= '';
 		$data['username']	= '';
+		$data['phone']	= '';
 		$data['access']		= '';
 		
 		if ($id)
@@ -68,12 +69,14 @@ class Admin extends Admin_Controller
 			$data['lastname']	= $admin->lastname;
 			$data['email']		= $admin->email;
 			$data['username']	= $admin->username;
+			$data['phone']	= $admin->phone;
 			$data['access']		= $admin->access;
 		}
 		
 		$this->form_validation->set_rules('firstname', 'lang:firstname', 'trim|max_length[32]');
 		$this->form_validation->set_rules('lastname', 'lang:lastname', 'trim|max_length[32]');
 		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]');
+		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[11]|callback_check_phone');
 		$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
 		$this->form_validation->set_rules('access', 'lang:access', 'trim|required');
 		
@@ -95,6 +98,7 @@ class Admin extends Admin_Controller
 			$save['lastname']	= $this->input->post('lastname');
 			$save['email']		= $this->input->post('email');
 			$save['username']	= $this->input->post('username');
+			$save['phone']	= $this->input->post('phone');
 			$save['access']		= $this->input->post('access');
 			
 			if ($this->input->post('password') != '' || !$id)
@@ -117,6 +121,19 @@ class Admin extends Admin_Controller
 		if ($email)
 		{
 			$this->form_validation->set_message('check_username', lang('error_username_taken'));
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
+	function check_phone($str)
+	{
+		$phone = $this->auth->check_phone($str, $this->admin_id);
+		if ($phone)
+		{
+			$this->form_validation->set_message('check_phone', "This phone no already in use");
 			return FALSE;
 		}
 		else

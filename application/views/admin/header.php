@@ -171,8 +171,6 @@ $(document).ready(function(){
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_actions');?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo site_url($this->config->item('admin_folder').'/dashboard');?>"><?php echo lang('common_dashboard') ?></a></li>
-                            <li><a href="<?php echo site_url();?>"><?php echo lang('common_front_end') ?></a></li>
                             <li><a href="<?php echo site_url($this->config->item('admin_folder').'/login/logout');?>"><?php echo lang('common_log_out') ?></a></li>
                         </ul>
                     </li>

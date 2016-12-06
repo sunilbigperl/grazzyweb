@@ -16,9 +16,50 @@ class Api_model extends CI_Model
 		return $id;
 	}
 	
+	public function delboycheck($data){
+		$sql = "select id from delivery_boy where phone ='".$data['phone']."'";
+		$query = $this->db->query($sql);
+		if($query->num_rows() == 0){
+			$sql = "insert into delivery_boy (name, phone,did) values('".$data['firstname']."','".$data['phone']."','".$data['did']."')";	
+			$query = $this->db->query($sql);
+			$id = $this->db->insert_id();
+			
+		}else{
+			$sql = $this->db->query("update delivery_boy set name='".$data['firstname']."', did='".$data['did']."' where phone='".$data['phone']."'");	
+			
+			$id = $query->result();
+		}
+		return $id;
+	}
+	
+	public function delboyTorestfeedback($data){
+		$sql = "insert into feedback (feedbackfrom, feedbackto, comments,ratings,feedbacktype) 
+		values('".$data['feedbackfrom']."','".$data['feedbackto']."','".$data['comments']."','".$data['ratings']."','".$data['feedbacktype']."')";	
+			$query = $this->db->query($sql);
+		if($this->db->insert_id()){
+			return "success";
+		}
+	}
+	
 	public function getUsers(){
 		
 		$threadmsg = $this->db->query("select * from customers");
+
+			if($threadmsg->num_rows()>0){
+
+				return $threadmsg->result_array();
+
+			}else{
+			
+				return false;
+				
+			}
+			
+		
+	}
+	
+	public function delboyOrders($id){
+		$threadmsg = $this->db->query("select * from orders a , customers b, restaurant c where a.customer_id=b.id and a.restaurant_id = c.restaurant_id and a.delivered_by != 0 and a.delivered_by='".$id."' and a.order_type != 3");
 
 			if($threadmsg->num_rows()>0){
 
@@ -142,6 +183,16 @@ class Api_model extends CI_Model
 			return true;
 		}
 	}
+	
+	public function adddelboylocation($data){
+		$sql = "insert into deliveryboy_locations (deliveryboy_id,latitude,langitude) values('".$data['deliveryboy_id']."','".$data['latitude']."','".$data['langitude']."')";
+		//echo $sql; exit;
+		$query = $this->db->query($sql);
+		if($query){
+			return true;
+		}
+	}
+	
 	public function orderlistnotshipped($id){
 		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status='Order Placed'  order by a.ordered_on desc";
 		$query = $this->db->query($sql);
@@ -211,7 +262,7 @@ class Api_model extends CI_Model
 		}
 	}
 	public function orderlist($id){
-		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status='Order Shipped'  order by a.ordered_on desc";
+		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status='Shipped'  order by a.ordered_on desc";
 		$query = $this->db->query($sql);
 		if($query->num_rows()>0){
 			$result = array();
@@ -256,7 +307,13 @@ class Api_model extends CI_Model
 			return true;
 		}
 	}
-	
+	public function changeorderstatus($data){
+		$sql = "update orders set status='".$data['status']."' where id='".$data['id']."'";
+		$query = $this->db->query($sql);
+		if($query){
+			return "success";
+		}
+	}
 	public function getMenus($id){
 		$sql ="SELECT DISTINCT b.category_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id";
 		$query = $this->db->query($sql);

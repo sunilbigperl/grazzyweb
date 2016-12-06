@@ -16,6 +16,7 @@ function areyousure()
 			<th><?php echo lang('lastname');?></th>
 			<th><?php echo lang('email');?></th>
 			<th><?php echo lang('username');?></th>
+			<th>Phone No</th>
 			<th><?php echo lang('access');?></th>
 			<th></th>
 		</tr>
@@ -27,6 +28,7 @@ function areyousure()
 			<td><?php echo $admin->lastname; ?></td>
 			<td><a href="mailto:<?php echo $admin->email;?>"><?php echo $admin->email; ?></a></td>
 			<td><?php echo $admin->username; ?></td>
+			<td><?php echo $admin->phone; ?></td>
 			<td><?php echo $admin->access; ?></td>
 			<td>
 				<div class="btn-group" style="float:right;">

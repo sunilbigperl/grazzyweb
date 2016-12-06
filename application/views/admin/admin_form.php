@@ -17,7 +17,13 @@
 		$data	= array('name'=>'username', 'value'=>set_value('username', $username));
 		echo form_input($data);
 		?>
-
+		
+		<label>Phone No</label>
+		<?php
+		$data	= array('name'=>'phone', 'value'=>set_value('phone', $phone));
+		echo form_input($data);
+		?>
+		
 		<label><?php echo lang('email');?></label>
 		<?php
 		$data	= array('name'=>'email', 'value'=>set_value('email', $email));

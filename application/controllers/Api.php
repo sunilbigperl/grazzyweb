@@ -599,7 +599,71 @@ class Api extends REST_Controller {
 
 	  }
 
-  
 	
-}
+	}
+	
+	public function delboylogin_post(){
+		$data['firstname'] = $this->input->post('firstname');
+		$data['phone'] = $this->input->post('phone');
+		$data['did'] = $this->input->post('did');
+		$result = $this->api_model->delboycheck($data);
+		$message=['id'=>$result];
+		$this->set_response($message, REST_Controller::HTTP_OK);
+	}
+	
+	public function delboyTorestfeedback_post(){
+		$data = json_decode(file_get_contents("php://input"),true);
+		$result = $this->api_model->delboyTorestfeedback($data);
+		$message=['response'=>$result];
+		$this->set_response($message, REST_Controller::HTTP_OK);
+	}
+	
+	public function adddelboylocation_post()
+    {
+		$data = [
+            'deliveryboy_id' => $this->post('deliveryboy_id'),
+            'latitude' => $this->post('latitude'),
+            'langitude' => $this->post('langitude'),
+        ];
+       $userslocation =  $this->api_model->adddelboylocation($data);
+        
+
+        $this->set_response($userslocation, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
+    }
+	
+	public function changeorderstatus_post()
+    {
+		$data = [
+            'id' => $this->post('id'),
+            'status' => $this->post('status')
+        ];
+       $status =  $this->api_model->changeorderstatus($data);
+        $message=['response'=>$status];
+
+        $this->set_response($message, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
+    }
+	
+	public function delboyOrders_get($id)
+    { 
+		$delboyOrders = $this->api_model->delboyOrders($id);
+		
+        if ($id <= 0)
+        {
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
+        }
+
+       
+        if (!empty($delboyOrders))
+        {
+            $this->set_response($delboyOrders, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'Orders could not be found'
+            ], REST_Controller::HTTP_NOT_FOUND);
+        }
+    }
+	
 }
