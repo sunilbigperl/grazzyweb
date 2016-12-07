@@ -13,9 +13,18 @@ class Orders extends Admin_Controller {
 		$this->load->helper('url');
     }
     
+	function dashboard(){
+		 $this->view($this->config->item('admin_folder').'/restaurantdatshboard');
+	}
     function neworders()
     {
         $data['orders'] = $this->Order_model->get_neworders();
+        $this->view($this->config->item('admin_folder').'/neworders', $data);
+    }
+	
+	function delpartnerorders()
+    {
+        $data['orders'] = $this->Order_model->get_delpartnerorders();
         $this->view($this->config->item('admin_folder').'/neworders', $data);
     }
 	

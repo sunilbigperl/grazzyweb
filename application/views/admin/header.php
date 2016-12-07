@@ -91,6 +91,7 @@ $(document).ready(function(){
             <div class="nav-collapse">
                 <ul class="nav">
                     <?php if($this->auth->check_access('Restaurant manager')) : ?>
+						<li><a href="<?php echo $admin_url;?>orders/dashboard">Dashboard</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Control <b class="caret"></b></a>
 							<ul class="dropdown-menu">

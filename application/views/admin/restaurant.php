@@ -44,9 +44,9 @@
 				</td>
 			
 				<td>
-					<a href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Add menus</a>&nbsp;&nbsp;&nbsp;
+					<a href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Add menus</a>
 					<?php if($restaurant->enabled == 1){ ?> 
-						<a href="#" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate restaurant</a>
+						<a href="#" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a>
 					<?php }else{ ?>
 						<a href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id); ?>" >Activate restaurant</a>
 					<?php } ?>

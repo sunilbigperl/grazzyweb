@@ -61,7 +61,7 @@ class Api extends REST_Controller {
                 $this->response([
                     'status' => FALSE,
                     'message' => 'No users were found'
-                ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+                ], REST_Controller::HTTP_OK); // NOT_FOUND (404) being the HTTP response code
             }
         }
 
@@ -102,7 +102,7 @@ class Api extends REST_Controller {
             $this->set_response([
                 'status' => FALSE,
                 'message' => 'User could not be found'
-            ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+            ], REST_Controller::HTTP_OK); // NOT_FOUND (404) being the HTTP response code
         }
     }
 	
@@ -125,7 +125,7 @@ class Api extends REST_Controller {
             $this->set_response([
                 'status' => FALSE,
                 'message' => 'restaurants  could not be found for the pitstop'
-            ], REST_Controller::HTTP_NOT_FOUND);
+            ], REST_Controller::HTTP_OK);
         }
 		
         
@@ -151,7 +151,7 @@ class Api extends REST_Controller {
             $this->set_response([
                 'status' => FALSE,
                 'message' => 'User address could not be found'
-            ], REST_Controller::HTTP_NOT_FOUND);
+            ], REST_Controller::HTTP_OK);
         }
     }
 	
@@ -173,7 +173,7 @@ class Api extends REST_Controller {
             $this->set_response([
                 'status' => FALSE,
                 'message' => 'menus  could not be found for the restaurant'
-            ], REST_Controller::HTTP_NOT_FOUND);
+            ], REST_Controller::HTTP_OK);
         }
 	}
 	
@@ -229,7 +229,7 @@ class Api extends REST_Controller {
             $this->set_response([
                 'status' => FALSE,
                 'message' => 'order list  could not be found for the customer'
-            ], REST_Controller::HTTP_NOT_FOUND);
+            ], REST_Controller::HTTP_OK);
         }
 	}
 	
@@ -251,7 +251,7 @@ class Api extends REST_Controller {
             $this->set_response([
                 'status' => FALSE,
                 'message' => 'order list  could not be found for the customer'
-            ], REST_Controller::HTTP_NOT_FOUND);
+            ], REST_Controller::HTTP_OK);
         }
 	}
 	
@@ -272,8 +272,30 @@ class Api extends REST_Controller {
         {
             $this->set_response([
                 'status' => FALSE,
-                'message' => 'order list  could not be found for the customer'
-            ], REST_Controller::HTTP_NOT_FOUND);
+                'message' => 'deliveryboy location  could not be found for the customer'
+            ], REST_Controller::HTTP_OK);
+        }
+	}
+	
+	public function customerlocation_get($id){
+		$customerlocation =  $this->api_model->customerlocation($id);
+		
+		if ($id <= 0)
+        {
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
+        }
+
+       
+        if (!empty($customerlocation))
+        {
+            $this->set_response($customerlocation, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'customer location could not be found for the customer'
+            ], REST_Controller::HTTP_OK);
         }
 	}
 	
@@ -294,7 +316,7 @@ class Api extends REST_Controller {
             $this->set_response([
                 'status' => FALSE,
                 'message' => 'pitstop list  could not be found'
-            ], REST_Controller::HTTP_NOT_FOUND);
+            ], REST_Controller::HTTP_OK);
         }
 
 	}
@@ -314,7 +336,7 @@ class Api extends REST_Controller {
             $this->set_response([
                 'status' => FALSE,
                 'message' => 'restaurant list  could not be found'
-            ], REST_Controller::HTTP_NOT_FOUND);
+            ], REST_Controller::HTTP_OK);
         }
 
 	}
@@ -352,7 +374,7 @@ class Api extends REST_Controller {
             $this->set_response([
                 'status' => FALSE,
                 'message' => 'restaurants  could not be found for the location'
-            ], REST_Controller::HTTP_NOT_FOUND);
+            ], REST_Controller::HTTP_OK);
         }
 	}
 	
@@ -390,7 +412,7 @@ class Api extends REST_Controller {
 			 $this->set_response([
                 'status' => FALSE,
                 'message' => 'Error inserting details'
-            ], REST_Controller::HTTP_NOT_FOUND);
+            ], REST_Controller::HTTP_OK);
 		}
 	}
 	
@@ -411,7 +433,7 @@ class Api extends REST_Controller {
 			
 			'status'=>FALSE,
 			'message'=>'Customers Address Information Could not be found'
-			],REST_Controller::HTTP_NOT_FOUND);
+			],REST_Controller::HTTP_OK);
 			
 				  	  
 		  }
@@ -434,7 +456,7 @@ class Api extends REST_Controller {
 			
 			'status'=>FALSE,
 			'message'=>'Pit stop Information Could not be found'
-			],REST_Controller::HTTP_NOT_FOUND);
+			],REST_Controller::HTTP_OK);
 				
 		}	 
 	 }	  
@@ -473,7 +495,7 @@ class Api extends REST_Controller {
 			
 			'status'=>FALSE,
 			'message'=>'Sorry profile picture not updated'
-			],REST_Controller::HTTP_NOT_FOUND);
+			],REST_Controller::HTTP_OK);
 				
 		}	
 	 }
@@ -490,7 +512,7 @@ class Api extends REST_Controller {
 			$message=[
 			'Status'=>'Coupon code could not be found'
 			];
-			$this->response(NULL, REST_Controller::HTTP_NOT_FOUND); 	
+			$this->response(NULL, REST_Controller::HTTP_OK); 	
 			
 		}
 	}
@@ -509,7 +531,7 @@ class Api extends REST_Controller {
 			$message=[
 			'Status'=>'Error'
 			];
-			 $this->response($message, REST_Controller::HTTP_NOT_FOUND); 	
+			 $this->response($message, REST_Controller::HTTP_OK); 	
 		}
 	}
 	
@@ -574,7 +596,7 @@ class Api extends REST_Controller {
 			$message=[
 			'Status'=>'Error'
 			];
-			 $this->response($message, REST_Controller::HTTP_NOT_FOUND); 	
+			 $this->response($message, REST_Controller::HTTP_OK); 	
 		}	
 		
 	}
@@ -595,7 +617,7 @@ class Api extends REST_Controller {
 		  $message=[
 		  'Status'=>'Error'
 		
-		  ]; $this->response($message, REST_Controller::HTTP_NOT_FOUND); 	
+		  ]; $this->response($message, REST_Controller::HTTP_OK); 	
 
 	  }
 
@@ -607,8 +629,8 @@ class Api extends REST_Controller {
 		$data['phone'] = $this->input->post('phone');
 		$data['did'] = $this->input->post('did');
 		$result = $this->api_model->delboycheck($data);
-		$message=['id'=>$result];
-		$this->set_response($message, REST_Controller::HTTP_OK);
+		
+		$this->set_response($result, REST_Controller::HTTP_OK);
 	}
 	
 	public function delboyTorestfeedback_post(){
@@ -647,6 +669,7 @@ class Api extends REST_Controller {
     { 
 		$delboyOrders = $this->api_model->delboyOrders($id);
 		
+		
         if ($id <= 0)
         {
             $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
@@ -662,7 +685,7 @@ class Api extends REST_Controller {
             $this->set_response([
                 'status' => FALSE,
                 'message' => 'Orders could not be found'
-            ], REST_Controller::HTTP_NOT_FOUND);
+            ], REST_Controller::HTTP_OK);
         }
     }
 	

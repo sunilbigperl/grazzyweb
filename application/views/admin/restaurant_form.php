@@ -21,7 +21,7 @@
 				
 				<label for="restaurant_address">Restaurant address</label>
 				<?php
-				$data	= array('name'=>'restaurant_address', 'class'=>'redactor', 'value'=>set_value('restaurant_address', $restaurant_address));
+				$data	= array('name'=>'restaurant_address', 'class'=>'', 'value'=>set_value('restaurant_address', $restaurant_address));
 				echo form_textarea($data);
 				?>
 				

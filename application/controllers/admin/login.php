@@ -35,7 +35,14 @@ class Login extends Base_Controller {
 			{
 				if ($redirect == '')
 				{
-					$redirect = $this->config->item('admin_folder').'/customers';
+					$userdata = $this->session->userdata('admin');
+					if($this->auth->check_access('Restaurant manager')){
+						$redirect = $this->config->item('admin_folder').'/orders/dashboard';
+					}elseif($this->auth->check_access('Admin')){
+						$redirect = $this->config->item('admin_folder').'/dashboard';
+					}else{
+						$redirect = $this->config->item('admin_folder').'/orders/neworders';
+					}
 				}
 				redirect($redirect);
 			}
