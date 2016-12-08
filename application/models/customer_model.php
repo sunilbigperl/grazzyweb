@@ -65,9 +65,11 @@ Class Customer_model extends CI_Model
     
 	function get_deliveryboy($id)
     {
-        $result = $this->db->get_where('admin', array('id'=>$id));
+        $result = $this->db->get_where('delivery_boy', array('id'=>$id));
         return $result->row();
     }
+	
+	
 	
     function get_subscribers()
     {

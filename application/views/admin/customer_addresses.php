@@ -6,7 +6,7 @@ function areyousure()
 }
 </script>
 
-<a class="btn" style="float:right;"href="<?php echo site_url($this->config->item('admin_folder').'/customers/address_form/'.$customer->id);?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_address');?></a>
+<a class="btn" style="float:right;" href="<?php echo site_url($this->config->item('admin_folder').'/customers/address_form/'.$customer->id);?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_address');?></a>
 <table class="table">
 	<thead>
 		<tr>
@@ -25,13 +25,13 @@ function areyousure()
 ?>
 		<tr>
 			<td>
-				<?php echo $f['lastname']; ?>, <?php echo $f['firstname']; ?>
+				<?php echo isset($f['lastname']) ? $f['lastname'] : ""; ?>, <?php echo isset($f['firstname']) ? $f['firstname'] : ''; ?>
 				<?php echo (!empty($f['company']))?'<br/>'.$f['company']:'';?>
 			</td>
 			
 			<td>
-				<?php echo  $f['phone']; ?><br/>
-				<a href="mailto:<?php echo  $f['email'];?>"><?php echo  $f['email']; ?></a>
+				<?php echo  isset($f['phone']) ? $f['phone'] : ""; ?><br/>
+				<a href="mailto:<?php echo  isset($f['email']) ? $f['email'] : '';?>"><?php echo  isset($f['email']) ? $f['email'] : ''; ?></a>
 			</td>
 			
 			<td>
@@ -40,10 +40,10 @@ function areyousure()
 			</td>
 			
 			<td>
-				<?php echo $f['city'];?>, <?php echo $f['zone'];?> <?php echo $f['zip'];?> 
+				<?php echo isset($f['city'])  ? $f['city'] : '';?>, <?php echo isset($f['zone']) ? $f['zone'] : '';?> <?php echo isset($f['zip']) ? $f['zip'] : '';?> 
 			</td>
 			
-			<td><?php echo $f['country'];?></td>
+			<td><?php echo isset($f['country']) ? $f['country']: "";?></td>
 			
 			<td>
 				<div class="btn-group" style="float:right">

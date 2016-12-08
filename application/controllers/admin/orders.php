@@ -25,9 +25,19 @@ class Orders extends Admin_Controller {
 	function delpartnerorders()
     {
         $data['orders'] = $this->Order_model->get_delpartnerorders();
-        $this->view($this->config->item('admin_folder').'/neworders', $data);
+		$data['deliveryboys'] = $this->Order_model->get_deliveryboys();
+        $this->view($this->config->item('admin_folder').'/delpartnerorders', $data);
     }
 	
+	function AssignDeliveryBoy($id){
+		$data['delBoy'] = $this->input->post('deliveryboy');
+		$data['id'] = $id;
+		$results = $this->Order_model->AssignDeliveryBoy($data);
+		if($results){
+			 redirect('admin/orders/delpartnerorders', 'refresh');
+		}
+		
+	}
 	function orders()
     {
         $data['orders'] = $this->Order_model->get_deliverypartnerneworders();
@@ -113,14 +123,14 @@ class Orders extends Admin_Controller {
 	function ChangeRestMangerStatus($status,$id){
 		$status = $this->Order_model->ChangeRestMangerStatus($status,$id);
 		if($status){
-			 redirect('orders/neworders', 'refresh');
+			 redirect('admin/orders/neworders', 'refresh');
 		}
 	}
 	
 	function ChangeDelPartnerStatus($status,$id){
 		$status = $this->Order_model->ChangeDelPartnerStatus($status,$id);
 		if($status){
-			 redirect('orders/orders', 'refresh');
+			 redirect('admin/orders/orders', 'refresh');
 		}
 	}
 	function Review($type){
@@ -129,16 +139,19 @@ class Orders extends Admin_Controller {
 		$userdata = $this->session->userdata('admin');
 		$data = $this->input->post('data');
 		if($type ==  2){
+			$title = "Review Customer";
+			$customer_details = $this->Customer_model->get_customer($data['customer_id']);
+			$name = $customer_details->firstname;
+			$id= $data['id'];
+		}elseif($type == 3 || $type=5){ 
+			$title ="Review Delivery boy";
+			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
+			$name = isset($deliveryboy_details->name) ? $deliveryboy_details->name : "";
+			$id= $data['id'];
+		}elseif($type == 4){
 			$title = "Review Restaurant";
 			$name = $data['restaurant_name'];
 			$id= $data['restaurant_id'];
-		}elseif($type == 3){ 
-			$title ="Review Delivery boy";
-			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
-			$name = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "";
-			$id= $data['id'];
-		}else{
-			$title="";
 		}
 		
 		
@@ -156,7 +169,7 @@ class Orders extends Admin_Controller {
 							<label for='review' class='col-xs-12 col-sm-3'>Feedback to</label>
 							<div class='col-sm-8 col-xs-12'>
 							<input type='text' name='' class='form-control' value='".$name."' readonly>
-							<input type='text' name='feedbackto' class='form-control' value='".$id."' readonly>
+							<input type='hidden' name='feedbackto' class='form-control' value='".$id."' readonly>
 							</div>
 						</div>
 						<div class='form-group col-sm-12 col-xs-12'>
@@ -198,7 +211,7 @@ class Orders extends Admin_Controller {
 	function InserReview(){
 		$data = $this->input->post();
 		$this->Order_model->InserReview($data);
-		redirect('orders/orders');
+		redirect('admin/orders/orders');
 	}
     function delete($id)
     {

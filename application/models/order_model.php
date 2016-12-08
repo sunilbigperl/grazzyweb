@@ -54,7 +54,21 @@ Class order_model extends CI_Model
 		$userdata = $this->session->userdata('admin');
 		$date = date("Y-m-d 00:00:00");
 		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
-		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager_status = 'Accepted' and a.ordered_on >='".$date."'");
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.restaurant_manager_status = 'Accepted' and a.order_type != 3 and a.ordered_on >='".$date."'");
+		if($sql->num_rows() > 0){
+			$result	= $sql->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
+	
+	function AssignDeliveryBoy($data){
+		$sql = $this->db->query("update orders set delivered_by='".$data['delBoy']."' and staus='Accepted' where id='".$data['id']."'");
+		if($sql){ return true; }
+	}
+	function get_deliveryboys(){
+		$sql = $this->db->query("select * from delivery_boy");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{

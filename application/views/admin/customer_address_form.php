@@ -1,14 +1,14 @@
 <?php
-$entry_name	= array('name'=>'entry_name','class'=>'span3', 'value'=> set_value('entry_name',$entry_name));
-$f_company	= array('name'=>'company','class'=>'span3', 'value'=> set_value('company',$company));
-$f_address1	= array('name'=>'address1', 'class'=>'span6','value'=>set_value('address1',$address1));
-$f_address2	= array('name'=>'address2', 'class'=>'span6','value'=> set_value('address2',$address2));
-$f_first	= array('name'=>'firstname', 'class'=>'span3','value'=> set_value('firstname',$firstname));
-$f_last		= array('name'=>'lastname', 'class'=>'span3','value'=> set_value('lastname',$lastname));
-$f_email	= array('name'=>'email', 'class'=>'span3','value'=>set_value('email',$email));
-$f_phone	= array('name'=>'phone', 'class'=>'span3','value'=> set_value('phone',$phone));
-$f_city		= array('name'=>'city','class'=>'span2', 'value'=>set_value('city',$city));
-$f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> set_value('zip',$zip));
+if(isset($entry_name)){ $entry_name	= array('name'=>'entry_name','class'=>'span3', 'value'=> set_value('entry_name',$entry_name)); }else{ $entry_name	= "";}
+if(isset($company){ $f_company	= array('name'=>'company','class'=>'span3', 'value'=> set_value('company',$company)); }else{ $f_country =""; }
+if(isset($address1)){ $f_address1	= array('name'=>'address1', 'class'=>'span6','value'=>set_value('address1',$address1)); }else{ $f_address1 = ""; }
+if(isset($address2)) { $f_address2	= array('name'=>'address2', 'class'=>'span6','value'=> set_value('address2',$address2)); } else{ $f_address2	= ""; }
+if(isset($firstname)){ $f_first	= array('name'=>'firstname', 'class'=>'span3','value'=> set_value('firstname',$firstname)); }else{ $f_first = ""; }
+if(isset($lastname)){	$f_last		= array('name'=>'lastname', 'class'=>'span3','value'=> set_value('lastname',$lastname)); }else{ $f_last = ""; }
+if(isset($email)){ $f_email	= array('name'=>'email', 'class'=>'span3','value'=>set_value('email',$email)); }else{ $f_email = ""; }
+if(isset($phone)){ $f_phone	= array('name'=>'phone', 'class'=>'span3','value'=> set_value('phone',$phone)); }else{ $f_phone = ""; }
+if(isset($city)){ $f_city		= array('name'=>'city','class'=>'span2', 'value'=>set_value('city',$city)); }else{ $f_city = ""; }
+if(isset($zip)){ $f_zip		= array('maxlength'=>'10', 'class'=>'span1', 'name'=>'zip', 'value'=> set_value('zip',$zip)); }else{ $f_zip = ""; }
 ?>
 <?php echo form_open($this->config->item('admin_folder').'/customers/address_form/'.$customer_id.'/'.$id);?>
 

@@ -44,7 +44,7 @@
 					&nbsp;&nbsp;<?php if($menu->enabled == 1){ ?> 
 						<a href="#" data-toggle="modal" data-target="#DeactivateMenu" onclick="$('#restid').val('<?=$res_id;?>');$('#menuid').val('<?=$menu->menu_id;?>')">Deactivate menu</a>
 					<?php }else{ ?>
-						<a href="<?php echo site_url($this->config->item('admin_folder').'/menus/MenuStatusChange/'.$menu->menu_id.'/'.$res_id.''); ?>" >Activate restaurant</a>
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/menus/MenuStatusChange/'.$menu->menu_id.'/'.$res_id.''); ?>" >Activate menu</a>
 					<?php } ?>
 				</td>
 			</tr>
