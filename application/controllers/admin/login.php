@@ -41,7 +41,7 @@ class Login extends Base_Controller {
 					}elseif($this->auth->check_access('Admin')){
 						$redirect = $this->config->item('admin_folder').'/dashboard';
 					}else{
-						$redirect = $this->config->item('admin_folder').'/orders/neworders';
+						$redirect = $this->config->item('admin_folder').'/orders/delpartnerorders';
 					}
 				}
 				redirect($redirect);
