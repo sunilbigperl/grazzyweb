@@ -1,5 +1,5 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKUsjUabpe8-dBedcqnKchPAVfsNqFnlE"></script>
-<div id="map" style="width: 1200px; height: 800px;"></div>
+<div id="map" style="width: 1080px; height: 500px;"></div>
 
   <script type="text/javascript">
     var locations = <?=$restaurant;?>;
@@ -121,7 +121,7 @@
 
 
 <!--<div class="row">
-	<div class="span12" style="text-align:center;">
+	<div class="form-control" style="text-align:center;">
 		<a class="btn btn-large" href="<?php echo site_url(config_item('admin_folder').'/orders');?>"><?php echo lang('view_all_orders');?></a>
 	</div>
 </div>-->
@@ -164,7 +164,7 @@
 
 
 <div class="row">
-	<div class="span12" style="text-align:center;">
+	<div class="form-control" style="text-align:center;">
 		<a class="btn btn-large" href="<?php echo site_url(config_item('admin_folder').'/customers');?>"><?php echo lang('view_all_customers');?></a>
 	</div>
 </div>

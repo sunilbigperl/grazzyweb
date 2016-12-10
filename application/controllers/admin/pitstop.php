@@ -14,8 +14,7 @@ class Pitstop extends Admin_Controller {
     
     function index()
     {       
-		$data['page_title'] = lang('categories');
-		$data['page_title']	= lang('products');
+		$data['page_title'] = 'Pitstops';
         $data['pitstops'] = $this->Pitstop_model->get_pitstops_tiered(true);
 		
         $this->view($this->config->item('admin_folder').'/pitstops', $data);

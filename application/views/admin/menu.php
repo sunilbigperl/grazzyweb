@@ -1,9 +1,9 @@
 <?php echo theme_css('bootstrap-table.css', true);?>
 <?php echo theme_js('bootstrap-table.js', true);?>
 
-<div class="btn-group pull-right">
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant'); ?>"><i class="icon-plus-sign"></i> Restaurants</a>
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/0/'.$res_id); ?>"><i class="icon-plus-sign"></i> Add new menu</a>
+<div class="btn-group pull-left">
+	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant'); ?>"><i class="icon-plus-sign"></i> Restaurants</a>
+	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/0/'.$res_id); ?>"><i class="icon-plus-sign"></i> Add new menu</a>
 </div>
 
 <table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 

@@ -1,8 +1,6 @@
-<link href="<?=base_url();?>assets/css/bootstrap-table.css">
-<script src="<?=base_url();?>assets/js/bootstrap-table.js"></script>
 <div class="btn-group pull-left">
 	<?php if($this->auth->check_access('Admin')){ ?>
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form'); ?>"><i class="icon-plus-sign"></i> Add new restaurant</a>
+	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form'); ?>"><i class="icon-plus-sign"></i> Add new restaurant</a>
 	<?php } ?>
 </div>
 

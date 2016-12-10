@@ -1,8 +1,20 @@
-    <hr/>
-    <footer>
-        <!--<div style="text-align:center;"><a href="http://gocartdv.com" target="_blank"><img src="<?php echo base_url('assets/img/drivenByGoCart.svg');?>" alt="Driven By GoCart" style="width:120px;"></a><img src="https://register.gocartdv.com/<?php echo $_SERVER['SERVER_NAME'].'/'.$_SERVER['SERVER_ADDR'];?>" alt="GoCart" style="display:none;"></div>-->
-    </footer>
-</div>
 
+</div>
+	</div>
+	</div>
+    <hr/>
+ <script src="<?php echo base_url('vendors/js/jquery.min.js');?>"></script>
+    <!-- Bootstrap -->
+    <script src="<?php echo base_url('vendors/js/bootstrap.min.js');?>"></script>
+	<script src="<?php echo base_url('vendors/js/bootstrap-table.js ');?>"></script>
+    
+    <!-- FastClick -->
+    <script src="<?php echo base_url('vendors/js/fastclick.js');?>"></script>
+    <!-- NProgress -->
+    <script src="<?php echo base_url('vendors/js/nprogress.js');?>"></script>
+	
+    <script src="<?php echo base_url('vendors/js/bootstrap-progressbar.min.js');?>"></script>
+
+    <script src="<?php echo base_url('vendors/js/custom.min.js');?>"></script>
 </body>
 </html>

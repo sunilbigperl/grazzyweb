@@ -1,3 +1,5 @@
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.js');?>"></script>
+
 <?php echo form_open_multipart($this->config->item('admin_folder').'/restaurant/form/'.$restaurant_id); ?>
 
 <div class="tabbable">
@@ -13,103 +15,117 @@
 		<div class="tab-pane active" id="description_tab">
 			
 			<fieldset>
+			<div class="form-group">	
 				<label for="name">Restaurant name</label>
 				<?php
-				$data	= array('name'=>'restaurant_name', 'value'=>set_value('restaurant_name', $restaurant_name), 'class'=>'span6');
+				$data	= array('name'=>'restaurant_name', 'value'=>set_value('restaurant_name', $restaurant_name), 'class'=>'form-control');
 				echo form_input($data);
 				?>
-				
+			</div>
+			<div class="form-group">	
 				<label for="restaurant_address">Restaurant address</label>
 				<?php
 				$data	= array('name'=>'restaurant_address', 'class'=>'', 'value'=>set_value('restaurant_address', $restaurant_address));
 				echo form_textarea($data);
 				?>
-				
+			</div>
+			<div class="form-group">	
 				<label for="restaurant_address">Restaurant phone</label>
 				<?php
-				$data	= array('name'=>'restaurant_phone', 'value'=>set_value('restaurant_phone', $restaurant_phone), 'class'=>'span6');
+				$data	= array('name'=>'restaurant_phone', 'value'=>set_value('restaurant_phone', $restaurant_phone), 'class'=>'form-control');
 				echo form_input($data);
 				?>
-				
+			</div>
+			<div class="form-group">
 				<label for="restaurant_address">Restaurant email</label>
 				<?php
-				$data	= array('name'=>'restaurant_email', 'value'=>set_value('restaurant_email', $restaurant_email), 'class'=>'span6');
+				$data	= array('name'=>'restaurant_email', 'value'=>set_value('restaurant_email', $restaurant_email), 'class'=>'form-control');
 				echo form_input($data);
 				?>
-				
+			</div>
+			<div class="form-group">
 				<label for="restaurant_address">Restaurant branch</label>
 				<?php
-				$data	= array('name'=>'restaurant_branch', 'value'=>set_value('restaurant_branch', $restaurant_branch), 'class'=>'span6');
+				$data	= array('name'=>'restaurant_branch', 'value'=>set_value('restaurant_branch', $restaurant_branch), 'class'=>'form-control');
 				echo form_input($data);
 				?>
-				
+			</div>
+			<div class="form-group">
 				<label for="restaurant_manager">Restaurant manager</label>
-				<select name="restaurant_manager" class="form-control span6">
+				<select name="restaurant_manager" class="form-control form-control">
 					<option value="">Select Restaurant manager</option>
 					<?php foreach($managers as $manager){
 						if($restaurant_manager == $manager->id){$select="selected";}else{$select="";}?>
 						<option value="<?=$manager->id?>" <?=$select;?>><?=$manager->username;?></select>
 					<?php } ?>
 				</select>
-				
+			</div>
+			<div class="form-group">	
 				<label for="enabled"><?php echo lang('enabled');?> </label>
-        		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled)); ?>
-				
+        		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class="form-control"'); ?>
+			</div>
+			<div class="form-group">	
 				<label for="preparation_time">Preparation time(In mins)</label>
         		<?php
-				$data	= array('name'=>'preparation_time', 'value'=>set_value('preparation_time', $preparation_time), 'class'=>'span6');
+				$data	= array('name'=>'preparation_time', 'value'=>set_value('preparation_time', $preparation_time), 'class'=>'form-control');
 				echo form_input($data);
 				?>
-				
-				<label for="commission">Commission(%)</label>
+			</div>
+			<div class="form-group">	
+				<label for="commission">Commission(%)</label>	
 				<?php
-				$data	= array('name'=>'commission', 'value'=>set_value('commission', $commission), 'class'=>'span6');
+				$data	= array('name'=>'commission', 'value'=>set_value('commission', $commission), 'class'=>'form-control');
 				echo form_input($data);
 				?>
+			</div>
+			<div class="form-group">
 				<label for="penalty">Penalty(%)</label>
 				<?php
-				$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'span6');
+				$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control');
 				echo form_input($data);
 				?>
+			</div>
+			<div class="form-group">
 				<label for="servicetax">Service tax(%)</label>
 				<?php
-				$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'span6');
+				$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'form-control');
 				echo form_input($data);
 				?>
+			</DIV>
 			</fieldset>
 		</div>
 
 		<div class="tab-pane" id="attributes_tab">
 			
 			<fieldset>
-		
-
-				<label for="image"><?php echo lang('image');?> </label>
-				<div class="input-append">
-					<?php echo form_upload(array('name'=>'image'));?><span class="add-on"><?php echo lang('max_file_size');?> <?php echo  $this->config->item('size_limit')/1024; ?>kb</span>
+				<div class="form-group">
+					<label for="image"><?php echo lang('image');?> </label>
+					<div class="input-append">
+						<?php echo form_upload(array('name'=>'image','class'=>'form-control'));?><span class="add-on"><?php echo lang('max_file_size');?> <?php echo  $this->config->item('size_limit')/1024; ?>kb</span>
+					</div>
 				</div>
+				<div class="form-group">		
+					<?php if($restaurant_id && $image != ''):?>
 					
-				<?php if($restaurant_id && $image != ''):?>
-				
-				<div style="text-align:center; padding:5px; border:1px solid #ddd;"><img src="<?php echo base_url('uploads/images/small/'.$image);?>" alt="current"/><br/><?php echo lang('current_file');?></div>
-				
-				<?php endif;?>
-				
+					<div style="text-align:center; padding:5px; border:1px solid #ddd;"><img src="<?php echo base_url('uploads/images/small/'.$image);?>" alt="current"/><br/><?php echo lang('current_file');?></div>
+					
+					<?php endif;?>
+				</div>	
 			</fieldset>
 			
 		</div>
 		
 		<div class="tab-pane" id="pitstop_tab">
 				<div class="row">
-					<div class="span8">
+					<div class="col-sm-8">
 						<label><strong>Select pitstops</strong></label>
 					</div>
 				</div>
 				<div class="row">
-					<div class="span4" style="text-align:center">
+					<div class="col-sm-4" style="text-align:center">
 						<div class="row">
-							<div class="span2">
-								<input class="span2" type="text" id="product_search" />
+							<div class="form-group">
+								<input class="form-control" type="text" id="product_search" />
 								<script type="text/javascript">
 								$('#product_search').keyup(function(){
 									$('#product_list').html('');
@@ -137,13 +153,13 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="span2">
-								<select class="span4" id="product_list" size="10" style="margin:0px;"></select>
+							<div class="form-group">
+								<select class="form-control" id="product_list" size="10" style="margin:0px;"></select>
 							</div>
 						</div>
 						<div class="row">
-							<div class="span2" style="margin-top:8px;">
-								<a href="#" onclick="add_related_product();return false;" class="btn" title="Add Related Product">Add Pitstop</a>
+							<div class="form-group" style="margin-top:8px;">
+								<a href="#" onclick="add_related_product();return false;" class="btn btn-primary" title="Add Related Product">Add Pitstop</a>
 							</div>
 						</div>
 					</div>
@@ -287,7 +303,7 @@ function related_items($id, $name) {
 					<input type="hidden" name="related_pitstops[]" value="'.$id.'"/>
 					'.$name.'</td>
 				<td>
-					<a class="btn btn-danger pull-right btn-mini" href="#" onclick="remove_related_product('.$id.'); return false;"><i class="icon-trash icon-white"></i> '.lang('remove').'</a>
+					<a class="btn btn-danger pull-right btn-mini" href="#" onclick="remove_related_product('.$id.'); return false;"><i class="fa fa-trash"></i> '.lang('remove').'</a>
 				</td>
 			</tr>
 		';

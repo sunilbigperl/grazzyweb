@@ -1,22 +1,20 @@
-<?php echo theme_css('bootstrap-table.css', true);?>
-<?php echo theme_js('bootstrap-table.js', true);?>
 <script type="text/javascript">
 function areyousure()
 {
 	return confirm('<?php echo lang('confirm_delete');?>');
 }
 </script>
-<div class="btn-group pull-right">
-	<a class="btn" href="<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/form'); ?>"><i class="icon-plus-sign"></i> Add new delivery boy</a>
+<div class="btn-group pull-left">
+	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/form'); ?>"><i class="icon-plus-sign"></i> Add new delivery boy</a>
 </div>
 
 <table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
-			<th data-field="number">id</th>
-			<th data-field="type">Name</th>
-			<th data-field="operator">Phone</th>
+			<th data-field="id">id</th>
+			<th data-field="name">Name</th>
+			<th>Phone</th>
 			<th>Action</th>
 		</tr>
 	</thead>

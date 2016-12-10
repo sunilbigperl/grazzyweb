@@ -38,7 +38,7 @@ class Restaurant extends Admin_Controller {
         
 		$data['managers'] = $this->Restaurant_model->get_managers();
         $data['restaurants']     = $this->Restaurant_model->get_restaurants();
-        $data['page_title']     = lang('category_form');
+        $data['page_title']     = "Restaurant form";
         
         //default values are empty if the customer is new
 		

@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.js');?>"></script>
 <?php echo form_open_multipart($this->config->item('admin_folder').'/pitstop/form/'.$pitstop_id); ?>
 
 <div class="tabbable">
@@ -12,40 +13,45 @@
 		<div class="tab-pane active" id="description_tab">
 			
 			<fieldset>
+			<div class="form-group">	
 				<label for="name">pitstop name</label>
 				<?php
-				$data	= array('name'=>'pitstop_name', 'value'=>set_value('pitstop_name', $pitstop_name), 'class'=>'span12');
+				$data	= array('name'=>'pitstop_name', 'value'=>set_value('pitstop_name', $pitstop_name), 'class'=>'form-control');
 				echo form_input($data);
 				?>
-				
+			</div>
+			<div class="form-group">	
 				<label for="pitstop_address">pitstop latitude</label>
 				<?php
-				$data	= array('name'=>'latitude', 'value'=>set_value('latitude', $latitude), 'class'=>'span12');
+				$data	= array('name'=>'latitude', 'value'=>set_value('latitude', $latitude), 'class'=>'form-control');
 				echo form_input($data);
 				?>
-				
+			</div>
+			<div class="form-group">	
 				<label for="pitstop_address">pitstop langitude</label>
 				<?php
-				$data	= array('name'=>'langitude', 'value'=>set_value('langitude', $langitude), 'class'=>'span12');
+				$data	= array('name'=>'langitude', 'value'=>set_value('langitude', $langitude), 'class'=>'form-control');
 				echo form_input($data);
 				?>
-				
+			</div>
+			<div class="form-group">	
 				<label for="enabled"><?php echo lang('enabled');?> </label>
-        		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled)); ?>
+        		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled), 'class=form-control'); ?>
+			</div>
 			</fieldset>
 		</div>
 
 		<div class="tab-pane" id="attributes_tab">
 				<div class="row">
-					<div class="span8">
+					<div class="col-sm-8">
 						<label><strong>Select Restaurants</strong></label>
 					</div>
 				</div>
 				<div class="row">
-					<div class="span4" style="text-align:center">
+					<div class="col-sm-4" style="text-align:center">
 						<div class="row">
-							<div class="span2">
-								<input class="span2" type="text" id="product_search" />
+							<div class="form-group">
+								<input class="form-control" type="text" id="product_search" />
 								<script type="text/javascript">
 								$('#product_search').keyup(function(){
 									$('#product_list').html('');
@@ -73,17 +79,17 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="span2">
-								<select class="span4" id="product_list" size="10" style="margin:0px;"></select>
+							<div class="form-group">
+								<select class="form-control" id="product_list" size="10" style="margin:0px;"></select>
 							</div>
 						</div>
 						<div class="row">
-							<div class="span2" style="margin-top:8px;">
-								<a href="#" onclick="add_related_product();return false;" class="btn" title="Add Related Product">Add Restaurants</a>
+							<div class="form-group" style="margin-top:8px;">
+								<a href="#" onclick="add_related_product();return false;" class="btn btn-primary" title="Add Related Product">Add Restaurants</a>
 							</div>
 						</div>
 					</div>
-					<div class="span4">
+					<div class="col-sm-4">
 						<table class="table table-striped" style="margin-top:10px;">
 							<tbody id="product_items_container">
 							<?php
@@ -167,7 +173,7 @@ function related_items($id, $name) {
 					<input type="hidden" name="related_restaurants[]" value="'.$id.'"/>
 					'.$name.'</td>
 				<td>
-					<a class="btn btn-danger pull-right btn-mini" href="#" onclick="remove_related_product('.$id.'); return false;"><i class="icon-trash icon-white"></i> '.lang('remove').'</a>
+					<a class="btn btn-danger pull-right btn-mini" href="#" onclick="remove_related_product('.$id.'); return false;"><i class="fa fa-trash"></i> '.lang('remove').'</a>
 				</td>
 			</tr>
 		';

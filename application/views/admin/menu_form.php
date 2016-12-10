@@ -12,38 +12,50 @@
 		<div class="tab-pane active" id="description_tab">
 			
 			<fieldset>
-				
+			<div class="form-group">		
 				<label for="name"><?php echo lang('name');?></label>
 				<?php
-				$data	= array('name'=>'menu', 'value'=>set_value('menu', $menu), 'class'=>'span6');
+				$data	= array('name'=>'menu', 'value'=>set_value('menu', $menu), 'class'=>'form-control');
 				echo form_input($data);
 				?>
+			</div>
+			<div class="form-group">
 				<label for="name">Menu code</label>
 				<?php
-				$data	= array('name'=>'code', 'value'=>set_value('code', $code), 'class'=>'span6');
+				$data	= array('name'=>'code', 'value'=>set_value('code', $code), 'class'=>'form-control');
 				echo form_input($data);
 				?>
+			</div>
+			<div class="form-group">	
 				<label for="type">Type</label>
-				<select name="type" class="span6">
+				<select name="type" class="form-control">
 					<option value="">Select veg/nonveg</option>
 					<option value="veg" <?php if($type == "veg"){echo "selected";}?>>veg</option>
 					<option value="non veg" <?php if($type == "non veg"){echo "selected";}?>>non veg</option>
 				</select>
+			</div>
+			<div class="form-group">
 				<label for="price">Price</label>
 				<?php
-				$data	= array('name'=>'price', 'value'=>set_value('price', $price), 'class'=>'span6');
+				$data	= array('name'=>'price', 'value'=>set_value('price', $price), 'class'=>'form-control');
 				echo form_input($data);
 				?>
+			</div>
+			<div class="form-group">
 				<label for="name">Item preparation time(In mins)</label>
 				<?php
-				$data	= array('name'=>'itemPreparation_time', 'value'=>set_value('itemPreparation_time', $itemPreparation_time), 'class'=>'span6');
+				$data	= array('name'=>'itemPreparation_time', 'value'=>set_value('itemPreparation_time', $itemPreparation_time), 'class'=>'form-control');
 				echo form_input($data);
 				?>
+			</div>
+			<div class="form-group">
 				<label for="description">Description</label>
-				<textarea name="description" class="span6"><?=$description;?></textarea>
-				
+				<textarea name="description" class="form-control"><?=$description;?></textarea>
+			</div>
+			<div class="form-group">	
 				<label for="enabled"><?php echo lang('enabled');?> </label>
-        		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled)); ?>
+        		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class=form-control'); ?>
+			</div>
 			</fieldset>
 		</div>
 
@@ -51,8 +63,8 @@
 			
 			<fieldset>
 				
-				<div class="row">
-					<div class="span8">
+				<div class="col-sm-12">
+					<div class="col-sm-8">
 						<?php if(isset($categories[0])):?>
 							<label><strong><?php echo lang('select_a_category');?></strong></label>
 							<table class="table table-striped">

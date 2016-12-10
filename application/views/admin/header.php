@@ -1,151 +1,159 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>admin panel<?php echo (isset($page_title))?' :: '.$page_title:''; ?></title>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url('assets/css/bootstrap-responsive.min.css');?>" rel="stylesheet" type="text/css" />
-<link type="text/css" href="<?php echo base_url('assets/css/jquery-ui.css');?>" rel="stylesheet" />
-<link type="text/css" href="<?php echo base_url('assets/css/redactor.css');?>" rel="stylesheet" />
+    <title>Admin Panel</title>
 
-<script type="text/javascript" src="<?php echo base_url('assets/js/jquery.js');?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js');?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script>
-<script type="text/javascript" src="<?php echo base_url('assets/js/redactor.min.js');?>"></script>
-<style>.fixed-table-loading{display:none;}</style>
+    <!-- Bootstrap -->
+    <link href="<?php echo base_url('vendors/css/bootstrap.css');?>" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="<?php echo base_url('vendors/css/font-awesome.min.css');?>"  rel="stylesheet">
+    <!-- NProgress -->
+    <link href="<?php echo base_url('vendors/css/nprogress.css');?>" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="<?php echo base_url('vendors/css/bootstrap-progressbar-3.3.4.min.css');?>" rel="stylesheet">
+	
+    <!-- bootstrap-daterangepicker -->
+    <link href="<?php echo base_url('vendors/css/daterangepicker.css');?>"  rel="stylesheet">
 
-<?php if($this->auth->is_logged_in(false, false)):?>
-    
-<style type="text/css">
-    body {
-        margin-top:50px;
-    }
-    
-    @media (max-width: 979px){ 
-        body {
-            margin-top:0px;
-        }
-    }
-    @media (min-width: 980px) {
-        .nav-collapse.collapse {
-            height: auto !important;
-            overflow: visible !important;
-        }
-     }
-    
-    .nav-tabs li a {
-        text-transform:uppercase;
-        background-color:#f2f2f2;
-        border-bottom:1px solid #ddd;
-        text-shadow: 0px 1px 0px #fff;
-        filter: dropshadow(color=#fff, offx=0, offy=1);
-        font-size:12px;
-        padding:5px 8px;
-    }
-    
-    .nav-tabs li a:hover {
-        border:1px solid #ddd;
-        text-shadow: 0px 1px 0px #fff;
-        filter: dropshadow(color=#fff, offx=0, offy=1);
-    }
+    <!-- Custom Theme Style -->
+    <link href="<?php echo base_url('vendors/css/custom.min.css');?>" rel="stylesheet">
 
-</style>
-<script type="text/javascript">
-$(document).ready(function(){
-    $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
-    
-    $('.redactor').redactor({
-            minHeight: 200,
-            imageUpload: '<?php echo site_url(config_item('admin_folder').'/wysiwyg/upload_image');?>',
-            fileUpload: '<?php echo site_url(config_item('admin_folder').'/wysiwyg/upload_file');?>',
-            imageGetJson: '<?php echo site_url(config_item('admin_folder').'/wysiwyg/get_images');?>',
-            imageUploadErrorCallback: function(json)
-            {
-                alert(json.error);
-            },
-            fileUploadErrorCallback: function(json)
-            {
-                alert(json.error);
-            }
-      });
-});
-</script>
-<?php endif;?>
+	 <link href="<?php echo base_url('vendors/css/bootstrap-table.css ');?>" rel="stylesheet">
+	<?php if($this->auth->is_logged_in(false, false)):?>
+		
+	<style type="text/css">
+		
+		@media (max-width: 979px){ 
+			body {
+				margin-top:0px;
+			}
+		}
+		@media (min-width: 980px) {
+			.nav-collapse.collapse {
+				height: auto !important;
+				overflow: visible !important;
+			}
+		 }
+		
+		.nav-tabs li a {
+			text-transform:uppercase;
+			background-color:#f2f2f2;
+			border-bottom:1px solid #ddd;
+			text-shadow: 0px 1px 0px #fff;
+			filter: dropshadow(color=#fff, offx=0, offy=1);
+			font-size:12px;
+			padding:5px 8px;
+		}
+		
+		.nav-tabs li a:hover {
+			border:1px solid #ddd;
+			text-shadow: 0px 1px 0px #fff;
+			filter: dropshadow(color=#fff, offx=0, offy=1);
+		}
+
+	</style>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+		
+		$('.redactor').redactor({
+				minHeight: 200,
+				imageUpload: '<?php echo site_url(config_item('admin_folder').'/wysiwyg/upload_image');?>',
+				fileUpload: '<?php echo site_url(config_item('admin_folder').'/wysiwyg/upload_file');?>',
+				imageGetJson: '<?php echo site_url(config_item('admin_folder').'/wysiwyg/get_images');?>',
+				imageUploadErrorCallback: function(json)
+				{
+					alert(json.error);
+				},
+				fileUploadErrorCallback: function(json)
+				{
+					alert(json.error);
+				}
+		  });
+	});
+	</script>
+	<?php endif;?>
 </head>
-<body>
-<?php if($this->auth->is_logged_in(false, false)):?>
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+	<?php if($this->auth->is_logged_in(false, false)):?>
+	<?php $admin_url = site_url($this->config->item('admin_folder')).'/';?>
+		<div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;height:100px;">
+              <a href="<?=$admin_url;?>" class="site_title"><i class="fa fa-paw"></i> <span>Admin panel</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
             
-            <?php $admin_url = site_url($this->config->item('admin_folder')).'/';?>
-            
-            <a class="brand" href="<?php echo $admin_url;?>"><strong>Admin Panel</strong></a>
-            
-            <div class="nav-collapse">
-                <ul class="nav">
-                    <?php if($this->auth->check_access('Restaurant manager')) : ?>
-						<li><a href="<?php echo $admin_url;?>orders/dashboard">Dashboard</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Control <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="<?php echo $admin_url;?>restaurant">Restaurants</a></li>
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <ul class="nav side-menu">
+				<?php if($this->auth->check_access('Restaurant manager')) : ?>
+						<li><a href="<?php echo $admin_url;?>orders/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+						<li><a><i class="fa fa-home"></i> Control <span class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+							  <li><a href="<?php echo $admin_url;?>restaurant">Restaurants</a></li>
 							</ul>
 						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders <b class="caret"></b></a>
-							<ul class="dropdown-menu">
+						<li><a><i class="fa fa-home"></i> Orders <span class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
 								<li><a href="<?php echo $admin_url;?>orders/neworders">New orders</a></li>
 								<li><a href="<?php echo $admin_url;?>orders/previousorders">Previous orders</a></li>
 							</ul>
 						</li>
-						<li><a href="<?php echo $admin_url;?>orders/RequestBill">Request Bill</a></li>
-					<?php endif; ?>
-					<?php if($this->auth->check_access('Deliver manager')) : ?>
+						<li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class="fa fa-chevron-down"></span></a></li>
 						
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="<?php echo $admin_url;?>orders/delpartnerorders">New orders</a></li>
-								<li><a href="<?php echo $admin_url;?>orders/previousorders">Previous orders</a></li>
+				<?php endif; ?>
+                <?php if($this->auth->check_access('Deliver manager')) : ?>
+						<li><a><i class="fa fa-home"></i> Orders <span class="fa fa-chevron-down"></span></a>
+							<ul class="nav child_menu">
+							  <li><a href="<?php echo $admin_url;?>orders/delpartnerorders">New orders</a></li>
+							  <li><a href="<?php echo $admin_url;?>orders/previousorders">Previous orders</a></li>
 							</ul>
 						</li>
-					<?php endif; ?>
-                    <?php if($this->auth->check_access('Admin')) : ?>
-					
-					<li><a href="<?php echo $admin_url;?>dashboard"><?php echo lang('common_home');?></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_sales') ?> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                           <!-- <li><a href="<?php echo $admin_url;?>orders"><?php echo lang('common_orders') ?></a></li>-->
-                            
+						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boy</li>
+				<?php endif; ?>
+                <?php if($this->auth->check_access('Admin')) : ?>
+					<li><a href="<?php echo $admin_url;?>dashboard"><i class="fa fa-home"></i> Dashboard </a></li>
+                    <li><a><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+						    <li><a href="<?php echo $admin_url;?>orders/previousorders">Previous orders</a></li>
                             <li><a href="<?php echo $admin_url;?>customers"><?php echo lang('common_customers') ?></a></li>
                              <!--<li><a href="<?php echo $admin_url;?>customers/groups"><?php echo lang('common_groups') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>reports"><?php echo lang('common_reports') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>coupons"><?php echo lang('common_coupons') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>giftcards"><?php echo lang('common_giftcards') ?></a></li>-->
-                           
-                        </ul>
-                    </li>
-
-
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_catalog') ?> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<?php echo $admin_url;?>categories"><?php echo lang('common_categories') ?></a></li>
+						</ul>
+					</li>
+					<li><a><i class="fa fa-home"></i> <?php echo lang('common_catalog') ?> <span class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a href="<?php echo $admin_url;?>categories"><?php echo lang('common_categories') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>restaurant">Restaurants</a></li>
 							<li><a href="<?php echo $admin_url;?>pitstop">Pitstops</a></li>
-                            <!--<li><a href="<?php echo $admin_url;?>digital_products"><?php echo lang('common_digital_products') ?></a></li>-->
-                        </ul>
-                    </li>
-                    
+						</ul>
+					</li>
+                   <li><a><i class="fa fa-home"></i> <?php echo lang('common_administrative') ?>  <span class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<!-- <li><a href="<?php echo $admin_url;?>settings"><?php echo lang('common_gocart_configuration') ?></a></li>
+                            <li><a href="<?php echo $admin_url;?>shipping"><?php echo lang('common_shipping_modules') ?></a></li>
+                            <li><a href="<?php echo $admin_url;?>payment"><?php echo lang('common_payment_modules') ?></a></li>
+                            <li><a href="<?php echo $admin_url;?>settings/canned_messages"><?php echo lang('common_canned_messages') ?></a></li>
+                            <li><a href="<?php echo $admin_url;?>locations"><?php echo lang('common_locations') ?></a></li>-->
+                            <li><a href="<?php echo $admin_url;?>admin"><?php echo lang('common_administrators') ?></a></li>
+						</ul>
+					</li>
+					<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boy </li>
                    <!-- <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_content') ?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -155,79 +163,146 @@ $(document).ready(function(){
                         </ul>
                     </li>-->
                     
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_administrative') ?> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                           <!-- <li><a href="<?php echo $admin_url;?>settings"><?php echo lang('common_gocart_configuration') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>shipping"><?php echo lang('common_shipping_modules') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>payment"><?php echo lang('common_payment_modules') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>settings/canned_messages"><?php echo lang('common_canned_messages') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>locations"><?php echo lang('common_locations') ?></a></li>-->
-                            <li><a href="<?php echo $admin_url;?>admin"><?php echo lang('common_administrators') ?></a></li>
-                        </ul>
-                    </li>
                     <?php endif; ?>
                 </ul>
-                <ul class="nav pull-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_actions');?> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<?php echo site_url($this->config->item('admin_folder').'/login/logout');?>"><?php echo lang('common_log_out') ?></a></li>
-                        </ul>
+              </div>
+            </div>
+            <!-- /sidebar menu -->
+
+           
+          </div>
+        </div>
+		 <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+               
+                <li><a href="<?php echo site_url($this->config->item('admin_folder').'/login/logout');?>"><?php echo lang('common_log_out') ?></a></li>
+                  
+
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="badge bg-green">6</span>
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <li>
+                      <a>
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
                     </li>
-                </ul>
-            </div><!-- /.nav-collapse -->
+                    <li>
+                      <a>
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span>
+                          <span>John Smith</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
-    </div><!-- /navbar-inner -->
-</div>
-<?php endif;?>
-<div class="container">
-    <?php
-    //lets have the flashdata overright "$message" if it exists
-    if($this->session->flashdata('message'))
-    {
-        $message    = $this->session->flashdata('message');
-    }
-    
-    if($this->session->flashdata('error'))
-    {
-        $error  = $this->session->flashdata('error');
-    }
-    
-    if(function_exists('validation_errors') && validation_errors() != '')
-    {
-        $error  = validation_errors();
-    }
-    ?>
-    
-    <div id="js_error_container" class="alert alert-error" style="display:none;"> 
-        <p id="js_error"></p>
-    </div>
-    
-    <div id="js_note_container" class="alert alert-note" style="display:none;">
-        
-    </div>
-    
-    <?php if (!empty($message)): ?>
-        <div class="alert alert-success">
-            <a class="close" data-dismiss="alert">×</a>
-            <?php echo $message; ?>
-        </div>
-    <?php endif; ?>
+        <!-- /top navigation -->
+	<?php endif; ?>
+<div class="right_col" role="main" style="overflow: auto;">
+	<div class="container">
+		<?php
+		//lets have the flashdata overright "$message" if it exists
+		if($this->session->flashdata('message'))
+		{
+			$message    = $this->session->flashdata('message');
+		}
+		
+		if($this->session->flashdata('error'))
+		{
+			$error  = $this->session->flashdata('error');
+		}
+		
+		if(function_exists('validation_errors') && validation_errors() != '')
+		{
+			$error  = validation_errors();
+		}
+		?>
+		
+		<div id="js_error_container" class="alert alert-error" style="display:none;"> 
+			<p id="js_error"></p>
+		</div>
+		
+		<div id="js_note_container" class="alert alert-note" style="display:none;">
+			
+		</div>
+		
+		<?php if (!empty($message)): ?>
+			<div class="alert alert-success">
+				<a class="close" data-dismiss="alert">×</a>
+				<?php echo $message; ?>
+			</div>
+		<?php endif; ?>
 
-    <?php if (!empty($error)): ?>
-        <div class="alert alert-error">
-            <a class="close" data-dismiss="alert">×</a>
-            <?php echo $error; ?>
-        </div>
-    <?php endif; ?>
-</div>      
+		<?php if (!empty($error)): ?>
+			<div class="alert alert-error">
+				<a class="close" data-dismiss="alert">×</a>
+				<?php echo $error; ?>
+			</div>
+		<?php endif; ?>
+	</div>      
 
-<div class="container">
-    <?php if(!empty($page_title)):?>
-    <div class="page-header">
-        <h1><?php echo  $page_title; ?></h1>
-    </div>
-    <?php endif;?>
+	<div class="container">
+		<?php if(!empty($page_title)):?>
+		<div class="page-header">
+			<h1><?php echo  $page_title; ?></h1>
+		</div>
+		<?php endif;?>
     
     
