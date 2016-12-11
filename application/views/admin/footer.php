@@ -3,11 +3,10 @@
 	</div>
 	</div>
     <hr/>
- <script src="<?php echo base_url('vendors/js/jquery.min.js');?>"></script>
-    <!-- Bootstrap -->
-    <script src="<?php echo base_url('vendors/js/bootstrap.min.js');?>"></script>
+
 	<script src="<?php echo base_url('vendors/js/bootstrap-table.js ');?>"></script>
-    
+    <script type="text/javascript" src="<?php echo base_url('assets/js/redactor.min.js');?>"></script>
+
     <!-- FastClick -->
     <script src="<?php echo base_url('vendors/js/fastclick.js');?>"></script>
     <!-- NProgress -->

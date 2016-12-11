@@ -11,6 +11,9 @@
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url('vendors/css/bootstrap.css');?>" rel="stylesheet">
+	
+	 
+	<link href="http://localhost/peptkraf/app/themes/default/assets/css/examples.css">
     <!-- Font Awesome -->
     <link href="<?php echo base_url('vendors/css/font-awesome.min.css');?>"  rel="stylesheet">
     <!-- NProgress -->
@@ -20,11 +23,14 @@
 	
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo base_url('vendors/css/daterangepicker.css');?>"  rel="stylesheet">
-
+	
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url('vendors/css/custom.min.css');?>" rel="stylesheet">
 
 	 <link href="<?php echo base_url('vendors/css/bootstrap-table.css ');?>" rel="stylesheet">
+	<script src="<?php echo base_url('vendors/js/jquery.min.js');?>"></script>
+    <!-- Bootstrap -->
+    <script src="<?php echo base_url('vendors/js/bootstrap.min.js');?>"></script>
 	<?php if($this->auth->is_logged_in(false, false)):?>
 		
 	<style type="text/css">
@@ -60,8 +66,6 @@
 	</style>
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
-		
 		$('.redactor').redactor({
 				minHeight: 200,
 				imageUpload: '<?php echo site_url(config_item('admin_folder').'/wysiwyg/upload_image');?>',
@@ -126,6 +130,8 @@
 				<?php endif; ?>
                 <?php if($this->auth->check_access('Admin')) : ?>
 					<li><a href="<?php echo $admin_url;?>dashboard"><i class="fa fa-home"></i> Dashboard </a></li>
+					
+					<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boy </a></li>
                     <li><a><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 						    <li><a href="<?php echo $admin_url;?>orders/previousorders">Previous orders</a></li>
@@ -153,16 +159,12 @@
                             <li><a href="<?php echo $admin_url;?>admin"><?php echo lang('common_administrators') ?></a></li>
 						</ul>
 					</li>
-					<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boy </li>
-                   <!-- <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo lang('common_content') ?> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<?php echo $admin_url;?>banners"><?php echo lang('common_banners') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>pages"><?php echo lang('common_pages') ?></a></li>
-							<li><a href="<?php echo $admin_url;?>numbers">Numbers</a></li>
-                        </ul>
-                    </li>-->
-                    
+					<li><a><i class="fa fa-home"></i>Messages <span class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a href="<?php echo $admin_url;?>message/restmessage">Restaurant message</a></li>
+                            <li><a href="<?php echo $admin_url;?>message/delmessage">Delivery partner message</a></li>
+						</ul>
+					</li>
                     <?php endif; ?>
                 </ul>
               </div>
@@ -301,7 +303,9 @@
 	<div class="container">
 		<?php if(!empty($page_title)):?>
 		<div class="page-header">
-			<h1><?php echo  $page_title; ?></h1>
+			<h1><?php echo  $page_title; ?>
+			<span class="pull-right" style="font-size:16px;"><a href="<?=$_SERVER['HTTP_REFERER'];?>">Back</a></span></h1>
+			
 		</div>
 		<?php endif;?>
     

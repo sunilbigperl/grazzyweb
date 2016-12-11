@@ -9,6 +9,7 @@ class Restaurant extends Admin_Controller {
         //$this->auth->check_access('Admin', true);
         $this->lang->load('category');
         $this->load->model('Restaurant_model');
+		$this->load->library('user_agent');
     }
     
     function index()

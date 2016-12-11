@@ -12,9 +12,8 @@
 			<th data-field="name">Restaurant name</th>
 			<th data-field="price">Email</th>
 			<th>Action</th>
-			<th></th>
-			<th>Import menus<a href="../../restaurant_menu.csv"> Download the format</a></th>
-			<th>Previous orders/ Sales</th>
+			<th>Import menus<br/><a href="../../restaurant_menu.csv">(Download the format)</a></th>
+			<th>Previous orders/Sales</th>
 		</tr>
 	</thead>
 	
@@ -36,28 +35,36 @@
 					<?=$restaurant->restaurant_email; ?>
 				</td>
 				<td>
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form/'.$restaurant->restaurant_id); ?>">Edit</a>
-				&nbsp;<a href="#" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/restaurant/delete/'.$restaurant->restaurant_id); ?>'; }">delete</a>
+					<span class="btn-group">
+					<a class="btn btn-info btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form/'.$restaurant->restaurant_id); ?>">Edit</a>
+					<a class="btn btn-danger btn-xs" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/restaurant/delete/'.$restaurant->restaurant_id); ?>'; }">delete</a>
 				
-				</td>
-			
-				<td>
-					<a href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Add menus</a>
+				
+					<a class="btn btn-xs btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Add menus</a>
 					<?php if($restaurant->enabled == 1){ ?> 
-						<a href="#" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a>
+						<a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a>
 					<?php }else{ ?>
-						<a href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id); ?>" >Activate restaurant</a>
+						<a class="btn btn-xs btn-success" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id); ?>" >Activate</a>
 					<?php } ?>
+					</span>
 				</td>
 				<td>
-					<form action="<?php echo site_url($this->config->item('admin_folder').'/menus/ImportMenu/'.$restaurant->restaurant_id); ?>" method="post" enctype="multipart/form-data">
-						<input type="file" name="menufile"><input type="submit" name="submit" value="submit">
+					<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/menus/ImportMenu/'.$restaurant->restaurant_id); ?>" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<div class="form-group">
+								<input type="file" name="menufile" >
+								<input type="submit" name="submit" value="Upload" class="btn btn-xs btn-default">
+							</div>
+						</div>
 					</form>
 				</td>
 				<td>
-					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/GetRestPreviousOrders/'.$restaurant->restaurant_id); ?>">previous orders/sales</a>
-					<a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/ShowReviewDetails/'.$restaurant->restaurant_id.'');?>');">Reviews/Ratings</a>
+					<span class="btn-group">
+						<a class="btn btn-primary btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/orders/GetRestPreviousOrders/'.$restaurant->restaurant_id); ?>">previous orders/sales</a>
+						<a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/ShowReviewDetails/'.$restaurant->restaurant_id.'');?>');">Reviews/Ratings</a>
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/message/index/'.$restaurant->restaurant_id);?>" >Messages</a>
 					
+					</div>
 				</td>
 			</tr>
 			<?php
