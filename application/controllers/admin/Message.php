@@ -17,6 +17,7 @@ class Message extends Admin_Controller {
         $data['messages'] = $this->Message_model->get_restmessage($id);
         $this->view($this->config->item('admin_folder').'/restmessage', $data);
 	}
+	
     function restmessage()
     {       
 		$data['page_title'] = 'Message to restaurants';
@@ -25,11 +26,26 @@ class Message extends Admin_Controller {
         $this->view($this->config->item('admin_folder').'/restmessage', $data);
     }
    
+   function delmessage(){
+	    $data['page_title'] = 'Message to delivery partner';
+        $data['messages'] = $this->Message_model->get_delmessages();
+		$data['delpartners'] = $this->Message_model->get_delpartners();
+        $this->view($this->config->item('admin_folder').'/delmessage', $data);
+   }
+   
    function messagerest(){
 	   $data = $this->input->post();
 	    $id = $this->Message_model->get_messagerest($data);
 		if($id > 0){
 			redirect('admin/message/restmessage');
+		}
+   }
+   
+   function messagedel(){
+	   $data = $this->input->post();
+	    $id = $this->Message_model->messagedel($data);
+		if($id > 0){
+			redirect('admin/message/delmessage');
 		}
    }
 }

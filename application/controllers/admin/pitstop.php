@@ -60,7 +60,7 @@ class Pitstop extends Admin_Controller {
             //if the category does not exist, redirect them to the category list with an error
             if (!$pitstop)
             {
-                $this->session->set_flashdata('error', lang('error_not_found'));
+                //$this->session->set_flashdata('error', lang('error_not_found'));
                 redirect($this->config->item('admin_folder').'/pitstops');
             }
             
@@ -103,11 +103,11 @@ class Pitstop extends Admin_Controller {
             $save['pitstop_id']             = $id;
 			
             $save['pitstop_name']           = $this->input->post('pitstop_name');
-            $save['latitude']    = $this->input->post('latitude');
+            $save['latitude']    = 	$this->input->post('latitude');
             $save['langitude']        = $this->input->post('langitude');
            
             $save['enabled']        = $this->input->post('enabled');
-           
+		
 			if($this->input->post('related_restaurants'))
 			{
 				$related_restaurants = $this->input->post('related_restaurants');
@@ -119,7 +119,7 @@ class Pitstop extends Admin_Controller {
 			
             $pitstop_id    = $this->Pitstop_model->save($save,$related_restaurants);
        
-            $this->session->set_flashdata('message', lang('message_category_saved'));
+            $this->session->set_flashdata('message', 'pitstop saved');
             
             //go back to the category list
             redirect($this->config->item('admin_folder').'/pitstop');

@@ -42,7 +42,7 @@
 							'Deliver boy'	=> 'Delivery boy',
 							'Deliver manager' => 'Deliver manager'
 		                );
-		echo form_dropdown('access', $options, set_value('phone', $access),'class=form-control');
+		echo form_dropdown('access', $options, set_value('access', $access),'class="form-control" id="access"');
 		?>
 	</div>
 	<div class="form-group">	
@@ -59,6 +59,16 @@
 		echo form_password($data);
 		?>
 	</div>
+	<div class="form-group">	
+		<label for="enabled"><?php echo lang('enabled');?> </label>
+		<?php echo form_dropdown('enabled', array(''=>'select','1' => lang('enabled'),'0' => lang('disabled')), set_value('enabled',$enabled),'class="form-control" id="enableddata"'); ?>
+	</div>
+	<div class="form-group" id="datetime" <?php if($FromDate != "0000-00-00"){ echo 'style="display:block;'; }else{ echo 'style="display:none;';}?>">
+			<label><strong>Disabled From date</strong></label>
+			<input type="date" name="FromDate" id="FromDate" value="<?=$FromDate;?>">
+			<label><strong>Disabled To date</strong></label>
+			<input type="date" name="ToDate" id="ToDate" value="<?=$ToDate;?>">
+	</div>
 	<div class="form-group">		
 		<div class="form-actions">
 			<input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>"/>
@@ -68,5 +78,14 @@
 <script type="text/javascript">
 $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');
+});
+$(document).ready(function(){
+	$("#enableddata").change(function(){
+		if($(this).val() == "0"){
+			if($("#access").val() == "Deliver manager"){
+				$("#datetime").css('display','block');
+			}
+		}
+	});
 });
 </script>

@@ -52,6 +52,9 @@ class Admin extends Admin_Controller
 		$data['username']	= '';
 		$data['phone']	= '';
 		$data['access']		= '';
+		$data['enabled']	='';
+		$data['FromDate']	='';
+		$data['ToDate']	='';
 		
 		if ($id)
 		{	
@@ -71,6 +74,9 @@ class Admin extends Admin_Controller
 			$data['username']	= $admin->username;
 			$data['phone']	= $admin->phone;
 			$data['access']		= $admin->access;
+			$data['enabled']		= $admin->enabled;
+			$data['FromDate']		= $admin->FromDate;
+			$data['ToDate']		= $admin->ToDate;
 		}
 		
 		$this->form_validation->set_rules('firstname', 'lang:firstname', 'trim|max_length[32]');
@@ -100,6 +106,11 @@ class Admin extends Admin_Controller
 			$save['username']	= $this->input->post('username');
 			$save['phone']	= $this->input->post('phone');
 			$save['access']		= $this->input->post('access');
+			$save['enabled']		= $this->input->post('enabled');
+			$FromDate		= date('Y-m-d',strtotime($this->input->post('FromDate')));
+			$save['FromDate'] = isset($FromDate) ? $FromDate : '';
+			$ToDate		= date('Y-m-d',strtotime($this->input->post('ToDate')));;
+			$save['ToDate'] = isset($ToDate) ? $ToDate : '';
 			
 			if ($this->input->post('password') != '' || !$id)
 			{

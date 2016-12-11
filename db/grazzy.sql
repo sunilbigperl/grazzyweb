@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2016 at 06:12 PM
+-- Generation Time: Dec 11, 2016 at 05:02 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -34,17 +34,20 @@ CREATE TABLE `admin` (
   `email` varchar(128) DEFAULT NULL,
   `phone` varchar(10) NOT NULL,
   `access` varchar(200) NOT NULL,
-  `password` varchar(40) NOT NULL
+  `password` varchar(40) NOT NULL,
+  `FromDate` date NOT NULL,
+  `ToDate` date NOT NULL,
+  `enabled` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `firstname`, `lastname`, `username`, `email`, `phone`, `access`, `password`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin@gmail.com', '', 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997'),
-(3, 'vijetha', 'l', 'vijetha', 'lvijetha90@gmail.com', '9886656363', 'Restaurant manager', '717f1cc273ee989c1667ce089441d9e88b92c129'),
-(4, 'sunil', 'yadav', 'sunil', 'sunil@bigperl.com', '123456789', 'Deliver manager', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601');
+INSERT INTO `admin` (`id`, `firstname`, `lastname`, `username`, `email`, `phone`, `access`, `password`, `FromDate`, `ToDate`, `enabled`) VALUES
+(1, 'admin', 'admin', 'admin', 'admin@gmail.com', '', 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '0000-00-00', '0000-00-00', 0),
+(3, 'vijetha', 'l', 'vijetha', 'lvijetha90@gmail.com', '9886656363', 'Restaurant manager', '717f1cc273ee989c1667ce089441d9e88b92c129', '0000-00-00', '0000-00-00', 0),
+(4, 'sunil', 'yadav', 'sunil', 'sunil@bigperl.com', '123456789', 'Deliver manager', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', '0000-00-00', '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -4479,6 +4482,26 @@ INSERT INTO `delivery_boy` (`id`, `name`, `address`, `phone`, `email`, `did`, `e
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `delpartner_messages`
+--
+
+CREATE TABLE `delpartner_messages` (
+  `message_id` bigint(20) NOT NULL,
+  `delpartner_id` bigint(20) NOT NULL,
+  `message` text NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `delpartner_messages`
+--
+
+INSERT INTO `delpartner_messages` (`message_id`, `delpartner_id`, `message`, `date`) VALUES
+(1, 4, 'test test', '2016-12-11 16:36:04');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `destination`
 --
 
@@ -4667,10 +4690,11 @@ INSERT INTO `orders` (`id`, `order_number`, `customer_id`, `restaurant_id`, `ord
 (20, '1480229742', 3, 3, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '', 0, ''),
 (21, '1480229782', 3, 3, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '', 0, ''),
 (22, '1480345682', 3, 3, '2016-11-28 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '', 0, ''),
-(23, '1480443312', 3, 3, '2016-11-29 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, 'place name here', '0', '', 0, ''),
-(24, '1480613855', 3, 3, '2016-12-01 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 4, 'Vijetha', NULL, '', '0', '', 0, ''),
-(25, '1480702849', 3, 3, '2016-12-02 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 4, 'Vijetha', NULL, '', '0', '1480702849.png', 4, 'Accepted'),
-(26, '1481043161', 3, 3, '2016-12-06 00:00:00', 'Order Placed', '12', '123', '123', 1, 3, 818, 1.23232, 1.23232, 0, 'Dhoni', NULL, '', '0', '1481043161.png', 0, '');
+(23, '1480443312', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 1, 'Vijetha', NULL, 'place name here', 'Accepted', '', 0, ''),
+(24, '1480613855', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 4, 'Vijetha', NULL, '', '0', '', 0, ''),
+(25, '1480702849', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 4, 'Vijetha', NULL, '', '0', '1480702849.png', 4, 'Accepted'),
+(26, '1481043161', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 3, 818, 1.23232, 1.23232, 0, 'Dhoni', NULL, '', '0', '1481043161.png', 0, ''),
+(27, '1481303613', 3, 3, '2016-12-09 17:13:33', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '1481303613.png', 0, '');
 
 -- --------------------------------------------------------
 
@@ -4791,7 +4815,9 @@ INSERT INTO `order_items` (`id`, `order_id`, `menu_id`, `quantity`, `cost`, `con
 (38, 25, 9, 8, 100, ''),
 (39, 25, 8, 6, 200, ''),
 (40, 26, 9, 8, 100, ''),
-(41, 26, 8, 6, 200, '');
+(41, 26, 8, 6, 200, ''),
+(42, 27, 9, 8, 100, ''),
+(43, 27, 8, 6, 200, '');
 
 -- --------------------------------------------------------
 
@@ -4853,7 +4879,7 @@ CREATE TABLE `pitstops` (
 --
 
 INSERT INTO `pitstops` (`pitstop_id`, `pitstop_name`, `latitude`, `langitude`, `enabled`) VALUES
-(2, 'pitstop1', -34.0282, 151.158, 1),
+(2, 'pitstop1', 19.1175, 72.934, 1),
 (3, 'pitstop2', -33.8001, 151.287, 1);
 
 -- --------------------------------------------------------
@@ -4874,8 +4900,8 @@ CREATE TABLE `pitstop_restaurants` (
 INSERT INTO `pitstop_restaurants` (`pitstop_id`, `restaurants_id`) VALUES
 (1, 1),
 (1, 2),
-(2, 3),
 (2, 4),
+(2, 3),
 (3, 3);
 
 -- --------------------------------------------------------
@@ -4919,20 +4945,21 @@ CREATE TABLE `restaurant` (
   `enabled` tinyint(2) NOT NULL,
   `deactivatefrom` date DEFAULT NULL,
   `deactivateto` date DEFAULT NULL,
-  `timefrom` varchar(50) NOT NULL,
-  `timeto` varchar(50) NOT NULL,
+  `fromtime` time NOT NULL,
+  `totime` time NOT NULL,
   `commission` int(11) NOT NULL,
   `penalty` int(11) NOT NULL,
-  `servicetax` int(11) NOT NULL
+  `servicetax` int(11) NOT NULL,
+  `days` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `restaurant`
 --
 
-INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `image`, `restaurant_latitude`, `restaurant_langitude`, `restaurant_branch`, `restaurant_manager`, `preparation_time`, `enabled`, `deactivatefrom`, `deactivateto`, `timefrom`, `timeto`, `commission`, `penalty`, `servicetax`) VALUES
-(4, 'retaurants2', '', '87889', 'retaurants2@gmail.com', '', -33.8905, 78.4099, 'bangalore', 3, 0, 1, '1970-01-01', '1970-01-01', '', '', 0, 0, 0),
-(3, 'restaurant1', '', '77887', 'restaurant1@gmail.com', '7fca09a10d55c8dcfc71854676cf997f.jpg', -33.923, 151.259, 'bangalore', 3, 20, 1, NULL, NULL, '', '', 10, 8, 12);
+INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `image`, `restaurant_latitude`, `restaurant_langitude`, `restaurant_branch`, `restaurant_manager`, `preparation_time`, `enabled`, `deactivatefrom`, `deactivateto`, `fromtime`, `totime`, `commission`, `penalty`, `servicetax`, `days`) VALUES
+(4, 'retaurants2', '', '87889', 'retaurants2@gmail.com', '', -33.8905, 78.4099, 'bangalore', 3, 0, 0, '2016-12-11', '2016-12-27', '00:00:00', '00:00:00', 0, 0, 0, ''),
+(3, 'restaurant1', '', '77887', 'restaurant1@gmail.com', '7fca09a10d55c8dcfc71854676cf997f.jpg', 19.0942, 72.9299, 'bangalore', 3, 20, 1, '1970-01-01', '1970-01-01', '09:00:00', '22:00:00', 10, 8, 12, 'a:3:{i:0;s:6:"sunday";i:1;s:6:"monday";i:2;s:7:"tuesday";}');
 
 -- --------------------------------------------------------
 
@@ -4961,11 +4988,33 @@ CREATE TABLE `restaurant_menu` (
 
 INSERT INTO `restaurant_menu` (`menu_id`, `restaurant_id`, `code`, `menu`, `description`, `price`, `image`, `type`, `itemPreparation_time`, `enabled`, `deactivatefrom`, `deactivateto`) VALUES
 (10, 4, '0', 'menuu1', '', 100, '', 'veg', '', 1, NULL, NULL),
-(8, 3, '123', 'menu1', 'test', 200, '', 'non veg', '10', 0, '2016-11-11', '2016-11-25'),
+(8, 3, '123', 'menu1', 'test', 200, '', 'non veg', '10', 1, '1970-01-01', '1970-01-01'),
 (11, 3, '0', 'menu3', '', 1000, '', '', '', 1, NULL, NULL),
 (12, 3, '0', 'menuu1', '', 100, '', 'veg', '', 1, NULL, NULL),
 (13, 3, '123', 'menu1', 'test', 200, '', 'non veg', '10', 0, NULL, NULL),
 (14, 3, '0', 'menu3', '', 1000, '', '', '', 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `restaurant_messages`
+--
+
+CREATE TABLE `restaurant_messages` (
+  `mesage_id` bigint(20) NOT NULL,
+  `restaurant_id` bigint(20) NOT NULL,
+  `rest_name` varchar(250) NOT NULL,
+  `message` text NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `restaurant_messages`
+--
+
+INSERT INTO `restaurant_messages` (`mesage_id`, `restaurant_id`, `rest_name`, `message`, `date`) VALUES
+(1, 4, '', 'test', '2016-12-11 05:14:16'),
+(4, 4, 'retaurants2 bangalore', 'test test', '2016-12-11 10:06:09');
 
 -- --------------------------------------------------------
 
@@ -5146,6 +5195,12 @@ ALTER TABLE `delivery_boy`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `delpartner_messages`
+--
+ALTER TABLE `delpartner_messages`
+  ADD PRIMARY KEY (`message_id`);
+
+--
 -- Indexes for table `destination`
 --
 ALTER TABLE `destination`
@@ -5218,6 +5273,12 @@ ALTER TABLE `restaurant_menu`
   ADD PRIMARY KEY (`menu_id`),
   ADD KEY `restaurant_id` (`restaurant_id`),
   ADD KEY `category` (`code`);
+
+--
+-- Indexes for table `restaurant_messages`
+--
+ALTER TABLE `restaurant_messages`
+  ADD PRIMARY KEY (`mesage_id`);
 
 --
 -- Indexes for table `restaurant_suggest`
@@ -5302,6 +5363,11 @@ ALTER TABLE `deliveryboy_locations`
 ALTER TABLE `delivery_boy`
   MODIFY `id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `delpartner_messages`
+--
+ALTER TABLE `delpartner_messages`
+  MODIFY `message_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `destination`
 --
 ALTER TABLE `destination`
@@ -5320,7 +5386,7 @@ ALTER TABLE `feedbacktype`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `orders-old`
 --
@@ -5330,7 +5396,7 @@ ALTER TABLE `orders-old`
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 --
 -- AUTO_INCREMENT for table `order_type`
 --
@@ -5361,6 +5427,11 @@ ALTER TABLE `restaurant`
 --
 ALTER TABLE `restaurant_menu`
   MODIFY `menu_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `restaurant_messages`
+--
+ALTER TABLE `restaurant_messages`
+  MODIFY `mesage_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `restaurant_suggest`
 --

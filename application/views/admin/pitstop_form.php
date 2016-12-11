@@ -12,7 +12,7 @@
 	<div class="tab-content">
 		<div class="tab-pane active" id="description_tab">
 			
-			<fieldset>
+			<fieldset style="padding:10px">
 			<div class="form-group">	
 				<label for="name">pitstop name</label>
 				<?php
@@ -23,14 +23,14 @@
 			<div class="form-group">	
 				<label for="pitstop_address">pitstop latitude</label>
 				<?php
-				$data	= array('name'=>'latitude', 'value'=>set_value('latitude', $latitude), 'class'=>'form-control');
+				$data	= array('name'=>'latitude', 'value'=>set_value('latitude', $latitude), 'class'=>'form-control', 'id'=>"lat");
 				echo form_input($data);
 				?>
 			</div>
 			<div class="form-group">	
 				<label for="pitstop_address">pitstop langitude</label>
 				<?php
-				$data	= array('name'=>'langitude', 'value'=>set_value('langitude', $langitude), 'class'=>'form-control');
+				$data	= array('name'=>'langitude', 'value'=>set_value('langitude', $langitude), 'class'=>'form-control',  'id'=>"lng");
 				echo form_input($data);
 				?>
 			</div>
@@ -38,10 +38,61 @@
 				<label for="enabled"><?php echo lang('enabled');?> </label>
         		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled), 'class=form-control'); ?>
 			</div>
+			<div class="form-group">
+				<div id="map_canvas" style="width:500px;height:500px;" class="col-sm-8"></div>	
+<?php  
+$lat='';
+$lon='';
+if(isset($latitude) && $latitude !='' ) {
+	$lat=$latitude;
+}
+else {
+	 $lat=54.95869420484606;
+}
+if(isset($langitude) && $langitude !='' ) {
+	$lon=$langitude;
+}
+else {
+	$lon=-2.7575678906250687;
+}
+
+?>
+<script type="text/javascript">
+ var map;
+jQuery(document).ready(function() {
+	  
+  var myLatlng = new google.maps.LatLng(<?php echo $lat;  ?>,<?php echo $lon; ?>);
+
+  var myOptions = {
+     zoom: 10,
+     center: myLatlng,
+	 center: new google.maps.LatLng(19.0760, 72.8777),
+     mapTypeId: google.maps.MapTypeId.ROADMAP
+     }
+  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
+
+  var marker = new google.maps.Marker({
+  draggable: true,
+  position: myLatlng, 
+  map: map,
+  title: "Your location"
+  });
+
+google.maps.event.addListener(marker, 'dragend', function (event) {
+
+ document.getElementById("lat").value = this.getPosition().lat();
+    document.getElementById("lng").value = this.getPosition().lng();
+
+ });
+
+});
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKUsjUabpe8-dBedcqnKchPAVfsNqFnlE"></script>
+			</div>
 			</fieldset>
 		</div>
 
-		<div class="tab-pane" id="attributes_tab">
+		<div class="tab-pane" id="attributes_tab"  style="padding:10px">
 				<div class="row">
 					<div class="col-sm-8">
 						<label><strong>Select Restaurants</strong></label>

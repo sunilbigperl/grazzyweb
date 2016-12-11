@@ -22,6 +22,7 @@ class Restaurant extends Admin_Controller {
     
     function form($id = false)
     {
+	
         $config['upload_path']      = 'uploads/images/full';
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']         = $this->config->item('size_limit');
@@ -58,7 +59,9 @@ class Restaurant extends Admin_Controller {
 		$data['servicetax'] = '';
 		$data['commission'] = '';
 		$data['penalty'] ='';
-        
+        $data['fromtime'] ='';
+		$data['totime'] ='';
+		$data['days'] ='';
         //create the photos array for later use
         $data['photos']     = array();
         
@@ -80,7 +83,7 @@ class Restaurant extends Admin_Controller {
             $data['restaurant_id']             = $restaurant->restaurant_id;
             $data['restaurant_name']           = $restaurant->restaurant_name;
             $data['restaurant_address']           = $restaurant->restaurant_address;
-            $data['restaurant_phone']    = $restaurant->restaurant_phone;
+            $data['restaurant_phone']   	 = $restaurant->restaurant_phone;
             $data['restaurant_email']        = $restaurant->restaurant_email;
             $data['restaurant_latitude']       = $restaurant->restaurant_latitude;
             $data['restaurant_langitude']      = $restaurant->restaurant_langitude;
@@ -92,6 +95,10 @@ class Restaurant extends Admin_Controller {
 			$data['servicetax'] = $restaurant->servicetax;
 			$data['commission'] = $restaurant->commission;
 			$data['penalty']	= $restaurant->penalty;
+			$data['fromtime']	= $restaurant->fromtime;
+			$data['totime']	= $restaurant->totime;
+			$data['days']	= $restaurant->days;
+			
 			if(!$this->input->post('submit'))
 			{
 				$data['related_pitstops']	= $restaurant->related_pitstops;
@@ -204,23 +211,24 @@ class Restaurant extends Admin_Controller {
                 $this->image_lib->clear();
             }
             
-           
-			
-            $save['restaurant_id']             = $id;
-			
-            $save['restaurant_name']           = $this->input->post('restaurant_name');
+            $save['restaurant_id']         = $id;
+            $save['restaurant_name']       = $this->input->post('restaurant_name');
             $save['restaurant_address']    = $this->input->post('restaurant_address');
-            $save['restaurant_phone']        = $this->input->post('restaurant_phone');
+            $save['restaurant_phone']      = $this->input->post('restaurant_phone');
             $save['restaurant_email']      = $this->input->post('restaurant_email');
-            $save['restaurant_latitude']       = $this->input->post('restaurant_latitude');
-            $save['restaurant_langitude']      = $this->input->post('restaurant_langitude');
-            $save['restaurant_branch']           = $this->input->post('restaurant_branch');
-			$save['restaurant_manager']           = $this->input->post('restaurant_manager');
-			$save['servicetax']	= $this->input->post('servicetax');
-			$save['commission'] = $this->input->post('commission');
-			$save['penalty'] = $this->input->post('penalty');
-            $save['enabled']        = $this->input->post('enabled');
-			$save['preparation_time'] = $this->input->post('preparation_time');
+            $save['restaurant_latitude']   = $this->input->post('restaurant_latitude');
+            $save['restaurant_langitude']  = $this->input->post('restaurant_langitude');
+            $save['restaurant_branch']     = $this->input->post('restaurant_branch');
+			$save['restaurant_manager']    = $this->input->post('restaurant_manager');
+			$save['servicetax']			   = $this->input->post('servicetax');
+			$save['commission'] 		   = $this->input->post('commission');
+			$save['penalty'] 			   = $this->input->post('penalty');
+            $save['enabled']      		   = $this->input->post('enabled');
+			$save['preparation_time']	   = $this->input->post('preparation_time');
+			$save['fromtime'] 			   = $this->input->post('fromtime');
+			$save['totime'] 			   = $this->input->post('totime');
+			$save['days'] 				   = serialize($this->input->post('days'));
+			
 			if($this->input->post('related_pitstops'))
 			{
 				$related_pitstops = $this->input->post('related_pitstops');

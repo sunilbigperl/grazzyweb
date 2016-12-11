@@ -24,8 +24,8 @@
 		<?php
 		$GLOBALS['admin_folder'] = $this->config->item('admin_folder');
 			$i=1;
-			foreach($pitstops as $pitstop)
-			{?>
+			foreach($pitstops as $pitstop){
+		?>
 			<tr class="gc_row">
 				<td><?=$i;?></td>
 				<td>
@@ -34,10 +34,10 @@
 				<td>
 					<?=$pitstop->latitude."/".$pitstop->langitude; ?>
 				</td>
-				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/form/'.$pitstop->pitstop_id); ?>">Edit</a>
-				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/delete/'.$pitstop->pitstop_id); ?>">delete</a></td>
+				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/form/'.$pitstop->pitstop_id); ?>" class="btn btn-info btn-xs">Edit</a>
+				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/delete/'.$pitstop->pitstop_id); ?>" class="btn btn-danger btn-xs">delete</a></td>
 			</tr>
-			<?php
+		<?php
 			
 			}
 		
