@@ -64,11 +64,20 @@ Class order_model extends CI_Model
 	}
 	
 	function AssignDeliveryBoy($data){
-		$sql = $this->db->query("update orders set delivered_by='".$data['delBoy']."' , staus='Accepted' where id='".$data['id']."'");
+		$sql = $this->db->query("update orders set delivered_by='".$data['delBoy']."' where id='".$data['id']."'");
 		if($sql){ return true; }
 	}
 	function get_deliveryboys(){
 		$sql = $this->db->query("select * from delivery_boy");
+		if($sql->num_rows() > 0){
+			$result	= $sql->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
+	function get_admin($id){
+		$sql = $this->db->query("select * from admin where id='".$id."'");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
@@ -90,9 +99,18 @@ Class order_model extends CI_Model
 	}
 	function get_previousorders($data){
 		$userdata = $this->session->userdata('admin');
-		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
-		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager = '".$userdata['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."'");
+		if($this->auth->check_access('Restaurant manager')){
 		
+			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
+			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager = '".$userdata['id']."' and a.restaurant_manager_status = 'Accepted' and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."')");
+		}else{
+			$delivery_partner = isset($data['delpartner']) ? $data['delpartner'] : 0;
+			if($this->auth->check_access('Deliver manager')){
+				$delivery_partner = $userdata['id'];
+			}
+			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
+			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.delivery_partner = '".$delivery_partner."' and a.delivery_partner_status = 'Accepted' and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."')");
+		}
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
@@ -112,7 +130,17 @@ Class order_model extends CI_Model
 		}
 		return $result;
 	}
-	
+	function GetRestaurantreview($id){
+		$sql = $this->db->query("select a.*,b.firstname from feedback a, customers b where a.feedbackfrom=b.id and a.feedbacktype=9 and a.feedbackto='".$id."'");
+		if($sql->num_rows() > 0){
+			$result['data']	= $sql->result();
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=6 and feedbackto='".$id."'");
+			$result['avg']	= $sql1->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
 	function GetDelPartnerReview($id){
 		$sql = $this->db->query("select a.*,b.firstname from feedback a, admin b  where a.feedbackfrom=b.id and a.feedbacktype=4 and a.feedbackto='".$id."'");
 		if($sql->num_rows() > 0){

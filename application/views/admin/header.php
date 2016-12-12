@@ -91,12 +91,19 @@
 	<?php $admin_url = site_url($this->config->item('admin_folder')).'/';?>
 		<div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;height:100px;">
+            <div class="navbar nav_title" style="border: 0;">
               <a href="<?=$admin_url;?>" class="site_title"><i class="fa fa-paw"></i> <span>Admin panel</span></a>
             </div>
 
             <div class="clearfix"></div>
-
+			<div class="profile clearfix">
+             
+              <div class="profile_info">
+				<?php $userdata = $this->session->userdata('admin'); ?>
+                <h2>Welcome,<?=$userdata['firstname'];?></h2>
+                
+              </div>
+            </div>
             
 
             <!-- sidebar menu -->
@@ -123,18 +130,23 @@
 						<li><a><i class="fa fa-home"></i> Orders <span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 							  <li><a href="<?php echo $admin_url;?>orders/delpartnerorders">New orders</a></li>
-							  <li><a href="<?php echo $admin_url;?>orders/previousorders">Previous orders</a></li>
+							  <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>
 							</ul>
 						</li>
 						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boy</li>
 				<?php endif; ?>
                 <?php if($this->auth->check_access('Admin')) : ?>
-					<li><a href="<?php echo $admin_url;?>dashboard"><i class="fa fa-home"></i> Dashboard </a></li>
+					<li><a><i class="fa fa-home"></i> Dashboard <span class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+						    <li><a href="<?php echo $admin_url;?>dashboard">Restaurant/Pitstops</a></li>
+                            <li><a href="<?php echo $admin_url;?>dashboard/recentinfo">Recent information</a></li>
+						</ul>
+					</li>
 					
 					<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boy </a></li>
                     <li><a><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-						    <li><a href="<?php echo $admin_url;?>orders/previousorders">Previous orders</a></li>
+						    <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>
                             <li><a href="<?php echo $admin_url;?>customers"><?php echo lang('common_customers') ?></a></li>
                              <!--<li><a href="<?php echo $admin_url;?>customers/groups"><?php echo lang('common_groups') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>reports"><?php echo lang('common_reports') ?></a></li>
@@ -187,7 +199,7 @@
                 <li><a href="<?php echo site_url($this->config->item('admin_folder').'/login/logout');?>"><?php echo lang('common_log_out') ?></a></li>
                   
 
-                <li role="presentation" class="dropdown">
+              <!--  <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-green">6</span>
@@ -250,7 +262,7 @@
                       </div>
                     </li>
                   </ul>
-                </li>
+                </li> -->
               </ul>
             </nav>
           </div>
@@ -304,7 +316,10 @@
 		<?php if(!empty($page_title)):?>
 		<div class="page-header">
 			<h1><?php echo  $page_title; ?>
-			<span class="pull-right" style="font-size:16px;"><a href="<?=$_SERVER['HTTP_REFERER'];?>">Back</a></span></h1>
+			<?php if(isset($_SERVER['HTTP_REFERER'])){ ?>
+			<span class="pull-right" style="font-size:16px;"><a href="<?=$_SERVER['HTTP_REFERER'];?>">Back</a></span>
+			<?php } ?>
+			</h1>
 			
 		</div>
 		<?php endif;?>

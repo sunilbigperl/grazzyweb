@@ -10,6 +10,7 @@ class Orders extends Admin_Controller {
         $this->lang->load('category');
         $this->load->model('Order_model');
 		$this->load->model('Customer_model');
+		$this->load->model('Message_model');
 		$this->load->helper('url');
     }
     
@@ -49,16 +50,37 @@ class Orders extends Admin_Controller {
 		$data['orders'] = "";
         $this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
+	function previousordersdelpartner(){
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['delpartner'] = $this->input->post('delpartner');
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of last month'));
+			$data['delpartner'] = $this->input->post('delpartner');
+		}else{
+			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
+			$data['delpartner'] = $this->input->post('delpartner');
+		}
+		
+		$data['orders'] = $this->Order_model->get_previousorders($data);
+		$this->view($this->config->item('admin_folder').'/previousordersdelpartner',$data);
+	}
 	function GetPreviousOrders(){
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
-			$data['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['delpartner'] = $this->input->post('delpartner');
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
-			$data['todate'] =  date('Y-m-d',strtotime('last day of last month'));
+			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of last month'));
+			$data['delpartner'] = $this->input->post('delpartner');
 		}else{
-			$data['fromdate'] =  date('Y-m-d',strtotime('first day of this month'));
-			$data['todate'] =  date('Y-m-d',strtotime('last day of this month'));
+			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
+			$data['delpartner'] = $this->input->post('delpartner');
 		}
 		
 		$data['orders'] = $this->Order_model->get_previousorders($data);
@@ -285,6 +307,31 @@ class Orders extends Admin_Controller {
 					echo "<tr><td>".$customer1->date."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->firstname."</td></tr>";
 				}
 			}
+		echo "</tbody>
+		</table></div>";
+	}
+	
+	public function ShowReviewDetailstodelpartner($id){
+		$restaurantreview = $this->Order_model->GetRestaurantreview($id);
+		$delpartnerreviewavg = isset($restaurantreview['avg'][0]->avg) ? $restaurantreview['avg'][0]->avg : 0;
+		$admin       = $this->Order_model->get_admin($id); 
+		echo  "<div class='modal-header'>
+		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
+		  <h4 class='modal-title'>Rating & reviews of ".$admin[0]->firstname."</h4>
+		</div>
+		<div class='modal-body'>";
+		echo  "<div class=''><strong>Ratings By restaurant:</strong> ".$delpartnerreviewavg."</div>";
+		echo "<table class='table table-bordered'>
+			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
+			<tbody>";
+			if($restaurantreview != 0 && $restaurantreview['data']){
+				foreach($restaurantreview['data'] as $customer){ 
+					echo "<tr><td>".$customer->date."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
+				}
+			}else{
+				echo "No data found";
+			}
+			
 		echo "</tbody>
 		</table></div>";
 	}

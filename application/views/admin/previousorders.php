@@ -9,6 +9,18 @@
 		  <label for="to date"><strong>To date:</strong></label>
 		  <input type="date" class="form-control" id="todate" name="todate">
 		</div>
+		<?php if($this->auth->check_access('Admin')){ ?>
+		<div class="form-group">
+			<label for="to date"><strong>delivery partner:</strong></label>
+			<?php $delpartners = $this->Message_model->get_delpartners(); ?>
+			<select name="delpartner" class="form-control">
+				<option value="">Select delivery partner</option>
+				<?php foreach($delpartners as $delpartner){?>
+				<option value="<?=$delpartner['id']?>"><?=$delpartner['firstname']?></option>
+				<?php } ?>
+			</select>
+		</div>
+		<?php } ?>
 		<div class="form-group"><input type="submit" class="btn btn-primary" value="Go" name="action"></div>
 
 		<div  style="margin-top:20px;">
@@ -18,7 +30,7 @@
 	</form>
 </div>
 <?php } ?>
-<?php if(count($orders) > 1){ ?>
+<?php if(count($orders) > 0){ ?>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
