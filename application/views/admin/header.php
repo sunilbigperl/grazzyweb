@@ -269,7 +269,7 @@
         </div>
         <!-- /top navigation -->
 	<?php endif; ?>
-<div class="right_col" role="main" style="overflow: auto;">
+<div class="right_col" role="main" style="overflow: auto;min-height:700px;">
 	<div class="container">
 		<?php
 		//lets have the flashdata overright "$message" if it exists

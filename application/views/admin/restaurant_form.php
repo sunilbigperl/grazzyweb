@@ -107,15 +107,15 @@
 				</div>
 				<div class="form-group">
 					<label for="days">Days</label>
-					<br/><?php $dayss = unserialize($days); $day1=""; foreach($dayss as $day){ $day1.= $day.","; } ?>
-					<input type="checkbox" name="days[]" value="all" class="days" onchange="checkAll(this)" <?php if(in_array('all',$dayss)){ echo "checked=checked"; } ?>> All<br>
-					<input type="checkbox" name="days[]" value="sunday" class="days" <?php if(in_array('sunday',$dayss)){ echo "checked=checked"; } ?>> Sunday<br>
-					<input type="checkbox" name="days[]" value="monday" class="days" <?php if(in_array('monday',$dayss)){ echo "checked=checked"; } ?>> Monday<br>
-					<input type="checkbox" name="days[]" value="tuesday" class="days" <?php if(in_array('tuesday',$dayss)){ echo "checked=checked"; } ?>> Tuesday<br>
-					<input type="checkbox" name="days[]" value="wednesday" class="days" <?php if(in_array('wednesday',$dayss)){ echo "checked=checked"; } ?>> Wednesday<br>
-					<input type="checkbox" name="days[]" value="thursday" class="days" <?php if(in_array('thursday',$dayss)){ echo "checked=checked"; } ?>> Thursday<br>
-					<input type="checkbox" name="days[]" value="friday" class="days" <?php if(in_array('friday',$dayss)){ echo "checked=checked"; } ?>> Friday<br>
-					<input type="checkbox" name="days[]" value="saturday" class="days" <?php if(in_array('saturday',$dayss)){ echo "checked=checked"; } ?>> Saturday<br>
+					<br/><?php $dayss = unserialize($days);  ?>
+					<input type="checkbox" name="days[]" value="all" class="days" onchange="checkAll(this)" <?php if(is_array($dayss) && in_array('all',$dayss)){ echo "checked=checked"; } ?>> All<br>
+					<input type="checkbox" name="days[]" value="sunday" class="days" <?php if(is_array($dayss) && in_array('sunday',$dayss)){ echo "checked=checked"; } ?>> Sunday<br>
+					<input type="checkbox" name="days[]" value="monday" class="days" <?php if(is_array($dayss) && in_array('monday',$dayss)){ echo "checked=checked"; } ?>> Monday<br>
+					<input type="checkbox" name="days[]" value="tuesday" class="days" <?php if(is_array($dayss) && in_array('tuesday',$dayss)){ echo "checked=checked"; } ?>> Tuesday<br>
+					<input type="checkbox" name="days[]" value="wednesday" class="days" <?php if(is_array($dayss) && in_array('wednesday',$dayss)){ echo "checked=checked"; } ?>> Wednesday<br>
+					<input type="checkbox" name="days[]" value="thursday" class="days" <?php if(is_array($dayss) && in_array('thursday',$dayss)){ echo "checked=checked"; } ?>> Thursday<br>
+					<input type="checkbox" name="days[]" value="friday" class="days" <?php if(is_array($dayss) && in_array('friday',$dayss)){ echo "checked=checked"; } ?>> Friday<br>
+					<input type="checkbox" name="days[]" value="saturday" class="days" <?php if(is_array($dayss) && in_array('saturday',$dayss)){ echo "checked=checked"; } ?>> Saturday<br>
 				</div>
 				<script>
 					function checkAll(ele) {
@@ -262,8 +262,6 @@ else {
 <script type="text/javascript">
  var map;
 jQuery(document).ready(function() {
-	  alert(<?php echo $lat;  ?>);
-	   alert(<?php echo $lon;  ?>);
   var myLatlng = new google.maps.LatLng(<?php echo $lat;  ?>,<?php echo $lon; ?>);
 
   var myOptions = {

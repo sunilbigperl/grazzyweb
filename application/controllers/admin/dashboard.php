@@ -50,7 +50,7 @@ class Dashboard extends Admin_Controller {
 	
 	function recentinfo(){ 
 		// get 5 latest orders
-		$data['orders']	= $this->Order_model->get_neworders();
+		$data['orders']	= $this->Order_model->get_newordersForAdmin();
 
 		// get 5 latest customers
 		$data['customers'] = $this->Customer_model->get_customers(5);

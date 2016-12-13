@@ -22,7 +22,7 @@
 			<div class="form-group">		
 				<label for="description"><?php echo lang('description');?></label>
 				<?php
-				$data	= array('name'=>'description', 'class'=>'redactor', 'value'=>set_value('description', $description));
+				$data	= array('name'=>'description', 'class'=>'form-control', 'value'=>set_value('description', $description));
 				echo form_textarea($data);
 				?>
 			</div>

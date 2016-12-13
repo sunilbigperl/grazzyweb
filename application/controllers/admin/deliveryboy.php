@@ -100,21 +100,8 @@ class Deliveryboy extends Admin_Controller
 	function delete($id)
 	{
 		
-		$page	= $this->Number_model->get_page($id);
+		$page	= $this->Deliveryboy_model->DeleteDeliveryBoy($id);
 		
-		if($page)
-		{
-			$this->load->model('Routes_model');
-			
-			$this->Routes_model->delete($page->route_id);
-			$this->Number_model->delete_page($id);
-			$this->session->set_flashdata('message', lang('message_deleted_page'));
-		}
-		else
-		{
-			$this->session->set_flashdata('error', lang('error_page_not_found'));
-		}
-		
-		redirect($this->config->item('admin_folder').'/numbers');
+		redirect($this->config->item('admin_folder').'/deliveryboy');
 	}
 }	

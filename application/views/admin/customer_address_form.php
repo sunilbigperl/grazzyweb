@@ -73,10 +73,7 @@ if(isset($zip)){ $f_zip		= array('maxlength'=>'10', 'class'=>'form-control', 'na
 			<label><?php echo lang('city');?></label>
 			<?php echo form_input($f_city);?>
 		</div>
-		<div class="form-group">
-			<label><?php echo lang('state');?></label>
-			<?php echo form_dropdown('zone_id', $zones_menu, set_value('zone_id', $zone_id), 'id="f_zone_id" class="form-control"');?>
-		</div>
+	
 		<div class="span1">
 			<label><?php echo lang('zip');?></label>
 			<?php echo form_input($f_zip);?>

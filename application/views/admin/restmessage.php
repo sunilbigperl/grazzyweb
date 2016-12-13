@@ -148,6 +148,7 @@ a:hover {
 #rtl-support .tt-menu {
   text-align: right;
 }
+.twitter-typeahead input{top:inherit !important;}
 </style>
 <?php $url = $this->uri->segment(4);  if(!isset($url)){ ?>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">

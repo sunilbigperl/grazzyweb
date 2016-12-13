@@ -411,7 +411,6 @@ class Customers extends Admin_Controller {
 		$this->form_validation->set_rules('address2', 'lang:address', 'trim|max_length[128]');
 		$this->form_validation->set_rules('city', 'lang:city', 'trim|required');
 		$this->form_validation->set_rules('country_id', 'lang:country', 'trim|required');
-		$this->form_validation->set_rules('zone_id', 'lang:state', 'trim|required');
 		$this->form_validation->set_rules('zip', 'lang:zip', 'trim|required|max_length[32]');
 		
 		if ($this->form_validation->run() == FALSE)
