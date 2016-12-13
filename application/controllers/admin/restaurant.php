@@ -302,4 +302,5 @@ class Restaurant extends Admin_Controller {
 		redirect('admin/restaurant', 'refresh');
 		
 	}
+
 }

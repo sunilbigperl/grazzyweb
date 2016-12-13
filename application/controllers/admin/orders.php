@@ -286,6 +286,9 @@ class Orders extends Admin_Controller {
 		$customerreviewavg= isset($customerreview['avg'][0]->avg) ? $customerreview['avg'][0]->avg : 0;
 		$delpartnerreview = $this->Order_model->GetDelPartnerReview($id);
 		$delpartnerreviewavg = isset($delpartnerreview['avg'][0]->avg) ? $delpartnerreview['avg'][0]->avg :0;
+		
+		$delboyreview = $this->Order_model->GetDelBoyReview($id);
+		$delboyreviewavg = isset($delboyreview['avg'][0]->avg) ? $delboyreview['avg'][0]->avg :0;
 		$restaurant       = $this->Restaurant_model->get_restaurant($id);
 		echo  "<div class='modal-header'>
 		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
@@ -294,6 +297,7 @@ class Orders extends Admin_Controller {
 		<div class='modal-body'>
 		<div class=''><strong>Ratings By customer:</strong> ".$customerreviewavg."</div>";
 		echo  "<div class=''><strong>Ratings By delivery partner:</strong> ".$delpartnerreviewavg."</div>";
+		echo  "<div class=''><strong>Ratings By delivery boy:</strong> ".$delboyreviewavg."</div>";
 		echo "<table class='table table-bordered'>
 			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
 			<tbody>";
@@ -302,9 +306,14 @@ class Orders extends Admin_Controller {
 					echo "<tr><td>".$customer->date."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
 				}
 			}
-			if($customerreviewavg['data']){
-				foreach($customerreviewavg['data'] as $customer1){ 
+			if($customerreview['data']){
+				foreach($customerreview['data'] as $customer1){ 
 					echo "<tr><td>".$customer1->date."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->firstname."</td></tr>";
+				}
+			}
+			if(isset($delboyreview['data']) && $delboyreview['data']){
+				foreach($delboyreview['data'] as $customer1){ 
+					echo "<tr><td>".$customer1->date."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->name."</td></tr>";
 				}
 			}
 		echo "</tbody>
@@ -326,7 +335,7 @@ class Orders extends Admin_Controller {
 			<tbody>";
 			if($restaurantreview != 0 && $restaurantreview['data']){
 				foreach($restaurantreview['data'] as $customer){ 
-					echo "<tr><td>".$customer->date."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
+					echo "<tr><td>".$customer->date."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->restaurant_name."</td></tr>";
 				}
 			}else{
 				echo "No data found";

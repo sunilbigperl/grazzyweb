@@ -36,8 +36,10 @@ function areyousure()
 					<?php echo $page->name; ?>
 				</td>
 				<td><?=$page->phone;?></td>
-				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/delete/'.$page->id.''); ?>">delete</a>&nbsp;&nbsp;
-				<a href="<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/form/'.$page->id.''); ?>">Edit</a></td>
+				<td><a  class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/delete/'.$page->id.''); ?>">delete</a>&nbsp;&nbsp;
+				<a class="btn btn-info btn-xs"href="<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/form/'.$page->id.''); ?>">Edit</a>
+				<a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/ShowReviewDetails/'.$page->id.'');?>');">Reviews</a>
+				</td>
 			</tr>
 			<?php
 			
@@ -47,3 +49,26 @@ function areyousure()
 	</tbody>
 	<?php endif;?>
 </table>
+<div id="ratingdetails" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content" id="modaldetails">
+     
+    </div>
+
+  </div>
+</div>
+<script>
+	function showdetails(url,data){
+		$.ajax({
+			url:url,
+			method:"post",
+			datatype:'json',
+			data:{data:data},
+			success:function(data){
+				$("#modaldetails").html(data);
+			}
+		});
+	}
+</script>  

@@ -75,9 +75,10 @@ Class order_model extends CI_Model
 	}
 	
 	function AssignDeliveryBoy($data){
-		$sql = $this->db->query("update orders set delivered_by='".$data['delBoy']."' where id='".$data['id']."'");
+		$sql = $this->db->query("update orders set delivered_by='".$data['delBoy']."', status='Assigned' where id='".$data['id']."'");
 		if($sql){ return true; }
 	}
+	
 	function get_deliveryboys(){
 		$sql = $this->db->query("select * from delivery_boy");
 		if($sql->num_rows() > 0){
@@ -142,7 +143,7 @@ Class order_model extends CI_Model
 		return $result;
 	}
 	function GetRestaurantreview($id){
-		$sql = $this->db->query("select a.*,b.firstname from feedback a, customers b where a.feedbackfrom=b.id and a.feedbacktype=9 and a.feedbackto='".$id."'");
+		$sql = $this->db->query("select a.*,b.restaurant_name from feedback a, restaurant b where a.feedbackfrom=b.restaurant_id and a.feedbacktype=9 and a.feedbackto='".$id."'");
 		if($sql->num_rows() > 0){
 			$result['data']	= $sql->result();
 			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=6 and feedbackto='".$id."'");
@@ -154,6 +155,18 @@ Class order_model extends CI_Model
 	}
 	function GetDelPartnerReview($id){
 		$sql = $this->db->query("select a.*,b.firstname from feedback a, admin b  where a.feedbackfrom=b.id and a.feedbacktype=4 and a.feedbackto='".$id."'");
+		if($sql->num_rows() > 0){
+			$result['data']	= $sql->result();
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=4 and feedbackto='".$id."'");
+			$result['avg']	= $sql1->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
+	
+	function GetDelBoyReview($id){
+		$sql = $this->db->query("select a.*,b.name from feedback a, delivery_boy b  where a.feedbackfrom=b.id and a.feedbacktype=7 and a.feedbackto='".$id."'");
 		if($sql->num_rows() > 0){
 			$result['data']	= $sql->result();
 			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=4 and feedbackto='".$id."'");
