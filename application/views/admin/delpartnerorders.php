@@ -40,7 +40,7 @@
 					<?=$order->order_type;?>
 				</td>
 				<td> 
-					<form id="the-basics" method="post" action="AssignDeliveryBoy/<?=$order->id?>">
+					<form id="the-basics" method="post" action="AssignDeliveryBoy/<?=$order->id;?>">
 						<select type="text" name="deliveryboy" class="form-control typeahead" <?php if($order->delivered_by != 0){ echo "disabled";}?>>
 							<option value="">select delivery boy</option>
 							<?php foreach($deliveryboys as $deliveryboy){ if($order->delivered_by == $deliveryboy->id){ $select= "selected";}else{$select ="";}?>
@@ -54,10 +54,21 @@
 					</form>
 				</td>
 				<td> 
+				<?php $userdata = $this->session->userdata('admin'); 
+					$CheckReview = $this->Order_model->CheckReview($order->order_number, 4, $userdata['id']);
+					
+					if($CheckReview == 0){ ?>
 					<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/4');?>',<?=htmlspecialchars(json_encode($order));?>);">Review restaurant</a>
-					<?php if($order->delivered_by != 0 && $order->status == "Shipped"){ ?>
+					<?php }else{
+						echo "Review to Restaurant: ".$CheckReview[0]->comments;
+					} 
+					$CheckdelboyReview = $this->Order_model->CheckReview($order->order_number, 5, $userdata['id']);
+					
+					if($CheckdelboyReview == 0 && $order->delivered_by != 0 && $order->status == "Shipped"){ ?>
 						<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/5');?>',<?=htmlspecialchars(json_encode($order));?>);">Review delivery boy</a>
-					<?php } ?>
+					<?php }elseif($CheckdelboyReview != 0 && $order->delivered_by != 0 && $order->status == "Shipped"){
+						echo "<br/>Review to Delivery Boy: ".$CheckReview[0]->comments;
+					} ?>
 				</td>
 				<td>
 					<?=$order->status;?>

@@ -168,7 +168,7 @@ class Orders extends Admin_Controller {
 			$customer_details = $this->Customer_model->get_customer($data['customer_id']);
 			$name = $customer_details->firstname;
 			$id= $data['id'];
-		}elseif($type == 3 || $type=5){ 
+		}elseif($type == 3 || $type == 5){ 
 			$title ="Review Delivery boy";
 			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
 			$name = isset($deliveryboy_details->name) ? $deliveryboy_details->name : "";
@@ -178,7 +178,6 @@ class Orders extends Admin_Controller {
 			$name = $data['restaurant_name'];
 			$id= $data['restaurant_id'];
 		}
-		
 		
 		$html.="<div class='modal-header'>
 				<button type='button' class='close' data-dismiss='modal'>&times;</button>
@@ -205,12 +204,9 @@ class Orders extends Admin_Controller {
 						</div>
 						<h4 style='color: #fff;'>OR</h4>
 						
-							<label '>Rating</label>
-							<div >
-								
-							</div>
-							<div class='col-sm-3 col-xs-12'>
-								<input type='text' name='ratings' id='ratings' value=''>
+							<label class='col-xs-12 col-sm-3'>Rating</label>
+							<div class='col-sm-8 col-xs-12'>
+								<input type='text' name='ratings' id='ratings' value='' class='form-control' >
 							</div>
 						</div>
 						<div class='pop-btn'>
@@ -236,7 +232,7 @@ class Orders extends Admin_Controller {
 	function InserReview(){
 		$data = $this->input->post();
 		$this->Order_model->InserReview($data);
-		redirect('admin/orders/orders');
+		redirect($_SERVER['HTTP_REFERER']);
 	}
     function delete($id)
     {

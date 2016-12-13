@@ -76,7 +76,69 @@ Class order_model extends CI_Model
 	
 	function AssignDeliveryBoy($data){
 		$sql = $this->db->query("update orders set delivered_by='".$data['delBoy']."', status='Assigned' where id='".$data['id']."'");
-		if($sql){ return true; }
+		if($sql){ 
+			$query = $this->db->query("SELECT `did` FROM `delivery_boy` WHERE `id` = '".$data['delBoy']."'");	
+			if($query->num_rows() > 0){					
+				$result	= $query->result_array();
+				
+				$did=$result[0]['did'];
+				$registatoin_ids = array($did);
+				$message = array("type" => "order_assigned");    
+				$url = 'https://android.googleapis.com/gcm/send';
+
+
+
+				$fields = array(
+
+				'registration_ids' => $registatoin_ids,
+
+				'data' => $message,
+
+				);
+
+
+
+				$headers = array(
+
+					'Authorization: key=AIzaSyCB4r56wVzKQdte4Rw8QUwoK9k7AMP0fr4',
+
+					'Content-Type: application/json'
+
+				);
+
+			
+				$ch = curl_init();
+
+
+
+				// Set the url, number of POST vars, POST data
+
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_POST, true);
+
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+				curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+
+
+				$result = curl_exec($ch);
+
+				if ($result === FALSE) {
+
+					die('Curl failed: ' . curl_error($ch));
+
+				}
+
+
+				curl_close($ch);
+
+		}
+		return true;
+
+		}
 	}
 	
 	function get_deliveryboys(){
@@ -200,8 +262,9 @@ Class order_model extends CI_Model
 		return $result;
 	}
 	function InserReview($data){
-		$sql = "insert into feedback (feedbackfrom,feedbackto,comments,ratings,feedbacktype,order_number) values('".$data['feedbackfrom']."',
-		'".$data['feedbackto']."','".$data['comments']."','".$data['ratings']."','".$data['feedbacktype']."','".$data['order_number']."')";
+		$date = date("Y-m-d H:i:s");
+		$sql = "insert into feedback (feedbackfrom,feedbackto,comments,ratings,feedbacktype,order_number,date) values('".$data['feedbackfrom']."',
+		'".$data['feedbackto']."','".$data['comments']."','".$data['ratings']."','".$data['feedbacktype']."','".$data['order_number']."','".$date."')";
 		 $this->db->query($sql);
 	}
 	function GetMenudetails($data){
@@ -410,6 +473,16 @@ Class order_model extends CI_Model
 	public function get_delpartnerremarks($data){ 
 		$sql =$this->db->query("select comments from feedback where feedbackto=".$data->restaurant_id." and order_number='".$data->order_number."' and feedbacktype=5");
 		$result = $sql->result();
+		return $result;
+	}
+	
+	public function CheckReview($order_id,$feedback_type,$feedbackfrom){
+		$sql =$this->db->query("select comments from feedback where feedbackfrom=".$feedbackfrom." and order_number='".$order_id."' and feedbacktype='".$feedback_type."'");
+		if($sql->num_rows() > 0){
+			$result = $sql->result();
+		}else{
+			$result = 0;
+		}
 		return $result;
 	}
 }

@@ -33,9 +33,11 @@ class Api_model extends CI_Model
 	}
 	
 	public function delboyTorestfeedback($data){
-		$sql = "insert into feedback (feedbackfrom, feedbackto, comments,ratings,feedbacktype) 
-		values('".$data['feedbackfrom']."','".$data['feedbackto']."','".$data['comments']."','".$data['ratings']."','".$data['feedbacktype']."')";	
-			$query = $this->db->query($sql);
+		$date = date("Y-m-d H:i:s");
+		$sql = "insert into feedback (feedbackfrom, feedbackto, comments,ratings,feedbacktype,date) 
+		values('".$data['feedbackfrom']."','".$data['feedbackto']."','".$data['comments']."','".$data['ratings']."','".$data['feedbacktype']."','".$date."')";	
+		
+		$query = $this->db->query($sql);
 		if($this->db->insert_id()){
 			return "success";
 		}
