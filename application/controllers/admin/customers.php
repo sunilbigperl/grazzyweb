@@ -533,4 +533,44 @@ class Customers extends Admin_Controller {
 		echo "</tbody>
 		</table></div>";
 	}
+	
+	public function ShowCustomerDetails($id){
+		$customer		= $this->Customer_model->get_customer($id);
+		$addresses		= $this->Customer_model->get_address_list($id);
+		$add ="";
+		echo  "<div class='modal-header'>
+		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
+		  <h4 class='modal-title'> Customer details: ".$customer->firstname."</h4>
+		</div>
+		<div class='modal-body'>
+		<div class=''><strong>Phone:</strong> ".$customer->phone."</div>
+		<div class=''><strong>Email:</strong> ".$customer->email."</div>
+		<div class=''><strong>DOB:</strong> ".$customer->dob."</div>";
+		
+		echo "<table class='table table-bordered'>
+			<thead><tr><th>Address1</th><th>Address2</th><th>City</th><th>zip</th></tr></thead>
+			<tbody>";
+			if (count($addresses) > 1){
+				foreach($addresses as $address){ 
+					$f = $address['field_data'];
+					echo "<tr>
+					<td>"; echo isset($f['address1']) ? $f['address1'] : ""; echo "</td>
+					<td>"; echo isset($f['address2']) ? $f['address2'] : ""; echo "</td>
+					<td>"; echo isset($f['city']) ? $f['city'] : ""; echo "</td>
+					<td>"; echo isset($f['zip']) ? $f['zip'] : ""; echo "</td>
+					</tr>";
+				}
+			}
+			
+			
+		echo "</tbody>
+		</table></div>";
+	}
+	
+	public function ChangeStatus($id,$status){
+		$result = $this->Customer_model->ChangeStatus($id,$status);
+		if($result){
+			redirect("admin/customers");
+		}
+	}
 }

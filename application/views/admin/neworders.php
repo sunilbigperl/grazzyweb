@@ -1,6 +1,3 @@
-<link href="<?=base_url();?>assets/css/bootstrap-table.css">
-<script src="<?=base_url();?>assets/js/bootstrap-table.js"></script>
-<script src="<?=base_url();?>assets/js/star-rating.min.js"></script>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
@@ -51,7 +48,7 @@
 				</td>
 				<td>
 				<?php if($order->restaurant_manager_status == "0"){ ?>
-					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-sucess btn-xs">Accept</a>
+					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-success btn-xs">Accept</a>
 					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
 				<?php }else{
 					echo $order->restaurant_manager_status;
@@ -91,3 +88,4 @@
 		});
 	}
 </script>
+<?php $this->load->view('admin/marque'); ?>

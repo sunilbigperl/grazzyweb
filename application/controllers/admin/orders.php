@@ -11,11 +11,13 @@ class Orders extends Admin_Controller {
         $this->load->model('Order_model');
 		$this->load->model('Customer_model');
 		$this->load->model('Message_model');
+		$this->load->model('Restaurant_model');
 		$this->load->helper('url');
     }
     
 	function dashboard(){
-		 $this->view($this->config->item('admin_folder').'/restaurantdatshboard');
+		$data['orders'] = $this->Order_model->get_neworders();
+		 $this->view($this->config->item('admin_folder').'/restaurantdatshboard',$data);
 	}
     function neworders()
     {
@@ -128,11 +130,11 @@ class Orders extends Admin_Controller {
 					</div>
 					<table class='table table-bordered'>
 					<thead>
-						<tr><th>Item name</th><th>Item code</th><th>Amount</th><th></th><tr>
+						<tr><th>Item name</th><th>Item code</th><th>No of items</th><th>Amount</th><th></th><tr>
 					</thead>
 					<tbody>";
 			foreach($menus as $menu){
-					$html.="<tr><td>".$menu->menu."</td><td>".$menu->menu_id."</td><td>".$menu->cost."</td><td></td></td>";
+					$html.="<tr><td>".$menu->menu."</td><td>".$menu->menu_id."</td><td>".$menu->quantity."</td><td>".$menu->cost."</td><td></td></td>";
 					
 			}
 			$html.="</tbody>

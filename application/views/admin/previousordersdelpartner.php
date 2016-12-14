@@ -36,6 +36,7 @@
 	<thead>
 		<tr>
 			<th data-field="id">Order id</th>
+			<th data-field="id">Ordered date</th>
 			<th data-field="name">Order number</th>
 			<th data-field="price">Customer bill amount(Rs)</th>
 			<th data-field="Commission">Commission</th>
@@ -57,6 +58,7 @@
 			{?>
 			<tr class="gc_row">
 				<td><?=$i;?></td>
+				<td><?=$order->ordered_on;?></td>
 				<td>
 					<a href="#" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
 				</td>

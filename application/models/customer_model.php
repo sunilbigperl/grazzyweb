@@ -448,4 +448,9 @@ Class Customer_model extends CI_Model
 		}
 		return $result;
 	}
+	
+	function ChangeStatus($id,$status){
+		$sql = $this->db->query("update customers set active='".$status."' where id='".$id."'");
+		if($sql){ return true; }
+	}
 }

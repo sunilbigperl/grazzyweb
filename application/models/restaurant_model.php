@@ -21,7 +21,20 @@ Class Restaurant_model extends CI_Model
         
         return $restaurants;
     }
- 
+	
+	function GetMessages(){
+		$yes = date('Y-m-d H:i:s',strtotime("-1 days"));
+		$today =  date('Y-m-d H:i:s');
+		$userdata = $this->session->userdata('admin');
+		$sql = $this->db->query("select * from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and b.restaurant_manager='".$userdata['id']."'
+		and date between '".$yes."' and '".$today."'");
+		if($sql->num_rows() > 0){
+			$result['data']	= $sql->result_array();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
 	function get_managers(){
 		 $this->db->select('*');
 		 $this->db->where('access', 'Restaurant manager');

@@ -117,12 +117,8 @@
 							  <li><a href="<?php echo $admin_url;?>restaurant">Restaurants</a></li>
 							</ul>
 						</li>
-						<li><a><i class="fa fa-home"></i> Orders <span class="fa fa-chevron-down"></span></a>
-							<ul class="nav child_menu">
-								<li><a href="<?php echo $admin_url;?>orders/neworders">New orders</a></li>
-								<li><a href="<?php echo $admin_url;?>orders/previousorders">Previous orders</a></li>
-							</ul>
-						</li>
+						<li><a href="<?php echo $admin_url;?>orders/previousorders"><i class="fa fa-home"></i>Previous Orders </a></li>
+							
 						<li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class="fa fa-chevron-down"></span></a></li>
 						
 				<?php endif; ?>
@@ -133,17 +129,17 @@
 							  <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>
 							</ul>
 						</li>
-						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boy</li>
+						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Functionality of delivery partner </a></li>
 				<?php endif; ?>
                 <?php if($this->auth->check_access('Admin')) : ?>
 					<li><a><i class="fa fa-home"></i> Dashboard <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 						    <li><a href="<?php echo $admin_url;?>dashboard">Restaurant/Pitstops</a></li>
-                            <li><a href="<?php echo $admin_url;?>dashboard/recentinfo">Recent information</a></li>
+                           <!-- <li><a href="<?php echo $admin_url;?>dashboard/recentinfo">Recent information</a></li>-->
 						</ul>
 					</li>
 					
-					<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boy </a></li>
+					<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Functionality of delivery partner </a></li>
                     <li><a><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 						    <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>

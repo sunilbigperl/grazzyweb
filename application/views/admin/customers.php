@@ -51,27 +51,39 @@ function areyousure()
 		<tr>
 			<?php /*<td style="width:16px;"><?php echo  $customer->id; ?></td>*/?>
 			<td><?php echo  $customer->lastname; ?></td>
-			<td class="gc_cell_left"><?php echo  $customer->firstname; ?></td>
+			<td class="gc_cell_left"><a href="#" data-toggle="modal" data-target="#ratingdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/customers/ShowCustomerDetails/'.$customer->id.'');?>');"><?php echo  $customer->firstname; ?></a></td>
 			<td><a href="mailto:<?php echo  $customer->email;?>"><?php echo  $customer->email; ?></a></td>
 			<td>
 				<?php if($customer->active == 1)
 				{
-					echo 'Yes';
+					echo 'Active';
 				}
-				else
+				elseif($customer->active == 2)
 				{
-					echo 'No';
+					echo 'Deactivated 3 months';
+				}else{
+					
+					echo 'Deactive';
 				}
 				?>
 			</td>
 			<td>
-				<div class="btn-group" style="float:right">
+				<div >
+					<?php if($customer->active == 2 || $customer->active == 0) { ?>
+					<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/customers/ChangeStatus/'.$customer->id."/1"); ?>">activate</a>
+					<?php } ?>
+					<?php if($customer->active == 1) { ?>
+					<a class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/customers/ChangeStatus/'.$customer->id."/0"); ?>">Deactivate</a>
+					&nbsp;<a class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/customers/ChangeStatus/'.$customer->id."/2"); ?>">Deactivate 3 months</a>
+					<?php } ?>
+				</div>
+				<!--<div class="btn-group" style="float:right">
 					<a class="btn btn-info btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/customers/form/'.$customer->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
 					
 					<a class="btn btn-primary btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/customers/addresses/'.$customer->id); ?>"><i class="icon-envelope"></i> <?php echo lang('addresses');?></a>
 					
 					<a class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete/'.$customer->id); ?>" onclick="return areyousure();"><i class="fa fa-trash"></i> <?php echo lang('delete');?></a>
-				</div>
+				</div>-->
 			</td>
 			<td>
 				<a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/customers/ShowReviewDetails/'.$customer->id.'');?>');">Reviews</a>
@@ -94,6 +106,7 @@ function areyousure()
 
   </div>
 </div>
+
 <script>
 	function showdetails(url,data){
 		$.ajax({

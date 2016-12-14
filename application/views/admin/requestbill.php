@@ -20,3 +20,4 @@
 		</div>
 	</form>
 </div>
+<?php $this->load->view('admin/marque'); ?>

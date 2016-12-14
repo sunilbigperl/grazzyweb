@@ -416,6 +416,29 @@ print_r(json_encode($result)); exit;
 		
 	}
 	
+	public function orderProfile($data){
+		
+		$sql=$this->db->query("select customer_image from orders where id='".$data['id']."'");
+        $i=0;
+		if($sql->num_rows()>0){
+			$result[$i] = true;
+			//echo $this->db->last_query(); exit;
+			foreach($sql->result_array() as $row){
+				if(isset($row['customer_image']) && $row['customer_image'] != ""){
+					$profile_image_path=$this->config->base_url()."uploads/images/thumbnails/".$row['customer_image'];
+					$result['data']=$profile_image_path;
+				}else{
+					$result['data'] = "no_picture";
+				}
+				
+			};
+		}else{
+			$result[0] = false;
+		}
+		return $result;	
+		
+	}
+	
 	public function profilePictureUpdate($data){
 		$image ="image".$data['id'].".jpg";
 		if(file_exists("uploads/images/thumbnails/".$image)){

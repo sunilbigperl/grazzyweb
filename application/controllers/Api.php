@@ -480,6 +480,24 @@ class Api extends REST_Controller {
 		}
 	  }
 	  
+	  public function OrderProfilepicture_post(){
+		 $data=array('id'=>$this->post('order_id ')); 
+		 $result=$this->api_model->orderProfile($data);
+		 if(!empty($result)){
+		$message=[
+			'Status'=>'Success',
+			'url'=>$result['data']
+			];
+			 $this->set_response($message, REST_Controller::HTTP_OK); // 
+			 
+		}else{
+			$message=[
+			'url'=>'No picture'
+			];
+			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 			
+		}
+	  }
+	  
 	  public function updateProfilepicture_post(){
 		 
 		 $data=array('id'=>$this->post('user_id'),'profile_image'=>$this->post('image'));

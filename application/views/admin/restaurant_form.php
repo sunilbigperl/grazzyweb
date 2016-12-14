@@ -64,7 +64,7 @@
 					<label for="enabled"><?php echo lang('enabled');?> </label>
 					<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class="form-control"'); ?>
 				</div>
-				<div class="form-group">	
+				<div class="form-group" style="display:none;">	
 					<label for="preparation_time">Preparation time(In mins)</label>
 					<?php
 					$data	= array('name'=>'preparation_time', 'value'=>set_value('preparation_time', $preparation_time), 'class'=>'form-control');
