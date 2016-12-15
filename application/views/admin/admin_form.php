@@ -39,7 +39,6 @@
 		<?php
 		$options = array(	'Admin'		=> 'Admin',
 							'Restaurant manager'	=> 'Restaurant manager',
-							'Deliver boy'	=> 'Delivery boy',
 							'Deliver manager' => 'Deliver manager'
 		                );
 		echo form_dropdown('access', $options, set_value('access', $access),'class="form-control" id="access"');
