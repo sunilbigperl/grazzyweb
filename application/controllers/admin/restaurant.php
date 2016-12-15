@@ -292,7 +292,8 @@ class Restaurant extends Admin_Controller {
 	}
 	
 	function RestaurantStatusChange($id=false){
-		$enabled = $this->input->post('enabled');
+		$enabl = $this->input->post('enabled');
+		$enabled = isset($enabled) ? $enabled : 0;
 		$data['restaurant_id'] = false == $this->input->post('id') ? $id : $this->input->post('id');
 		$data['enabled'] = isset($enabled) ? $enabled : 1;
 		$data['deactivatefrom'] = date('Y-m-d',strtotime($this->input->post('FromDate')));

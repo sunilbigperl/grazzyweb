@@ -91,8 +91,10 @@
 			<label><strong>From date</strong></label>
 			<input type="date" name="FromDate" id="FromDate">
 			<label><strong>To date</strong></label>
-			<input type="date" name="ToDate" id="ToDate">
-			<input type="hidden" name="enabled" value="0">
+			<input type="date" name="ToDate" id="ToDate"><br/><br/>
+			<label><strong>Deactivate Permanently</strong></label>
+			<input type="checkbox"  name="enabled" value="2">
+			
 		  </div>
 		</div>
 		<div class="modal-footer">

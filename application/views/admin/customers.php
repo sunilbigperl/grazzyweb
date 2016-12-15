@@ -34,6 +34,7 @@ function areyousure()
 			<th data-field="email"><a href="<?php echo site_url($this->config->item('admin_folder').'/customers/index/email/');?>/<?php echo ($field == 'email')?$by:'';?>"><?php echo lang('email');?>
 				<?php if($field == 'email'){ echo ($by == 'ASC')?'<i class="icon-chevron-up"></i>':'<i class="icon-chevron-down"></i>';} ?></a></th>
 			<th><?php echo lang('active');?></th>
+			<th>Phone No</th>
 			<th>Actions</th>
 			<th>Reviews & reatings</th>
 		</tr>
@@ -67,6 +68,7 @@ function areyousure()
 				}
 				?>
 			</td>
+			<td><?php echo $customer->phone; ?></td>
 			<td>
 				<div >
 					<?php if($customer->active == 2 || $customer->active == 0) { ?>
