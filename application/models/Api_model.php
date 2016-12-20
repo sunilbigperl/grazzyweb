@@ -3,17 +3,20 @@ class Api_model extends CI_Model
 {
 	
 	public function customercheck($data){
-		$sql = "select id from customers where firstname='".$data['firstname']."' and phone ='".$data['phone']."'";
+		$sql = "select id from customers where  phone ='".$data['phone']."'";
 		$query = $this->db->query($sql);
 		if($query->num_rows() == 0){
 			$sql = "insert into customers (firstname, phone) values('".$data['firstname']."','".$data['phone']."')";	
 			$query = $this->db->query($sql);
-			$id = $this->db->insert_id();
-			
+			$result['id'] = $this->db->insert_id();
+			$result['firstname'] = $data['firstname'];
 		}else{
-			$id = $query->result();
+			$datas = $query->result_array();
+			$result['id'] =  $datas[0]['id'];
+			$sql = $this->db->query("update customers set firstname='".$data['firstname']."' where  id ='".$result['id']."'");
+			$result['firstname'] = $data['firstname'];
 		}
-		return $id;
+		return $result;
 	}
 	
 	public function delboycheck($data){
@@ -340,6 +343,7 @@ class Api_model extends CI_Model
 						$result[$i]['menus'][$j]['price'] = $mn['price'];
 						$result[$i]['menus'][$j]['image'] = 'uploads/images/thumbnails/'.$mn['image'];
 						$result[$i]['menus'][$j]['type'] = $mn['type'];
+						$result[$i]['menus'][$j]['itemPreparation_time'] = $mn['itemPreparation_time'];
 					$j++;
 					}
 				}
