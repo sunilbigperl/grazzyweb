@@ -6,7 +6,7 @@ class Deliveryboy extends Admin_Controller
 	{
 		parent::__construct();
 
-		$this->auth->check_access('Admin', true);
+		$this->auth->check_access('Deliver manager', true);
 		$this->load->model('Deliveryboy_model');
 		$this->lang->load('page');
 	}

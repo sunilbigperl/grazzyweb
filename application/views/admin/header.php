@@ -129,7 +129,7 @@
 							  <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>
 							</ul>
 						</li>
-						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Functionality of delivery partner </a></li>
+						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boy </a></li>
 				<?php endif; ?>
                 <?php if($this->auth->check_access('Admin')) : ?>
 					<li><a><i class="fa fa-home"></i> Dashboard <span class="fa fa-chevron-down"></span></a>
@@ -139,7 +139,7 @@
 						</ul>
 					</li>
 					
-					<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Functionality of delivery partner </a></li>
+					<li><a href="<?php echo $admin_url;?>deliverypartner"><i class="fa fa-home"></i> Functionality of delivery partner </a></li>
                     <li><a><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 						    <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>
@@ -267,6 +267,7 @@
 	<?php endif; ?>
 <div class="right_col" role="main" style="overflow: auto;min-height:700px;">
 	<div class="container">
+	
 		<?php
 		//lets have the flashdata overright "$message" if it exists
 		if($this->session->flashdata('message'))

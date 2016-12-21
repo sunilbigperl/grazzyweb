@@ -707,4 +707,76 @@ class Api extends REST_Controller {
         }
     }
 	
+	/*api number 26*/
+	public function getFeedback_post(){
+		$data=array('customer_id'=>$this->post('customer_id'));
+		$result=$this->api_model->feedbackGet($data);
+			 if(!empty ($result)){
+      $message=[
+	  'Status'=>'Success',
+	  'data'=>$result['data']
+	  
+	  ];$this->set_response($message,REST_Controller::HTTP_OK);
+
+	  }else{
+		  
+		  $message=[
+		  'Status'=>'Error'
+		
+		  ]; $this->response($message, REST_Controller::HTTP_OK); 	
+
+	  }
+	
+	}
+	
+	/*api number 27*/
+	public function updateFeedback_post(){
+		
+		$data=array('id'=>$this->post('id'),'user_feedback'=>$this->post('user_feedback'));
+		$result=$this->api_model->feedbackUpdate($data);
+		 if(!empty ($result)){
+      $message=[
+	  'Status'=>'Success'
+	  
+	  ];$this->set_response($message,REST_Controller::HTTP_OK);
+
+	  }else{
+		  
+		  $message=[
+		  'Status'=>'Error'
+		
+		  ]; $this->response($message, REST_Controller::HTTP_OK); 	
+
+	  }
+
+		
+		
+		
+		
+	}
+	/*api number 28*/
+	public function deleteFeedabck_post(){
+		
+	$data=array('id'=>$this->post('id'));
+	$result=$this->api_model->feedbackdelete($data);
+	
+		 if(!empty ($result)){
+      $message=[
+	  'Status'=>'Success'
+	  
+	  ];$this->set_response($message,REST_Controller::HTTP_OK);
+
+	  }else{
+		  
+		  $message=[
+		  'Status'=>'Error'
+		
+		  ]; $this->response($message, REST_Controller::HTTP_OK); 	
+
+	  }
+		
+		
+		
+	}
+	
 }

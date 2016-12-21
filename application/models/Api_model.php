@@ -497,9 +497,9 @@ print_r(json_encode($result)); exit;
 		$path = "uploads/images/thumbnails/".$image;
 		file_put_contents($path,base64_decode($image));
 		
-		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivery_location)
+		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on)
 		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Order Placed','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
-		'".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$data['shipping_address']."')";
+		'".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$data['shipping_address']."','".$data['delivered_on']."')";
 		$this->db->query($sql);
 		$id = $this->db->insert_id();
 		if($id > 0){
@@ -591,5 +591,51 @@ print_r(json_encode($result)); exit;
 
 	   }   
 	
-	
+		
+		   public function feedbackGet($data){
+		   
+		  $sql=$this->db->query("select user_feedback from feedback where customer_id='".$data['customer_id']."' ORDER BY DATE DESC");
+		    $i=0;
+		if($sql->num_rows()>0){
+			$result[$i] = true;
+			//echo $this->db->last_query(); exit;
+			foreach($sql->result_array() as $row){
+			 $result['data'][$i]['user_feedback']=$row['user_feedback']	;
+				$i++;	
+			}
+		
+
+		}else{
+			$result[0] = false;
+		}
+		return $result;	
+		
+		   
+	   }
+	   
+	   
+	   
+      public function feedbackUpdate($data){
+		 $sql=$this->db->query("update feedback set user_feedback='".$data['user_feedback']."' where id='".$data['id']."' ");
+		  if($sql){
+			$result[0] = true;
+		}else{
+			$result[0] = false;
+		}
+		return $result;
+
+		  
+		  
+	  }	
+	  
+		public function feedbackdelete($data)
+		{
+			$sql=$this->db->query("delete  from feedback where id='".$data['id']."'");
+			  if($sql){
+					$result[0] = true;
+				}else{
+					$result[0] = false;
+				}
+				return $result;
+		}	
 }

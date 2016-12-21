@@ -52,7 +52,7 @@ function areyousure()
 		<tr>
 			<?php /*<td style="width:16px;"><?php echo  $customer->id; ?></td>*/?>
 			<td><?php echo  $customer->lastname; ?></td>
-			<td class="gc_cell_left"><a href="#" data-toggle="modal" data-target="#ratingdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/customers/ShowCustomerDetails/'.$customer->id.'');?>');"><?php echo  $customer->firstname; ?></a></td>
+			<td class="gc_cell_left"><a href="#" data-toggle="modal" style="color: #2f2fd0;text-decoration:underline;" data-target="#ratingdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/customers/ShowCustomerDetails/'.$customer->id.'');?>');"><?php echo  $customer->firstname; ?></a></td>
 			<td><a href="mailto:<?php echo  $customer->email;?>"><?php echo  $customer->email; ?></a></td>
 			<td>
 				<?php if($customer->active == 1)

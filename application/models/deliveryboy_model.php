@@ -12,7 +12,15 @@ Class Deliveryboy_model extends CI_Model
         $this->CI->load->database(); 
         $this->CI->load->helper('url');
     }
-    
+	function get_deliverypartner_list(){
+		$sql = $this->db->query("select * from admin where access='Deliver manager'");
+		if($sql->num_rows() > 0){
+			$result	= $sql->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
     function get_lists()
     {
         $result = $this->db->get('delivery_boy');
