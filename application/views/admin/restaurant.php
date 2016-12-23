@@ -42,9 +42,9 @@
 				
 					<a class="btn btn-xs btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Add menus</a>
 					<?php if($restaurant->enabled == 1){ ?> 
-						<a class="btn btn-xs btn-danger" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a>
+						<a class="btn btn-xs btn-danger" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a>
 					<?php }else{ ?>
-						<a class="btn btn-xs btn-success" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id); ?>" >Activate</a>
+						<a class="btn btn-xs btn-success" style="color: #2f2fd0;text-decoration:underline;" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id); ?>" >Activate</a>
 					<?php } ?>
 					</span>
 				</td>

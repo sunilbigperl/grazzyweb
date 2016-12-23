@@ -28,7 +28,7 @@
 			<tr class="gc_row">
 				<td><?=$i;?></td>
 				<td>
-					<a href="#" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
+					<a href="#" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
 				</td>
 				<td>
 					<?=$order->total_cost; ?>
@@ -47,7 +47,7 @@
 						<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/5');?>',<?=htmlspecialchars(json_encode($order));?>);">Review delivery boy</a>
 					<?php }}elseif($order->restaurant_manager != ""){ $CheckFeedback = $this->Order_model->CheckFeedback($order->order_number,4);
 					if($CheckFeedback == 0){ ?>
-							<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/4');?>',<?=htmlspecialchars(json_encode($order));?>);">Review Restaurant</a>
+							<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/4');?>',<?=htmlspecialchars(json_encode($order));?>);" style="color: #2f2fd0;text-decoration:underline;">Review Restaurant</a>
 					
 					<?php } } ?>
 				</td>

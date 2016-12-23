@@ -38,7 +38,7 @@ function areyousure()
 				<td><?=$page->phone;?></td>
 				<td><a  class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/delete/'.$page->id.''); ?>">delete</a>&nbsp;&nbsp;
 				<a class="btn btn-info btn-xs"href="<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/form/'.$page->id.''); ?>">Edit</a>
-				<a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/ShowReviewDetails/'.$page->id.'');?>');">Reviews</a>
+				<a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/ShowReviewDetails/'.$page->id.'');?>');" style="color: #2f2fd0;text-decoration:underline;">Reviews</a>
 				</td>
 			</tr>
 			<?php
