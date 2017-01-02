@@ -3,22 +3,31 @@ class Api_model extends CI_Model
 {
 	
 	public function customercheck($data){
-		$sql = "select id from customers where  phone ='".$data['phone']."'";
+		$sql = "select * from customers where  phone ='".$data['phone']."'";
 		$query = $this->db->query($sql);
 		if($query->num_rows() == 0){
-			$sql = "insert into customers (firstname, phone) values('".$data['firstname']."','".$data['phone']."')";	
+			$sql = "insert into customers (phone) values('".$data['phone']."')";	
 			$query = $this->db->query($sql);
 			$result['id'] = $this->db->insert_id();
-			$result['firstname'] = $data['firstname'];
 		}else{
 			$datas = $query->result_array();
 			$result['id'] =  $datas[0]['id'];
-			$sql = $this->db->query("update customers set firstname='".$data['firstname']."' where  id ='".$result['id']."'");
-			$result['firstname'] = $data['firstname'];
+			$result['firstname'] = isset($datas[0]['firstname']) ? $datas[0]['firstname'] : "";
 		}
 		return $result;
 	}
 	
+	public function UpdateUser($data){
+		$sql = "update customers set firstname = '".$data['firstname']."' where  id='".$data['id']."' ";	
+		
+		$query = $this->db->query($sql);
+		if($query){
+			$result[0] = true;
+		}else{
+			$result[0] = false;
+		}
+		return $result;
+	}
 	public function delboycheck($data){
 		$sql = "select id from delivery_boy where phone ='".$data['phone']."'";
 		$query = $this->db->query($sql);
@@ -497,9 +506,9 @@ print_r(json_encode($result)); exit;
 		$path = "uploads/images/thumbnails/".$image;
 		file_put_contents($path,base64_decode($image));
 		
-		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on)
+		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on,keep_ready)
 		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Order Placed','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
-		'".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$data['shipping_address']."','".$data['delivered_on']."')";
+		'".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$data['shipping_address']."','".$data['delivered_on']."','".$data['keep_ready']."')";
 		$this->db->query($sql);
 		$id = $this->db->insert_id();
 		if($id > 0){

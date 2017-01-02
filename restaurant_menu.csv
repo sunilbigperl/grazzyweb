@@ -1,0 +1,4 @@
+"menu_id","code","menu","description","price","image","type","itemPreparation_time","enabled"
+"10","0","menuu1",,"100",,"veg",,"1"
+"8","123","menu1","test","200",,"non veg","10","0"
+"11","0","menu3",,"1000",,,,"1"

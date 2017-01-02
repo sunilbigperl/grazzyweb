@@ -12,7 +12,16 @@ Class Pitstop_model extends CI_Model
         return $pitstops;
     }
 	
-   
+   function InsertPitstops($pitstops){
+		
+		foreach($pitstops as $men){
+			foreach($men as $pitstop){
+				$sql =$this->db->query("INSERT INTO `pitstops`(`pitstop_name`, `latitude`, `langitude`, `enabled`) 
+				VALUES ('".$pitstop['pitstop_name']."','".$pitstop['latitude']."','".$pitstop['langitude']."','".$pitstop['enabled']."')");
+			}
+		}
+	}
+	
     function get_pitstop($id,$related_restaurants=true)
     {
 		

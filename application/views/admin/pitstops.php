@@ -4,7 +4,16 @@
 <div class="btn-group pull-left">
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/form'); ?>"><i class="icon-plus-sign"></i> Add new pitstop</a>
 </div>
-
+<br/>
+<div style="display:block;clear:both;margin-top:40px">
+	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/pitstop/ImportPitstops'); ?>" method="post" enctype="multipart/form-data">
+		<div class="form-group">
+				<input type="file" name="pitstopfile" style="display:inline;">
+				<input type="submit" name="submit" value="Upload" class="btn btn-xs btn-primary">
+		</div>
+	</form>
+	<a href="../../pitstops.csv" style="text-decoration:underline">(Download the pitstop import format)</a>
+</div>
 <table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>

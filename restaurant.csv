@@ -1,0 +1,3 @@
+"restaurant_name","restaurant_address","restaurant_phone","restaurant_email","image","restaurant_latitude","restaurant_langitude","restaurant_branch","restaurant_manager","preparation_time","enabled","deactivatefrom","deactivateto","fromtime","totime","commission","penalty","servicetax","days"
+"retaurants3",,"87889","retaurants2@gmail.com",,"-33.8905","78.4099","bangalore","3","0","0","2016-12-11","2016-12-27","00:00:00","00:00:00","0","0","0",
+"restaurant4",,"77887","restaurant1@gmail.com","7fca09a10d55c8dcfc71854676cf997f.jpg","19.0942","72.9299","bangalore","3","20","0","1970-01-01","1970-01-01","09:00:00","22:00:00","10","8","12","a:3:{i:0;s:6:""sunday"";i:1;s:6:""monday"";i:2;s:7:""tuesday"";}"

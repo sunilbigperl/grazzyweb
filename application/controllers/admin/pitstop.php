@@ -20,6 +20,30 @@ class Pitstop extends Admin_Controller {
         $this->view($this->config->item('admin_folder').'/pitstops', $data);
     }
    
+	function ImportPitstops()
+	{
+			$target_file =  basename($_FILES["pitstopfile"]["name"]);
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+			$uploadOk = 0;
+			if($imageFileType == "csv"){
+				$uploadOk = 1;
+			}
+			if ($uploadOk == 1) {
+				
+				if (move_uploaded_file($_FILES["pitstopfile"]["tmp_name"], "uploads/" . basename($_FILES["pitstopfile"]["name"]))) {
+						$this->load->library('csvreader');
+						$result =   $this->csvreader->parse_file("uploads/".$_FILES["pitstopfile"]["name"]);//path to csv file
+						
+						$data['pitstops'] =  $result;
+						$this->Pitstop_model->InsertPitstops($data);
+						unlink("uploads/".$_FILES["pitstopfile"]["name"]); 
+						redirect('admin/pitstop/index', 'refresh');
+						
+				}
+			
+			}
+		
+	}
     function form($id = false)
     {
         

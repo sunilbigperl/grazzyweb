@@ -553,6 +553,23 @@ class Api extends REST_Controller {
 		}
 	}
 	
+	public function UpdateUser_post(){
+		
+        $data=array('firstname'=>$this->post('firstname'),'id'=>$this->post('id'));
+		$result=$this->api_model->UpdateUser($data);
+		if(isset($result[0])){
+			$message=[
+			'response'=>'Success'
+			]; 
+			$this->set_response($message, REST_Controller::HTTP_OK); 
+		}else{
+			$message=[
+			'Status'=>'Error'
+			];
+			 $this->response($message, REST_Controller::HTTP_OK); 	
+		}
+	}
+	
 	/*api number 19*/
 	public function insertOrder_post(){
 		
