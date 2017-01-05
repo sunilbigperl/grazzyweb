@@ -4,7 +4,7 @@
 <MARQUEE WIDTH=100% HEIGHT=100 >
 <?php if(isset($messages['data'])){
 	foreach($messages['data'] as $message){ ?> 
-	<div style="margin-right:20px;color:red;"><strong><?=$message['restaurant_name'];?>:</strong> <?=$message['message']; ?></div>
+	<div style="margin-right:20px;color:red;"><strong><?=isset($message['restaurant_name']) ? $message['restaurant_name']: "";?></strong> <?=$message['message']; ?></div>
 <?php } } ?>
 </MARQUEE>
 </div>

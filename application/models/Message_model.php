@@ -38,6 +38,10 @@ class Message_model extends CI_Model
 	public function get_messagerest($data){
 		$date = date('Y-m-d H:i:s');
 		$rest_name = explode(") ",$data['rest_name']);
+		if(isset($data['rest_nameall']) && $data['rest_nameall'] == "on"){
+			$rest_name[0] = 0;
+			$rest_name[1] = "";
+		}
 		$sql = "insert into restaurant_messages (restaurant_id,rest_name, message, date) 
 		values('".$rest_name[0]."','".$rest_name[1]."','".$data['message']."','".$date."')";	
 		$query = $this->db->query($sql);

@@ -153,6 +153,10 @@ a:hover {
 <?php $url = $this->uri->segment(4);  if(!isset($url)){ ?>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">
 	<form class="form-horizontal" action="<?php echo site_url($this->config->item('admin_folder').'/message/messagerest'); ?>" method="post">
+		<div class="form-group">
+			<label>Send Messsage to all restaurants</label>
+			<input type="checkbox" name="rest_nameall" onclick="CheckRestAll();">
+		</div>
 		<div class="form-group" id="the-basics">
 				<input type="text" class="form-control typeahead" id="rest_name" name="rest_name" placeholder="Restaurant name and Branch">
 		</div>
@@ -246,5 +250,14 @@ $('#the-basics .typeahead').typeahead({
   source: substringMatcher(states)
  
 });
+
+function CheckRestAll(){
+	var val = $('input[name="rest_nameall"]:checked').val();
+	if(val =="on"){ 
+		$("#the-basics").css("display","none");
+	}else{
+		$("#the-basics").css("display","block");
+	}
+}
 </script>
 

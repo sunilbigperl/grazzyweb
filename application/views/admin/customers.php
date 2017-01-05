@@ -10,7 +10,7 @@ function areyousure()
 </div>
 
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
-		 data-search="true" id="table-pagination" data-sort-order="desc">
+		 data-search="true" id="table-pagination" data-sort-order="desc" data-page-length="100">
 	<thead>
 		<tr>
 			
