@@ -26,6 +26,12 @@ class Message extends Admin_Controller {
         $this->view($this->config->item('admin_folder').'/restmessage', $data);
     }
    
+	function custmessage()
+    {       
+		$data['page_title'] = 'Message to customers';
+        $data['messages'] = $this->Message_model->get_custmessage();
+        $this->view($this->config->item('admin_folder').'/custmessage', $data);
+    }
    function delmessage(){
 	    $data['page_title'] = 'Message to delivery partner';
         $data['messages'] = $this->Message_model->get_delmessages();
@@ -33,6 +39,13 @@ class Message extends Admin_Controller {
         $this->view($this->config->item('admin_folder').'/delmessage', $data);
    }
    
+   function notifications()
+    {       
+		$data['page_title'] = 'Notification Messages';
+        $data['messages'] = $this->Message_model->get_notifications();
+        $this->view($this->config->item('admin_folder').'/notifications', $data);
+    }
+	
    function messagerest(){
 	   $data = $this->input->post();
 	    $id = $this->Message_model->get_messagerest($data);
@@ -46,6 +59,22 @@ class Message extends Admin_Controller {
 	    $id = $this->Message_model->messagedel($data);
 		if($id > 0){
 			redirect('admin/message/delmessage');
+		}
+   }
+   
+   function messagecust(){
+	    $data = $this->input->post();
+	    $id = $this->Message_model->messagecust($data);
+		if($id > 0){
+			redirect('admin/message/custmessage');
+		}
+   }
+   
+   function addnotification(){
+	   $data = $this->input->post();
+	    $id = $this->Message_model->insert_notifications($data);
+		if($id > 0){
+			redirect('admin/message/notifications');
 		}
    }
 }

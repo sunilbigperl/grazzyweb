@@ -171,6 +171,8 @@
 						<ul class="nav child_menu">
 							<li><a href="<?php echo $admin_url;?>message/restmessage">Restaurant message</a></li>
                             <li><a href="<?php echo $admin_url;?>message/delmessage">Delivery partner message</a></li>
+							<li><a href="<?php echo $admin_url;?>message/custmessage">customer message</a></li>
+                            <li><a href="<?php echo $admin_url;?>message/notifications">Notification messages</a></li>
 						</ul>
 					</li>
                     <?php endif; ?>
