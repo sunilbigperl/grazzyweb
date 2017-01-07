@@ -1,11 +1,11 @@
  <?php if($this->auth->check_access('Restaurant manager')) : ?>
-			<div class="alert alert-error">
+			<div class="alert alert-error" style="font-size:16px;font-weight:bold;">
 				<a class="close" data-dismiss="alert">×</a>
-					“Will you be able to serve all the
+					“Will You Be Able To Serve All The
 
-					items in the menu or do you need to disable certain items?
+					Items In The Menu or Do You Need To Disable Certain Items?
 
-					To disable the menu items, <a href="<?php echo site_url($this->config->item('admin_folder'));?>/restaurant">please click here</a>”
+					To Disable The Menu Items, <a href="<?php echo site_url($this->config->item('admin_folder'));?>/restaurant">Please Click Here</a>”
 			</div>
 	<?php endif; ?>
 	
