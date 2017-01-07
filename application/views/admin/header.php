@@ -126,20 +126,21 @@
 						<li><a><i class="fa fa-home"></i> Orders <span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 							  <li><a href="<?php echo $admin_url;?>orders/delpartnerorders">New orders</a></li>
-							  <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>
+							  <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous Orders</a></li>
 							</ul>
 						</li>
 						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boy </a></li>
 				<?php endif; ?>
                 <?php if($this->auth->check_access('Admin')) : ?>
-					<li><a><i class="fa fa-home"></i> Dashboard <span class="fa fa-chevron-down"></span></a>
+					<!--<li><a><i class="fa fa-home"></i> Dashboard <span class="fa fa-chevron-down"></span></a>-->
+					<li><a href="<?php echo $admin_url;?>dashboard"><i class="fa fa-home"></i> Dashboard <span class=""></span></a>
 						<ul class="nav child_menu">
-						    <li><a href="<?php echo $admin_url;?>dashboard">Restaurant/Pitstops</a></li>
+					<!--	    <li><a href="<?php echo $admin_url;?>dashboard">Restaurant/Pitstops</a></li> -->
                            <!-- <li><a href="<?php echo $admin_url;?>dashboard/recentinfo">Recent information</a></li>-->
 						</ul>
 					</li>
 					
-					<li><a href="<?php echo $admin_url;?>deliverypartner"><i class="fa fa-home"></i> Functionality of delivery partner </a></li>
+					<li><a href="<?php echo $admin_url;?>deliverypartner"><i class="fa fa-home"></i>Delivery Partner </a></li>
                     <li><a><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 						    <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>

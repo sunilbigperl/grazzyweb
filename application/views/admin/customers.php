@@ -25,8 +25,8 @@ function areyousure()
 			}
 			?>
 			
-			<th data-field="id"><a href="<?php echo site_url($this->config->item('admin_folder').'/customers/index/lastname/');?>/<?php echo ($field == 'lastname')?$by:'';?>"><?php echo lang('lastname');?>
-				<?php if($field == 'lastname'){ echo ($by == 'ASC')?'<i class="icon-chevron-up"></i>':'<i class="icon-chevron-down"></i>';} ?> </a></th>
+		<!--	<th data-field="id"><a href="<?php echo site_url($this->config->item('admin_folder').'/customers/index/lastname/');?>/<?php echo ($field == 'lastname')?$by:'';?>"><?php echo lang('lastname');?>
+				<?php if($field == 'lastname'){ echo ($by == 'ASC')?'<i class="icon-chevron-up"></i>':'<i class="icon-chevron-down"></i>';} ?> </a></th> -->
 			
 			<th data-field="firstname"><a href="<?php echo site_url($this->config->item('admin_folder').'/customers/index/firstname/');?>/<?php echo ($field == 'firstname')?$by:'';?>"><?php echo lang('firstname');?>
 				<?php if($field == 'firstname'){ echo ($by == 'ASC')?'<i class="icon-chevron-up"></i>':'<i class="icon-chevron-down"></i>';} ?></a></th>
@@ -51,7 +51,7 @@ function areyousure()
 <?php foreach ($customers as $customer):?>
 		<tr>
 			<?php /*<td style="width:16px;"><?php echo  $customer->id; ?></td>*/?>
-			<td><?php echo  $customer->lastname; ?></td>
+		<!--	<td><?php echo  $customer->lastname; ?></td>-->
 			<td class="gc_cell_left"><a href="#" data-toggle="modal" style="color: #2f2fd0;text-decoration:underline;" data-target="#ratingdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/customers/ShowCustomerDetails/'.$customer->id.'');?>');"><?php echo  $customer->firstname; ?></a></td>
 			<td><a href="mailto:<?php echo  $customer->email;?>"><?php echo  $customer->email; ?></a></td>
 			<td>
