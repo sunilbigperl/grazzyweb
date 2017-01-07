@@ -516,7 +516,7 @@ class Customers extends Admin_Controller {
 		</div>
 		<div class='modal-body'>
 		<div class=''><strong>Ratings By Restaurants:</strong> ".$RestReviewavg."</div>";
-		echo  "<div class=''><strong>Ratings By delivery boy:</strong> ".$delpartnerreviewavg."</div>";
+		echo  "<div class=''><strong>Ratings By deliver Partner:</strong> ".$delpartnerreviewavg."</div>";
 		echo "<table class='table table-bordered'>
 			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
 			<tbody>";

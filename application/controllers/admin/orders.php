@@ -295,7 +295,7 @@ class Orders extends Admin_Controller {
 		<div class='modal-body'>
 		<div class=''><strong>Ratings By customer:</strong> ".$customerreviewavg."</div>";
 		echo  "<div class=''><strong>Ratings By delivery partner:</strong> ".$delpartnerreviewavg."</div>";
-		echo  "<div class=''><strong>Ratings By delivery boy:</strong> ".$delboyreviewavg."</div>";
+	/*	echo  "<div class=''><strong>Ratings By delivery boy:</strong> ".$delboyreviewavg."</div>";*/
 		echo "<table class='table table-bordered'>
 			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
 			<tbody>";
