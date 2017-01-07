@@ -11,6 +11,7 @@
 	<!--	<li><a href="#pitstop_tab" data-toggle="tab">Pitstop</a></li> -->
 		<li><a href="#location_tab" data-toggle="tab">Location</a></li>
 	</ul>
+	
 
 	<div class="tab-content">
 		<div class="tab-pane active" id="description_tab">
