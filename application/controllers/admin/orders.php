@@ -366,14 +366,14 @@ class Orders extends Admin_Controller {
 			'protocol' => 'smtp',
 			'smtp_host' => 'ssl://smtp.gmail.com',
 			'smtp_port' => 465,
-			'smtp_user' => 'lvijetha90@gmail.com',
-			'smtp_pass' => '',
+			'smtp_user' => 'laxman.bigperl@gmail.com',
+			'smtp_pass' => 'bigperl@123',
 			'mailtype'  => 'html', 
 			'charset'   => 'utf-8',
 			'newline'    => "\r\n"
 		);
 		$this->load->library('email',$config);
-		$this->email->from('lvijetha90@gmail.com', 'vijetha');
+		$this->email->from('laxman.bigperl@gmail.com', 'EatsApp');
 		$this->email->to($userdata['email']);
 		 
 		$this->email->subject('Email Test');
@@ -393,13 +393,21 @@ class Orders extends Admin_Controller {
 		 //Send mail 
          if($this->email->send()) 
 		 {
-			echo "Your bill will be emailed to registred email id."; 
+		echo "<script> alert('Your bill will be emailed to registred email id.');location.href='http://grazzy.way2gps.com/index.php/admin/orders/RequestBill';</script>";	 
+		//	echo "Your bill will be emailed to registred email id."; 
          }
 		 else
 		 {	
 			// print_r($this->email->print_debugger());
 			echo "Error in sending Email."; 
          }
+	}
+	public function SalesChart(){
+		
+	     $data['saleschart'] = "";
+        $this->view($this->config->item('admin_folder').'/saleschart',$data);
+		
+		
 	}
 	
 	

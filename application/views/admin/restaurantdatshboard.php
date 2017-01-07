@@ -102,7 +102,7 @@
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <div id="chart_div" style="margin-top:40px;"></div>
-<script>
+<!--<script>
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawColColors);
 
@@ -131,5 +131,5 @@ function drawColColors() {
       var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
       chart.draw(data, options);
     }
-</script>
+</script>-->
 <?php $this->load->view('admin/marque'); ?>

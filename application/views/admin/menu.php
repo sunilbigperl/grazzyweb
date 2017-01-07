@@ -4,7 +4,9 @@
 <div class="btn-group pull-left">
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant'); ?>"><i class="icon-plus-sign"></i> Restaurants</a>
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/0/'.$res_id); ?>"><i class="icon-plus-sign"></i> Add new menu</a>
-</div>
+    <button class="btn btn-primary" onclick="history.go(-1);">Back </button>
+
+	</div>
 
 <table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
@@ -42,9 +44,9 @@
 				<a class="btn btn-info btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/'.$menu->menu_id.'/'.$res_id.''); ?>">Edit</a>
 				&nbsp;<a class="btn btn-danger btn-xs" href="#" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/menus/delete/'.$menu->menu_id.'/'.$res_id.''); ?>'; }">delete</a>
 					&nbsp;&nbsp;<?php if($menu->enabled == 1){ ?> 
-						<a href="#" class="btn btn-danger  btn-xs" data-toggle="modal" data-target="#DeactivateMenu" onclick="$('#restid').val('<?=$res_id;?>');$('#menuid').val('<?=$menu->menu_id;?>')">Deactivate menu</a>
+						<a href="#" class="btn btn-danger  btn-xs" data-toggle="modal" data-target="#DeactivateMenu" onclick="$('#restid').val('<?=$res_id;?>');$('#menuid').val('<?=$menu->menu_id;?>')">Deactivate</a>
 					<?php }else{ ?>
-						<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/menus/MenuStatusChange/'.$menu->menu_id.'/'.$res_id.''); ?>" >Activate menu</a>
+						<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/menus/MenuStatusChange/'.$menu->menu_id.'/'.$res_id.''); ?>" >Activate</a>
 					<?php } ?>
 				</td>
 			</tr>

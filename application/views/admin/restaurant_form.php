@@ -72,15 +72,15 @@
 					echo form_input($data);
 					?>
 				</div>
-				<div class="form-group">	
-					<label for="commission">Commission(%)</label>	
+				<div class="form-group " >	
+					<label for="commission ">Commission(%)</label>	
 					<?php
 					$data	= array('name'=>'commission', 'value'=>set_value('commission', $commission), 'class'=>'form-control');
 					echo form_input($data);
 					?>
 				</div>
 				<div class="form-group">
-					<label for="penalty">Penalty(%)</label>
+					<label for="penalty " >Penalty(%)</label>
 					<?php
 					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control');
 					echo form_input($data);

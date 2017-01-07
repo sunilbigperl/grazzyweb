@@ -92,7 +92,7 @@
 		<div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?=$admin_url;?>" class="site_title"><i class="fa fa-paw"></i> <span>Admin panel</span></a>
+              <a href="<?=$admin_url;?>" class="site_title"><i class="fa fa-paw"></i> <span>POS</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -112,15 +112,19 @@
                 <ul class="nav side-menu">
 				<?php if($this->auth->check_access('Restaurant manager')) : ?>
 						<li><a href="<?php echo $admin_url;?>orders/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
-						<li><a><i class="fa fa-home"></i> Control <span class="fa fa-chevron-down"></span></a>
+						<li><a href="<?php echo $admin_url;?>restaurant"><i class="fa fa-home"></i> Control <span class=""></span></a>
 							<ul class="nav child_menu">
-							  <li><a href="<?php echo $admin_url;?>restaurant">Restaurants</a></li>
+							<!--  <li><a href="<?php echo $admin_url;?>restaurant">Restaurants</a></li>-->
 							</ul>
 						</li>
 						<li><a href="<?php echo $admin_url;?>orders/previousorders"><i class="fa fa-home"></i>Previous Orders </a></li>
 							
-						<li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class="fa fa-chevron-down"></span></a></li>
+						<li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li>
+						 <li><a href="<?php echo $admin_url;?>orders/SalesChart"><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class=""></span></a>
+						<ul class="nav child_menu">
 						
+						</ul>
+					</li>
 				<?php endif; ?>
                 <?php if($this->auth->check_access('Deliver manager')) : ?>
 						<li><a><i class="fa fa-home"></i> Orders <span class="fa fa-chevron-down"></span></a>
@@ -317,7 +321,7 @@
 		<div class="page-header">
 			<h1><?php echo  $page_title; ?>
 			<?php if(isset($_SERVER['HTTP_REFERER'])){ ?>
-			<span class="pull-right" style="font-size:16px;"><a href="<?=$_SERVER['HTTP_REFERER'];?>">Back</a></span>
+			<!--<span class="pull-right" style="font-size:16px;"><a href="<?=$_SERVER['HTTP_REFERER'];?>">Back</a></span>-->
 			<?php } ?>
 			</h1>
 			
