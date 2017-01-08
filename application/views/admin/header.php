@@ -84,7 +84,7 @@
 	</script>
 	<?php endif;?>
 </head>
-<body class="nav-md">
+<body class="nav-sm">
 <div class="container body">
     <div class="main_container">
 	<?php if($this->auth->is_logged_in(false, false)):?>
