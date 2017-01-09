@@ -10,7 +10,7 @@
 			<th data-field="date">Ordered on</th>
 			<th data-field="type">Order type</th>
 			<th>Assign Delivery boy</th>
-			<th>Info</th>
+			<!--<th>Info</th>-->
 			<th>Order status</th>
 		</tr>
 	</thead>
@@ -53,7 +53,7 @@
 						
 					</form>
 				</td>
-				<td> 
+			<!--	<td> 
 				<?php $userdata = $this->session->userdata('admin'); 
 					$CheckReview = $this->Order_model->CheckReview($order->order_number, 4, $userdata['id']);
 					
@@ -69,7 +69,7 @@
 					<?php }elseif($CheckdelboyReview != 0 && $order->delivered_by != 0 && $order->status == "Shipped"){
 						echo "<br/>Review to Delivery Boy: ".$CheckReview[0]->comments;
 					} ?>
-				</td>
+				</td>-->
 				<td>
 					<?=$order->status;?>
 				</td>

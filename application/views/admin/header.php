@@ -92,7 +92,15 @@
 		<div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
+              <?php if($this->auth->check_access('Admin')){ ?>
+              <a href="<?=$admin_url;?>" class="site_title"> <span>Admin Panel</span></a>
+			<?php } elseif($this->auth->check_access('Restaurant manager')){  ?>
+			
               <a href="<?=$admin_url;?>" class="site_title"> <span>POS</span></a>
+			<?php }else{ ?>
+			
+              <a href="<?=$admin_url;?>" class="site_title"> <span>DBOS</span></a>
+			<?php } ?>
             </div>
 
             <div class="clearfix"></div>

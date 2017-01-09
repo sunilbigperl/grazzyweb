@@ -4,6 +4,7 @@
 	<?php } ?>
 </div>
 <br/>
+<?php if($this->auth->check_access('Admin')){ ?>
 <div style="display:block;clear:both;margin-top:40px">
 	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/restaurant/ImportRestaurants'); ?>" method="post" enctype="multipart/form-data">
 		<div class="form-group">
@@ -13,6 +14,7 @@
 	</form>
 	<a href="../../restaurant.csv" style="text-decoration:underline">(Download the Restaurant import format)</a>
 </div>
+<?php } ?>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
