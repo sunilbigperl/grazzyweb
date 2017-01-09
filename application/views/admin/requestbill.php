@@ -15,8 +15,8 @@
 		<div class="form-group span2"><input type="submit" class="btn btn-default" value="Go" name="action"></div>
 	<br/>
 		<div class="form-group" style="margin-top:20px;">
-			<div class="form-group span6"><input type="submit" class="btn btn-primary" value="PreviousMonth" name="action"></div>
-			<div class="form-group span4"><input type="submit" class="btn btn-primary" value="CurrentMonth" name="action"></div>
+			<div class="form-group span6"><input type="submit" class="btn btn-primary" value="Previous Month" name="action"></div>
+			<div class="form-group span4"><input type="submit" class="btn btn-primary" value="Current Month" name="action"></div>
 		</div>
 	</form>
 </div>
