@@ -72,6 +72,7 @@
 					echo form_input($data);
 					?>
 				</div>
+				 <?php if($this->auth->check_access('Restaurant manager')){ ?>
 				<div class="form-group " >	
 					<label for="commission " >Commission(%)</label>	
 					<?php
@@ -93,6 +94,30 @@
 					echo form_input($data);
 					?>
 				</div>
+				<?php } else {?>
+				<div class="form-group " >	
+					<label for="commission " >Commission(%)</label>	
+					<?php
+					$data	= array('name'=>'commission', 'value'=>set_value('commission', $commission), 'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">
+					<label for="penalty " >Penalty(%)</label>
+					<?php
+					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">
+					<label for="servicetax">Service tax(%)</label>
+					<?php
+					$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
+				<?php } ?>
+				
 			</fieldset>
 		</div>
 		
