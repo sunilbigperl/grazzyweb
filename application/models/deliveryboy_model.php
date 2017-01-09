@@ -50,7 +50,11 @@ Class Deliveryboy_model extends CI_Model
         $result = $this->db->get_where('delivery_boy', array('id'=>$id));
         return $result->row();
     }
-   
+    function get_deliveryPartner($id)
+    {
+        $result = $this->db->get_where('admin', array('id'=>$id,'access'=>'Deliver manager'));
+        return $result->row();
+    }
     
     function save($delivery_boy)
     {
@@ -81,4 +85,37 @@ Class Deliveryboy_model extends CI_Model
         
         
     }
+	
+	function GetReviewDelPartner($id,$type){
+		$sql = $this->db->query("select a.*,b.firstname from feedback a, admin b where a.feedbackfrom=b.id and a.feedbacktype='".$type."' and a.feedbackto='".$id."'");
+		if($sql->num_rows() > 0){
+			$result['data']	= $sql->result();
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype='".$type."' and feedbackto='".$id."'");
+			$result['avg']	= $sql1->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
+	
+	function get_ListValues($id){
+		$sql = $this->db->query("select * from delpartner_charges where delpartner_id='".$id."'");
+		if($sql->num_rows() > 0){
+			$result['data']	= $sql->result();
+			
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
+	
+	function SaveCharges($data,$id){
+		
+		$sql = $this->db->query("delete from delpartner_charges where delpartner_id='".$id."'");
+		if($sql){
+			foreach($data as $datas){
+				$this->db->insert('delpartner_charges', $datas);
+			}
+		}
+	}
 }

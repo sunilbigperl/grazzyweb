@@ -88,7 +88,7 @@ function areyousure()
 				</div>-->
 			</td>
 			<td>
-				<a href="#" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/customers/ShowReviewDetails/'.$customer->id.'');?>');">Reviews</a>
+				<a href="#"  data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/customers/ShowReviewDetails/'.$customer->id.'');?>');">Reviews</a>
 			</td>
 		</tr>
 <?php endforeach;

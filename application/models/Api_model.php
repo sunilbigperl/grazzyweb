@@ -6,19 +6,22 @@ class Api_model extends CI_Model
 		$sql = "select * from customers where  phone ='".$data['phone']."'";
 		$query = $this->db->query($sql);
 		if($query->num_rows() == 0){
-			$sql = "insert into customers (phone) values('".$data['phone']."')";	
+			$sql = "insert into customers (phone, did) values('".$data['phone']."','".$data['did']."')";	
 			$query = $this->db->query($sql);
 			$result['id'] = $this->db->insert_id();
 		}else{
+			
 			$datas = $query->result_array();
 			$result['id'] =  $datas[0]['id'];
+			$sql = $this->db->query("update customers set did = '".$data['did']."'  where  id='".$result['id']."'");	
+		
 			$result['firstname'] = isset($datas[0]['firstname']) ? $datas[0]['firstname'] : "";
 		}
 		return $result;
 	}
 	
 	public function UpdateUser($data){
-		$sql = "update customers set firstname = '".$data['firstname']."' where  id='".$data['id']."' ";	
+		$sql = "update customers set firstname = '".$data['firstname']."'  where  id='".$data['id']."' ";	
 		
 		$query = $this->db->query($sql);
 		if($query){

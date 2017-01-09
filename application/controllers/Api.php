@@ -33,7 +33,8 @@ class Api extends REST_Controller {
 	public function customercheck_post(){
 		 $data = [
             'firstname' => $this->post('firstname'),
-            'phone' => $this->post('phone')
+            'phone' => $this->post('phone'),
+			'did'	=> $this->post('did')
         ];
 
 		$message = $this->api_model->customercheck($data);

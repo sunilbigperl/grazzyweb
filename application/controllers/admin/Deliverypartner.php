@@ -19,7 +19,7 @@ class Deliverypartner extends Admin_Controller
 	{
 		$data['page_title']	= "Delivery partners";
 		$data['admins']		= $this->Deliveryboy_model->get_deliverypartner_list();
-
+		
 		$this->view($this->config->item('admin_folder').'/deliverypartners', $data);
 	}
 	function delete($id)
@@ -36,6 +36,7 @@ class Deliverypartner extends Admin_Controller
 		$this->session->set_flashdata('message', lang('message_user_deleted'));
 		redirect($this->config->item('admin_folder').'/admin');
 	}
+	
 	function form($id = false)
 	{	
 		$this->load->helper('form');
@@ -55,11 +56,19 @@ class Deliverypartner extends Admin_Controller
 		$data['enabled']	='';
 		$data['FromDate']	='';
 		$data['ToDate']	='';
-		
+		$data['servicetax'] = '';
+		$data['commission'] = '';
+		$data['penalty'] ='';
+        $data['fromtime'] ='';
+		$data['totime'] ='';
+		$data['days'] ='';
+		$data['ListValues'] ='';
 		if ($id)
 		{	
 			$this->admin_id		= $id;
 			$admin			= $this->auth->get_admin($id);
+			$ListValues	=$this->Deliveryboy_model->get_ListValues($id);
+			
 			//if the administrator does not exist, redirect them to the admin list with an error
 			if (!$admin)
 			{
@@ -77,10 +86,16 @@ class Deliverypartner extends Admin_Controller
 			$data['enabled']		= $admin->enabled;
 			$data['FromDate']		= $admin->FromDate;
 			$data['ToDate']		= $admin->ToDate;
+			$data['servicetax'] = $admin->servicetax;
+			$data['commission'] = $admin->commission;
+			$data['penalty']	= $admin->penalty;
+			$data['fromtime']	= $admin->fromtime;
+			$data['totime']	= $admin->totime;
+			$data['days']	= $admin->days;
+			$data['ListValues'] = $ListValues;
 		}
 		
-		$this->form_validation->set_rules('firstname', 'lang:firstname', 'trim|max_length[32]');
-		$this->form_validation->set_rules('lastname', 'lang:lastname', 'trim|max_length[32]');
+		
 		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]');
 		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[11]|callback_check_phone');
 		$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
@@ -95,7 +110,7 @@ class Deliverypartner extends Admin_Controller
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->view($this->config->item('admin_folder').'/admin_form', $data);
+			$this->view($this->config->item('admin_folder').'/deliverypartner_form', $data);
 		}
 		else
 		{
@@ -111,18 +126,27 @@ class Deliverypartner extends Admin_Controller
 			$save['FromDate'] = isset($FromDate) ? $FromDate : '';
 			$ToDate		= date('Y-m-d',strtotime($this->input->post('ToDate')));;
 			$save['ToDate'] = isset($ToDate) ? $ToDate : '';
+			$save['servicetax']			   = $this->input->post('servicetax');
+			$save['commission'] 		   = $this->input->post('commission');
+			$save['penalty'] 			   = $this->input->post('penalty');
+			$save['fromtime'] 			   = $this->input->post('fromtime');
+			$save['totime'] 			   = $this->input->post('totime');
+			$save['days'] 				   = serialize($this->input->post('days'));
 			
+			$ListValues = $this->input->post('values');
+			
+			//print_r($save); exit;
 			if ($this->input->post('password') != '' || !$id)
 			{
 				$save['password']	= $this->input->post('password');
 			}
 			
 			$this->auth->save($save);
-			
-			$this->session->set_flashdata('message', lang('message_user_saved'));
+			$this->Deliveryboy_model->SaveCharges($ListValues,$id);
+			$this->session->set_flashdata('message', "Delivery partner saved");
 			
 			//go back to the customer list
-			redirect($this->config->item('admin_folder').'/admin');
+			redirect($this->config->item('admin_folder').'/deliverypartner');
 		}
 	}
 	
@@ -150,6 +174,135 @@ class Deliverypartner extends Admin_Controller
 		else
 		{
 			return TRUE;
+		}
+	}
+	
+	public function ShowReviewDetails($id){
+		$delpartnerreview = $this->Deliveryboy_model->GetReviewDelPartner($id,8);
+		$delpartnerreviewavg = isset($delpartnerreview['avg'][0]->avg) ? $delpartnerreview['avg'][0]->avg :0;
+		$delpartner       = $this->Deliveryboy_model->get_deliveryPartner($id); 
+		echo  "<div class='modal-header'>
+		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
+		  <h4 class='modal-title'>Rating & reviews for ".$delpartner->firstname."</h4>
+		</div>
+		<div class='modal-body'>";
+		echo  "<div class=''><strong>Ratings By Restaurants:</strong> ".$delpartnerreviewavg."</div>";
+		echo "<table class='table table-bordered'>
+			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
+			<tbody>";
+			if($delpartnerreview['data']){
+				foreach($delpartnerreview['data'] as $customer){ 
+					echo "<tr><td>".$customer->date."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
+				}
+			}
+			
+		echo "</tbody>
+		</table></div>";
+	}
+	
+	function partnerform($id = false)
+	{	
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+		
+		$data['page_title']		= "Delivery Partner form";
+		
+		//default values are empty if the customer is new
+		$data['id']		= '';
+		$data['firstname']	= '';
+		$data['lastname']	= '';
+		$data['email']		= '';
+		$data['username']	= '';
+		$data['phone']	= '';
+		$data['access']		= '';
+		$data['enabled']	='';
+		$data['FromDate']	='';
+		$data['ToDate']	='';
+		$data['servicetax'] = '';
+		$data['commission'] = '';
+		$data['penalty'] ='';
+		 $data['fromtime'] ='';
+		$data['totime'] ='';
+		$data['dayss'] = '';
+		
+		if ($id)
+		{	
+			$this->admin_id		= $id;
+			$admin			= $this->auth->get_admin($id);
+			//if the administrator does not exist, redirect them to the admin list with an error
+			if (!$admin)
+			{
+				$this->session->set_flashdata('message', lang('admin_not_found'));
+				redirect($this->config->item('admin_folder').'/delpartners');
+			}
+			//set values to db values
+			$data['id']			= $admin->id;
+			$data['firstname']	= $admin->firstname;
+			$data['lastname']	= $admin->lastname;
+			$data['email']		= $admin->email;
+			$data['username']	= $admin->username;
+			$data['phone']	= $admin->phone;
+			$data['access']		= $admin->access;
+			$data['enabled']		= $admin->enabled;
+			$data['FromDate']		= $admin->FromDate;
+			$data['ToDate']		= $admin->ToDate;
+			$data['servicetax'] = $admin->servicetax;
+			$data['commission'] = $admin->commission;
+			$data['penalty']	= $admin->penalty;
+			$data['fromtime']	= $admin->fromtime;
+			$data['totime']	= $admin->totime;
+			$data['days'] = $admin->days;
+		}
+		
+		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]');
+		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[11]|callback_check_phone');
+		$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
+		$this->form_validation->set_rules('access', 'lang:access', 'trim|required');
+		
+		//if this is a new account require a password, or if they have entered either a password or a password confirmation
+		if ($this->input->post('password') != '' || $this->input->post('confirm') != '' || !$id)
+		{
+			$this->form_validation->set_rules('password', 'lang:password', 'required|min_length[6]|sha1');
+			$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]|sha1');
+		}
+		
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->view($this->config->item('admin_folder').'/deliverypartner_form', $data);
+		}
+		else
+		{
+			$save['id']		= $id;
+			$save['firstname']	= $this->input->post('firstname');
+			$save['lastname']	= $this->input->post('lastname');
+			$save['email']		= $this->input->post('email');
+			$save['username']	= $this->input->post('username');
+			$save['phone']	= $this->input->post('phone');
+			$save['access']		= $this->input->post('access');
+			$save['enabled']		= $this->input->post('enabled');
+			$FromDate		= date('Y-m-d',strtotime($this->input->post('FromDate')));
+			$save['FromDate'] = isset($FromDate) ? $FromDate : '';
+			$ToDate		= date('Y-m-d',strtotime($this->input->post('ToDate')));;
+			$save['ToDate'] = isset($ToDate) ? $ToDate : '';
+			$save['servicetax']			   = $this->input->post('servicetax');
+			$save['commission'] 		   = $this->input->post('commission');
+			$save['penalty'] 			   = $this->input->post('penalty');
+			$save['fromtime'] 			   = $this->input->post('fromtime');
+			$save['totime'] 			   = $this->input->post('totime');
+			$save['days'] 				   = serialize($this->input->post('days'));
+			
+			if ($this->input->post('password') != '' || !$id)
+			{
+				$save['password']	= $this->input->post('password');
+			}
+			
+			$this->mo->save($save);
+			
+			$this->session->set_flashdata('message', lang('message_user_saved'));
+			
+			//go back to the customer list
+			redirect($this->config->item('admin_folder').'/delpartners');
 		}
 	}
 }

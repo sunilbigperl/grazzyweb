@@ -429,7 +429,7 @@ Class Customer_model extends CI_Model
 		$sql = $this->db->query("select a.*,b.restaurant_name from feedback a, restaurant b where a.feedbackfrom=b.restaurant_id and a.feedbacktype='".$type."' and a.feedbackto='".$id."'");
 		if($sql->num_rows() > 0){
 			$result['data']	= $sql->result();
-			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=6 and feedbackto='".$id."'");
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype='".$type."' and feedbackto='".$id."'");
 			$result['avg']	= $sql1->result();
 		}else{
 			$result = 0;
@@ -441,7 +441,7 @@ Class Customer_model extends CI_Model
 		$sql = $this->db->query("select a.*,b.firstname from feedback a, admin b where a.feedbackfrom=b.id and a.feedbacktype='".$type."' and a.feedbackto='".$id."'");
 		if($sql->num_rows() > 0){
 			$result['data']	= $sql->result();
-			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=6 and feedbackto='".$id."'");
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype='".$type."' and feedbackto='".$id."'");
 			$result['avg']	= $sql1->result();
 		}else{
 			$result = 0;
@@ -452,5 +452,47 @@ Class Customer_model extends CI_Model
 	function ChangeStatus($id,$status){
 		$sql = $this->db->query("update customers set active='".$status."' where id='".$id."'");
 		if($sql){ return true; }
+	}
+	
+	function PreferedPitstops($id){
+		
+	}
+	
+	function PreferedRest($id){
+		$sql = $this->db->query('SELECT distinct b.restaurant_name FROM `orders` a, restaurant b WHERE a.order_type != 1 and a.restaurant_id = b.restaurant_id and a.customer_id="'.$id.'"');
+		if($sql->num_rows() > 0){
+			$result['data']	= $sql->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
+	
+	function GetRestSuggestions(){
+		$yes = date('Y-m-d H:i:s',strtotime("-1 days"));
+		$today =  date('Y-m-d H:i:s');
+		
+		$sql = $this->db->query("select * from restaurant_suggest where date between '".$yes."' and '".$today."'");
+		if($sql->num_rows() > 0){
+			$result['data']	= $sql->result();
+		}else{
+			$result =0;
+		}
+		
+		return $result;
+	}
+	
+	function GetPitstopSuggestion(){
+		$yes = date('Y-m-d H:i:s',strtotime("-1 days"));
+		$today =  date('Y-m-d H:i:s');
+		
+		$sql1 = $this->db->query("select * from pitstop_suggest where date between '".$yes."' and '".$today."'");
+		if($sql1->num_rows() > 0){
+			$result['data']	= $sql1->result();
+		}
+		else{
+			$result = 0;
+		}
+		return $result;
 	}
 }

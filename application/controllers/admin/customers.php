@@ -537,6 +537,10 @@ class Customers extends Admin_Controller {
 	public function ShowCustomerDetails($id){
 		$customer		= $this->Customer_model->get_customer($id);
 		$addresses		= $this->Customer_model->get_address_list($id);
+		$FoodOutlets =$this->Customer_model->PreferedRest($id);
+		$from = new DateTime($customer->dob);
+		$to   = new DateTime('today');
+
 		$add ="";
 		echo  "<div class='modal-header'>
 		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
@@ -545,7 +549,11 @@ class Customers extends Admin_Controller {
 		<div class='modal-body'>
 		<div class=''><strong>Phone:</strong> ".$customer->phone."</div>
 		<div class=''><strong>Email:</strong> ".$customer->email."</div>
-		<div class=''><strong>DOB:</strong> ".$customer->dob."</div>";
+		<div class=''><strong>DOB:</strong> ".$from->diff($to)->y."</div>
+		<div><strong>Prefered Food outlets </strong>";
+		foreach($FoodOutlets['data'] as $FoodOutlet){
+			echo $FoodOutlet->restaurant_name.",";
+		}
 		
 		echo "<table class='table table-bordered'>
 			<thead><tr><th>Address1</th><th>Address2</th><th>City</th><th>zip</th></tr></thead>
