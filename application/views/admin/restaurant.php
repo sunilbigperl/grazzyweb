@@ -48,15 +48,16 @@
 				<td>
 					<span class="btn-group">
 					<a class="btn btn-info btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form/'.$restaurant->restaurant_id); ?>">Edit</a>
-			<!--		<a class="btn btn-danger btn-xs" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/restaurant/delete/'.$restaurant->restaurant_id); ?>'; }">delete</a>-->
+					                <?php if($this->auth->check_access('Admin')) {?>
+				<a class="btn btn-danger btn-xs" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/restaurant/delete/'.$restaurant->restaurant_id); ?>'; }">delete</a>
 				
-				
+									<?php } ?>
 					<a class="btn btn-xs btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Menu</a>
 					<?php if($restaurant->enabled == 1){ ?> 
 						<a class="btn btn-xs btn-danger" style="color: white;" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a>
 					<?php }else{ ?>
 						
-						<a class="btn btn-xs btn-success" style="color:white;" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id); ?>" >Activate</a>
+						<a class="btn btn-xs btn-success" style="color:white;" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id."/1"); ?>" >Activate</a>
 					<?php } ?>
 					</span>
 				</td>
