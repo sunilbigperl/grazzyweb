@@ -31,7 +31,7 @@
 					?>
 				</div>
 				<div class="form-group">	
-					<input type="hidden" name="access" value="Delivery Manager">
+					<input type="hidden" name="access" value="Deliver manager">
 					
 				</div>
 				<div class="form-group">	
@@ -52,15 +52,15 @@
 		</div>
 		<div class="tab-pane" id="timings_tab">
 			<fieldset style="padding: 10px;">
-				<div class="form-group " >	
+				<!--<div class="form-group " >	
 					<label for="commission " >Commission(%)</label>	
 					<?php
 					$data	= array('name'=>'commission', 'value'=>set_value('commission', $commission), 'class'=>'form-control');
 					echo form_input($data);
 					?>
-				</div>
+				</div>-->
 				<div class="form-group">
-					<label for="penalty " >Penalty(%)</label>
+					<label for="penalty " >Penalty(Rs/-)</label>
 					<?php
 					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control');
 					echo form_input($data);

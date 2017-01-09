@@ -1,3 +1,4 @@
+
  <?php if($this->auth->check_access('Restaurant manager')) : ?>
 			<div class="alert alert-error" style="font-size:16px;text-align:center">
 				<a class="close" data-dismiss="alert">×</a>
@@ -9,7 +10,11 @@
 					To Disable The Menu Items, <a href="<?php echo site_url($this->config->item('admin_folder'));?>/restaurant">Please Click Here</a>”
 			</div>
 	<?php endif; ?>
-	
+	 <p id="margin"> 
+<?php
+echo "Date: " . date("Y/m/d") . "<br>";
+
+?></p>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>

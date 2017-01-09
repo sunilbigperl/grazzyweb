@@ -1,6 +1,12 @@
+
 <link href="<?=base_url();?>assets/css/bootstrap-table.css">
 <script src="<?=base_url();?>assets/js/bootstrap-table.js"></script>
 <script src="<?=base_url();?>assets/js/star-rating.min.js"></script>
+<p id="margin"> 
+<?php
+echo "Date: " . date("Y/m/d") . "<br>";
+
+?></p>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>

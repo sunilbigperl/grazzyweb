@@ -1,4 +1,10 @@
+
 <h2 style="font-weight:bold;margin-top:50px;border-bottom:1px solid #cecece;">Recent Orders</h2>
+<p id="margin"> 
+<?php
+echo "Date: " . date("Y/m/d") . "<br>";
+
+?></p>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
