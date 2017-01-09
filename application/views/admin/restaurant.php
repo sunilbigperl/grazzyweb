@@ -55,6 +55,7 @@
 					<?php if($restaurant->enabled == 1){ ?> 
 						<a class="btn btn-xs btn-danger" style="color: white;" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a>
 					<?php }else{ ?>
+						
 						<a class="btn btn-xs btn-success" style="color:white;" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id); ?>" >Activate</a>
 					<?php } ?>
 					</span>

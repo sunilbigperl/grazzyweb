@@ -14,7 +14,7 @@ class Restaurant extends Admin_Controller {
     
     function index()
     {
-		$data['page_title'] = 'Resturants';
+		$data['page_title'] = 'Restaurants';
         $data['restaurants'] = $this->Restaurant_model->get_restaurants();
         $this->view($this->config->item('admin_folder').'/restaurant', $data);
     }

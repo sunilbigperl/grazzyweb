@@ -1,3 +1,10 @@
+<p id="margin"> 
+<?php
+echo "Date: " . date("Y/m/d") . "<br>";
+
+?></p>
+
+
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
@@ -8,7 +15,7 @@
 			<th data-field="date">Ordered on</th>
 			<th data-field="type">Order type</th>
 			<th>Keep ready by</th>
-			<th>Info</th>
+		<!--	<th>Info</th> -->
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -37,15 +44,17 @@
 				<td>
 					<?=$order->order_type;?>
 				</td>
-				<td></td>
-				<td> 
+				<td>
+				    <?=$order->delivered_on;?>
+				</td>
+			<!--	<td> 
 					<?php if($order->ordertype_id == 3){ ?>
 						<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/2');?>',<?=htmlspecialchars(json_encode($order));?>);">Review customer</a>
 					<?php }else{ 
 						if($order->delivered_by != 0){?>
 						<a href="#" data-toggle="modal" style="color: #2f2fd0;text-decoration:underline;" data-target="#orderdetails" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/3');?>',<?=htmlspecialchars(json_encode($order));?>);">Review delivery boy</a>
 					<?php } } ?>
-				</td>
+				</td>-->
 				<td>
 				<?php if($order->restaurant_manager_status == "0"){ ?>
 					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-success btn-xs">Accept</a>
