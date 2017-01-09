@@ -32,7 +32,7 @@
 
       <div class="login_wrapper">
         <div class="animate form login_form">
-          <section class="login_content">
+          <section class="login_content" id="loginwhite">
             <?php echo form_open($this->config->item('admin_folder').'/login') ?>
               <h1>Login Form</h1>
               <div>
@@ -51,7 +51,7 @@
               <div>
                  <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
 				 <input type="hidden" value="submitted" name="submitted"/>
-				<label> <input class="btn btn-primary" type="submit" style="text-align:center;"	 value="<?php echo lang('login');?>"/> </label>
+				<label> <input class="btn btn-default" type="submit" style="text-align:center;"	 value="<?php echo lang('login');?>"/> </label>
               </div>
 
               <div class="clearfix"></div>
@@ -62,7 +62,7 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Admin panel!</h1>
+                  <h1><i class=""></i> Admin panel!</h1>
                   <p>©2016 All Rights Reserved. Privacy and Terms</p>
                 </div>
               </div>

@@ -92,7 +92,7 @@
 		<div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?=$admin_url;?>" class="site_title"><i class="fa fa-paw"></i> <span>POS</span></a>
+              <a href="<?=$admin_url;?>" class="site_title"><i class=""></i> <span>POS</span></a>
             </div>
 
             <div class="clearfix"></div>
