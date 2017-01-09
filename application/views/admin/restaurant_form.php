@@ -52,12 +52,12 @@
 					?>
 				</div>
 				<div class="form-group">
-					<label for="restaurant_manager">Restaurant manager</label>
+					<label for="restaurant_manager">Restaurant Manager</label>
 					<select name="restaurant_manager" class="form-control form-control">
-						<option value="">Select Restaurant manager</option>
+						<option value="">Select Restaurant Manager</option>
 						<?php foreach($managers as $manager){
 							if($restaurant_manager == $manager->id){$select="selected";}else{$select="";}?>
-							<option value="<?=$manager->id?>" <?=$select;?>><?=$manager->username;?></select>
+							<option value="<?=$manager->id?>" <?=$select;?>><?=$manager->username;?></option>
 						<?php } ?>
 					</select>
 				</div>

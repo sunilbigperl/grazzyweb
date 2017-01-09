@@ -31,7 +31,7 @@
 					?>
 				</div>
 				<div class="form-group">	
-					<input type="hidden" name="access" value="Deliver manager">
+					<input type="hidden" name="access" value="Delivery Manager">
 					
 				</div>
 				<div class="form-group">	

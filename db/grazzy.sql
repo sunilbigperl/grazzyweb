@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.2.12deb2+deb8u2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 09, 2017 at 05:35 PM
--- Server version: 5.7.14
--- PHP Version: 7.0.10
+-- Host: localhost
+-- Generation Time: Jan 10, 2017 at 12:18 PM
+-- Server version: 10.0.27-MariaDB-0+deb8u1
+-- PHP Version: 5.6.27-0+deb8u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `grazzy`
+-- Database: `c1grazzydb`
 --
 
 -- --------------------------------------------------------
@@ -26,8 +26,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
-CREATE TABLE `admin` (
-  `id` int(9) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `admin` (
+`id` int(9) unsigned NOT NULL,
   `firstname` varchar(32) DEFAULT NULL,
   `lastname` varchar(32) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
@@ -44,17 +44,26 @@ CREATE TABLE `admin` (
   `days` text NOT NULL,
   `fromtime` time NOT NULL,
   `totime` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id`, `firstname`, `lastname`, `username`, `email`, `phone`, `access`, `password`, `FromDate`, `ToDate`, `enabled`, `commission`, `penalty`, `servicetax`, `days`, `fromtime`, `totime`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin@gmail.com', '', 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '0000-00-00', '0000-00-00', 1, '', '', '', '', '00:00:00', '00:00:00'),
-(3, 'vijetha', 'l', 'vijetha', 'lvijetha90@gmail.com', '9886656363', 'Restaurant manager', '717f1cc273ee989c1667ce089441d9e88b92c129', '0000-00-00', '0000-00-00', 1, '', '', '', '', '00:00:00', '00:00:00'),
-(4, NULL, NULL, 'sunil', 'sunil@bigperl.com', '123456789', 'Deliver manager', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', '1970-01-01', '1970-01-01', 1, '10', '20', '16', 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}', '23:59:00', '21:58:00'),
-(5, 'test', 'test', 'test', 'test@gmail.com', '998777', 'Restaurant manager', '0926c950fe247c3b465eb13e258ee468d239a065', '1970-01-01', '1970-01-01', 1, '', '', '', '', '00:00:00', '00:00:00');
+(1, 'admin', 'admin', 'admin', 'admin@gmail.com', '', 'Admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '0000-00-00', '0000-00-00', 0, '', '', '', '', '00:00:00', '00:00:00'),
+(3, 'vijetha', 'l', 'vijetha', 'lvijetha90@gmail.com', '9886656363', 'Restaurant manager', '717f1cc273ee989c1667ce089441d9e88b92c129', '0000-00-00', '0000-00-00', 0, '', '', '', '', '00:00:00', '00:00:00'),
+(4, 'sunil', 'yadav', 'sunil', 'sunil@bigperl.com', '123456789', 'Deliver manager', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', '0000-00-00', '0000-00-00', 0, '', '', '', '', '00:00:00', '00:00:00'),
+(5, 'Laxman', 'HUgar', 'bhim', 'laxman.bigperl@gmail.com', '8147700264', 'Deliver boy', 'dd4a7042587f402af83f13a1e99e195bfc75cf6e', '1970-01-01', '1970-01-01', 1, '', '', '', '', '00:00:00', '00:00:00'),
+(8, 'Goldenpalm', 'restaurant', 'golden', 'golden@gmail.com', '9876543210', 'Restaurant manager', 'ec30adc79e734900430e4174cf0a36c2d0c42272', '1970-01-01', '1970-01-01', 1, '', '', '', '', '00:00:00', '00:00:00'),
+(9, 'Kamat Restaurant', 'Delhi', 'kamat', 'laxman.bigperl@gmail.com', '9876543211', 'Restaurant manager', '442062f2b4b9d3031b0bd291811e3aa866274571', '1970-01-01', '1970-01-01', 1, '', '', '', '', '00:00:00', '00:00:00'),
+(10, 'Restaurant', 'Ebony', 'ebony', 'laxman.bigperl@gmail.com', '9876543213', 'Restaurant manager', '204ab08405a51d1e24990f502dd92548a4cd98f6', '1970-01-01', '1970-01-01', 1, '', '', '', '', '00:00:00', '00:00:00'),
+(11, 'Restaurant', 'Portland Tea house', 'tea', 'trupti@gmail.com', '1234567890', 'Restaurant manager', '75490f32c06a50051804339453d3fe2f0cd5564b', '1970-01-01', '1970-01-01', 1, '', '', '', '', '00:00:00', '00:00:00'),
+(12, 'Paradise', 'restaurant', 'paradise', 'paradise@gmail.com', '7896542310', 'Restaurant manager', 'ee87e62281ee4cee394dd9b5ff17a4fab7ab84fc', '1970-01-01', '1970-01-01', 1, '', '', '', '', '00:00:00', '00:00:00'),
+(13, 'Laxman', 'h', 'laxman', 'laxman.bigperl@gmail.com', '9876543266', 'Deliver manager', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1970-01-01', '1970-01-01', 1, '', '', '', '', '00:00:00', '00:00:00'),
+(14, 'raj', 'hinduja', 'rh', '546@rr.ng', '5666', 'Restaurant manager', '54ceb91256e8190e474aa752a6e0650a2df5ba37', '1970-01-01', '1970-01-01', 1, '', '', '', '', '00:00:00', '00:00:00'),
+(15, 'Ap', 'Sa', 'aps', 'Haha@hoho.hu', '23693667', 'Restaurant manager', 'dae48de45da764cc38c90929ed47a373ce06d1f6', '1970-01-01', '1970-01-01', 1, '', '', '', '', '00:00:00', '00:00:00'),
+(18, 'Roadrunnr LLP', '', 'roadrunnr', 'fehuf@uhdhc.eni', '785525', 'Deliver manager', '3d5f2ec7abf9e13ecfb9646c322559a6c17c4239', '1970-01-01', '1970-01-01', 1, '', '', '', '', '00:00:00', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -62,20 +71,20 @@ INSERT INTO `admin` (`id`, `firstname`, `lastname`, `username`, `email`, `phone`
 -- Table structure for table `categories`
 --
 
-CREATE TABLE `categories` (
-  `id` int(9) UNSIGNED NOT NULL,
-  `parent_id` int(9) UNSIGNED NOT NULL DEFAULT '0',
+CREATE TABLE IF NOT EXISTS `categories` (
+`id` int(9) unsigned NOT NULL,
+  `parent_id` int(9) unsigned NOT NULL DEFAULT '0',
   `name` varchar(64) NOT NULL,
   `slug` varchar(64) NOT NULL,
   `route_id` int(9) NOT NULL,
   `description` text NOT NULL,
   `excerpt` text NOT NULL,
-  `sequence` int(5) UNSIGNED NOT NULL DEFAULT '0',
+  `sequence` int(5) unsigned NOT NULL DEFAULT '0',
   `image` varchar(255) DEFAULT NULL,
   `seo_title` text NOT NULL,
   `meta` text NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `categories`
@@ -83,7 +92,17 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `route_id`, `description`, `excerpt`, `sequence`, `image`, `seo_title`, `meta`, `enabled`) VALUES
 (2, 0, 'Chinees', 'chinees', 2, '', '', 0, NULL, '', '', 1),
-(3, 0, 'dessert', 'dessert', 3, '', '', 0, NULL, '', '', 1);
+(3, 0, 'dessert', 'dessert', 3, '', '', 0, NULL, '', '', 1),
+(4, 0, 'Veggies', 'veggies', 4, '<p>Veg food for Vegitarians</p>', '', 0, NULL, '', '', 1),
+(5, 0, 'Noodles', 'noodles', 5, '<p>Spicy Noodles with Different Varities</p>', '', 0, NULL, '', '', 1),
+(6, 0, 'Fish', 'fish', 6, '<p>Varieties of Fish Curries for fish lovers</p>', '', 0, NULL, '', '', 1),
+(8, 0, 'RICE', 'rice', 8, '<p>Varieties of rices for rice lovers</p>', '', 0, NULL, '', '', 1),
+(9, 0, 'Celebration cakes', 'celebration-cakes', 9, '', '', 0, NULL, '', '', 1),
+(10, 0, 'CHICKEN', 'chicken', 10, '<p>Chicken food for CHicken Lovers</p>', '', 0, NULL, '', '', 1),
+(11, 0, 'Drinks', 'drinks', 11, '', '', 0, NULL, '', '', 0),
+(12, 0, 'Meals', 'meals', 12, '', '', 0, NULL, '', '', 1),
+(13, 0, 'Half Meals', 'half-meals', 13, '', '', 0, NULL, '', '', 1),
+(14, 0, 'Health Food', 'thtrh', 4, 'kjhgk lhgkreah gk.aehgk.aehgk.aehg.eh', 'thtr', 5, NULL, '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -91,8 +110,8 @@ INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `route_id`, `descri
 -- Table structure for table `countries`
 --
 
-CREATE TABLE `countries` (
-  `id` int(9) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `countries` (
+`id` int(9) unsigned NOT NULL,
   `sequence` int(11) NOT NULL DEFAULT '0',
   `name` varchar(128) NOT NULL,
   `iso_code_2` varchar(2) NOT NULL,
@@ -101,7 +120,7 @@ CREATE TABLE `countries` (
   `zip_required` int(1) NOT NULL DEFAULT '0',
   `status` int(1) NOT NULL DEFAULT '1',
   `tax` float(10,2) NOT NULL DEFAULT '0.00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `countries`
@@ -354,14 +373,14 @@ INSERT INTO `countries` (`id`, `sequence`, `name`, `iso_code_2`, `iso_code_3`, `
 -- Table structure for table `country_zones`
 --
 
-CREATE TABLE `country_zones` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `country_id` int(9) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `country_zones` (
+`id` int(11) unsigned NOT NULL,
+  `country_id` int(9) unsigned NOT NULL,
   `code` varchar(32) DEFAULT NULL,
   `name` varchar(128) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '1',
   `tax` float(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3957 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `country_zones`
@@ -1675,9 +1694,9 @@ INSERT INTO `country_zones` (`id`, `country_id`, `code`, `name`, `status`, `tax`
 (1305, 89, 'BV', 'Baja Verapaz', 1, 0.00),
 (1306, 89, 'CM', 'Chimaltenango', 1, 0.00),
 (1307, 89, 'CQ', 'Chiquimula', 1, 0.00),
-(1308, 89, 'PE', 'El Peten', 1, 0.00),
-(1309, 89, 'PR', 'El Progreso', 1, 0.00);
+(1308, 89, 'PE', 'El Peten', 1, 0.00);
 INSERT INTO `country_zones` (`id`, `country_id`, `code`, `name`, `status`, `tax`) VALUES
+(1309, 89, 'PR', 'El Progreso', 1, 0.00),
 (1310, 89, 'QC', 'El Quiche', 1, 0.00),
 (1311, 89, 'ES', 'Escuintla', 1, 0.00),
 (1312, 89, 'GU', 'Guatemala', 1, 0.00),
@@ -2943,9 +2962,9 @@ INSERT INTO `country_zones` (`id`, `country_id`, `code`, `name`, `status`, `tax`
 (2592, 168, 'UNI', 'La Union', 1, 0.00),
 (2593, 168, 'LEY', 'Leyte', 1, 0.00),
 (2594, 168, 'MAG', 'Maguindanao', 1, 0.00),
-(2595, 168, 'MRN', 'Marinduque', 1, 0.00),
-(2596, 168, 'MSB', 'Masbate', 1, 0.00);
+(2595, 168, 'MRN', 'Marinduque', 1, 0.00);
 INSERT INTO `country_zones` (`id`, `country_id`, `code`, `name`, `status`, `tax`) VALUES
+(2596, 168, 'MSB', 'Masbate', 1, 0.00),
 (2597, 168, 'MIC', 'Mindoro Occidental', 1, 0.00),
 (2598, 168, 'MIR', 'Mindoro Oriental', 1, 0.00),
 (2599, 168, 'MSC', 'Misamis Occidental', 1, 0.00),
@@ -4188,10 +4207,10 @@ INSERT INTO `country_zones` (`id`, `country_id`, `code`, `name`, `status`, `tax`
 (3836, 239, 'ME', 'Mashonaland East', 1, 0.00),
 (3837, 239, 'MW', 'Mashonaland West', 1, 0.00),
 (3838, 239, 'MV', 'Masvingo', 1, 0.00),
-(3839, 239, 'MN', 'Matabeleland North', 1, 0.00),
-(3840, 239, 'MS', 'Matabeleland South', 1, 0.00),
-(3841, 239, 'MD', 'Midlands', 1, 0.00);
+(3839, 239, 'MN', 'Matabeleland North', 1, 0.00);
 INSERT INTO `country_zones` (`id`, `country_id`, `code`, `name`, `status`, `tax`) VALUES
+(3840, 239, 'MS', 'Matabeleland South', 1, 0.00),
+(3841, 239, 'MD', 'Midlands', 1, 0.00),
 (3842, 105, 'AG', 'Agrigento', 1, 0.00),
 (3843, 105, 'AL', 'Alessandria', 1, 0.00),
 (3844, 105, 'AN', 'Ancona', 1, 0.00),
@@ -4314,13 +4333,13 @@ INSERT INTO `country_zones` (`id`, `country_id`, `code`, `name`, `status`, `tax`
 -- Table structure for table `country_zone_areas`
 --
 
-CREATE TABLE `country_zone_areas` (
-  `id` int(9) UNSIGNED NOT NULL,
-  `zone_id` int(9) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `country_zone_areas` (
+`id` int(9) unsigned NOT NULL,
+  `zone_id` int(9) unsigned NOT NULL,
   `code` varchar(15) NOT NULL,
   `name` varchar(250) NOT NULL,
   `tax` float(10,2) NOT NULL DEFAULT '0.00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `country_zone_areas`
@@ -4335,12 +4354,12 @@ INSERT INTO `country_zone_areas` (`id`, `zone_id`, `code`, `name`, `tax`) VALUES
 -- Table structure for table `coupons`
 --
 
-CREATE TABLE `coupons` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `coupons` (
+`id` int(11) NOT NULL,
   `coupon_code` varchar(250) NOT NULL,
   `used` tinyint(1) NOT NULL,
   `cost` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `coupons`
@@ -4357,9 +4376,8 @@ INSERT INTO `coupons` (`id`, `coupon_code`, `used`, `cost`) VALUES
 -- Table structure for table `customers`
 --
 
-CREATE TABLE `customers` (
-  `id` int(9) UNSIGNED NOT NULL,
-  `did` text NOT NULL,
+CREATE TABLE IF NOT EXISTS `customers` (
+`id` int(9) unsigned NOT NULL,
   `firstname` varchar(32) NOT NULL,
   `lastname` varchar(32) NOT NULL,
   `email` varchar(128) NOT NULL,
@@ -4376,16 +4394,27 @@ CREATE TABLE `customers` (
   `group_id` int(11) NOT NULL DEFAULT '1',
   `confirmed` tinyint(1) NOT NULL DEFAULT '0',
   `fb_login` tinyint(2) NOT NULL DEFAULT '0',
-  `profile_image` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `profile_image` text NOT NULL,
+  `did` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `did`, `firstname`, `lastname`, `email`, `email_subscribe`, `phone`, `company`, `dob`, `gender`, `default_billing_address`, `default_shipping_address`, `ship_to_bill_address`, `password`, `active`, `group_id`, `confirmed`, `fb_login`, `profile_image`) VALUES
-(2, '', 'nithin', 'yadav', 'sunil@bigperl.com', 1, '977656655', 'Bigperl', '0000-00-00', '', 0, 0, 'true', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', 2, 1, 0, 0, 'image2.png'),
-(3, '', 'vijetha', 'l', 'viju@gmail.com', 0, '9886656363', '', '1993-08-25', 'Female', 0, 0, 'true', '717f1cc273ee989c1667ce089441d9e88b92c129', 2, 1, 0, 0, 'image3.png');
+INSERT INTO `customers` (`id`, `firstname`, `lastname`, `email`, `email_subscribe`, `phone`, `company`, `dob`, `gender`, `default_billing_address`, `default_shipping_address`, `ship_to_bill_address`, `password`, `active`, `group_id`, `confirmed`, `fb_login`, `profile_image`, `did`) VALUES
+(2, 'sunil', 'yadav', 'sunil@bigperl.com', 1, '977656655', 'Bigperl', '0000-00-00', '', 0, 0, 'true', '3eaa7035e78e5eca849aa1e8ea4aaf97b4588601', 1, 1, 0, 0, 'image2.png', ''),
+(3, 'viju', 'l', 'viju@gmail.com', 0, '9886656363', '', '1993-08-25', 'Female', 0, 0, 'true', '717f1cc273ee989c1667ce089441d9e88b92c129', 1, 1, 0, 0, 'image3.png', ''),
+(5, 'nagendra', 'l', 'nagendra@gmail.com', 0, '9880474628', '', '1990-10-25', 'Male', 0, 0, 'true', '', 1, 1, 0, 0, 'image5.jpg', ''),
+(7, 'nagaappi000@gmail.com', '', 'nagaappi000@gmail.com', 0, '9880474628', '', '1990-10-25', 'male', 0, 0, 'true', '', 1, 1, 0, 0, '', ''),
+(12, 'naga', '', '', 0, '9880474628', '', '0000-00-00', '', 0, 0, 'true', '', 1, 1, 0, 0, '', ''),
+(23, 'Nithin', '', '', 0, '9206496103', '', '0000-00-00', '', 0, 0, 'true', '', 1, 1, 0, 0, 'image23.jpg', ''),
+(25, 'Hugar Laxman', '', 'laxman.bigperl', 0, '8147700264', '', '1992-07-25', 'male', 0, 0, 'true', '', 1, 1, 0, 0, 'image25.jpg', ''),
+(27, 'Devang Dadbhawala', '', 'devang@dadbhawala.in', 0, '9820076457', '', '1994-08-20', 'male', 0, 0, 'true', '', 1, 1, 0, 0, 'image27.jpg', ''),
+(28, 'Reema', '', '', 0, '9819156566', '', '0000-00-00', '', 0, 0, 'true', '', 1, 1, 0, 0, '', ''),
+(29, 'vijay', '', 'v@gmail.com', 0, '8884113343', '', '2017-01-04', 'male', 0, 0, 'true', '', 0, 1, 0, 0, 'image29.jpg', ''),
+(32, '', '', '', 0, '', '', '0000-00-00', '', 0, 0, 'true', '', 0, 1, 0, 0, '', ''),
+(35, 'Nithin NS', '', 'n@gnai', 0, '7259575485', '', '2017-01-05', 'male', 0, 0, 'true', '', 0, 1, 0, 0, 'image35.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -4393,12 +4422,12 @@ INSERT INTO `customers` (`id`, `did`, `firstname`, `lastname`, `email`, `email_s
 -- Table structure for table `customers_address_bank`
 --
 
-CREATE TABLE `customers_address_bank` (
-  `id` int(9) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `customers_address_bank` (
+`id` int(9) unsigned NOT NULL,
   `Entry_name` varchar(200) NOT NULL,
-  `customer_id` int(9) UNSIGNED NOT NULL,
+  `customer_id` int(9) unsigned NOT NULL,
   `field_data` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customers_address_bank`
@@ -4408,7 +4437,45 @@ INSERT INTO `customers_address_bank` (`id`, `Entry_name`, `customer_id`, `field_
 (4, '', 9, 'a:14:{s:7:"company";s:3:"BPD";s:9:"firstname";s:7:"Nagaraj";s:8:"lastname";s:1:"v";s:5:"email";s:25:"nagaraj.bigperl@gmail.com";s:5:"phone";s:10:"9880474628";s:8:"address1";s:15:"kalena agrahara";s:8:"address2";s:17:"bannerghatta road";s:4:"city";s:9:"bangalore";s:3:"zip";s:6:"560076";s:4:"zone";s:2:"AL";s:7:"country";s:13:"United States";s:12:"country_code";s:2:"US";s:10:"country_id";s:3:"223";s:7:"zone_id";s:4:"3613";}'),
 (6, '', 29, 'a:14:{s:7:"company";s:3:"dsf";s:9:"firstname";s:2:"ff";s:8:"lastname";s:1:"f";s:5:"email";s:15:"fgfdh@gmail.com";s:5:"phone";s:9:"445654654";s:8:"address1";s:3:"hjg";s:8:"address2";s:5:"hjhgj";s:4:"city";s:4:"bnhg";s:3:"zip";s:10:"5654654654";s:7:"zone_id";s:4:"1385";s:10:"country_id";s:2:"93";s:4:"zone";s:2:"OU";s:7:"country";s:5:"Haiti";s:12:"country_code";s:2:"HT";}'),
 (7, '', 3, 'a:15:{s:10:"entry_name";s:0:"";s:7:"company";s:4:"HOME";s:9:"firstname";s:7:"vijetha";s:8:"lastname";s:1:"l";s:5:"email";s:20:"lvijetha90@gmail.com";s:5:"phone";s:9:"787667656";s:8:"address1";s:5:"#4444";s:8:"address2";s:9:"bangalore";s:4:"city";s:9:"bangalore";s:3:"zip";s:6:"787878";s:7:"zone_id";s:4:"1489";s:10:"country_id";s:2:"99";s:4:"zone";s:9:"Karnataka";s:7:"country";s:5:"India";s:12:"country_code";s:2:"IN";}'),
-(8, '', 3, 'a:15:{s:10:"entry_name";s:4:"jkjk";s:7:"company";s:6:"office";s:9:"firstname";s:4:"test";s:8:"lastname";s:4:"test";s:5:"email";s:14:"test@gmail.com";s:5:"phone";s:7:"7787887";s:8:"address1";s:6:"768778";s:8:"address2";s:7:"fhdsjkj";s:4:"city";s:9:"bangalore";s:3:"zip";s:6:"787878";s:7:"zone_id";s:4:"1489";s:10:"country_id";s:2:"99";s:4:"zone";s:2:"KA";s:7:"country";s:5:"India";s:12:"country_code";s:2:"IN";}');
+(8, '', 3, 'a:15:{s:10:"entry_name";s:4:"jkjk";s:7:"company";s:6:"office";s:9:"firstname";s:4:"test";s:8:"lastname";s:4:"test";s:5:"email";s:14:"test@gmail.com";s:5:"phone";s:7:"7787887";s:8:"address1";s:6:"768778";s:8:"address2";s:7:"fhdsjkj";s:4:"city";s:9:"bangalore";s:3:"zip";s:6:"787878";s:7:"zone_id";s:4:"1489";s:10:"country_id";s:2:"99";s:4:"zone";s:2:"KA";s:7:"country";s:5:"India";s:12:"country_code";s:2:"IN";}'),
+(9, 'School', 11, 'a:7:{s:8:"address1";s:11:"25  kengeri";s:8:"address2";s:12:"Shirley road";s:10:"city_state";s:21:"Bangalore , Karnataka";s:9:"location0";s:5:"titan";s:9:"location1";s:6:"Titan ";s:9:"location2";s:7:"hoysala";s:3:"zip";s:6:"560060";}'),
+(10, 'Home', 11, 'a:7:{s:8:"address1";s:13:"#25 jayanagar";s:8:"address2";s:7:"Ke road";s:10:"city_state";s:21:"Bangalore , Karnataka";s:9:"location0";s:3:"jss";s:9:"location1";s:6:"circle";s:9:"location2";s:8:"sgshbsbs";s:3:"zip";s:6:"560070";}'),
+(11, 'office', 11, 'a:7:{s:8:"address1";s:28:"#25 1st floors Raysiti Media";s:8:"address2";s:12:"Shirley road";s:10:"city_state";s:21:"Bangalore , Karnataka";s:9:"location0";s:19:"near Titan showroom";s:9:"location1";s:14:"Hoysala circle";s:9:"location2";s:22:"Near trupti restaurant";s:3:"zip";s:7:"5600760";}'),
+(12, 'Home', 5, 'a:7:{s:8:"address1";s:45:"#25 1st floor Raysiti Media and Entertainment";s:8:"address2";s:11:"Shirke road";s:10:"city_state";s:21:"Bangalore , Karnataka";s:9:"location0";s:17:"Kengeri Upanagara";s:9:"location1";s:14:"Hoysala circle";s:9:"location2";s:20:"Near Titan show room";s:3:"zip";s:6:"560060";}'),
+(13, 'Office', 5, 'a:15:{s:10:"entry_name";s:4:"home";s:7:"company";s:0:"";s:9:"firstname";s:4:"test";s:8:"lastname";s:4:"test";s:5:"email";s:14:"test@gmail.com";s:5:"phone";s:6:"123456";s:8:"address1";s:14:"35 Card center";s:8:"address2";s:11:"shirke road";s:4:"city";s:9:"banaglore";s:3:"zip";s:6:"560060";s:7:"zone_id";N;s:10:"country_id";s:3:"223";s:4:"zone";N;s:7:"country";s:13:"United States";s:12:"country_code";s:2:"US";}'),
+(14, 'Home', 5, 'a:7:{s:8:"address1";s:16:"#1444,U upanagar";s:8:"address2";s:19:"old outer ring road";s:10:"city_state";s:21:"Bangalore , Karnataka";s:9:"location0";s:7:"kengeri";s:9:"location1";s:14:"Satellite town";s:9:"location2";s:19:"Near Titan Showroom";s:3:"zip";s:6:"560060";}'),
+(15, 'sagar', 5, 'a:7:{s:8:"address1";s:2:"66";s:8:"address2";s:9:"3rd cross";s:10:"city_state";s:21:"Bangalore , Karnataka";s:9:"location0";s:8:"bangalre";s:9:"location1";s:12:"bannerghatta";s:9:"location2";s:22:"bannerghatta gottigere";s:3:"zip";s:6:"560076";}'),
+(16, 'home', 5, 'a:7:{s:8:"address1";s:7:"kengeri";s:8:"address2";s:7:"kengeri";s:10:"city_state";s:21:"Bangalore , Karnataka";s:9:"location0";s:7:"dhshshh";s:9:"location1";s:6:"shshsh";s:9:"location2";s:8:"xhxhxhxh";s:3:"zip";s:6:"560060";}'),
+(17, 'BH', 4, 'a:7:{s:8:"address1";s:2:"by";s:8:"address2";s:2:"vu";s:10:"city_state";s:4:"by g";s:9:"location0";s:2:"by";s:9:"location1";s:2:"by";s:9:"location2";s:2:"by";s:3:"zip";s:1:"3";}'),
+(18, 'kengeri', 7, 'a:7:{s:8:"address1";s:3:"466";s:8:"address2";s:12:"hoysala road";s:10:"city_state";s:9:"bangalore";s:9:"location0";s:9:"bangalote";s:9:"location1";s:17:"bannerghatta road";s:9:"location2";s:9:"bangalore";s:3:"zip";s:6:"560076";}'),
+(19, 'fgg', 7, 'a:7:{s:8:"address1";s:3:"dfg";s:8:"address2";s:6:"fgfggg";s:10:"city_state";s:3:"vhh";s:9:"location0";s:3:"fhh";s:9:"location1";s:3:"fhg";s:9:"location2";s:3:"vhg";s:3:"zip";s:5:"56835";}'),
+(20, 'CH', 8, 'a:7:{s:8:"address1";s:3:"guy";s:8:"address2";s:2:"CH";s:10:"city_state";s:3:"CGI";s:9:"location0";s:2:"hu";s:9:"location1";s:2:"by";s:9:"location2";s:2:"by";s:3:"zip";s:3:"666";}'),
+(21, 'Home', 9, 'a:7:{s:8:"address1";s:27:"#25 1st floor Raysiti Media";s:8:"address2";s:11:"Shirke road";s:10:"city_state";s:21:"Bangalore , Karnataka";s:9:"location0";s:17:"Kengeri upanagara";s:9:"location1";s:14:"hoysala circle";s:9:"location2";s:6:"kengri";s:3:"zip";s:6:"560060";}'),
+(22, 'office', 9, 'a:7:{s:8:"address1";s:4:"#328";s:8:"address2";s:18:"Vishnivatdhan road";s:10:"city_state";s:21:"Bangalore , Karnataka";s:9:"location0";s:7:"kengeri";s:9:"location1";s:16:"kengeri bus stop";s:9:"location2";s:6:"dhdhdh";s:3:"zip";s:6:"560069";}'),
+(23, 'Home', 13, 'a:7:{s:8:"address1";s:45:"#25 1st floor Raysiti Media and Entertainment";s:8:"address2";s:16:"kengeri upanagar";s:10:"city_state";s:21:"Bangalore , Karnataka";s:9:"location0";s:14:"Hoysala circle";s:9:"location1";s:19:"Near Titan showroom";s:9:"location2";s:22:"Near trupti restaurant";s:3:"zip";s:6:"560060";}'),
+(24, 'School', 13, 'a:7:{s:8:"address1";s:19:"State bank of India";s:8:"address2";s:16:"Kengeri upanagar";s:10:"city_state";s:21:"Bangalore , Karnataka";s:9:"location0";s:23:"Kengeri railway station";s:9:"location1";s:27:"near Indian oil petrol bunk";s:9:"location2";s:24:"near state bank of India";s:3:"zip";s:6:"560060";}'),
+(25, 'office', 13, 'a:7:{s:8:"address1";s:16:"#40 shopper Stop";s:8:"address2";s:12:"Kengeri road";s:10:"city_state";s:17:"Kengeri upanagara";s:9:"location0";s:9:"Bangalore";s:9:"location1";s:14:"hoysala circle";s:9:"location2";s:14:"Titan showroom";s:3:"zip";s:6:"560070";}'),
+(26, 'hu by', 16, 'a:7:{s:8:"address1";s:2:"by";s:8:"address2";s:2:"by";s:10:"city_state";s:14:"Byasanagar,cvv";s:9:"location0";s:2:"by";s:9:"location1";s:2:"by";s:9:"location2";s:2:"by";s:3:"zip";s:1:"2";}'),
+(27, 'BH', 22, 'a:7:{s:8:"address1";s:2:"by";s:8:"address2";s:2:"vu";s:10:"city_state";s:19:"Bangalore,Karnataka";s:9:"location0";s:2:"vu";s:9:"location1";s:2:"by";s:9:"location2";s:2:"by";s:3:"zip";s:6:"560040";}'),
+(28, 'viii', 22, 'a:7:{s:8:"address1";s:2:"vu";s:8:"address2";s:2:"by";s:10:"city_state";s:17:"Ballari,Karnataka";s:9:"location0";s:2:"by";s:9:"location1";s:2:"vu";s:9:"location2";s:2:"vu";s:3:"zip";s:6:"560606";}'),
+(29, 'Home', 9, 'a:7:{s:8:"address1";s:15:"28 Ground floor";s:8:"address2";s:16:"Kengeri upanagar";s:10:"city_state";s:19:"Bangalore,Karnataka";s:9:"location0";s:15:"hoysala circle ";s:9:"location1";s:14:"Titan showroom";s:9:"location2";s:15:"shopper choice ";s:3:"zip";s:6:"560060";}'),
+(30, 'Office', 9, 'a:7:{s:8:"address1";s:29:"25 1st floor Raysiti building";s:8:"address2";s:14:"Titan showroom";s:10:"city_state";s:19:"Bangalore,Karnataka";s:9:"location0";s:15:"Hoysala circle ";s:9:"location1";s:18:"trupti restaurant ";s:9:"location2";s:16:"kengeri upanagar";s:3:"zip";s:6:"560060";}'),
+(31, 'no', 22, 'a:7:{s:8:"address1";s:3:"Hui";s:8:"address2";s:2:"vu";s:10:"city_state";s:7:"CCU,cut";s:9:"location0";s:2:"CG";s:9:"location1";s:3:"CFU";s:9:"location2";s:3:"CCU";s:3:"zip";s:1:"3";}'),
+(32, 'dr', 23, 'a:7:{s:8:"address1";s:3:"dry";s:8:"address2";s:2:"Dr";s:10:"city_state";s:10:"Cuttack,XY";s:9:"location0";s:3:"dry";s:9:"location1";s:2:"XY";s:9:"location2";s:2:"cu";s:3:"zip";s:5:"56585";}'),
+(33, 'Home', 24, 'a:7:{s:8:"address1";s:24:"#28 Ground floor bigperl";s:8:"address2";s:11:"Shirke road";s:10:"city_state";s:19:"Bangalore,Karnataka";s:9:"location0";s:15:"Hoysala circle ";s:9:"location1";s:14:"Titan showroom";s:9:"location2";s:16:"Kengeri upanagar";s:3:"zip";s:6:"560060";}'),
+(34, 'office', 24, 'a:7:{s:8:"address1";s:30:"#21 1st floor Raysiti building";s:8:"address2";s:17:"kengeri upanagar\n";s:10:"city_state";s:19:"Bangalore,Karnataka";s:9:"location0";s:14:"Titan showroom";s:9:"location1";s:16:"Kengeri upanagar";s:9:"location2";s:15:"hoysala circle ";s:3:"zip";s:6:"560060";}'),
+(35, 'Home', 25, 'a:7:{s:8:"address1";s:15:"28 Ground floor";s:8:"address2";s:17:"kengeri upanagar ";s:10:"city_state";s:19:"Bangalore,Karnataka";s:9:"location0";s:10:"near titan";s:9:"location1";s:14:"hoysala circle";s:9:"location2";s:7:"raysiti";s:3:"zip";s:6:"560060";}'),
+(36, 'office11', 25, 'a:7:{s:8:"address1";s:32:"#25 First floor Raysiti building";s:8:"address2";s:16:"kengeri upanagar";s:10:"city_state";s:19:"Bangalore,Karnataka";s:9:"location0";s:10:"Bangalore ";s:9:"location1";s:13:"hoysalacircle";s:9:"location2";s:5:"titan";s:3:"zip";s:6:"560060";}'),
+(37, 'Home', 27, 'a:7:{s:8:"address1";s:24:"406, Mangal Kunj B wing ";s:8:"address2";s:20:"Mount Pleasant Road ";s:10:"city_state";s:18:"Mumbai,Maharashtra";s:9:"location0";s:12:"Malabar Hill";s:9:"location1";s:22:"Sahayadri Guest House ";s:9:"location2";s:16:"Varsha Bungalow ";s:3:"zip";s:6:"400006";}'),
+(44, 'by vu', 33, 'a:7:{s:8:"address1";s:2:"vu";s:8:"address2";s:2:"vu";s:10:"city_state";s:3:"v,v";s:9:"location0";s:2:"by";s:9:"location1";s:0:"";s:9:"location2";s:0:"";s:3:"zip";s:2:"89";}'),
+(45, ' guy', 33, 'a:7:{s:8:"address1";s:4:" cut";s:8:"address2";s:3:" by";s:10:"city_state";s:10:" vu by, VH";s:9:"location0";s:3:" by";s:9:"location1";s:1:" ";s:9:"location2";s:1:" ";s:3:"zip";s:3:" 55";}'),
+(46, 'ruh', 29, 'a:7:{s:8:"address1";s:3:"fuu";s:8:"address2";s:3:"djj";s:10:"city_state";s:19:"Bangalore,Karnataka";s:9:"location0";s:3:"fjj";s:9:"location1";s:2:"hh";s:9:"location2";s:3:"fjh";s:3:"zip";s:6:"560076";}'),
+(47, ' fhh', 29, 'a:7:{s:8:"address1";s:4:" ryy";s:8:"address2";s:4:" fhj";s:10:"city_state";s:9:" bfhg, ka";s:9:"location0";s:4:" thh";s:9:"location1";s:1:" ";s:9:"location2";s:1:" ";s:3:"zip";s:7:" 560076";}'),
+(48, 'hh', 35, 'a:7:{s:8:"address1";s:1:"b";s:8:"address2";s:2:"bb";s:10:"city_state";s:16:"Mysore,Karnataka";s:9:"location0";s:1:"b";s:9:"location1";s:4:"bbhb";s:9:"location2";s:3:"bbb";s:3:"zip";s:6:"560040";}'),
+(49, 'bannerghatta', 29, 'a:7:{s:8:"address1";s:2:"77";s:8:"address2";s:4:"gnfg";s:10:"city_state";s:13:"bannrhf,fndhh";s:9:"location0";s:4:"tugg";s:9:"location1";s:14:"kalena agrahat";s:9:"location2";s:12:"bannerghatta";s:3:"zip";s:6:"560076";}'),
+(50, 'Shop', 25, 'a:7:{s:8:"address1";s:16:"Kengeri upanagar";s:8:"address2";s:16:"shirke roadhjghj";s:10:"city_state";s:19:"Bangalore,Karnataka";s:9:"location0";s:14:"Hoysala circle";s:9:"location1";s:0:"";s:9:"location2";s:0:"";s:3:"zip";s:6:"560060";}'),
+(51, 'no', 35, 'a:7:{s:8:"address1";s:5:"Mk no";s:8:"address2";s:2:"no";s:10:"city_state";s:5:"Mk,Mk";s:9:"location0";s:2:"Mk";s:9:"location1";s:2:"by";s:9:"location2";s:2:"no";s:3:"zip";s:1:"9";}'),
+(52, 'dbg', 25, 'a:7:{s:8:"address1";s:3:"cbg";s:8:"address2";s:3:"xgf";s:10:"city_state";s:14:"bcbv,Karnataka";s:9:"location0";s:4:"cbvv";s:9:"location1";s:3:"cbh";s:9:"location2";s:4:"cbvv";s:3:"zip";s:6:"560076";}');
 
 -- --------------------------------------------------------
 
@@ -4416,12 +4483,12 @@ INSERT INTO `customers_address_bank` (`id`, `Entry_name`, `customer_id`, `field_
 -- Table structure for table `customer_groups`
 --
 
-CREATE TABLE `customer_groups` (
-  `id` int(9) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `customer_groups` (
+`id` int(9) unsigned NOT NULL,
   `discount` float(10,2) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,
   `discount_type` enum('fixed','percent') NOT NULL DEFAULT 'percent'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customer_groups`
@@ -4436,12 +4503,12 @@ INSERT INTO `customer_groups` (`id`, `discount`, `name`, `discount_type`) VALUES
 -- Table structure for table `customer_locations`
 --
 
-CREATE TABLE `customer_locations` (
-  `location_id` bigint(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `customer_locations` (
+`location_id` bigint(30) NOT NULL,
   `customer_id` bigint(30) NOT NULL,
   `latitude` float DEFAULT NULL,
   `langitude` float DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customer_locations`
@@ -4456,7 +4523,7 @@ INSERT INTO `customer_locations` (`location_id`, `customer_id`, `latitude`, `lan
 -- Table structure for table `customer_messages`
 --
 
-CREATE TABLE `customer_messages` (
+CREATE TABLE IF NOT EXISTS `customer_messages` (
   `id` bigint(20) NOT NULL,
   `customer_id` bigint(20) NOT NULL,
   `message` text NOT NULL,
@@ -4476,12 +4543,1085 @@ INSERT INTO `customer_messages` (`id`, `customer_id`, `message`, `date`) VALUES
 -- Table structure for table `deliveryboy_locations`
 --
 
-CREATE TABLE `deliveryboy_locations` (
-  `location_id` bigint(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `deliveryboy_locations` (
+`location_id` bigint(30) NOT NULL,
   `deliveryboy_id` bigint(30) NOT NULL,
   `latitude` float DEFAULT NULL,
   `langitude` float DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1068 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `deliveryboy_locations`
+--
+
+INSERT INTO `deliveryboy_locations` (`location_id`, `deliveryboy_id`, `latitude`, `langitude`) VALUES
+(1, 12, 12.9253, 77.4855),
+(2, 12, 12.9252, 77.4856),
+(3, 4, 12.9252, 77.4856),
+(4, 4, 12.9253, 77.4855),
+(5, 4, 12.9253, 77.4855),
+(6, 4, 12.9253, 77.4855),
+(7, 4, 12.9253, 77.4855),
+(8, 4, 12.9253, 77.4855),
+(9, 4, 12.9253, 77.4855),
+(10, 4, 12.9254, 77.4855),
+(11, 4, 12.9253, 77.4855),
+(12, 4, 12.9252, 77.4855),
+(13, 4, 12.9252, 77.4855),
+(14, 4, 12.9253, 77.4855),
+(15, 4, 12.9252, 77.4856),
+(16, 4, 12.9252, 77.4856),
+(17, 4, 12.9252, 77.4856),
+(18, 4, 12.9252, 77.4856),
+(19, 4, 12.9253, 77.4855),
+(20, 4, 12.9253, 77.4855),
+(21, 4, 12.9253, 77.4855),
+(22, 4, 12.9252, 77.4856),
+(23, 4, 12.9252, 77.4856),
+(24, 4, 12.9253, 77.4855),
+(25, 4, 12.9253, 77.4855),
+(26, 4, 12.9252, 77.4856),
+(27, 4, 12.9252, 77.4856),
+(28, 4, 12.9252, 77.4856),
+(29, 4, 12.9253, 77.4855),
+(30, 4, 12.9253, 77.4855),
+(31, 4, 12.9253, 77.4855),
+(32, 4, 12.9252, 77.4855),
+(33, 4, 12.9253, 77.4856),
+(34, 4, 12.9253, 77.4855),
+(35, 4, 12.9252, 77.4855),
+(36, 4, 12.9253, 77.4855),
+(37, 4, 12.9253, 77.4855),
+(38, 4, 12.9251, 77.4854),
+(39, 4, 12.9251, 77.4857),
+(40, 4, 12.9251, 77.4854),
+(41, 4, 12.9253, 77.4855),
+(42, 4, 12.9251, 77.4854),
+(43, 4, 12.9249, 77.4853),
+(44, 4, 12.9249, 77.4853),
+(45, 4, 12.9252, 77.4855),
+(46, 4, 12.9252, 77.4856),
+(47, 4, 12.9253, 77.4855),
+(48, 4, 12.9252, 77.4856),
+(49, 4, 12.9253, 77.4855),
+(50, 4, 12.9252, 77.4856),
+(51, 4, 12.9253, 77.4855),
+(52, 4, 12.9252, 77.4856),
+(53, 4, 12.9253, 77.4855),
+(54, 4, 12.9253, 77.4855),
+(55, 4, 12.9253, 77.4855),
+(56, 4, 12.9253, 77.4855),
+(57, 4, 12.9253, 77.4855),
+(58, 4, 12.9251, 77.4856),
+(59, 4, 12.9251, 77.4856),
+(60, 4, 12.9252, 77.4857),
+(61, 4, 12.9252, 77.4857),
+(62, 4, 12.9253, 77.4855),
+(63, 4, 12.9253, 77.4855),
+(64, 4, 12.9251, 77.4857),
+(65, 4, 12.9251, 77.4857),
+(66, 4, 12.9252, 77.4856),
+(67, 4, 12.9253, 77.4855),
+(68, 4, 12.9253, 77.4855),
+(69, 4, 12.9253, 77.4855),
+(70, 4, 12.9253, 77.4855),
+(71, 4, 12.9253, 77.4855),
+(72, 4, 12.9253, 77.4855),
+(73, 4, 12.9253, 77.4855),
+(74, 4, 12.9253, 77.4855),
+(75, 4, 12.925, 77.4856),
+(76, 4, 12.925, 77.4856),
+(77, 4, 12.925, 77.4856),
+(78, 4, 12.925, 77.4856),
+(79, 4, 12.925, 77.4856),
+(80, 4, 12.9252, 77.4856),
+(81, 4, 12.9252, 77.4856),
+(82, 4, 12.9252, 77.4856),
+(83, 4, 12.9252, 77.4856),
+(84, 4, 12.9252, 77.4856),
+(85, 4, 12.9253, 77.4856),
+(86, 4, 12.9253, 77.4856),
+(87, 4, 12.9253, 77.4856),
+(88, 4, 12.9253, 77.4856),
+(89, 4, 12.9253, 77.4856),
+(90, 4, 12.9253, 77.4856),
+(91, 4, 12.9253, 77.4856),
+(92, 4, 12.9253, 77.4856),
+(93, 4, 12.9253, 77.4856),
+(94, 4, 12.9253, 77.4856),
+(95, 4, 12.9253, 77.4856),
+(96, 4, 12.9253, 77.4856),
+(97, 4, 12.9249, 77.4855),
+(98, 4, 12.9249, 77.4855),
+(99, 4, 12.9249, 77.4855),
+(100, 4, 12.9249, 77.4855),
+(101, 4, 12.925, 77.4855),
+(102, 4, 12.925, 77.4855),
+(103, 4, 12.925, 77.4855),
+(104, 4, 12.925, 77.4855),
+(105, 4, 12.9251, 77.4855),
+(106, 4, 12.9251, 77.4855),
+(107, 4, 12.9251, 77.4855),
+(108, 4, 12.9251, 77.4855),
+(109, 4, 12.9252, 77.4855),
+(110, 4, 12.9252, 77.4855),
+(111, 4, 12.9252, 77.4855),
+(112, 4, 12.9252, 77.4855),
+(113, 4, 12.9253, 77.4855),
+(114, 4, 12.9253, 77.4855),
+(115, 4, 12.9253, 77.4855),
+(116, 4, 12.9253, 77.4855),
+(117, 4, 12.9252, 77.4856),
+(118, 4, 12.9252, 77.4856),
+(119, 4, 12.9252, 77.4856),
+(120, 4, 12.9252, 77.4856),
+(121, 5, 12.9655, 77.5317),
+(122, 5, 12.9652, 77.5319),
+(123, 5, 12.9655, 77.5317),
+(124, 5, 12.9653, 77.5319),
+(125, 5, 12.9655, 77.5317),
+(126, 5, 12.9653, 77.5319),
+(127, 5, 12.9655, 77.5317),
+(128, 5, 12.9655, 77.5317),
+(129, 5, 12.9655, 77.5314),
+(130, 5, 12.9654, 77.5315),
+(131, 5, 12.9654, 77.5317),
+(132, 5, 12.9655, 77.5316),
+(133, 5, 12.9654, 77.5317),
+(134, 5, 12.9654, 77.5316),
+(135, 5, 12.9654, 77.5317),
+(136, 5, 12.9655, 77.5316),
+(137, 5, 12.9654, 77.5316),
+(138, 5, 12.9654, 77.5316),
+(139, 5, 12.9655, 77.5317),
+(140, 5, 12.9655, 77.5317),
+(141, 5, 12.9652, 77.5317),
+(142, 5, 12.9655, 77.5316),
+(143, 5, 12.9654, 77.5316),
+(144, 5, 12.9652, 77.5316),
+(145, 5, 12.9654, 77.5316),
+(146, 5, 12.9652, 77.5316),
+(147, 5, 12.9654, 77.5316),
+(148, 5, 12.9652, 77.5316),
+(149, 5, 12.9654, 77.5316),
+(150, 5, 12.9654, 77.5316),
+(151, 5, 12.9654, 77.5316),
+(152, 5, 12.9654, 77.5316),
+(153, 5, 12.9654, 77.5316),
+(154, 5, 12.9654, 77.5316),
+(155, 5, 12.9654, 77.5316),
+(156, 5, 12.9659, 77.5315),
+(157, 5, 12.9659, 77.5315),
+(158, 5, 12.9659, 77.5315),
+(159, 5, 12.9654, 77.5316),
+(160, 5, 12.9654, 77.5316),
+(161, 5, 12.9654, 77.5316),
+(162, 5, 12.9654, 77.5316),
+(163, 5, 12.9654, 77.5316),
+(164, 5, 12.9654, 77.5316),
+(165, 5, 12.9655, 77.5319),
+(166, 5, 12.9655, 77.5319),
+(167, 5, 12.9654, 77.5316),
+(168, 5, 12.9654, 77.5316),
+(169, 5, 12.965, 77.5318),
+(170, 5, 12.965, 77.5318),
+(171, 5, 12.9654, 77.5316),
+(172, 5, 12.9654, 77.5316),
+(173, 5, 12.9652, 77.5318),
+(174, 5, 12.9652, 77.5318),
+(175, 5, 12.9653, 77.5317),
+(176, 5, 12.9653, 77.5317),
+(177, 5, 12.9653, 77.5318),
+(178, 5, 12.9653, 77.5318),
+(179, 5, 12.9653, 77.5316),
+(180, 5, 12.9653, 77.5316),
+(181, 5, 12.9654, 77.5316),
+(182, 5, 12.9654, 77.5316),
+(183, 5, 12.9653, 77.5317),
+(184, 5, 12.9653, 77.5317),
+(185, 5, 12.9654, 77.5316),
+(186, 5, 12.9654, 77.5316),
+(187, 5, 12.965, 77.5318),
+(188, 5, 12.965, 77.5318),
+(189, 5, 12.9654, 77.5316),
+(190, 5, 12.9654, 77.5316),
+(191, 5, 12.9653, 77.5317),
+(192, 5, 12.9653, 77.5317),
+(193, 5, 12.9651, 77.5318),
+(194, 5, 12.9651, 77.5318),
+(195, 5, 12.9653, 77.5318),
+(196, 5, 12.9653, 77.5318),
+(197, 5, 12.9652, 77.5317),
+(198, 5, 12.9652, 77.5317),
+(199, 5, 12.9653, 77.5317),
+(200, 5, 12.9653, 77.5317),
+(201, 5, 12.9654, 77.5316),
+(202, 5, 12.9654, 77.5316),
+(203, 5, 12.9653, 77.5317),
+(204, 5, 12.9653, 77.5317),
+(205, 5, 12.9654, 77.5316),
+(206, 5, 12.9654, 77.5316),
+(207, 5, 12.9653, 77.5317),
+(208, 5, 12.9653, 77.5317),
+(209, 5, 12.9654, 77.5316),
+(210, 5, 12.9654, 77.5316),
+(211, 5, 12.9654, 77.5317),
+(212, 5, 12.9654, 77.5317),
+(213, 5, 12.9653, 77.5318),
+(214, 5, 12.9653, 77.5318),
+(215, 5, 12.9655, 77.5316),
+(216, 5, 12.9655, 77.5316),
+(217, 5, 12.9655, 77.5316),
+(218, 5, 12.9651, 77.5318),
+(219, 5, 12.9651, 77.5318),
+(220, 5, 12.9652, 77.5318),
+(221, 5, 12.9652, 77.5318),
+(222, 5, 12.9654, 77.5316),
+(223, 5, 12.9654, 77.5316),
+(224, 5, 12.9653, 77.5318),
+(225, 5, 12.9653, 77.5318),
+(226, 5, 12.9654, 77.5316),
+(227, 5, 12.9654, 77.5316),
+(228, 5, 12.9653, 77.5317),
+(229, 5, 12.9653, 77.5317),
+(230, 5, 12.9654, 77.5316),
+(231, 5, 12.9654, 77.5316),
+(232, 5, 12.9655, 77.5316),
+(233, 5, 12.9653, 77.5317),
+(234, 5, 12.9653, 77.5317),
+(235, 5, 12.9655, 77.5316),
+(236, 5, 12.9655, 77.5316),
+(237, 5, 12.9653, 77.5317),
+(238, 5, 12.9653, 77.5317),
+(239, 5, 12.9655, 77.5316),
+(240, 5, 12.9655, 77.5316),
+(241, 5, 12.9653, 77.5317),
+(242, 5, 12.9653, 77.5317),
+(243, 5, 12.9654, 77.5316),
+(244, 5, 12.9654, 77.5316),
+(245, 5, 12.9655, 77.5316),
+(246, 5, 12.9655, 77.5316),
+(247, 5, 12.9655, 77.5316),
+(248, 5, 12.9655, 77.5321),
+(249, 5, 12.9655, 77.532),
+(250, 5, 12.9655, 77.5316),
+(251, 5, 12.9655, 77.5316),
+(252, 5, 12.9655, 77.5316),
+(253, 5, 12.9655, 77.5317),
+(254, 5, 12.9655, 77.5316),
+(255, 5, 12.9653, 77.532),
+(256, 5, 12.9653, 77.5319),
+(257, 5, 12.9654, 77.5316),
+(258, 5, 12.9663, 77.53),
+(259, 5, 12.9657, 77.5313),
+(260, 5, 12.9656, 77.5315),
+(261, 5, 12.9656, 77.5316),
+(262, 5, 12.9655, 77.5317),
+(263, 5, 12.9654, 77.5316),
+(264, 5, 12.9655, 77.5317),
+(265, 5, 12.9654, 77.5316),
+(266, 5, 12.9655, 77.5317),
+(267, 5, 12.9654, 77.5316),
+(268, 5, 12.9655, 77.5317),
+(269, 5, 12.9655, 77.5316),
+(270, 5, 12.9655, 77.5316),
+(271, 5, 12.9655, 77.5316),
+(272, 5, 12.9655, 77.5317),
+(273, 5, 12.9655, 77.5316),
+(274, 5, 12.9655, 77.5317),
+(275, 5, 12.9654, 77.5316),
+(276, 5, 12.9655, 77.5317),
+(277, 4, 12.9253, 77.4855),
+(278, 4, 12.9252, 77.4856),
+(279, 4, 12.9253, 77.4855),
+(280, 4, 12.9252, 77.4857),
+(281, 4, 12.9253, 77.4855),
+(282, 4, 12.9253, 77.4855),
+(283, 4, 12.9253, 77.4855),
+(284, 4, 12.9302, 77.4848),
+(285, 4, 12.9253, 77.4856),
+(286, 4, 12.9252, 77.4856),
+(287, 4, 12.9253, 77.4855),
+(288, 4, 12.9252, 77.4856),
+(289, 4, 12.9252, 77.4856),
+(290, 4, 12.9252, 77.4856),
+(291, 5, 12.9655, 77.5317),
+(292, 4, 12.9253, 77.4855),
+(293, 4, 12.9252, 77.4855),
+(294, 4, 12.9253, 77.4855),
+(295, 4, 12.9253, 77.4855),
+(296, 4, 12.9252, 77.4856),
+(297, 5, 12.9655, 77.5317),
+(298, 4, 12.9253, 77.4855),
+(299, 4, 12.9252, 77.4856),
+(300, 4, 12.9253, 77.4855),
+(301, 4, 12.9253, 77.4855),
+(302, 4, 12.9253, 77.4855),
+(303, 4, 12.9253, 77.4855),
+(304, 4, 12.9253, 77.4855),
+(305, 4, 12.9252, 77.4856),
+(306, 5, 12.9655, 77.5317),
+(307, 4, 12.9254, 77.4855),
+(308, 5, 12.9655, 77.5317),
+(309, 4, 12.9253, 77.4855),
+(310, 4, 12.9252, 77.4856),
+(311, 4, 12.9252, 77.4856),
+(312, 5, 12.9655, 77.5317),
+(313, 5, 12.9655, 77.5317),
+(314, 5, 12.9655, 77.5317),
+(315, 5, 12.9655, 77.5317),
+(316, 5, 12.9655, 77.5317),
+(317, 5, 12.9655, 77.5317),
+(318, 5, 12.9655, 77.5317),
+(319, 5, 12.9655, 77.5317),
+(320, 5, 12.9654, 77.5316),
+(321, 5, 12.9654, 77.5318),
+(322, 5, 12.9654, 77.5318),
+(323, 5, 12.9655, 77.5317),
+(324, 5, 12.9655, 77.5317),
+(325, 5, 12.9655, 77.5317),
+(326, 5, 12.9655, 77.5317),
+(327, 5, 12.9655, 77.5316),
+(328, 5, 12.9655, 77.5317),
+(329, 5, 12.9655, 77.5317),
+(330, 5, 12.9655, 77.5317),
+(331, 5, 12.9655, 77.5317),
+(332, 5, 12.9655, 77.5317),
+(333, 5, 12.9656, 77.5318),
+(334, 5, 12.9656, 77.5318),
+(335, 5, 12.9655, 77.5317),
+(336, 5, 12.9655, 77.5317),
+(337, 5, 12.9654, 77.5316),
+(338, 5, 12.9654, 77.5316),
+(339, 5, 12.9655, 77.5316),
+(340, 5, 12.9655, 77.5316),
+(341, 7, 12.9253, 77.4855),
+(342, 7, 12.9253, 77.4855),
+(343, 7, 12.9253, 77.4856),
+(344, 7, 12.9253, 77.4855),
+(345, 7, 12.9253, 77.4855),
+(346, 7, 12.9253, 77.4856),
+(347, 7, 12.9253, 77.4855),
+(348, 7, 12.9253, 77.4855),
+(349, 7, 12.9253, 77.4856),
+(350, 7, 12.9253, 77.4855),
+(351, 7, 12.9253, 77.4855),
+(352, 5, 12.9655, 77.5316),
+(353, 7, 12.9254, 77.4855),
+(354, 7, 12.9253, 77.4855),
+(355, 7, 12.9252, 77.4855),
+(356, 7, 12.9252, 77.4855),
+(357, 7, 12.9252, 77.4855),
+(358, 7, 12.9252, 77.4855),
+(359, 5, 12.9655, 77.5317),
+(360, 7, 12.9252, 77.4855),
+(361, 7, 12.9253, 77.4855),
+(362, 7, 12.9253, 77.4855),
+(363, 5, 12.9655, 77.5317),
+(364, 5, 12.9655, 77.5317),
+(365, 5, 12.9655, 77.5317),
+(366, 7, 12.9253, 77.4855),
+(367, 7, 12.9252, 77.4855),
+(368, 5, 12.9657, 77.5316),
+(369, 5, 12.9657, 77.5316),
+(370, 5, 12.9656, 77.5317),
+(371, 5, 12.9656, 77.5317),
+(372, 5, 12.9655, 77.5317),
+(373, 5, 12.9655, 77.5317),
+(374, 7, 12.9254, 77.4855),
+(375, 7, 12.9253, 77.4855),
+(376, 5, 12.9654, 77.5316),
+(377, 5, 12.9654, 77.5316),
+(378, 5, 12.9655, 77.5317),
+(379, 5, 12.9655, 77.5317),
+(380, 7, 12.9254, 77.4855),
+(381, 7, 12.9253, 77.4855),
+(382, 5, 12.9653, 77.5316),
+(383, 5, 12.9653, 77.5316),
+(384, 5, 12.9654, 77.5317),
+(385, 5, 12.9654, 77.5317),
+(386, 5, 12.9655, 77.5317),
+(387, 5, 12.9655, 77.5317),
+(388, 7, 12.9254, 77.4855),
+(389, 7, 12.9252, 77.4856),
+(390, 7, 12.9252, 77.4856),
+(391, 7, 12.9253, 77.4855),
+(392, 7, 12.9252, 77.4856),
+(393, 7, 12.9253, 77.4855),
+(394, 7, 12.9252, 77.4856),
+(395, 7, 12.9253, 77.4855),
+(396, 7, 12.9252, 77.4856),
+(397, 5, 12.9654, 77.5317),
+(398, 5, 12.9654, 77.5317),
+(399, 7, 12.9253, 77.4855),
+(400, 5, 12.9646, 77.531),
+(401, 5, 12.9646, 77.531),
+(402, 5, 12.9655, 77.5317),
+(403, 5, 12.9655, 77.5317),
+(404, 5, 12.9645, 77.531),
+(405, 5, 12.9645, 77.531),
+(406, 5, 12.9655, 77.5317),
+(407, 5, 12.9655, 77.5317),
+(408, 5, 12.9646, 77.531),
+(409, 5, 12.9646, 77.531),
+(410, 5, 12.9653, 77.5316),
+(411, 5, 12.9653, 77.5316),
+(412, 5, 12.9654, 77.5317),
+(413, 5, 12.9654, 77.5317),
+(414, 7, 12.9255, 77.4856),
+(415, 7, 12.9255, 77.4856),
+(416, 7, 12.9253, 77.4855),
+(417, 7, 12.9253, 77.4855),
+(418, 7, 12.9252, 77.4856),
+(419, 7, 12.9252, 77.4856),
+(420, 7, 12.9253, 77.4855),
+(421, 7, 12.9253, 77.4855),
+(422, 7, 12.9252, 77.4856),
+(423, 7, 12.9252, 77.4856),
+(424, 7, 12.9253, 77.4855),
+(425, 7, 12.9253, 77.4855),
+(426, 7, 12.9252, 77.4856),
+(427, 7, 12.9252, 77.4856),
+(428, 7, 12.9253, 77.4855),
+(429, 7, 12.9253, 77.4855),
+(430, 7, 12.9252, 77.4856),
+(431, 7, 12.9252, 77.4856),
+(432, 7, 12.9253, 77.4855),
+(433, 7, 12.9253, 77.4855),
+(434, 7, 12.9252, 77.4856),
+(435, 7, 12.9252, 77.4856),
+(436, 7, 12.9253, 77.4855),
+(437, 7, 12.9253, 77.4855),
+(438, 7, 12.9252, 77.4857),
+(439, 7, 12.9252, 77.4857),
+(440, 7, 12.9253, 77.4855),
+(441, 7, 12.9253, 77.4855),
+(442, 7, 12.9253, 77.4856),
+(443, 7, 12.9253, 77.4856),
+(444, 7, 12.9253, 77.4855),
+(445, 7, 12.9253, 77.4855),
+(446, 7, 12.9253, 77.4857),
+(447, 7, 12.9253, 77.4857),
+(448, 7, 12.9253, 77.4855),
+(449, 7, 12.9253, 77.4855),
+(450, 7, 12.9253, 77.4857),
+(451, 7, 12.9253, 77.4857),
+(452, 7, 12.9253, 77.4855),
+(453, 7, 12.9253, 77.4855),
+(454, 7, 12.9255, 77.4852),
+(455, 7, 12.9255, 77.4852),
+(456, 7, 12.9254, 77.4853),
+(457, 7, 12.9254, 77.4853),
+(458, 7, 12.9253, 77.4854),
+(459, 7, 12.9253, 77.4854),
+(460, 7, 12.9253, 77.4855),
+(461, 7, 12.9253, 77.4855),
+(462, 7, 12.9253, 77.4858),
+(463, 7, 12.9253, 77.4858),
+(464, 7, 12.9253, 77.4855),
+(465, 7, 12.9253, 77.4855),
+(466, 7, 12.9254, 77.4856),
+(467, 7, 12.9254, 77.4856),
+(468, 7, 12.9253, 77.4855),
+(469, 7, 12.9253, 77.4855),
+(470, 5, 12.9655, 77.5317),
+(471, 5, 12.9655, 77.5317),
+(472, 5, 12.9654, 77.5318),
+(473, 5, 12.9654, 77.5318),
+(474, 5, 12.9654, 77.5318),
+(475, 5, 12.9654, 77.5318),
+(476, 5, 12.9654, 77.5316),
+(477, 5, 12.9654, 77.5316),
+(478, 5, 12.9654, 77.5318),
+(479, 5, 12.9654, 77.5318),
+(480, 5, 12.9654, 77.5316),
+(481, 5, 12.9654, 77.5316),
+(482, 5, 12.9655, 77.5318),
+(483, 5, 12.9655, 77.5318),
+(484, 5, 12.9654, 77.5316),
+(485, 5, 12.9654, 77.5316),
+(486, 5, 12.9655, 77.5317),
+(487, 5, 12.9655, 77.5317),
+(488, 5, 12.9654, 77.5318),
+(489, 5, 12.9654, 77.5318),
+(490, 5, 12.9654, 77.5316),
+(491, 5, 12.9654, 77.5316),
+(492, 5, 12.9654, 77.5318),
+(493, 5, 12.9654, 77.5318),
+(494, 5, 12.9654, 77.5316),
+(495, 5, 12.9654, 77.5316),
+(496, 5, 12.9654, 77.5318),
+(497, 5, 12.9654, 77.5318),
+(498, 5, 12.9654, 77.5316),
+(499, 5, 12.9654, 77.5316),
+(500, 5, 12.9654, 77.5318),
+(501, 5, 12.9654, 77.5318),
+(502, 5, 12.9655, 77.5317),
+(503, 5, 12.9655, 77.5317),
+(504, 5, 12.9654, 77.5318),
+(505, 5, 12.9654, 77.5318),
+(506, 5, 12.9654, 77.5316),
+(507, 5, 12.9654, 77.5316),
+(508, 5, 12.9654, 77.5318),
+(509, 5, 12.9654, 77.5318),
+(510, 5, 12.9655, 77.5317),
+(511, 5, 12.9655, 77.5317),
+(512, 5, 12.9654, 77.5318),
+(513, 5, 12.9654, 77.5318),
+(514, 5, 12.9655, 77.5317),
+(515, 5, 12.9655, 77.5317),
+(516, 5, 12.9654, 77.5318),
+(517, 5, 12.9654, 77.5318),
+(518, 5, 12.9655, 77.5317),
+(519, 5, 12.9655, 77.5317),
+(520, 5, 12.9654, 77.5318),
+(521, 5, 12.9654, 77.5318),
+(522, 5, 12.9655, 77.5317),
+(523, 5, 12.9655, 77.5317),
+(524, 5, 12.9654, 77.5318),
+(525, 5, 12.9654, 77.5318),
+(526, 5, 12.9655, 77.5317),
+(527, 5, 12.9655, 77.5317),
+(528, 5, 12.9385, 77.5333),
+(529, 5, 12.9385, 77.5333),
+(530, 5, 12.9386, 77.5332),
+(531, 5, 12.9386, 77.5332),
+(532, 5, 12.9387, 77.5332),
+(533, 5, 12.9387, 77.5332),
+(534, 5, 12.9388, 77.5331),
+(535, 5, 12.9388, 77.5331),
+(536, 5, 12.9387, 77.533),
+(537, 5, 12.9387, 77.533),
+(538, 5, 12.9388, 77.533),
+(539, 5, 12.9388, 77.533),
+(540, 5, 12.9389, 77.5329),
+(541, 5, 12.9389, 77.5329),
+(542, 5, 12.939, 77.5329),
+(543, 5, 12.939, 77.5329),
+(544, 5, 12.9392, 77.5329),
+(545, 5, 12.9392, 77.5329),
+(546, 5, 12.9392, 77.5328),
+(547, 5, 12.9392, 77.5328),
+(548, 5, 12.9393, 77.5326),
+(549, 5, 12.9393, 77.5326),
+(550, 5, 12.9394, 77.5326),
+(551, 5, 12.9394, 77.5326),
+(552, 5, 12.9395, 77.5326),
+(553, 5, 12.9395, 77.5326),
+(554, 5, 12.9396, 77.5325),
+(555, 5, 12.9396, 77.5325),
+(556, 5, 12.9397, 77.5325),
+(557, 5, 12.9397, 77.5325),
+(558, 7, 12.9253, 77.4855),
+(559, 7, 12.9253, 77.4855),
+(560, 7, 12.9254, 77.4854),
+(561, 7, 12.9254, 77.4854),
+(562, 7, 12.9253, 77.4855),
+(563, 7, 12.9253, 77.4855),
+(564, 7, 12.9252, 77.4855),
+(565, 4, 12.9253, 77.4855),
+(566, 4, 12.9252, 77.4855),
+(567, 4, 12.9252, 77.4855),
+(568, 4, 12.9253, 77.4855),
+(569, 4, 12.9253, 77.4855),
+(570, 4, 12.9252, 77.4855),
+(571, 4, 12.9253, 77.4855),
+(572, 4, 12.9253, 77.4855),
+(573, 4, 12.9253, 77.4855),
+(574, 4, 12.9248, 77.4853),
+(575, 4, 12.9251, 77.4856),
+(576, 4, 12.9254, 77.4856),
+(577, 4, 12.9253, 77.4855),
+(578, 4, 12.9252, 77.4855),
+(579, 4, 12.9252, 77.4856),
+(580, 4, 12.9253, 77.4855),
+(581, 4, 12.9252, 77.4856),
+(582, 4, 12.9252, 77.4856),
+(583, 4, 12.9253, 77.4855),
+(584, 4, 12.9253, 77.4855),
+(585, 4, 12.9253, 77.4855),
+(586, 4, 12.9253, 77.4855),
+(587, 4, 12.9253, 77.4855),
+(588, 4, 12.9253, 77.4855),
+(589, 5, 12.9647, 77.5337),
+(590, 5, 12.9647, 77.5336),
+(591, 5, 12.9647, 77.5335),
+(592, 5, 12.9646, 77.5335),
+(593, 5, 12.9647, 77.5335),
+(594, 5, 12.9647, 77.5334),
+(595, 5, 12.9647, 77.5333),
+(596, 5, 12.9647, 77.5331),
+(597, 5, 12.9647, 77.533),
+(598, 5, 12.9648, 77.5329),
+(599, 5, 12.9647, 77.5329),
+(600, 5, 12.9646, 77.5328),
+(601, 5, 12.9647, 77.5327),
+(602, 5, 12.9646, 77.5325),
+(603, 5, 12.9646, 77.5324),
+(604, 5, 12.9646, 77.5323),
+(605, 5, 12.9646, 77.5322),
+(606, 5, 12.9646, 77.5321),
+(607, 5, 12.9647, 77.532),
+(608, 5, 12.9646, 77.5319),
+(609, 5, 12.9647, 77.5318),
+(610, 5, 12.9648, 77.5317),
+(611, 5, 12.9649, 77.5317),
+(612, 5, 12.965, 77.5317),
+(613, 5, 12.9651, 77.5317),
+(614, 5, 12.9652, 77.5316),
+(615, 5, 12.9652, 77.5315),
+(616, 5, 12.9653, 77.5315),
+(617, 5, 12.9654, 77.5315),
+(618, 5, 12.9655, 77.5316),
+(619, 5, 12.9251, 77.4856),
+(620, 5, 12.9251, 77.4855),
+(621, 5, 12.9251, 77.4855),
+(622, 5, 12.9251, 77.4855),
+(623, 5, 12.9251, 77.4855),
+(624, 5, 12.9252, 77.4856),
+(625, 5, 12.9253, 77.4855),
+(626, 5, 12.9252, 77.4855),
+(627, 5, 12.9252, 77.4854),
+(628, 5, 12.9251, 77.4854),
+(629, 5, 12.925, 77.4853),
+(630, 5, 12.9249, 77.4853),
+(631, 5, 12.9248, 77.4853),
+(632, 5, 12.9247, 77.4853),
+(633, 5, 12.9245, 77.4853),
+(634, 5, 12.9244, 77.4852),
+(635, 5, 12.9243, 77.4851),
+(636, 5, 12.9242, 77.4851),
+(637, 5, 12.9241, 77.4851),
+(638, 5, 12.924, 77.4851),
+(639, 5, 12.9239, 77.485),
+(640, 5, 12.9654, 77.5317),
+(641, 5, 12.9654, 77.5317),
+(642, 5, 12.9654, 77.5316),
+(643, 4, 12.9253, 77.4855),
+(644, 4, 12.9253, 77.4855),
+(645, 4, 12.9253, 77.4856),
+(646, 4, 12.9256, 77.4856),
+(647, 4, 12.9255, 77.4856),
+(648, 4, 12.9253, 77.4855),
+(649, 4, 12.9254, 77.4856),
+(650, 4, 12.9253, 77.4855),
+(651, 5, 12.9252, 77.4855),
+(652, 4, 12.9253, 77.4855),
+(653, 4, 12.9254, 77.4855),
+(654, 4, 12.9252, 77.4856),
+(655, 4, 12.9252, 77.4855),
+(656, 5, 12.9654, 77.5316),
+(657, 5, 12.9653, 77.5318),
+(658, 5, 12.9654, 77.5316),
+(659, 5, 12.9653, 77.5318),
+(660, 5, 12.9654, 77.5316),
+(661, 5, 12.9653, 77.5318),
+(662, 5, 12.9654, 77.5316),
+(663, 5, 12.9653, 77.5318),
+(664, 5, 12.9654, 77.5316),
+(665, 5, 12.9653, 77.5317),
+(666, 5, 12.9654, 77.5316),
+(667, 5, 12.9653, 77.5317),
+(668, 5, 12.9654, 77.5316),
+(669, 5, 12.9653, 77.5317),
+(670, 5, 12.9655, 77.5316),
+(671, 5, 12.9653, 77.5317),
+(672, 5, 12.9655, 77.5316),
+(673, 5, 12.9653, 77.5317),
+(674, 5, 12.9655, 77.5317),
+(675, 5, 12.9654, 77.5317),
+(676, 5, 12.9655, 77.5317),
+(677, 5, 12.9654, 77.5317),
+(678, 5, 12.9654, 77.5316),
+(679, 5, 12.9654, 77.5317),
+(680, 5, 12.9654, 77.5316),
+(681, 5, 12.9654, 77.5317),
+(682, 5, 12.9654, 77.5316),
+(683, 5, 12.9654, 77.5317),
+(684, 5, 12.9654, 77.5316),
+(685, 5, 12.9654, 77.5317),
+(686, 5, 12.9655, 77.5317),
+(687, 5, 12.9654, 77.5317),
+(688, 5, 12.9655, 77.5317),
+(689, 5, 12.9654, 77.5317),
+(690, 5, 12.9655, 77.5316),
+(691, 5, 12.9654, 77.5317),
+(692, 5, 12.9654, 77.5316),
+(693, 5, 12.9654, 77.5317),
+(694, 5, 12.9655, 77.5317),
+(695, 5, 12.9654, 77.5317),
+(696, 5, 12.9654, 77.5316),
+(697, 5, 12.9654, 77.5317),
+(698, 5, 12.9655, 77.5316),
+(699, 5, 12.9654, 77.5317),
+(700, 5, 12.9655, 77.5316),
+(701, 5, 12.9657, 77.5318),
+(702, 5, 12.9655, 77.5317),
+(703, 5, 12.9652, 77.5318),
+(704, 5, 12.9654, 77.5316),
+(705, 5, 12.9657, 77.5317),
+(706, 5, 12.9657, 77.5316),
+(707, 5, 12.9656, 77.5316),
+(708, 5, 12.9655, 77.5317),
+(709, 5, 12.9656, 77.5316),
+(710, 5, 12.9654, 77.5316),
+(711, 5, 12.9654, 77.5317),
+(712, 5, 12.9654, 77.5316),
+(713, 5, 12.9655, 77.5316),
+(714, 5, 12.9655, 77.5317),
+(715, 5, 12.9655, 77.5316),
+(716, 5, 12.9655, 77.5317),
+(717, 5, 12.9655, 77.5318),
+(718, 5, 12.9658, 77.5318),
+(719, 5, 12.9657, 77.532),
+(720, 5, 12.9657, 77.5319),
+(721, 5, 12.9656, 77.5319),
+(722, 5, 12.9654, 77.5318),
+(723, 5, 12.9654, 77.5317),
+(724, 5, 12.9654, 77.5318),
+(725, 5, 12.9654, 77.5318),
+(726, 5, 12.9656, 77.5318),
+(727, 5, 12.9657, 77.5317),
+(728, 5, 12.9654, 77.5317),
+(729, 5, 12.9654, 77.5318),
+(730, 5, 12.9653, 77.5317),
+(731, 5, 12.9654, 77.5318),
+(732, 5, 12.9655, 77.5317),
+(733, 5, 12.9653, 77.5317),
+(734, 5, 12.9654, 77.5316),
+(735, 5, 12.9654, 77.5319),
+(736, 5, 12.9656, 77.5319),
+(737, 5, 12.9655, 77.5319),
+(738, 5, 12.9656, 77.5319),
+(739, 5, 12.9654, 77.5316),
+(740, 5, 12.9656, 77.5319),
+(741, 5, 12.9654, 77.5316),
+(742, 5, 12.9655, 77.5316),
+(743, 5, 12.9654, 77.5316),
+(744, 5, 12.9654, 77.5316),
+(745, 5, 12.9654, 77.5316),
+(746, 5, 12.9654, 77.5316),
+(747, 5, 12.9654, 77.5316),
+(748, 5, 12.9654, 77.5316),
+(749, 5, 12.9658, 77.5314),
+(750, 5, 12.9654, 77.5316),
+(751, 5, 12.9654, 77.5316),
+(752, 5, 12.9655, 77.5316),
+(753, 5, 12.9654, 77.5316),
+(754, 5, 12.9654, 77.5316),
+(755, 5, 12.9654, 77.5316),
+(756, 5, 12.9654, 77.5316),
+(757, 5, 12.9654, 77.5316),
+(758, 5, 12.9654, 77.5316),
+(759, 5, 12.9654, 77.5316),
+(760, 5, 12.9654, 77.5316),
+(761, 5, 12.9654, 77.5316),
+(762, 5, 12.9654, 77.5316),
+(763, 5, 12.9655, 77.5317),
+(764, 5, 12.9654, 77.5316),
+(765, 5, 12.9655, 77.5317),
+(766, 4, 12.9253, 77.4855),
+(767, 4, 12.9253, 77.4855),
+(768, 8, 12.9253, 77.4855),
+(769, 8, 12.9253, 77.4855),
+(770, 8, 12.9253, 77.4855),
+(771, 8, 12.9253, 77.4855),
+(772, 8, 12.9254, 77.4855),
+(773, 8, 12.9254, 77.4855),
+(774, 8, 12.9253, 77.4855),
+(775, 8, 12.9253, 77.4855),
+(776, 8, 12.9253, 77.4855),
+(777, 8, 12.9253, 77.4855),
+(778, 8, 12.9254, 77.4855),
+(779, 8, 12.9254, 77.4855),
+(780, 8, 12.9254, 77.4855),
+(781, 8, 12.9253, 77.4855),
+(782, 8, 12.9253, 77.4855),
+(783, 8, 12.9253, 77.4855),
+(784, 8, 12.9253, 77.4855),
+(785, 8, 12.9252, 77.4856),
+(786, 8, 12.9252, 77.4856),
+(787, 8, 12.9252, 77.4856),
+(788, 8, 12.9253, 77.4855),
+(789, 8, 12.9253, 77.4855),
+(790, 8, 12.9252, 77.4856),
+(791, 8, 12.9253, 77.4855),
+(792, 8, 12.9252, 77.4856),
+(793, 8, 12.9253, 77.4855),
+(794, 8, 12.9254, 77.4855),
+(795, 8, 12.9249, 77.4853),
+(796, 8, 12.9254, 77.4855),
+(797, 8, 12.9253, 77.4855),
+(798, 8, 12.9253, 77.4855),
+(799, 8, 12.9253, 77.4855),
+(800, 8, 12.9253, 77.4855),
+(801, 5, 12.9655, 77.5317),
+(802, 5, 12.9656, 77.532),
+(803, 5, 12.9656, 77.5319),
+(804, 5, 12.9656, 77.5318),
+(805, 5, 12.9655, 77.5317),
+(806, 5, 12.9656, 77.5317),
+(807, 8, 12.9252, 77.4855),
+(808, 8, 12.9252, 77.4855),
+(809, 8, 12.9251, 77.4855),
+(810, 8, 12.9251, 77.4855),
+(811, 8, 12.9253, 77.4855),
+(812, 8, 12.9253, 77.4855),
+(813, 8, 12.9251, 77.4855),
+(814, 8, 12.9251, 77.4855),
+(815, 8, 12.9251, 77.4855),
+(816, 8, 12.9253, 77.4855),
+(817, 8, 12.9255, 77.4856),
+(818, 8, 12.9254, 77.4855),
+(819, 8, 12.9253, 77.4855),
+(820, 9, 18.9257, 72.8235),
+(821, 9, 18.9242, 72.8238),
+(822, 9, 18.926, 72.8231),
+(823, 9, 18.9249, 72.8237),
+(824, 9, 18.9256, 72.8231),
+(825, 9, 18.9257, 72.8235),
+(826, 9, 18.926, 72.8231),
+(827, 9, 18.9253, 72.8231),
+(828, 9, 18.9257, 72.8234),
+(829, 9, 18.926, 72.8231),
+(830, 9, 18.9253, 72.8231),
+(831, 9, 18.926, 72.8231),
+(832, 9, 18.9253, 72.8231),
+(833, 9, 18.9257, 72.8234),
+(834, 9, 18.926, 72.8231),
+(835, 9, 18.9257, 72.8234),
+(836, 9, 18.926, 72.8231),
+(837, 8, 12.9253, 77.4855),
+(838, 8, 12.9253, 77.4855),
+(839, 8, 12.9254, 77.4856),
+(840, 8, 12.9254, 77.4856),
+(841, 8, 12.9254, 77.4856),
+(842, 10, 18.9527, 72.8018),
+(843, 10, 18.9527, 72.8019),
+(844, 9, 18.926, 72.8231),
+(845, 9, 18.926, 72.8231),
+(846, 9, 18.926, 72.8231),
+(847, 9, 18.9256, 72.823),
+(848, 9, 18.9256, 72.823),
+(849, 9, 18.9256, 72.823),
+(850, 9, 18.9256, 72.823),
+(851, 9, 18.926, 72.8231),
+(852, 9, 18.926, 72.8231),
+(853, 9, 18.926, 72.8231),
+(854, 9, 18.926, 72.8231),
+(855, 9, 18.9254, 72.823),
+(856, 9, 18.9254, 72.823),
+(857, 9, 18.9254, 72.823),
+(858, 9, 18.9257, 72.8235),
+(859, 9, 18.9257, 72.8235),
+(860, 9, 18.9257, 72.8235),
+(861, 9, 18.9257, 72.8235),
+(862, 9, 18.9254, 72.823),
+(863, 9, 18.9257, 72.8235),
+(864, 9, 18.9527, 72.8018),
+(865, 8, 12.9253, 77.4855),
+(866, 8, 12.9253, 77.4855),
+(867, 8, 12.9253, 77.4855),
+(868, 8, 12.9253, 77.4855),
+(869, 8, 12.9252, 77.4855),
+(870, 8, 12.9253, 77.4855),
+(871, 8, 12.9252, 77.4855),
+(872, 8, 12.9254, 77.4855),
+(873, 8, 12.9253, 77.4855),
+(874, 8, 12.9253, 77.4855),
+(875, 8, 12.9252, 77.4855),
+(876, 8, 12.9253, 77.4855),
+(877, 8, 12.9253, 77.4855),
+(878, 8, 12.9253, 77.4855),
+(879, 8, 12.9253, 77.4855),
+(880, 8, 12.9252, 77.4856),
+(881, 8, 12.9252, 77.4856),
+(882, 8, 12.9253, 77.4855),
+(883, 8, 12.9253, 77.4855),
+(884, 8, 12.9252, 77.4856),
+(885, 8, 12.9252, 77.4856),
+(886, 8, 12.9253, 77.4855),
+(887, 8, 12.9253, 77.4855),
+(888, 8, 12.9252, 77.4856),
+(889, 8, 12.9252, 77.4856),
+(890, 8, 12.9253, 77.4855),
+(891, 8, 12.9253, 77.4855),
+(892, 8, 12.9253, 77.4855),
+(893, 8, 12.9252, 77.4856),
+(894, 8, 12.9252, 77.4856),
+(895, 8, 12.9252, 77.4856),
+(896, 8, 12.9252, 77.4856),
+(897, 8, 12.9253, 77.4855),
+(898, 8, 12.9253, 77.4855),
+(899, 8, 12.9253, 77.4855),
+(900, 8, 12.9254, 77.4855),
+(901, 8, 12.9254, 77.4855),
+(902, 8, 12.9254, 77.4855),
+(903, 8, 12.9253, 77.4855),
+(904, 8, 12.9253, 77.4855),
+(905, 8, 12.9253, 77.4855),
+(906, 8, 12.9253, 77.4855),
+(907, 8, 12.9252, 77.4856),
+(908, 8, 12.9252, 77.4856),
+(909, 8, 12.9252, 77.4856),
+(910, 8, 12.9252, 77.4856),
+(911, 8, 12.9253, 77.4855),
+(912, 8, 12.9253, 77.4855),
+(913, 8, 12.9253, 77.4855),
+(914, 8, 12.9253, 77.4855),
+(915, 8, 12.9252, 77.4856),
+(916, 8, 12.9252, 77.4856),
+(917, 8, 12.9252, 77.4856),
+(918, 8, 12.9252, 77.4856),
+(919, 8, 12.9254, 77.4855),
+(920, 8, 12.9254, 77.4855),
+(921, 8, 12.9254, 77.4855),
+(922, 8, 12.9254, 77.4855),
+(923, 8, 12.9253, 77.4855),
+(924, 8, 12.9253, 77.4855),
+(925, 8, 12.9253, 77.4855),
+(926, 8, 12.9253, 77.4855),
+(927, 8, 12.9254, 77.4855),
+(928, 8, 12.9254, 77.4855),
+(929, 8, 12.9254, 77.4855),
+(930, 8, 12.9254, 77.4855),
+(931, 8, 12.9253, 77.4855),
+(932, 8, 12.9253, 77.4855),
+(933, 8, 12.9253, 77.4855),
+(934, 8, 12.9253, 77.4855),
+(935, 8, 12.9255, 77.4856),
+(936, 8, 12.9255, 77.4856),
+(937, 8, 12.9255, 77.4856),
+(938, 8, 12.9255, 77.4856),
+(939, 8, 12.9253, 77.4855),
+(940, 8, 12.9253, 77.4855),
+(941, 8, 12.9253, 77.4855),
+(942, 8, 12.9253, 77.4855),
+(943, 8, 12.9255, 77.4856),
+(944, 8, 12.9255, 77.4856),
+(945, 8, 12.9255, 77.4856),
+(946, 8, 12.9255, 77.4856),
+(947, 8, 12.9253, 77.4855),
+(948, 8, 12.9253, 77.4855),
+(949, 8, 12.9253, 77.4855),
+(950, 8, 12.9253, 77.4855),
+(951, 8, 12.9253, 77.4855),
+(952, 8, 12.9253, 77.4855),
+(953, 8, 12.9253, 77.4855),
+(954, 8, 12.9253, 77.4855),
+(955, 8, 12.9253, 77.4855),
+(956, 8, 12.9253, 77.4855),
+(957, 8, 12.9253, 77.4855),
+(958, 8, 12.9254, 77.4857),
+(959, 8, 12.9254, 77.4857),
+(960, 8, 12.9254, 77.4857),
+(961, 8, 12.9254, 77.4857),
+(962, 8, 12.9253, 77.4855),
+(963, 8, 12.9253, 77.4855),
+(964, 8, 12.9253, 77.4855),
+(965, 8, 12.9253, 77.4855),
+(966, 8, 12.9253, 77.4855),
+(967, 8, 12.9253, 77.4855),
+(968, 8, 12.9253, 77.4855),
+(969, 8, 12.9253, 77.4855),
+(970, 8, 12.9252, 77.4856),
+(971, 8, 12.9252, 77.4856),
+(972, 8, 12.9252, 77.4856),
+(973, 8, 12.9252, 77.4856),
+(974, 8, 12.9254, 77.4855),
+(975, 8, 12.9254, 77.4855),
+(976, 8, 12.9254, 77.4855),
+(977, 8, 12.9254, 77.4855),
+(978, 8, 12.9254, 77.4855),
+(979, 8, 12.9254, 77.4855),
+(980, 8, 12.9253, 77.4855),
+(981, 8, 12.9252, 77.4856),
+(982, 8, 12.9253, 77.4855),
+(983, 8, 12.9253, 77.4856),
+(984, 8, 12.9252, 77.4856),
+(985, 8, 12.9252, 77.4856),
+(986, 8, 12.9252, 77.4856),
+(987, 8, 12.9253, 77.4855),
+(988, 8, 12.9253, 77.4855),
+(989, 8, 12.9253, 77.4855),
+(990, 8, 12.9253, 77.4855),
+(991, 8, 12.9254, 77.4855),
+(992, 8, 12.9252, 77.4855),
+(993, 8, 12.9253, 77.4855),
+(994, 8, 12.9252, 77.4855),
+(995, 8, 12.9252, 77.4855),
+(996, 8, 12.9252, 77.4855),
+(997, 8, 12.9253, 77.4855),
+(998, 8, 12.9253, 77.4855),
+(999, 8, 12.9253, 77.4855),
+(1000, 8, 12.9253, 77.4855),
+(1001, 8, 12.9253, 77.4855),
+(1002, 8, 12.9253, 77.4855),
+(1003, 8, 12.9253, 77.4855),
+(1004, 8, 12.9253, 77.4855),
+(1005, 8, 12.9254, 77.4855),
+(1006, 8, 12.9254, 77.4855),
+(1007, 8, 12.9253, 77.4855),
+(1008, 8, 12.9253, 77.4855),
+(1009, 8, 12.9253, 77.4855),
+(1010, 8, 12.9253, 77.4855),
+(1011, 8, 12.9253, 77.4855),
+(1012, 8, 12.9255, 77.4856),
+(1013, 8, 12.9253, 77.4855),
+(1014, 8, 12.9255, 77.4856),
+(1015, 8, 12.9255, 77.4856),
+(1016, 8, 12.9253, 77.4855),
+(1017, 8, 12.9253, 77.4855),
+(1018, 8, 12.9255, 77.4855),
+(1019, 8, 12.9252, 77.4854),
+(1020, 8, 12.9251, 77.4855),
+(1021, 8, 12.9253, 77.4855),
+(1022, 8, 12.9253, 77.4856),
+(1023, 8, 12.9252, 77.4857),
+(1024, 8, 12.9253, 77.4856),
+(1025, 8, 12.9253, 77.4855),
+(1026, 8, 12.9254, 77.4855),
+(1027, 8, 12.9253, 77.4855),
+(1028, 8, 12.9254, 77.4855),
+(1029, 8, 12.9254, 77.4855),
+(1030, 8, 12.9253, 77.4855),
+(1031, 8, 12.9254, 77.4855),
+(1032, 8, 12.9253, 77.4855),
+(1033, 8, 12.9254, 77.4855),
+(1034, 5, 12.9252, 77.4856),
+(1035, 8, 12.9252, 77.4856),
+(1036, 8, 12.9252, 77.4856),
+(1037, 8, 12.9252, 77.4856),
+(1038, 8, 12.9252, 77.4856),
+(1039, 8, 12.9252, 77.4856),
+(1040, 8, 12.9254, 77.4855),
+(1041, 8, 12.9252, 77.4856),
+(1042, 8, 12.9252, 77.4856),
+(1043, 8, 12.9254, 77.4855),
+(1044, 8, 12.9253, 77.4855),
+(1045, 8, 12.9253, 77.4855),
+(1046, 8, 12.9253, 77.4856),
+(1047, 8, 12.9254, 77.4855),
+(1048, 8, 12.9253, 77.4855),
+(1049, 8, 12.9253, 77.4855),
+(1050, 8, 12.9253, 77.4855),
+(1051, 5, 12.9655, 77.5317),
+(1052, 8, 12.9244, 77.4915),
+(1053, 8, 12.9253, 77.4856),
+(1054, 8, 12.9253, 77.4856),
+(1055, 8, 12.9253, 77.4856),
+(1056, 8, 12.9253, 77.4856),
+(1057, 8, 12.9253, 77.4855),
+(1058, 8, 12.9253, 77.4856),
+(1059, 8, 12.9253, 77.4855),
+(1060, 8, 12.9253, 77.4856),
+(1061, 8, 12.9253, 77.4855),
+(1062, 8, 12.9253, 77.4856),
+(1063, 8, 12.9253, 77.4855),
+(1064, 8, 12.9253, 77.4856),
+(1065, 8, 12.9253, 77.4855),
+(1066, 8, 12.9253, 77.4856),
+(1067, 8, 12.9253, 77.4855);
 
 -- --------------------------------------------------------
 
@@ -4489,22 +5629,27 @@ CREATE TABLE `deliveryboy_locations` (
 -- Table structure for table `delivery_boy`
 --
 
-CREATE TABLE `delivery_boy` (
-  `id` bigint(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `delivery_boy` (
+`id` bigint(30) NOT NULL,
   `name` varchar(200) NOT NULL,
   `address` text NOT NULL,
   `phone` varchar(100) NOT NULL,
   `email` varchar(200) NOT NULL,
   `did` text NOT NULL,
   `enabled` tinyint(2) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `delivery_boy`
 --
 
 INSERT INTO `delivery_boy` (`id`, `name`, `address`, `phone`, `email`, `did`, `enabled`) VALUES
-(2, 'Nithin', '', '7259575485', '', 'cjfIk3XRSUM:APA91bE54xfJlHmL8UvPlcJ4ss503c0LD-Sb92nhfstPP05266083qzSAmxk6MALv2iCIXmKzZXlfmUjmBlK-HaccK9bZqCHlFQC1CXnBwKAUoqP23ogbS1kaVfUiPMfVKjp7PtK2ubG', 1);
+(7, 'Nagaraj Testing', '', '9880474628', '', 'dWzyOKkVMbU:APA91bGkdCvtFQ7x1DHefHb8pZYBQ8b6elvQpPJSuNXqi5QlyYqABbMIlE_zWqNCM6O1OW3ncAP_FfF6LV__1C9sH7InNx8k3HupaQ5As4RshZr_x4AFtVLfjezoDcUCXN2mVno45qZP', 1),
+(5, 'Nithin', '', '7259575485', '', 'ekclVDJicWQ:APA91bEP_13NBWXXZZFR_CXQ34b-W3l8vlgchBecY7gt1hvrf92YIAT90kqR6Kwdo2KXvVnreFu34dnXRZ2ZNUYrpGEd0ZXBNwTJgvQUuzAJ9I1-RREQN0ha-duEZxPu_hqmn11_Pv5k', 1),
+(8, 'LaxmanH Tester', '', '9036700264', '', 'cLs7UkkMEfQ:APA91bGVzCPOWGCr7MbzflYd-3EXzaXbCXahXe2BNX_FHWSgHmmKsbVgVk606LKxqap5KYXCgAAtk1EIj8DOjlS9t-DNzJqdE4HvqxRrdfy8Dtgt-eb3Wo0llv6X8jo9N_3zbOp9w1lw', 1),
+(9, 'Nithin', '', '9820076457', '', 'fGSgWovsJV4:APA91bEZ7i93qa4m1yt5uMIzzI2jI-lpFfrvRYEYhWXTTIDCUTUGceAcgYe6HUEzdDisFsNz2GxNqseV3D7hQbzH1vTg3a-ALWxwCVxeelKoRU7AV9PXWVOHpq4IQUjMDanaTcTrLi8R', 1),
+(10, 'Reema', '', '9819156566', '', 'eVf0jka9z6k:APA91bF-_iIyxXonZ5WZ1nkL0xmXIPzGt0QQb6W82trvSpTQSETYknBrPKa2pZk88CIvMBbqjV386wsxl4dmTTNYCyncEZNSdDBgLLrqbdlxlx4EBVt-CzMJGFWOYV1ShAvv-nYp__Tg', 1),
+(11, 'Raju', 'Malabar Hill, Ridge Road', '98191565', 'as@we.go2 ', '', 1);
 
 -- --------------------------------------------------------
 
@@ -4512,7 +5657,7 @@ INSERT INTO `delivery_boy` (`id`, `name`, `address`, `phone`, `email`, `did`, `e
 -- Table structure for table `delpartner_charges`
 --
 
-CREATE TABLE `delpartner_charges` (
+CREATE TABLE IF NOT EXISTS `delpartner_charges` (
   `id` bigint(20) NOT NULL,
   `delpartner_id` bigint(20) NOT NULL,
   `fromKm` varchar(250) NOT NULL,
@@ -4534,19 +5679,26 @@ INSERT INTO `delpartner_charges` (`id`, `delpartner_id`, `fromKm`, `toKm`, `rate
 -- Table structure for table `delpartner_messages`
 --
 
-CREATE TABLE `delpartner_messages` (
-  `message_id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `delpartner_messages` (
+`message_id` bigint(20) NOT NULL,
   `delpartner_id` bigint(20) NOT NULL,
   `message` text NOT NULL,
   `date` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `delpartner_messages`
 --
 
 INSERT INTO `delpartner_messages` (`message_id`, `delpartner_id`, `message`, `date`) VALUES
-(1, 4, 'test test', '2016-12-11 16:36:04');
+(1, 4, 'test test', '2016-12-11 16:36:04'),
+(2, 4, 'hello', '2016-12-12 18:08:18'),
+(3, 4, 'hello', '2016-12-13 14:10:53'),
+(4, 4, 'Hello this is for testing\r\n', '2016-12-13 15:08:24'),
+(5, 4, 'hi wt is the update\r\n', '2016-12-22 11:14:50'),
+(6, 4, 'hello', '2016-12-24 15:45:22'),
+(7, 17, 'Hey 0901', '2017-01-09 11:07:11'),
+(8, 18, 'ksthtrhtrhtr', '2017-01-09 13:27:25');
 
 -- --------------------------------------------------------
 
@@ -4554,14 +5706,14 @@ INSERT INTO `delpartner_messages` (`message_id`, `delpartner_id`, `message`, `da
 -- Table structure for table `destination`
 --
 
-CREATE TABLE `destination` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `destination` (
+`id` int(11) NOT NULL,
   `place_name` varchar(100) NOT NULL,
   `address` varchar(250) NOT NULL,
   `city` varchar(50) NOT NULL,
   `lat` float(10,6) NOT NULL,
   `lng` float(10,6) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `destination`
@@ -4580,9 +5732,9 @@ INSERT INTO `destination` (`id`, `place_name`, `address`, `city`, `lat`, `lng`) 
 -- Table structure for table `feedback`
 --
 
-CREATE TABLE `feedback` (
-  `id` int(11) NOT NULL,
-  `customer_id` int(50) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `feedback` (
+`id` int(11) NOT NULL,
+  `customer_id` int(50) unsigned NOT NULL,
   `user_feedback` text NOT NULL,
   `feedbackfrom` bigint(20) NOT NULL,
   `feedbackto` bigint(20) NOT NULL,
@@ -4591,21 +5743,126 @@ CREATE TABLE `feedback` (
   `feedbacktype` int(4) NOT NULL,
   `order_number` int(11) NOT NULL,
   `date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `feedback`
 --
 
 INSERT INTO `feedback` (`id`, `customer_id`, `user_feedback`, `feedbackfrom`, `feedbackto`, `comments`, `ratings`, `feedbacktype`, `order_number`, `date`) VALUES
-(1, 9, '', 1, 4, 'test', 4, 8, 0, '2016-12-13 00:00:00'),
+(1, 9, '', 0, 0, '', 0, 1, 0, '2016-12-13 00:00:00'),
 (3, 1, 'something', 4, 3, '', 3, 6, 0, '0000-00-00 00:00:00'),
 (4, 1, 'something', 4, 3, '', 4, 4, 0, '0000-00-00 00:00:00'),
 (5, 0, '', 4, 3, 'on time', 5, 6, 1480229700, '0000-00-00 00:00:00'),
 (6, 0, '', 4, 3, 'test', 2, 4, 1480702849, '0000-00-00 00:00:00'),
 (7, 0, '', 4, 3, 'tet', 5, 4, 1480702849, '0000-00-00 00:00:00'),
 (10, 0, '', 1, 2, 'abcdefghi….', 5, 7, 0, '0000-00-00 00:00:00'),
-(11, 0, '', 1, 2, 'abcdefghi…. ', 4, 8, 0, '0000-00-00 00:00:00');
+(11, 0, '', 5, 30, 'very fast service', 4, 5, 1481525430, '0000-00-00 00:00:00'),
+(12, 0, '', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(13, 0, '', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(14, 0, '', 5, 36, 'fast delivery', 4, 5, 1481540743, '0000-00-00 00:00:00'),
+(15, 0, '', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(16, 0, '', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(17, 0, '', 5, 40, 'Nice Restaurant', 5, 5, 1481606519, '0000-00-00 00:00:00'),
+(18, 0, '', 3, 41, 'nice restaurant', 4, 3, 1481606544, '0000-00-00 00:00:00'),
+(19, 0, '', 3, 39, 'nice app', 4, 2, 1481605329, '0000-00-00 00:00:00'),
+(20, 0, '', 3, 39, 'This is for Testing', 5, 2, 1481605329, '0000-00-00 00:00:00'),
+(21, 5, 'very nice app to order food', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(22, 5, ' very fast delivery', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(23, 5, 'hello I think ', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(24, 0, '', 5, 40, 'fdsfgsdf', 0, 5, 1481606519, '0000-00-00 00:00:00'),
+(25, 0, '', 5, 40, 'testing', 5, 5, 1481606519, '0000-00-00 00:00:00'),
+(26, 0, '', 4, 40, 'test', 3, 5, 1481606519, '0000-00-00 00:00:00'),
+(27, 0, '', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(28, 0, '', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(29, 0, '', 4, 40, 'test', 3, 5, 1481606519, '0000-00-00 00:00:00'),
+(30, 0, '', 4, 40, 'test', 5, 5, 1481606519, '0000-00-00 00:00:00'),
+(31, 0, '', 4, 44, 'success', 2, 5, 1481618599, '0000-00-00 00:00:00'),
+(32, 0, '', 4, 8, 'test', 3, 4, 1481620131, '0000-00-00 00:00:00'),
+(33, 0, '', 4, 48, 'test1', 4, 5, 1481620131, '0000-00-00 00:00:00'),
+(34, 0, '', 1, 2, 'abcdefghi…. ', 4, 8, 0, '0000-00-00 00:00:00'),
+(35, 0, '', 1, 2, 'abcdefghi…. ', 4, 8, 0, '0000-00-00 00:00:00'),
+(36, 0, '', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(37, 0, '', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(38, 0, '', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(39, 0, '', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(40, 0, '', 0, 0, '', 0, 0, 0, '2016-12-14 11:20:14'),
+(41, 0, '', 0, 0, '', 0, 0, 0, '2016-12-14 11:20:23'),
+(42, 0, '', 5, 50, 'Very nice', 5, 5, 1481694488, '2016-12-14 11:21:07'),
+(43, 0, '', 5, 3, 'nice reest', 4, 4, 1481694488, '2016-12-14 11:22:53'),
+(44, 0, '', 0, 0, '', 0, 0, 0, '2016-12-14 11:27:50'),
+(45, 0, '', 0, 0, '', 0, 0, 0, '2016-12-14 11:28:20'),
+(46, 0, '', 0, 0, '', 0, 0, 0, '2016-12-14 11:29:36'),
+(47, 0, '', 0, 0, '', 0, 0, 0, '2016-12-14 11:29:45'),
+(48, 0, '', 0, 0, '', 0, 0, 0, '2016-12-14 11:29:56'),
+(49, 0, '', 0, 0, '', 0, 0, 0, '2016-12-14 11:36:48'),
+(50, 0, '', 0, 0, '', 0, 0, 0, '2016-12-14 11:44:01'),
+(51, 0, '', 5, 4, 'testing testing', 3, 8, 0, '2016-12-14 11:50:17'),
+(52, 0, '', 5, 6, 'nice', 4, 4, 1481694813, '2016-12-14 11:54:20'),
+(53, 0, '', 5, 51, 'good', 4, 5, 1481694813, '2016-12-14 11:54:33'),
+(54, 7, 'ok', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(55, 0, '', 5, 8, 'btw ghh', 3, 7, 0, '2016-12-14 12:13:16'),
+(56, 0, '', 5, 4, 'guy go', 3, 8, 0, '2016-12-14 12:14:51'),
+(57, 0, '', 7, 7, 'nice', 3, 7, 0, '2016-12-14 12:26:10'),
+(58, 0, '', 7, 7, 'nice', 3, 8, 0, '2016-12-14 12:26:18'),
+(59, 0, '', 7, 6, 'good', 3, 7, 0, '2016-12-14 12:55:47'),
+(60, 0, '', 7, 7, 'ok', 3, 8, 0, '2016-12-14 12:56:18'),
+(61, 0, '', 7, 6, 'ok', 3, 7, 0, '2016-12-14 13:01:27'),
+(62, 12, 'testing', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(63, 0, '', 4, 7, 'Nice app', 3, 7, 0, '2016-12-16 17:24:10'),
+(64, 0, '', 4, 13, 'Nice customer', 3, 8, 0, '2016-12-16 17:24:20'),
+(65, 0, '', 5, 73, 'nice', 4, 5, 1481888831, '2016-12-16 17:24:48'),
+(66, 0, '', 5, 7, 'nice', 4, 4, 1481888831, '2016-12-16 17:25:01'),
+(67, 0, '', 3, 72, 'hello', 4, 2, 1481888509, '2016-12-16 18:05:00'),
+(68, 0, '', 4, 7, 'god', 3, 7, 0, '2016-12-17 10:10:07'),
+(69, 0, '', 4, 13, 'good', 3, 8, 0, '2016-12-17 10:10:11'),
+(70, 0, '', 4, 7, 'hhh', 3, 7, 0, '2016-12-17 10:10:31'),
+(71, 8, 'Very nice delivery', 4, 13, 'jjjh', 3, 8, 0, '2016-12-17 10:10:34'),
+(72, 8, 'Nice app to order', 4, 7, 'nnn', 3, 7, 0, '2016-12-17 10:11:00'),
+(74, 8, 'I am LAxman Testing 21 december', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(75, 0, '', 5, 6, 'by by no', 3, 7, 0, '2016-12-19 13:28:32'),
+(76, 0, '', 5, 9, 'BH no by', 3, 8, 0, '2016-12-19 13:28:37'),
+(77, 0, '', 4, 7, 'hello', 3, 7, 0, '2016-12-22 13:19:58'),
+(78, 0, '', 4, 13, 'ok', 3, 8, 0, '2016-12-22 13:20:06'),
+(86, 22, 'ft by g GU CG cf by VG bycf', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(87, 22, ' ft by GT guy', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(88, 24, 'nice app fast delivery ', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(89, 0, '', 4, 6, 'nice restaurant ', 3, 7, 0, '2016-12-23 11:32:59'),
+(90, 0, '', 4, 5, 'nice customer ', 3, 8, 0, '2016-12-23 11:33:09'),
+(91, 25, 'nice app to order', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(92, 0, '', 8, 6, 'nice', 3, 7, 0, '2016-12-23 12:29:58'),
+(93, 0, '', 8, 25, 'well', 3, 8, 0, '2016-12-23 12:30:02'),
+(94, 0, '', 5, 6, 'very fast service', 5, 4, 1482476192, '2016-12-23 12:46:24'),
+(95, 0, '', 5, 189, 'nice', 4, 5, 1482476192, '2016-12-23 12:46:33'),
+(96, 0, '', 8, 7, 'nice', 3, 7, 0, '2016-12-23 14:33:55'),
+(97, 0, '', 8, 25, 'nice', 3, 8, 0, '2016-12-23 14:34:00'),
+(98, 0, '', 8, 6, 'well', 3, 7, 0, '2016-12-23 16:56:01'),
+(99, 0, '', 8, 25, 'good', 3, 8, 0, '2016-12-23 16:56:49'),
+(100, 0, '', 8, 7, 'group', 3, 7, 0, '2016-12-23 17:59:14'),
+(101, 0, '', 8, 25, 'gtogcj', 3, 8, 0, '2016-12-23 17:59:20'),
+(102, 0, '', 8, 7, 'best', 3, 7, 0, '2016-12-24 11:12:10'),
+(103, 0, '', 8, 25, 'brst', 3, 8, 0, '2016-12-24 11:12:15'),
+(104, 0, '', 5, 7, 'nice', 4, 4, 1482737737, '2016-12-26 13:32:12'),
+(105, 0, '', 5, 7, 'Very good', 4, 4, 1482738569, '2016-12-26 13:32:27'),
+(106, 0, '', 8, 7, 'Nice ', 3, 7, 0, '2016-12-27 10:55:40'),
+(107, 0, '', 8, 25, 'hi', 3, 8, 0, '2016-12-27 10:55:44'),
+(108, 29, 'good', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(109, 27, 'Dear Mr Raman and Parent Rep for UKG years ago and I was in US for a few days ago you called regarding High Chair and the number being sent by you as prizes and the number being sent by you as prizes and the number being sent by you as well so that we could be in a bit confused ???? the fact I have already started the program to make sure that you are planning to drive during our stay at the moment and I ', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(110, 27, 'Dear Mr Raman and I am Devang Dadbhawala Parent Rep for UKG years ago and I ', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(111, 29, 'good', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(112, 29, 'hhii', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(113, 35, 'by hi by y', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(115, 25, 'nice app', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(116, 25, 'user friendly app', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(120, 35, 'BH hi by h', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(122, 0, '', 8, 7, 'good', 3, 7, 0, '2017-01-09 15:39:38'),
+(123, 0, '', 8, 35, 'nice', 3, 8, 0, '2017-01-09 15:39:43'),
+(126, 25, 'good', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(127, 25, ' OK nice to prder', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(128, 25, ' OK nice to prder', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(129, 25, ' OK nice to prder', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(130, 25, ' OK nice to prder', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
+(131, 25, ' good', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -4613,10 +5870,10 @@ INSERT INTO `feedback` (`id`, `customer_id`, `user_feedback`, `feedbackfrom`, `f
 -- Table structure for table `feedbacktype`
 --
 
-CREATE TABLE `feedbacktype` (
-  `feedbacktype_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `feedbacktype` (
+`feedbacktype_id` int(11) NOT NULL,
   `feedbacktype` varchar(200) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `feedbacktype`
@@ -4629,7 +5886,7 @@ INSERT INTO `feedbacktype` (`feedbacktype_id`, `feedbacktype`) VALUES
 (4, 'delivery partner to restaurant'),
 (5, 'delivery partner to delivery boy'),
 (6, 'Customer to restaurant'),
-(7, 'delivery boy to restaurant'),
+(7, 'delivery boy feedback to restaurant'),
 (8, 'delivery boy to customer'),
 (9, 'restaurant to delivery partner');
 
@@ -4639,7 +5896,7 @@ INSERT INTO `feedbacktype` (`feedbacktype_id`, `feedbacktype`) VALUES
 -- Table structure for table `gc_migrations`
 --
 
-CREATE TABLE `gc_migrations` (
+CREATE TABLE IF NOT EXISTS `gc_migrations` (
   `version` int(3) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -4656,7 +5913,7 @@ INSERT INTO `gc_migrations` (`version`) VALUES
 -- Table structure for table `menu_categories`
 --
 
-CREATE TABLE `menu_categories` (
+CREATE TABLE IF NOT EXISTS `menu_categories` (
   `category_id` bigint(20) NOT NULL,
   `menu_category` varchar(300) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -4669,7 +5926,29 @@ INSERT INTO `menu_categories` (`category_id`, `menu_category`) VALUES
 (2, '11'),
 (3, '8'),
 (3, '9'),
-(2, '9');
+(2, '9'),
+(12, '20'),
+(12, '21'),
+(12, '22'),
+(4, '23'),
+(8, '11'),
+(12, '12'),
+(10, '32'),
+(10, '15'),
+(8, '16'),
+(10, '17'),
+(10, '18'),
+(6, '19'),
+(10, '30'),
+(10, '31'),
+(2, '35'),
+(4, '36'),
+(8, '37'),
+(10, '38'),
+(8, '39'),
+(9, '47'),
+(3, '46'),
+(9, '46');
 
 -- --------------------------------------------------------
 
@@ -4677,7 +5956,7 @@ INSERT INTO `menu_categories` (`category_id`, `menu_category`) VALUES
 -- Table structure for table `migrations`
 --
 
-CREATE TABLE `migrations` (
+CREATE TABLE IF NOT EXISTS `migrations` (
   `version` int(3) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -4694,18 +5973,12 @@ INSERT INTO `migrations` (`version`) VALUES
 -- Table structure for table `notification_message`
 --
 
-CREATE TABLE `notification_message` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `notification_message` (
+`id` int(11) NOT NULL,
   `message` text NOT NULL,
-  `date` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `notification_message`
---
-
-INSERT INTO `notification_message` (`id`, `message`, `date`) VALUES
-(1, 'test', '2017-01-06 17:06:06');
+  `date` date NOT NULL,
+  `time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -4713,8 +5986,8 @@ INSERT INTO `notification_message` (`id`, `message`, `date`) VALUES
 -- Table structure for table `orders`
 --
 
-CREATE TABLE `orders` (
-  `id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `orders` (
+`id` bigint(20) NOT NULL,
   `order_number` varchar(50) NOT NULL,
   `customer_id` bigint(20) NOT NULL,
   `restaurant_id` bigint(20) NOT NULL,
@@ -4736,39 +6009,201 @@ CREATE TABLE `orders` (
   `customer_image` varchar(300) NOT NULL,
   `delivery_partner` bigint(20) NOT NULL,
   `delivery_partner_status` varchar(100) NOT NULL,
-  `keep_ready` varchar(100) NOT NULL,
+  `keep_ready` datetime NOT NULL,
   `pitstop_id` bigint(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=237 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`id`, `order_number`, `customer_id`, `restaurant_id`, `ordered_on`, `status`, `shipping`, `tax`, `coupon_discount`, `coupon_id`, `order_type`, `total_cost`, `shipping_lat`, `shipping_long`, `delivered_by`, `passcode`, `delivered_on`, `delivery_location`, `restaurant_manager_status`, `customer_image`, `delivery_partner`, `delivery_partner_status`, `keep_ready`, `pitstop_id`) VALUES
-(8, '', 3, 3, '2016-11-26 00:00:00', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', '2016-12-06 00:00:00', '', '0', '', 0, '', '', 0),
-(7, '', 3, 3, '2016-11-26 00:00:00', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '', 0),
-(6, '', 3, 4, '2016-11-26 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '', 0),
-(9, '', 3, 3, '2016-11-26 00:00:00', 'Order Placed', '12', '123', '123', 1, 2, 818, 1.23232, 1.23232, 4, '', NULL, '', '0', '', 0, '', '', 0),
-(10, '', 3, 0, '2016-11-26 00:00:00', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '', 0),
-(11, '', 3, 4, '2016-11-26 00:00:00', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '', 0),
-(12, '', 3, 4, '2016-11-26 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '', 0),
-(13, '', 3, 0, '2016-11-26 00:00:00', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '', 0),
-(14, '', 3, 0, '2016-11-26 00:00:00', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '', 0),
-(15, '', 3, 3, '2016-11-26 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '', 0),
-(16, '', 3, 0, '2016-11-26 00:00:00', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '', 0),
-(17, '1480229676', 3, 0, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Dhoni', NULL, '', '0', '', 0, '', '', 0),
-(18, '1480229700', 3, 3, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 3, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', 'Accepted', '', 0, '', '', 0),
-(19, '1480229720', 3, 3, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '', 0, '', '', 0),
-(20, '1480229742', 3, 3, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '', 0, '', '', 0),
-(21, '1480229782', 3, 3, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '', 0, '', '', 0),
-(22, '1480345682', 3, 3, '2016-11-28 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '', 0, '', '', 0),
-(23, '1480443312', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 1, 'Vijetha', NULL, 'place name here', 'Accepted', '', 0, '', '', 0),
-(24, '1480613855', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 4, 'Vijetha', NULL, '', '0', '', 0, '', '', 0),
-(25, '1480702849', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 4, 'Vijetha', NULL, '', '0', '1480702849.png', 4, 'Accepted', '', 0),
-(26, '1481043161', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 3, 818, 1.23232, 1.23232, 0, 'Dhoni', NULL, '', '0', '1481043161.png', 0, '', '', 0),
-(27, '1481303613', 3, 3, '2016-12-09 17:13:33', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '1481303613.png', 0, '', '', 0),
-(28, '1481612017', 3, 3, '2016-12-13 06:53:37', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Dhoni', NULL, '', '0', '1481612017.png', 0, '', '', 0),
-(29, '1481612133', 3, 3, '2016-12-13 06:55:33', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Dhoni', NULL, '', '0', '1481612133.png', 0, '', '', 0);
+(8, '', 3, 3, '2016-11-26 00:00:00', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', '2016-12-06 00:00:00', '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(7, '', 3, 3, '2016-11-26 00:00:00', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(6, '', 3, 4, '2016-11-26 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(9, '', 3, 3, '2016-11-26 00:00:00', 'Order Placed', '12', '123', '123', 1, 2, 818, 1.23232, 1.23232, 4, '', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(10, '', 3, 0, '2016-11-26 00:00:00', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(11, '', 3, 4, '2016-11-26 00:00:00', 'Order Shipped', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(12, '', 3, 4, '2016-11-26 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(13, '', 3, 0, '2016-11-26 00:00:00', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(14, '', 3, 0, '2016-11-26 00:00:00', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(15, '', 3, 3, '2016-11-26 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(16, '', 3, 0, '2016-11-26 00:00:00', '1', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, '', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(17, '1480229676', 3, 0, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Dhoni', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(18, '1480229700', 3, 3, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 3, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', 'Accepted', '', 0, '', '0000-00-00 00:00:00', 0),
+(19, '1480229720', 3, 3, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(20, '1480229742', 3, 3, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(21, '1480229782', 3, 3, '2016-11-27 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(22, '1480345682', 3, 3, '2016-11-28 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(23, '1480443312', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 1, 'Vijetha', NULL, 'place name here', 'Accepted', '', 0, '', '0000-00-00 00:00:00', 0),
+(24, '1480613855', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 4, 'Vijetha', NULL, '', '0', '', 0, '', '0000-00-00 00:00:00', 0),
+(25, '1480702849', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 4, 'Vijetha', NULL, '', '0', '1480702849.png', 4, 'Accepted', '0000-00-00 00:00:00', 0),
+(26, '1481043161', 3, 3, '2016-12-08 00:00:00', 'Order Placed', '12', '123', '123', 1, 3, 818, 1.23232, 1.23232, 0, 'Dhoni', NULL, '', '0', '1481043161.png', 0, '', '0000-00-00 00:00:00', 0),
+(27, '1481303613', 3, 3, '2016-12-09 17:13:33', 'Order Placed', '12', '123', '123', 1, 1, 818, 1.23232, 1.23232, 0, 'Vijetha', NULL, '', '0', '1481303613.png', 0, '', '0000-00-00 00:00:00', 0),
+(28, '1481523542', 6, 3, '2016-12-12 11:49:02', 'Order Placed', '40', '65', '0', 0, 3, 1405, 12.9204, 77.4832, 0, 'Vijetha', NULL, '-', 'Accepted', '1481523542.png', 0, '', '0000-00-00 00:00:00', 0),
+(29, '1481524402', 11, 7, '2016-12-12 12:03:22', 'Order Placed', '40', '7', '0', 0, 3, 197, 12.911, 77.483, 0, 'Dhoni', NULL, '-', 'Accepted', '1481524402.png', 0, '', '0000-00-00 00:00:00', 0),
+(30, '1481525430', 11, 6, '2016-12-12 12:20:30', 'Accepted', '40', '29', '0', 0, 2, 649, 12.9211, 77.484, 4, 'Vijetha', NULL, ' 115, Kengeri Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481525430.png', 0, '', '0000-00-00 00:00:00', 0),
+(31, '1481526062', 11, 3, '2016-12-12 12:31:02', 'Accepted', '40', '65', '0', 0, 1, 1405, 12.9229, 77.4841, 4, 'Vijetha', NULL, 'Pitstop 2', 'Accepted', '1481526062.png', 0, '', '0000-00-00 00:00:00', 0),
+(32, '1481527663', 11, 8, '2016-12-12 12:57:43', 'Accepted', '40', '12', '0', 0, 2, 302, 12.9228, 77.4845, 4, 'Dhoni', NULL, ' 7th Cross Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481527663.png', 0, '', '0000-00-00 00:00:00', 0),
+(33, '1481529013', 5, 6, '2016-12-12 13:20:13', 'Order Placed', '40', '7', '0', 0, 1, 197, 12.9103, 77.4835, 0, 'Dhoni', NULL, 'Pitstop 6', 'Rejected', '1481529013.png', 0, '', '0000-00-00 00:00:00', 0),
+(34, '1481529031', 5, 8, '2016-12-12 13:20:31', 'Shipped', '40', '12', '0', 0, 2, 302, 12.9117, 77.4847, 4, 'Dhoni', NULL, ' 237, Mysore Road Harsha Layout, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481529031.png', 0, '', '0000-00-00 00:00:00', 0),
+(35, '1481529049', 5, 8, '2016-12-12 13:20:49', 'Order Placed', '40', '67', '0', 0, 3, 1457, 12.9234, 77.4856, 0, 'Vijetha', NULL, '-', '0', '1481529049.png', 0, '', '0000-00-00 00:00:00', 0),
+(36, '1481540743', 5, 7, '2016-12-12 16:35:43', 'Shipped', '40', '8', '0', 0, 1, 208, 12.9229, 77.4841, 4, 'Vijetha', NULL, 'Pitstop 2', 'Accepted', '1481540743.png', 0, '', '0000-00-00 00:00:00', 0),
+(37, '1481541230', 5, 7, '2016-12-12 16:43:50', 'Order Placed', '40', '97', '0', 0, 3, 2087, 12.911, 77.483, 0, 'Vijetha', NULL, '-', '0', '1481541230.png', 0, '', '0000-00-00 00:00:00', 0),
+(38, '1481541325', 5, 7, '2016-12-12 16:45:25', 'Order Placed', '40', '97', '0', 0, 3, 2087, 12.911, 77.483, 0, 'Dhoni', NULL, '-', '0', '1481541325.png', 0, '', '0000-00-00 00:00:00', 0),
+(39, '1481605329', 5, 7, '2016-12-13 10:32:09', 'Order Placed', '40', '157', '0', 0, 3, 3347, 12.911, 77.483, 0, 'Dhoni', NULL, '-', 'Accepted', '1481605329.png', 0, '', '0000-00-00 00:00:00', 0),
+(40, '1481606519', 5, 7, '2016-12-13 10:51:59', 'Assigned', '40', '22', '0', 0, 1, 512, 12.9229, 77.4841, 0, 'Vijetha', NULL, 'Pitstop 2', 'Accepted', '1481606519.png', 0, '', '0000-00-00 00:00:00', 0),
+(41, '1481606544', 5, 6, '2016-12-13 10:52:24', 'Order Placed', '40', '82', '0', 0, 2, 1762, 12.9207, 77.4867, 4, 'Dhoni', NULL, ' Railway Parallel Road Volagalahalli, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481606544.png', 0, '', '0000-00-00 00:00:00', 0),
+(42, '1481606580', 5, 7, '2016-12-13 10:53:00', 'Order Placed', '40', '15', '0', 0, 3, 355, 12.911, 77.483, 0, 'Vijetha', NULL, '-', 'Accepted', '1481606580.png', 0, '', '0000-00-00 00:00:00', 0),
+(50, '1481694488', 5, 3, '2016-12-14 11:18:08', 'Shipped', '40', '65', '0', 0, 1, 1405, 12.9229, 77.4841, 4, 'Dhoni', NULL, 'Pitstop 2', 'Accepted', '1481694488.png', 0, '', '0000-00-00 00:00:00', 0),
+(43, '1481608251', 5, 7, '2016-12-13 11:20:51', 'Order Placed', '40', '22', '0', 0, 3, 512, 12.911, 77.483, 0, 'Dhoni', NULL, '-', 'Accepted', '1481608251.png', 0, '', '0000-00-00 00:00:00', 0),
+(44, '1481618599', 5, 7, '2016-12-13 14:13:19', 'Order Placed', '40', '56', '0', 0, 1, 1226, 12.9132, 77.482, 4, 'Dhoni', NULL, 'Pitstop 6', 'Accepted', '1481618599.png', 0, '', '0000-00-00 00:00:00', 0),
+(45, '1481619602', 5, 11, '2016-12-13 14:30:02', 'Order Placed', '40', '12', '0', 0, 3, 302, 12.8995, 77.4838, 0, 'Dhoni', NULL, '-', 'Accepted', '1481619602.png', 0, '', '0000-00-00 00:00:00', 0),
+(46, '1481619969', 5, 6, '2016-12-13 14:36:09', 'Order Placed', '40', '29', '0', 0, 3, 649, 12.9168, 77.482, 0, 'Dhoni', NULL, '-', 'Rejected', '1481619969.png', 0, '', '0000-00-00 00:00:00', 0),
+(47, '1481620098', 5, 7, '2016-12-13 14:38:18', 'Order Placed', '40', '22', '0', 0, 1, 512, 12.9103, 77.4835, 5, 'Vijetha', NULL, 'Pitstop 6', 'Accepted', '1481620098.png', 0, '', '0000-00-00 00:00:00', 0),
+(48, '1481620131', 5, 8, '2016-12-13 14:38:51', 'Order Placed', '40', '30', '0', 0, 2, 680, 12.9104, 77.4777, 5, 'Dhoni', NULL, ' BSM Extension, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481620131.png', 0, '', '0000-00-00 00:00:00', 0),
+(49, '1481621062', 5, 11, '2016-12-13 14:54:22', 'Order Placed', '40', '25', '0', 0, 2, 565, 12.8995, 77.4838, 5, 'Vijetha', NULL, '-', 'Accepted', '1481621062.png', 0, '', '0000-00-00 00:00:00', 0),
+(51, '1481694813', 5, 6, '2016-12-14 11:23:33', 'Shipped', '40', '348', '0', 0, 2, 7348, 12.9253, 77.4855, 4, 'Dhoni', NULL, ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481694813.png', 0, '', '0000-00-00 00:00:00', 0),
+(52, '1481694826', 5, 6, '2016-12-14 11:23:46', 'Shipped', '40', '348', '0', 0, 2, 7348, 12.9253, 77.4855, 4, 'Dhoni', NULL, ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481694826.png', 0, '', '0000-00-00 00:00:00', 0),
+(53, '1481694994', 4, 8, '2016-12-14 11:26:34', 'Shipped', '40', '106', '0', 0, 1, 2266, 12.9249, 77.4835, 5, 'Dhoni', NULL, 'Pitstop 3', '0', '1481694994.png', 0, '', '0000-00-00 00:00:00', 0),
+(54, '1481695267', 5, 7, '2016-12-14 11:31:07', 'Order Placed', '40', '112', '0', 0, 3, 2402, 12.911, 77.483, 0, 'Vijetha', NULL, '-', 'Accepted', '1481695267.png', 0, '', '0000-00-00 00:00:00', 0),
+(55, '1481695496', 5, 6, '2016-12-14 11:34:56', 'Shipped', '40', '74', '0', 0, 2, 1594, 12.9252, 77.4856, 4, 'Dhoni', NULL, ' 10th Cross Road Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481695496.png', 0, '', '0000-00-00 00:00:00', 0),
+(56, '1481695521', 5, 6, '2016-12-14 11:35:21', 'Assigned', '40', '74', '0', 0, 2, 1594, 12.9252, 77.4856, 4, 'Dhoni', NULL, ' 10th Cross Road Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481695521.png', 0, '', '0000-00-00 00:00:00', 0),
+(57, '1481698392', 7, 7, '2016-12-14 12:23:12', 'Order Placed', '40', '4', '0', 0, 3, 124, 12.911, 77.483, 0, 'Nagaraj', NULL, '-', 'Accepted', '1481698392.png', 0, '', '0000-00-00 00:00:00', 0),
+(58, '1481698491', 7, 7, '2016-12-14 12:24:51', 'Shipped', '40', '45', '0', 0, 2, 985, 12.9055, 77.4808, 7, 'Vijetha', NULL, ' 99, Vidyapeetha Road Fort Kengeri, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481698491.png', 0, '', '0000-00-00 00:00:00', 0),
+(59, '1481699811', 7, 6, '2016-12-14 12:46:51', 'Shipped', '40', '137', '0', 0, 2, 2927, 12.9184, 77.4905, 7, 'Nagaraj', NULL, ' Mysore Road Harsha Layout, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481699811.png', 0, '', '0000-00-00 00:00:00', 0),
+(60, '1481700107', 7, 6, '2016-12-14 12:51:47', 'Shipped', '40', '14', '0', 0, 2, 334, 12.9215, 77.4907, 7, 'Deepisha', NULL, ' Harsha Layout, Kengeri Satellite Town Bengaluru, Karnataka', 'Accepted', '1481700107.png', 0, '', '0000-00-00 00:00:00', 0),
+(61, '1481700244', 8, 3, '2016-12-14 12:54:04', 'Assigned', '40', '590', '0', 0, 1, 12440, 12.9229, 77.4841, 7, 'Nagendra', NULL, 'Pitstop 2', 'Accepted', '1481700244.png', 0, '', '0000-00-00 00:00:00', 0),
+(62, '1481702047', 8, 3, '2016-12-14 13:24:07', 'Order Placed', '40', '542', '0', 0, 1, 11432, 12.9249, 77.4835, 0, 'Manjeet', NULL, 'Pitstop 3', 'Rejected', '1481702047.png', 0, '', '0000-00-00 00:00:00', 0),
+(63, '1481702553', 9, 6, '2016-12-14 13:32:33', 'Shipped', '40', '29', '0', 0, 1, 649, 12.9229, 77.4841, 7, 'Nagendra', NULL, 'Pitstop 2', 'Accepted', '1481702553.png', 0, '', '0000-00-00 00:00:00', 0),
+(64, '1481703520', 9, 11, '2016-12-14 13:48:40', 'Order Placed', '40', '49', '0', 0, 3, 1084, 12.8995, 77.4838, 0, 'Nagaraj', NULL, '-', 'Rejected', '1481703520.png', 0, '', '0000-00-00 00:00:00', 0),
+(65, '1481706993', 9, 6, '2016-12-14 14:46:33', 'Shipped', '40', '58', '0', 0, 1, 1258, 12.9103, 77.4835, 5, 'Vijetha', NULL, 'Pitstop 6', 'Accepted', '1481706993.png', 0, '', '0000-00-00 00:00:00', 0),
+(66, '1481721881', 9, 7, '2016-12-14 18:54:41', 'Order Placed', '40', '22', '0', 0, 3, 512, 12.911, 77.483, 0, 'Lucky', NULL, '-', '0', '1481721881.png', 0, '', '0000-00-00 00:00:00', 0),
+(67, '1481722050', 9, 6, '2016-12-14 18:57:30', 'Order Placed', '40', '91', '0', 0, 2, 1961, 12.9115, 77.4852, 0, 'Vignesh', NULL, ' 237, Mysore Road Harsha Layout, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1481722050.png', 0, '', '0000-00-00 00:00:00', 0),
+(68, '1481779275', 9, 11, '2016-12-15 10:51:15', 'Order Placed', '40', '22', '0', 0, 3, 502, 12.8995, 77.4838, 0, 'Manjeet', NULL, '-', 'Accepted', '1481779275.png', 0, '', '0000-00-00 00:00:00', 0),
+(69, '1481888322', 13, 3, '2016-12-16 17:08:42', 'Order Placed', '40', '32', '0', 0, 1, 722, 12.9249, 77.4835, 0, 'Dhoni', NULL, 'Pitstop 3', '0', '1481888322.png', 0, '', '0000-00-00 00:00:00', 0),
+(70, '1481888382', 13, 6, '2016-12-16 17:09:42', 'Order Placed', '40', '55', '0', 0, 2, 1195, 12.9216, 77.4839, 0, 'Vignesh', NULL, ' 115, Kengeri Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Rejected', '1481888382.png', 0, '', '0000-00-00 00:00:00', 0),
+(71, '1481888414', 13, 11, '2016-12-16 17:10:14', 'Order Placed', '40', '31', '0', 0, 3, 710, 12.8995, 77.4838, 0, 'Vijetha', NULL, '-', '0', '1481888414.png', 0, '', '0000-00-00 00:00:00', 0),
+(72, '1481888509', 13, 7, '2016-12-16 17:11:49', 'Order Placed', '40', '49', '0', 0, 3, 1069, 12.911, 77.483, 0, 'Dhoni', NULL, '-', 'Accepted', '1481888509.png', 0, '', '0000-00-00 00:00:00', 0),
+(73, '1481888831', 13, 7, '2016-12-16 17:17:11', 'Shipped', '40', '26', '0', 0, 1, 596, 12.9229, 77.4841, 4, 'Nagaraj', NULL, 'Pitstop 2', 'Accepted', '1481888831.png', 0, '', '0000-00-00 00:00:00', 0),
+(74, '1481888851', 13, 7, '2016-12-16 17:17:31', 'Shipped', '40', '45', '0', 0, 2, 985, 12.9212, 77.4839, 5, 'Nagaraj', NULL, ' 115, Kengeri Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481888851.png', 0, '', '0000-00-00 00:00:00', 0),
+(75, '1481888870', 13, 7, '2016-12-16 17:17:50', 'Order Placed', '40', '67', '0', 0, 3, 1457, 12.911, 77.483, 0, 'Dhoni', NULL, '-', 'Accepted', '1481888870.png', 0, '', '0000-00-00 00:00:00', 0),
+(76, '1481889068', 13, 7, '2016-12-16 17:21:08', 'Assigned', '40', '26', '0', 0, 4, 596, 12.9231, 77.4846, 7, 'Nagendra', NULL, 'kengeri upanagar,Bangalore , Karnataka-560060', 'Accepted', '1481889068.png', 0, '', '0000-00-00 00:00:00', 0),
+(77, '1481889426', 13, 6, '2016-12-16 17:27:06', 'Order Placed', '40', '77', '0', 0, 1, 1667, 12.9229, 77.4841, 0, 'Vignesh', NULL, 'Pitstop 2', 'Rejected', '1481889426.png', 0, '', '0000-00-00 00:00:00', 0),
+(78, '1481889469', 13, 6, '2016-12-16 17:27:49', 'Accepted', '40', '84', '0', 0, 1, 1804, 12.9229, 77.4841, 4, 'Vignesh', NULL, 'Pitstop 2', 'Accepted', '1481889469.png', 0, '', '0000-00-00 00:00:00', 0),
+(79, '1481889740', 13, 6, '2016-12-16 17:32:20', 'Order Placed', '40', '55', '0', 0, 2, 1195, 12.9196, 77.4834, 0, 'Manjeet', NULL, ' 1103, Old Outer Ring Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481889740.png', 0, '', '0000-00-00 00:00:00', 0),
+(80, '1481889768', 13, 6, '2016-12-16 17:32:48', 'Order Placed', '40', '55', '0', 0, 3, 1195, 12.9168, 77.482, 0, 'Manjeet', NULL, '-', 'Accepted', '1481889768.png', 0, '', '0000-00-00 00:00:00', 0),
+(81, '1481889787', 13, 6, '2016-12-16 17:33:07', 'Order Placed', '40', '14', '0', 0, 4, 334, 12.9231, 77.4846, 0, 'Deepisha', NULL, 'kengeri upanagar,Bangalore , Karnataka-560060', 'Rejected', '1481889787.png', 0, '', '0000-00-00 00:00:00', 0),
+(82, '1481891013', 13, 6, '2016-12-16 17:53:33', 'Order Placed', '40', '113', '0', 0, 4, 2413, 12.9231, 77.4846, 0, 'Vignesh', NULL, 'kengeri upanagar,Bangalore , Karnataka-560060', '0', '1481891013.png', 0, '', '0000-00-00 00:00:00', 0),
+(83, '1481949480', 13, 7, '2016-12-17 10:08:00', 'Shipped', '40', '26', '0', 0, 1, 596, 12.9229, 77.4841, 4, 'Lucky', NULL, 'Pitstop 2', 'Accepted', '1481949480.png', 0, '', '0000-00-00 00:00:00', 0),
+(84, '1481949502', 13, 7, '2016-12-17 10:08:22', 'Shipped', '40', '22', '0', 0, 2, 512, 12.9213, 77.484, 4, 'Lucky', NULL, ' 115, Kengeri Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1481949502.png', 0, '', '0000-00-00 00:00:00', 0),
+(85, '1481949533', 13, 7, '2016-12-17 10:08:53', 'Shipped', '40', '22', '0', 0, 4, 512, 12.9231, 77.4846, 4, 'Nagendra', NULL, 'kengeri upanagar,Bangalore , Karnataka-560060', 'Accepted', '1481949533.png', 0, '', '0000-00-00 00:00:00', 0),
+(86, '1481968491', 13, 7, '2016-12-17 15:24:51', 'Order Placed', '40', '52', '0', 0, 1, 1142, 12.9229, 77.4841, 0, 'Nagendra', NULL, 'Pitstop 2', 'Accepted', '1481968491.png', 0, '', '0000-00-00 00:00:00', 0),
+(87, '1481968506', 13, 7, '2016-12-17 15:25:06', 'Order Placed', '40', '101', '0', 0, 1, 2171, 12.9229, 77.4841, 0, 'Lucky', NULL, 'Pitstop 2', 'Accepted', '1481968506.png', 0, '', '0000-00-00 00:00:00', 0),
+(88, '1481968522', 13, 7, '2016-12-17 15:25:22', 'Order Placed', '40', '127', '0', 0, 1, 2717, 12.9229, 77.4841, 0, 'Vijetha', NULL, 'Pitstop 2', 'Accepted', '1481968522.png', 0, '', '0000-00-00 00:00:00', 0),
+(89, '1482049063', 8, 3, '2016-12-18 13:47:43', 'Order Placed', '40', '1085', '0', 0, 1, 22825, 12.9229, 77.4841, 0, 'Deepisha', NULL, 'Pitstop 2', '0', '1482049063.png', 0, '', '0000-00-00 00:00:00', 0),
+(90, '1482152086', 13, 6, '2016-12-19 18:24:46', 'Order Placed', '40', '36', '0', 0, 2, 806, 12.9234, 77.485, 0, 'Jagadish', NULL, ' 880, Kengeri Main Road Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1482152086.png', 0, '', '0000-00-00 00:00:00', 0),
+(91, '1482213499', 13, 7, '2016-12-20 11:28:19', 'Accepted', '40', '22', '0', 1, 1, 512, 12.9229, 77.4841, 4, 'Vignesh', NULL, 'Pitstop 2', 'Accepted', '1482213499.png', 0, '', '0000-00-00 00:00:00', 0),
+(92, '1482218392', 16, 3, '2016-12-20 12:49:52', 'Order Placed', '40', '97', '0', 0, 1, 2087, 12.9229, 77.4841, 0, 'Jagadish', NULL, 'Pitstop 2', '0', '1482218392.png', 0, '', '0000-00-00 00:00:00', 0),
+(93, '1482218607', 16, 7, '2016-12-20 12:53:27', 'Order Placed', '40', '82', '0', 0, 2, 1772, 12.9115, 77.4852, 0, 'Manjeet', NULL, ' 237, Mysore Road Harsha Layout, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1482218607.png', 0, '', '0000-00-00 00:00:00', 0),
+(94, '1482301648', 16, 7, '2016-12-21 11:57:28', 'Order Placed', '40', '68', '0', 0, 2, 1468, 12.9291, 77.4705, 0, 'Manjeet', NULL, ' SMV Layout Bengaluru, Karnataka', '0', '1482301648.png', 0, '', '0000-00-00 00:00:00', 0),
+(95, '1482385696', 13, 7, '2016-12-22 11:18:16', 'Order Placed', '40', '4', '0', 0, 1, 124, 12.9229, 77.4841, 0, 'Dhoni', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385696.png', 0, '', '0000-00-00 00:00:00', 0),
+(96, '1482385698', 13, 7, '2016-12-22 11:18:18', 'Assigned', '40', '4', '0', 0, 1, 124, 12.9229, 77.4841, 4, 'Deepisha', '0000-00-00 00:00:00', 'Pitstop 2', 'Accepted', '1482385698.png', 0, '', '0000-00-00 00:00:00', 0),
+(97, '1482385699', 13, 7, '2016-12-22 11:18:19', 'Order Placed', '40', '4', '0', 0, 1, 124, 12.9229, 77.4841, 0, 'Manjeet', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385699.png', 0, '', '0000-00-00 00:00:00', 0),
+(98, '1482385699', 13, 7, '2016-12-22 11:18:19', 'Order Placed', '40', '4', '0', 0, 1, 124, 12.9229, 77.4841, 0, 'Vijetha', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385699.png', 0, '', '0000-00-00 00:00:00', 0),
+(99, '1482385709', 13, 7, '2016-12-22 11:18:29', 'Order Placed', '40', '53', '0', 0, 1, 1153, 12.9229, 77.4841, 0, 'Deepisha', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385709.png', 0, '', '0000-00-00 00:00:00', 0),
+(100, '1482385710', 13, 7, '2016-12-22 11:18:30', 'Order Placed', '40', '53', '0', 0, 1, 1153, 12.9229, 77.4841, 0, 'Manjeet', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385710.png', 0, '', '0000-00-00 00:00:00', 0),
+(101, '1482385711', 13, 7, '2016-12-22 11:18:31', 'Order Placed', '40', '53', '0', 0, 1, 1153, 12.9229, 77.4841, 0, 'Dhoni', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385711.png', 0, '', '0000-00-00 00:00:00', 0),
+(102, '1482385711', 13, 7, '2016-12-22 11:18:31', 'Order Placed', '40', '53', '0', 0, 1, 1153, 12.9229, 77.4841, 0, 'Deepisha', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385711.png', 0, '', '0000-00-00 00:00:00', 0),
+(103, '1482385712', 13, 7, '2016-12-22 11:18:32', 'Assigned', '40', '53', '0', 0, 1, 1153, 12.9229, 77.4841, 4, 'Jagadish', '0000-00-00 00:00:00', 'Pitstop 2', 'Accepted', '1482385712.png', 0, '', '0000-00-00 00:00:00', 0),
+(104, '1482385712', 13, 7, '2016-12-22 11:18:32', 'Order Placed', '40', '53', '0', 0, 1, 1153, 12.9229, 77.4841, 0, 'Vignesh', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385712.png', 0, '', '0000-00-00 00:00:00', 0),
+(105, '1482385712', 13, 7, '2016-12-22 11:18:32', 'Order Placed', '40', '53', '0', 0, 1, 1153, 12.9229, 77.4841, 0, 'Manjeet', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385712.png', 0, '', '0000-00-00 00:00:00', 0),
+(106, '1482385713', 13, 7, '2016-12-22 11:18:33', 'Order Placed', '40', '53', '0', 0, 1, 1153, 12.9229, 77.4841, 0, 'Nagendra', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385713.png', 0, '', '0000-00-00 00:00:00', 0),
+(107, '1482385725', 13, 7, '2016-12-22 11:18:45', 'Order Placed', '40', '53', '0', 1, 1, 1153, 12.9229, 77.4841, 0, 'Vignesh', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385725.png', 0, '', '0000-00-00 00:00:00', 0),
+(108, '1482385726', 13, 7, '2016-12-22 11:18:46', 'Order Placed', '40', '53', '0', 1, 1, 1153, 12.9229, 77.4841, 0, 'Nagaraj', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385726.png', 0, '', '0000-00-00 00:00:00', 0),
+(109, '1482385727', 13, 7, '2016-12-22 11:18:47', 'Assigned', '40', '53', '0', 1, 1, 1153, 12.9229, 77.4841, 4, 'Vignesh', '0000-00-00 00:00:00', 'Pitstop 2', 'Accepted', '1482385727.png', 0, '', '0000-00-00 00:00:00', 0),
+(110, '1482385727', 13, 7, '2016-12-22 11:18:47', 'Order Placed', '40', '53', '0', 1, 1, 1153, 12.9229, 77.4841, 0, 'Dhoni', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385727.png', 0, '', '0000-00-00 00:00:00', 0),
+(111, '1482385728', 13, 7, '2016-12-22 11:18:48', 'Order Placed', '40', '53', '0', 1, 1, 1153, 12.9229, 77.4841, 0, 'Dhoni', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385728.png', 0, '', '0000-00-00 00:00:00', 0),
+(112, '1482385728', 13, 7, '2016-12-22 11:18:48', 'Order Placed', '40', '53', '0', 1, 1, 1153, 12.9229, 77.4841, 0, 'Jagadish', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385728.png', 0, '', '0000-00-00 00:00:00', 0),
+(113, '1482385730', 13, 7, '2016-12-22 11:18:50', 'Order Placed', '40', '53', '0', 1, 1, 1153, 12.9229, 77.4841, 0, 'Nagaraj', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385730.png', 0, '', '0000-00-00 00:00:00', 0),
+(114, '1482385731', 13, 7, '2016-12-22 11:18:51', 'Order Placed', '40', '53', '0', 1, 1, 1153, 12.9229, 77.4841, 0, 'Nagendra', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385731.png', 0, '', '0000-00-00 00:00:00', 0),
+(115, '1482385824', 13, 7, '2016-12-22 11:20:24', 'Order Placed', '40', '53', '0', 1, 1, 1153, 12.9229, 77.4841, 0, 'Nagaraj', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385824.png', 0, '', '0000-00-00 00:00:00', 0),
+(116, '1482385824', 13, 7, '2016-12-22 11:20:24', 'Order Placed', '40', '53', '0', 1, 1, 1153, 12.9229, 77.4841, 0, 'Nagendra', '0000-00-00 00:00:00', 'Pitstop 2', 'Rejected', '1482385824.png', 0, '', '0000-00-00 00:00:00', 0),
+(117, '1482386978', 13, 6, '2016-12-22 11:39:38', 'Order Placed', '40', '84', '0', 0, 2, 1804, 12.9225, 77.4842, 0, 'Lucky', '0000-00-00 00:00:00', ' 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1482386978.png', 0, '', '0000-00-00 00:00:00', 0),
+(118, '1482386980', 13, 6, '2016-12-22 11:39:40', 'Order Placed', '40', '84', '0', 0, 2, 1804, 12.9225, 77.4842, 0, 'Vijetha', '0000-00-00 00:00:00', ' 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1482386980.png', 0, '', '0000-00-00 00:00:00', 0),
+(119, '1482386982', 13, 6, '2016-12-22 11:39:42', 'Order Placed', '40', '84', '0', 0, 2, 1804, 12.9225, 77.4842, 0, 'Jagadish', '0000-00-00 00:00:00', ' 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1482386982.png', 0, '', '0000-00-00 00:00:00', 0),
+(120, '1482386982', 13, 6, '2016-12-22 11:39:42', 'Order Placed', '40', '84', '0', 0, 2, 1804, 12.9225, 77.4842, 0, 'Lucky', '0000-00-00 00:00:00', ' 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1482386982.png', 0, '', '0000-00-00 00:00:00', 0),
+(121, '1482386985', 13, 6, '2016-12-22 11:39:45', 'Order Placed', '40', '84', '0', 0, 2, 1804, 12.9225, 77.4842, 0, 'Dhoni', '0000-00-00 00:00:00', ' 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1482386985.png', 0, '', '0000-00-00 00:00:00', 0),
+(122, '1482386985', 13, 6, '2016-12-22 11:39:45', 'Order Placed', '40', '84', '0', 0, 2, 1804, 12.9225, 77.4842, 0, 'Deepisha', '0000-00-00 00:00:00', ' 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1482386985.png', 0, '', '0000-00-00 00:00:00', 0),
+(123, '1482386988', 13, 6, '2016-12-22 11:39:48', 'Order Placed', '40', '84', '0', 0, 2, 1804, 12.9225, 77.4842, 0, 'Lucky', '0000-00-00 00:00:00', ' 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1482386988.png', 0, '', '0000-00-00 00:00:00', 0),
+(124, '1482386988', 13, 6, '2016-12-22 11:39:48', 'Order Placed', '40', '84', '0', 0, 2, 1804, 12.9225, 77.4842, 0, 'Nagaraj', '0000-00-00 00:00:00', ' 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1482386988.png', 0, '', '0000-00-00 00:00:00', 0),
+(125, '1482391667', 13, 7, '2016-12-22 12:57:47', 'Order Placed', '40', '30', '0', 0, 2, 670, 12.9176, 77.4823, 0, 'Nagendra', '0000-00-00 00:00:00', ' 2, 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Rejected', '1482391667.png', 0, '', '0000-00-00 00:00:00', 0),
+(126, '1482391668', 13, 7, '2016-12-22 12:57:48', 'Shipped', '40', '30', '0', 0, 2, 670, 12.9176, 77.4823, 4, 'Lucky', '0000-00-00 00:00:00', ' 2, 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1482391668.png', 0, '', '0000-00-00 00:00:00', 0),
+(127, '1482391669', 13, 7, '2016-12-22 12:57:49', 'Assigned', '40', '30', '0', 0, 2, 670, 12.9176, 77.4823, 4, 'Deepisha', '0000-00-00 00:00:00', ' 2, 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1482391669.png', 0, '', '0000-00-00 00:00:00', 0),
+(128, '1482391669', 13, 7, '2016-12-22 12:57:49', 'Assigned', '40', '30', '0', 0, 2, 670, 12.9176, 77.4823, 4, 'Nagaraj', '0000-00-00 00:00:00', ' 2, 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1482391669.png', 0, '', '0000-00-00 00:00:00', 0),
+(129, '1482393173', 16, 7, '2016-12-22 13:22:53', 'Order Placed', '40', '97', '0', 0, 1, 2087, 12.9249, 77.4835, 0, 'Vignesh', '0000-00-00 00:00:00', 'Pitstop 3', 'Rejected', '1482393173.png', 0, '', '0000-00-00 00:00:00', 0),
+(130, '1482393174', 16, 7, '2016-12-22 13:22:54', 'Order Placed', '40', '97', '0', 0, 1, 2087, 12.9249, 77.4835, 0, 'Nagendra', '0000-00-00 00:00:00', 'Pitstop 3', 'Rejected', '1482393174.png', 0, '', '0000-00-00 00:00:00', 0),
+(131, '1482393175', 16, 7, '2016-12-22 13:22:55', 'Order Placed', '40', '97', '0', 0, 1, 2087, 12.9249, 77.4835, 0, 'Vignesh', '0000-00-00 00:00:00', 'Pitstop 3', 'Rejected', '1482393175.png', 0, '', '0000-00-00 00:00:00', 0),
+(132, '1482393615', 13, 7, '2016-12-22 13:30:15', 'Order Placed', '40', '45', '0', 0, 2, 985, 12.9253, 77.4855, 0, 'Lucky', '0000-00-00 00:00:00', ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Rejected', '1482393615.png', 0, '', '0000-00-00 00:00:00', 0),
+(133, '1482393616', 13, 7, '2016-12-22 13:30:16', 'Order Placed', '40', '45', '0', 0, 2, 985, 12.9253, 77.4855, 0, 'Vijetha', '0000-00-00 00:00:00', ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Rejected', '1482393616.png', 0, '', '0000-00-00 00:00:00', 0),
+(134, '1482393617', 13, 7, '2016-12-22 13:30:17', 'Order Placed', '40', '45', '0', 0, 2, 985, 12.9253, 77.4855, 0, 'Vignesh', '0000-00-00 00:00:00', ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Rejected', '1482393617.png', 0, '', '0000-00-00 00:00:00', 0),
+(135, '1482393617', 13, 7, '2016-12-22 13:30:17', 'Order Placed', '40', '45', '0', 0, 2, 985, 12.9253, 77.4855, 0, 'Lucky', '0000-00-00 00:00:00', ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Rejected', '1482393617.png', 0, '', '0000-00-00 00:00:00', 0),
+(136, '1482393617', 13, 7, '2016-12-22 13:30:17', 'Order Placed', '40', '45', '0', 0, 2, 985, 12.9253, 77.4855, 0, 'Dhoni', '0000-00-00 00:00:00', ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Rejected', '1482393617.png', 0, '', '0000-00-00 00:00:00', 0),
+(137, '1482393618', 13, 7, '2016-12-22 13:30:18', 'Assigned', '40', '45', '0', 0, 2, 985, 12.9253, 77.4855, 4, 'Nagaraj', '0000-00-00 00:00:00', ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1482393618.png', 0, '', '0000-00-00 00:00:00', 0),
+(138, '1482411346', 13, 7, '2016-12-22 18:25:46', 'Order Placed', '40', '45', '0', 0, 3, 985, 12.911, 77.483, 0, 'Nagendra', '0000-00-00 00:00:00', '-', '0', '1482411346.png', 0, '', '0000-00-00 00:00:00', 0),
+(139, '1482411350', 13, 7, '2016-12-22 18:25:50', 'Order Placed', '40', '45', '0', 0, 3, 985, 12.911, 77.483, 0, 'Manjeet', '0000-00-00 00:00:00', '-', '0', '1482411350.png', 0, '', '0000-00-00 00:00:00', 0),
+(140, '1482422918', 22, 6, '2016-12-22 21:38:38', 'Order Placed', '40', '7', '0', 0, 3, 197, 12.9655, 77.5317, 0, 'Lucky', '2016-12-22 10:19:37', '-', '0', '1482422918.png', 0, '', '0000-00-00 00:00:00', 0),
+(141, '1482425247', 22, 6, '2016-12-22 22:17:27', 'Order Placed', '40', '7', '0', 0, 3, 197, 12.9655, 77.5317, 0, 'Vijetha', '2016-12-22 10:58:27', '-', '0', '1482425247.png', 0, '', '0000-00-00 00:00:00', 0),
+(142, '1482425637', 22, 6, '2016-12-22 22:23:57', 'Order Placed', '40', '7', '0', 0, 3, 197, 12.9655, 77.5317, 0, 'Vignesh', '2016-12-22 23:04:56', '-', '0', '1482425637.png', 0, '', '0000-00-00 00:00:00', 0),
+(143, '1482425713', 22, 6, '2016-12-22 22:25:13', 'Order Placed', '40', '7', '0', 0, 3, 197, 12.9655, 77.5317, 0, 'Manjeet', '2016-12-22 23:06:12', '-', '0', '1482425713.png', 0, '', '0000-00-00 00:00:00', 0),
+(144, '1482429054', 22, 6, '2016-12-22 23:20:54', 'Order Placed', '40', '7', '0', 0, 3, 197, 12.9655, 77.5317, 0, 'Vijetha', '2016-12-22 00:02:00', '-', '0', '1482429054.png', 0, '', '0000-00-00 00:00:00', 0),
+(145, '1482429768', 22, 6, '2016-12-22 23:32:48', 'Order Placed', '40', '7', '0', 0, 3, 197, 12.9655, 77.5317, 0, 'Lucky', '2016-12-22 00:13:00', '-', '0', '1482429768.png', 0, '', '0000-00-00 00:00:00', 0),
+(146, '1482429923', 22, 6, '2016-12-22 23:35:23', 'Order Placed', '40', '36', '0', 0, 3, 806, 12.9655, 77.5317, 0, 'Lucky', '2016-12-22 00:46:00', '-', '0', '1482429923.png', 0, '', '0000-00-00 00:00:00', 0),
+(147, '1482430133', 22, 6, '2016-12-22 23:38:53', 'Order Placed', '40', '7', '0', 0, 3, 197, 12.9655, 77.5317, 0, 'Nagendra', '2016-12-22 00:20:00', '-', '0', '1482430133.png', 0, '', '0000-00-00 00:00:00', 0),
+(215, '1482818654', 25, 7, '2016-12-27 11:34:14', 'Accepted', '40', '45', '0', 0, 2, 985, 12.9158, 77.4794, 8, 'Deepisha', '2016-12-27 12:52:10', ' 543, 6th Main Road Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1482818654.png', 0, '', '0000-00-00 00:00:00', 0),
+(216, '1483194045', 30, 6, '2016-12-31 19:50:45', 'Assigned', '40', '65', '0', 0, 1, 1415, 12.9655, 77.5317, 6, 'Deepisha', '2016-12-31 21:01:39', '-', '0', '1483194045.png', 0, '', '0000-00-00 00:00:00', 0),
+(201, '1482557952', 25, 7, '2016-12-24 11:09:12', 'Shipped', '40', '30', '0', 0, 1, 670, 12.9229, 77.4841, 8, 'Jagadish', '2016-12-24 12:12:10', 'Pitstop 2', 'Accepted', '1482557952.png', 0, '', '0000-00-00 00:00:00', 0),
+(196, '1482491668', 25, 6, '2016-12-23 16:44:28', 'Shipped', '40', '14', '0', 0, 1, 334, 12.9229, 77.4841, 8, 'Lucky', '2016-12-23 17:29:14', 'Pitstop 2', 'Accepted', '1482491668.png', 0, '', '0000-00-00 00:00:00', 0),
+(197, '1482491765', 25, 11, '2016-12-23 16:46:05', 'Order Placed', '40', '12', '0', 0, 2, 302, 12.9157, 77.4818, 0, 'Manjeet', '2016-12-23 17:27:58', ' 528, 1st Main Road Harsha Layout, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1482491765.png', 0, '', '0000-00-00 00:00:00', 0),
+(198, '1482491806', 25, 11, '2016-12-23 16:46:46', 'Order Placed', '40', '9', '0', 0, 3, 248, 12.8995, 77.4838, 0, 'Jagadish', '2016-12-23 17:17:42', '-', 'Accepted', '1482491806.png', 0, '', '0000-00-00 00:00:00', 0),
+(199, '1482491825', 25, 11, '2016-12-23 16:47:05', 'Order Placed', '40', '22', '0', 0, 4, 502, 12.9231, 77.4846, 0, 'Lucky', '2016-12-23 17:50:00', 'kengeri upanagar ,Bangalore,Karnataka-560060', 'Accepted', '1482491825.png', 0, '', '0000-00-00 00:00:00', 0),
+(200, '1482495471', 25, 3, '2016-12-23 17:47:51', 'Order Placed', '40', '42', '0', 0, 2, 932, 12.9243, 77.486, 0, 'Vignesh', '2016-12-23 18:52:45', ' 80 Feet Road Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1482495471.png', 0, '', '0000-00-00 00:00:00', 0),
+(195, '1482491015', 23, 7, '2016-12-23 16:33:35', 'Order Placed', '40', '4', '0', 0, 2, 124, 12.9269, 77.4812, 0, 'Deepisha', '2016-12-22 17:23:29', ' Subash Nagar, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1482491015.png', 0, '', '0000-00-00 00:00:00', 0),
+(212, '1482754378', 25, 7, '2016-12-26 17:42:58', 'Order Placed', '40', '26', '0', 0, 3, 596, 12.911, 77.483, 0, 'Vijetha', '2016-12-26 18:43:56', '-', 'Accepted', '1482754378.png', 0, '', '0000-00-00 00:00:00', 0),
+(213, '1482815203', 25, 7, '2016-12-27 10:36:43', 'Shipped', '40', '67', '0', 0, 1, 1457, 12.9229, 77.4841, 8, 'Lucky', '2016-12-27 11:08:40', 'Pitstop 2', 'Accepted', '1482815203.png', 0, '', '0000-00-00 00:00:00', 0),
+(214, '1482815250', 25, 7, '2016-12-27 10:37:30', 'Accepted', '40', '26', '0', 0, 2, 596, 12.9169, 77.4824, 8, 'Manjeet', '2016-12-27 11:44:09', ' 1103, Kengeri Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1482815250.png', 0, '', '0000-00-00 00:00:00', 0),
+(211, '1482754298', 25, 7, '2016-12-26 17:41:38', 'Accepted', '40', '49', '0', 0, 2, 1069, 12.9005, 77.4754, 8, 'Deepisha', '2016-12-26 19:20:31', ' Orchard Cross Street Kengeri Bengaluru, Karnataka 560060', 'Accepted', '1482754298.png', 0, '', '0000-00-00 00:00:00', 0),
+(193, '1482483699', 25, 7, '2016-12-23 14:31:39', 'Shipped', '40', '30', '0', 0, 2, 670, 12.9312, 77.4875, 8, 'Deepisha', '2016-12-23 15:53:33', ' 12, Old Outer Ring Road Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1482483699.png', 0, '', '0000-00-00 00:00:00', 0),
+(194, '1482483720', 25, 7, '2016-12-23 14:32:00', 'Shipped', '40', '52', '0', 0, 4, 1142, 12.9231, 77.4846, 8, 'Vijetha', '2016-12-23 16:20:57', 'kengeri upanagar ,Bangalore,Karnataka-560060', 'Accepted', '1482483720.png', 0, '', '0000-00-00 00:00:00', 0),
+(202, '1482570673', 28, 14, '2016-12-24 14:41:13', 'Order Placed', '40', '66', '0', 0, 1, 1438, 18.9554, 72.8131, 0, 'Manjeet', '2016-12-24 15:20:48', 'Pitstop 8', '0', '1482570673.png', 0, '', '0000-00-00 00:00:00', 0),
+(203, '1482737737', 25, 7, '2016-12-26 13:05:37', 'Accepted', '40', '45', '0', 0, 1, 985, 12.9229, 77.4841, 8, 'Jagadish', '2016-12-26 14:19:35', 'Pitstop 2', 'Accepted', '1482737737.png', 0, '', '0000-00-00 00:00:00', 0),
+(204, '1482738569', 25, 7, '2016-12-26 13:19:29', 'Accepted', '40', '49', '0', 0, 1, 1069, 12.9229, 77.4841, 8, 'Lucky', '2016-12-26 14:53:26', 'Pitstop 2', 'Accepted', '1482738569.png', 0, '', '0000-00-00 00:00:00', 0),
+(205, '1482753592', 25, 7, '2016-12-26 17:29:52', 'Order Placed', '40', '11', '0', 0, 3, 281, 12.911, 77.483, 0, 'Jagadish', '2016-12-26 18:20:50', '-', 'Accepted', '1482753592.png', 0, '', '0000-00-00 00:00:00', 0),
+(206, '1482753667', 25, 7, '2016-12-26 17:31:07', 'Order Placed', '40', '52', '0', 0, 3, 1142, 12.911, 77.483, 0, 'Nagendra', '2016-12-26 19:02:04', '-', 'Accepted', '1482753667.png', 0, '', '0000-00-00 00:00:00', 0),
+(207, '1482753777', 25, 7, '2016-12-26 17:32:57', 'Shipped', '40', '52', '0', 0, 2, 1142, 12.8971, 77.4606, 8, 'Manjeet', '2016-12-26 19:12:42', ' Vidyaranyapura - Nanjangud Road BSM Extension, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1482753777.png', 0, '', '0000-00-00 00:00:00', 0),
+(208, '1482753918', 25, 7, '2016-12-26 17:35:18', 'Accepted', '40', '112', '0', 0, 4, 2402, 12.9231, 77.4846, 8, 'Vijetha', '2016-12-26 19:24:16', 'kengeri upanagar ,Bangalore,Karnataka-560060', 'Accepted', '1482753918.png', 0, '', '0000-00-00 00:00:00', 0),
+(209, '1482753966', 25, 7, '2016-12-26 17:36:06', 'Accepted', '40', '112', '0', 0, 4, 2402, 12.9231, 77.4846, 8, 'Vijetha', '2016-12-26 19:24:16', 'kengeri upanagar ,Bangalore,Karnataka-560060', 'Accepted', '1482753966.png', 0, '', '0000-00-00 00:00:00', 0),
+(210, '1482754032', 25, 7, '2016-12-26 17:37:12', 'Accepted', '40', '30', '0', 0, 4, 670, 12.9231, 77.4846, 8, 'Jagadish', '2016-12-26 18:46:09', 'kengeri upanagar ,Bangalore,Karnataka-560060', 'Accepted', '1482754032.png', 0, '', '0000-00-00 00:00:00', 0),
+(217, '1483940412', 35, 6, '2017-01-09 11:10:12', 'Order Placed', '40', '91', '0', 0, 1, 1961, 12.9249, 77.4835, 0, 'Deepisha', '2017-01-09 13:29:04', 'Pitstop 3', '0', '1483940412.png', 0, '', '2017-01-09 13:20:04', 0),
+(218, '1483942727', 35, 7, '2017-01-09 11:48:47', 'Shipped', '40', '71', '0', 0, 1, 1541, 12.9229, 77.4841, 8, 'Nagendra', '2017-01-09 14:18:43', 'Pitstop 2', 'Accepted', '1483942727.png', 0, '', '2017-01-09 13:48:43', 0),
+(219, '1483955534', 25, 7, '2017-01-09 15:22:14', 'Assigned', '40', '26', '0', 0, 1, 596, 12.9229, 77.4841, 8, 'Nagaraj', '2017-01-09 16:23:11', 'Pitstop 2', 'Accepted', '1483955534.png', 0, '', '2017-01-09 16:22:11', 0),
+(220, '1483955672', 25, 7, '2017-01-09 15:24:32', 'Assigned', '40', '67', '0', 0, 1, 1457, 12.9229, 77.4841, 8, 'Nagaraj', '2017-01-09 17:05:31', 'Pitstop 2', 'Accepted', '1483955672.png', 0, '', '2017-01-09 17:04:31', 0),
+(221, '1483956923', 25, 7, '2017-01-09 15:45:23', 'Assigned', '40', '12', '0', 0, 1, 292, 12.9229, 77.4841, 10, 'Vijetha', '2017-01-09 17:16:20', 'Pitstop 2', 'Accepted', '1483956923.png', 0, '', '2017-01-09 17:15:20', 0),
+(222, '1483956961', 25, 7, '2017-01-09 15:46:01', 'Order Placed', '40', '22', '0', 0, 2, 512, 12.9253, 77.4856, 0, 'Nagaraj', '2017-01-09 16:38:49', ' 10th Cross Road Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Rejected', '1483956961.png', 0, '', '2017-01-09 16:25:49', 0),
+(223, '1483956978', 25, 7, '2017-01-09 15:46:18', 'Order Placed', '40', '22', '0', 0, 3, 512, 12.9119, 77.4839, 0, 'Nagaraj', '2017-01-09 16:27:17', '-', 'Accepted', '1483956978.png', 0, '', '2017-01-09 16:26:17', 0),
+(224, '1483956995', 25, 7, '2017-01-09 15:46:35', 'Assigned', '40', '90', '0', 0, 4, 1930, 12.9231, 77.4846, 8, 'Deepisha', '2017-01-09 17:06:34', 'kengeri upanagar ,Bangalore,Karnataka-560060', 'Accepted', '1483956995.png', 0, '', '2017-01-09 16:56:34', 0),
+(225, '1483964369', 25, 7, '2017-01-09 17:49:29', 'Order Placed', '40', '45', '0', 0, 3, 985, 12.9119, 77.4839, 0, 'Deepisha', '2017-01-09 19:00:26', '-', '0', '1483964369.png', 0, '', '2017-01-09 18:59:26', 0),
+(226, '1483964500', 25, 7, '2017-01-09 17:51:40', 'Order Placed', '40', '22', '0', 0, 4, 512, 12.9231, 77.4846, 0, 'Deepisha', '2017-01-09 18:41:31', 'kengeri upanagar ,Bangalore,Karnataka-560060', '0', '1483964500.png', 0, '', '2017-01-09 18:31:31', 0),
+(227, '1483964546', 25, 7, '2017-01-09 17:52:26', 'Order Placed', '40', '26', '0', 0, 2, 596, 12.9068, 77.4755, 0, 'Nagaraj', '2017-01-09 18:59:06', ' Mysore Road BSM Extension, Kengeri Bengaluru, Karnataka 560060', '0', '1483964546.png', 0, '', '2017-01-09 18:52:06', 0),
+(228, '1483965287', 25, 3, '2017-01-09 18:04:47', 'Order Placed', '40', '623', '0', 0, 1, 13123, 12.9249, 77.4835, 0, 'Manjeet', '2017-01-09 20:05:49', 'Pitstop 3', '0', '1483965287.png', 0, '', '2017-01-09 20:04:49', 0),
+(229, '1483965614', 25, 3, '2017-01-09 18:10:14', 'Order Placed', '40', '192', '0', 0, 2, 4082, 12.9239, 77.484, 0, 'Lucky', '2017-01-09 20:11:44', ' 3rd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', '0', '1483965614.png', 0, '', '2017-01-09 20:07:44', 0),
+(230, '1483965771', 25, 7, '2017-01-09 18:12:51', 'Order Placed', '40', '98', '0', 0, 3, 2098, 12.9119, 77.4839, 0, 'Dhoni', '2017-01-09 19:43:52', '-', '0', '1483965771.png', 0, '', '2017-01-09 19:42:52', 0),
+(231, '1483965911', 25, 3, '2017-01-09 18:15:11', 'Order Placed', '40', '42', '0', 0, 4, 932, 12.9231, 77.4846, 0, 'Lucky', '2017-01-09 19:18:09', 'kengeri upanagar ,Bangalore,Karnataka-560060', '0', '1483965911.png', 0, '', '2017-01-09 19:15:09', 0),
+(232, '1483965946', 25, 11, '2017-01-09 18:15:46', 'Order Placed', '40', '41', '0', 0, 4, 910, 12.9231, 77.4846, 0, 'Deepisha', '2017-01-09 19:38:43', 'kengeri upanagar,Bangalore,Karnataka-560060', '0', '1483965946.png', 0, '', '2017-01-09 19:25:43', 0),
+(233, '1483965953', 25, 11, '2017-01-09 18:15:53', 'Order Placed', '40', '41', '0', 0, 4, 910, 12.9231, 77.4846, 0, 'Nagendra', '2017-01-09 19:38:43', 'kengeri upanagar,Bangalore,Karnataka-560060', '0', '1483965953.png', 0, '', '2017-01-09 19:25:43', 0),
+(234, '1483965987', 25, 3, '2017-01-09 18:16:27', 'Order Placed', '40', '75', '0', 0, 4, 1615, 12.9231, 77.4846, 0, 'Vijetha', '2017-01-09 19:19:21', 'kengeri upanagar,Bangalore,Karnataka-560060', '0', '1483965987.png', 0, '', '2017-01-09 19:16:21', 0),
+(235, '1483967893', 35, 6, '2017-01-09 18:48:13', 'Order Placed', '40', '7', '0', 0, 2, 197, 12.9633, 77.5289, 0, 'Dhoni', '2017-01-09 19:35:05', ' 51, 5th Cross Road Bapuji Layout, KPA Block, Attiguppe Bengaluru, Karnataka 560040', '0', '1483967893.png', 0, '', '2017-01-09 19:28:05', 0),
+(236, '1483967946', 35, 7, '2017-01-09 18:49:06', 'Order Placed', '40', '26', '0', 0, 1, 596, 12.9249, 77.4835, 0, 'Dhoni', '2017-01-09 20:17:03', 'Pitstop 3', '0', '1483967946.png', 0, '', '2017-01-09 19:49:03', 0);
 
 -- --------------------------------------------------------
 
@@ -4776,10 +6211,10 @@ INSERT INTO `orders` (`id`, `order_number`, `customer_id`, `restaurant_id`, `ord
 -- Table structure for table `orders-old`
 --
 
-CREATE TABLE `orders-old` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `orders-old` (
+`id` int(10) unsigned NOT NULL,
   `order_number` varchar(60) NOT NULL,
-  `customer_id` int(9) UNSIGNED DEFAULT NULL,
+  `customer_id` int(9) unsigned DEFAULT NULL,
   `status` varchar(255) NOT NULL,
   `ordered_on` datetime NOT NULL,
   `shipped_on` datetime NOT NULL,
@@ -4812,7 +6247,7 @@ CREATE TABLE `orders-old` (
   `ship_zone_id` int(11) DEFAULT NULL,
   `ship_country` varchar(255) DEFAULT NULL,
   `ship_country_code` varchar(10) DEFAULT NULL,
-  `ship_country_id` int(9) UNSIGNED DEFAULT NULL,
+  `ship_country_id` int(9) unsigned DEFAULT NULL,
   `bill_company` varchar(255) DEFAULT NULL,
   `bill_firstname` varchar(255) DEFAULT NULL,
   `bill_lastname` varchar(255) DEFAULT NULL,
@@ -4823,10 +6258,10 @@ CREATE TABLE `orders-old` (
   `bill_city` varchar(255) DEFAULT NULL,
   `bill_zip` varchar(11) DEFAULT NULL,
   `bill_zone` varchar(255) DEFAULT NULL,
-  `bill_zone_id` int(9) UNSIGNED DEFAULT NULL,
+  `bill_zone_id` int(9) unsigned DEFAULT NULL,
   `bill_country` varchar(255) DEFAULT NULL,
   `bill_country_code` varchar(10) DEFAULT NULL,
-  `bill_country_id` int(9) UNSIGNED DEFAULT NULL,
+  `bill_country_id` int(9) unsigned DEFAULT NULL,
   `coupon_id` varchar(200) NOT NULL,
   `passcode` varchar(200) NOT NULL,
   `order_type` int(11) NOT NULL
@@ -4838,14 +6273,14 @@ CREATE TABLE `orders-old` (
 -- Table structure for table `order_items`
 --
 
-CREATE TABLE `order_items` (
-  `id` int(9) UNSIGNED NOT NULL,
-  `order_id` int(9) UNSIGNED NOT NULL,
-  `menu_id` int(9) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `order_items` (
+`id` int(9) unsigned NOT NULL,
+  `order_id` int(9) unsigned NOT NULL,
+  `menu_id` int(9) unsigned NOT NULL,
   `quantity` int(11) NOT NULL,
   `cost` int(10) NOT NULL,
   `contents` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=457 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_items`
@@ -4892,10 +6327,419 @@ INSERT INTO `order_items` (`id`, `order_id`, `menu_id`, `quantity`, `cost`, `con
 (41, 26, 8, 6, 200, ''),
 (42, 27, 9, 8, 100, ''),
 (43, 27, 8, 6, 200, ''),
-(44, 28, 9, 8, 100, ''),
-(45, 28, 8, 6, 200, ''),
-(46, 29, 9, 8, 100, ''),
-(47, 29, 8, 6, 200, '');
+(44, 28, 11, 2, 1300, ''),
+(45, 29, 15, 1, 150, ''),
+(46, 30, 21, 1, 580, ''),
+(47, 31, 11, 2, 1300, ''),
+(48, 31, 11, 2, 1300, ''),
+(49, 32, 31, 1, 250, ''),
+(50, 33, 20, 1, 150, ''),
+(51, 34, 31, 1, 250, ''),
+(52, 35, 30, 3, 1350, ''),
+(53, 36, 16, 2, 160, ''),
+(54, 37, 15, 4, 600, ''),
+(55, 37, 17, 3, 1350, ''),
+(56, 38, 15, 4, 600, ''),
+(57, 38, 17, 3, 1350, ''),
+(58, 39, 17, 7, 3150, ''),
+(59, 40, 19, 1, 450, ''),
+(60, 41, 22, 2, 1640, ''),
+(61, 42, 15, 2, 300, ''),
+(62, 43, 18, 1, 450, ''),
+(63, 44, 15, 1, 150, ''),
+(64, 44, 17, 1, 450, ''),
+(65, 44, 16, 1, 80, ''),
+(66, 44, 19, 1, 450, ''),
+(67, 45, 36, 1, 250, ''),
+(68, 46, 21, 1, 580, ''),
+(69, 47, 17, 1, 450, ''),
+(70, 48, 31, 1, 250, ''),
+(71, 48, 37, 1, 360, ''),
+(72, 49, 36, 2, 500, ''),
+(73, 50, 11, 2, 1300, ''),
+(74, 50, 11, 2, 1300, ''),
+(75, 51, 20, 2, 300, ''),
+(76, 51, 21, 3, 1740, ''),
+(77, 51, 22, 6, 4920, ''),
+(78, 52, 20, 2, 300, ''),
+(79, 52, 21, 3, 1740, ''),
+(80, 52, 22, 6, 4920, ''),
+(81, 53, 30, 2, 900, ''),
+(82, 53, 31, 2, 500, ''),
+(83, 53, 37, 2, 720, ''),
+(84, 54, 15, 3, 450, ''),
+(85, 54, 17, 3, 1350, ''),
+(86, 54, 18, 1, 450, ''),
+(87, 55, 20, 6, 900, ''),
+(88, 55, 21, 1, 580, ''),
+(89, 56, 20, 6, 900, ''),
+(90, 56, 21, 1, 580, ''),
+(91, 57, 16, 1, 80, ''),
+(92, 58, 18, 2, 900, ''),
+(93, 59, 20, 9, 1350, ''),
+(94, 59, 23, 5, 1400, ''),
+(95, 60, 23, 1, 280, ''),
+(96, 61, 11, 1, 650, ''),
+(97, 61, 8, 1, 200, ''),
+(98, 61, 11, 1, 650, ''),
+(99, 61, 12, 1, 10000, ''),
+(100, 61, 32, 1, 960, ''),
+(101, 62, 11, 1, 650, ''),
+(102, 62, 8, 1, 200, ''),
+(103, 62, 11, 1, 650, ''),
+(104, 62, 12, 1, 10000, ''),
+(105, 63, 21, 1, 580, ''),
+(106, 64, 35, 5, 995, ''),
+(107, 65, 21, 2, 1160, ''),
+(108, 66, 15, 3, 450, ''),
+(109, 67, 20, 1, 150, ''),
+(110, 67, 21, 1, 580, ''),
+(111, 67, 22, 1, 820, ''),
+(112, 67, 23, 1, 280, ''),
+(113, 68, 36, 1, 250, ''),
+(114, 68, 39, 1, 190, ''),
+(115, 69, 11, 1, 650, ''),
+(116, 69, 11, 1, 650, ''),
+(117, 70, 22, 1, 820, ''),
+(118, 70, 23, 1, 280, ''),
+(119, 71, 35, 1, 199, ''),
+(120, 71, 36, 1, 250, ''),
+(121, 71, 39, 1, 190, ''),
+(122, 72, 17, 1, 450, ''),
+(123, 72, 18, 1, 450, ''),
+(124, 72, 16, 1, 80, ''),
+(125, 73, 18, 1, 450, ''),
+(126, 73, 16, 1, 80, ''),
+(127, 74, 17, 1, 450, ''),
+(128, 74, 18, 1, 450, ''),
+(129, 75, 17, 1, 450, ''),
+(130, 75, 18, 2, 900, ''),
+(131, 76, 18, 1, 450, ''),
+(132, 76, 16, 1, 80, ''),
+(133, 77, 20, 1, 150, ''),
+(134, 77, 21, 1, 580, ''),
+(135, 77, 22, 1, 820, ''),
+(136, 78, 21, 1, 580, ''),
+(137, 78, 22, 1, 820, ''),
+(138, 78, 23, 1, 280, ''),
+(139, 79, 22, 1, 820, ''),
+(140, 79, 23, 1, 280, ''),
+(141, 80, 22, 1, 820, ''),
+(142, 80, 23, 1, 280, ''),
+(143, 81, 23, 1, 280, ''),
+(144, 82, 21, 2, 1160, ''),
+(145, 82, 22, 1, 820, ''),
+(146, 82, 23, 1, 280, ''),
+(147, 83, 18, 1, 450, ''),
+(148, 83, 16, 1, 80, ''),
+(149, 84, 17, 1, 450, ''),
+(150, 85, 18, 1, 450, ''),
+(151, 86, 15, 1, 150, ''),
+(152, 86, 17, 1, 450, ''),
+(153, 86, 18, 1, 450, ''),
+(154, 87, 15, 1, 150, ''),
+(155, 87, 17, 2, 900, ''),
+(156, 87, 18, 2, 900, ''),
+(157, 87, 16, 1, 80, ''),
+(158, 88, 15, 2, 300, ''),
+(159, 88, 17, 2, 900, ''),
+(160, 88, 18, 3, 1350, ''),
+(161, 89, 11, 2, 1300, ''),
+(162, 89, 8, 2, 400, ''),
+(163, 89, 11, 2, 1300, ''),
+(164, 89, 12, 2, 20000, ''),
+(165, 90, 20, 1, 150, ''),
+(166, 90, 21, 1, 580, ''),
+(167, 91, 19, 1, 450, ''),
+(168, 92, 11, 3, 1950, ''),
+(169, 92, 11, 3, 1950, ''),
+(170, 93, 15, 2, 300, ''),
+(171, 93, 17, 3, 1350, ''),
+(172, 94, 15, 2, 300, ''),
+(173, 94, 17, 1, 450, ''),
+(174, 94, 16, 2, 160, ''),
+(175, 94, 19, 1, 450, ''),
+(176, 95, 16, 1, 80, ''),
+(177, 96, 16, 1, 80, ''),
+(178, 97, 16, 1, 80, ''),
+(179, 98, 16, 1, 80, ''),
+(180, 99, 17, 1, 450, ''),
+(181, 99, 18, 1, 450, ''),
+(182, 99, 16, 2, 160, ''),
+(183, 100, 17, 1, 450, ''),
+(184, 100, 18, 1, 450, ''),
+(185, 100, 16, 2, 160, ''),
+(186, 101, 17, 1, 450, ''),
+(187, 101, 18, 1, 450, ''),
+(188, 101, 16, 2, 160, ''),
+(189, 102, 17, 1, 450, ''),
+(190, 102, 18, 1, 450, ''),
+(191, 102, 16, 2, 160, ''),
+(192, 103, 17, 1, 450, ''),
+(193, 103, 18, 1, 450, ''),
+(194, 103, 16, 2, 160, ''),
+(195, 104, 17, 1, 450, ''),
+(196, 104, 18, 1, 450, ''),
+(197, 104, 16, 2, 160, ''),
+(198, 105, 17, 1, 450, ''),
+(199, 105, 18, 1, 450, ''),
+(200, 105, 16, 2, 160, ''),
+(201, 106, 17, 1, 450, ''),
+(202, 106, 18, 1, 450, ''),
+(203, 106, 16, 2, 160, ''),
+(204, 107, 17, 1, 450, ''),
+(205, 107, 18, 1, 450, ''),
+(206, 107, 16, 2, 160, ''),
+(207, 108, 17, 1, 450, ''),
+(208, 108, 18, 1, 450, ''),
+(209, 108, 16, 2, 160, ''),
+(210, 109, 17, 1, 450, ''),
+(211, 109, 18, 1, 450, ''),
+(212, 109, 16, 2, 160, ''),
+(213, 110, 17, 1, 450, ''),
+(214, 110, 18, 1, 450, ''),
+(215, 110, 16, 2, 160, ''),
+(216, 111, 17, 1, 450, ''),
+(217, 111, 18, 1, 450, ''),
+(218, 111, 16, 2, 160, ''),
+(219, 112, 17, 1, 450, ''),
+(220, 112, 18, 1, 450, ''),
+(221, 112, 16, 2, 160, ''),
+(222, 113, 17, 1, 450, ''),
+(223, 113, 18, 1, 450, ''),
+(224, 113, 16, 2, 160, ''),
+(225, 114, 17, 1, 450, ''),
+(226, 114, 18, 1, 450, ''),
+(227, 114, 16, 2, 160, ''),
+(228, 115, 17, 1, 450, ''),
+(229, 115, 18, 1, 450, ''),
+(230, 115, 16, 2, 160, ''),
+(231, 116, 17, 1, 450, ''),
+(232, 116, 18, 1, 450, ''),
+(233, 116, 16, 2, 160, ''),
+(234, 117, 21, 1, 580, ''),
+(235, 117, 22, 1, 820, ''),
+(236, 117, 23, 1, 280, ''),
+(237, 118, 21, 1, 580, ''),
+(238, 118, 22, 1, 820, ''),
+(239, 118, 23, 1, 280, ''),
+(240, 119, 21, 1, 580, ''),
+(241, 119, 22, 1, 820, ''),
+(242, 119, 23, 1, 280, ''),
+(243, 120, 21, 1, 580, ''),
+(244, 120, 22, 1, 820, ''),
+(245, 120, 23, 1, 280, ''),
+(246, 121, 21, 1, 580, ''),
+(247, 121, 22, 1, 820, ''),
+(248, 121, 23, 1, 280, ''),
+(249, 122, 21, 1, 580, ''),
+(250, 122, 22, 1, 820, ''),
+(251, 122, 23, 1, 280, ''),
+(252, 123, 21, 1, 580, ''),
+(253, 123, 22, 1, 820, ''),
+(254, 123, 23, 1, 280, ''),
+(255, 124, 21, 1, 580, ''),
+(256, 124, 22, 1, 820, ''),
+(257, 124, 23, 1, 280, ''),
+(258, 125, 15, 1, 150, ''),
+(259, 125, 17, 1, 450, ''),
+(260, 126, 15, 1, 150, ''),
+(261, 126, 17, 1, 450, ''),
+(262, 127, 15, 1, 150, ''),
+(263, 127, 17, 1, 450, ''),
+(264, 128, 15, 1, 150, ''),
+(265, 128, 17, 1, 450, ''),
+(266, 129, 15, 1, 150, ''),
+(267, 129, 17, 2, 900, ''),
+(268, 129, 18, 2, 900, ''),
+(269, 130, 15, 1, 150, ''),
+(270, 130, 17, 2, 900, ''),
+(271, 130, 18, 2, 900, ''),
+(272, 131, 15, 1, 150, ''),
+(273, 131, 17, 2, 900, ''),
+(274, 131, 18, 2, 900, ''),
+(275, 132, 17, 1, 450, ''),
+(276, 132, 18, 1, 450, ''),
+(277, 133, 17, 1, 450, ''),
+(278, 133, 18, 1, 450, ''),
+(279, 134, 17, 1, 450, ''),
+(280, 134, 18, 1, 450, ''),
+(281, 135, 17, 1, 450, ''),
+(282, 135, 18, 1, 450, ''),
+(283, 136, 17, 1, 450, ''),
+(284, 136, 18, 1, 450, ''),
+(285, 137, 17, 1, 450, ''),
+(286, 137, 18, 1, 450, ''),
+(287, 138, 17, 1, 450, ''),
+(288, 138, 18, 1, 450, ''),
+(289, 139, 17, 1, 450, ''),
+(290, 139, 18, 1, 450, ''),
+(291, 140, 20, 1, 150, ''),
+(292, 141, 20, 1, 150, ''),
+(293, 142, 20, 1, 150, ''),
+(294, 143, 20, 1, 150, ''),
+(295, 144, 20, 1, 150, ''),
+(296, 145, 20, 1, 150, ''),
+(297, 146, 20, 1, 150, ''),
+(298, 146, 21, 1, 580, ''),
+(299, 147, 20, 1, 150, ''),
+(300, 148, 20, 1, 150, ''),
+(301, 149, 20, 1, 150, ''),
+(302, 150, 20, 1, 150, ''),
+(303, 151, 20, 1, 150, ''),
+(304, 152, 20, 1, 150, ''),
+(305, 153, 20, 1, 150, ''),
+(306, 154, 20, 2, 300, ''),
+(307, 155, 20, 2, 300, ''),
+(308, 156, 20, 1, 150, ''),
+(309, 157, 20, 1, 150, ''),
+(310, 158, 20, 1, 150, ''),
+(311, 159, 20, 1, 150, ''),
+(312, 160, 20, 1, 150, ''),
+(313, 161, 20, 1, 150, ''),
+(314, 162, 20, 1, 150, ''),
+(315, 163, 20, 1, 150, ''),
+(316, 163, 21, 1, 580, ''),
+(317, 164, 20, 1, 150, ''),
+(318, 165, 20, 1, 150, ''),
+(319, 166, 20, 1, 150, ''),
+(320, 167, 20, 1, 150, ''),
+(321, 168, 20, 1, 150, ''),
+(322, 169, 20, 1, 150, ''),
+(323, 170, 20, 1, 150, ''),
+(324, 171, 15, 1, 150, ''),
+(325, 171, 17, 1, 450, ''),
+(326, 172, 15, 2, 300, ''),
+(327, 172, 17, 1, 450, ''),
+(328, 173, 20, 1, 150, ''),
+(329, 174, 20, 1, 150, ''),
+(330, 175, 20, 1, 150, ''),
+(331, 176, 11, 1, 650, ''),
+(332, 176, 11, 1, 650, ''),
+(333, 177, 15, 1, 150, ''),
+(334, 178, 20, 1, 150, ''),
+(335, 179, 20, 1, 150, ''),
+(336, 180, 15, 1, 150, ''),
+(337, 180, 17, 1, 450, ''),
+(338, 181, 15, 1, 150, ''),
+(339, 181, 17, 1, 450, ''),
+(340, 182, 20, 1, 150, ''),
+(341, 183, 20, 1, 150, ''),
+(342, 183, 21, 1, 580, ''),
+(343, 184, 18, 1, 450, ''),
+(344, 185, 15, 1, 150, ''),
+(345, 185, 17, 1, 450, ''),
+(346, 186, 15, 1, 150, ''),
+(347, 186, 17, 1, 450, ''),
+(348, 187, 15, 1, 150, ''),
+(349, 187, 17, 1, 450, ''),
+(350, 188, 20, 1, 150, ''),
+(351, 188, 22, 2, 1640, ''),
+(352, 189, 20, 1, 150, ''),
+(353, 189, 22, 2, 1640, ''),
+(354, 190, 35, 1, 199, ''),
+(355, 191, 35, 3, 597, ''),
+(356, 192, 21, 2, 1160, ''),
+(357, 193, 15, 1, 150, ''),
+(358, 193, 17, 1, 450, ''),
+(359, 194, 15, 1, 150, ''),
+(360, 194, 17, 1, 450, ''),
+(361, 194, 18, 1, 450, ''),
+(362, 195, 16, 1, 80, ''),
+(363, 196, 23, 1, 280, ''),
+(364, 197, 36, 1, 250, ''),
+(365, 198, 35, 1, 199, ''),
+(366, 199, 36, 1, 250, ''),
+(367, 199, 39, 1, 190, ''),
+(368, 200, 11, 1, 650, ''),
+(369, 200, 8, 1, 200, ''),
+(370, 200, 11, 1, 650, ''),
+(371, 201, 15, 1, 150, ''),
+(372, 201, 17, 1, 450, ''),
+(373, 202, 47, 2, 1332, ''),
+(374, 202, 47, 2, 1332, ''),
+(375, 203, 17, 1, 450, ''),
+(376, 203, 18, 1, 450, ''),
+(377, 204, 17, 1, 450, ''),
+(378, 204, 18, 1, 450, ''),
+(379, 204, 16, 1, 80, ''),
+(380, 205, 15, 1, 150, ''),
+(381, 205, 16, 1, 80, ''),
+(382, 206, 15, 1, 150, ''),
+(383, 206, 17, 1, 450, ''),
+(384, 206, 18, 1, 450, ''),
+(385, 207, 15, 1, 150, ''),
+(386, 207, 17, 1, 450, ''),
+(387, 207, 18, 1, 450, ''),
+(388, 208, 17, 1, 450, ''),
+(389, 208, 18, 1, 450, ''),
+(390, 208, 19, 3, 1350, ''),
+(391, 209, 17, 1, 450, ''),
+(392, 209, 18, 1, 450, ''),
+(393, 209, 19, 3, 1350, ''),
+(394, 210, 15, 1, 150, ''),
+(395, 210, 17, 1, 450, ''),
+(396, 211, 17, 1, 450, ''),
+(397, 211, 18, 1, 450, ''),
+(398, 211, 16, 1, 80, ''),
+(399, 212, 18, 1, 450, ''),
+(400, 212, 16, 1, 80, ''),
+(401, 213, 15, 9, 1350, ''),
+(402, 214, 18, 1, 450, ''),
+(403, 214, 16, 1, 80, ''),
+(404, 215, 17, 1, 450, ''),
+(405, 215, 18, 1, 450, ''),
+(406, 216, 20, 1, 150, ''),
+(407, 216, 21, 2, 1160, ''),
+(408, 217, 20, 1, 150, ''),
+(409, 217, 21, 1, 580, ''),
+(410, 217, 22, 1, 820, ''),
+(411, 217, 23, 1, 280, ''),
+(412, 218, 16, 1, 80, ''),
+(413, 218, 17, 1, 450, ''),
+(414, 218, 18, 1, 450, ''),
+(415, 218, 19, 1, 450, ''),
+(416, 219, 16, 1, 80, ''),
+(417, 219, 17, 1, 450, ''),
+(418, 220, 17, 1, 450, ''),
+(419, 220, 18, 1, 450, ''),
+(420, 220, 19, 1, 450, ''),
+(421, 221, 16, 3, 240, ''),
+(422, 222, 19, 1, 450, ''),
+(423, 223, 19, 1, 450, ''),
+(424, 224, 18, 1, 450, ''),
+(425, 224, 19, 3, 1350, ''),
+(426, 225, 17, 1, 450, ''),
+(427, 225, 18, 1, 450, ''),
+(428, 226, 18, 1, 450, ''),
+(429, 227, 16, 1, 80, ''),
+(430, 227, 17, 1, 450, ''),
+(431, 228, 11, 2, 1300, ''),
+(432, 228, 8, 1, 200, ''),
+(433, 228, 11, 2, 1300, ''),
+(434, 228, 12, 1, 10000, ''),
+(435, 228, 32, 1, 960, ''),
+(436, 229, 11, 5, 3250, ''),
+(437, 229, 8, 3, 600, ''),
+(438, 229, 11, 5, 3250, ''),
+(439, 230, 16, 2, 160, ''),
+(440, 230, 17, 2, 900, ''),
+(441, 230, 19, 2, 900, ''),
+(442, 231, 11, 1, 650, ''),
+(443, 231, 8, 1, 200, ''),
+(444, 231, 11, 1, 650, ''),
+(445, 232, 35, 1, 199, ''),
+(446, 232, 36, 1, 250, ''),
+(447, 232, 39, 2, 380, ''),
+(448, 233, 35, 1, 199, ''),
+(449, 233, 36, 1, 250, ''),
+(450, 233, 39, 2, 380, ''),
+(451, 234, 11, 2, 1300, ''),
+(452, 234, 8, 1, 200, ''),
+(453, 234, 11, 2, 1300, ''),
+(454, 235, 20, 1, 150, ''),
+(455, 236, 16, 1, 80, ''),
+(456, 236, 17, 1, 450, '');
 
 -- --------------------------------------------------------
 
@@ -4903,11 +6747,11 @@ INSERT INTO `order_items` (`id`, `order_id`, `menu_id`, `quantity`, `cost`, `con
 -- Table structure for table `order_type`
 --
 
-CREATE TABLE `order_type` (
-  `ordertype_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `order_type` (
+`ordertype_id` int(11) NOT NULL,
   `order_type` varchar(300) NOT NULL,
   `description` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_type`
@@ -4916,7 +6760,7 @@ CREATE TABLE `order_type` (
 INSERT INTO `order_type` (`ordertype_id`, `order_type`, `description`) VALUES
 (1, 'In Car', 'Customer will pickup from pitstop'),
 (2, 'Here', 'Get delivery to the selected location'),
-(3, 'I\'ll pickup', 'customer will pick up from restaurant'),
+(3, 'I''ll pickup', 'customer will pick up from restaurant'),
 (4, 'Home', 'Delivery to the home');
 
 -- --------------------------------------------------------
@@ -4925,10 +6769,10 @@ INSERT INTO `order_type` (`ordertype_id`, `order_type`, `description`) VALUES
 -- Table structure for table `passcode`
 --
 
-CREATE TABLE `passcode` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `passcode` (
+`id` int(11) NOT NULL,
   `passcode` varchar(200) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passcode`
@@ -4936,7 +6780,14 @@ CREATE TABLE `passcode` (
 
 INSERT INTO `passcode` (`id`, `passcode`) VALUES
 (1, 'Dhoni'),
-(2, 'Vijetha');
+(2, 'Vijetha'),
+(3, 'Nagaraj'),
+(4, 'Lucky'),
+(5, 'Nagendra'),
+(6, 'Deepisha'),
+(7, 'Manjeet'),
+(8, 'Jagadish'),
+(9, 'Vignesh');
 
 -- --------------------------------------------------------
 
@@ -4944,23 +6795,170 @@ INSERT INTO `passcode` (`id`, `passcode`) VALUES
 -- Table structure for table `pitstops`
 --
 
-CREATE TABLE `pitstops` (
-  `pitstop_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `pitstops` (
+`pitstop_id` int(11) NOT NULL,
   `pitstop_name` varchar(300) NOT NULL,
   `latitude` float NOT NULL,
   `langitude` float NOT NULL,
   `enabled` tinyint(2) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=153 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pitstops`
 --
 
 INSERT INTO `pitstops` (`pitstop_id`, `pitstop_name`, `latitude`, `langitude`, `enabled`) VALUES
-(2, 'pitstop1', 19.1175, 72.934, 1),
-(3, 'pitstop2', -33.8001, 151.287, 1),
-(9, 'pitstop4', -33.8001, 151.287, 1),
-(8, 'pitstop3', 19.1175, 72.934, 1);
+(2, 'pitstop1', 12.9229, 77.4841, 1),
+(3, 'pitstop2', 12.9249, 77.4835, 1),
+(4, 'pitstop3', 12.9236, 77.4853, 1),
+(5, 'pitstop4', 12.9248, 77.4836, 1),
+(6, 'pitstop5', 12.9103, 77.4835, 1),
+(7, 'uttrahalli pitstop', 12.9063, 77.5534, 1),
+(8, 'm1', 18.9554, 72.8131, 1),
+(9, 'm2', 18.9678, 72.8081, 1),
+(10, 'pitstop3', 19.1175, 72.934, 1),
+(11, 'pitstop5', -33.8001, 151.287, 1),
+(12, 'pitstop6', 72.8081, 18.9678, 1),
+(13, 'pitstop4', 72.8152, 19.0097, 1),
+(14, 'pitstop4', 72.8168, 19.0147, 1),
+(15, 'pitstop4', 72.817, 19.0139, 1),
+(16, 'pitstop4', 72.8368, 19.0274, 1),
+(17, 'pitstop4', 72.8383, 19.0463, 1),
+(18, 'pitstop4', 72.8418, 19.0514, 1),
+(19, 'pitstop4', 72.843, 19.0518, 1),
+(20, 'pitstop4', 72.8311, 19.0479, 1),
+(21, 'pitstop4', 72.8309, 19.0481, 1),
+(22, 'pitstop4', 72.8339, 19.0707, 1),
+(23, 'pitstop4', 72.8345, 19.0812, 1),
+(24, 'pitstop4', 72.834, 19.0704, 1),
+(25, 'pitstop4', 72.8376, 19.0775, 1),
+(26, 'pitstop4', 72.8394, 19.0983, 1),
+(27, 'pitstop4', 72.8352, 19.1029, 1),
+(28, 'pitstop4', 72.8298, 19.1146, 1),
+(29, 'pitstop4', 72.8299, 19.1083, 1),
+(30, 'pitstop4', 72.8347, 19.1031, 1),
+(31, 'pitstop4', 72.837, 19.1099, 1),
+(32, 'pitstop4', 72.8459, 19.1377, 1),
+(33, 'pitstop4', 72.8476, 19.133, 1),
+(34, 'pitstop4', 72.8396, 19.0968, 1),
+(35, 'pitstop4', 72.8378, 19.0797, 1),
+(36, 'pitstop4', 72.8367, 19.0575, 1),
+(37, 'pitstop4', 72.8181, 18.9794, 1),
+(38, 'pitstop4', 72.8035, 18.9689, 1),
+(39, '', 72.8131, 18.9806, 1),
+(40, '', 72.8161, 19.0036, 1),
+(41, '', 72.8366, 19.0578, 1),
+(42, '', 72.8344, 19.0814, 1),
+(43, '', 72.828, 19.0955, 1),
+(44, '', 72.8475, 19.0319, 1),
+(45, '', 72.844, 19.0457, 1),
+(46, '', 72.8466, 19.0686, 1),
+(47, '', 72.8438, 19.0876, 1),
+(48, '', 72.8545, 19.1009, 1),
+(49, '', 72.8565, 19.1241, 1),
+(50, '', 72.8551, 19.1341, 1),
+(51, '', 72.8565, 19.1521, 1),
+(52, '', 72.859, 19.1705, 1),
+(53, '', 72.8584, 19.1829, 1),
+(54, '', 72.8599, 19.1947, 1),
+(55, '', 72.8683, 19.2101, 1),
+(56, '', 72.8659, 19.2201, 1),
+(57, '', 72.8672, 19.2165, 1),
+(58, '', 72.8685, 19.2098, 1),
+(59, '', 72.8608, 19.1982, 1),
+(60, '', 72.8586, 19.184, 1),
+(61, '', 72.8592, 19.1711, 1),
+(62, '', 72.8575, 19.1581, 1),
+(63, '', 72.8551, 19.1363, 1),
+(64, '', 72.8566, 19.1247, 1),
+(65, '', 72.8542, 19.1039, 1),
+(66, '', 72.8437, 19.0889, 1),
+(67, '', 72.8468, 19.0695, 1),
+(68, '', 72.8233, 18.9746, 1),
+(69, '', 72.8225, 18.9733, 1),
+(70, '', 72.8357, 18.9915, 1),
+(71, '', 72.8441, 19.0128, 1),
+(72, '', 72.8506, 19.0218, 1),
+(73, '', 72.8591, 19.0336, 1),
+(74, '', 72.8641, 19.0436, 1),
+(75, '', 72.8696, 19.0562, 1),
+(76, '', 72.8846, 19.0845, 1),
+(77, '', 72.9257, 19.1203, 1),
+(78, '', 72.9254, 19.1227, 1),
+(79, '', 72.9161, 19.0974, 1),
+(80, '', 72.9038, 19.0876, 1),
+(81, '', 72.8812, 19.0808, 1),
+(82, '', 72.8753, 19.0695, 1),
+(83, '', 72.8627, 19.0407, 1),
+(84, '', 72.8525, 19.0237, 1),
+(85, '', 72.8438, 19.0122, 1),
+(86, '', 72.8369, 18.9958, 1),
+(87, '', 72.8152, 18.9841, 1),
+(88, '', 72.8393, 19.0156, 1),
+(89, '', 72.8504, 19.2082, 1),
+(90, '', 72.8511, 19.2161, 1),
+(91, '', 72.8477, 19.1967, 1),
+(92, '', 72.8469, 19.1814, 1),
+(93, '', 72.8454, 19.1542, 1),
+(94, '', 72.824, 18.9915, 1),
+(95, '', 72.8371, 19.0211, 1),
+(96, '', 72.8389, 19.0233, 1),
+(97, '', 72.8328, 19.0205, 1),
+(98, '', 72.8266, 19.0128, 1),
+(99, '', 72.8215, 19.0117, 1),
+(100, '', 72.8179, 19.0053, 1),
+(101, '', 72.8093, 18.9737, 1),
+(102, '', 72.8087, 18.9685, 1),
+(103, '', 72.8408, 19.0416, 1),
+(104, '', 72.8384, 19.0475, 1),
+(105, '', 72.8424, 19.0364, 1),
+(106, '', 72.8356, 19.0178, 1),
+(107, '', 72.8319, 18.9847, 1),
+(108, '', 72.8319, 18.9804, 1),
+(109, '', 72.8169, 18.9791, 1),
+(110, '', 72.8042, 18.97, 1),
+(111, '', 72.8309, 19.0098, 1),
+(112, '', 72.8311, 18.9993, 1),
+(113, '', 72.8886, 19.0539, 1),
+(114, '', 72.8924, 19.0542, 1),
+(115, '', 72.908, 19.047, 1),
+(116, '', 72.9078, 19.047, 1),
+(117, '', 72.9169, 19.045, 1),
+(118, '', 72.9111, 19.0645, 1),
+(119, '', 72.91, 19.0667, 1),
+(120, '', 72.8441, 19.0458, 1),
+(121, '', 72.8458, 19.0421, 1),
+(122, '', 72.8475, 19.0315, 1),
+(123, '', 72.8385, 19.0145, 1),
+(124, '', 72.8245, 18.9924, 1),
+(125, '', 72.9366, 19.1245, 1),
+(126, '', 72.9062, 19.1201, 1),
+(127, '', 72.898, 19.1235, 1),
+(128, '', 72.8982, 19.1229, 1),
+(129, '', 72.8611, 19.1393, 1),
+(130, '', 72.862, 19.1393, 1),
+(131, '', 72.9016, 19.0925, 1),
+(132, '', 72.9022, 19.0913, 1),
+(133, '', 72.884, 19.1072, 1),
+(134, '', 72.8809, 19.1075, 1),
+(135, '', 72.8562, 19.1126, 1),
+(136, '', 72.8535, 19.1134, 1),
+(137, '', 72.8492, 19.1154, 1),
+(138, '', 72.8323, 19.116, 1),
+(139, '', 72.8317, 19.1161, 1),
+(140, '', 72.8279, 19.1192, 1),
+(141, '', 72.8254, 19.1221, 1),
+(142, '', 72.8235, 19.1297, 1),
+(143, '', 72.8232, 19.13, 1),
+(144, '', 72.8345, 19.1272, 1),
+(145, '', 72.859, 19.115, 1),
+(146, '', 72.8446, 19.1172, 1),
+(147, '', 72.8951, 19.0648, 1),
+(148, '', 72.8944, 19.0653, 1),
+(149, '', 72.8808, 19.0742, 1),
+(150, '', 72.8737, 19.0758, 1),
+(151, '', 72.859, 19.0747, 1),
+(152, '', 72.8495, 19.0742, 1);
 
 -- --------------------------------------------------------
 
@@ -4968,7 +6966,7 @@ INSERT INTO `pitstops` (`pitstop_id`, `pitstop_name`, `latitude`, `langitude`, `
 -- Table structure for table `pitstop_restaurants`
 --
 
-CREATE TABLE `pitstop_restaurants` (
+CREATE TABLE IF NOT EXISTS `pitstop_restaurants` (
   `pitstop_id` bigint(30) NOT NULL,
   `restaurants_id` bigint(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -4980,9 +6978,21 @@ CREATE TABLE `pitstop_restaurants` (
 INSERT INTO `pitstop_restaurants` (`pitstop_id`, `restaurants_id`) VALUES
 (1, 1),
 (1, 2),
-(2, 4),
+(6, 7),
+(3, 8),
+(3, 7),
+(3, 3),
+(2, 7),
+(6, 6),
 (2, 3),
-(3, 3);
+(3, 6),
+(2, 6),
+(5, 9),
+(3, 9),
+(7, 10),
+(9, 14),
+(8, 14),
+(9, 15);
 
 -- --------------------------------------------------------
 
@@ -4990,20 +7000,33 @@ INSERT INTO `pitstop_restaurants` (`pitstop_id`, `restaurants_id`) VALUES
 -- Table structure for table `pitstop_suggest`
 --
 
-CREATE TABLE `pitstop_suggest` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `pitstop_suggest` (
+`id` int(11) NOT NULL,
   `restaurant_address` varchar(250) NOT NULL,
   `restaurant_latitude` float NOT NULL,
   `restaurant_langitude` float NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pitstop_suggest`
 --
 
 INSERT INTO `pitstop_suggest` (`id`, `restaurant_address`, `restaurant_latitude`, `restaurant_langitude`, `date`) VALUES
-(1, 'Banagalore Kengeri', 0, 0, '2017-01-09 14:57:00');
+(1, 'Banagalore Kengeri', 0, 0, '2017-01-10 09:55:14'),
+(2, ' 2nd Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 0, 0, '2017-01-10 09:55:14'),
+(3, ' 10th Cross Road Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 0, 0, '2017-01-10 09:55:14'),
+(4, ' 10th Cross Road Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 0, 0, '2017-01-10 09:55:14'),
+(5, ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 0, 0, '2017-01-10 09:55:14'),
+(6, ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 0, 0, '2017-01-10 09:55:14'),
+(7, ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 0, 0, '2017-01-10 09:55:14'),
+(8, ' 123, Kengeri Main Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 0, 0, '2017-01-10 09:55:14'),
+(9, ' 6th Cross Road Stage I, Kengeri Satellite Town Bengaluru, Karnataka 560060', 0, 0, '2017-01-10 09:55:14'),
+(10, ' 880, Kengeri Main Road Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 0, 0, '2017-01-10 09:55:14'),
+(11, ' Old Outer Ring Road Subash Nagar, Kengeri Satellite Town Bengaluru, Karnataka 560060', 0, 0, '2017-01-10 09:55:14'),
+(12, ' 2, 11th Main Road Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 0, 0, '2017-01-10 09:55:14'),
+(13, ' K G Secretariat Colony KGS Layout, Govindaraja Nagar Ward, Saraswathi Nagar, Vijaya Nagar Bengaluru, Karnataka 560040', 0, 0, '2017-01-10 09:55:14'),
+(14, ' 24/A, 22nd Main Road Govindaraja Nagar Ward, Basaveshwara HBCS Layout, Vijaya Nagar Bengaluru, Karnataka 560040', 0, 0, '2017-01-10 09:55:14');
 
 -- --------------------------------------------------------
 
@@ -5011,8 +7034,8 @@ INSERT INTO `pitstop_suggest` (`id`, `restaurant_address`, `restaurant_latitude`
 -- Table structure for table `restaurant`
 --
 
-CREATE TABLE `restaurant` (
-  `restaurant_id` bigint(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `restaurant` (
+`restaurant_id` bigint(30) NOT NULL,
   `restaurant_name` varchar(250) NOT NULL,
   `restaurant_address` text NOT NULL,
   `restaurant_phone` varchar(100) NOT NULL,
@@ -5032,17 +7055,21 @@ CREATE TABLE `restaurant` (
   `penalty` int(11) NOT NULL,
   `servicetax` int(11) NOT NULL,
   `days` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `restaurant`
 --
 
 INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `image`, `restaurant_latitude`, `restaurant_langitude`, `restaurant_branch`, `restaurant_manager`, `preparation_time`, `enabled`, `deactivatefrom`, `deactivateto`, `fromtime`, `totime`, `commission`, `penalty`, `servicetax`, `days`) VALUES
-(4, 'retaurants2', '', '87889', 'retaurants2@gmail.com', '', -33.8905, 78.4099, 'bangalore', 3, 0, 0, '2016-12-11', '2016-12-27', '00:00:00', '00:00:00', 0, 0, 0, ''),
-(3, 'restaurant1', '', '77887', 'restaurant1@gmail.com', '7fca09a10d55c8dcfc71854676cf997f.jpg', 19.0942, 72.9299, 'bangalore', 3, 20, 0, '1970-01-01', '1970-01-01', '09:00:00', '22:00:00', 10, 8, 12, 'a:3:{i:0;s:6:"sunday";i:1;s:6:"monday";i:2;s:7:"tuesday";}'),
-(6, 'retaurants3', '', '87889', 'retaurants2@gmail.com', '', -33.8905, 78.4099, 'bangalore', 3, 0, 0, '2016-12-11', '2016-12-27', '00:00:00', '00:00:00', 0, 0, 0, ''),
-(7, 'restaurant4', '', '77887', 'restaurant1@gmail.com', '7fca09a10d55c8dcfc71854676cf997f.jpg', 19.0942, 72.9299, 'bangalore', 3, 20, 0, '1970-01-01', '1970-01-01', '09:00:00', '22:00:00', 10, 8, 12, 'a:3:{i:0');
+(6, 'Ebony Restaurant', 'Kengeri Upanagar,Shirke', '9876543210', 'laxman.bigperl@gmail.com', '1532633f8b4f04e015a84def6b2499d7.jpg', 12.9655, 77.5317, '', 10, 20, 0, '1970-01-01', '1970-01-01', '00:00:00', '00:00:00', 10, 5, 15, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
+(3, 'Kamat restaurant and Bar', 'Kengeri upanagara\r\nHoysala Circle', '8147700264', 'restaurant1@gmail.com', '885c0567439b3279bb4bc4bb53b4fab4.jpg', 12.9204, 77.4832, 'bangalore', 9, 20, 1, '1970-01-01', '1970-01-01', '09:00:00', '22:00:00', 10, 8, 12, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
+(7, 'Portland Steakhouse and Tea House', 'Near Kengeri Police station', '9876543210', 'laxman.bigperl@gmail.com', '7c9bd08cb4e0f20079e2a9c3868b93cd.jpg', 12.9119, 77.4839, '', 3, 30, 1, '2016-12-20', '2016-12-24', '00:00:00', '00:00:00', 10, 5, 15, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
+(13, 'RainBow Restaurant', 'Kengeri', '6454646646', 'rest@gmail.com', '', 12.8996, 77.4827, '', 11, 0, 0, '1970-01-01', '1970-01-01', '08:00:00', '09:00:00', 10, 5, 14, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
+(9, 'JW Marriott Hotel', '23rd Cross Kengeri\r\nHoysala circle', '8147700264', 'laxman.bigperl@gmail.com', '5a8e96ffd155c42ee8c7148d499700b6.jpg', 12.9235, 77.4883, '', 11, 30, 1, NULL, NULL, '00:00:00', '00:00:00', 10, 8, 14, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
+(15, 'Aps2', '', '', '', '', 18.9689, 72.8088, '', 0, 0, 0, '1970-01-01', '1970-01-01', '00:00:00', '00:00:00', 0, 0, 0, 'N;'),
+(11, 'Golden palms restaurant', '', '9876543210', 'laxman.bigperl@gmail.com', 'ee928c4249954ca9a5c7a74e15d14b8c.jpg', 12.8995, 77.4838, '', 8, 20, 0, '1970-01-01', '1970-01-01', '00:00:00', '00:00:00', 10, 5, 14, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
+(12, 'Paradise Restaurant', 'Channsandra\r\nNear BGS Hospital', '9876543210', 'laxman.bigperl@gmail.com', '86a5b66aca18559b58c3c3f3f2f595e2.jpg', 12.905, 77.5254, '', 12, 30, 1, NULL, NULL, '08:00:00', '20:00:00', 10, 5, 14, 'a:7:{i:0;s:3:"all";i:1;s:6:"monday";i:2;s:7:"tuesday";i:3;s:9:"wednesday";i:4;s:8:"thursday";i:5;s:6:"friday";i:6;s:8:"saturday";}');
 
 -- --------------------------------------------------------
 
@@ -5050,8 +7077,8 @@ INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_addres
 -- Table structure for table `restaurant_menu`
 --
 
-CREATE TABLE `restaurant_menu` (
-  `menu_id` bigint(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `restaurant_menu` (
+`menu_id` bigint(30) NOT NULL,
   `restaurant_id` bigint(30) NOT NULL,
   `code` varchar(100) NOT NULL,
   `menu` varchar(300) NOT NULL,
@@ -5063,22 +7090,38 @@ CREATE TABLE `restaurant_menu` (
   `enabled` tinyint(2) NOT NULL DEFAULT '1',
   `deactivatefrom` date DEFAULT NULL,
   `deactivateto` date DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `restaurant_menu`
 --
 
 INSERT INTO `restaurant_menu` (`menu_id`, `restaurant_id`, `code`, `menu`, `description`, `price`, `image`, `type`, `itemPreparation_time`, `enabled`, `deactivatefrom`, `deactivateto`) VALUES
-(10, 4, '0', 'menuu1', '', 100, '', 'veg', '', 1, NULL, NULL),
-(8, 3, '123', 'menu1', 'test', 200, '', 'non veg', '10', 1, '1970-01-01', '1970-01-01'),
-(11, 3, '0', 'menu3', '', 1000, '', '', '', 1, NULL, NULL),
-(12, 3, '0', 'menuu1', '', 100, '', 'veg', '', 1, NULL, NULL),
-(13, 3, '123', 'menu1', 'test', 200, '', 'non veg', '10', 1, '1970-01-01', '1970-01-01'),
-(14, 3, '0', 'menu3', '', 1000, '', '', '', 1, NULL, NULL),
-(15, 3, '0', 'menuu1', '', 100, '', 'veg', '', 1, NULL, NULL),
-(16, 3, '123', 'menu1', 'test', 200, '', 'non veg', '10', 0, NULL, NULL),
-(17, 3, '0', 'menu3', '', 1000, '', '', '', 1, NULL, NULL);
+(8, 3, '123', 'South Indian Special', 'test', 200, '', 'veg', '10', 1, '2016-11-11', '2016-11-25'),
+(11, 3, '101', 'North Indian special', 'Veg curry with roti', 650, '99381b3915b4911a9f17f5d209e688af.jpg', 'veg', '20', 1, NULL, NULL),
+(12, 3, '555', 'Karnataka Special', '', 10000, '', 'veg', '30', 1, NULL, NULL),
+(32, 3, '666', 'Bombay Special', 'Vadapaw', 960, '02195f16fdee82c40f678bfbcdec5a69.jpg', 'non veg', '30', 1, NULL, NULL),
+(16, 7, '102', 'Steamed Rice', 'Steamed rice with sambar', 80, '29443047045604cb47dea01c0d252db6.jpg', 'veg', '20', 1, NULL, NULL),
+(17, 7, '103', 'Chicken Tikka', 'Veg fried rice with curry with chickken curry', 450, '8a317085ff108c66d2a915502c9e0228.jpg', 'non veg', '30', 1, NULL, NULL),
+(18, 7, '104', 'Chiken kadai', 'Veg fried rice with curry with chickken curry', 450, 'd7e8fc57f246354e0929cf094f3370bb.jpg', 'non veg', '30', 1, '1970-01-01', '1970-01-01'),
+(19, 7, '106', 'Fish Curry', 'Veg fried rice with curry with Fish curry', 450, 'c14875f973347ec31605ab9477b664a8.jpg', 'veg', '30', 1, NULL, NULL),
+(20, 6, '201', 'North Karnataka Thali', 'Two roties,Rice,Sagu,Butter milk', 150, 'ab7df43f70e61efd6b082b0167dd5b19.jpg', 'veg', '30', 1, NULL, NULL),
+(21, 6, '202', 'Karavali Dish', 'bangda fish curri with cold drinks', 580, '73b83361d96568712e8e1c5713f9fc0b.jpg', 'non veg', '30', 1, '1970-01-01', '1970-01-01'),
+(22, 6, '203', 'North indian Dish', 'Two tandoori roti with curry sweet icecream rice', 820, 'f3f4f8ba3a19639cca70bd40ae4ea410.jpg', 'veg', '30', 1, NULL, NULL),
+(23, 6, '204', 'South Dish', 'Two roties and two poories and rice', 280, '8d56500019a291675d8c70fa0754736f.jpg', 'veg', '30', 1, NULL, NULL),
+(36, 11, '659', 'Green Salad', 'Vegitables salad', 250, 'ac2decf14113f923a87f4046e0b2ad06.jpg', 'veg', '20', 1, NULL, NULL),
+(35, 11, '126', 'Chinese Toast', 'One egg toast and potatos', 199, '005cd452c3e1eef43b1640f826fc7daa.jpg', 'veg', '20', 1, NULL, NULL),
+(26, 9, '401', 'Veg fried Rice', 'Rice with mixed vegitables', 220, '695033be19eb94819199946ca4411a85.jpg', 'veg', '30', 1, NULL, NULL),
+(27, 9, '402', 'Zeera Rice', 'Tasty zeera rice with curry', 250, '412ab3e1c148ab11aedfaa0d3c3a6631.jpg', 'veg', '30', 1, NULL, NULL),
+(28, 9, '406', 'Pizza', 'Veg pizza', 560, 'd6679992fb93e9702b5134ba7ae7c88e.jpg', 'veg', '30', 1, NULL, NULL),
+(29, 9, '407', 'Chizza', 'Chicken pizza with rice', 199, '22b2629a7d0dc601889dc8d220cfba59.jpg', 'non veg', '30', 1, NULL, NULL),
+(43, 7, '0', 'menuu1', '', 100, '', 'veg', '', 1, NULL, NULL),
+(44, 7, '123', 'menu1', 'test', 200, '', 'non veg', '10', 0, NULL, NULL),
+(38, 12, '968', 'Chicken Kabab', '8 pieces of Kabab', 999, '1d22e8559fd3ef8635b2f03c94a00fe4.jpg', 'non veg', '30', 1, NULL, NULL),
+(39, 11, '326', 'Zeera Rice', 'Fresh Hot Zeera Rice', 190, '452aa8465d87020cfe0a9747f605c8b8.jpg', 'veg', '20', 1, NULL, NULL),
+(40, 6, '0', 'menuu1', '', 100, '', 'veg', '', 1, NULL, NULL),
+(41, 6, '123', 'menu1', 'test', 200, '', 'non veg', '10', 0, NULL, NULL),
+(42, 6, '0', 'menu3', '', 1000, '', '', '', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -5086,13 +7129,13 @@ INSERT INTO `restaurant_menu` (`menu_id`, `restaurant_id`, `code`, `menu`, `desc
 -- Table structure for table `restaurant_messages`
 --
 
-CREATE TABLE `restaurant_messages` (
-  `mesage_id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `restaurant_messages` (
+`mesage_id` bigint(20) NOT NULL,
   `restaurant_id` bigint(20) NOT NULL,
   `rest_name` varchar(250) NOT NULL,
   `message` text NOT NULL,
   `date` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `restaurant_messages`
@@ -5101,7 +7144,21 @@ CREATE TABLE `restaurant_messages` (
 INSERT INTO `restaurant_messages` (`mesage_id`, `restaurant_id`, `rest_name`, `message`, `date`) VALUES
 (1, 4, '', 'test', '2016-12-11 05:14:16'),
 (4, 4, 'retaurants2 bangalore', 'test test', '2016-12-11 10:06:09'),
-(5, 0, '', 'test', '2017-01-05 15:42:19');
+(5, 0, '', 'Hello', '2016-12-12 18:08:05'),
+(6, 0, '', 'hi wt is the order status', '2016-12-13 14:10:40'),
+(7, 11, 'Golden palms restaurant ', 'Hello How was the experiance with app', '2016-12-13 15:06:03'),
+(8, 0, '', '', '2016-12-14 17:50:22'),
+(9, 6, 'Ebony Restaurant ', 'rrrr', '2016-12-14 17:50:31'),
+(10, 3, 'Kamat restaurant and Bar bangalore', 'gygygg gggg g', '2016-12-14 18:32:48'),
+(11, 6, 'Ebony Restaurant ', 'seddd', '2016-12-14 18:32:55'),
+(12, 6, 'Ebony Restaurant ', 'Hi I got feedback from delivery boy that you r service speed is very good Thanks', '2016-12-15 16:36:30'),
+(13, 7, 'Portland Steakhouse and Tea House ', 'Nice Restaurant\r\n', '2016-12-22 11:14:38'),
+(14, 14, 'Aps1 ', 'hello', '2016-12-24 15:01:18'),
+(15, 0, '', 'hi', '2016-12-24 15:01:36'),
+(16, 0, '', '', '2016-12-26 12:37:47'),
+(17, 0, '', '', '2016-12-27 12:42:33'),
+(18, 0, '', '', '2017-01-03 19:49:49'),
+(19, 0, '', 'Hi all How are you  ?\r\n', '2017-01-06 16:36:47');
 
 -- --------------------------------------------------------
 
@@ -5109,22 +7166,48 @@ INSERT INTO `restaurant_messages` (`mesage_id`, `restaurant_id`, `rest_name`, `m
 -- Table structure for table `restaurant_suggest`
 --
 
-CREATE TABLE `restaurant_suggest` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `restaurant_suggest` (
+`id` int(11) NOT NULL,
   `restaurant_name` varchar(250) NOT NULL,
   `restaurant_address` text NOT NULL,
   `restaurant_phone` bigint(250) NOT NULL,
   `restaurant_email` varchar(250) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `restaurant_suggest`
 --
 
 INSERT INTO `restaurant_suggest` (`id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `date`) VALUES
-(1, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-09 10:57:45'),
-(13, 'test', '', 0, 'tets@gmail.com', '2017-01-09 12:57:45');
+(1, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(2, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(3, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(4, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(5, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(6, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(7, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(8, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(9, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(10, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(11, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(12, 'Lucky 5 star', '', 0, 'restaurant5@gmail.com', '2017-01-10 09:53:59'),
+(13, 'test', '', 0, 'tets@gmail.com', '2017-01-10 09:53:59'),
+(14, 'test', '', 0, 'tets@gmail.com', '2017-01-10 09:53:59'),
+(15, 'Nagu Five star restaurant', ' 5th Cross Road Harsha Layout, Kengeri Satellite Town Bengaluru, Karnataka 560060', 9039700264, 'nagaraj.bigperl@gmail.com', '2017-01-10 09:53:59'),
+(16, 'trupti', ' 6, Old Outer Ring Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 9880474628, 'nagaappi000@gmail.com', '2017-01-10 09:53:59'),
+(17, ' trupti', ' bangalore', 9880474628, ' nagarajvenky3@gmail.com', '2017-01-10 09:53:59'),
+(18, ' fbh', ' cvb', 569635896698569852, ' naha', '2017-01-10 09:53:59'),
+(19, 'rainbow restaurant ', 'hoysala circle ', 9873217560, 'laxmanhugar92@gmail.com', '2017-01-10 09:53:59'),
+(20, 'Rainbow restaurant ', 'kengeri upanagar', 9876543120, 'laxmanhugar92@gmail.com', '2017-01-10 09:53:59'),
+(21, 'fjh', 'gjj', 9880474628, 'nagaappi000', '2017-01-10 09:53:59'),
+(22, 'yuu', 'ghj', 9880474628, 'n ', '2017-01-10 09:53:59'),
+(23, ' gdd', ' gf', 55, ' dgf', '2017-01-10 09:53:59'),
+(24, 'Hello tea', 'Kengeri', 9036700264, 'laxman@gmail.com', '2017-01-10 09:53:59'),
+(25, 'truptu', ' SMV Layout Bengaluru, Karnataka', 0, '', '2017-01-10 09:53:59'),
+(26, 'truptu', ' SMV Layout Bengaluru, Karnataka', 0, '', '2017-01-10 09:53:59'),
+(27, 'trupthi', ' 15, 12th Cross Road Mountains Layout, Gnanabharathi, Stage II, Kengeri Satellite Town Bengaluru, Karnataka 560060', 9885474629, 'trupthi@gmail.com', '2017-01-10 09:53:59'),
+(28, 'by', 'BH', 6, 'by', '2017-01-10 09:53:59');
 
 -- --------------------------------------------------------
 
@@ -5132,11 +7215,11 @@ INSERT INTO `restaurant_suggest` (`id`, `restaurant_name`, `restaurant_address`,
 -- Table structure for table `routes`
 --
 
-CREATE TABLE `routes` (
-  `id` int(9) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `routes` (
+`id` int(9) unsigned NOT NULL,
   `slug` varchar(255) NOT NULL,
   `route` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `routes`
@@ -5144,7 +7227,8 @@ CREATE TABLE `routes` (
 
 INSERT INTO `routes` (`id`, `slug`, `route`) VALUES
 (2, 'chinees', 'cart/category/2'),
-(3, 'dessert', 'cart/category/3');
+(3, 'dessert', 'cart/category/3'),
+(4, 'thtrh', 'cart/category/14');
 
 -- --------------------------------------------------------
 
@@ -5152,12 +7236,12 @@ INSERT INTO `routes` (`id`, `slug`, `route`) VALUES
 -- Table structure for table `settings`
 --
 
-CREATE TABLE `settings` (
-  `id` int(9) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `settings` (
+`id` int(9) unsigned NOT NULL,
   `code` varchar(255) NOT NULL,
   `setting_key` varchar(255) NOT NULL,
   `setting` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `settings`
@@ -5200,197 +7284,181 @@ INSERT INTO `settings` (`id`, `code`, `setting_key`, `setting`) VALUES
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `country_zones`
 --
 ALTER TABLE `country_zones`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `country_zone_areas`
 --
 ALTER TABLE `country_zone_areas`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `coupons`
 --
 ALTER TABLE `coupons`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `customers_address_bank`
 --
 ALTER TABLE `customers_address_bank`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `customer_groups`
 --
 ALTER TABLE `customer_groups`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `customer_locations`
 --
 ALTER TABLE `customer_locations`
-  ADD PRIMARY KEY (`location_id`),
-  ADD KEY `customer_id` (`customer_id`);
-
---
--- Indexes for table `customer_messages`
---
-ALTER TABLE `customer_messages`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`location_id`), ADD KEY `customer_id` (`customer_id`);
 
 --
 -- Indexes for table `deliveryboy_locations`
 --
 ALTER TABLE `deliveryboy_locations`
-  ADD PRIMARY KEY (`location_id`),
-  ADD KEY `deliveryboy_id` (`deliveryboy_id`);
+ ADD PRIMARY KEY (`location_id`), ADD KEY `deliveryboy_id` (`deliveryboy_id`);
 
 --
 -- Indexes for table `delivery_boy`
 --
 ALTER TABLE `delivery_boy`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `delpartner_charges`
---
-ALTER TABLE `delpartner_charges`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `delpartner_messages`
 --
 ALTER TABLE `delpartner_messages`
-  ADD PRIMARY KEY (`message_id`);
+ ADD PRIMARY KEY (`message_id`);
 
 --
 -- Indexes for table `destination`
 --
 ALTER TABLE `destination`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `feedbacktype`
 --
 ALTER TABLE `feedbacktype`
-  ADD PRIMARY KEY (`feedbacktype_id`);
+ ADD PRIMARY KEY (`feedbacktype_id`);
 
 --
 -- Indexes for table `notification_message`
 --
 ALTER TABLE `notification_message`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `orders-old`
 --
 ALTER TABLE `orders-old`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `order_type`
 --
 ALTER TABLE `order_type`
-  ADD PRIMARY KEY (`ordertype_id`);
+ ADD PRIMARY KEY (`ordertype_id`);
 
 --
 -- Indexes for table `passcode`
 --
 ALTER TABLE `passcode`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `pitstops`
 --
 ALTER TABLE `pitstops`
-  ADD PRIMARY KEY (`pitstop_id`);
+ ADD PRIMARY KEY (`pitstop_id`);
 
 --
 -- Indexes for table `pitstop_suggest`
 --
 ALTER TABLE `pitstop_suggest`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  ADD PRIMARY KEY (`restaurant_id`);
+ ADD PRIMARY KEY (`restaurant_id`);
 
 --
 -- Indexes for table `restaurant_menu`
 --
 ALTER TABLE `restaurant_menu`
-  ADD PRIMARY KEY (`menu_id`),
-  ADD KEY `restaurant_id` (`restaurant_id`),
-  ADD KEY `category` (`code`);
+ ADD PRIMARY KEY (`menu_id`), ADD KEY `restaurant_id` (`restaurant_id`), ADD KEY `category` (`code`);
 
 --
 -- Indexes for table `restaurant_messages`
 --
 ALTER TABLE `restaurant_messages`
-  ADD PRIMARY KEY (`mesage_id`);
+ ADD PRIMARY KEY (`mesage_id`);
 
 --
 -- Indexes for table `restaurant_suggest`
 --
 ALTER TABLE `restaurant_suggest`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `routes`
 --
 ALTER TABLE `routes`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `settings`
 --
 ALTER TABLE `settings`
-  ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -5400,162 +7468,152 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=240;
 --
 -- AUTO_INCREMENT for table `country_zones`
 --
 ALTER TABLE `country_zones`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3957;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3957;
 --
 -- AUTO_INCREMENT for table `country_zone_areas`
 --
 ALTER TABLE `country_zone_areas`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `customers_address_bank`
 --
 ALTER TABLE `customers_address_bank`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
 --
 -- AUTO_INCREMENT for table `customer_groups`
 --
 ALTER TABLE `customer_groups`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `customer_locations`
 --
 ALTER TABLE `customer_locations`
-  MODIFY `location_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `customer_messages`
---
-ALTER TABLE `customer_messages`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+MODIFY `location_id` bigint(30) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `deliveryboy_locations`
 --
 ALTER TABLE `deliveryboy_locations`
-  MODIFY `location_id` bigint(30) NOT NULL AUTO_INCREMENT;
+MODIFY `location_id` bigint(30) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1068;
 --
 -- AUTO_INCREMENT for table `delivery_boy`
 --
 ALTER TABLE `delivery_boy`
-  MODIFY `id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `delpartner_charges`
---
-ALTER TABLE `delpartner_charges`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+MODIFY `id` bigint(30) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `delpartner_messages`
 --
 ALTER TABLE `delpartner_messages`
-  MODIFY `message_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+MODIFY `message_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `destination`
 --
 ALTER TABLE `destination`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=132;
 --
 -- AUTO_INCREMENT for table `feedbacktype`
 --
 ALTER TABLE `feedbacktype`
-  MODIFY `feedbacktype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+MODIFY `feedbacktype_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `notification_message`
 --
 ALTER TABLE `notification_message`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=237;
 --
 -- AUTO_INCREMENT for table `orders-old`
 --
 ALTER TABLE `orders-old`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=457;
 --
 -- AUTO_INCREMENT for table `order_type`
 --
 ALTER TABLE `order_type`
-  MODIFY `ordertype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+MODIFY `ordertype_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `passcode`
 --
 ALTER TABLE `passcode`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `pitstops`
 --
 ALTER TABLE `pitstops`
-  MODIFY `pitstop_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+MODIFY `pitstop_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=153;
 --
 -- AUTO_INCREMENT for table `pitstop_suggest`
 --
 ALTER TABLE `pitstop_suggest`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `restaurant_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+MODIFY `restaurant_id` bigint(30) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `restaurant_menu`
 --
 ALTER TABLE `restaurant_menu`
-  MODIFY `menu_id` bigint(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+MODIFY `menu_id` bigint(30) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `restaurant_messages`
 --
 ALTER TABLE `restaurant_messages`
-  MODIFY `mesage_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+MODIFY `mesage_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `restaurant_suggest`
 --
 ALTER TABLE `restaurant_suggest`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

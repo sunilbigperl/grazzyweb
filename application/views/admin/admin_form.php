@@ -38,7 +38,7 @@
 		<label><?php echo lang('access');?></label>
 		<?php
 		$options = array(	'Admin'		=> 'Admin',
-							'Restaurant manager'	=> 'Restaurant manager'
+							'Restaurant Manager'	=> 'Restaurant Manager'
 		                );
 		echo form_dropdown('access', $options, set_value('access', $access),'class="form-control" id="access"');
 		?>
