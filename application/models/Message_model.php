@@ -155,4 +155,19 @@ class Message_model extends CI_Model
 			return 0;
 		}
 	}
+		public function get_restaurants1(){
+		$query = $this->db->query("select restaurant_id,restaurant_name from restaurant");
+		if($query->num_rows() > 0){
+			$result = array();
+			$i=0;
+			foreach($query->result_array() as $row){ 
+				$result[] = $row;
+			$i++;
+			}
+			return $result;
+		}else{
+			return 0;
+		}
+	
+	}
 }

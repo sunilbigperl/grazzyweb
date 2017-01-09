@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 09, 2017 at 11:05 AM
+-- Generation Time: Jan 09, 2017 at 02:32 PM
 -- Server version: 10.0.27-MariaDB-0+deb8u1
 -- PHP Version: 5.6.27-0+deb8u1
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `FromDate` date NOT NULL,
   `ToDate` date NOT NULL,
   `enabled` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `admin`
@@ -57,7 +57,7 @@ INSERT INTO `admin` (`id`, `firstname`, `lastname`, `username`, `email`, `phone`
 (13, 'Laxman', 'h', 'laxman', 'laxman.bigperl@gmail.com', '9876543266', 'Deliver manager', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1970-01-01', '1970-01-01', 1),
 (14, 'raj', 'hinduja', 'rh', '546@rr.ng', '5666', 'Restaurant manager', '54ceb91256e8190e474aa752a6e0650a2df5ba37', '1970-01-01', '1970-01-01', 1),
 (15, 'Ap', 'Sa', 'aps', 'Haha@hoho.hu', '23693667', 'Restaurant manager', 'dae48de45da764cc38c90929ed47a373ce06d1f6', '1970-01-01', '1970-01-01', 1),
-(17, 'Roadrunnr', '', 'Roadrunnr', 'as@we.go', '981915', 'Deliver manager', '3d5f2ec7abf9e13ecfb9646c322559a6c17c4239', '1970-01-01', '1970-01-01', 1);
+(18, 'Roadrunnr LLP', '', 'roadrunnr', 'fehuf@uhdhc.eni', '785525', 'Deliver manager', '3d5f2ec7abf9e13ecfb9646c322559a6c17c4239', '1970-01-01', '1970-01-01', 1);
 
 -- --------------------------------------------------------
 
@@ -4512,6 +4512,19 @@ INSERT INTO `customer_locations` (`location_id`, `customer_id`, `latitude`, `lan
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `customer_messages`
+--
+
+CREATE TABLE IF NOT EXISTS `customer_messages` (
+`id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `date` date NOT NULL,
+  `time` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `deliveryboy_locations`
 --
 
@@ -5619,7 +5632,7 @@ CREATE TABLE IF NOT EXISTS `delpartner_messages` (
   `delpartner_id` bigint(20) NOT NULL,
   `message` text NOT NULL,
   `date` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `delpartner_messages`
@@ -5631,7 +5644,9 @@ INSERT INTO `delpartner_messages` (`message_id`, `delpartner_id`, `message`, `da
 (3, 4, 'hello', '2016-12-13 14:10:53'),
 (4, 4, 'Hello this is for testing\r\n', '2016-12-13 15:08:24'),
 (5, 4, 'hi wt is the update\r\n', '2016-12-22 11:14:50'),
-(6, 4, 'hello', '2016-12-24 15:45:22');
+(6, 4, 'hello', '2016-12-24 15:45:22'),
+(7, 17, 'Hey 0901', '2017-01-09 11:07:11'),
+(8, 18, 'ksthtrhtrhtr', '2017-01-09 13:27:25');
 
 -- --------------------------------------------------------
 
@@ -5676,7 +5691,7 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   `feedbacktype` int(4) NOT NULL,
   `order_number` int(11) NOT NULL,
   `date` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `feedback`
@@ -5785,12 +5800,10 @@ INSERT INTO `feedback` (`id`, `customer_id`, `user_feedback`, `feedbackfrom`, `f
 (111, 29, 'good', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
 (112, 29, 'hhii', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
 (113, 35, 'by hi by y', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
-(114, 35, ' ', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
 (115, 25, 'nice app', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
 (116, 25, 'user friendly app', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
 (117, 25, 'very nice app ', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
-(118, 35, 'be free', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00'),
-(119, 35, 'by by y ', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00');
+(120, 35, 'BH hi by h', 0, 0, '', 0, 0, 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -5898,6 +5911,19 @@ INSERT INTO `migrations` (`version`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notification_message`
+--
+
+CREATE TABLE IF NOT EXISTS `notification_message` (
+`id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orders`
 --
 
@@ -5925,7 +5951,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `delivery_partner` bigint(20) NOT NULL,
   `delivery_partner_status` varchar(100) NOT NULL,
   `keep_ready` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=217 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=219 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orders`
@@ -6097,7 +6123,9 @@ INSERT INTO `orders` (`id`, `order_number`, `customer_id`, `restaurant_id`, `ord
 (207, '1482753777', 25, 7, '2016-12-26 17:32:57', 'Shipped', '40', '52', '0', 0, 2, 1142, 12.8971, 77.4606, 8, 'Manjeet', '2016-12-26 19:12:42', ' Vidyaranyapura - Nanjangud Road BSM Extension, Kengeri Satellite Town Bengaluru, Karnataka 560060', 'Accepted', '1482753777.png', 0, '', '0000-00-00 00:00:00'),
 (208, '1482753918', 25, 7, '2016-12-26 17:35:18', 'Accepted', '40', '112', '0', 0, 4, 2402, 12.9231, 77.4846, 8, 'Vijetha', '2016-12-26 19:24:16', 'kengeri upanagar ,Bangalore,Karnataka-560060', 'Accepted', '1482753918.png', 0, '', '0000-00-00 00:00:00'),
 (209, '1482753966', 25, 7, '2016-12-26 17:36:06', 'Accepted', '40', '112', '0', 0, 4, 2402, 12.9231, 77.4846, 8, 'Vijetha', '2016-12-26 19:24:16', 'kengeri upanagar ,Bangalore,Karnataka-560060', 'Accepted', '1482753966.png', 0, '', '0000-00-00 00:00:00'),
-(210, '1482754032', 25, 7, '2016-12-26 17:37:12', 'Accepted', '40', '30', '0', 0, 4, 670, 12.9231, 77.4846, 8, 'Jagadish', '2016-12-26 18:46:09', 'kengeri upanagar ,Bangalore,Karnataka-560060', 'Accepted', '1482754032.png', 0, '', '0000-00-00 00:00:00');
+(210, '1482754032', 25, 7, '2016-12-26 17:37:12', 'Accepted', '40', '30', '0', 0, 4, 670, 12.9231, 77.4846, 8, 'Jagadish', '2016-12-26 18:46:09', 'kengeri upanagar ,Bangalore,Karnataka-560060', 'Accepted', '1482754032.png', 0, '', '0000-00-00 00:00:00'),
+(217, '1483940412', 35, 6, '2017-01-09 11:10:12', 'Order Placed', '40', '91', '0', 0, 1, 1961, 12.9249, 77.4835, 0, 'Deepisha', '2017-01-09 13:29:04', 'Pitstop 3', '0', '1483940412.png', 0, '', '2017-01-09 13:20:04'),
+(218, '1483942727', 35, 7, '2017-01-09 11:48:47', 'Order Placed', '40', '71', '0', 0, 1, 1541, 12.9229, 77.4841, 0, 'Nagendra', '2017-01-09 14:18:43', 'Pitstop 2', '0', '1483942727.png', 0, '', '2017-01-09 13:48:43');
 
 -- --------------------------------------------------------
 
@@ -6174,7 +6202,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   `quantity` int(11) NOT NULL,
   `cost` int(10) NOT NULL,
   `contents` longtext NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=408 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=416 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `order_items`
@@ -6584,7 +6612,15 @@ INSERT INTO `order_items` (`id`, `order_id`, `menu_id`, `quantity`, `cost`, `con
 (404, 215, 17, 1, 450, ''),
 (405, 215, 18, 1, 450, ''),
 (406, 216, 20, 1, 150, ''),
-(407, 216, 21, 2, 1160, '');
+(407, 216, 21, 2, 1160, ''),
+(408, 217, 20, 1, 150, ''),
+(409, 217, 21, 1, 580, ''),
+(410, 217, 22, 1, 820, ''),
+(411, 217, 23, 1, 280, ''),
+(412, 218, 16, 1, 80, ''),
+(413, 218, 17, 1, 450, ''),
+(414, 218, 18, 1, 450, ''),
+(415, 218, 19, 1, 450, '');
 
 -- --------------------------------------------------------
 
@@ -6902,12 +6938,11 @@ CREATE TABLE IF NOT EXISTS `restaurant` (
 --
 
 INSERT INTO `restaurant` (`restaurant_id`, `restaurant_name`, `restaurant_address`, `restaurant_phone`, `restaurant_email`, `image`, `restaurant_latitude`, `restaurant_langitude`, `restaurant_branch`, `restaurant_manager`, `preparation_time`, `enabled`, `deactivatefrom`, `deactivateto`, `fromtime`, `totime`, `commission`, `penalty`, `servicetax`, `days`) VALUES
-(6, 'Ebony Restaurant', 'Kengeri Upanagar,Shirke', '9876543210', 'laxman.bigperl@gmail.com', '1532633f8b4f04e015a84def6b2499d7.jpg', 12.9655, 77.5317, '', 10, 20, 1, '2016-12-22', '2016-12-22', '00:00:00', '00:00:00', 10, 5, 15, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
+(6, 'Ebony Restaurant', 'Kengeri Upanagar,Shirke', '9876543210', 'laxman.bigperl@gmail.com', '1532633f8b4f04e015a84def6b2499d7.jpg', 12.9655, 77.5317, '', 10, 20, 0, '1970-01-01', '1970-01-01', '00:00:00', '00:00:00', 10, 5, 15, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
 (3, 'Kamat restaurant and Bar', 'Kengeri upanagara\r\nHoysala Circle', '8147700264', 'restaurant1@gmail.com', '885c0567439b3279bb4bc4bb53b4fab4.jpg', 12.9204, 77.4832, 'bangalore', 9, 20, 1, '1970-01-01', '1970-01-01', '09:00:00', '22:00:00', 10, 8, 12, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
 (7, 'Portland Steakhouse and Tea House', 'Near Kengeri Police station', '9876543210', 'laxman.bigperl@gmail.com', '7c9bd08cb4e0f20079e2a9c3868b93cd.jpg', 12.9119, 77.4839, '', 3, 30, 1, '2016-12-20', '2016-12-24', '00:00:00', '00:00:00', 10, 5, 15, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
 (13, 'RainBow Restaurant', 'Kengeri', '6454646646', 'rest@gmail.com', '', 12.8996, 77.4827, '', 11, 0, 0, '1970-01-01', '1970-01-01', '08:00:00', '09:00:00', 10, 5, 14, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
 (9, 'JW Marriott Hotel', '23rd Cross Kengeri\r\nHoysala circle', '8147700264', 'laxman.bigperl@gmail.com', '5a8e96ffd155c42ee8c7148d499700b6.jpg', 12.9235, 77.4883, '', 11, 30, 1, NULL, NULL, '00:00:00', '00:00:00', 10, 8, 14, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
-(14, 'Aps1', '75, Chowpatty, Mumbai 400006', '272', 'ttr@eer.co', '', 18.9543, 72.8147, '', 0, 0, 1, NULL, NULL, '00:00:00', '00:00:00', 8, 8, 15, 'N;'),
 (15, 'Aps2', '', '', '', '', 18.9689, 72.8088, '', 0, 0, 0, '1970-01-01', '1970-01-01', '00:00:00', '00:00:00', 0, 0, 0, 'N;'),
 (11, 'Golden palms restaurant', '', '9876543210', 'laxman.bigperl@gmail.com', 'ee928c4249954ca9a5c7a74e15d14b8c.jpg', 12.8995, 77.4838, '', 8, 20, 1, '1970-01-01', '1970-01-01', '00:00:00', '00:00:00', 10, 5, 14, 'a:8:{i:0;s:3:"all";i:1;s:6:"sunday";i:2;s:6:"monday";i:3;s:7:"tuesday";i:4;s:9:"wednesday";i:5;s:8:"thursday";i:6;s:6:"friday";i:7;s:8:"saturday";}'),
 (12, 'Paradise Restaurant', 'Channsandra\r\nNear BGS Hospital', '9876543210', 'laxman.bigperl@gmail.com', '86a5b66aca18559b58c3c3f3f2f595e2.jpg', 12.905, 77.5254, '', 12, 30, 1, NULL, NULL, '08:00:00', '20:00:00', 10, 5, 14, 'a:7:{i:0;s:3:"all";i:1;s:6:"monday";i:2;s:7:"tuesday";i:3;s:9:"wednesday";i:4;s:8:"thursday";i:5;s:6:"friday";i:6;s:8:"saturday";}');
@@ -6956,10 +6991,8 @@ INSERT INTO `restaurant_menu` (`menu_id`, `restaurant_id`, `code`, `menu`, `desc
 (27, 9, '402', 'Zeera Rice', 'Tasty zeera rice with curry', 250, '412ab3e1c148ab11aedfaa0d3c3a6631.jpg', 'veg', '30', 1, NULL, NULL),
 (28, 9, '406', 'Pizza', 'Veg pizza', 560, 'd6679992fb93e9702b5134ba7ae7c88e.jpg', 'veg', '30', 1, NULL, NULL),
 (29, 9, '407', 'Chizza', 'Chicken pizza with rice', 199, '22b2629a7d0dc601889dc8d220cfba59.jpg', 'non veg', '30', 1, NULL, NULL),
-(47, 14, 'nrt', 'trhtr', '', 66, '', 'non veg', '6', 1, NULL, NULL),
 (43, 7, '0', 'menuu1', '', 100, '', 'veg', '', 1, NULL, NULL),
 (44, 7, '123', 'menu1', 'test', 200, '', 'non veg', '10', 0, NULL, NULL),
-(46, 14, 'ww1', 'fr', 'gbgrfbrfb', 45, '', 'veg', '4', 1, NULL, NULL),
 (38, 12, '968', 'Chicken Kabab', '8 pieces of Kabab', 999, '1d22e8559fd3ef8635b2f03c94a00fe4.jpg', 'non veg', '30', 1, NULL, NULL),
 (39, 11, '326', 'Zeera Rice', 'Fresh Hot Zeera Rice', 190, '452aa8465d87020cfe0a9747f605c8b8.jpg', 'veg', '20', 1, NULL, NULL),
 (40, 6, '0', 'menuu1', '', 100, '', 'veg', '', 1, NULL, NULL),
@@ -7179,6 +7212,12 @@ ALTER TABLE `customer_locations`
  ADD PRIMARY KEY (`location_id`), ADD KEY `customer_id` (`customer_id`);
 
 --
+-- Indexes for table `customer_messages`
+--
+ALTER TABLE `customer_messages`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `deliveryboy_locations`
 --
 ALTER TABLE `deliveryboy_locations`
@@ -7213,6 +7252,12 @@ ALTER TABLE `feedback`
 --
 ALTER TABLE `feedbacktype`
  ADD PRIMARY KEY (`feedbacktype_id`);
+
+--
+-- Indexes for table `notification_message`
+--
+ALTER TABLE `notification_message`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `orders`
@@ -7300,7 +7345,7 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `categories`
 --
@@ -7347,6 +7392,11 @@ MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 ALTER TABLE `customer_locations`
 MODIFY `location_id` bigint(30) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `customer_messages`
+--
+ALTER TABLE `customer_messages`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `deliveryboy_locations`
 --
 ALTER TABLE `deliveryboy_locations`
@@ -7360,7 +7410,7 @@ MODIFY `id` bigint(30) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 -- AUTO_INCREMENT for table `delpartner_messages`
 --
 ALTER TABLE `delpartner_messages`
-MODIFY `message_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `message_id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `destination`
 --
@@ -7370,17 +7420,22 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=120;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=121;
 --
 -- AUTO_INCREMENT for table `feedbacktype`
 --
 ALTER TABLE `feedbacktype`
 MODIFY `feedbacktype_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
+-- AUTO_INCREMENT for table `notification_message`
+--
+ALTER TABLE `notification_message`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=217;
+MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=219;
 --
 -- AUTO_INCREMENT for table `orders-old`
 --
@@ -7390,7 +7445,7 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=408;
+MODIFY `id` int(9) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=416;
 --
 -- AUTO_INCREMENT for table `order_type`
 --
