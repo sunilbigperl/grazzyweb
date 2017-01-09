@@ -11,10 +11,18 @@
 		</div>
 		<?php if($this->auth->check_access('Admin')){ ?>
 		<div class="form-group">
-			<label for="to date"><strong>delivery partner:</strong></label>
+			<label for="to date"><strong>Delivery partner:</strong></label>
 			<?php $delpartners = $this->Message_model->get_delpartners(); ?>
 			<select name="delpartner" class="form-control">
 				<option value="">Select delivery partner</option>
+				<?php foreach($delpartners as $delpartner){?>
+				<option value="<?=$delpartner['id']?>"><?=$delpartner['firstname']?></option>
+				<?php } ?>
+			</select>
+			<label for="to date"><strong>Restaurant:</strong></label>
+			<?php $delpartners = $this->Message_model->get_delpartners(); ?>
+			<select name="delpartner" class="form-control">
+				<option value="">Select Restaurant</option>
 				<?php foreach($delpartners as $delpartner){?>
 				<option value="<?=$delpartner['id']?>"><?=$delpartner['firstname']?></option>
 				<?php } ?>
