@@ -314,4 +314,10 @@
 		</div>
 		<?php endif;?>
     
-    
+  <script>
+	$(document).ready(function(){
+		$('li.active').each(function () {
+			alert();
+		});
+	})
+  </script>  

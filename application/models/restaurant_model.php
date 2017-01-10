@@ -42,9 +42,9 @@ Class Restaurant_model extends CI_Model
 		$today =  date('Y-m-d H:i:s');
 		$userdata = $this->session->userdata('admin');
 		
-		$sql = $this->db->query("select * from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and b.restaurant_manager='".$userdata['id']."'
-		and date between '".$yes."' and '".$today."'");
-		$sql1 = $this->db->query("select * from restaurant_messages a where date between '".$yes."' and '".$today."' and restaurant_id=0" );
+		$sql = $this->db->query("select * from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and b.restaurant_manager='".$userdata['id']." or a.restaurant_id=0'
+		order by date desc limit 1");
+		$sql1 = $this->db->query("select * from restaurant_messages a where date between '".$yes."' and '".$today."' and restaurant_id=".rand()."" );
 		if($sql1->num_rows() > 0){  
 			if($sql->num_rows() > 0){
 				$da1 = $sql->result_array();

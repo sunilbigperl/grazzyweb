@@ -360,6 +360,9 @@ class Orders extends Admin_Controller {
 			$data['fromdate'] =  date('Y-m-d',strtotime('first day of this month'));
 			$data['todate'] =  date('Y-m-d',strtotime('last day of this month'));
 		}
+		if($data['fromdate'] > date("Y-m-d",strtotime('today')) || $data['todate'] > date("Y-m-d",strtotime('today'))){
+			echo "<script>alert('Select proper dates'); location.href='http://localhost/grazzyweb/index.php/admin/orders/RequestBill';</script>";
+		}
 		$data['orders'] = $this->Order_model->get_previousorders($data);
 		$userdata = $this->session->userdata('admin');
 		$config = Array(
@@ -393,7 +396,7 @@ class Orders extends Admin_Controller {
 		 //Send mail 
          if($this->email->send()) 
 		 {
-		echo "<script> alert('Your bill will be emailed to registred email id.');location.href='http://grazzy.way2gps.com/index.php/admin/orders/RequestBill';</script>";	 
+			echo "<script> alert('Your bill will be emailed to registred email id.');location.href='http://grazzy.way2gps.com/index.php/admin/orders/RequestBill';</script>";	 
 		//	echo "Your bill will be emailed to registred email id."; 
          }
 		 else
