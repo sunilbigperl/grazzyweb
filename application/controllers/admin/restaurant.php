@@ -14,11 +14,11 @@ class Restaurant extends Admin_Controller {
     
     function index()
     {
-		
+		$data['page_title1'] = 'Restaurants';
         $data['restaurants'] = $this->Restaurant_model->get_restaurants();
 		$name = isset($data['restaurants'][0]->restaurant_name) ? $data['restaurants'][0]->restaurant_name : '';
 		$data['page_title'] = $name;
-        $data['page_title1'] = 'Restaurants';
+       
         $this->view($this->config->item('admin_folder').'/restaurant', $data);
 		
     }

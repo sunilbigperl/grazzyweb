@@ -134,6 +134,7 @@
 						</ul>
 					</li>
 				<?php endif; ?>
+				
                 <?php if($this->auth->check_access('Deliver manager')) : ?>
 						<li><a><i class="fa fa-home"></i> Orders <span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
@@ -303,7 +304,7 @@
 	</div>      
 
 	<div class="container">
-		<?php if(!empty($page_title)):?>
+		<?php if(!empty($page_title1)):?>
 		<div class="page-header">
 			<?php if($this->auth->check_access('Restaurant manager')) { ?>
 			<h1><?php echo  $page_title; ?></h1>

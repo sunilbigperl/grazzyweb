@@ -13,7 +13,7 @@ echo "Date: " . date("Y/m/d") . "<br>";
 		<tr>
 			<th data-field="id">Order id</th>
 			<th data-field="name">Order Number</th>
-			<th data-field="price">Cost(Rs)</th>
+		<!--	<th data-field="price">Cost(Rs)</th> -->
 			<th data-field="date">Ordered on</th>
 			<th data-field="type">Order type</th>
 			<th>Keep ready by</th>
@@ -36,9 +36,9 @@ echo "Date: " . date("Y/m/d") . "<br>";
 				<td>
 					<a href="#" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
 				</td>
-				<td>
+			<!--	<td>
 					<?=$order->total_cost; ?>
-				</td>
+				</td>-->
 				<td>
 					<?=$order->ordered_on; ?>
 				</td>
