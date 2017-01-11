@@ -10,6 +10,11 @@ class Dashboard extends Admin_Controller {
 		{
 			redirect($this->config->item('admin_folder').'/restaurant');
 		}
+		if($this->auth->check_access('Deliver manager')){
+			
+			redirect($this->config->item('admin_folder').'/orders/delpartnerorders');
+			
+		} 
 		$this->auth->check_access('Admin', true);
 		
 		$this->load->model('Order_model');
@@ -58,6 +63,7 @@ class Dashboard extends Admin_Controller {
 	}
 
 	function index(){
+		
 		$restaurant = $this->Customer_model->get_restaurants();
 		if($restaurant != 0 ){
 			$data['restaurant'] = json_encode($restaurant);

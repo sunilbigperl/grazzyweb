@@ -118,4 +118,6 @@ Class Deliveryboy_model extends CI_Model
 			}
 		}
 	}
+	
+	
 }

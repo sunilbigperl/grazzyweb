@@ -5,6 +5,7 @@
 		<li class="active"><a href="#description_tab" data-toggle="tab">Delivery partner details</a></li>
 		<li><a href="#timings_tab" data-toggle="tab">Other Details</a></li>
 		<li><a href="#charge_tab" data-toggle="tab">Charge Details</a></li>
+		
 	</ul>	
 	<div class="tab-content">
 		<div class="tab-pane active" id="description_tab">
@@ -168,6 +169,7 @@
 		</div>
 	</div>
 </form>
+<?php $this->load->view('admin/delpartnermarque'); ?>
 <script type="text/javascript">
 $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');

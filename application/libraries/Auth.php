@@ -25,6 +25,7 @@ class Auth
         $this->CI->db->where('id', $admin['id']);
         $this->CI->db->limit(1);
         $result = $this->CI->db->get('admin');
+		//echo $this->CI->db->last_query(); exit;
         $result = $result->row();
         
         //result should be an object I was getting odd errors in relation to the object.
@@ -249,10 +250,12 @@ class Auth
     */
     function save($admin)
     {
+		
         if ($admin['id'])
         {
             $this->CI->db->where('id', $admin['id']);
             $this->CI->db->update('admin', $admin);
+			
         }
         else
         {
@@ -267,11 +270,14 @@ class Auth
     function get_admin_list()
     {
         $this->CI->db->select('*');
+		$this->CI->db->where('access',"Admin");
+		$this->CI->db->or_where('access',"Restaurant Manager");
         $this->CI->db->order_by('lastname', 'ASC');
         $this->CI->db->order_by('firstname', 'ASC');
         $this->CI->db->order_by('email', 'ASC');
         $this->CI->db->order_by('username', 'ASC');
         $result = $this->CI->db->get('admin');
+		//echo $this->CI->db->last_query(); exit;
         $result = $result->result();
         
         return $result;

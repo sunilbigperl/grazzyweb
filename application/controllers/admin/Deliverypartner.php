@@ -7,16 +7,23 @@ class Deliverypartner extends Admin_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->auth->check_access('Admin', true);
 		
 		//load the admin language file in
 		$this->lang->load('admin');
 		$this->load->model('Deliveryboy_model');
+		$this->load->model('Restaurant_model');
 		$this->current_admin	= $this->session->userdata('admin');
 	}
 
 	function index()
 	{
+		if($this->auth->check_access('Deliver manager')){
+			$userdata = $this->session->userdata('admin');
+			if($userdata['id'] != $this->uri->segment(4)){
+				redirect($this->config->item('admin_folder').'/orders/delpartnerorders');
+			}
+		} 
+		$this->auth->check_access('Admin', true);
 		$data['page_title']	= "Delivery partners";
 		$data['admins']		= $this->Deliveryboy_model->get_deliverypartner_list();
 		
@@ -24,6 +31,8 @@ class Deliverypartner extends Admin_Controller
 	}
 	function delete($id)
 	{
+		$this->auth->check_access('Admin', true);
+		
 		//even though the link isn't displayed for an admin to delete themselves, if they try, this should stop them.
 		if ($this->current_admin['id'] == $id)
 		{
@@ -39,6 +48,8 @@ class Deliverypartner extends Admin_Controller
 	
 	function form($id = false)
 	{	
+		
+		
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -142,11 +153,15 @@ class Deliverypartner extends Admin_Controller
 			}
 			
 			$this->auth->save($save);
+	
 			$this->Deliveryboy_model->SaveCharges($ListValues,$id);
+			
 			$this->session->set_flashdata('message', "Delivery partner saved");
 			
 			//go back to the customer list
-			redirect($this->config->item('admin_folder').'/deliverypartner');
+		
+				redirect($this->config->item('admin_folder').'/deliverypartner');
+			
 		}
 	}
 	
@@ -202,6 +217,14 @@ class Deliverypartner extends Admin_Controller
 	
 	function partnerform($id = false)
 	{	
+		
+		if($this->auth->check_access('Deliver manager', true)){
+			$userdata = $this->session->userdata('admin');
+			if($userdata['id'] != $this->uri->segment(4)){
+				redirect($this->config->item('admin_folder').'/orders/delpartnerorders');
+			}
+		}
+		
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');

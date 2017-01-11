@@ -8,6 +8,7 @@ class Deliveryboy extends Admin_Controller
 
 		$this->auth->check_access('Deliver manager', true);
 		$this->load->model('Deliveryboy_model');
+		$this->load->model('Restaurant_model');
 		$this->lang->load('page');
 	}
 		

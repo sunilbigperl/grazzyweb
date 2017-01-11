@@ -119,6 +119,7 @@
               <div class="menu_section">
                 <ul class="nav side-menu">
 				<?php if($this->auth->check_access('Restaurant manager')) : ?>
+						<li><a href="<?php echo $admin_url;?>admin/form/<?=$userdata['id'];?>"><i class="fa fa-home"></i> Profile</a></li>
 						<li><a href="<?php echo $admin_url;?>orders/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
 						<li><a href="<?php echo $admin_url;?>restaurant"><i class="fa fa-home"></i> Control <span class=""></span></a>
 							<ul class="nav child_menu">
@@ -134,8 +135,8 @@
 						</ul>
 					</li>
 				<?php endif; ?>
-				
                 <?php if($this->auth->check_access('Deliver manager')) : ?>
+						<li><a href="<?php echo $admin_url;?>deliverypartner/form/<?=$userdata['id'];?>"><i class="fa fa-home"></i> Profile</a></li>
 						<li><a><i class="fa fa-home"></i> Orders <span class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
 							  <li><a href="<?php echo $admin_url;?>orders/delpartnerorders">New orders</a></li>
@@ -143,6 +144,7 @@
 							</ul>
 						</li>
 						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boy </a></li>
+						  <li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li>
 				<?php endif; ?>
                 <?php if($this->auth->check_access('Admin')) : ?>
 					<!--<li><a><i class="fa fa-home"></i> Dashboard <span class="fa fa-chevron-down"></span></a>-->
@@ -171,16 +173,8 @@
 							<li><a href="<?php echo $admin_url;?>pitstop">Pitstops</a></li>
 						</ul>
 					</li>
-                   <li><a><i class="fa fa-home"></i> <?php echo lang('common_administrative') ?>  <span class="fa fa-chevron-down"></span></a>
-						<ul class="nav child_menu">
-							<!-- <li><a href="<?php echo $admin_url;?>settings"><?php echo lang('common_gocart_configuration') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>shipping"><?php echo lang('common_shipping_modules') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>payment"><?php echo lang('common_payment_modules') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>settings/canned_messages"><?php echo lang('common_canned_messages') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>locations"><?php echo lang('common_locations') ?></a></li>-->
-                            <li><a href="<?php echo $admin_url;?>admin"><?php echo lang('common_administrators') ?></a></li>
-						</ul>
-					</li>
+					<li><a href="<?php echo $admin_url;?>admin"><i class="fa fa-home"></i><?php echo lang('common_administrative') ?>  </a></li>
+                    <li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li>
 					<li><a><i class="fa fa-home"></i>Messages <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a href="<?php echo $admin_url;?>message/restmessage">Restaurant message</a></li>
@@ -304,13 +298,9 @@
 	</div>      
 
 	<div class="container">
-		<?php if(!empty($page_title1)):?>
+		<?php if(!empty($page_title)):?>
 		<div class="page-header">
-			<?php if($this->auth->check_access('Restaurant manager')) { ?>
-			<h1><?php echo  $page_title; ?></h1>
-			<?php } else {?>
-			<h1><?php echo  $page_title1; ?></h1>
-			<?php }  ?>
+			<h1><?php echo  $page_title; ?>
 			<?php if(isset($_SERVER['HTTP_REFERER'])){ ?>
 			<!--<span class="pull-right" style="font-size:16px;"><a href="<?=$_SERVER['HTTP_REFERER'];?>">Back</a></span>-->
 			<?php } ?>
@@ -319,10 +309,3 @@
 		</div>
 		<?php endif;?>
     
-  <script>
-	$(document).ready(function(){
-		$('li.active').each(function () {
-			alert();
-		});
-	})
-  </script>  

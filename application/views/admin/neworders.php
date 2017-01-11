@@ -97,4 +97,6 @@ echo "Date: " . date("Y/m/d") . "<br>";
 		});
 	}
 </script>
+
 <?php $this->load->view('admin/marque'); ?>
+<?php $this->load->view('admin/delpartnermarque'); ?>

@@ -146,3 +146,4 @@ $('#the-basics .typeahead').typeahead({
 
 </script>
 <?php $this->load->view('admin/marque'); ?>
+<?php $this->load->view('admin/delpartnermarque'); ?>
