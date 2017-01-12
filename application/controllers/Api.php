@@ -797,4 +797,19 @@ class Api extends REST_Controller {
 		
 	}
 	
+	public function GetNotifications_get(){
+		$notifications = $this->api_model->getnotifications();
+	
+        if (!empty($notifications))
+        {
+            $this->set_response($notifications, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'Orders could not be found'
+            ], REST_Controller::HTTP_OK);
+        }
+	}
 }

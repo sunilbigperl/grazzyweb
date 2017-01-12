@@ -106,8 +106,74 @@ class Message_model extends CI_Model
 		$sql = "insert into customer_messages (message, date) 
 		values('".$data['message']."','".$date."')";	
 		$query = $this->db->query($sql);
+		
 		if($this->db->insert_id()){
-			return $this->db->insert_id();
+			$id = $this->db->insert_id();
+			$query1 = $this->db->query("SELECT `did` FROM `customers`");	
+			if($query1->num_rows() > 0){
+				$res	= $query1->result_array();
+				foreach($res as $result){
+					
+					$did= $result['did']; 
+					if($did != ""){
+						$registatoin_ids = array($did);
+						$message = array("type" => "Message");    
+						$url = 'https://android.googleapis.com/gcm/send';
+
+
+
+						$fields = array(
+
+						'registration_ids' => $registatoin_ids,
+
+						'data' => $message,
+
+						);
+
+
+
+						$headers = array(
+
+							'Authorization: key=AIzaSyCB4r56wVzKQdte4Rw8QUwoK9k7AMP0fr4',
+
+							'Content-Type: application/json'
+
+						);
+
+					
+						$ch = curl_init();
+
+
+
+						// Set the url, number of POST vars, POST data
+
+						curl_setopt($ch, CURLOPT_URL, $url);
+						curl_setopt($ch, CURLOPT_POST, true);
+
+						curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+						curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+
+
+						$result = curl_exec($ch);
+
+						if ($result === FALSE) {
+
+							die('Curl failed: ' . curl_error($ch));
+
+						}
+
+
+						curl_close($ch);
+					}
+				
+				$i++;
+				}
+			}
+			return true;
 		}
 	}
 	public function get_restmessages(){

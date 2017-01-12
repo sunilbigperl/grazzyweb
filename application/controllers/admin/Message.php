@@ -62,10 +62,10 @@ class Message extends Admin_Controller {
 		}
    }
    
-   function messagecust(){
+   function messagecust(){ 
 	    $data = $this->input->post();
 	    $id = $this->Message_model->messagecust($data);
-		if($id > 0){
+		if($id){
 			redirect('admin/message/custmessage');
 		}
    }
