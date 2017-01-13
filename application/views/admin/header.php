@@ -6,9 +6,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Admin Panel</title>
-
+ <?php if($this->auth->check_access('Restaurant manager')) { ?>
+    <title>POS</title>
+ <?php }elseif($this->auth->check_access('Deliver manager')) { ?>
+         <title>DBOS</title>
+ <?php }else{ ?>
+ <title>Admin Panel</title>
+    
+ <?php } ?>
     <!-- Bootstrap -->
     <link href="<?php echo base_url('vendors/css/bootstrap.css');?>" rel="stylesheet">
 	
