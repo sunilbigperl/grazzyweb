@@ -298,9 +298,13 @@
 	</div>      
 
 	<div class="container">
-		<?php if(!empty($page_title)):?>
+		<?php if(!empty($page_title1)):?>
 		<div class="page-header">
-			<h1><?php echo  $page_title; ?>
+			<?php if($this->auth->check_access('Restaurant manager')) { ?>
+			<h1><?php echo  $page_title; ?></h1>
+			<?php } else {?>
+			<h1><?php echo  $page_title1; ?></h1>
+			<?php }  ?>
 			<?php if(isset($_SERVER['HTTP_REFERER'])){ ?>
 			<!--<span class="pull-right" style="font-size:16px;"><a href="<?=$_SERVER['HTTP_REFERER'];?>">Back</a></span>-->
 			<?php } ?>

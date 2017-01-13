@@ -37,10 +37,18 @@
 	<div class="form-group">	
 		<label><?php echo lang('access');?></label>
 		<?php
+		 if($this->auth->check_access('Admin')){ 
 		$options = array(	'Admin'		=> 'Admin',
 							'Restaurant manager'	=> 'Restaurant Manager'
 		                );
 		echo form_dropdown('access', $options, set_value('access', $access),'class="form-control" id="access"');
+		 }else{
+		$options = array(
+			'Restaurant manager'	=> 'Restaurant Manager'
+		                );
+		echo form_dropdown('access', $options, set_value('access', $access),'class="form-control" id="access"');	 
+			 
+		 }
 		?>
 	</div>
 	<div class="form-group">	

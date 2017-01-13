@@ -15,7 +15,7 @@
        <div class="col-md-12 col-sm-12 col-xs-12">
             
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKUsjUabpe8-dBedcqnKchPAVfsNqFnlE"></script>
-                <div id="map" style="height:400px;width:1100px;"></div>
+                <div id="map" style="height:500px;width:1100px;"></div>
 
        </div>
   </div>
