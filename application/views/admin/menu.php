@@ -2,9 +2,10 @@
 <?php echo theme_js('bootstrap-table.js', true);?>
 
 <div class="btn-group pull-left">
-	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant'); ?>"><i class="icon-plus-sign"></i> Restaurants</a>
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/0/'.$res_id); ?>"><i class="icon-plus-sign"></i> Add new menu</a>
-    <button class="btn btn-primary" onclick="history.go(-1);">Back </button>
+  	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant'); ?>"><i class="icon-plus-sign"></i> Back</a> 
+
+  <!--  <button class="btn btn-primary" onclick="history.go(-1);">Back </button>-->
 
 	</div>
 
