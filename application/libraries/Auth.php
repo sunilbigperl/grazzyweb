@@ -255,11 +255,13 @@ class Auth
         {
             $this->CI->db->where('id', $admin['id']);
             $this->CI->db->update('admin', $admin);
+			return $admin['id'];
 			
         }
         else
         {
             $this->CI->db->insert('admin', $admin);
+			return $this->CI->db->insert_id();
         }
     }
     
@@ -271,7 +273,7 @@ class Auth
     {
         $this->CI->db->select('*');
 		$this->CI->db->where('access',"Admin");
-		$this->CI->db->or_where('access',"Restaurant Manager");
+		//$this->CI->db->or_where('access',"Restaurant Manager");
         $this->CI->db->order_by('lastname', 'ASC');
         $this->CI->db->order_by('firstname', 'ASC');
         $this->CI->db->order_by('email', 'ASC');

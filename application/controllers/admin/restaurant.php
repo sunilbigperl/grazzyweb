@@ -8,6 +8,7 @@ class Restaurant extends Admin_Controller {
         
         //$this->auth->check_access('Admin', true);
         $this->lang->load('category');
+		$this->lang->load('admin');
         $this->load->model('Restaurant_model');
 		$this->load->library('user_agent');
     }
@@ -66,6 +67,10 @@ class Restaurant extends Admin_Controller {
         $data['fromtime'] ='';
 		$data['totime'] ='';
 		$data['days'] ='';
+		
+		$data['username']	= '';
+		$data['access']	 = '';
+		
         //create the photos array for later use
         $data['photos']     = array();
         
@@ -73,7 +78,8 @@ class Restaurant extends Admin_Controller {
         {   
 		
             $restaurant       = $this->Restaurant_model->get_restaurant($id);
-
+			$this->admin_id		= $restaurant->restaurant_manager;
+			$admin			= $this->auth->get_admin($restaurant->restaurant_manager);
             //if the category does not exist, redirect them to the category list with an error
             if (!$restaurant)
             {
@@ -103,6 +109,9 @@ class Restaurant extends Admin_Controller {
 			$data['totime']	= $restaurant->totime;
 			$data['days']	= $restaurant->days;
 			
+			$data['username']	= $admin->username;
+			$data['access']		= $admin->access;
+			
 			if(!$this->input->post('submit'))
 			{
 				$data['related_pitstops']	= $restaurant->related_pitstops;
@@ -114,13 +123,21 @@ class Restaurant extends Admin_Controller {
             
         }
         
+		
+		
+		//$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
         $this->form_validation->set_rules('restaurant_name', 'lang:restaurant_name', 'trim|required|max_length[64]');
-        
         $this->form_validation->set_rules('restaurant_address', 'lang:restaurant_address', 'trim');
-       
         $this->form_validation->set_rules('image', 'lang:restaurant_image', 'trim');
-       
         $this->form_validation->set_rules('enabled', 'lang:enabled', 'trim|numeric');
+		
+		//if this is a new account require a password, or if they have entered either a password or a password confirmation
+		if ($this->input->post('password') != '' || $this->input->post('confirm') != '' || !$id)
+		{
+			$this->form_validation->set_rules('password', 'lang:password', 'required|min_length[6]|sha1');
+			$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]|sha1');
+		}
+		
         if($this->input->post('submit'))
 		{
 			$data['related_pitstops']	= $this->input->post('related_pitstops');
@@ -214,7 +231,16 @@ class Restaurant extends Admin_Controller {
                 $this->image_lib->resize(); 
                 $this->image_lib->clear();
             }
-            
+            $save1['username']	= $this->input->post('username');
+			$save1['access']		= 'Restaurant manager';
+			$save1['id'] = $this->admin_id;
+			if ($this->input->post('password') != '' || !$this->admin_id)
+			{
+				$save1['password']	= $this->input->post('password');
+			}
+			
+			$restid = $this->auth->save($save1);
+			
             $save['restaurant_id']         = $id;
             $save['restaurant_name']       = $this->input->post('restaurant_name');
             $save['restaurant_address']    = $this->input->post('restaurant_address');
@@ -223,7 +249,7 @@ class Restaurant extends Admin_Controller {
             $save['restaurant_latitude']   = $this->input->post('restaurant_latitude');
             $save['restaurant_langitude']  = $this->input->post('restaurant_langitude');
             $save['restaurant_branch']     = $this->input->post('restaurant_branch');
-			$save['restaurant_manager']    = $this->input->post('restaurant_manager');
+			$save['restaurant_manager']    = $restid;
 			$save['servicetax']			   = $this->input->post('servicetax');
 			$save['commission'] 		   = $this->input->post('commission');
 			$save['penalty'] 			   = $this->input->post('penalty');
@@ -334,5 +360,19 @@ class Restaurant extends Admin_Controller {
 			
 			}
 		
+	}
+	
+	function check_username($str)
+	{
+		$email = $this->auth->check_username($str, $this->admin_id);
+		if ($email)
+		{
+			$this->form_validation->set_message('check_username', lang('error_username_taken'));
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
 	}
 }

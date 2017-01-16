@@ -8,12 +8,14 @@
 		<li class="active"><a href="#description_tab" data-toggle="tab"><?php echo lang('description');?></a></li>
 		<li><a href="#timings_tab" data-toggle="tab">Timings</a></li>
 		<li><a href="#attributes_tab" data-toggle="tab">Image</a></li>
-	<!--	<li><a href="#pitstop_tab" data-toggle="tab">Pitstop</a></li> -->
 		<li><a href="#location_tab" data-toggle="tab">Location</a></li>
+		<li><a href="#preparation_tab" data-toggle="tab">Restaurant Manager</a></li>
+		<li><a href="#pt_tab" data-toggle="tab">Preparation Time</a></li>
 	</ul>
 	
 
 	<div class="tab-content">
+		
 		<div class="tab-pane active" id="description_tab">
 			<fieldset style="padding:10px;">
 				<div class="form-group">	
@@ -51,27 +53,12 @@
 					echo form_input($data);
 					?>
 				</div>
-				<div class="form-group">
-					<label for="restaurant_manager">Restaurant Manager</label>
-					<select name="restaurant_manager" class="form-control form-control">
-						<option value="">Select Restaurant Manager</option>
-						<?php foreach($managers as $manager){
-							if($restaurant_manager == $manager->id){$select="selected";}else{$select="";}?>
-							<option value="<?=$manager->id?>" <?=$select;?>><?=$manager->username;?></option>
-						<?php } ?>
-					</select>
-				</div>
+				
 				<div class="form-group">	
 					<label for="enabled"><?php echo lang('enabled');?> </label>
 					<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class="form-control"'); ?>
 				</div>
-				<div class="form-group" style="display:none;">	
-					<label for="preparation_time">Preparation time(In mins)</label>
-					<?php
-					$data	= array('name'=>'preparation_time', 'value'=>set_value('preparation_time', $preparation_time), 'class'=>'form-control');
-					echo form_input($data);
-					?>
-				</div>
+				
 				 <?php if($this->auth->check_access('Restaurant manager')){ ?>
 				<div class="form-group " >	
 					<label for="commission " >Commission(%)</label>	
@@ -164,6 +151,7 @@
 				</script>
 			</fieldset>
 		</div>
+		
 		<div class="tab-pane" id="attributes_tab">
 			
 			<fieldset style="padding: 10px;">
@@ -257,6 +245,59 @@
 				<input type="text" class="form-control" value="<?=$restaurant_langitude;?>" name="restaurant_langitude" id="lng">
 				
 				<div id="map_canvas" style="width:500px;height:500px;" class="col-sm-8"></div>	
+			</fieldset>
+		</div>
+	
+		<div class="tab-pane" id="preparation_tab">
+			<fieldset style="padding:10px;">
+
+				<div class="form-group">	
+					<label>Manager user name</label>
+					<?php
+					$data	= array('name'=>'username', 'value'=>set_value('username', $username),'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">	
+					<input type="hidden" name="access" value="">
+					
+				</div>
+				<div class="form-group">	
+					<label><?php echo lang('password');?></label>
+					<?php
+					$data	= array('name'=>'password','class'=>'form-control');
+					echo form_password($data);
+					?>
+				</div>
+				<div class="form-group">	
+					<label><?php echo lang('confirm_password');?></label>
+					<?php
+					$data	= array('name'=>'confirm','class'=>'form-control');
+					echo form_password($data);
+					?>
+				</div>
+	
+			</fieldset>
+		</div>
+		
+		<div class="tab-pane" id="pt_tab">
+			<fieldset style="padding:10px;">
+				<div class="form-group">	
+					<label for="preparation_time">Preparation time(In mins)</label>
+					<select class="form-control" name="preparation_time">
+					<option value="1" <?php if($preparation_time == 1){echo "selected=selected"; }?>>1</option>
+					<option value="2" <?php if($preparation_time == 2){echo "selected=selected"; }?>>2</option>
+					<option value="5" <?php if($preparation_time == 5){echo "selected=selected"; }?>>5</option>
+					<option value="10" <?php if($preparation_time == 10){echo "selected=selected"; }?>>10</option>
+					<option value="12" <?php if($preparation_time == 12){echo "selected=selected"; }?>>12</option>
+					<option value="15" <?php if($preparation_time == 15){echo "selected=selected"; }?>>15</option>
+					<option value="18" <?php if($preparation_time == 18){echo "selected=selected"; }?>>18</option>
+					<option value="20" <?php if($preparation_time == 20){echo "selected=selected"; }?>>20</option>
+					<option value="25" <?php if($preparation_time == 25){echo "selected=selected"; }?>>25</option>
+					<option value="30" <?php if($preparation_time == 30){echo "selected=selected"; }?>>30</option>
+				</select>
+				
+				</div>
 			</fieldset>
 		</div>
 	</div>

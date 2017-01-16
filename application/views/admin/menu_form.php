@@ -43,10 +43,19 @@
 			</div>
 			<div class="form-group">
 				<label for="name">Item preparation time(In mins)</label>
-				<?php
-				$data	= array('name'=>'itemPreparation_time', 'value'=>set_value('itemPreparation_time', $itemPreparation_time), 'class'=>'form-control');
-				echo form_input($data);
-				?>
+				<select class="form-control" name="itemPreparation_time">
+					<option value="1" <?php if($itemPreparation_time == 1){echo "selected=selected"; }?>>1</option>
+					<option value="2" <?php if($itemPreparation_time == 2){echo "selected=selected"; }?>>2</option>
+					<option value="5" <?php if($itemPreparation_time == 5){echo "selected=selected"; }?>>5</option>
+					<option value="10" <?php if($itemPreparation_time == 10){echo "selected=selected"; }?>>10</option>
+					<option value="12" <?php if($itemPreparation_time == 12){echo "selected=selected"; }?>>12</option>
+					<option value="15" <?php if($itemPreparation_time == 15){echo "selected=selected"; }?>>15</option>
+					<option value="18" <?php if($itemPreparation_time == 18){echo "selected=selected"; }?>>18</option>
+					<option value="20" <?php if($itemPreparation_time == 20){echo "selected=selected"; }?>>20</option>
+					<option value="25" <?php if($itemPreparation_time == 25){echo "selected=selected"; }?>>25</option>
+					<option value="30" <?php if($itemPreparation_time == 30){echo "selected=selected"; }?>>30</option>
+				</select>
+				
 			</div>
 			<div class="form-group">
 				<label for="description">Description</label>

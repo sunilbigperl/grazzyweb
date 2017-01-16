@@ -22,6 +22,7 @@ Class Restaurant_model extends CI_Model
         return $restaurants;
     }
 	
+
 	 function InsertRestaurants($restaurants){
 		
 		foreach($restaurants as $men){

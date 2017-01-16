@@ -37,7 +37,7 @@
               <h1>Login Form</h1>
               <div>
                   <label for="username"><?php echo lang('username');?></label>
-				  <?php echo form_input(array('name'=>'username', 'class'=>'form-control','placeholder'=>'Username')); ?>
+				  <input type="text" name="username" placeholder="Username" class="form-control" autocomplete="off">
               </div>
               <div>
 				<label for="password"><?php echo lang('password');?></label>

@@ -170,10 +170,10 @@
 						<ul class="nav child_menu">
 							<li><a href="<?php echo $admin_url;?>categories"><?php echo lang('common_categories') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>restaurant">Restaurants</a></li>
-							<li><a href="<?php echo $admin_url;?>pitstop">Pitstops</a></li>
+							
 						</ul>
 					</li>
-					<li><a href="<?php echo $admin_url;?>admin"><i class="fa fa-home"></i><?php echo lang('common_administrative') ?>  </a></li>
+					<li><a href="<?php echo $admin_url;?>pitstop"><i class="fa fa-home"></i>Pitstops</a></li>
                     <li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li>
 					<li><a><i class="fa fa-home"></i>Messages <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
@@ -183,6 +183,8 @@
                             <li><a href="<?php echo $admin_url;?>message/notifications">Notification messages</a></li>
 						</ul>
 					</li>
+					
+					<li><a href="<?php echo $admin_url;?>admin"><i class="fa fa-home"></i><?php echo lang('common_administrative') ?>  </a></li>
                     <?php endif; ?>
                 </ul>
               </div>
