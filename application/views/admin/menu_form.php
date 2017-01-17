@@ -5,7 +5,7 @@
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#description_tab" data-toggle="tab">Menu information</a></li>
 		<li><a href="#attributes_tab" data-toggle="tab">Categories</a></li>
-		<li><a href="#seo_tab" data-toggle="tab">Image</a></li>
+		<!--<li><a href="#seo_tab" data-toggle="tab">Image</a></li>-->
 	</ul>
 
 	<div class="tab-content">
@@ -119,7 +119,7 @@
 			
 		</div>
 		
-		<div class="tab-pane" id="seo_tab">
+		<!--<div class="tab-pane" id="seo_tab">
 			<fieldset>
 				<label for="image"><?php echo lang('image');?> </label>
 				<div class="input-append">
@@ -133,7 +133,7 @@
 				<?php endif;?>
 				
 			</fieldset>
-		</div>
+		</div>-->
 	</div>
 
 </div>

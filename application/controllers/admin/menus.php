@@ -24,13 +24,13 @@ class Menus extends Admin_Controller {
 	function form($menu_id=false,$res_id){
 		$data['menuid']  = $menuid = isset($menu_id) ? $menu_id : 0;
 		
-		$config['upload_path']      = 'uploads/images/full';
-        $config['allowed_types']    = 'gif|jpg|png';
-        $config['max_size']         = $this->config->item('size_limit');
-        $config['max_width']        = '1024';
-        $config['max_height']       = '768';
-        $config['encrypt_name']     = true;
-        $this->load->library('upload', $config);
+	//	$config['upload_path']      = 'uploads/images/full';
+      //  $config['allowed_types']    = 'gif|jpg|png';
+     //   $config['max_size']         = $this->config->item('size_limit');
+//$config['max_width']        = '1024';
+     //   $config['max_height']       = '768';
+     //   $config['encrypt_name']     = true;
+      //  $this->load->library('upload', $config);
         
         
       
@@ -44,12 +44,12 @@ class Menus extends Admin_Controller {
 		$data['menu']		= '';
         $data['price']      = '';
         $data['enabled']     = '';
-		$data['image']          = '';
+//$data['image']          = '';
 		$data['type']          = '';
 		$data['itemPreparation_time'] = '';
 		$data['code'] = '';
 		$data['description'] = '';
-		$data['photos']     = array();
+	//	$data['photos']     = array();
 		$data['product_categories']	= array();
 		
 		if($menu_id){
@@ -65,7 +65,7 @@ class Menus extends Admin_Controller {
 			$data['menu']		= $menus->menu;
 			$data['price']      = $menus->price;
 			$data['enabled']       = $menus->enabled;
-			$data['image']          = $menus->image;
+//$data['image']          = $menus->image;
 			$data['type']          = $menus->type;
 			$data['code'] = $menus->code;
 			$data['description'] = $menus->description;
@@ -92,7 +92,7 @@ class Menus extends Admin_Controller {
         $this->form_validation->set_rules('menu', 'lang:menu', 'trim|required');
 		$this->form_validation->set_rules('type', 'lang:type', 'trim|required');
         $this->form_validation->set_rules('price', 'lang:price', 'trim');
-		$this->form_validation->set_rules('image', 'lang:image', 'trim');
+	//	$this->form_validation->set_rules('image', 'lang:image', 'trim');
 		 
 		if($this->input->post('submit'))
 		{
@@ -100,43 +100,43 @@ class Menus extends Admin_Controller {
 		}
 		
 		
-		if ($this->form_validation->run() == FALSE)
-        {
+	//	if ($this->form_validation->run() == FALSE)
+     //   {
           
-			$this->view($this->config->item('admin_folder').'/menu_form', $data);
-        }
-        else
-        {
-			$uploaded   = $this->upload->do_upload('image');
+	//		$this->view($this->config->item('admin_folder').'/menu_form', $data);
+      //  }
+    //    else
+//{
+		//	$uploaded   = $this->upload->do_upload('image');
             
-            if ($menu_id)
-            {
+//if ($menu_id)
+         //   {
                 //delete the original file if another is uploaded
-                if($uploaded)
-                {
+           //     if($uploaded)
+           //     {
                     
-                    if($data['image'] != '')
-                    {
-                        $file = array();
-                        $file[] = 'uploads/images/full/'.$data['image'];
-                        $file[] = 'uploads/images/medium/'.$data['image'];
-                        $file[] = 'uploads/images/small/'.$data['image'];
-                        $file[] = 'uploads/images/thumbnails/'.$data['image'];
-                        
-                        foreach($file as $f)
-                        {
-                            //delete the existing file if needed
-                            if(file_exists($f))
-                            {
-                                unlink($f);
-                            }
-                        }
-                    }
-                }
+               //     if($data['image'] != '')
+                //    {
+                //        $file = array();
+//$file[] = 'uploads/images/full/'.$data['image'];
+//$file[] = 'uploads/images/medium/'.$data['image'];
+                //        $file[] = 'uploads/images/small/'.$data['image'];
+                //        $file[] = 'uploads/images/thumbnails/'.$data['image'];
+//
+//foreach($file as $f)
+                   //     {
+////delete the existing file if needed
+                    //        if(file_exists($f))
+                    //        {
+                    //            unlink($f);
+///}
+//}
+//}
+//}
                 
-            }
+//}
             
-            if(!$uploaded)
+/*if(!$uploaded)
             {
                 $data['error']  = $this->upload->display_errors();
                 if($_FILES['image']['error'] != 4)
@@ -205,7 +205,7 @@ class Menus extends Admin_Controller {
 			$category_id    = $this->Menu_model->save($save,$categories);
 			redirect($this->config->item('admin_folder').'/menus/index/'.$res_id);
 		}
-	}
+	}*/
 	
 	function delete($id,$res_id)
     {

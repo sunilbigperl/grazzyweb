@@ -2,7 +2,7 @@
 <?php echo theme_js('bootstrap-table.js', true);?>
 
 <div class="btn-group pull-left">
-	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/0/'.$res_id); ?>"><i class="icon-plus-sign"></i> Add new menu</a>
+	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/0/'.$res_id); ?>"><i class="icon-plus-sign"></i> Add New Menu Item</a>
   	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant'); ?>"><i class="icon-plus-sign"></i> Back</a> 
 
   <!--  <button class="btn btn-primary" onclick="history.go(-1);">Back </button>-->
@@ -17,6 +17,7 @@
 			<th data-field="name">menu</th>
 			<th data-field="price">price</th>
 			<th data-field="time">Item preparation time(In mins)</th>
+			
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -31,16 +32,18 @@
 			foreach($menus as $menu)
 			{?>
 			<tr class="gc_row">
-				<td><?=$i;?></td>
+				<td><?=$menu->menu_id;?></td>
 				<td>
 					<?=$menu->menu;?>
 				</td>
 				<td>
 					<?=$menu->price; ?>
 				</td>
+				
 				<td>
 					<?=$menu->itemPreparation_time; ?>
 				</td>
+				
 				<td>
 				<a class="btn btn-info btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/'.$menu->menu_id.'/'.$res_id.''); ?>">Edit</a>
 				&nbsp;<a class="btn btn-danger btn-xs" href="#" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/menus/delete/'.$menu->menu_id.'/'.$res_id.''); ?>'; }">delete</a>
