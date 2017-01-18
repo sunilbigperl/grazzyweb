@@ -4,14 +4,15 @@
 
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#description_tab" data-toggle="tab">Menu information</a></li>
-		<li><a href="#attributes_tab" data-toggle="tab">Categories</a></li>
-		<li><a href="#seo_tab" data-toggle="tab">Image</a></li>
+		
+		<li><a href="#seo_tab" data-toggle="tab" style="display:none;">Image</a></li>
 	</ul>
 
 	<div class="tab-content">
 		<div class="tab-pane active" id="description_tab">
 			
-			<fieldset>
+			<fieldset style="padding:20px;">
+			<div class="col-sm-6">
 			<div class="form-group">		
 				<label for="name"><?php echo lang('name');?></label>
 				<?php
@@ -65,21 +66,15 @@
 				<label for="enabled"><?php echo lang('enabled');?> </label>
         		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class=form-control'); ?>
 			</div>
-			</fieldset>
-		</div>
-
-		<div class="tab-pane" id="attributes_tab">
-			
-			<fieldset>
-				
-				<div class="col-sm-12">
-					<div class="col-sm-8">
+			</div>
+			<div class="col-sm-6">
+				<div class="col-sm-8">
 						<?php if(isset($categories[0])):?>
 							<label><strong><?php echo lang('select_a_category');?></strong></label>
 							<table class="table table-striped">
 							    <thead>
 									<tr>
-										<th colspan="2"><?php echo lang('name')?></th>
+										<th colspan="2">Categories</th>
 									</tr>
 								</thead>
 								
@@ -113,13 +108,14 @@
 						<div class="alert"><?php echo lang('no_available_categories');?></div>
 					<?php endif;?>
 					</div>
-				</div>
-			
+				
+			</div>
 			</fieldset>
-			
 		</div>
+
 		
-		<div class="tab-pane" id="seo_tab">
+		
+		<div class="tab-pane" id="seo_tab" style="display:none;">
 			<fieldset>
 				<label for="image"><?php echo lang('image');?> </label>
 				<div class="input-append">
@@ -138,7 +134,7 @@
 
 </div>
 
-<div class="form-actions">
+<div class="form-actions pull-right">
 	<button type="submit" class="btn btn-primary"><?php echo lang('save');?></button>
 </div>
 </form>

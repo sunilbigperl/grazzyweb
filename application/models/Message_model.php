@@ -114,7 +114,8 @@ class Message_model extends CI_Model
 				$res	= $query1->result_array();
 				foreach($res as $result){
 					
-					$did= $result['did']; 
+					$did= $result['did'];
+					
 					if($did != ""){
 						$registatoin_ids = array($did);
 						$message = array("type" => "Message");    
