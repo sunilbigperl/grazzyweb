@@ -34,14 +34,14 @@
 		echo form_input($data);
 		?>
 	</div>
-	<div class="form-group">	
+	<!--<div class="form-group">	
 		<label><?php echo lang('access');?></label>
 		<?php
 		$options = array(	'Admin'		=> 'Admin'
 		                );
 		echo form_dropdown('access', $options, set_value('access', $access),'class="form-control" id="access"');
 		?>
-	</div>
+	</div>-->
 	<div class="form-group">	
 		<label><?php echo lang('password');?></label>
 		<?php

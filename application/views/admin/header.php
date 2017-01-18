@@ -6,9 +6,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Admin Panel</title>
-
+    <?php if($this->auth->check_access('Restaurant manager')) { ?>
+    <title>POS</title>
+ <?php }elseif($this->auth->check_access('Deliver manager')) { ?>
+         <title>DBOS</title>
+ <?php }else{ ?>
+ <title>Admin Panel</title>
+    
+ <?php } ?>
+    
     <!-- Bootstrap -->
     <link href="<?php echo base_url('vendors/css/bootstrap.css');?>" rel="stylesheet">
 	
@@ -119,7 +125,7 @@
               <div class="menu_section">
                 <ul class="nav side-menu">
 				<?php if($this->auth->check_access('Restaurant manager')) : ?>
-						<li><a href="<?php echo $admin_url;?>admin/form/<?=$userdata['id'];?>"><i class="fa fa-home"></i> Profile</a></li>
+						<!--<li><a href="<?php echo $admin_url;?>admin/form/<?=$userdata['id'];?>"><i class="fa fa-home"></i> Profile</a></li> -->
 						<li><a href="<?php echo $admin_url;?>orders/dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
 						<li><a href="<?php echo $admin_url;?>restaurant"><i class="fa fa-home"></i> Control <span class=""></span></a>
 							<ul class="nav child_menu">
@@ -300,9 +306,14 @@
 	</div>      
 
 	<div class="container">
-		<?php if(!empty($page_title)):?>
+		<?php if(!empty($page_title1)):?>
 		<div class="page-header">
-			<h1><?php echo  $page_title; ?>
+			<?php if($this->auth->check_access('Restaurant manager')) { ?>
+			<h1><?php echo  $page_title; ?></h1>
+			<?php } else {?>
+			<h1><?php echo  $page_title1; ?></h1>
+			<?php }  ?>
+		
 			<?php if(isset($_SERVER['HTTP_REFERER'])){ ?>
 			<!--<span class="pull-right" style="font-size:16px;"><a href="<?=$_SERVER['HTTP_REFERER'];?>">Back</a></span>-->
 			<?php } ?>
