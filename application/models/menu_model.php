@@ -25,13 +25,22 @@ Class Menu_model extends CI_Model
 		return $result;
 	}
 	
-	function InsertMenus($menus,$id){
 	
+	
+	function InsertMenus($menus,$id){
 		foreach($menus as $men){
 			foreach($men as $menu){
-			$sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `itemPreparation_time`, `enabled`
-			) VALUES ('".$id."','".$menu['code']."','".$menu['menu']."','".$menu['description']."','".$menu['price']."',
-			'".$menu['type']."','".$menu['itemPreparation_time']."','".$menu['enabled']."')");
+				$categories = explode(":", $menu['category_id']);
+				
+				$sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `itemPreparation_time`, `enabled`
+				) VALUES ('".$id."','".$menu['code']."','".$menu['menu']."','".$menu['description']."','".$menu['price']."',
+				'".$menu['type']."','".$menu['itemPreparation_time']."','".$menu['enabled']."')");
+				$menu_category = $this->db->insert_id();
+				if(count($categories) > 0){
+					foreach($categories as $cat){
+						$sql =$this->db->query("INSERT INTO `menu_categories`(category_id,menu_category) VALUES (".$cat.",'".$menu_category."')");
+					}
+				}
 			}
 		}
 	}

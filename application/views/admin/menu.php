@@ -17,7 +17,7 @@
 			<th data-field="name">menu</th>
 			<th data-field="price">price</th>
 			<th data-field="time">Item preparation time(In mins)</th>
-			
+			<th>Category</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -43,7 +43,15 @@
 				<td>
 					<?=$menu->itemPreparation_time; ?>
 				</td>
-				
+				<td><?php $cats = $this->Menu_model->get_menu_categories($menu->menu_id);
+				$category = "";
+				if(count($cats) > 0){
+					foreach($cats as $cat){
+						$category.= $cat->name.", ";
+					}
+				}
+				echo $category;
+				?></td>
 				<td>
 				<a class="btn btn-info btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/'.$menu->menu_id.'/'.$res_id.''); ?>">Edit</a>
 				&nbsp;<a class="btn btn-danger btn-xs" href="#" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/menus/delete/'.$menu->menu_id.'/'.$res_id.''); ?>'; }">delete</a>
