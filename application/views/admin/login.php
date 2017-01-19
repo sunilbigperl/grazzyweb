@@ -62,8 +62,8 @@
                 <br />
 
                 <div>
-                  <h1><i class=""></i> Admin panel!</h1>
-                  <p>©2016 All Rights Reserved. Privacy and Terms</p>
+                  <h1><i class=""></i>Welcome to Eatsapp!</h1>
+                  <p>©2017 All Rights Reserved. Privacy and Terms</p>
                 </div>
               </div>
             <?php echo  form_close(); ?>

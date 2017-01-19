@@ -15,8 +15,8 @@
 	<a href="../../restaurant.csv" style="text-decoration:underline">(Download the Restaurant import format)</a>
 </div>
 <?php } ?>
-<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
-		 data-search="true" id="table-pagination" data-sort-order="desc">
+
+<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true"  <?php if($this->auth->check_access('Admin')) { ?> data-show-refresh="true" data-search="true" <?php } ?> id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
 			<th data-field="id">Id</th>
@@ -47,14 +47,14 @@
 				</td>
 				<td>
 					<span class="btn-group">
-					<a class="btn btn-info btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form/'.$restaurant->restaurant_id); ?>">Edit</a>
+					<a class="btn btn-info btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/form/'.$restaurant->restaurant_id); ?>">Edit</a></br>
 					                <?php if($this->auth->check_access('Admin')) {?>
-				<a class="btn btn-danger btn-xs" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/restaurant/delete/'.$restaurant->restaurant_id); ?>'; }">delete</a>
+				<a class="btn btn-danger btn-xs" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/restaurant/delete/'.$restaurant->restaurant_id); ?>'; }">delete</a></br>
 				
 									<?php } ?>
-					<a class="btn btn-xs btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Menu</a>
+					<a class="btn btn-xs btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Menu</a></br>
 					<?php if($restaurant->enabled == 1){ ?> 
-						<a class="btn btn-xs btn-danger" style="color: white;" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a>
+						<a class="btn btn-xs btn-danger" style="color: white;" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a></br>
 					<?php }else{ ?>
 						
 						<a class="btn btn-xs btn-success" style="color:white;" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id."/1"); ?>" >Activate</a>
@@ -73,9 +73,9 @@
 				</td>
 				<td>
 					<span class="btn-group">
-						<a class="btn btn-primary btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/orders/GetRestPreviousOrders/'.$restaurant->restaurant_id); ?>">previous orders/sales</a>
-						<a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/ShowReviewDetails/'.$restaurant->restaurant_id.'');?>');">Reviews/Ratings</a>
-						<a class="btn btn-primary btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/message/index/'.$restaurant->restaurant_id);?>" >Messages</a>
+						<a class="btn btn-primary btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/orders/GetRestPreviousOrders/'.$restaurant->restaurant_id); ?>">previous orders/sales</a></br>
+						<a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/ShowReviewDetails/'.$restaurant->restaurant_id.'');?>');">Reviews/Ratings</a></br>
+						<a class="btn btn-primary btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/message/index/'.$restaurant->restaurant_id);?>" >Messages</a></br>
 					
 					</div>
 				</td>
