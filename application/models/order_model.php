@@ -319,7 +319,7 @@ Class order_model extends CI_Model
 		$result 			= $this->db->get('orders');
 		
 		$order				= $result->row();
-		$order->contents	= $this->get_items($order->id);
+		//$order->contents	= $this->get_items($order->id);
 		
 		return $order;
 	}

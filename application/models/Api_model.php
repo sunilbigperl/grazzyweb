@@ -97,7 +97,7 @@ class Api_model extends CI_Model
 	public function getRestaurants($id){
 		
 		$threadmsg = $this->db->query("select a.* from restaurant a, pitstops b, pitstop_restaurants c where 
-		a.restaurant_id = c.restaurants_id and b.pitstop_id=c.pitstop_id and b.pitstop_id=".$id);
+		a.restaurant_id = c.restaurants_id and b.pitstop_id=c.pitstop_id and b.pitstop_id='".$id."'");
 
 			if($threadmsg->num_rows()>0){
 				$result = array();
@@ -105,6 +105,9 @@ class Api_model extends CI_Model
 				foreach($threadmsg->result_array() as $row){ 
 					$result[$i]['restaurant_id'] = $row['restaurant_id'];
 					$result[$i]['restaurant_name'] = $row['restaurant_name'];
+					$result[$i]['commission'] = $row['commission'];
+					$result[$i]['penalty'] = $row['penalty'];
+					$result[$i]['servicetax'] = $row['servicetax'];
 					$result[$i]['image'] = 'uploads/images/thumbnails/'.$row['image']; 
 				$i++;
 				}

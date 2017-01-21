@@ -72,7 +72,8 @@ class Pitstop extends Admin_Controller {
 
         $data['latitude']           = '';
         $data['langitude']      = '';
-		
+		$data['address']      = '';
+		$data['city']      = '';
         $data['enabled']        = '';
        
         
@@ -94,6 +95,8 @@ class Pitstop extends Admin_Controller {
             $data['pitstop_name']           = $pitstop->pitstop_name;
             $data['latitude']           = $pitstop->latitude;
             $data['langitude']    = $pitstop->langitude;
+			$data['address']    = $pitstop->address;
+			$data['city']    = $pitstop->city;
             $data['enabled']        = $pitstop->enabled;
 			if(!$this->input->post('submit'))
 			{
@@ -129,7 +132,8 @@ class Pitstop extends Admin_Controller {
             $save['pitstop_name']           = $this->input->post('pitstop_name');
             $save['latitude']    = 	$this->input->post('latitude');
             $save['langitude']        = $this->input->post('langitude');
-           
+            $save['address']        = $this->input->post('address');
+		    $save['city']        = $this->input->post('city');
             $save['enabled']        = $this->input->post('enabled');
 		
 			if($this->input->post('related_restaurants'))

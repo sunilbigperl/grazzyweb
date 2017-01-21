@@ -47,7 +47,7 @@
 				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/delete/'.$pitstop->pitstop_id); ?>" class="btn btn-danger btn-xs">delete</a></td>
 			</tr>
 		<?php
-			
+			$i++;
 			}
 		
 		?>

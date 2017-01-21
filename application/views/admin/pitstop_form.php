@@ -34,6 +34,19 @@
 				echo form_input($data);
 				?>
 			</div>
+			<div class="form-group">
+				<label for="pitstop_address">Address</label>
+				<textarea name="address" required ><?=$address;?></textarea>
+			</div>
+			<div class="form-group">
+				<label for="restaurant_address">Pitstop City</label>
+				
+				<select name="city" class="form-control" required>
+					<option value="">Select city</option>
+					<option value="Mumbai" <?php if($city == "Mumbai"){ echo "selected"; } ?>>Mumbai</option>
+				</select>
+			
+			</div>
 			<div class="form-group">	
 				<label for="enabled"><?php echo lang('enabled');?> </label>
         		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled), 'class=form-control'); ?>

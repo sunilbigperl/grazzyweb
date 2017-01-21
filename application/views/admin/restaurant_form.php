@@ -48,10 +48,12 @@
 				</div>
 				<div class="form-group">
 					<label for="restaurant_address">Restaurant branch</label>
-					<?php
-					$data	= array('name'=>'restaurant_branch', 'value'=>set_value('restaurant_branch', $restaurant_branch), 'class'=>'form-control');
-					echo form_input($data);
-					?>
+					
+					<select name="restaurant_branch" class="form-control" required>
+						<option value="">Select Branch</option>
+						<option value="Mumbai" <?php if($restaurant_branch == "Mumbai"){ echo "selected"; } ?>>Mumbai</option>
+					</select>
+				
 				</div>
 				
 				<div class="form-group">	
