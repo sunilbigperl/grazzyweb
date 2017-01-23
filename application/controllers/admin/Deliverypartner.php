@@ -37,13 +37,13 @@ class Deliverypartner extends Admin_Controller
 		if ($this->current_admin['id'] == $id)
 		{
 			$this->session->set_flashdata('message', lang('error_self_delete'));
-			redirect($this->config->item('admin_folder').'/admin');	
+			redirect($this->config->item('admin_folder').'/deliverypartner');	
 		}
 		
 		//delete the user
 		$this->auth->delete($id);
 		$this->session->set_flashdata('message', lang('message_user_deleted'));
-		redirect($this->config->item('admin_folder').'/admin');
+		redirect($this->config->item('admin_folder').'/deliverypartner');
 	}
 	
 	function form($id = false)
