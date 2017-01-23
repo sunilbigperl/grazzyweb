@@ -37,7 +37,7 @@ function areyousure()
 					$current_admin	= $this->session->userdata('admin');
 					$margin			= 30;
 					if ($current_admin['id'] != $admin->id): ?>
-					<a class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/admin/delete/'.$admin->id); ?>" onclick="return areyousure();"><i class="fa fa-trash"></i> <?php echo lang('delete');?></a>
+					<a class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/deliverypartner/delete/'.$admin->id); ?>" onclick="return areyousure();"><i class="fa fa-trash"></i> <?php echo lang('delete');?></a>
 					<?php endif; ?>
 				</div>
 			</td>

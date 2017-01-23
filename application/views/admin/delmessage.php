@@ -3,7 +3,7 @@
 		<div class="form-group" id="the-basics">
 				<select id="delpartner_id" name="delpartner_id" class="form-control">
 				<?php foreach($delpartners as $delpartner){?>
-					<option value="<?=$delpartner['id']?>"><?=$delpartner['firstname'];?></option>
+					<option value="<?=$delpartner['id']?>"><?=$delpartner['username'];?></option>
 				<?php } ?>
 				</select>
 		</div>
