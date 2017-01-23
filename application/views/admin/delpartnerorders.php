@@ -51,7 +51,7 @@ echo "Date: " . date("Y/m/d") . "<br>";
 							<?php foreach($deliveryboys as $deliveryboy){ if($order->delivered_by == $deliveryboy->id){ $select= "selected";}else{$select ="";}?>
 								<option value="<?=$deliveryboy->id?>" <?=$select?>><?=$deliveryboy->name;?></option>
 							<?php } ?>
-						<select>
+						</select>
 						<?php if($order->delivered_by == 0){ ?>
 						<input type="submit" value="Assign" name="assign" class="btn btn-primary">
 						<?php } ?>

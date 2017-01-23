@@ -150,32 +150,33 @@ class Orders extends Admin_Controller {
 	}
 	
 	function ChangeRestMangerStatus($status,$id){
-		
-		$status = $this->Order_model->ChangeRestMangerStatus($status,$id);
-		if($status){
-			$data['order'] = $this->Order_model->get_order($id);
-			if($data['order']->order_type != 3){
-				$data['restaurant'] = $this->Restaurant_model->get_restaurant($data['order']->restaurant_id);
-				$data['customer'] = $this->Customer_model->get_customer($data['order']->customer_id);
-				$data['fromaddress'] = $data['restaurant']->restaurant_address;
-				$data['fromcity'] = $data['restaurant']->restaurant_branch;
-				if($data['order']->order_type == 1 && $data['order']->pitstop_id != ""){
-					$pitstop = $this->Pitstop_model->get_pitstop($data['order']->pitstop_id);
-					$data['toaddress'] = $pitstop->address;
-					$data['tocity'] = $pitstop->city;
-				}else{
-					$data['toaddress'] = $data['order']->delivery_location;
-					$data['tocity'] = $data['restaurant']->restaurant_branch;
-				}
+		$data['order'] = $this->Order_model->get_order($id);
+		if($data['order']->order_type != 3){
+			$data['restaurant'] = $this->Restaurant_model->get_restaurant($data['order']->restaurant_id);
+			$data['customer'] = $this->Customer_model->get_customer($data['order']->customer_id);
+			$data['fromaddress'] = $data['restaurant']->restaurant_address;
+			$data['fromcity'] = $data['restaurant']->restaurant_branch;
+			if($data['order']->order_type == 1 && $data['order']->pitstop_id != ""){
+				$pitstop = $this->Pitstop_model->get_pitstop($data['order']->pitstop_id);
+				$data['toaddress'] = $pitstop->address;
+				$data['tocity'] = $pitstop->city;
+			}else{
+				$data['toaddress'] = $data['order']->delivery_location;
+				$data['tocity'] = $data['restaurant']->restaurant_branch;
 			}
-			 $result = $this->Roadrunner_model->CheckServicability($data);
-			 $roadrunner = json_decode($result);
-			 if($roadrunner->status->code ==  200){
-				$sql = $this->db->query("update orders set delivery_partner = '123' where id='".$id."'");
-			 }else{
-				 redirect('admin/orders/neworders', 'refresh');
-			 }
 		}
+		 $result = $this->Roadrunner_model->CheckServicability($data);
+		 $roadrunner = json_decode($result);
+		if($roadrunner->status->code ==  200){
+			$sql = $this->db->query("update orders set delivery_partner = '123', restaurant_manager_status = 'Accepted' where id='".$id."'");
+			echo '<script>alert("Order assigned success. delivered by roadrunner.")</script>';
+		}else{
+			$status = $this->Order_model->ChangeRestMangerStatus($status,$id);
+			if($status){
+				redirect('admin/orders/neworders', 'refresh');
+			}
+		}
+		
 	}
 	
 	function ChangeDelPartnerStatus($status,$id){
