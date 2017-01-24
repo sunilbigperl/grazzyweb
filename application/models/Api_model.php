@@ -552,18 +552,37 @@ print_r(json_encode($result)); exit;
 		return $result;
 	  }
 	  
-	  public function deliveryboylocation($id){
-		$sql=$this->db->query("select * from deliveryboy_locations where deliveryboy_id='".$id."'");
-       
-		if($sql->num_rows()>0){
-			$data = $sql->result_array();
-			
-			$result['langitude'] = $data[0]['langitude'];
-			$result['latitude'] = $data[0]['latitude'];
-			
-		}else{
-				$result =  false;
+	  public function deliveryboylocation($data){
+		if(isset($data['deliveryboy_id']) && $data['deliveryboy_id'] != ""){
+			$sql=$this->db->query("select * from deliveryboy_locations where deliveryboy_id='".$id."'");
+		   
+			if($sql->num_rows()>0){
+				$data = $sql->result_array();
 				
+				$result['langitude'] = $data[0]['langitude'];
+				$result['latitude'] = $data[0]['latitude'];
+				
+			}else{
+					$result =  false;
+					
+			}
+		}else{
+			$results = $this->Roadrunner_model->TrackOrder($data['order_id']);
+			$roadrunner = json_decode($results);
+			
+			if($roadrunner->status->code ==  200){
+				
+				 $result['order_status'] = $roadrunner->order_status;
+				
+				//$result['langitude'] = $roadrunner->location;
+				//$result['latitude'] = $roadrunner->location->latitude;
+				$result['driver_name'] = $roadrunner->driver_name;
+				$result['driver_phone'] = $roadrunner->driver_phone;
+				$result['driver_image_url'] = $roadrunner->driver_image_url;
+				$result['driver_rating'] = $roadrunner->driver_rating; 
+			}else{
+				$result =  false;
+			}
 		}
 			return $result;
 	  }

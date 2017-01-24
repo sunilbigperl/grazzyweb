@@ -24,7 +24,7 @@ class Api extends REST_Controller {
         parent::__construct();
 		$this->load->database();
 		$this->load->model('api_model');
-        
+        $this->load->model('Roadrunner_model');
         $this->methods['user_get']['limit'] = 500; // 500 requests per hour per user/key
         $this->methods['user_post']['limit'] = 100; // 100 requests per hour per user/key
         $this->methods['user_delete']['limit'] = 50; // 50 requests per hour per user/key
@@ -256,16 +256,17 @@ class Api extends REST_Controller {
         }
 	}
 	
-	public function deliveryboylocation_get($id){
-		$deliveryboylocation =  $this->api_model->deliveryboylocation($id);
+	public function deliveryboylocation_post(){
 		
-		if ($id <= 0)
-        {
-            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
-        }
-
-       
-        if (!empty($deliveryboylocation))
+		$data = [
+            'deliveryboy_id' => $this->post('deliveryboy_id'),
+            'order_id' => $this->post('order_id'),
+        ];
+		
+		$deliveryboylocation =  $this->api_model->deliveryboylocation($data);
+		print_r($deliveryboylocation); exit;
+	
+        if ($deliveryboylocation)
         {
             $this->set_response($deliveryboylocation, REST_Controller::HTTP_OK); 
         }

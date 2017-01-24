@@ -18,6 +18,18 @@ class Roadrunner_model extends CI_Model
 		return $result;
 	}
 	
+	public function TrackOrder($orderid){
+		$token = $this->GetToken();
+		$ch = curl_init("http://apitest.roadrunnr.in/v1/orders/".$orderid."/track"); 
+
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json", "Authorization: Bearer " . $token));
+
+		 
+		$result =  curl_exec($ch);
+		return $result;
+	}
 	public function CheckServicability($data){
 		$token = $this->GetToken();
 		$restaurant = $data['restaurant'];
