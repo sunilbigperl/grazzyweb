@@ -549,7 +549,7 @@ class Customers extends Admin_Controller {
 		<div class='modal-body'>
 		<div class=''><strong>Phone:</strong> ".$customer->phone."</div>
 		<div class=''><strong>Email:</strong> ".$customer->email."</div>
-		<div class=''><strong>DOB:</strong> ".$from->diff($to)->y."</div>
+		<div class=''><strong>Age:</strong> ".$from->diff($to)->y."</div>
 		<div><strong>Prefered Food outlets </strong>";
 		foreach($FoodOutlets['data'] as $FoodOutlet){
 			echo $FoodOutlet->restaurant_name.",";
