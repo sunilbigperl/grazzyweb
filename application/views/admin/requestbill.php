@@ -12,7 +12,7 @@
 		  <label for="to date"><strong>To date:</strong></label>
 		  <input type="date" class="form-control" id="todate" name="todate">
 		</div>
-		<div class="form-group span2"><input type="submit" class="btn btn-default" id="BtnGo" value="Go" name="action"></div>
+		<div class="form-group span2"><input type="submit" class="btn btn-primary" id="BtnGo" value="Go" name="action"></div>
 	<br/>
 		<div class="form-group" style="margin-top:20px;">
 			<div class="form-group span6"><input type="submit" class="btn btn-primary" value="Previous Month" name="action"></div>

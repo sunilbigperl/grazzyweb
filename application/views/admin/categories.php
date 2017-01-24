@@ -31,7 +31,7 @@ function areyousure()
 				<td><?php echo  $sub.$cat->name; ?></td>
 				<td><?php echo ($cat->enabled == '1') ? lang('enabled') : lang('disabled'); ?> </td>
 				<td>
-					<div class="btn-group" style="float:right">
+					<div class="btn-group" style="float:center">
 
 						<a class="btn btn-primary btn-xs" href="<?php echo  site_url(ADMIN_FOLDER.'/categories/form/'.$cat->id);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
 
