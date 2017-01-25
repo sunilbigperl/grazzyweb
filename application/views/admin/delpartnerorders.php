@@ -57,6 +57,7 @@ echo "Date: " . date("Y/m/d") . "<br>";
 						<?php } ?>
 						
 					</form>
+					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
 				</td>
 			<!--	<td> 
 				<?php $userdata = $this->session->userdata('admin'); 

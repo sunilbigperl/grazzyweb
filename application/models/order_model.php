@@ -52,7 +52,7 @@ Class order_model extends CI_Model
 		$userdata = $this->session->userdata('admin');
 		$date = date("Y-m-d 00:00:00");
 	
-		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
+		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
 		and d.ordertype_id =a.order_type and c.id = '".$userdata['id']."' and a.ordered_on >='".$date."' order by a.ordered_on desc");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
@@ -280,8 +280,13 @@ Class order_model extends CI_Model
 	}
 	
 	function ChangeRestMangerStatus($status,$id){
-		if($status == "1"){ $data = "Accepted"; }else{ $data = "Rejected"; }
-		$sql = $this->db->query('update orders set restaurant_manager_status="'.$data.'" where id="'.$id.'"');
+		if($status == "1"){ 
+			$data = "Accepted"; 
+			$sql = $this->db->query('update orders set restaurant_manager_status="'.$data.'" where id="'.$id.'"');
+		}else{ 
+			$data = "Rejected"; 
+			$sql = $this->db->query('update orders set restaurant_manager_status="'.$data.'", status="'.$data.'" where id="'.$id.'"');
+		}
 		if($sql){
 			return true;
 		}else{
@@ -290,10 +295,16 @@ Class order_model extends CI_Model
 	}
 	
 	function ChangeDelPartnerStatus($status,$id){
-		if($status == "1"){ $data = "Accepted"; }else{ $data = "Rejected"; }
-		$userdata = $this->session->userdata('admin');
 		
-		$sql = $this->db->query('update orders set delivery_partner ="'.$userdata['id'].'",delivery_partner_status="'.$data.'" where id="'.$id.'"');
+		$userdata = $this->session->userdata('admin');
+		if($status == "1"){
+			$data = "Accepted"; 
+			$sql = $this->db->query('update orders set delivery_partner ="'.$userdata['id'].'",delivery_partner_status="'.$data.'" where id="'.$id.'"');
+		}else{ 
+			$data = "Rejected";
+			$sql = $this->db->query('update orders set delivery_partner ="'.$userdata['id'].'",delivery_partner_status="'.$data.'", status="'.$data.'" where id="'.$id.'"');
+		}
+		
 		if($sql){
 			return true;
 		}else{
