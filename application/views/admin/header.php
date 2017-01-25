@@ -6,7 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php if($this->auth->check_access('Restaurant manager')) { ?>
+    
+	 
+	 <?php if($this->auth->check_access('Restaurant manager')) { ?>
     <title>POS</title>
  <?php }elseif($this->auth->check_access('Deliver manager')) { ?>
          <title>DBOS</title>
@@ -70,6 +72,7 @@
 		}
 
 	</style>
+	 <link rel="shortcut icon" href="<?php echo base_url('uploads/favicon.png');?>" type="image/x-icon">  
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$('.redactor').redactor({
