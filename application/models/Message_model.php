@@ -3,7 +3,7 @@ class Message_model extends CI_Model
 {
 	
 	public function get_restmessage($id){
-		$query = $this->db->query("select a.*,b.restaurant_name from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and a.restaurant_id=".$id."");
+		$query = $this->db->query("select a.*,b.restaurant_name from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and a.restaurant_id=".$id." ORDER BY date DESC");
 		//$query = $this->db->query("select *  from restaurant_messages ");
 		if($query->num_rows() > 0){
 			$result = array();
@@ -20,7 +20,7 @@ class Message_model extends CI_Model
 	
 	
 	public function get_delmessages(){
-		$query = $this->db->query("select a.*,b.firstname from delpartner_messages a, admin b where a.delpartner_id = b.id");
+		$query = $this->db->query("select a.*,b.firstname from delpartner_messages a, admin b where a.delpartner_id = b.id ORDER BY date DESC");
 		//$query = $this->db->query("select *  from restaurant_messages ");
 		if($query->num_rows() > 0){
 			$result = array();
@@ -36,7 +36,7 @@ class Message_model extends CI_Model
 	}
 	
 	public function get_custmessage(){
-		$query = $this->db->query("select * from customer_messages");
+		$query = $this->db->query("select * from customer_messages ORDER BY date DESC");
 		
 		if($query->num_rows() > 0){
 			$result = array();
@@ -178,7 +178,7 @@ class Message_model extends CI_Model
 		}
 	}
 	public function get_restmessages(){
-		$query = $this->db->query("select a.*,b.restaurant_name from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id");
+		$query = $this->db->query("select a.*,b.restaurant_name from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id ORDER BY date DESC");
 		//$query = $this->db->query("select *  from restaurant_messages ");
 		if($query->num_rows() > 0){
 			$result = array();
