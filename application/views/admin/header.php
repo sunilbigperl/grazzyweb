@@ -214,6 +214,24 @@
               <ul class="nav navbar-nav navbar-right">
                
                 <li><a href="<?php echo site_url($this->config->item('admin_folder').'/login/logout');?>"><?php echo lang('common_log_out') ?></a></li>
+				 <?php if($this->auth->check_access('Restaurant manager')) : 
+					$renewalmsg = $this->Customer_model->GetRenewalmsg(); 
+					if($renewalmsg != '' && $renewalmsg <= 20){ ?>
+					<li role="presentation" class="dropdown">
+					  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+						<i class="fa fa-envelope-o"></i>
+						<span class="badge bg-green">1</span>
+					  </a>
+					  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu" style="height:auto !important;">
+						<li>
+							<a>
+								<span><?php echo "You have ".$renewalmsg." days to renew your licence. Please renew it."?></span>
+								<span class="time"><input type="submit" name="Renew" value="Renew" class="btn btn-xs btn-danger"></span>
+							</a>
+						</li>
+					  </ul>
+					</li>
+				<?php  } endif; ?>
                 <?php if($this->auth->check_access('Admin')) : ?>
 					<?php $RestSuggestions = $this->Customer_model->GetRestSuggestions();  
 						  $PitstopSuggestion = $this->Customer_model->GetPitstopSuggestion(); 
@@ -240,7 +258,7 @@
 						  </a>
 						</li>
 						<?php }} ?>
-						<?php if(count($RestSuggestions['data']) > 0){ 
+						<?php if(count($PitstopSuggestion['data']) > 0){ 
 						echo "<li><h5><strong>Recently Suggested Pitstops</strong></h5></li>";
 						foreach($PitstopSuggestion['data'] as $pitsuggestion){?>
 						

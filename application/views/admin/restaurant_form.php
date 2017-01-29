@@ -112,6 +112,7 @@
 		
 		<div class="tab-pane" id="timings_tab">
 			<fieldset style="padding: 10px;">
+			
 				<div class="form-group">
 					<label for="fromtime">From time</label>
 					<input type="time" name="fromtime" class="form-control" value="<?=$fromtime;?>">
@@ -277,6 +278,10 @@
 					$data	= array('name'=>'confirm','class'=>'form-control');
 					echo form_password($data);
 					?>
+				</div>
+				<div class="form-group">	
+					<label>Next Renewal Date</label>
+					<input type="text" name="NextRenewalDate" class="form-control" value="<?=$NextRenewalDate;?>">
 				</div>
 	
 			</fieldset>

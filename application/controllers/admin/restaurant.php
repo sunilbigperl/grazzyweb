@@ -70,6 +70,7 @@ class Restaurant extends Admin_Controller {
 		
 		$data['username']	= '';
 		$data['access']	 = '';
+		$data['NextRenewalDate'] = '';
 		
         //create the photos array for later use
         $data['photos']     = array();
@@ -111,6 +112,7 @@ class Restaurant extends Admin_Controller {
 			
 			$data['username']	= $admin->username;
 			$data['access']		= $admin->access;
+			$data['NextRenewalDate'] = $admin->NextRenewalDate;
 			
 			if(!$this->input->post('submit'))
 			{
@@ -234,6 +236,8 @@ class Restaurant extends Admin_Controller {
             $save1['username']	= $this->input->post('username');
 			$save1['access']		= 'Restaurant manager';
 			$save1['id'] = $this->admin_id;
+			$NextRenewalDate = $this->input->post('NextRenewalDate');
+			$save1['NextRenewalDate'] = isset($NextRenewalDate) ? $NextRenewalDate : date('Y-m-d');
 			if ($this->input->post('password') != '' || !$this->admin_id)
 			{
 				$save1['password']	= $this->input->post('password');

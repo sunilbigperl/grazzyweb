@@ -12,7 +12,23 @@ Class Customer_model extends CI_Model
         $this->CI->load->database(); 
         $this->CI->load->helper('url');
     }
-    
+    function GetRenewalmsg(){
+		$userdata = $this->session->userdata('admin');
+        $sql = $this->db->query("select * from admin where id='".$userdata['id']."'");
+		if($sql->num_rows() > 0){
+			$results	= $sql->result_array();
+			
+			$now = strtotime(date('Y-m-d'));
+			$your_date = strtotime($results[0]['NextRenewalDate']);
+			$datediff = $your_date - $now;
+
+			$result = abs(floor($datediff / (60 * 60 * 24)));
+		}else{
+			$result = '';
+		}
+		return $result;
+	}
+	
 	function get_restaurants(){
 		$sql = $this->db->query("select restaurant_name, restaurant_latitude,restaurant_langitude from restaurant");
 		if($sql->num_rows() > 0){

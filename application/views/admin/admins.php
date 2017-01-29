@@ -18,6 +18,7 @@ function areyousure()
 			<th><?php echo lang('email');?></th>
 			<th><?php echo lang('username');?></th>
 			<th>Phone No</th>
+			<th>Next Renewal date</th>
 			<th><?php echo lang('access');?></th>
 			<th></th>
 		</tr>
@@ -30,6 +31,7 @@ function areyousure()
 			<td><a href="mailto:<?php echo $admin->email;?>"><?php echo $admin->email; ?></a></td>
 			<td><?php echo $admin->username; ?></td>
 			<td><?php echo $admin->phone; ?></td>
+			<td><?php echo $admin->NextRenewalDate; ?></td>
 			<td><?php echo $admin->access; ?></td>
 			<td>
 				<div class="btn-group" style="float:right;">

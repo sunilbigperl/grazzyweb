@@ -502,7 +502,7 @@ class Api extends REST_Controller {
 	  
 	  public function updateProfilepicture_post(){
 		 
-		 $data=array('id'=>$this->post('user_id'),'profile_image'=>$this->post('image'));
+		 $data=array('id'=>$this->post('user_id'),'profile_image'=>$this->post('profile_image'));
 		 $result=$this->api_model->profilePictureUpdate($data);
 		 if(!empty($result)){
 			$message=[
