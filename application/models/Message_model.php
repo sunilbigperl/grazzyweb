@@ -209,7 +209,7 @@ class Message_model extends CI_Model
 	}
 	
 	public function get_delpartners(){
-		$query = $this->db->query("select id, firstname from admin where access= 'Deliver manager'");
+		$query = $this->db->query("select id, username from admin where access= 'Deliver manager'");
 		if($query->num_rows() > 0){
 			$result = array();
 			$i=0;

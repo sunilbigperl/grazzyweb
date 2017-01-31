@@ -16,7 +16,7 @@
 			<select name="delpartner" class="form-control">
 				<option value="">Select delivery partner</option>
 				<?php foreach($delpartners as $delpartner){?>
-				<option value="<?=$delpartner['id']?>"><?=$delpartner['firstname']?></option>
+				<option value="<?=$delpartner['id']?>"><?=$delpartner['username']?></option>
 				<?php } ?>
 			</select>
 			<label for="to date"><strong>Restaurant:</strong></label>
