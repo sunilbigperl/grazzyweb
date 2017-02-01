@@ -38,8 +38,7 @@ class Login extends Base_Controller {
 					$userdata = $this->session->userdata('admin');
 					if($this->auth->check_access('Restaurant manager')){
 						$date = date('Y-m-d');
-					
-						$sql = $this->db->query("select * from admin where NextRenewalDate != '".$date."' and username='".$username."'");
+						$sql = $this->db->query("select * from admin where NextRenewalDate > '".$date."' and username='".$username."'");
 						
 						if($sql->num_rows() > 0){
 							$redirect = $this->config->item('admin_folder').'/orders/dashboard';
@@ -52,7 +51,19 @@ class Login extends Base_Controller {
 					}elseif($this->auth->check_access('Admin')){
 						$redirect = $this->config->item('admin_folder').'/dashboard';
 					}else{
-						$redirect = $this->config->item('admin_folder').'/orders/delpartnerorders';
+						
+						$date = date('Y-m-d');
+						
+						$sql = $this->db->query("select * from admin where NextRenewalDate > '".$date."' and username='".$username."'");
+						
+						if($sql->num_rows() > 0){
+							$redirect = $this->config->item('admin_folder').'/orders/delpartnerorders';
+						}else{
+							$this->auth->logout();
+							$this->session->set_flashdata('error', 'Your renewal date expired');
+							redirect($this->config->item('admin_folder').'/login');
+						}
+						
 					}
 				}
 				redirect($redirect);

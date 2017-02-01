@@ -581,4 +581,6 @@ class Customers extends Admin_Controller {
 			redirect("admin/customers");
 		}
 	}
+	
+	
 }

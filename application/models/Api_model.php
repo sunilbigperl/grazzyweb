@@ -97,18 +97,25 @@ class Api_model extends CI_Model
 	public function getRestaurants($id){
 		
 		$threadmsg = $this->db->query("select a.* from restaurant a, pitstops b, pitstop_restaurants c where 
-		a.restaurant_id = c.restaurants_id and b.pitstop_id=c.pitstop_id and b.pitstop_id='".$id."'");
+		a.restaurant_id = c.restaurants_id and b.pitstop_id=c.pitstop_id and b.pitstop_id='".$id."' and a.enabled=1");
 
 			if($threadmsg->num_rows()>0){
 				$result = array();
 				$i=0;
 				foreach($threadmsg->result_array() as $row){ 
-					$result[$i]['restaurant_id'] = $row['restaurant_id'];
-					$result[$i]['restaurant_name'] = $row['restaurant_name'];
-					$result[$i]['commission'] = $row['commission'];
-					$result[$i]['penalty'] = $row['penalty'];
-					$result[$i]['servicetax'] = $row['servicetax'];
-					$result[$i]['image'] = 'uploads/images/thumbnails/'.$row['image']; 
+					$days = unserialize($row['days']);
+					$days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
+					$day =  $days1[date("N")];
+					$time = date('H:i:s',time());
+					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] >= $time && $row['totime'] <= $time)){
+					
+						$result[$i]['restaurant_id'] = $row['restaurant_id'];
+						$result[$i]['restaurant_name'] = $row['restaurant_name'];
+						$result[$i]['commission'] = $row['commission'];
+						$result[$i]['penalty'] = $row['penalty'];
+						$result[$i]['servicetax'] = $row['servicetax'];
+						$result[$i]['image'] = 'uploads/images/thumbnails/'.$row['image']; 
+					}
 				$i++;
 				}
 				return $result;
@@ -165,7 +172,7 @@ class Api_model extends CI_Model
 	
 	public function pitstopsuser($data){
 		$sql = "SELECT * FROM `pitstops` WHERE `latitude` > '".$data['southwest_lat']."' and `latitude` < '".$data['northeast_lat']."'
-		and `langitude` > '".$data['southwest_lng']."' and`langitude` < '".$data['northeast_lng']."'";
+		and `langitude` > '".$data['southwest_lng']."' and`langitude` < '".$data['northeast_lng']."' and enabled = 1";
 		$query = $this->db->query($sql);
 		if($query->num_rows()>0){
 			$result = array();
@@ -190,7 +197,7 @@ class Api_model extends CI_Model
 	}
 	
 	public function restaurantuser($data){
-		$sql = "SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant HAVING distance < 2";
+		$sql = "SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant HAVING distance < 2 and enabled = 1";
 		
 		$query = $this->db->query($sql);
 		if($query->num_rows()>0){

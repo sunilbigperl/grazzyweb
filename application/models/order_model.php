@@ -173,18 +173,36 @@ Class order_model extends CI_Model
 		return $result;
 	}
 	function get_previousorders($data){
+		
 		$userdata = $this->session->userdata('admin');
 		if($this->auth->check_access('Restaurant manager')){
 		
 			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
 			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager = '".$userdata['id']."' and a.restaurant_manager_status = 'Accepted' and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."')");
-		}else{
-			$delivery_partner = isset($data['delpartner']) ? $data['delpartner'] : 0;
+		}elseif($this->auth->check_access('Deliver manager')){
+			
 			if($this->auth->check_access('Deliver manager')){
 				$delivery_partner = $userdata['id'];
+			}elseif(isset($data['delpartner']) && $data['delpartner'] != ""){
+				$delivery_partner =  $data['delpartner'];
+			}else{
+				$delivery_partner = 0;
 			}
+			
 			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
 			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.delivery_partner = '".$delivery_partner."' and a.delivery_partner_status = 'Accepted' and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."')");
+		}else{
+			
+			$where = '';
+			if(isset($data['delpartner']) && $data['delpartner'] != ""){
+				$where.=" and a.delivery_partner = '".$data['delpartner']."'";
+			}
+			if(isset($data['restaurant']) && $data['restaurant'] != ""){
+				$where.=" and a.restaurant_id = '".$data['restaurant']."'";
+			}
+			
+			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
+			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id   and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') ".$where."");
 		}
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();

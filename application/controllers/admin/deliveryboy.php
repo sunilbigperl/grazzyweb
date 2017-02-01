@@ -46,7 +46,8 @@ class Deliveryboy extends Admin_Controller
 		{
 			
 			$page			= $this->Deliveryboy_model->get_deliveryboys($id);
-			$page = $page[1];
+			
+			$page = $page[0];
 			if(!$page)
 			{
 				//page does not exist
@@ -76,7 +77,7 @@ class Deliveryboy extends Admin_Controller
 		else
 		{
 			
-			
+			$userdata = $this->session->userdata('admin');
 			$save = array();
 			$save['id']			= $id;
 			$save['name']	= $this->input->post('name');
@@ -84,7 +85,7 @@ class Deliveryboy extends Admin_Controller
 			$save['phone']	= $this->input->post('phone'); 
 			$save['email']	= $this->input->post('email');
 			$save['enabled']        = $this->input->post('enabled');
-			
+			$save['delivery_partner'] = $userdata['id'];
 			//save the page
 			$page_id	= $this->Deliveryboy_model->save($save);
 			

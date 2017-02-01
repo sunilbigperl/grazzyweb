@@ -214,8 +214,9 @@
               <ul class="nav navbar-nav navbar-right">
                
                 <li><a href="<?php echo site_url($this->config->item('admin_folder').'/login/logout');?>"><?php echo lang('common_log_out') ?></a></li>
-				 <?php if($this->auth->check_access('Restaurant manager')) : 
+				 <?php if($this->auth->check_access('Restaurant manager') || $this->auth->check_access('Deliver manager')) : 
 					$renewalmsg = $this->Customer_model->GetRenewalmsg(); 
+					
 					if($renewalmsg != '' && $renewalmsg <= 20){ ?>
 					<li role="presentation" class="dropdown">
 					  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
@@ -225,8 +226,10 @@
 					  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu" style="height:auto !important;">
 						<li>
 							<a>
+							<form action="<?php echo site_url($this->config->item('admin_folder').'/orders/renew');?>" method="post">
 								<span><?php echo "You have ".$renewalmsg." days to renew your licence. Please renew it."?></span>
 								<span class="time"><input type="submit" name="Renew" value="Renew" class="btn btn-xs btn-danger"></span>
+							</form>
 							</a>
 						</li>
 					  </ul>

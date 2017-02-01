@@ -21,7 +21,7 @@
 			</select>
 			<label for="to date"><strong>Restaurant:</strong></label>
 			<?php $restaurants = $this->Message_model->get_restaurants1(); ?>
-			<select name="delpartner" class="form-control">
+			<select name="restaurant" class="form-control">
 				<option value="">Select Restaurant</option>
 				<?php foreach($restaurants as $restaurant){?>
 				<option value="<?=$restaurant['restaurant_id']?>"><?=$restaurant['restaurant_name']?></option>

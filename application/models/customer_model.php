@@ -21,8 +21,11 @@ Class Customer_model extends CI_Model
 			$now = strtotime(date('Y-m-d'));
 			$your_date = strtotime($results[0]['NextRenewalDate']);
 			$datediff = $your_date - $now;
-
-			$result = abs(floor($datediff / (60 * 60 * 24)));
+			if($results[0]['RenewalAppliedStatus'] == 0){
+				$result = abs(floor($datediff / (60 * 60 * 24)));
+			}else{
+				$result = '';
+			}
 		}else{
 			$result = '';
 		}

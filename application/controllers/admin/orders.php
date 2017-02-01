@@ -56,6 +56,7 @@ class Orders extends Admin_Controller {
         $this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
 	function previousordersdelpartner(){
+		
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
 			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
@@ -65,6 +66,7 @@ class Orders extends Admin_Controller {
 			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of last month'));
 			$data['delpartner'] = $this->input->post('delpartner');
 		}else{
+			
 			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
 			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
 			$data['delpartner'] = $this->input->post('delpartner');
@@ -438,5 +440,14 @@ class Orders extends Admin_Controller {
 		
 	}
 	
+	public function renew(){
+		$userdata = $this->session->userdata('admin');
+	
+		$sql = $this->db->query("update admin set RenewalAppliedStatus = 1 where id='".$userdata['id']."'");
+		$message = "".$userdata['firstname']."(Email: ".$userdata['email'].") has requested for renewal)";
+		$sql = $this->db->query("insert into notification_message (message) value('".$message."')");
+		echo "<script>alert('Notification sent. admin will contact you soon');location.reload();</script>";
+		 //redirect($this->config->item('admin_folder').'/orders/dashboard');
+	}
 	
 }
