@@ -20,7 +20,7 @@ class Message_model extends CI_Model
 	
 	
 	public function get_delmessages(){
-		$query = $this->db->query("select a.*,b.firstname from delpartner_messages a, admin b where a.delpartner_id = b.id ORDER BY date DESC");
+		$query = $this->db->query("select a.*,b.username from delpartner_messages a, admin b where a.delpartner_id = b.id ORDER BY date DESC");
 		//$query = $this->db->query("select *  from restaurant_messages ");
 		if($query->num_rows() > 0){
 			$result = array();

@@ -19,9 +19,9 @@
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true"  <?php if($this->auth->check_access('Admin')) { ?> data-show-refresh="true" data-search="true" <?php } ?> id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
-			<th data-field="id">Id</th>
+			<th data-field="id">Sl.No</th>
 			<th data-field="name">Restaurant name</th>
-			<th data-field="price">Email</th>
+			<th data-field="price">Contact Details</th>
 			<th>Action</th>
 			<th>Import menus<br/><a href="../../restaurant_menu.csv">(Download the Menu format)</a></th>
 			<th>Previous orders/Sales</th>
@@ -40,10 +40,14 @@
 			<tr class="gc_row">
 				<td><?=$i;?></td>
 				<td>
-					<?=$restaurant->restaurant_name;?>
+					<?=$restaurant->restaurant_name;?></br></br>
+					
+			        <!--<?=$restaurant->restaurant_manager_name;?>-->
 				</td>
 				<td>
-					<?=$restaurant->restaurant_email; ?>
+				   Cell:<a href="" style="color: #2f2fd0;text-decoration:underline;" > <?=$restaurant->restaurant_phone; ?></a></br></br>
+					Email:<a href="" style="color: #2f2fd0;text-decoration:underline;" ><?=$restaurant->restaurant_email; ?></a>
+					
 				</td>
 				<td>
 					<span class="btn-group">

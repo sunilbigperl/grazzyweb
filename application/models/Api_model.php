@@ -509,7 +509,7 @@ print_r(json_encode($result)); exit;
 		
 	}
 	public function getnotifications(){
-		$sql=$this->db->query("select * from notification_message order by date asc");
+		$sql=$this->db->query("select * from notification_message order by date desc");
        
 		if($sql->num_rows()>0){
 			$result = $sql->result_array();

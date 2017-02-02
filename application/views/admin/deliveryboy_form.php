@@ -24,6 +24,7 @@
 		echo form_input($data);
 		?>
 	</div>
+	Upload Delivery Boy Image
 	<div class="form-group">	
 		<label for="image"><?php echo lang('image');?> </label>
 		<div class="input-append">

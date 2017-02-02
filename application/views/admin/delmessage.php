@@ -24,7 +24,7 @@
 			<th data-field="id">message id</th>
 			<th data-field="Date">Date</th>
 			<th data-field="Time">Time</th>
-			<th data-field="Restaurant">Delivery partber</th>
+			<th data-field="Restaurant">Delivery partner</th>
 			<th data-field="Message">Message</th>
 			
 		</tr>
@@ -48,7 +48,7 @@
 					<?=date('H:i:s',strtotime($message['date'])); ?>
 				</td>
 				<td>
-					<?=$message['firstname'];?>
+					<?=$message['username'];?>
 				</td>
 				<td>
 					<?=$message['message'];?>
