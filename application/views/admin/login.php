@@ -31,8 +31,15 @@
       <a class="hiddenanchor" id="signin"></a>
 
       <div class="login_wrapper">
+	  
         <div class="animate form login_form">
           <section class="login_content" id="loginwhite">
+		  <?php if (!empty($error)): ?>
+			<div class="alert alert-error">
+				<a class="close" data-dismiss="alert">×</a>
+				<?php echo $error; ?>
+			</div>
+		<?php endif; ?>
             <?php echo form_open($this->config->item('admin_folder').'/login') ?>
               <h1>Login Form</h1>
               <div>

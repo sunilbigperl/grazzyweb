@@ -30,20 +30,33 @@
 				<label for="enabled"><?php echo lang('enabled');?> </label>
         		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class="form-control"'); ?>
 			</div>
+			<label for="parent_id"><?php echo lang('parent');?> </label>
+				<?php
+				$data	= array(0 => lang('top_level_category'));
+				foreach($categories as $parent)
+				{
+					if($parent->id != $id)
+					{
+						$data[$parent->id] = $parent->name;
+					}
+				}
+				echo form_dropdown('parent_id', $data, $parent_id,'class="form-control"');
+				?>
+			
 			</fieldset>
 		</div>
 
 		<div class="tab-pane" id="attributes_tab">
 			
 			<fieldset>
-			<div class="form-group">		
+			<div class="form-group" style="display:none;">		
 				<label for="slug"><?php echo lang('slug');?> </label>
 				<?php
 				$data	= array('name'=>'slug', 'value'=>set_value('slug', $slug),'class'=>'form-control');
 				echo form_input($data);
 				?>
 			</div>
-			<div class="form-group">		
+			<div class="form-group" style="display:none;">		
 				<label for="sequence"><?php echo lang('sequence');?> </label>
 				<?php
 				$data	= array('name'=>'sequence', 'value'=>set_value('sequence', $sequence),'class'=>'form-control');
@@ -52,9 +65,8 @@
 				
 			</div>
 				
-				<input type="hidden" name="parent_id" value="0">
 			
-			<div class="form-group">		
+			<div class="form-group" style="display:none;">		
 				<label for="excerpt"><?php echo lang('excerpt');?> </label>
 				<?php
 				$data	= array('name'=>'excerpt', 'value'=>set_value('excerpt', $excerpt), 'class'=>'form-control', 'rows'=>3);

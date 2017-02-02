@@ -105,6 +105,45 @@ class Orders extends Admin_Controller {
 		$data['orders'] = $this->Order_model->get_restpreviousorders($data);
 		$this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
+	
+	function getOrderDetails(){
+		$html="";
+		$data = $this->input->post('data');
+		$restaurant = $this->Restaurant_model->get_restaurant($data['restaurant_id']);
+		if($data['ordertype_id'] == 3){ 
+			 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
+			 $cname = $customer_details->firstname." ".$customer_details->lastname;
+			 $cphone = $customer_details->phone;
+			
+			 $dname = $customer_details->firstname." ".$customer_details->lastname;
+			 $dphone = $customer_details->phone;
+			 
+		}else{
+			 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
+			 $cname = $customer_details->firstname." ".$customer_details->lastname;
+			 $cphone = $customer_details->phone;
+			 
+			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
+			$dname = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "Not assigned yet";
+			$dphone = isset($deliveryboy_details->phone) ? $deliveryboy_details->phone : "";
+			
+		}
+		
+		$html.="<div class='modal-header'>
+					<button type='button' class='close' data-dismiss='modal'>&times;</button>
+					<h4 class='modal-title'>Delivery of order id: ".$data['order_number']."</h4>
+				  </div>
+				  <div class='modal-body' class='form-horizontal'>
+					<div class='form-group'>
+						<label><strong>Pikup location:</strong>".$restaurant->restaurant_address."</label></br>
+						<label><strong>Customer contact number:</strong>".$cphone."</label></br>
+						<label><strong>Delivery contact number:</strong>".$dphone."</label></br>
+						<label><strong>Passcode:</strong>".$data['passcode']."</label></br>
+						<label><strong>Delivery location:</strong>".$data['delivery_location']."</label></br>
+					</div>
+				</div>";
+		echo $html;
+	}
     
     function GetMenudetails(){
 		$data = $this->input->post('data');

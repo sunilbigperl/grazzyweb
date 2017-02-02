@@ -30,6 +30,13 @@ class Deliveryboy extends Admin_Controller
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		
+		$config['upload_path']		= 'uploads';
+		$config['allowed_types']	= 'gif|jpg|png';
+		$config['max_size']			= $this->config->item('size_limit');
+		$config['encrypt_name']		= true;
+		 $config['width'] = 30;
+		$config['height'] = 30;
+		$this->load->library('upload', $config);
 		
 		//set the default values
 		$data['id']			= '';
@@ -38,6 +45,7 @@ class Deliveryboy extends Admin_Controller
 		$data['phone']		= '';
 		$data['email']	= '';
 		$data['enabled'] = '';
+		$data['image'] = '';
 		
 	
 		$data['deliveryboys']		= $this->Deliveryboy_model->get_lists();
@@ -62,6 +70,7 @@ class Deliveryboy extends Admin_Controller
 			$data['address']			= $page->address;
 			$data['phone']		= $page->phone;
 			$data['email']		= $page->email;
+			$data['image']		= $page->image;
 			$data['enabled']	=   $page->enabled;;
 			
 		}
@@ -76,9 +85,46 @@ class Deliveryboy extends Admin_Controller
 		}
 		else
 		{
-			
+			$uploaded	= $this->upload->do_upload('image');
 			$userdata = $this->session->userdata('admin');
 			$save = array();
+			if ($id)
+			{
+				
+				$save['id']	= $id;
+				
+				//delete the original file if another is uploaded
+				if($uploaded)
+				{
+					if($data['image'] != '')
+					{
+						
+						$file = 'uploads/'.$data['image'];
+						
+						//delete the existing file if needed
+						if(file_exists($file))
+						{
+							unlink($file);
+						}
+					}
+				}
+				
+			}
+			else
+			{
+				if(!$uploaded)
+				{
+					$data['error']	= $this->upload->display_errors();
+					$this->view(config_item('admin_folder').'/banner_form', $data);
+					return; //end script here if there is an error
+				}
+			}
+			
+			if($uploaded)
+			{
+				$image			= $this->upload->data();
+				$save['image']	= $image['file_name'];
+			}
 			$save['id']			= $id;
 			$save['name']	= $this->input->post('name');
 			$save['address']		= $this->input->post('address');

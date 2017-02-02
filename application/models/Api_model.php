@@ -345,28 +345,36 @@ class Api_model extends CI_Model
 		}
 	}
 	public function getMenus($id){
-		$sql ="SELECT DISTINCT b.category_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id";
+		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id";
+		
 		$query = $this->db->query($sql);
 		$result = array();
 		if($query->num_rows()>0){
 			$data = $query->result_array();
 			$i=0;
 			foreach($data as $menu){
-				$result[$i]['category_id'] = $menu['category_id'];
-				$result[$i]['category'] = $menu['name'];
-				$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' and a.menu_id = b.menu_category and b.category_id = c.id";
-				$query1 = $this->db->query($sql1);
-				if($query1->num_rows()>0){
-					$data1 = $query1->result_array();
-					$j=0;
-					foreach($data1 as $mn){
-						$result[$i]['menus'][$j]['menu_id'] = $mn['menu_id'];
-						$result[$i]['menus'][$j]['menu'] = $mn['menu'];
-						$result[$i]['menus'][$j]['price'] = $mn['price'];
-						$result[$i]['menus'][$j]['image'] = 'uploads/images/thumbnails/'.$mn['image'];
-						$result[$i]['menus'][$j]['type'] = $mn['type'];
-						$result[$i]['menus'][$j]['itemPreparation_time'] = $mn['itemPreparation_time'];
-					$j++;
+				if($menu['parent_id'] == 0){
+					$result[$i]['category_id'] = $menu['category_id'];
+					$result[$i]['category'] = $menu['name'];
+					$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' and a.menu_id = b.menu_category and b.category_id = c.id";
+					$query1 = $this->db->query($sql1);
+					if($query1->num_rows()>0){
+						$data1 = $query1->result_array();
+						$j=0;
+						foreach($data1 as $mn){
+							$sqlq =  $this->db->query("select b.name from menu_categories a, categories b where a.category_id = b.id and a.menu_category ='".$mn['menu_id']."' and b.parent_id='".$menu['category_id']."'");
+							if($sqlq->num_rows()>0){
+								$parent = $sqlq->result_array();
+								$result[$i]['menus'][$j]['subcat'] = $parent;
+							}
+							$result[$i]['menus'][$j]['menu_id'] = $mn['menu_id'];
+							$result[$i]['menus'][$j]['menu'] = $mn['menu'];
+							$result[$i]['menus'][$j]['price'] = $mn['price'];
+							$result[$i]['menus'][$j]['image'] = 'uploads/images/thumbnails/'.$mn['image'];
+							$result[$i]['menus'][$j]['type'] = $mn['type'];
+							$result[$i]['menus'][$j]['itemPreparation_time'] = $mn['itemPreparation_time'];
+						$j++;
+						}
 					}
 				}
 			$i++;
@@ -474,7 +482,7 @@ print_r(json_encode($result)); exit;
 		
 	    if($sql){
 			$path = "uploads/images/thumbnails/".$image;
-			file_put_contents($path,base64_decode($image));
+			file_put_contents($path,base64_decode($data['profile_image']));
 			$result[0] = true;
 		}else{
 			$result[0] = false;
@@ -527,7 +535,7 @@ print_r(json_encode($result)); exit;
 		$date = date('Y-m-d H:i:s');
 		$image =$order_number.".png";
 		$path = "uploads/images/thumbnails/".$image;
-		file_put_contents($path,base64_decode($image));
+		file_put_contents($path,base64_decode($data['profile_image']));
 		$pitstop_id = isset($data['pitstop_id']) ? $data['pitstop_id'] : '';
 		$keep_ready = isset($data['keep_ready']) ? $data['keep_ready'] : '';
 		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on,keep_ready,pitstop_id)

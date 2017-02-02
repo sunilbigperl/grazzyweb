@@ -544,7 +544,8 @@ class Customers extends Admin_Controller {
 		$add ="";
 		echo  "<div class='modal-header'>
 		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
-		  <h4 class='modal-title'> Customer details: ".$customer->firstname."</h4>
+		  <h4 class='modal-title pull-left'> Customer details: ".$customer->firstname."</h4>
+		  <img src='uploads/images/thumbnails/".$customer->profile_image."' class='pull-right'>
 		</div>
 		<div class='modal-body'>
 		<div class=''><strong>Phone:</strong> ".$customer->phone."</div>

@@ -31,15 +31,17 @@ class Login extends Base_Controller {
 			$remember   = $this->input->post('remember');
 			$redirect	= $this->input->post('redirect');
 			$login		= $this->auth->login_admin($username, $password, $remember);
+			
 			if ($login)
 			{
 				if ($redirect == '')
 				{
 					$userdata = $this->session->userdata('admin');
 					if($this->auth->check_access('Restaurant manager')){
+						
 						$date = date('Y-m-d');
 						$sql = $this->db->query("select * from admin where NextRenewalDate > '".$date."' and username='".$username."'");
-						
+						//print_r("select * from admin where NextRenewalDate > '".$date."' and username='".$username."'"); exit;
 						if($sql->num_rows() > 0){
 							$redirect = $this->config->item('admin_folder').'/orders/dashboard';
 						}else{
