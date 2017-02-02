@@ -535,7 +535,7 @@ print_r(json_encode($result)); exit;
 		$date = date('Y-m-d H:i:s');
 		$image =$order_number.".png";
 		$path = "uploads/images/thumbnails/".$image;
-		file_put_contents($path,base64_decode($data['profile_image']));
+		file_put_contents($path,base64_decode($data['photo']));
 		$pitstop_id = isset($data['pitstop_id']) ? $data['pitstop_id'] : '';
 		$keep_ready = isset($data['keep_ready']) ? $data['keep_ready'] : '';
 		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on,keep_ready,pitstop_id)
