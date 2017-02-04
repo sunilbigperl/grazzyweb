@@ -18,9 +18,11 @@
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
+			<th><input type="checkbox" name="maincheck" class="maincheck" id="maincheck" onclick="Maincheck()"></th>
 			<th data-field="id">Id</th>
 			<th data-field="name">Pitstop name</th>
-			<th data-field="price">Latitude/Longitude</th>
+			<th data-field="price">Latitude</th>
+			<th>Longitude</th>
 			<th>Action</th>
 			
 		</tr>
@@ -36,13 +38,15 @@
 			foreach($pitstops as $pitstop){
 		?>
 			<tr class="gc_row">
+				<td><input type="checkbox" name="subcheck" class="subcheck" id="subcheck<?=$i;?>"></td>
 				<td><?=$i;?></td>
 				<td>
 					<?=$pitstop->pitstop_name;?>
 				</td>
 				<td>
-					<?=$pitstop->latitude."/".$pitstop->langitude; ?>
+					<?=$pitstop->latitude; ?>
 				</td>
+				<td><?=$pitstop->langitude;?></td>
 				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/form/'.$pitstop->pitstop_id); ?>" class="btn btn-info btn-xs">Edit</a>
 				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/delete/'.$pitstop->pitstop_id); ?>" class="btn btn-danger btn-xs">delete</a></td>
 			</tr>
@@ -54,3 +58,10 @@
 	</tbody>
 	<?php endif;?>
 </table>
+<script>
+	$(document).ready(function(){
+		function Maincheck(){
+			alert();
+		}
+	});
+</script>

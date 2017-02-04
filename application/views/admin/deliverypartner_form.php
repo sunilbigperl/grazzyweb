@@ -1,8 +1,11 @@
+<?php 	if($this->auth->check_access('Admin') == 1){ $readonly=""; $disabled="";}else{$readonly = "readonly=readonly"; $disabled="disabled=disabled";}?>
+
 <?php echo form_open($this->config->item('admin_folder').'/deliverypartner/form/'.$id); ?>
 <div class="tabbable">
 
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#description_tab" data-toggle="tab">Delivery partner details</a></li>
+		
 		<li><a href="#timings_tab" data-toggle="tab">Other Details</a></li>
 		<li><a href="#charge_tab" data-toggle="tab">Charge Details</a></li>
 		
@@ -66,38 +69,35 @@
 				</div>-->
 				<div class="form-group">
 					<label for="penalty " >Penalty(Rs/-)</label>
-					<?php
-					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control');
-					echo form_input($data);
-					?>
+					<input type="text" name="penalty" value="<?=$penalty?>" class="form-control" <?=$readonly;?>>
+				
 				</div>
 				<div class="form-group">
 					<label for="servicetax">Service tax(%)</label>
-					<?php
-					$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'form-control');
-					echo form_input($data);
-					?>
+					<input type="text" name="servicetax" value="<?=$servicetax?>" class="form-control" <?=$readonly;?>>
+					
 				</div>
 				
 				<div class="form-group">
 					<label for="fromtime">From time</label>
-					<input type="time" name="fromtime" class="form-control" value="<?=$fromtime;?>">
+					
+					<input type="time" name="fromtime" class="form-control" value="<?=$fromtime;?>" <?=$readonly;?>>
 				</div>
 				<div class="form-group">
 					<label for="fromtime">To time</label>
-					<input type="time" name="totime" class="form-control"  value="<?=$totime;?>">
+					<input type="time" name="totime" class="form-control"  value="<?=$totime;?>" <?=$readonly;?>>
 				</div>
 				<div class="form-group">
 					<label for="days">Days</label>
 					<br/><?php $dayss = unserialize($days);  ?>
-					<input type="checkbox" name="days[]" value="all" class="days" onchange="checkAll(this)" <?php if(is_array($dayss) && in_array('all',$dayss)){ echo "checked=checked"; } ?>> All<br>
-					<input type="checkbox" name="days[]" value="sunday" class="days" <?php if(is_array($dayss) && in_array('sunday',$dayss)){ echo "checked=checked"; } ?>> Sunday<br>
-					<input type="checkbox" name="days[]" value="monday" class="days" <?php if(is_array($dayss) && in_array('monday',$dayss)){ echo "checked=checked"; } ?>> Monday<br>
-					<input type="checkbox" name="days[]" value="tuesday" class="days" <?php if(is_array($dayss) && in_array('tuesday',$dayss)){ echo "checked=checked"; } ?>> Tuesday<br>
-					<input type="checkbox" name="days[]" value="wednesday" class="days" <?php if(is_array($dayss) && in_array('wednesday',$dayss)){ echo "checked=checked"; } ?>> Wednesday<br>
-					<input type="checkbox" name="days[]" value="thursday" class="days" <?php if(is_array($dayss) && in_array('thursday',$dayss)){ echo "checked=checked"; } ?>> Thursday<br>
-					<input type="checkbox" name="days[]" value="friday" class="days" <?php if(is_array($dayss) && in_array('friday',$dayss)){ echo "checked=checked"; } ?>> Friday<br>
-					<input type="checkbox" name="days[]" value="saturday" class="days" <?php if(is_array($dayss) && in_array('saturday',$dayss)){ echo "checked=checked"; } ?>> Saturday<br>
+					<input type="checkbox" name="days[]" value="all" class="days" <?=$disabled;?> onchange="checkAll(this)" <?php if(is_array($dayss) && in_array('all',$dayss)){ echo "checked=checked"; } ?>> All<br>
+					<input type="checkbox" name="days[]" value="sunday" class="days" <?=$disabled;?> <?php if(is_array($dayss) && in_array('sunday',$dayss)){ echo "checked=checked"; } ?>> Sunday<br>
+					<input type="checkbox" name="days[]" value="monday" class="days" <?=$disabled;?> <?php if(is_array($dayss) && in_array('monday',$dayss)){ echo "checked=checked"; } ?>> Monday<br>
+					<input type="checkbox" name="days[]" value="tuesday" class="days" <?=$disabled;?> <?php if(is_array($dayss) && in_array('tuesday',$dayss)){ echo "checked=checked"; } ?>> Tuesday<br>
+					<input type="checkbox" name="days[]" value="wednesday" class="days" <?=$disabled;?> <?php if(is_array($dayss) && in_array('wednesday',$dayss)){ echo "checked=checked"; } ?>> Wednesday<br>
+					<input type="checkbox" name="days[]" value="thursday" class="days" <?=$disabled;?> <?php if(is_array($dayss) && in_array('thursday',$dayss)){ echo "checked=checked"; } ?>> Thursday<br>
+					<input type="checkbox" name="days[]" value="friday" class="days" <?=$disabled;?> <?php if(is_array($dayss) && in_array('friday',$dayss)){ echo "checked=checked"; } ?>> Friday<br>
+					<input type="checkbox" name="days[]" value="saturday" class="days" <?=$disabled;?> <?php if(is_array($dayss) && in_array('saturday',$dayss)){ echo "checked=checked"; } ?>> Saturday<br>
 				</div>
 				<script>
 					function checkAll(ele) {
@@ -124,16 +124,16 @@
 				</div>
 				<div class="form-group" id="datetime" style="<?php if($enabled == 1){ echo 'display:none'; }?>">
 						<label><strong>Disabled From date</strong></label>
-						<input type="date" name="FromDate" id="FromDate" value="<?=$FromDate;?>">
+						<input type="date" name="FromDate" id="FromDate" value="<?=$FromDate;?>" <?=$readonly;?>>
 						<label><strong>Disabled To date</strong></label>
-						<input type="date" name="ToDate" id="ToDate" value="<?=$ToDate;?>">
+						<input type="date" name="ToDate" id="ToDate" value="<?=$ToDate;?>" <?=$readonly;?>>
 				</div>
 				
 			</fieldset>
 		</div>
 		<div class="tab-pane" id="charge_tab">
 			<div class="col-sm-1 pull-right">
-				<input type="button" class="btn btn-primary" name="AddNewRow" id="AddNewRow"  value="Add new">
+				<input type="button" class="btn btn-primary" name="AddNewRow" id="AddNewRow"  value="Add new" <?=$disabled;?>>
 			</div>
 			<div class="">
 				
@@ -152,10 +152,10 @@
 						<?php if(isset($ListValues) && $ListValues != ""){ ?>
 							<?php $i=1; foreach($ListValues['data'] as $value){ ?>
 								<tr>
-									<td><?=$i;?><input type="hidden" name="values[<?=$i?>][delpartner_id]" value="<?=$id?>"></td>
-									<td><input type="text" class="form-control" name="values[<?=$i?>][fromKm]" value="<?=$value->fromKm;?>"></td>
-									<td><input type="text" class="form-control" name="values[<?=$i?>][toKm]" value="<?=$value->toKm;?>"></td>
-									<td><input type="text" class="form-control" name="values[<?=$i?>][rate]" value="<?=$value->rate;?>"></td>
+									<td><?=$i;?><input type="hidden" name="values[<?=$i?>][delpartner_id]" value="<?=$id?>" <?=$readonly;?>></td>
+									<td><input type="text" class="form-control" name="values[<?=$i?>][fromKm]" value="<?=$value->fromKm;?>" <?=$readonly;?>></td>
+									<td><input type="text" class="form-control" name="values[<?=$i?>][toKm]" value="<?=$value->toKm;?>" <?=$readonly;?>></td>
+									<td><input type="text" class="form-control" name="values[<?=$i?>][rate]" value="<?=$value->rate;?>" <?=$readonly;?>></td>
 								</tr>
 						<?php $i++; } }?>
 						</tbody>
