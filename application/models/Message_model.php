@@ -4,28 +4,56 @@ class Message_model extends CI_Model
 	
 	public function get_restmessage($id){
 		$query = $this->db->query("select a.*,b.restaurant_name from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and a.restaurant_id=".$id." ORDER BY date DESC");
-		//$query = $this->db->query("select *  from restaurant_messages ");
-		if($query->num_rows() > 0){
-			$result = array();
+		$query1 = $this->db->query("select * from restaurant_messages where restaurant_id = 0");
+		if($query1->num_rows() > 0){
+			$result1 = array();
 			$i=0;
-			foreach($query->result_array() as $row){ 
-				$result[] = $row;
+			foreach($query1->result_array() as $row1){ 
+				$result1[] = $row1;
 			$i++;
 			}
-			return $result;
-		}else{
-			return 0;
 		}
+		if($query->num_rows() > 0){
+			$result2 = array();
+			$i=0;
+			foreach($query->result_array() as $row){ 
+				$result2[] = $row;
+			$i++;
+			}
+			
+		}
+		$result = array_merge($result1,$result2);
+		if(count($result) > 0){
+			return $result;
+		}
+		else{
+			return 0;
+		} 
 	}
 	
 	
 	public function get_delmessages(){
-		$query = $this->db->query("select a.*,b.username from delpartner_messages a, admin b where a.delpartner_id = b.id ORDER BY date DESC");
-		//$query = $this->db->query("select *  from restaurant_messages ");
+		$userdata = $this->session->userdata('admin');
+		$where ='';
+		if($this->auth->check_access('Deliver manager') == 1){
+			$where.=" where delpartner_id = '".$userdata['id']."'";
+		}
+		//$query = $this->db->query("select a.*,b.username from delpartner_messages a, admin b where a.delpartner_id = b.id ORDER BY date DESC");
+		$query = $this->db->query("select * from delpartner_messages ".$where." ORDER BY date DESC ");
 		if($query->num_rows() > 0){
 			$result = array();
 			$i=0;
 			foreach($query->result_array() as $row){ 
+				$result[$i]['date'] = $row['date'];
+				$result[$i]['message'] = $row['message'];
+				$query1 = $this->db->query("select * from admin where id='".$row['delpartner_id']."'");
+				if($query1->num_rows() > 0){
+					$rest = $query1->result_array();
+					$result[$i]['username'] = $rest[0]['username'];
+				}else{
+					$result[$i]['username'] = "All";
+				}
+				
 				$result[] = $row;
 			$i++;
 			}
@@ -178,13 +206,22 @@ class Message_model extends CI_Model
 		}
 	}
 	public function get_restmessages(){
-		$query = $this->db->query("select a.*,b.restaurant_name from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id ORDER BY date DESC");
-		//$query = $this->db->query("select *  from restaurant_messages ");
+	
+		$query = $this->db->query("select *  from restaurant_messages ORDER BY date DESC");
 		if($query->num_rows() > 0){
 			$result = array();
 			$i=0;
 			foreach($query->result_array() as $row){ 
-				$result[] = $row;
+				$result[$i]['date'] = $row['date'];
+				$result[$i]['message'] = $row['message'];
+				$query1 = $this->db->query("select * from restaurant where restaurant_id='".$row['restaurant_id']."'");
+				if($query1->num_rows() > 0){
+					$rest = $query1->result_array();
+					$result[$i]['restaurant_name'] = $rest[0]['restaurant_name'];
+				}else{
+					$result[$i]['restaurant_name'] = "All";
+				}
+				
 			$i++;
 			}
 			return $result;

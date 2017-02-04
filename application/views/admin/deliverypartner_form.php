@@ -32,6 +32,10 @@
 					?>
 				</div>
 				<div class="form-group">	
+					<label>Next Renewal Date</label>
+					<input type="date" name="NextRenewalDate" class="form-control" value="<?=$NextRenewalDate;?>">
+				</div>
+				<div class="form-group">	
 					<input type="hidden" name="access" value="Deliver manager">
 					
 				</div>

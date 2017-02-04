@@ -152,6 +152,7 @@
 							  <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous Orders</a></li>
 							</ul>
 						</li>
+						<li><a href="<?php echo $admin_url;?>message/delmessage"><i class="fa fa-home"></i> Messages </a></li>
 						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boys </a></li>
 						  <li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li>
 				<?php endif; ?>

@@ -1,7 +1,9 @@
+<?php  	if($this->auth->check_access('Admin')){ ?>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">
 	<form class="form-horizontal" action="<?php echo site_url($this->config->item('admin_folder').'/message/messagedel'); ?>" method="post">
 		<div class="form-group" id="the-basics">
 				<select id="delpartner_id" name="delpartner_id" class="form-control">
+					<option value='0'>All</option>
 				<?php foreach($delpartners as $delpartner){?>
 					<option value="<?=$delpartner['id']?>"><?=$delpartner['username'];?></option>
 				<?php } ?>
@@ -15,7 +17,7 @@
 
 	</form>
 </div>
-
+<?php } ?>
 <h4>Message History</h4>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
@@ -48,7 +50,7 @@
 					<?=date('H:i:s',strtotime($message['date'])); ?>
 				</td>
 				<td>
-					<?=$message['username'];?>
+					<?=isset($message['username']) ? $message['username'] : '';?>
 				</td>
 				<td>
 					<?=$message['message'];?>

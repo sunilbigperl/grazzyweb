@@ -281,7 +281,7 @@
 				</div>
 				<div class="form-group">	
 					<label>Next Renewal Date</label>
-					<input type="text" name="NextRenewalDate" class="form-control" value="<?=$NextRenewalDate;?>">
+					<input type="date" name="NextRenewalDate" class="form-control" value="<?=$NextRenewalDate;?>">
 				</div>
 	
 			</fieldset>

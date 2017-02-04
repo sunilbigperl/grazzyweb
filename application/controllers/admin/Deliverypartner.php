@@ -74,6 +74,7 @@ class Deliverypartner extends Admin_Controller
 		$data['totime'] ='';
 		$data['days'] ='';
 		$data['ListValues'] ='';
+		$data['NextRenewalDate'] = '';
 		if ($id)
 		{	
 			$this->admin_id		= $id;
@@ -104,6 +105,7 @@ class Deliverypartner extends Admin_Controller
 			$data['totime']	= $admin->totime;
 			$data['days']	= $admin->days;
 			$data['ListValues'] = $ListValues;
+			$data['NextRenewalDate'] = $admin->NextRenewalDate;
 		}
 		
 		
@@ -143,6 +145,7 @@ class Deliverypartner extends Admin_Controller
 			$save['fromtime'] 			   = $this->input->post('fromtime');
 			$save['totime'] 			   = $this->input->post('totime');
 			$save['days'] 				   = serialize($this->input->post('days'));
+			$save['NextRenewalDate'] = $this->input->post('NextRenewalDate');
 			
 			$ListValues = $this->input->post('values');
 			
