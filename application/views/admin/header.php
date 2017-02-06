@@ -137,8 +137,11 @@
 						</li>
 						<li><a href="<?php echo $admin_url;?>orders/previousorders"><i class="fa fa-home"></i>Previous Orders </a></li>
 							
-						<li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li>
+					<!--	<li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li>-->
+					   
 						 <li><a href="<?php echo $admin_url;?>orders/SalesChart"><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class=""></span></a>
+						 <li><a href="<?php echo $admin_url;?>message/restmessage"><i class="fa fa-home"></i> Messages </a></li>
+
 						<ul class="nav child_menu">
 						
 						</ul>
@@ -152,7 +155,7 @@
 							<!--  <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous Orders</a></li> -->
 							<!--</ul>-->
 						</li>
-						<li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner"><i class="fa fa-home"></i> Previous <span class="fa fa-chevron-down"></span></a>
+						<li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner"><i class="fa fa-home"></i> Previous Orders<span class="fa fa-chevron-down"></span></a>
 
 					<!--	<li><a href="<?php echo $admin_url;?>message/delmessage"><i class="fa fa-home"></i> Messages </a></li> -->
 						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boys </a></li>

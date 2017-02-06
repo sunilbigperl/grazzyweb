@@ -115,7 +115,7 @@ class Deliveryboy extends Admin_Controller
 				if(!$uploaded)
 				{
 					$data['error']	= $this->upload->display_errors();
-					$this->view(config_item('admin_folder').'/banner_form', $data);
+					$this->view(config_item('admin_folder').'/deliveryboy_form', $data);
 					return; //end script here if there is an error
 				}
 			}
