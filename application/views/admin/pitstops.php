@@ -14,12 +14,14 @@
 	</form>
 	<a href="../../pitstops.csv" style="text-decoration:underline">(Download the pitstop import format)</a>
 </div>
-<table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
-		 data-search="true" id="table-pagination" data-sort-order="desc">
+<!--<table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
+		 data-search="true" id="table-pagination" data-sort-order="desc">-->
+<table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" 
+		 data-search="true" id="table-pagination" data-sort-order="desc">		 
 	<thead>
 		<tr>
 			<th><input type="checkbox" name="maincheck" class="maincheck" id="maincheck" onclick="Maincheck()"></th>
-			<th data-field="id">Id</th>
+			<th data-field="id">Sl.No</th>
 			<th data-field="name">Pitstop name</th>
 			<th data-field="price">Latitude</th>
 			<th>Longitude</th>

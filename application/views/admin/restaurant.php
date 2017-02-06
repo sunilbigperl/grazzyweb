@@ -16,7 +16,7 @@
 </div>
 <?php } ?>
 
-<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true"  <?php if($this->auth->check_access('Admin')) { ?> data-show-refresh="true" data-search="true" <?php } ?> id="table-pagination" data-sort-order="desc">
+<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true"  <?php if($this->auth->check_access('Admin')) { ?>  data-search="true" <?php } ?> id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
 			<th data-field="id">Sl.No</th>
@@ -24,7 +24,7 @@
 			<th data-field="price">Contact Details</th>
 			<th>Action</th>
 			<th>Import menus<br/><a href="../../restaurant_menu.csv">(Download the Menu format)</a></th>
-			<th>Previous orders/Sales</th>
+			<th>Reviews</th>
 		</tr>
 	</thead>
 	
@@ -77,10 +77,13 @@
 				</td>
 				<td>
 					<span class="btn-group">
+					<?php if($this->auth->check_access('Admin')){ ?>
 						<a class="btn btn-primary btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/orders/GetRestPreviousOrders/'.$restaurant->restaurant_id); ?>">previous orders/sales</a></br>
+					<?php } ?>
 						<a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/ShowReviewDetails/'.$restaurant->restaurant_id.'');?>');">Reviews/Ratings</a></br>
+						<?php if($this->auth->check_access('Admin')){ ?>
 						<a class="btn btn-primary btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/message/index/'.$restaurant->restaurant_id);?>" >Messages</a></br>
-					
+						<?php } ?>
 					</div>
 				</td>
 			</tr>

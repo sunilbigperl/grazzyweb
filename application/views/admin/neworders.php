@@ -1,6 +1,6 @@
 <p id="margin"> 
 <?php
-echo "Date: " . date("Y/m/d") . "<br>";
+echo "" . date("jS F Y") . "<br>";
 
 ?></p>
 

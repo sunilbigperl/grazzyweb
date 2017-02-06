@@ -171,11 +171,13 @@ a:hover {
 <?php } ?>
 
 <h4>Message History</h4>
-<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
-		 data-search="true" id="table-pagination" data-sort-order="desc">
+<!--<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
+		 data-search="true" id="table-pagination" data-sort-order="desc">-->
+<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true"  
+		 data-search="true" id="table-pagination" data-sort-order="desc">		 
 	<thead>
 		<tr>
-			<th data-field="id">message id</th>
+			<th data-field="id">Sl.No</th>
 			<th data-field="Date">Date</th>
 			<th data-field="Time">Time</th>
 			<th data-field="Restaurant">Restaurant</th>
@@ -196,7 +198,7 @@ a:hover {
 				<td><?=$i;?></td>
 				
 				<td>
-					<?=date('Y-m-d',strtotime($message['date'])); ?>
+					<?=date('d-m-Y',strtotime($message['date'])); ?>
 				</td>
 				<td>
 					<?=date('H:i:s',strtotime($message['date'])); ?>

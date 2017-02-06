@@ -2,14 +2,14 @@
 <script src="<?=base_url();?>assets/js/bootstrap-table.js"></script>
 <p id="margin"> 
 <?php
-echo "Date: " . date("Y/m/d") . "<br>";
+echo "" . date("jS F Y") . "<br>";
 
 ?></p>
-<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
+<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
-			<th data-field="id">Order id</th>
+			<th data-field="id">Sl.No</th>
 			<th data-field="name">Order Number</th>
 		<!--	<th data-field="price">Cost(Rs)</th> -->
 			<th data-field="date">Ordered on</th>

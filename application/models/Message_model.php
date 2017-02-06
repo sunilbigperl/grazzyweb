@@ -95,7 +95,7 @@ class Message_model extends CI_Model
 	}
 	
 	public function get_notifications(){
-		$query = $this->db->query("select * from notification_message");
+		$query = $this->db->query("select * from notification_message ORDER BY date DESC");
 		
 		if($query->num_rows() > 0){
 			$result = array();
