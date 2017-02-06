@@ -9,7 +9,7 @@ echo "Date: " . date("Y/m/d") . "<br>";
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
-			<th data-field="id">Order id</th>
+			<th data-field="id">Sl.No</th>
 			<th data-field="name">Order Number</th>
 		<!--	<th data-field="price">Cost(Rs)</th> -->
 			<th data-field="date">Ordered on</th>

@@ -16,7 +16,7 @@
 				<div class="form-group">	
 					<label>Company name</label>
 					<?php
-					$data	= array('name'=>'username', 'value'=>set_value('username', $username),'class'=>'form-control');
+					$data	= array('name'=>'username', 'value'=>set_value('username', $username),'class'=>'form-control', 'readonly'=>'readonly');
 					echo form_input($data);
 					?>
 				</div>
