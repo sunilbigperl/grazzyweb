@@ -86,6 +86,7 @@ class Deliveryboy extends Admin_Controller
 		else
 		{
 			$uploaded	= $this->upload->do_upload('image');
+		
 			$userdata = $this->session->userdata('admin');
 			$save = array();
 			if ($id)
@@ -111,11 +112,12 @@ class Deliveryboy extends Admin_Controller
 				
 			}
 			else
-			{
+			{ 
 				if(!$uploaded)
 				{
+					
 					$data['error']	= $this->upload->display_errors();
-					$this->view(config_item('admin_folder').'/banner_form', $data);
+					$this->view(config_item('admin_folder').'/deliveryboy_form', $data);
 					return; //end script here if there is an error
 				}
 			}

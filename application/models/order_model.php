@@ -143,7 +143,8 @@ Class order_model extends CI_Model
 	}
 	
 	function get_deliveryboys(){
-		$sql = $this->db->query("select * from delivery_boy");
+		$userdata = $this->session->userdata('admin');
+		$sql = $this->db->query("select * from delivery_boy where delivery_partner='".$userdata['id']."'");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
