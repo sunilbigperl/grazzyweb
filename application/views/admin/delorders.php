@@ -4,7 +4,7 @@
 <script src="<?=base_url();?>assets/js/star-rating.min.js"></script>
 <p id="margin"> 
 <?php
-echo "Date: " . date("Y/m/d") . "<br>";
+echo "" . date("jS F Y") . "<br>";
 
 ?></p>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
