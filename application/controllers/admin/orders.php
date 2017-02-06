@@ -169,8 +169,7 @@ class Orders extends Admin_Controller {
 					<div class='form-group'>
 						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":</strong>".$name."</label></br>
 						<label><strong>Mobile No:</strong>".$phone."</label></br>
-						<label><strong>Email:</strong>".$email."</label></br>
-						<label><strong>Delivery location:</strong>".$data['delivery_location']."</label></br>
+					
 					</div>
 					<table class='table table-bordered'>
 					<thead>

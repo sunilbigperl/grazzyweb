@@ -5,7 +5,7 @@
 echo "" . date("jS F Y") . "<br>";
 
 ?></p>
-<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
+<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>

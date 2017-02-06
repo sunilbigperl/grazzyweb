@@ -9,8 +9,10 @@ function areyousure()
 	&nbsp;<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/customers/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_customer');?></a>
 </div>
 
-<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
-		 data-search="true" id="table-pagination" data-sort-order="desc" data-page-length="100">
+<!--<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
+		 data-search="true" id="table-pagination" data-sort-order="desc" data-page-length="100">-->
+<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" 
+		 data-search="true" id="table-pagination" data-sort-order="desc" data-page-length="100">		 
 	<thead>
 		<tr>
 			

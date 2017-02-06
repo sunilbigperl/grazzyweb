@@ -16,7 +16,7 @@
 </div>
 <?php } ?>
 
-<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true"  <?php if($this->auth->check_access('Admin')) { ?> data-show-refresh="true" data-search="true" <?php } ?> id="table-pagination" data-sort-order="desc">
+<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true"  <?php if($this->auth->check_access('Admin')) { ?>  data-search="true" <?php } ?> id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
 			<th data-field="id">Sl.No</th>
