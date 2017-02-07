@@ -27,7 +27,7 @@ echo "" . date("jS F Y") . "<br>";
 			<th data-field="date">Ordered on</th>
 			<th data-field="type">Order type</th>
 			<th>Keep ready by</th>
-			<th>Delivery Status</th>
+			<!--<th>Delivery Status</th>-->
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -65,13 +65,15 @@ echo "" . date("jS F Y") . "<br>";
 						<a href="#" data-toggle="modal" data-target="#orderdetails" style="color: #2f2fd0;text-decoration:underline;" class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/3');?>',<?=htmlspecialchars(json_encode($order));?>);">Review delivery boy</a>
 					<?php } } ?>
 				</td>-->
-				<td><?php echo $order->status ? $order->status : ''; ?></td>
+				<!--<td><?php echo $order->status ? $order->status : ''; ?></td>-->
 				<td>
 				<?php if($order->restaurant_manager_status == "0"){ ?>
 					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-success btn-xs">Accept</a>
 					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
 				<?php }else{
-					echo $order->restaurant_manager_status;
+					//echo $order->restaurant_manager_status;
+					if($order->status == "Assigned"){ echo "Order Confirmed";}
+					if($order->status == "Order Placed") { echo "Wait for confirmation"; }
 				} ?>
 				</td>
 			</tr>

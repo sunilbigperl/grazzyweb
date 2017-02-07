@@ -1,16 +1,40 @@
-<?php echo theme_css('bootstrap-table.css', true);?>
-<?php echo theme_js('bootstrap-table.js', true);?>
+<script type="text/javascript" src="https://datatables.net/release-datatables/media/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.html5.min.js"></script>
+<style>
+   a.dt-button.buttons-csv.buttons-html5 { background-color: rgb(51, 122, 183);
+    color: white;
+    padding: 4px;
+    float: left;
+    margin-right: 20px;
+	}
+</style>
+<script>
+$(document).ready(function() {
+var oTable = $('#table-pagination').DataTable( {
+        dom: 'Blfrtip',
+        buttons: [
+       {
+           extend: 'csv',
+		   text: 'Export menu',
+           footer: false,
+		   exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4 ]
+            },
+       }        
+    ]  
+    } );
 
-<div class="btn-group pull-left">
+} );
+</script>
+<div class="btn-group pull-left" style="margin-bottom:20px;">
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/0/'.$res_id); ?>"><i class="icon-plus-sign"></i> Add New Menu Item</a>
   	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant'); ?>"><i class="icon-plus-sign"></i> Back</a> 
 
-  <!--  <button class="btn btn-primary" onclick="history.go(-1);">Back </button>-->
-
 	</div>
 
-<table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
-		 data-search="true" id="table-pagination" data-sort-order="desc">
+<table class="table table-striped table-bordered"  id="table-pagination" >
 	<thead>
 		<tr>
 			<th data-field="id">Id</th>
@@ -100,3 +124,8 @@
   
 </div>
 </div>
+<script>
+$("#export").click(function(){
+  $("table").tableToCSV();
+});
+</script>
