@@ -152,6 +152,7 @@ a:hover {
 </style>
 <?php $url = $this->uri->segment(4);  if(!isset($url)){ ?>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">
+<?php  	if($this->auth->check_access('Admin')){ ?>
 	<form class="form-horizontal" action="<?php echo site_url($this->config->item('admin_folder').'/message/messagerest'); ?>" method="post">
 		<div class="form-group">
 			<label>Send Messsage to all restaurants</label>
@@ -167,6 +168,8 @@ a:hover {
 		<div class="form-group pull-right"><input type="submit" class="btn btn-primary" value="Send" name="action"></div>
 
 	</form>
+	<?php } ?>
+
 </div>
 <?php } ?>
 
