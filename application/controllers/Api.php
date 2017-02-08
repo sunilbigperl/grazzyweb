@@ -119,7 +119,10 @@ class Api extends REST_Controller {
        
         if (!empty($restaurants))
         {
+			
+			
             $this->set_response($restaurants, REST_Controller::HTTP_OK); 
+		//	print_r($restaurants);exit;  
         }
         else
         {
@@ -129,7 +132,7 @@ class Api extends REST_Controller {
             ], REST_Controller::HTTP_OK);
         }
 		
-        
+     // print_r($restaurants);exit;  
     }
 	
 	 public function customeraddress_get($id)

@@ -222,7 +222,7 @@ class Orders extends Admin_Controller {
 	function ChangeDelPartnerStatus($status,$id){
 		$status = $this->Order_model->ChangeDelPartnerStatus($status,$id);
 		if($status){
-			 redirect('admin/orders/dashboard', 'refresh');
+			 redirect('admin/orders/delpartnerorders', 'refresh');
 		}
 	}
 	function Review($type){
