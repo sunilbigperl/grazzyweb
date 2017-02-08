@@ -331,4 +331,11 @@ class Deliverypartner extends Admin_Controller
 			redirect($this->config->item('admin_folder').'/delpartners');
 		}
 	}
+	
+	public function ChangeStatus($id,$status){
+		$result = $this->Deliveryboy_model->ChangeStatus($id,$status);
+		if($result){
+			redirect("admin/deliverypartner");
+		}
+	}
 }

@@ -32,20 +32,29 @@ class Message_model extends CI_Model
 	}
 	
 	
-	public function get_delmessages(){
-		$userdata = $this->session->userdata('admin');
+	public function get_delmessages($id){
+		if($id == ''){
+			$userdata = $this->session->userdata('admin');
+		}else{
+			$userdata['id'] = $id;
+		}
+		
 		$where ='';
 		if($this->auth->check_access('Deliver manager') == 1){
-			$where.=" where delpartner_id = '".$userdata['id']."'";
+			$where.=" where delpartner_id = '".$userdata['id']."' or delpartner_id = 0 ";
 		}
-		//$query = $this->db->query("select a.*,b.username from delpartner_messages a, admin b where a.delpartner_id = b.id ORDER BY date DESC");
-		$query = $this->db->query("select * from delpartner_messages ".$where." ORDER BY date DESC ");
+		if($id != ""){
+			$where.=" where delpartner_id = '".$userdata['id']."' or delpartner_id = 0 ";
+		}
+		//echo "select * from delpartner_messages ".$where." ORDER BY date DESC "; exit;
+		$query = $this->db->query("select * from delpartner_messages ".$where." ORDER BY date DESC");
 		if($query->num_rows() > 0){
 			$result = array();
 			$i=0;
 			foreach($query->result_array() as $row){ 
 				$result[$i]['date'] = $row['date'];
 				$result[$i]['message'] = $row['message'];
+				
 				$query1 = $this->db->query("select * from admin where id='".$row['delpartner_id']."'");
 				if($query1->num_rows() > 0){
 					$rest = $query1->result_array();

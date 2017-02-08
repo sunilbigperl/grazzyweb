@@ -12,6 +12,9 @@ class Pitstop extends Admin_Controller {
         $this->load->model('Pitstop_model');
     }
     
+	function Deleteall(){
+		print_r($_POST); exit;
+	}
     function index()
     {       
 		$data['page_title'] = 'Pitstops';

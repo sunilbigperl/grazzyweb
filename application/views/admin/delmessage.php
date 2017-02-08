@@ -1,4 +1,5 @@
-<?php  	if($this->auth->check_access('Admin')){ ?>
+<?php  	$url = $this->uri->segment(4);  
+if($this->auth->check_access('Admin') && !isset($url)){ ?>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">
 	<form class="form-horizontal" action="<?php echo site_url($this->config->item('admin_folder').'/message/messagedel'); ?>" method="post">
 		<div class="form-group" id="the-basics">

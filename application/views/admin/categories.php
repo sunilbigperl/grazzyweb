@@ -38,6 +38,15 @@ function areyousure()
 						<a class="btn btn-primary btn-xs" href="<?php echo  site_url(ADMIN_FOLDER.'/categories/form/'.$cat->id);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
 
 						<a class="btn btn-danger btn-xs" href="<?php echo  site_url(ADMIN_FOLDER.'/categories/delete/'.$cat->id);?>" onclick="return areyousure();"><i class="fa fa-trash"></i> <?php echo lang('delete');?></a>
+						
+					
+					<?php if($cat->enabled == 0) { ?>
+					<a class="btn btn-success btn-xs" href="<?php echo site_url(ADMIN_FOLDER.'/categories/ChangeStatus/'.$cat->id."/1"); ?>">activate</a>
+					<?php } ?>
+					<?php if($cat->enabled == 1) { ?>
+					<a class="btn btn-danger btn-xs" href="<?php echo site_url(ADMIN_FOLDER.'/categories/ChangeStatus/'.$cat->id."/0"); ?>">Deactivate</a>
+					
+					<?php } ?>
 					</div>
 				</td>
 			</tr>

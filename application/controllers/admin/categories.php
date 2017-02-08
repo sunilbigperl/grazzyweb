@@ -310,4 +310,11 @@ class Categories extends Admin_Controller {
             $this->session->set_flashdata('error', lang('error_not_found'));
         }
     }
+	
+	public function ChangeStatus($id,$status){
+		$result = $this->Category_model->ChangeStatus($id,$status);
+		if($result){
+			redirect("admin/categories");
+		}
+	}
 }

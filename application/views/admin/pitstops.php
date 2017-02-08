@@ -1,6 +1,14 @@
-<?php echo theme_css('bootstrap-table.css', true);?>
-<?php echo theme_js('bootstrap-table.js', true);?>
 
+<script>
+	$(document).ready(function(){
+		$('#eventsTable').on('all.bs.table', function (e, name, args) {
+			console.log("tets");
+			$(".selected").each(function () {
+				console.log($(this))
+			});
+		});
+	});
+</script>
 <div class="btn-group pull-left">
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/form'); ?>"><i class="icon-plus-sign"></i> Add new pitstop</a>
 </div>
@@ -16,11 +24,13 @@
 </div>
 <!--<table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">-->
-<table class="table table-striped" data-toggle="table"  data-cache="false" data-pagination="true" 
-		 data-search="true" id="table-pagination" data-sort-order="desc">		 
+<form action="<?php echo site_url($this->config->item('admin_folder').'/pitstop/Deleteall'); ?>" method="post">
+<input type="submit" name="submit" value="delete all" class="btn btn-xs btn-primary">
+<table class="table table-bordered" data-toggle="table"
+		 data-search="true" id="eventsTable" data-sort-order="desc" data-show-refresh="true">		 
 	<thead>
 		<tr>
-			<th><input type="checkbox" name="maincheck" class="maincheck" id="maincheck" onclick="Maincheck()"></th>
+			<th data-field="state" data-checkbox="true"></th>
 			<th data-field="id">Sl.No</th>
 			<th data-field="name">Pitstop name</th>
 			<th data-field="price">Latitude</th>
@@ -40,7 +50,7 @@
 			foreach($pitstops as $pitstop){
 		?>
 			<tr class="gc_row">
-				<td><input type="checkbox" name="subcheck" class="subcheck" id="subcheck<?=$i;?>"></td>
+				<td></td>
 				<td><?=$i;?></td>
 				<td>
 					<?=$pitstop->pitstop_name;?>
@@ -60,10 +70,4 @@
 	</tbody>
 	<?php endif;?>
 </table>
-<script>
-	$(document).ready(function(){
-		function Maincheck(){
-			alert();
-		}
-	});
-</script>
+</form>

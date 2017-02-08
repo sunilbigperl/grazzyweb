@@ -21,7 +21,7 @@ function areyousure()
 			<th>Phone No</th>
 			<th><?php echo lang('access');?></th>
 			<th>Action</th>
-			<th>Reviews</tH>
+			<th></tH>
 		</tr>
 	</thead>
 	<tbody>
@@ -43,7 +43,17 @@ function areyousure()
 					<?php endif; ?>
 				</div>
 			</td>
-			<td><a href="#"  data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/Deliverypartner/ShowReviewDetails/'.$admin->id.'');?>');">Reviews</a></td>
+			<td>
+			<a href="#"  data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/Deliverypartner/ShowReviewDetails/'.$admin->id.'');?>');">Reviews</a>
+			<a href="<?php echo site_url($this->config->item('admin_folder').'/message/delmessage/'.$admin->id.'');?>" class="btn btn-info btn-xs">Messages</a>
+			<?php if($admin->enabled == 0) { ?>
+			<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/deliverypartner/ChangeStatus/'.$admin->id."/1"); ?>">activate</a>
+			<?php } ?>
+			<?php if($admin->enabled == 1) { ?>
+			<a class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/deliverypartner/ChangeStatus/'.$admin->id."/0"); ?>">Deactivate</a>
+			
+			<?php } ?>
+			</td>
 		</tr>
 <?php endforeach; ?>
 	</tbody>

@@ -123,6 +123,10 @@ Class Deliveryboy_model extends CI_Model
 			}
 		}
 	}
+	function ChangeStatus($id,$status){
+		$sql = $this->db->query("update admin set enabled='".$status."' where id='".$id."'");
+		if($sql){ return true; }
+	}
 	
 	
 }
