@@ -40,7 +40,7 @@
 					<?=date('d-m-Y',strtotime($message['date'])); ?>
 				</td>
 				<td>
-					<?=date('H:i:s',strtotime($message['date'])); ?>
+					<?=date('h:i:s',strtotime($message['date'])); ?>
 				</td>
 				
 				<td>

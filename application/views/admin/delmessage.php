@@ -8,7 +8,7 @@ if($this->auth->check_access('Admin') && !isset($url)){ ?>
 				<?php foreach($delpartners as $delpartner){?>
 					<option value="<?=$delpartner['id']?>"><?=$delpartner['username'];?></option>
 				<?php } ?>
-				</select>
+			</select>
 		</div>
 		<div class="form-group">
 		  <textarea class="form-control" id="message" name="message" placeholder="Type new message here"></textarea>
@@ -50,7 +50,7 @@ if($this->auth->check_access('Admin') && !isset($url)){ ?>
 					<?=date('d-m-Y',strtotime($message['date'])); ?>
 				</td>
 				<td>
-					<?=date('H:i:s',strtotime($message['date'])); ?>
+					<?=date('h:i:s',strtotime($message['date'])); ?>
 				</td>
 				<td>
 					<?=isset($message['username']) ? $message['username'] : '';?>

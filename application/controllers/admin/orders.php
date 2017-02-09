@@ -1,11 +1,11 @@
 <?php
 
-class Orders extends Admin_Controller { 
-    
+class Orders extends Admin_Controller {
+
     function __construct()
-    {       
+    {
         parent::__construct();
-        
+
         //$this->auth->check_access('Admin', true);
         $this->lang->load('category');
         $this->load->model('Order_model');
@@ -16,7 +16,7 @@ class Orders extends Admin_Controller {
 		$this->load->model('Pitstop_model');
 		$this->load->helper('url');
     }
-    
+
 	function dashboard(){
 		$data['orders'] = $this->Order_model->get_neworders();
 		 $this->view($this->config->item('admin_folder').'/restaurantdatshboard',$data);
@@ -26,14 +26,14 @@ class Orders extends Admin_Controller {
         $data['orders'] = $this->Order_model->get_neworders();
         $this->view($this->config->item('admin_folder').'/neworders', $data);
     }
-	
+
 	function delpartnerorders()
     {
         $data['orders'] = $this->Order_model->get_delpartnerorders();
 		$data['deliveryboys'] = $this->Order_model->get_deliveryboys();
         $this->view($this->config->item('admin_folder').'/delpartnerorders', $data);
     }
-	
+
 	function AssignDeliveryBoy($id){
 		$data['delBoy'] = $this->input->post('deliveryboy');
 		$data['id'] = $id;
@@ -41,22 +41,22 @@ class Orders extends Admin_Controller {
 		if($results){
 			 redirect('admin/orders/delpartnerorders', 'refresh');
 		}
-		
+
 	}
-	
+
 	function orders()
     {
         $data['orders'] = $this->Order_model->get_deliverypartnerneworders();
         $this->view($this->config->item('admin_folder').'/delorders', $data);
     }
-	
+
 	function previousorders(){
 		//$data['orders'] = $this->Order_model->get_previousorders();
 		$data['orders'] = "";
         $this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
 	function previousordersdelpartner(){
-		
+
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
 			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
@@ -66,12 +66,12 @@ class Orders extends Admin_Controller {
 			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of last month'));
 			$data['delpartner'] = $this->input->post('delpartner');
 		}else{
-			
+
 			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
 			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
 			$data['delpartner'] = $this->input->post('delpartner');
 		}
-		
+
 		$data['orders'] = $this->Order_model->get_previousorders($data);
 		$this->view($this->config->item('admin_folder').'/previousordersdelpartner',$data);
 	}
@@ -89,11 +89,11 @@ class Orders extends Admin_Controller {
 			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
 			$data['delpartner'] = $this->input->post('delpartner');
 		}
-		
+
 		$data['orders'] = $this->Order_model->get_previousorders($data);
 		$this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
-	
+
 	function GetRestPreviousOrders($id){
 		$this->load->model('Restaurant_model');
 		$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
@@ -105,55 +105,71 @@ class Orders extends Admin_Controller {
 		$data['orders'] = $this->Order_model->get_restpreviousorders($data);
 		$this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
-	
+
 	function getOrderDetails(){
 		$html="";
 		$data = $this->input->post('data');
 		$restaurant = $this->Restaurant_model->get_restaurant($data['restaurant_id']);
-		if($data['ordertype_id'] == 3){ 
+		if($data['ordertype_id'] == 3){
 			 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
 			 $cname = $customer_details->firstname." ".$customer_details->lastname;
 			 $cphone = $customer_details->phone;
-			
+
 			 $dname = $customer_details->firstname." ".$customer_details->lastname;
 			 $dphone = $customer_details->phone;
-			 
+
 		}else{
 			 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
 			 $cname = $customer_details->firstname." ".$customer_details->lastname;
 			 $cphone = $customer_details->phone;
-			 
+
 			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
 			$dname = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "Not assigned yet";
 			$dphone = isset($deliveryboy_details->phone) ? $deliveryboy_details->phone : "";
-			
+
 		}
-		
+
 		$html.="<div class='modal-header'>
 					<button type='button' class='close' data-dismiss='modal'>&times;</button>
 					<h4 class='modal-title'>Delivery of order id: ".$data['order_number']."</h4>
 				  </div>
 				  <div class='modal-body' class='form-horizontal'>
 					<div class='form-group'>
-						<label><strong>Pikup location:</strong>".$restaurant->restaurant_address."</label></br>
-						<label><strong>Restaurant Name:</strong>".$restaurant->restaurant_name."</label></br>
-						<label><strong>Restaurant Contact number:</strong>".$restaurant->restaurant_phone."</label></br>
-						<label><strong>Customer contact number:</strong>".$cphone."</label></br>
-						<label><strong>Delivery contact number:</strong>".$dphone."</label></br>
-						
-						<label><strong>Passcode:</strong>".$data['passcode']."</label></br>
-						<label><strong>Delivery location:</strong>".$data['delivery_location']."</label></br>
+          <table class='table table-bordered'>
+          <tr>
+						<td>Pikup location:</td><td>".$restaurant->restaurant_address."</td>
+            </tr>
+            <tr>
+						<td>Restaurant Name:</td><td>".$restaurant->restaurant_name."</td>
+            </tr>
+            <tr>
+						<td>Restaurant Contact number:</td><td>".$restaurant->restaurant_phone."</td>
+            </tr>
+            <tr>
+						<td>Customer contact number:</td><td>".$cphone."</td>
+            </tr>
+            <tr>
+						<td>Delivery contact number:</td><td>".$dphone."</td>
+            </tr>
+            <tr>
+						<td>Passcode:</td><td>".$data['passcode']."</td>
+            </tr>
+            <tr>
+						<td>Delivery location:</td><td>".$data['delivery_location']."</td>
+            </tr>
+            </table>
 					</div>
 				</div>";
 		echo $html;
 	}
-    
+
+
     function GetMenudetails(){
 		$data = $this->input->post('data');
 		$menus = $this->Order_model->GetMenudetails($data);
 		$html="";
 		if($menus != 0){
-			if($data['ordertype_id'] == 3){ 
+			if($data['ordertype_id'] == 3){
 			 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
 			 $name = $customer_details->firstname." ".$customer_details->lastname;
 			 $phone = $customer_details->phone;
@@ -172,7 +188,7 @@ class Orders extends Admin_Controller {
 					<div class='form-group'>
 						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":</strong>".$name."</label></br>
 						<label><strong>Mobile No:</strong>".$phone."</label></br>
-					
+
 					</div>
 					<table class='table table-bordered'>
 					<thead>
@@ -181,10 +197,10 @@ class Orders extends Admin_Controller {
 					<tbody>";
 			foreach($menus as $menu){
 					$html.="<tr><td>".$menu->menu."</td><td>".$menu->menu_id."</td><td>".$menu->quantity."</td><td>".$menu->cost."</td></td>";
-					
+
 			}
 			$html.="</tbody>
-				</table> 
+				</table>
 				</div>
 			  <div class='modal-footer'>
 				<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
@@ -192,7 +208,7 @@ class Orders extends Admin_Controller {
 		}
 		echo $html;
 	}
-	
+
 	function ChangeRestMangerStatus($status,$id){
 		$statuss = $this->Order_model->ChangeRestMangerStatus($status,$id);
 		if($statuss && $status == 1){
@@ -219,9 +235,9 @@ class Orders extends Admin_Controller {
 			}
 		}
 		redirect('admin/orders/dashboard', 'refresh');
-		
+
 	}
-	
+
 	function ChangeDelPartnerStatus($status,$id){
 		$status = $this->Order_model->ChangeDelPartnerStatus($status,$id);
 		if($status){
@@ -229,7 +245,7 @@ class Orders extends Admin_Controller {
 		}
 	}
 	function Review($type){
-		
+
 		$html="";
 		$userdata = $this->session->userdata('admin');
 		$data = $this->input->post('data');
@@ -238,7 +254,7 @@ class Orders extends Admin_Controller {
 			$customer_details = $this->Customer_model->get_customer($data['customer_id']);
 			$name = $customer_details->firstname;
 			$id= $data['id'];
-		}elseif($type == 3 || $type == 5){ 
+		}elseif($type == 3 || $type == 5){
 			$title ="Review Delivery boy";
 			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
 			$name = isset($deliveryboy_details->name) ? $deliveryboy_details->name : "";
@@ -248,12 +264,12 @@ class Orders extends Admin_Controller {
 			$name = $data['restaurant_name'];
 			$id= $data['restaurant_id'];
 		}
-		
+
 		$html.="<div class='modal-header'>
 				<button type='button' class='close' data-dismiss='modal'>&times;</button>
 				<h4 class='modal-title'>".$title."</h4>
 			  </div>
-			  
+
 					<form id='review' class='form-horizontal' method='post'  action='InserReview'>
 			  <div class='modal-body' class='form-horizontal'>
 						<input type='hidden' name='order_number' value='".$data['order_number']."'>
@@ -273,16 +289,16 @@ class Orders extends Admin_Controller {
 							</div>
 						</div>
 						<h4 style='color: #fff;'>OR</h4>
-						
+
 							<label class='col-xs-12 col-sm-3'>Rating</label>
 							<div class='col-sm-8 col-xs-12'>
 								<input type='text' name='ratings' id='ratings' value='' class='form-control' >
 							</div>
 						</div>
 						<div class='pop-btn'>
-							
+
 						</div>
-					
+
 			</div>
 		  <div class='modal-footer'>
 			<input type='submit' class='btn btn-danger' value='Review'>&nbsp;<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
@@ -298,7 +314,7 @@ class Orders extends Admin_Controller {
 			</script>";
 		echo $html;
 	}
-	
+
 	function InserReview(){
 		$data = $this->input->post();
 		$this->Order_model->InserReview($data);
@@ -310,9 +326,9 @@ class Orders extends Admin_Controller {
         //if the category does not exist, redirect them to the customer list with an error
         if ($category)
         {
-            
+
             $this->Restaurant_model->delete($id);
-            
+
             $this->session->set_flashdata('message', "The restaurant has been deleted.");
             redirect($this->config->item('admin_folder').'/restaurant');
         }
@@ -321,12 +337,12 @@ class Orders extends Admin_Controller {
             $this->session->set_flashdata('error', lang('error_not_found'));
         }
     }
-	
+
 	function pitstops_autocomplete()
 	{
 		$name	= trim($this->input->post('name'));
 		$limit	= $this->input->post('limit');
-		
+
 		if(empty($name))
 		{
 			echo json_encode(array());
@@ -334,25 +350,25 @@ class Orders extends Admin_Controller {
 		else
 		{
 			$results	= $this->Restaurant_model->pitstops_autocomplete($name, $limit);
-			
+
 			$return		= array();
-			
+
 			foreach($results as $r)
 			{
 				$return[$r->pitstop_id]	= $r->pitstop_name;
 			}
 			echo json_encode($return);
 		}
-		
+
 	}
-	
+
 	public function ShowReviewDetails($id){
 		$this->load->model('Restaurant_model');
 		$customerreview = $this->Order_model->GetCustomerReview($id);
 		$customerreviewavg= isset($customerreview['avg'][0]->avg) ? $customerreview['avg'][0]->avg : 0;
 		$delpartnerreview = $this->Order_model->GetDelPartnerReview($id);
 		$delpartnerreviewavg = isset($delpartnerreview['avg'][0]->avg) ? $delpartnerreview['avg'][0]->avg :0;
-		
+
 		$delboyreview = $this->Order_model->GetDelBoyReview($id);
 		$delboyreviewavg = isset($delboyreview['avg'][0]->avg) ? $delboyreview['avg'][0]->avg :0;
 		$restaurant       = $this->Restaurant_model->get_restaurant($id);
@@ -368,28 +384,28 @@ class Orders extends Admin_Controller {
 			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
 			<tbody>";
 			if($delpartnerreview['data']){
-				foreach($delpartnerreview['data'] as $customer){ 
+				foreach($delpartnerreview['data'] as $customer){
 					echo "<tr><td>".$customer->date."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
 				}
 			}
 			if($customerreview['data']){
-				foreach($customerreview['data'] as $customer1){ 
+				foreach($customerreview['data'] as $customer1){
 					echo "<tr><td>".$customer1->date."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->firstname."</td></tr>";
 				}
 			}
 			if(isset($delboyreview['data']) && $delboyreview['data']){
-				foreach($delboyreview['data'] as $customer1){ 
+				foreach($delboyreview['data'] as $customer1){
 					echo "<tr><td>".$customer1->date."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->name."</td></tr>";
 				}
 			}
 		echo "</tbody>
 		</table></div>";
 	}
-	
+
 	public function ShowReviewDetailstodelpartner($id){
 		$restaurantreview = $this->Order_model->GetRestaurantreview($id);
 		$delpartnerreviewavg = isset($restaurantreview['avg'][0]->avg) ? $restaurantreview['avg'][0]->avg : 0;
-		$admin       = $this->Order_model->get_admin($id); 
+		$admin       = $this->Order_model->get_admin($id);
 		echo  "<div class='modal-header'>
 		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
 		  <h4 class='modal-title'>Rating & reviews of ".$admin[0]->firstname."</h4>
@@ -400,22 +416,22 @@ class Orders extends Admin_Controller {
 			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
 			<tbody>";
 			if($restaurantreview != 0 && $restaurantreview['data']){
-				foreach($restaurantreview['data'] as $customer){ 
+				foreach($restaurantreview['data'] as $customer){
 					echo "<tr><td>".$customer->date."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->restaurant_name."</td></tr>";
 				}
 			}else{
 				echo "No data found";
 			}
-			
+
 		echo "</tbody>
 		</table></div>";
 	}
-	
+
 	public function RequestBill(){
 		$data['orders'] = "";
         $this->view($this->config->item('admin_folder').'/requestbill',$data);
 	}
-	
+
 	public function GenerateBillMail()
 	{
 		if($this->input->post('action') == "Go"){
@@ -439,56 +455,56 @@ class Orders extends Admin_Controller {
 			'smtp_port' => 465,
 			'smtp_user' => 'laxman.bigperl@gmail.com',
 			'smtp_pass' => 'bigperl@123',
-			'mailtype'  => 'html', 
+			'mailtype'  => 'html',
 			'charset'   => 'utf-8',
 			'newline'    => "\r\n"
 		);
 		$this->load->library('email',$config);
 		$this->email->from('laxman.bigperl@gmail.com', 'EatsApp');
 		$this->email->to($userdata['email']);
-		 
+
 		$this->email->subject('Email Test');
 		$this->email->message('Testing the email class.');
-		
-		
-		
+
+
+
 		$html= $this->load->view($this->config->item('admin_folder').'/bill',$data,true);
-		
+
         $filename  = "bill.pdf";
-		
+
         $this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
-		$this->m_pdf->pdf->Output($filename, "F");  
+		$this->m_pdf->pdf->Output($filename, "F");
 		$this->email->attach($filename);
-		
-		 //Send mail 
-         if($this->email->send()) 
+
+		 //Send mail
+         if($this->email->send())
 		 {
-			echo "<script> alert('Your bill will be emailed to registred email id.');location.href='http://grazzy.way2gps.com/index.php/admin/orders/RequestBill';</script>";	 
-		//	echo "Your bill will be emailed to registred email id."; 
+			echo "<script> alert('Your bill will be emailed to registred email id.');location.href='http://grazzy.way2gps.com/index.php/admin/orders/RequestBill';</script>";
+		//	echo "Your bill will be emailed to registred email id.";
          }
 		 else
-		 {	
+		 {
 			// print_r($this->email->print_debugger());
-			echo "Error in sending Email."; 
+			echo "Error in sending Email.";
          }
 	}
 	public function SalesChart(){
-		
+
 	     $data['saleschart'] = "";
         $this->view($this->config->item('admin_folder').'/saleschart',$data);
-		
-		
+
+
 	}
-	
+
 	public function renew(){
 		$userdata = $this->session->userdata('admin');
-	
+
 		$sql = $this->db->query("update admin set RenewalAppliedStatus = 1 where id='".$userdata['id']."'");
 		$message = "".$userdata['firstname']."(Email: ".$userdata['email'].") has requested for renewal)";
 		$sql = $this->db->query("insert into notification_message (message) value('".$message."')");
 		echo "<script>alert('Notification sent. admin will contact you soon');location.reload();</script>";
 		 //redirect($this->config->item('admin_folder').'/orders/dashboard');
 	}
-	
+
 }
