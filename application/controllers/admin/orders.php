@@ -136,8 +136,11 @@ class Orders extends Admin_Controller {
 				  <div class='modal-body' class='form-horizontal'>
 					<div class='form-group'>
 						<label><strong>Pikup location:</strong>".$restaurant->restaurant_address."</label></br>
+						<label><strong>Restaurant Name:</strong>".$restaurant->restaurant_name."</label></br>
+						<label><strong>Restaurant Contact number:</strong>".$restaurant->restaurant_phone."</label></br>
 						<label><strong>Customer contact number:</strong>".$cphone."</label></br>
 						<label><strong>Delivery contact number:</strong>".$dphone."</label></br>
+						
 						<label><strong>Passcode:</strong>".$data['passcode']."</label></br>
 						<label><strong>Delivery location:</strong>".$data['delivery_location']."</label></br>
 					</div>
