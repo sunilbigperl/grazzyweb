@@ -115,13 +115,14 @@ class Orders extends Admin_Controller {
 			 $cname = $customer_details->firstname." ".$customer_details->lastname;
 			 $cphone = $customer_details->phone;
 
-			 $dname = $customer_details->firstname." ".$customer_details->lastname;
+			 $dname1 = $customer_details->firstname." ".$customer_details->lastname;
 			 $dphone = $customer_details->phone;
 
 		}else{
 			 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
 			 $cname = $customer_details->firstname." ".$customer_details->lastname;
 			 $cphone = $customer_details->phone;
+      $name = $customer_details->firstname." ".$customer_details->lastname;
 
 			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
 			$dname = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "Not assigned yet";
@@ -137,26 +138,33 @@ class Orders extends Admin_Controller {
 					<div class='form-group'>
           <table class='table table-bordered'>
           <tr>
-						<td>Pikup location:</td><td>".$restaurant->restaurant_address."</td>
+          <th>Restaurant Name:</th><td>".$restaurant->restaurant_name."</td>
+          </tr>
+          <tr>
+          <th>Restaurant Contact number:</th><td>".$restaurant->restaurant_phone."</td>
+          </tr>
+          <tr>
+						<th>Restaurant location:</th><td>".$restaurant->restaurant_address."</td>
             </tr>
             <tr>
-						<td>Restaurant Name:</td><td>".$restaurant->restaurant_name."</td>
+						<th>Customer Name:</th><td>".$customer_details->firstname." ".$customer_details->lastname."</td>
             </tr>
             <tr>
-						<td>Restaurant Contact number:</td><td>".$restaurant->restaurant_phone."</td>
+						<th>Customer contact number:</th><td>".$cphone."</td>
             </tr>
             <tr>
-						<td>Customer contact number:</td><td>".$cphone."</td>
+            <th>Delivery location:</th><td>".$data['delivery_location']."</td>
             </tr>
             <tr>
-						<td>Delivery contact number:</td><td>".$dphone."</td>
+            <th>Delivery Boy name:</th><td>".$dname."</td>
             </tr>
             <tr>
-						<td>Passcode:</td><td>".$data['passcode']."</td>
+						<th>Delivery contact number:</th><td>".$dphone."</td>
             </tr>
             <tr>
-						<td>Delivery location:</td><td>".$data['delivery_location']."</td>
+						<th>Passcode:</th><td>".$data['passcode']."</td>
             </tr>
+
             </table>
 					</div>
 				</div>";

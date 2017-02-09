@@ -151,13 +151,13 @@
 				<?php endif; ?>
                 <?php if($this->auth->check_access('Deliver manager')) : ?>
 					<!--	<li><a href="<?php echo $admin_url;?>deliverypartner/form/<?=$userdata['id'];?>"><i class="fa fa-home"></i> Profile</a></li>-->
-						<li><a href="<?php echo $admin_url;?>orders/delpartnerorders"><i class="fa fa-home"></i> Dashboard <span class="fa fa-chevron-down"></span></a>
+						<li><a href="<?php echo $admin_url;?>orders/delpartnerorders"><i class="fa fa-home"></i> Dashboard </a>
 							<!--<ul class="nav child_menu">-->
 							<!--  <li><a href="<?php echo $admin_url;?>orders/delpartnerorders">New orders</a></li>-->
 							<!--  <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous Orders</a></li> -->
 							<!--</ul>-->
 						</li>
-						<li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner"><i class="fa fa-home"></i> Previous Orders<span class="fa fa-chevron-down"></span></a>
+						<li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner"><i class="fa fa-home"></i> Previous Orders</a>
 
 					<!--	<li><a href="<?php echo $admin_url;?>message/delmessage"><i class="fa fa-home"></i> Messages </a></li> -->
 						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boys </a></li>

@@ -15,10 +15,17 @@
 			<fieldset style="padding:10px;">
 				<div class="form-group">	
 					<label>Company name</label>
+					<?php if($this->auth->check_access('Deliver manager')) { ?>
 					<?php
 					$data	= array('name'=>'username', 'value'=>set_value('username', $username),'class'=>'form-control', 'readonly'=>'readonly');
 					echo form_input($data);
 					?>
+					<?php }else { ?>
+					<?php
+					$data	= array('name'=>'username', 'value'=>set_value('username', $username),'class'=>'form-control');
+					echo form_input($data);
+					?>
+					<?php } ?>
 				</div>
 				<div class="form-group">		
 					<label>Phone No</label>
