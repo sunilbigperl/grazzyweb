@@ -13,8 +13,19 @@ class Pitstop extends Admin_Controller {
     }
     
 	function Deleteall(){
-		print_r($_POST); exit;
+		foreach($_POST['DeleteOptions'] as $key=>$DeleteOption){
+			$sql = $this->db->query('delete from pitstops where pitstop_id="'.$key.'"');
+		}
+		redirect("admin/pitstop");
 	}
+	
+	public function ChangeStatus($id,$status){
+		$result = $this->Pitstop_model->ChangeStatus($id,$status);
+		if($result){
+			redirect("admin/pitstop");
+		}
+	}
+	
     function index()
     {       
 		$data['page_title'] = 'Pitstops';

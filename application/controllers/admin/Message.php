@@ -35,7 +35,7 @@ class Message extends Admin_Controller {
    function delmessage($id=''){
 	    $data['page_title'] = 'Message to delivery partner';
         $data['messages'] = $this->Message_model->get_delmessages($id);
-		//$data['delpartners'] = $this->Message_model->get_delpartners();
+		$data['delpartners'] = $this->Message_model->get_delpartners();
         $this->view($this->config->item('admin_folder').'/delmessage', $data);
    }
    

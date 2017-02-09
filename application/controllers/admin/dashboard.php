@@ -79,6 +79,16 @@ class Dashboard extends Admin_Controller {
 		$sql = $this->db->query("select COUNT(id) as count from customers");
 		
 		$data['countcustomers'] = $sql->result()[0]->count;
+		
+		$sql1 =  $this->db->query("select COUNT(pitstop_id) as count from pitstops");
+		$data['foodoutlets'] = $sql1->result()[0]->count;
+		
+		$date = date('Y-m-d H:i:s',strtotime('last day of last month'));
+		$sql2  = $this->db->query("SELECT COUNT(id) as count FROM `orders` WHERE `ordered_on` <= '".$date."'");
+		$data['previousorders'] = $sql2->result()[0]->count;
+		
+		$sql3  = $this->db->query("SELECT COUNT(id) as count FROM `orders`");
+		$data['totalorders'] = $sql3->result()[0]->count;
 		$this->view($this->config->item('admin_folder').'/map', $data);
 	}
 }

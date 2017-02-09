@@ -1,11 +1,23 @@
 
 <script>
 	$(document).ready(function(){
-		$('#eventsTable').on('all.bs.table', function (e, name, args) {
-			console.log("tets");
-			$(".selected").each(function () {
-				console.log($(this))
+		
+		$('#eventsTable').on('uncheck-all.bs.table', function (e) {
+			$(".DeleteOption").each(function () {
+				$(this).prop("checked",false);
 			});
+		});
+		$('#eventsTable').on('check-all.bs.table', function (e) {
+			$(".selected").each(function () {
+				var id = "DeleteOption"+$(this).context.cells[1].innerText;
+				$("#"+id).prop("checked",true);
+			});
+		});
+		$('#eventsTable').on('uncheck.bs.table', function (e,row) {
+			$("#DeleteOption"+row.id).prop("checked",false);
+		});
+		$('#eventsTable').on('check.bs.table', function (e,row) {
+			$("#DeleteOption"+row.id).prop("checked",true);
 		});
 	});
 </script>
@@ -49,10 +61,10 @@
 			$i=1;
 			foreach($pitstops as $pitstop){
 		?>
-			<tr class="gc_row">
+			<tr class="gc_row" id="<?=$pitstop->pitstop_id;?>">
 				<td></td>
-				<td><?=$i;?></td>
-				<td>
+				<td><?=$pitstop->pitstop_id;?></td>
+				<td><input type="checkbox" style="display:none;" name="DeleteOptions[<?=$pitstop->pitstop_id;?>]" id="DeleteOption<?=$pitstop->pitstop_id;?>" class="DeleteOption">
 					<?=$pitstop->pitstop_name;?>
 				</td>
 				<td>
@@ -60,7 +72,15 @@
 				</td>
 				<td><?=$pitstop->langitude;?></td>
 				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/form/'.$pitstop->pitstop_id); ?>" class="btn btn-info btn-xs">Edit</a>
-				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/delete/'.$pitstop->pitstop_id); ?>" class="btn btn-danger btn-xs">delete</a></td>
+				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/delete/'.$pitstop->pitstop_id); ?>" class="btn btn-danger btn-xs">delete</a>
+				<?php if($pitstop->enabled == 0) { ?>
+					<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/ChangeStatus/'.$pitstop->pitstop_id."/1"); ?>">activate</a>
+					<?php } ?>
+					<?php if($pitstop->enabled == 1) { ?>
+					<a class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/ChangeStatus/'.$pitstop->pitstop_id."/0"); ?>">Deactivate</a>
+					
+					<?php } ?>
+				</td>
 			</tr>
 		<?php
 			$i++;
