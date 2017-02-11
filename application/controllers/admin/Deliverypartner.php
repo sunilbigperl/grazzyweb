@@ -282,7 +282,7 @@ class Deliverypartner extends Admin_Controller
 		}
 		
 		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]');
-		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[11]|callback_check_phone');
+		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[11]|callback_validate_phone_number');
 		$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
 		$this->form_validation->set_rules('access', 'lang:access', 'trim|required');
 		
@@ -336,6 +336,20 @@ class Deliverypartner extends Admin_Controller
 		$result = $this->Deliveryboy_model->ChangeStatus($id,$status);
 		if($result){
 			redirect("admin/deliverypartner");
+		}
+	}
+	
+	function validate_phone_number($value) {
+		
+		$value = trim($value);
+		$match = '/^\(?[0-9]{3}\)?[-. ]?[0-9]{3}[-. ]?[0-9]{4}$/';
+		$replace = '/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/';
+		$return = '($1) $2-$3';
+		if (preg_match($match, $value)) {
+			return preg_replace($replace, $return, $value);
+		} else {
+			$this->form_validation->set_message('validate_phone_number', 'Invalid Phone.');
+		return false;
 		}
 	}
 }

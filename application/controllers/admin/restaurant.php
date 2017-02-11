@@ -129,8 +129,8 @@ class Restaurant extends Admin_Controller {
 		
 		//$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
         $this->form_validation->set_rules('restaurant_name', 'lang:restaurant_name', 'trim|required|max_length[64]');
-        $this->form_validation->set_rules('restaurant_address', 'lang:restaurant_address', 'trim');
-        $this->form_validation->set_rules('image', 'lang:restaurant_image', 'trim');
+        $this->form_validation->set_rules('restaurant_address', 'lang:restaurant_address', 'trim|required');
+        $this->form_validation->set_rules('restaurant_phone', 'lang:restaurant_phone', 'trim|required|max_length[11]|callback_validate_phone_number');
         $this->form_validation->set_rules('enabled', 'lang:enabled', 'trim|numeric');
 		
 		//if this is a new account require a password, or if they have entered either a password or a password confirmation
@@ -377,6 +377,20 @@ class Restaurant extends Admin_Controller {
 		else
 		{
 			return TRUE;
+		}
+	}
+	
+	function validate_phone_number($value) {
+		
+		$value = trim($value);
+		$match = '/^\(?[0-9]{3}\)?[-. ]?[0-9]{3}[-. ]?[0-9]{4}$/';
+		$replace = '/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/';
+		$return = '($1) $2-$3';
+		if (preg_match($match, $value)) {
+			return preg_replace($replace, $return, $value);
+		} else {
+			$this->form_validation->set_message('validate_phone_number', 'Invalid Phone.');
+		return false;
 		}
 	}
 }

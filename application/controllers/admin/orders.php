@@ -125,7 +125,7 @@ class Orders extends Admin_Controller {
       $name = $customer_details->firstname." ".$customer_details->lastname;
 
 			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
-			$dname = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "Not assigned yet";
+			$dname = isset($deliveryboy_details->name) ? $deliveryboy_details->name : "Not assigned yet";
 			$dphone = isset($deliveryboy_details->phone) ? $deliveryboy_details->phone : "";
 
 		}
@@ -184,7 +184,7 @@ class Orders extends Admin_Controller {
 			 $email = $customer_details->email;
 			}else{
 				$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
-				$name = isset($deliveryboy_details->firstname) ? $deliveryboy_details->firstname." ".$deliveryboy_details->lastname : "Not assigned yet";
+				$name = isset($deliveryboy_details->name) ? $deliveryboy_details->name : "Not assigned yet";
 				$phone = isset($deliveryboy_details->phone) ? $deliveryboy_details->phone : "";
 				$email = isset($deliveryboy_details->email) ? $deliveryboy_details->email : "";
 			}

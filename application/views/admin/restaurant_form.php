@@ -20,10 +20,8 @@
 			<fieldset style="padding:10px;">
 				<div class="form-group">	
 					<label for="name">Restaurant name</label>
-					<?php
-					$data	= array('name'=>'restaurant_name', 'value'=>set_value('restaurant_name', $restaurant_name), 'class'=>'form-control');
-					echo form_input($data);
-					?>
+					<input type="text" name="restaurant_name" value="<?=$restaurant_name?>" class="form-control" required>
+					
 				</div>
 				<div class="form-group">	
 					<label for="restaurant_address">Restaurant address</label>
@@ -34,10 +32,8 @@
 				</div>
 				<div class="form-group">	
 					<label for="restaurant_address">Restaurant phone</label>
-					<?php
-					$data	= array('name'=>'restaurant_phone', 'value'=>set_value('restaurant_phone', $restaurant_phone), 'class'=>'form-control');
-					echo form_input($data);
-					?>
+					<input type="number" name="restaurant_phone" value="<?=$restaurant_phone?>" class="form-control"  pattern="/(7|8|9)\d{9}/" required>
+					
 				</div>
 				<div class="form-group">
 					<label for="restaurant_address">Restaurant email</label>
