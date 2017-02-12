@@ -260,7 +260,8 @@
 					  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
 						<?php if(count($RestSuggestions['data']) > 0){ 
 						echo "<li><h5><strong>Recently Suggested Restaurants</h5></strong></li>";
-						foreach($RestSuggestions['data'] as $ressuggestion){?>
+						$i=0;
+						foreach($RestSuggestions['data'] as $ressuggestion){ if($i > 2){ break ;} ?>
 						
 						<li>
 						  <a>
@@ -271,10 +272,11 @@
 							
 						  </a>
 						</li>
-						<?php }} ?>
+						<?php $i++; }} ?>
 						<?php if(count($PitstopSuggestion['data']) > 0){ 
+						$j=0;
 						echo "<li><h5><strong>Recently Suggested Pitstops</strong></h5></li>";
-						foreach($PitstopSuggestion['data'] as $pitsuggestion){?>
+						foreach($PitstopSuggestion['data'] as $pitsuggestion){ if($j > 2){ break ;} ?>
 						
 						<li>
 						  <a>
@@ -285,8 +287,8 @@
 							
 						  </a>
 						</li>
-						<?php }} ?>
-						
+						<?php $j++; }} ?>
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/customers/suggestions');?>" style="color: red;">View All</a>
 					<?php endif; ?>
                   </ul>
                 </li>

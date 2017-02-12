@@ -424,7 +424,7 @@ class Api extends REST_Controller {
 	 public function suggestRestaurant_post(){
 		  
 		$data=array('restaurant_name'=>$this->post('restaurant_name'),'restaurant_address'=>$this->post('location'),
-		  'restaurant_phone'=>$this->post('phone_number'),'restaurant_email'=>$this->post('email'));
+		  'restaurant_phone'=>$this->post('phone_number'),'restaurant_email'=>$this->post('email'),'customer'=>$this->post('user_id');
 		$result=$this->api_model->restaurantSuggest($data);
 		
 		if (isset($result)){
@@ -447,7 +447,7 @@ class Api extends REST_Controller {
 
 	public function suggestPitstop_post(){
 		 
-		$data=array('restaurant_address'=>$this->post('location'));
+		$data=array('restaurant_address'=>$this->post('location'),'customer'=>$this->post('user_id'));
         $result=$this->api_model->pitstopSuggest($data);
         if(isset($result)){
 			
@@ -486,7 +486,7 @@ class Api extends REST_Controller {
 	  }
 	  
 	  public function OrderProfilepicture_post(){
-		 $data=array('id'=>$this->post('order_id ')); 
+		 $data=array('id'=>$this->post('order_id')); 
 		 $result=$this->api_model->orderProfile($data);
 		if(!empty($result)){
 			$message=[
@@ -697,7 +697,8 @@ class Api extends REST_Controller {
     {
 		$data = [
             'id' => $this->post('id'),
-            'status' => $this->post('status')
+            'status' => $this->post('status'),
+			'distance' => $this->post('distance'),
         ];
        $status =  $this->api_model->changeorderstatus($data);
         $message=['response'=>$status];

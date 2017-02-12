@@ -583,5 +583,9 @@ class Customers extends Admin_Controller {
 		}
 	}
 	
-	
+	public function suggestions(){
+		$data['RestSuggestions'] = $this->Customer_model->GetRestSuggestions($all = true);  
+		$data['PitstopSuggestion'] = $this->Customer_model->GetPitstopSuggestion($all = true); 
+		$this->view($this->config->item('admin_folder').'/suggestions', $data);
+	}
 }

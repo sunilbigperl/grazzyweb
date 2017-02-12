@@ -338,7 +338,7 @@ class Api_model extends CI_Model
 		}
 	}
 	public function changeorderstatus($data){
-		$sql = "update orders set status='".$data['status']."' where id='".$data['id']."'";
+		$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."' where id='".$data['id']."'";
 		$query = $this->db->query($sql);
 		if($query){
 			return "success";
@@ -407,8 +407,8 @@ print_r(json_encode($result)); exit;
 	}
 	
 	public function restaurantSuggest($data){
-		$sql =$this->db->query("insert into  restaurant_suggest (restaurant_name,restaurant_phone,restaurant_address,restaurant_email) 
-		values('".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_address']."','".$data['restaurant_email']."')");
+		$sql =$this->db->query("insert into  restaurant_suggest (restaurant_name,restaurant_phone,restaurant_address,restaurant_email,customer) 
+		values('".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_address']."','".$data['restaurant_email']."','".$data['customer']."')");
 		
 		if($sql){
 			return true;
@@ -419,7 +419,7 @@ print_r(json_encode($result)); exit;
 	}
 	public function pitstopSuggest($data){
 		
-		$sql =$this->db->query("insert into  pitstop_suggest (id,restaurant_address) values('".$data['id']."','".$data['restaurant_address']."')");
+		$sql =$this->db->query("insert into  pitstop_suggest (id,restaurant_address,customer) values('".$data['id']."','".$data['restaurant_address']."','".$data['customer']."')");
 		
 		if($sql){
 			return true;

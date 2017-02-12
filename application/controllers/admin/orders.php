@@ -512,7 +512,7 @@ class Orders extends Admin_Controller {
 		$message = "".$userdata['firstname']."(Email: ".$userdata['email'].") has requested for renewal)";
 		$sql = $this->db->query("insert into notification_message (message) value('".$message."')");
 		echo "<script>alert('Notification sent. admin will contact you soon');location.reload();</script>";
-		 //redirect($this->config->item('admin_folder').'/orders/dashboard');
+		 redirect($this->config->item('admin_folder').'/orders/dashboard');
 	}
 
 }

@@ -487,11 +487,16 @@ Class Customer_model extends CI_Model
 		return $result;
 	}
 	
-	function GetRestSuggestions(){
-		$yes = date('Y-m-d H:i:s',strtotime("-1 days"));
-		$today =  date('Y-m-d H:i:s');
+	function GetRestSuggestions($all = false){
 		
-		$sql = $this->db->query("select * from restaurant_suggest where date between '".$yes."' and '".$today."'");
+		$where="";
+		if($all == false){
+			$yes = date('Y-m-d H:i:s',strtotime("-1 days"));
+			$today =  date('Y-m-d H:i:s');
+			$where = "and a.date between '".$yes."' and '".$today."'";
+		}
+		
+		$sql = $this->db->query("select * from restaurant_suggest a, customers b where a.customer=b.id ".$where."");
 		if($sql->num_rows() > 0){
 			$result['data']	= $sql->result();
 		}else{
@@ -501,11 +506,15 @@ Class Customer_model extends CI_Model
 		return $result;
 	}
 	
-	function GetPitstopSuggestion(){
-		$yes = date('Y-m-d H:i:s',strtotime("-1 days"));
-		$today =  date('Y-m-d H:i:s');
+	function GetPitstopSuggestion($all = false){
+		$where="";
+		if($all == false){
+			$yes = date('Y-m-d H:i:s',strtotime("-1 days"));
+			$today =  date('Y-m-d H:i:s');
+			$where = "and a.date between '".$yes."' and '".$today."'";
+		}
 		
-		$sql1 = $this->db->query("select * from pitstop_suggest where date between '".$yes."' and '".$today."'");
+		$sql1 = $this->db->query("select * from pitstop_suggest a, customers b where a.customer=b.id  ".$where."");
 		if($sql1->num_rows() > 0){
 			$result['data']	= $sql1->result();
 		}
