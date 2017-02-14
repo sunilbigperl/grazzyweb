@@ -35,6 +35,15 @@
 					<option value="non veg" <?php if($type == "non veg"){echo "selected";}?>>non veg</option>
 				</select>
 			</div>
+			<div  class="form-group" style="display:none;">
+				<label for="size">Size</label>
+				<select name="size" class="form-control">
+					<option value="">Select size</option>
+					<option value="Small" <?php if($size == "Small"){echo "selected";}?>>Small</option>
+					<option value="Medium" <?php if($size == "Medium"){echo "selected";}?>>Medium</option>
+					<option value="Large" <?php if($size == "Large"){echo "selected";}?>>Large</option>
+				</select>
+			</div>
 			<div class="form-group">
 				<label for="price">Price</label>
 				<?php

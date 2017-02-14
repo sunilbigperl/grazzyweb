@@ -32,9 +32,9 @@ Class Menu_model extends CI_Model
 			foreach($men as $menu){
 				$categories = explode(":", $menu['category_id']);
 				
-				$sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `itemPreparation_time`, `enabled`
+				$sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `size`, `itemPreparation_time`, `enabled`
 				) VALUES ('".$id."','".$menu['code']."','".$menu['menu']."','".$menu['description']."','".$menu['price']."',
-				'".$menu['type']."','".$menu['itemPreparation_time']."','".$menu['enabled']."')");
+				'".$menu['type']."','".$menu['size']."','".$menu['itemPreparation_time']."','".$menu['enabled']."')");
 				$menu_category = $this->db->insert_id();
 				if(count($categories) > 0){
 					foreach($categories as $cat){

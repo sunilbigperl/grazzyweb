@@ -2,6 +2,7 @@
 class Deliveryboy extends Admin_Controller
 {
 	
+	var $delivery_id	= false;
 	function __construct()
 	{
 		parent::__construct();
@@ -52,6 +53,7 @@ class Deliveryboy extends Admin_Controller
 		
 		if($id)
 		{
+			$this->delivery_id	= $id;
 			
 			$page			= $this->Deliveryboy_model->get_deliveryboys($id);
 			
@@ -67,7 +69,7 @@ class Deliveryboy extends Admin_Controller
 			//set values to db values
 			$data['id']			= $page->id;
 			$data['name']		= $page->name;
-			$data['address']			= $page->address;
+			$data['address']	= $page->address;
 			$data['phone']		= $page->phone;
 			$data['email']		= $page->email;
 			$data['image']		= $page->image;
@@ -75,8 +77,8 @@ class Deliveryboy extends Admin_Controller
 			
 		}
 		
-		 $this->form_validation->set_rules('name', 'lang:name', 'trim|required|max_length[64]');
-	
+		$this->form_validation->set_rules('name', 'lang:name', 'trim|required|max_length[64]');
+		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[11]|callback_check_phone');
 		// Validate the form
 		if($this->form_validation->run() == false)
 		{
@@ -183,5 +185,19 @@ class Deliveryboy extends Admin_Controller
 			}
 		echo "</tbody>
 		</table></div>";
+	}
+	
+	function check_phone($str)
+	{
+		$email = $this->Deliveryboy_model->check_phone($str, $this->delivery_id);
+		if ($email)
+		{
+			$this->form_validation->set_message('check_phone', 'This phone no already in use');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
 	}
 }	

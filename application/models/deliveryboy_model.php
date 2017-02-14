@@ -128,5 +128,24 @@ Class Deliveryboy_model extends CI_Model
 		if($sql){ return true; }
 	}
 	
-	
+	function check_phone($str, $id=false)
+    {
+        $this->db->select('phone');
+        $this->db->from('delivery_boy');
+        $this->db->where('phone', $str);
+        if ($id)
+        {
+            $this->db->where('id !=', $id);
+        }
+        $count = $this->db->count_all_results();
+        
+        if ($count > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

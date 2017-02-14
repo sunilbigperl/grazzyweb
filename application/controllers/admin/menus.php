@@ -46,6 +46,7 @@ class Menus extends Admin_Controller {
         $data['enabled']     = '';
 		$data['image']          = '';
 		$data['type']          = '';
+		$data['size']	= '';
 		$data['itemPreparation_time'] = '';
 		$data['code'] = '';
 		$data['description'] = '';
@@ -67,6 +68,7 @@ class Menus extends Admin_Controller {
 			$data['enabled']       = $menus->enabled;
 			$data['image']          = $menus->image;
 			$data['type']          = $menus->type;
+			$data['size']	= $menus->size;
 			$data['code'] = $menus->code;
 			$data['description'] = $menus->description;
 			$data['itemPreparation_time'] = $menus->itemPreparation_time;
@@ -189,6 +191,7 @@ class Menus extends Admin_Controller {
 			$save['menu_id']         = $menu_id;
 			$save['menu'] 		=  $this->input->post('menu');
 			$save['type'] 		=  $this->input->post('type');
+			$save['size']	= $this->input->post('size');
             $save['price']      = $this->input->post('price');
 			$save['code']		 = $this->input->post('code');
 			$save['description']		 = $this->input->post('description');
