@@ -46,13 +46,15 @@
 	<thead>
 		<tr>
 			<th data-field="id">Order id</th>
-			<th data-field="id">Ordered date</th>
+			<th data-field="date">Ordered date</th>
 			<th data-field="name">Order number</th>
-		<!--	<th data-field="price">Customer bill amount(Rs)</th> -->
+			<th data-field="pickup">Pickup location</th>
+			<th data-field="delivery">Delivery location</th>
+			<th data-field="price">Delivery charge</th>
+			<th data-field="distance">KM</th>
 			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
 			<th>Net amount</th>
-			<th>Status</th>
 			<th>Remarks</th>
 		</tr>
 	</thead>
@@ -72,10 +74,30 @@
 				<td>
 					<a href="#" data-toggle="modal" style="color: #2f2fd0;text-decoration:underline;"  data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
 				</td>
-			<!--	<td>
-					<?=$order->total_cost; ?>
-				</td> -->
+				<?php 
+				$data['restaurant'] = $this->Restaurant_model->get_restaurant($order->restaurant_id);
+				$data['fromaddress'] = $data['restaurant']->restaurant_address;
 				
+				if($order->order_type == 1 && $order->pitstop_id != ""){
+					$pitstop = $this->Pitstop_model->get_pitstop($order->pitstop_id);
+					$data['toaddress'] = $pitstop->address;
+				}else{
+					$data['toaddress'] = $order->delivery_location;
+				}
+				?>
+				<td>
+					<?php echo isset($data['fromaddress']) ?  $data['fromaddress'] : ''; ?>
+				</td>
+				<td>
+				
+					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
+				</td>
+				<td>
+					
+				</td>
+				<td>
+					<?php echo isset($order->distance) ?  $order->distance : '';?>
+				</td>
 				<td>
 					<?=$order->commission;?>
 				</td>
@@ -86,12 +108,6 @@
 					
 				</td>
 			
-				<td>
-					<?php if($order->delivery_partner_status == "0"){ ?>
-					<?php }else{
-						echo $order->delivery_partner_status;
-					} ?>
-				</td>
 				<td> 
 					<?php if($order->delivery_partner != 0 ){ ?>
 					<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/ShowReviewDetailstodelpartner/'.$order->delivery_partner.'');?>');" style="color: #2f2fd0;text-decoration:underline;">Reviews/Ratings</a>

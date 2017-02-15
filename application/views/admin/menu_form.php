@@ -124,7 +124,7 @@
 
 		
 		
-		<div class="tab-pane" id="seo_tab" style="display:none;">
+		<div class="tab-pane" id="seo_tab" >
 			<fieldset>
 				<label for="image"><?php echo lang('image');?> </label>
 				<div class="input-append">

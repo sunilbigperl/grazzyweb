@@ -194,7 +194,7 @@
 						</ul>
 					</li>
 					<li><a href="<?php echo $admin_url;?>pitstop"><i class="fa fa-home"></i>Pitstops</a></li>
-                    <li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li>
+                   <!-- <li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li> -->
 					<li><a><i class="fa fa-home"></i>Messages <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a href="<?php echo $admin_url;?>message/restmessage">Restaurant message</a></li>
