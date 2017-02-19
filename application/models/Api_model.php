@@ -575,7 +575,7 @@ print_r(json_encode($result)); exit;
 	  
 	  public function deliveryboylocation($data){
 		if(isset($data['deliveryboy_id']) && $data['deliveryboy_id'] != ""){
-			$sql=$this->db->query("select * from deliveryboy_locations where deliveryboy_id='".$id."'");
+			$sql=$this->db->query("select * from deliveryboy_locations where deliveryboy_id='".$id."' order by location_id desc limit 1");
 		   
 			if($sql->num_rows()>0){
 				$data = $sql->result_array();
@@ -609,7 +609,7 @@ print_r(json_encode($result)); exit;
 	  }
 	  
 	  public function customerlocation($id){
-		$sql=$this->db->query("select * from customer_locations where customer_id='".$id."' order by location_id asc limit 1");
+		$sql=$this->db->query("select * from customer_locations where customer_id='".$id."' order by location_id desc limit 1");
        
 		if($sql->num_rows()>0){
 			$data = $sql->result_array();
