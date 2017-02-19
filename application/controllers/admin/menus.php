@@ -11,6 +11,7 @@ class Menus extends Admin_Controller {
 		//$this->auth->check_access('Admin', true);
 		
 		$this->load->model(array('Menu_model'));
+		$this->load->model(array('Option_model'));
 		$this->load->helper('form');
 		$this->lang->load('product');
 	}
@@ -52,10 +53,11 @@ class Menus extends Admin_Controller {
 		$data['description'] = '';
 		$data['photos']     = array();
 		$data['product_categories']	= array();
+		$data['customisation'] = "";
 		
 		if($menu_id){
 			$menus       = $this->Menu_model->GetMenu($menu_id);
-		
+			$data['product_options']	= $this->Option_model->get_product_options($menu_id);
             //if the category does not exist, redirect them to the category list with an error
             if (!$menus)
             {
@@ -74,6 +76,7 @@ class Menus extends Admin_Controller {
 			$data['itemPreparation_time'] = $menus->itemPreparation_time;
 			$data['menus'] = $this->Menu_model->GetMenu($menu_id);
 			$data['menu_id'] =$menu_id;
+			$data['customisation'] = $menus->customisation;
 			if(!$this->input->post('submit'))
 			{
 				
@@ -197,6 +200,8 @@ class Menus extends Admin_Controller {
 			$save['description']		 = $this->input->post('description');
 			$save['itemPreparation_time']		 = $this->input->post('itemPreparation_time');
             $save['enabled']     = $this->input->post('enabled');
+			$save['customisation'] = serialize($this->input->post('option'));
+			//print_r($save); exit;
 			//save categories
 			$categories			= $this->input->post('categories');
 			if(!$categories)

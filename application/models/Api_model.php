@@ -345,6 +345,9 @@ class Api_model extends CI_Model
 		}
 	}
 	public function getMenus($id){
+		$sql3 = $this->db->query("select servicetax from restaurant where restaurant_id='".$id."'");
+		$servicetax =  $sql3->result_array();
+		
 		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id";
 		
 		$query = $this->db->query($sql);
@@ -356,6 +359,7 @@ class Api_model extends CI_Model
 				if($menu['parent_id'] == 0){
 					$result[$i]['category_id'] = $menu['category_id'];
 					$result[$i]['category'] = $menu['name'];
+					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
 					$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' and a.menu_id = b.menu_category and b.category_id = c.id";
 					$query1 = $this->db->query($sql1);
 					if($query1->num_rows()>0){
@@ -374,6 +378,7 @@ class Api_model extends CI_Model
 							$result[$i]['menus'][$j]['image'] = 'uploads/images/thumbnails/'.$mn['image'];
 							$result[$i]['menus'][$j]['type'] = $mn['type'];
 							$result[$i]['menus'][$j]['itemPreparation_time'] = $mn['itemPreparation_time'];
+							$result[$i]['menus'][$j]['customisation'] = unserialize($mn['customisation']);
 						$j++;
 						}
 					}
@@ -604,7 +609,7 @@ print_r(json_encode($result)); exit;
 	  }
 	  
 	  public function customerlocation($id){
-		$sql=$this->db->query("select * from customer_locations where customer_id='".$id."'");
+		$sql=$this->db->query("select * from customer_locations where customer_id='".$id."' order by location_id asc limit 1");
        
 		if($sql->num_rows()>0){
 			$data = $sql->result_array();

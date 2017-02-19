@@ -191,7 +191,7 @@ class Api extends REST_Controller {
        $userslocation =  $this->api_model->adduserslocation($data);
         
 
-        $this->set_response($userslocation, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
+        $this->set_response(['response' => "success"], REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
     }
 	
 	public function updateprofile_post()
@@ -299,7 +299,7 @@ class Api extends REST_Controller {
         {
             $this->set_response([
                 'status' => FALSE,
-                'message' => 'customer location could not be found for the customer'
+                'message' => 'Location not found'
             ], REST_Controller::HTTP_OK);
         }
 	}
