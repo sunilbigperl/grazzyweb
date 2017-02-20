@@ -378,7 +378,29 @@ class Api_model extends CI_Model
 							$result[$i]['menus'][$j]['image'] = 'uploads/images/thumbnails/'.$mn['image'];
 							$result[$i]['menus'][$j]['type'] = $mn['type'];
 							$result[$i]['menus'][$j]['itemPreparation_time'] = $mn['itemPreparation_time'];
-							$result[$i]['menus'][$j]['customisation'] = unserialize($mn['customisation']);
+							if($mn['customisation'] != ""){
+								$cust = unserialize($mn['customisation']);
+								$data= array();
+								$i=0;
+								foreach($cust as $str){
+									$data['customisation'][$i]['type'] = $str['type'];
+									$data['customisation'][$i]['name'] = $str['name'];
+									if(isset($str['values']) && count($str['values']) > 0){
+										$j=0;
+										foreach($str['values'] as $value){
+											$data['customisation'][$i]['values'][$j]['name'] = $value['name'];
+											$data['customisation'][$i]['values'][$j]['weight'] = $value['weight'];
+											$data['customisation'][$i]['values'][$j]['price'] = $value['price'];
+										$j++;
+										}		
+									}
+								$i++;
+								}
+							}else{
+								$data= array();
+							}
+
+							$result[$i]['menus'][$j]['customisation'] = $data;
 						$j++;
 						}
 					}
