@@ -16,5 +16,19 @@
     <script src="<?php echo base_url('vendors/js/bootstrap-progressbar.min.js');?>"></script>
 
     <script src="<?php echo base_url('vendors/js/custom.min.js');?>"></script>
+	
+	<script>
+		$(document).ready(function(){
+			$("ul.child_menu").each(function(){
+				if($(this).css('display') == "block"){
+					$(this).css('display','none');
+				}
+			});
+				/* if($(".child_menu").css("display",'block')){
+					$(this).css("display",'none')
+				} */
+			
+		});
+	</script>
 </body>
 </html>

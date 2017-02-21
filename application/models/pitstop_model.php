@@ -12,7 +12,14 @@ Class Pitstop_model extends CI_Model
         return $pitstops;
     }
 	
-   function InsertPitstops($pitstops){
+	function CheckConnection($id){
+		$sql = $this->db->query("select * from pitstop_restaurants where pitstop_id='".$id."'");
+		
+		if($sql->num_rows() > 0){ return "<span style='color:green;font-weight:bold'>Yes</span>"; }else{
+			return "<span style='color:red;font-weight:bold'>No</span>";
+		}
+	}
+    function InsertPitstops($pitstops){
 		
 		foreach($pitstops as $men){
 			foreach($men as $pitstop){

@@ -249,7 +249,13 @@
 	
 		<div class="tab-pane" id="preparation_tab">
 			<fieldset style="padding:10px;">
-
+				<div class="form-group">	
+					<label>Restaurant manager name</label>
+					<?php
+					$data	= array('name'=>'firstname', 'value'=>set_value('firstname', $firstname),'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
 				<div class="form-group">	
 					<label>Manager user name</label>
 					<?php

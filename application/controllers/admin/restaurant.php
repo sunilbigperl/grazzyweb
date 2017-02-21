@@ -69,6 +69,7 @@ class Restaurant extends Admin_Controller {
 		$data['days'] ='';
 		
 		$data['username']	= '';
+		$data['firstname']	= '';
 		$data['access']	 = '';
 		$data['NextRenewalDate'] = '';
 		
@@ -111,6 +112,7 @@ class Restaurant extends Admin_Controller {
 			$data['days']	= $restaurant->days;
 			
 			$data['username']	= $admin->username;
+			$data['firstname']	= $admin->firstname;
 			$data['access']		= $admin->access;
 			$data['NextRenewalDate'] = $admin->NextRenewalDate;
 			
@@ -234,6 +236,7 @@ class Restaurant extends Admin_Controller {
                 $this->image_lib->clear();
             }
             $save1['username']	= $this->input->post('username');
+			$save1['firstname']	=$this->input->post('firstname');
 			$save1['access']		= 'Restaurant manager';
 			$save1['id'] = $this->admin_id;
 			$NextRenewalDate = $this->input->post('NextRenewalDate');
@@ -387,10 +390,10 @@ class Restaurant extends Admin_Controller {
 		$replace = '/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/';
 		$return = '($1) $2-$3';
 		if (preg_match($match, $value)) {
-			return preg_replace($replace, $return, $value);
+			return true;
 		} else {
 			$this->form_validation->set_message('validate_phone_number', 'Invalid Phone.');
-		return false;
+			return false;
 		}
 	}
 }

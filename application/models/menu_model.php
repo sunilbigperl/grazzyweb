@@ -2,7 +2,8 @@
 Class Menu_model extends CI_Model
 {
 	function GetMenus($id){
-		$sql = "SELECT * FROM `restaurant_menu` where restaurant_id=$id";
+		$sql = "SELECT * FROM `restaurant_menu` where restaurant_id=$id order by menu asc";
+		
 		$query = $this->db->query($sql);
 		if($query->num_rows() ==''){
 			$result =0; 		

@@ -556,24 +556,23 @@ class Customers extends Admin_Controller {
 			echo $FoodOutlet->restaurant_name.",";
 		}
 		
-		echo "<table class='table table-bordered'>
-			<thead><tr><th>Address1</th><th>Address2</th><th>City</th><th>zip</th></tr></thead>
-			<tbody>";
+		
 			if (count($addresses) > 1){
+				$i=1;
 				foreach($addresses as $address){ 
 					$f = $address['field_data'];
-					echo "<tr>
-					<td>"; echo isset($f['address1']) ? $f['address1'] : ""; echo "</td>
-					<td>"; echo isset($f['address2']) ? $f['address2'] : ""; echo "</td>
-					<td>"; echo isset($f['city']) ? $f['city'] : ""; echo "</td>
-					<td>"; echo isset($f['zip']) ? $f['zip'] : ""; echo "</td>
-					</tr>";
+					echo "<div>";
+					echo "<strong>Address".$i." :</strong> "; echo isset($f['address1']) ? $f['address1'] : "";
+					echo isset($f['address2']) ? $f['address2'] : ""; 
+					 echo isset($f['city']) ? $f['city'] : "";
+					echo isset($f['zip']) ? $f['zip'] : "";
+					echo "</div>";
+				$i++;
 				}
 			}
 			
 			
-		echo "</tbody>
-		</table></div>";
+		echo "</div>";
 	}
 	
 	public function ChangeStatus($id,$status){
