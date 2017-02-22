@@ -574,7 +574,8 @@ print_r(json_encode($result)); exit;
 		if($id > 0){
 			if(count($data['products']) > 0){
 				foreach($data['products'] as $item){
-					$sql2 = "insert into order_items (order_id,menu_id,quantity,cost) values ('".$id."','".$item['menu_id']."','".$item['quantity']."','".$item['cost']."') ";
+					$sql2 = "insert into order_items (order_id,menu_id,quantity,cost,contents) values ('".$id."','".$item['menu_id']."','".$item['quantity']."',
+					'".$item['cost']."','".$item['contents']."') ";
 					 $this->db->query($sql2);
 				}
 				$sql3 = "SELECT * FROM passcode ORDER BY RAND() limit 1";
