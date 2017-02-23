@@ -389,7 +389,7 @@ class Orders extends Admin_Controller {
 		echo  "<div class=''><strong>Ratings By delivery partner:</strong> ".$delpartnerreviewavg."</div>";
 	/*	echo  "<div class=''><strong>Ratings By delivery boy:</strong> ".$delboyreviewavg."</div>";*/
 		echo "<table class='table table-bordered'>
-			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
+			<thead><tr><th>Date</th><th>Feedback</th><th>Stars</th><th>from</th></tr></thead>
 			<tbody>";
 			if($delpartnerreview['data']){
 				foreach($delpartnerreview['data'] as $customer){
@@ -421,7 +421,7 @@ class Orders extends Admin_Controller {
 		<div class='modal-body'>";
 		echo  "<div class=''><strong>Ratings By restaurant:</strong> ".$delpartnerreviewavg."</div>";
 		echo "<table class='table table-bordered'>
-			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
+			<thead><tr><th>Date</th><th>Feedback</th><th>Stars</th><th>from</th></tr></thead>
 			<tbody>";
 			if($restaurantreview != 0 && $restaurantreview['data']){
 				foreach($restaurantreview['data'] as $customer){

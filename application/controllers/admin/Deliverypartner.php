@@ -206,7 +206,7 @@ class Deliverypartner extends Admin_Controller
 		<div class='modal-body'>";
 		echo  "<div class=''><strong>Ratings By Restaurants:</strong> ".$delpartnerreviewavg."</div>";
 		echo "<table class='table table-bordered'>
-			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
+			<thead><tr><th>Date</th><th>Feedback</th><th>Stars</th><th>from</th></tr></thead>
 			<tbody>";
 			if($delpartnerreview['data']){
 				foreach($delpartnerreview['data'] as $customer){ 

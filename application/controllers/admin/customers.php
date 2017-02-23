@@ -518,7 +518,7 @@ class Customers extends Admin_Controller {
 		<div class=''><strong>Ratings By Restaurants:</strong> ".$RestReviewavg."</div>";
 		echo  "<div class=''><strong>Ratings By deliver Partner:</strong> ".$delpartnerreviewavg."</div>";
 		echo "<table class='table table-bordered'>
-			<thead><tr><th>Date</th><th>Feedback</th><th>Starts</th><th>from</th></tr></thead>
+			<thead><tr><th>Date</th><th>Feedback</th><th>Stars</th><th>from</th></tr></thead>
 			<tbody>";
 			if($delpartnerreview['data']){
 				foreach($delpartnerreview['data'] as $customer){ 
