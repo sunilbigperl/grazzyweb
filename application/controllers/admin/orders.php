@@ -69,9 +69,11 @@ class Orders extends Admin_Controller {
 
 			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
 			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
-			$data['delpartner'] = $this->input->post('delpartner');
+			$delpartner_post = $this->input->post('delpartner');
+			$delpartner_get = $this->uri->segment(4);
+			
+			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
 		}
-
 		$data['orders'] = $this->Order_model->get_previousorders($data);
 		$this->view($this->config->item('admin_folder').'/previousordersdelpartner',$data);
 	}

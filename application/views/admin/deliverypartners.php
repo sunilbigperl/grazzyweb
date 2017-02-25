@@ -53,7 +53,7 @@ function areyousure()
 			<td>
 			<a href="#"  data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/Deliverypartner/ShowReviewDetails/'.$admin->id.'');?>');">Reviews</a>
 			<a href="<?php echo site_url($this->config->item('admin_folder').'/message/delmessage/'.$admin->id.'');?>" class="btn btn-info btn-xs">Messages</a>
-			
+			<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/previousordersdelpartner/'.$admin->id.'');?>" class="btn btn-info btn-xs">Previous orders</a>
 			</td>
 		</tr>
 <?php endforeach; ?>

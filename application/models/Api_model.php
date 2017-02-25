@@ -3,10 +3,10 @@ class Api_model extends CI_Model
 {
 	
 	public function customercheck($data){
-		$sql = "select * from customers where  phone ='".$data['phone']."'";
+		$sql = "select * from customers where  phone ='".$data['phone']."' where active = 1";
 		$query = $this->db->query($sql);
 		if($query->num_rows() == 0){
-			$sql = "insert into customers (phone, did) values('".$data['phone']."','".$data['did']."')";	
+			$sql = "insert into customers (phone, did, active) values('".$data['phone']."','".$data['did']."', 1)";	
 			$query = $this->db->query($sql);
 			$result['id'] = $this->db->insert_id();
 		}else{
