@@ -10,6 +10,7 @@
 		<li><a href="#attributes_tab" data-toggle="tab">Image</a></li>
 		<li><a href="#location_tab" data-toggle="tab">Location</a></li>
 		<li><a href="#preparation_tab" data-toggle="tab">Restaurant Manager</a></li>
+		<li><a href="#charge_tab" data-toggle="tab">Charges</a></li>
 		<li><a href="#pt_tab" data-toggle="tab">Preparation Time</a></li>
 	</ul>
 	
@@ -57,51 +58,6 @@
 					<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class="form-control"'); ?>
 				</div>
 				
-				 <?php if($this->auth->check_access('Restaurant manager')){ ?>
-				<div class="form-group " >	
-					<label for="commission " >Commission(%)</label>	
-					<?php
-					$data	= array('name'=>'commission', 'value'=>set_value('commission', $commission), 'class'=>'form-control', 'readonly'=>'readonly');
-					echo form_input($data);
-					?>
-				</div>
-				<div class="form-group">
-					<label for="penalty " >Penalty(%)</label>
-					<?php
-					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control','readonly'=>'readonly');
-					echo form_input($data);
-					?>
-				</div>
-				<div class="form-group">
-					<label for="servicetax">Service tax(%)</label>
-					<?php
-					$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'form-control','readonly'=>'readonly');
-					echo form_input($data);
-					?>
-				</div>
-				<?php } else {?>
-				<div class="form-group " >	
-					<label for="commission " >Commission(%)</label>	
-					<?php
-					$data	= array('name'=>'commission', 'value'=>set_value('commission', $commission), 'class'=>'form-control');
-					echo form_input($data);
-					?>
-				</div>
-				<div class="form-group">
-					<label for="penalty " >Penalty(%)</label>
-					<?php
-					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control');
-					echo form_input($data);
-					?>
-				</div>
-				<div class="form-group">
-					<label for="servicetax">Service tax(%)</label>
-					<?php
-					$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'form-control');
-					echo form_input($data);
-					?>
-				</div>
-				<?php } ?>
 				
 			</fieldset>
 		</div>
@@ -247,6 +203,72 @@
 			</fieldset>
 		</div>
 	
+		<div class="tab-pane" id="charge_tab">
+			<fieldset style="padding: 10px;">
+			
+				 <?php if($this->auth->check_access('Restaurant manager')){ ?>
+				<div class="form-group " >	
+					<label for="commission " >Commission(%)</label>	
+					<?php
+					$data	= array('name'=>'commission', 'value'=>set_value('commission', $commission), 'class'=>'form-control', 'readonly'=>'readonly');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">
+					<label for="penalty " >Penalty(%)</label>
+					<?php
+					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control','readonly'=>'readonly');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">
+					<label for="penalty " >Delivery Charges</label>
+					<?php
+					$data	= array('name'=>'delivery_charge', 'value'=>set_value('delivery_charge', $delivery_charge), 'class'=>'form-control','readonly'=>'readonly');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">
+					<label for="servicetax">Service tax(%)</label>
+					<?php
+					$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'form-control','readonly'=>'readonly');
+					echo form_input($data);
+					?>
+				</div>
+				<?php } else {?>
+				<div class="form-group " >	
+					<label for="commission " >Commission(%)</label>	
+					<?php
+					$data	= array('name'=>'commission', 'value'=>set_value('commission', $commission), 'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">
+					<label for="penalty " >Penalty(%)</label>
+					<?php
+					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">
+					<label for="penalty " >Delivery Charges</label>
+					<?php
+					$data	= array('name'=>'delivery_charge', 'value'=>set_value('delivery_charge', $delivery_charge), 'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">
+					<label for="servicetax">Service tax(%)</label>
+					<?php
+					$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
+				<?php } ?>
+				
+			</fieldset>
+		</div>
+		
 		<div class="tab-pane" id="preparation_tab">
 			<fieldset style="padding:10px;">
 				<div class="form-group">	

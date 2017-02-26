@@ -67,7 +67,7 @@ class Restaurant extends Admin_Controller {
         $data['fromtime'] ='';
 		$data['totime'] ='';
 		$data['days'] ='';
-		
+		$data['delivery_charge'] = '';
 		$data['username']	= '';
 		$data['firstname']	= '';
 		$data['access']	 = '';
@@ -110,7 +110,7 @@ class Restaurant extends Admin_Controller {
 			$data['fromtime']	= $restaurant->fromtime;
 			$data['totime']	= $restaurant->totime;
 			$data['days']	= $restaurant->days;
-			
+			$data['delivery_charge'] = $restaurant->delivery_charge;
 			$data['username']	= $admin->username;
 			$data['firstname']	= $admin->firstname;
 			$data['access']		= $admin->access;
@@ -265,7 +265,7 @@ class Restaurant extends Admin_Controller {
 			$save['fromtime'] 			   = $this->input->post('fromtime');
 			$save['totime'] 			   = $this->input->post('totime');
 			$save['days'] 				   = serialize($this->input->post('days'));
-			
+			$save['delivery_charge'] = $this->input->post('delivery_charge');
 			if($this->input->post('related_pitstops'))
 			{
 				$related_pitstops = $this->input->post('related_pitstops');
