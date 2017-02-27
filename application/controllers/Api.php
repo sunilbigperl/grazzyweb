@@ -42,13 +42,13 @@ class Api extends REST_Controller {
         $this->set_response($message, REST_Controller::HTTP_OK);
 	}
 	
-    public function customer_get($id)
+    public function customer_get($id = NULL)
     {
+		
 		$id = isset($id) ? $id : "";
 		$users = $this->api_model->getUsers();
-	
-
-        if ($id === NULL)
+		
+        if ($id == NULL)
         {
             // Check if the users data store contains users (in case the database result returns NULL)
             if ($users)
@@ -103,6 +103,63 @@ class Api extends REST_Controller {
             $this->set_response([
                 'status' => FALSE,
                 'message' => 'User could not be found'
+            ], REST_Controller::HTTP_OK); // NOT_FOUND (404) being the HTTP response code
+        }
+    }
+	
+	
+    public function HereList_get($id = null)
+    {
+		$id = isset($id) ? $id : "";
+		$users = $this->api_model->getHereList();
+	
+
+        if ($id == NULL)
+        {
+            if ($users)
+            {
+                $this->response($users, REST_Controller::HTTP_OK); 
+            }
+            else
+            {
+                // Set the response and exit
+                $this->response([
+                    'status' => FALSE,
+                    'message' => 'No lists were found'
+                ], REST_Controller::HTTP_OK); 
+            }
+        }
+
+        $id = (int) $id;
+
+        if ($id <= 0)
+        {
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
+        }
+
+        $user = NULL;
+
+        if (!empty($users))
+        {
+            foreach ($users as $key => $value)
+            {
+                if (isset($value['id']) && $value['id'] == $id)
+                {
+                    $user = $value;
+					
+                }
+            }
+        }
+
+        if (!empty($user))
+        {
+            $this->set_response($user, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'List could not be found'
             ], REST_Controller::HTTP_OK); // NOT_FOUND (404) being the HTTP response code
         }
     }

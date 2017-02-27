@@ -10,12 +10,46 @@ class Api_model extends CI_Model
 			$query = $this->db->query($sql);
 			$result['id'] = $this->db->insert_id();
 		}else{
-			
-			$datas = $query->result_array();
-			$result['id'] =  $datas[0]['id'];
-			$sql = $this->db->query("update customers set did = '".$data['did']."'  where  id='".$result['id']."'");	
 		
-			$result['firstname'] = isset($datas[0]['firstname']) ? $datas[0]['firstname'] : "";
+			$datas = $query->result_array();
+			if($datas[0]['did'] == $data['did']){
+				$result['id'] =  $datas[0]['id'];
+				$sql = $this->db->query("update customers set did = '".$data['did']."'  where  id='".$result['id']."'");	
+				$result['firstname'] = isset($datas[0]['firstname']) ? $datas[0]['firstname'] : "";
+			}else{
+				$message = array("msg" => "logout");      
+				$url = 'https://android.googleapis.com/gcm/send';
+
+				$fields = array(
+					'registration_ids' => $datas[0]['did'],
+					'data' => $message,
+				);
+				
+				$headers = array(
+					'Authorization: key=AIzaSyDqoeeH8ACrf31vMWG9bs2R8QCaFkfB5ZI',
+					'Content-Type: application/json'
+				);
+				$ch = curl_init();
+
+
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_POST, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+				$result = curl_exec($ch);
+				if ($result === FALSE) {
+					$result = false;
+				}
+
+				curl_close($ch);
+				
+				$result['id'] =  $datas[0]['id'];
+				$sql = $this->db->query("update customers set did = '".$data['did']."'  where  id='".$result['id']."'");	
+				$result['firstname'] = isset($datas[0]['firstname']) ? $datas[0]['firstname'] : "";
+
+			}
 		}
 		return $result;
 	}
@@ -61,6 +95,23 @@ class Api_model extends CI_Model
 	public function getUsers(){
 		
 		$threadmsg = $this->db->query("select * from customers");
+
+			if($threadmsg->num_rows()>0){
+
+				return $threadmsg->result_array();
+
+			}else{
+			
+				return false;
+				
+			}
+			
+		
+	}
+	
+	public function getHereList(){
+		
+		$threadmsg = $this->db->query("select * from here");
 
 			if($threadmsg->num_rows()>0){
 
