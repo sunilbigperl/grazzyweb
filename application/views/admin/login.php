@@ -41,14 +41,14 @@
 			</div>
 		<?php endif; ?>
             <?php echo form_open($this->config->item('admin_folder').'/login') ?>
-              <h1>Login Form</h1>
+              <img src="<?php echo base_url('uploads/images/logo1.png');?>" height="150" width="150" alt="logo">
               <div>
-                  <label for="username"><?php echo lang('username');?></label>
-				  <input type="text" name="username" placeholder="Username" class="form-control" autocomplete="off">
+              <!--    <label for="username"><?php echo lang('username');?></label> -->
+				  <input id="form-control1" type="text" name="username" placeholder="Username" class="form-control" autocomplete="off">
               </div>
               <div>
-				<label for="password"><?php echo lang('password');?></label>
-				<?php echo form_password(array('name'=>'password', 'class'=>'form-control','placeholder'=>'Password')); ?>
+			<!--	<label for="password"><?php echo lang('password');?></label>-->
+				<?php echo form_password(array('name'=>'password', 'class'=>'form-control','id'=>'form-control1','placeholder'=>'Password')); ?>
               </div>
 			  <div>
 				 <?php echo form_checkbox(array('name'=>'remember', 'value'=>'true'))?>
@@ -58,7 +58,7 @@
               <div>
                  <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
 				 <input type="hidden" value="submitted" name="submitted"/>
-				<label> <input class="btn btn-default" type="submit" style="text-align:center;"	 value="<?php echo lang('login');?>"/> </label>
+				<label> <input class="btn btn-primary" type="submit" style="text-align:center;"	 value="<?php echo lang('login');?>"/> </label>
               </div>
 
               <div class="clearfix"></div>
@@ -68,7 +68,7 @@
                 <div class="clearfix"></div>
                 <br />
 
-                <div>
+                <div style="color: white;background: #e86051;font-family: sans-serif;padding: 10px;border-radius: 5px;">
                   <h1><i class=""></i>Welcome to Eatsapp!</h1>
                   <p>©2017 All Rights Reserved. Privacy and Terms</p>
                 </div>
