@@ -180,7 +180,7 @@ a:hover {
 		 data-search="true" id="table-pagination" data-sort-order="desc">		 
 	<thead>
 		<tr>
-			<th data-field="id">Sl.No</th>
+			<!--<th data-field="id">Sl.No</th>-->
 			<th data-field="Date">Date</th>
 			<th data-field="Time">Time</th>
 			<th data-field="Restaurant">Restaurant</th>
