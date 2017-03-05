@@ -14,7 +14,7 @@
 		<div class="tab-pane active" id="description_tab">
 			<fieldset style="padding:10px;">
 				<div class="form-group">	
-					<label>Company name</label>
+					<label>Delivery Manager name</label>
 					<?php if($this->auth->check_access('Deliver manager')) { ?>
 					<?php
 					$data	= array('name'=>'username', 'value'=>set_value('username', $username),'class'=>'form-control', 'readonly'=>'readonly');

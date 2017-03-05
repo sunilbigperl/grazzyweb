@@ -174,18 +174,16 @@
                            <!-- <li><a href="<?php echo $admin_url;?>dashboard/recentinfo">Recent information</a></li>-->
 						</ul>
 					</li>
-					
-					<li><a href="<?php echo $admin_url;?>deliverypartner"><i class="fa fa-home"></i>Delivery Partner </a></li>
-                    <li><a><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class="fa fa-chevron-down"></span></a>
+					<li><a><i class="fa fa-home"></i>Messages <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-						    <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>
-                            <li><a href="<?php echo $admin_url;?>customers"><?php echo lang('common_customers') ?></a></li>
-                             <!--<li><a href="<?php echo $admin_url;?>customers/groups"><?php echo lang('common_groups') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>reports"><?php echo lang('common_reports') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>coupons"><?php echo lang('common_coupons') ?></a></li>
-                            <li><a href="<?php echo $admin_url;?>giftcards"><?php echo lang('common_giftcards') ?></a></li>-->
+							<li><a href="<?php echo $admin_url;?>message/restmessage">Restaurant message</a></li>
+                            <li><a href="<?php echo $admin_url;?>message/delmessage">Delivery partner message</a></li>
+						<!--	<li><a href="<?php echo $admin_url;?>message/custmessage">customer message</a></li> -->
+                            <li><a href="<?php echo $admin_url;?>message/notifications">Notification messages</a></li>
 						</ul>
 					</li>
+					<li><a href="<?php echo $admin_url;?>deliverypartner"><i class="fa fa-home"></i>Delivery Partner </a></li>
+                   
 					<li><a><i class="fa fa-home"></i> <?php echo lang('common_catalog') ?> <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a href="<?php echo $admin_url;?>categories"><?php echo lang('common_categories') ?></a></li>
@@ -195,15 +193,17 @@
 					</li>
 					<li><a href="<?php echo $admin_url;?>pitstop"><i class="fa fa-home"></i>Pitstops</a></li>
                    <!-- <li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li> -->
-					<li><a><i class="fa fa-home"></i>Messages <span class="fa fa-chevron-down"></span></a>
+					
+					 <li><a><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="<?php echo $admin_url;?>message/restmessage">Restaurant message</a></li>
-                            <li><a href="<?php echo $admin_url;?>message/delmessage">Delivery partner message</a></li>
-						<!--	<li><a href="<?php echo $admin_url;?>message/custmessage">customer message</a></li> -->
-                            <li><a href="<?php echo $admin_url;?>message/notifications">Notification messages</a></li>
+						    <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>
+                            <li><a href="<?php echo $admin_url;?>customers"><?php echo lang('common_customers') ?></a></li>
+                             <!--<li><a href="<?php echo $admin_url;?>customers/groups"><?php echo lang('common_groups') ?></a></li>
+                            <li><a href="<?php echo $admin_url;?>reports"><?php echo lang('common_reports') ?></a></li>
+                            <li><a href="<?php echo $admin_url;?>coupons"><?php echo lang('common_coupons') ?></a></li>
+                            <li><a href="<?php echo $admin_url;?>giftcards"><?php echo lang('common_giftcards') ?></a></li>-->
 						</ul>
 					</li>
-					
 					<li><a href="<?php echo $admin_url;?>admin"><i class="fa fa-home"></i><?php echo lang('common_administrative') ?>  </a></li>
                     <?php endif; ?>
                 </ul>

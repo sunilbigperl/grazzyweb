@@ -3,7 +3,7 @@ class Api_model extends CI_Model
 {
 	
 	public function customercheck($data){
-		$sql = "select * from customers where  phone ='".$data['phone']."' where active = 1";
+		$sql = "select * from customers where  phone ='".$data['phone']."' and active = 1";
 		$query = $this->db->query($sql);
 		if($query->num_rows() == 0){
 			$sql = "insert into customers (phone, did, active) values('".$data['phone']."','".$data['did']."', 1)";	
@@ -38,14 +38,15 @@ class Api_model extends CI_Model
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 				curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-				$result = curl_exec($ch);
-				if ($result === FALSE) {
-					$result = false;
+				$result1 = curl_exec($ch);
+				if ($result1 === FALSE) {
+					$result1 = false;
 				}
 
 				curl_close($ch);
 				
 				$result['id'] =  $datas[0]['id'];
+			
 				$sql = $this->db->query("update customers set did = '".$data['did']."'  where  id='".$result['id']."'");	
 				$result['firstname'] = isset($datas[0]['firstname']) ? $datas[0]['firstname'] : "";
 
@@ -115,14 +116,33 @@ class Api_model extends CI_Model
 
 			if($threadmsg->num_rows()>0){
 
-				return $threadmsg->result_array();
+				foreach($threadmsg->result_array() as $row){ 
+					$result['id'] = $row['id'];
+					$result['name'] = $row['name'];
+				}
+				return $result;
 
 			}else{
 			
 				return false;
 				
 			}
+		
+	}
+	
+	public function SearchRest($data){
+		
+		$threadmsg = $this->db->query("select restaurant_id,restaurant_name,image,restaurant_latitude,restaurant_langitude from restaurant where `restaurant_name` 
+		like  '%".$data['name']."%' and restaurant_branch like '%".$data['area']."%'");
+
+			if($threadmsg->num_rows()>0){
+
+				return $threadmsg->result_array();
+			}else{
 			
+				return false;
+				
+			}
 		
 	}
 	
@@ -146,9 +166,10 @@ class Api_model extends CI_Model
 	}
 	
 	public function getRestaurants($id){
-		
-		$threadmsg = $this->db->query("select a.* from restaurant a, pitstops b, pitstop_restaurants c where 
-		a.restaurant_id = c.restaurants_id and b.pitstop_id=c.pitstop_id and b.pitstop_id='".$id."' and a.enabled=1");
+		$date = date("Y-m-d");
+		$threadmsg = $this->db->query("select a.* from restaurant a, pitstops b, pitstop_restaurants c, admin d where 
+		a.restaurant_id = c.restaurants_id and b.pitstop_id=c.pitstop_id and and d.id = a.restaurant_manager and 
+		d.NextRenewalDate <= '".$date."' and b.pitstop_id='".$id."' and a.enabled=1");
 
 			if($threadmsg->num_rows()>0){
 				$result = array();

@@ -107,6 +107,26 @@ class Orders extends Admin_Controller {
 		$data['orders'] = $this->Order_model->get_restpreviousorders($data);
 		$this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
+	
+	function restbill($id,$tyoe){
+		$data['date'] = date("Y-m-d");
+		$restaurant       = $this->Restaurant_model->get_restaurant($id);
+		
+		$data['name'] = $restaurant->restaurant_name;
+		$data['address'] = $restaurant->restaurant_address;
+		$data['branch'] = $restaurant->restaurant_branch;
+		$data['email'] = $restaurant->restaurant_email;
+		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data, true);
+		if($type == "pdf"){
+			$filename  = "bills/restbill.pdf";
+		}else{
+			 $filename  = "bills/restbill.xls";
+		}
+		$this->load->library('m_pdf');
+        $this->m_pdf->pdf->WriteHTML($html);
+		$this->m_pdf->pdf->Output($filename, "F");
+		redirect("http://localhost/grazzyweb/".$filename);
+	}
 
 	function getOrderDetails(){
 		$html="";

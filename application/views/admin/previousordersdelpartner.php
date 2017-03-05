@@ -52,9 +52,9 @@
 			<th data-field="delivery">Delivery location</th>
 			<th data-field="price">Delivery charge</th>
 			<th data-field="distance">KM</th>
-			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
-			<th>Net amount</th>
+			<th>Service tax</th>
+			<th>Total</th>
 			<th>Remarks</th>
 		</tr>
 	</thead>
@@ -98,12 +98,11 @@
 				<td>
 					<?php echo isset($order->distance) ?  $order->distance : '';?>
 				</td>
-				<td>
-					<?=$order->commission;?>
-				</td>
+				
 				<td>
 					<?=$order->penalty;?>
 				</td>
+				<td><?=$order->servicetax;?></td>
 				<td>
 					
 				</td>

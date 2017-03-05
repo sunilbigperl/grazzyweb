@@ -84,7 +84,7 @@
 						<?php if($this->auth->check_access('Admin')){ ?>
 						<a class="btn btn-primary btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/message/index/'.$restaurant->restaurant_id);?>" >Messages</a></br>
 						<?php } ?>
-					</div>
+					</span>
 				</td>
 			</tr>
 			<?php

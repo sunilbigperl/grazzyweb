@@ -260,7 +260,7 @@ class Menus extends Admin_Controller {
 				if (move_uploaded_file($_FILES["menufile"]["tmp_name"], "uploads/" . basename($_FILES["menufile"]["name"]))) {
 						$this->load->library('csvreader');
 						$result =   $this->csvreader->parse_file("uploads/".$_FILES["menufile"]["name"]);//path to csv file
-
+						print_r($result); exit;
 						$data['menus'] =  $result;
 						$this->Menu_model->InsertMenus($data,$id);
 						unlink("uploads/".$_FILES["menufile"]["name"]); 

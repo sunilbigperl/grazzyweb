@@ -19,7 +19,6 @@ class Restaurant extends Admin_Controller {
         $data['restaurants'] = $this->Restaurant_model->get_restaurants();
 		$name = isset($data['restaurants'][0]->restaurant_name) ? $data['restaurants'][0]->restaurant_name : '';
 		$data['page_title'] = $name;
-       
         $this->view($this->config->item('admin_folder').'/restaurant', $data);
 		
     }
@@ -27,7 +26,6 @@ class Restaurant extends Admin_Controller {
     
     function form($id = false)
     {
-	
         $config['upload_path']      = 'uploads/images/full';
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']         = $this->config->item('size_limit');

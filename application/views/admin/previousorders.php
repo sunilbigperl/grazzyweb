@@ -41,7 +41,8 @@
 			<th data-field="price">Customer bill amount(Rs)</th>
 			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
-			<th>Net amount</th>
+			<th>Service tax</th>
+			<th>Total</th>
 			<th>Status</th>
 			<th>Del partner remarks</th>
 		</tr>
@@ -72,19 +73,21 @@
 				<td>
 					<?=$order->penalty;?>
 				</td>
+				<td><?=$order->servicetax;?></td>
 				<td>
 					
 				</td>
 			
 				<td>
 					<?php if($order->restaurant_manager_status == "0"){ ?>
+						Not acted yet
 					<?php }else{
 						echo $order->restaurant_manager_status;
 					} ?>
 				</td>
 				<td> 
 					<?php $remarks = $this->Order_model->get_delpartnerremarks($order);
-					echo isset($remarks[0]->comments) ? $remarks[0]->comments : "" ; ?>
+					echo isset($remarks[0]->comments) ? $remarks[0]->comments : "No comments" ; ?>
 				</td>
 				
 			</tr>

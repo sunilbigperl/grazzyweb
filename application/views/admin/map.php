@@ -11,7 +11,7 @@
           </div>
 		  
 		   <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-user"></i> Total Orders</span>
+            <span class="count_top"><i class="fa fa-user"></i> Total Food outlets</span>
             <div class="count"><?=$foodoutlets;?></div>
           </div>
 		   <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">

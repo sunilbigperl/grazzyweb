@@ -107,6 +107,18 @@ class Api extends REST_Controller {
         }
     }
 	
+	public function SearchRest_post(){
+		
+		$data = [
+			'name' => $this->post('name'),
+            'area' => $this->post('area'),
+        ];
+        $SearchRest =  $this->api_model->SearchRest($data);
+        
+		if($SearchRest){
+			$this->set_response($SearchRest, REST_Controller::HTTP_OK); // CREATED (201) being the HTTP response code
+		}
+	}
 	
     public function HereList_get($id = null)
     {
