@@ -115,10 +115,11 @@ class Api_model extends CI_Model
 		$threadmsg = $this->db->query("select * from here");
 
 			if($threadmsg->num_rows()>0){
-
+				$i=0;
 				foreach($threadmsg->result_array() as $row){ 
-					$result['id'] = $row['id'];
-					$result['name'] = $row['name'];
+					$result[$i]['id'] = $row['id'];
+					$result[$i]['name'] = $row['name'];
+				$i++;
 				}
 				return $result;
 
@@ -131,9 +132,16 @@ class Api_model extends CI_Model
 	}
 	
 	public function SearchRest($data){
+		$where ='';
 		
-		$threadmsg = $this->db->query("select restaurant_id,restaurant_name,image,restaurant_latitude,restaurant_langitude from restaurant where `restaurant_name` 
-		like  '%".$data['name']."%' and restaurant_branch like '%".$data['area']."%'");
+		if(isset($data['area']) && $data['area'] != ""){
+			$where.=" where restaurant_branch like '%".$data['area']."%'";
+		}
+		if(isset($data['name']) && $data['name'] != ""){
+			$where.=" where  `restaurant_name` like  '%".$data['name']."%' and restaurant_latitude <= '".$data['latitude']."' and restaurant_langitude <= '".$data['langitude']."'";
+		}
+		//echo "select restaurant_id,restaurant_name,image,restaurant_latitude,restaurant_langitude from restaurant ".$where.""; exit;
+		$threadmsg = $this->db->query("select restaurant_id,restaurant_name,image,restaurant_latitude,restaurant_langitude from restaurant ".$where."");
 
 			if($threadmsg->num_rows()>0){
 
@@ -163,6 +171,20 @@ class Api_model extends CI_Model
 			}
 			
 		
+	}
+	
+	public function Getcoordinates($id){
+		$sql = $this->db->query("select * from here where id='".$id."'");
+		if($sql->num_rows()>0){
+			foreach($sql->result_array() as $row){ 
+					$result[] = $row;
+				}
+				return $result;
+		}else{
+		
+			return false;
+			
+		}
 	}
 	
 	public function getRestaurants($id){

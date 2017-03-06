@@ -110,8 +110,10 @@ class Api extends REST_Controller {
 	public function SearchRest_post(){
 		
 		$data = [
-			'name' => $this->post('name'),
-            'area' => $this->post('area'),
+			'name' => $this->input->post('name'),
+            'area' => $this->input->post('area'),
+			'latitude' => $this->input->post('latitude'),
+			'langitude' => $this->input->post('langitude')
         ];
         $SearchRest =  $this->api_model->SearchRest($data);
         
@@ -120,6 +122,30 @@ class Api extends REST_Controller {
 		}
 	}
 	
+	public function Getcoordinates_get($id){
+		$coordinates = $this->api_model->Getcoordinates($id);
+		if ($id <= 0)
+        {
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 
+        }
+
+       
+        if (!empty($coordinates))
+        {
+			
+			
+            $this->set_response($coordinates, REST_Controller::HTTP_OK); 
+		//	print_r($restaurants);exit;  
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'coordinates  could not be found for the location'
+            ], REST_Controller::HTTP_OK);
+        }
+		
+	}
     public function HereList_get($id = null)
     {
 		$id = isset($id) ? $id : "";

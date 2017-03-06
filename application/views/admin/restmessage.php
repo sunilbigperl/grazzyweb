@@ -198,7 +198,6 @@ a:hover {
 			{ 
 		?>
 			<tr class="gc_row">
-				<td><?=$i;?></td>
 				
 				<td>
 					<?=date('d-m-Y',strtotime($message['date'])); ?>
