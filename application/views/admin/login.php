@@ -50,10 +50,7 @@
 			<!--	<label for="password"><?php echo lang('password');?></label>-->
 				<?php echo form_password(array('name'=>'password', 'class'=>'form-control','id'=>'form-control1','placeholder'=>'Password')); ?>
               </div>
-			  <div>
-				 <?php echo form_checkbox(array('name'=>'remember', 'value'=>'true'))?>
-				<?php echo lang('stay_logged_in');?>
-			  </div>
+			  
 			  <br/>
               <div>
                  <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
@@ -68,7 +65,7 @@
                 <div class="clearfix"></div>
                 <br />
 
-                <div style="color: white;background: #e86051;font-family: sans-serif;padding: 10px;border-radius: 5px;">
+                <div style="color: white;background: red;font-family: sans-serif;padding: 10px;border-radius: 5px;">
                   <h1><i class=""></i>Welcome to Eatsapp!</h1>
                   <p>©2017 All Rights Reserved. Privacy and Terms</p>
                 </div>
