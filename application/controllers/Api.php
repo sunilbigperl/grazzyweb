@@ -124,7 +124,7 @@ class Api extends REST_Controller {
         {
             $this->set_response([
                 'status' => FALSE,
-                'message' => 'Restaurant could not be found for the location'
+                'message' => 'Restaurant could not be found '
             ], REST_Controller::HTTP_OK);
         }
 	}
