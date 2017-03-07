@@ -135,13 +135,15 @@ class Api_model extends CI_Model
 		$where ='';
 		
 		if(isset($data['area']) && $data['area'] != ""){
-			$where.=" where restaurant_branch like '%".$data['area']."%'";
+			$sql ="select restaurant_id,restaurant_name,image,restaurant_latitude,restaurant_langitude from restaurant where restaurant_branch like '%".$data['area']."%'";
 		}
 		if(isset($data['name']) && $data['name'] != ""){
-			$where.=" where  `restaurant_name` like  '%".$data['name']."%' and restaurant_latitude <= '".$data['latitude']."' and restaurant_langitude <= '".$data['langitude']."'";
+				$sql = "SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant   HAVING distance < 2 and enabled = 1 and  `restaurant_name` like  '%".$data['name']."%'";
+		
 		}
+		
 		//echo "select restaurant_id,restaurant_name,image,restaurant_latitude,restaurant_langitude from restaurant ".$where.""; exit;
-		$threadmsg = $this->db->query("select restaurant_id,restaurant_name,image,restaurant_latitude,restaurant_langitude from restaurant ".$where."");
+		$threadmsg = $this->db->query($sql);
 
 			if($threadmsg->num_rows()>0){
 

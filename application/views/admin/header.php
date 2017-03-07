@@ -13,7 +13,7 @@
  <?php }elseif($this->auth->check_access('Deliver manager')) { ?>
          <title>DBOS</title>
  <?php }else{ ?>
- <title>Admin Panel</title>
+ <title>Eatsapp…</title>
     
  <?php } ?>
     
