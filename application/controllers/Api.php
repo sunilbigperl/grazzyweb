@@ -120,6 +120,13 @@ class Api extends REST_Controller {
 		if($SearchRest){
 			$this->set_response($SearchRest, REST_Controller::HTTP_OK); // CREATED (201) being the HTTP response code
 		}
+		 else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'Restaurant could not be found for the location'
+            ], REST_Controller::HTTP_OK);
+        }
 	}
 	
 	public function Getcoordinates_get($id){
