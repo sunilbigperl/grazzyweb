@@ -108,7 +108,8 @@ class Orders extends Admin_Controller {
 		$this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
 	
-	function restbill($id,$tyoe){
+	function restbill($id,$type){
+		
 		$data['date'] = date("Y-m-d");
 		$restaurant       = $this->Restaurant_model->get_restaurant($id);
 		
@@ -119,12 +120,15 @@ class Orders extends Admin_Controller {
 		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data, true);
 		if($type == "pdf"){
 			$filename  = "bills/restbill.pdf";
+			$fnamee = "restbill.pdf";
 		}else{
 			 $filename  = "bills/restbill.xls";
+			 $fnamee = "restbill.xls";
 		}
 		$this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
+		chmod($fnamee,0777);
 		redirect("http://localhost/grazzyweb/".$filename);
 	}
 
