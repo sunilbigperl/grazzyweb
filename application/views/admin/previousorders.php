@@ -31,10 +31,12 @@
 </div>
 <?php } ?>
 <?php if(count($orders) > 0){ ?>
+<?php if(isset($id)){ ?>
 <div class="btn-group">
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/restbill/'.$id.'/pdf') ?>" class="btn btn-xs btn-primary">Download pdf</a>
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/restbill/'.$id.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a>
 </div>
+<?php } ?>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>

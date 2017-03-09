@@ -2,7 +2,7 @@
 
 <div class="tabbable">
 
-	<ul class="nav nav-tabs">
+	<ul class="nav nav-tabs" style="display:none;">
 		<li class="active"><a href="#description_tab" data-toggle="tab"><?php echo lang('description');?></a></li>
 		<li><a href="#attributes_tab" data-toggle="tab"><?php echo lang('attributes');?></a></li>
 		<li style="display:none;"><a href="#seo_tab" data-toggle="tab"><?php echo lang('seo');?></a></li>
@@ -19,7 +19,7 @@
 				echo form_input($data);
 				?>
 			</div>
-			<div class="form-group">		
+			<div class="form-group" style="display:none;">		
 				<label for="description"><?php echo lang('description');?></label>
 				<?php
 				$data	= array('name'=>'description', 'class'=>'form-control', 'value'=>set_value('description', $description));
@@ -111,7 +111,7 @@
 	</div>
 
 </div>
-
+<br/>
 <div class="form-actions">
 	<button type="submit" class="btn btn-primary"><?php echo lang('save');?></button>
 </div>
