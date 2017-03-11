@@ -13,9 +13,23 @@
 	<div class="tab-content">
 		<div class="tab-pane active" id="description_tab">
 			<fieldset style="padding:10px;">
+				<div class="form-group">		
+					<label>Delivery Partner</label>
+					<?php
+					$data	= array('name'=>'firstname', 'value'=>set_value('firstname', $firstname),'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">		
+					<label>Delivery Manager name</label>
+					<?php
+					$data	= array('name'=>'lastname', 'value'=>set_value('lastname', $lastname),'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
 				<div class="form-group">	
 
-					<label>Delivery Manager name</label>
+					<label>Username</label>
 
 					<?php if($this->auth->check_access('Deliver manager')) { ?>
 					<?php

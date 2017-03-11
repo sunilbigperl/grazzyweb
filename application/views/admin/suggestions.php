@@ -41,8 +41,9 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>Pitstop name</th>
-						<th>Suggested customer</th>
+						<th>Pitstop address</th>
+						<th>Latitude</th>
+						<th>Langitude</th>
 						<th>Date</th>
 					</tr>
 				</thead>
@@ -52,10 +53,9 @@
 						foreach($PitstopSuggestion['data'] as $Pitstop){
 					?>
 					<tr>
-						<td><?=$Pitstop->pitstop_name;?></td>
-						<td><?=$Pitstop->firstname;?></td>
-						<td><?=$ressuggestion->email;?></td>
-						<td><?=$ressuggestion->phone;?></td>
+						<td><?=$Pitstop->restaurant_address;?></td>
+						<td><?=$Pitstop->restaurant_latitude;?></td>
+						<td><?=$ressuggestion->restaurant_langitude;?></td>
 						<td><?=$Pitstop->date;?></td>
 					</tr>
 					<?php $i++; }} ?>

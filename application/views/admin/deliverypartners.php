@@ -15,11 +15,10 @@ function areyousure()
 		 data-search="true" id="table-pagination" data-sort-order="desc" >		 
 	<thead>
 		<tr>
-			<th><?php echo lang('username');?></th>
+			<th>Delivery Partner.</th>
 			<th><?php echo lang('email');?></th>
 			
 			<th>Phone No</th>
-			<th><?php echo lang('access');?></th>
 			<th>Action</th>
 			<th></tH>
 		</tr>
@@ -27,11 +26,10 @@ function areyousure()
 	<tbody>
 <?php foreach ($admins as $admin):?>
 		<tr>
-			<td><?php echo $admin->username; ?></td>
+			<td><?php echo $admin->firstname; ?></td>
 			<td><a href="mailto:<?php echo $admin->email;?>"><?php echo $admin->email; ?></a></td>
 			
 			<td><?php echo $admin->phone; ?></td>
-			<td><?php echo $admin->access; ?></td>
 			<td>
 				<div class="btn-group" style="float:right;">
 					<a class="btn btn-primary btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/deliverypartner/form/'.$admin->id);?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>	
