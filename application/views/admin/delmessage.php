@@ -26,7 +26,6 @@ if($this->auth->check_access('Admin') && !isset($url)){ ?>
 		 data-search="true" id="table-pagination" data-sort-order="desc">		 
 	<thead>
 		<tr>
-			<th data-field="id">Sl.No</th>
 			<th data-field="Date">Date</th>
 			<th data-field="Time">Time</th>
 			<th data-field="Restaurant">Delivery partner</th>
@@ -44,8 +43,6 @@ if($this->auth->check_access('Admin') && !isset($url)){ ?>
 			{ 
 		?>
 			<tr class="gc_row">
-				<td><?=$i;?></td>
-				
 				<td>
 					<?=date('d-m-Y',strtotime($message['date'])); ?>
 				</td>

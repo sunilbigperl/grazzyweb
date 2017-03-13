@@ -17,7 +17,6 @@
 		 data-search="true" id="table-pagination" data-sort-order="desc">		 
 	<thead>
 		<tr>
-			<th data-field="id">Sl.No</th>
 			<th data-field="Date">Date</th>
 			<th data-field="Time">Time</th>
 			<th data-field="Message">Message</th>
@@ -34,7 +33,6 @@
 			{ 
 		?>
 			<tr class="gc_row">
-				<td><?=$i;?></td>
 				
 				<td>
 					<?=date('d-m-Y',strtotime($message['date'])); ?>

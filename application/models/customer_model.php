@@ -151,12 +151,12 @@ Class Customer_model extends CI_Model
         if ($customer['id'])
         {
             $this->db->where('id', $customer['id']);
-            $this->db->update('customers', $customer);
+            $this->db->update('admin', $customer);
             return $customer['id'];
         }
         else
         {
-            $this->db->insert('customers', $customer);
+            $this->db->insert('admin', $customer);
             return $this->db->insert_id();
         }
     }
@@ -362,10 +362,11 @@ Class Customer_model extends CI_Model
     function reset_password($email)
     {
         $this->load->library('encrypt');
-        $customer = $this->get_customer_by_email($email);
+        $customer = $this->get_admin_by_email($email);
+		
         if ($customer)
         {
-            $this->load->helper('string');
+           /*  $this->load->helper('string');
             $this->load->library('email');
             
             $new_password       = random_string('alnum', 8);
@@ -376,8 +377,29 @@ Class Customer_model extends CI_Model
             $this->email->to($email);
             $this->email->subject($this->config->item('site_name').': Password Reset');
             $this->email->message('Your password has been reset to <strong>'. $new_password .'</strong>.');
-            $this->email->send();
-            
+            $this->email->send(); */
+			
+			$new_password       = random_string('alnum', 8);
+            $customer['password']   = sha1($new_password);
+            $this->save($customer);
+			   $config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'localhost',
+				'smtp_port' => 25,
+				'smtp_user' => 'suggest@wolotech.com',
+				'smtp_pass' => 'Devang123',
+				'mailtype'  => 'html', 
+				'charset'   => 'iso-8859-1',
+				'crlf' => "\r\n",
+				'newline' => "\r\n"
+			);
+			$this->load->library('email',$config);
+			$this->email->from('suggest@wolotech.com', 'EatsApp');
+			$this->email->to($email);
+
+			$this->email->subject('EatsApp: Password Reset');
+			$this->email->message('Your password has been reset to <strong>'. $new_password .'</strong>.');
+			$this->email->send();
             return true;
         }
         else
@@ -389,6 +411,12 @@ Class Customer_model extends CI_Model
     function get_customer_by_email($email)
     {
         $result = $this->db->get_where('customers', array('email'=>$email));
+        return $result->row_array();
+    }
+	
+	function get_admin_by_email($email)
+    {
+        $result = $this->db->get_where('admin', array('email'=>$email));
         return $result->row_array();
     }
 

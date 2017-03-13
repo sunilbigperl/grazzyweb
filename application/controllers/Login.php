@@ -6,6 +6,7 @@ class Login extends Base_Controller {
 	{
 		parent::__construct();
 		$this->lang->load('login');
+		$this->load->model('Customer_model');
 	}
 
 	function index()
@@ -89,7 +90,7 @@ class Login extends Base_Controller {
 		$this->session->set_flashdata('message', lang('message_logged_out'));
 		redirect($this->config->item('admin_folder').'/login');
 	}
-	
+
 	function forgot_password()
 	{
 		$submitted = $this->input->post('submitted');
@@ -102,13 +103,13 @@ class Login extends Base_Controller {
 			
 			if ($reset)
 			{						
-				$this->session->set_flashdata('message', lang('message_new_password'));
+				$this->session->set_flashdata('message', "Password reset success. New password sent to your mail");
 			}
 			else
 			{
 				$this->session->set_flashdata('error', lang('error_no_account_record'));
 			}
-			redirect('admin/forgot_password');
+			redirect('login/forgot_password');
 		}
 		
 		// load other page content 
@@ -123,5 +124,4 @@ class Login extends Base_Controller {
 		
 		$this->load->view($this->config->item('admin_folder').'/forgot_password', $data);
 	}
-
 }

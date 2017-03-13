@@ -13,8 +13,9 @@
 					<tr>
 						<th>Restaurant name</th>
 						<th>Suggested customer</th>
-						<th>Customer email</th>
-						<th>Customer phone</th>
+						<th>Restaurant email</th>
+						<th>Restaurant phone</th>
+						<th>Restaurant address</th>
 						<th>Date</th>
 					</tr>
 				</thead>
@@ -25,9 +26,10 @@
 					?>
 					<tr>
 						<td><?=$ressuggestion->restaurant_name;?></td>
-						<td><?=$ressuggestion->firstname;?></td>
-						<td><?=$ressuggestion->email;?></td>
-						<td><?=$ressuggestion->phone;?></td>
+						<td><?=isset($ressuggestion->firstname) ? $ressuggestion->firstname : '';?></td>
+						<td><?=isset($ressuggestion->restaurant_email) ? $ressuggestion->restaurant_email : '';?></td>
+						<td><?=isset($ressuggestion->restaurant_phone) ? $ressuggestion->restaurant_phone : '';?></td>
+						<td><?=isset($ressuggestion->restaurant_address) ? $ressuggestion->restaurant_address : '';?></td>
 						<td><?=$ressuggestion->date;?></td>
 					</tr>
 					<?php $i++; }} ?>
@@ -54,8 +56,8 @@
 					?>
 					<tr>
 						<td><?=$Pitstop->restaurant_address;?></td>
-						<td><?=$Pitstop->restaurant_latitude;?></td>
-						<td><?=$ressuggestion->restaurant_langitude;?></td>
+						<td><?=isset($Pitstop->restaurant_latitude) ?  $Pitstop->restaurant_latitude : '';?></td>
+						<td><?=isset($ressuggestion->restaurant_langitude) ? $ressuggestion->restaurant_langitude : '';?></td>
 						<td><?=$Pitstop->date;?></td>
 					</tr>
 					<?php $i++; }} ?>

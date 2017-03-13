@@ -112,7 +112,7 @@ class Api_model extends CI_Model
 	
 	public function getHereList(){
 		
-		$threadmsg = $this->db->query("select * from here");
+		$threadmsg = $this->db->query("select * from here order by name asc");
 
 			if($threadmsg->num_rows()>0){
 				$i=0;
@@ -535,6 +535,27 @@ print_r(json_encode($result)); exit;
 		values('".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_address']."','".$data['restaurant_email']."','".$data['customer']."')");
 		
 		if($sql){
+			/* $message="<h3>New restaurant suggestion</h3>
+		<h6>restaurant_name: ".$data['restaurant_name']."</h6>
+		<h6>restaurant_phone: ".$data['restaurant_phone']."</h6>";
+			   $config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'localhost',
+				'smtp_port' => 25,
+				'smtp_user' => 'suggest@wolotech.com',
+				'smtp_pass' => 'Devang123',
+				'mailtype'  => 'html', 
+				'charset'   => 'iso-8859-1',
+				'crlf' => "\r\n",
+				'newline' => "\r\n"
+			);
+			$this->load->library('email',$config);
+			$this->email->from('suggest@wolotech.com', 'EatsApp');
+			$this->email->to('lvijetha90@gmail.com');
+
+			$this->email->subject('EatsApp: Restaurant suggestion');
+			$this->email->message($message);
+			$this->email->send(); */
 			return true;
 		}else{
 			return false;
@@ -543,9 +564,29 @@ print_r(json_encode($result)); exit;
 	}
 	public function pitstopSuggest($data){
 		
-		$sql =$this->db->query("insert into  pitstop_suggest (id,restaurant_address,customer) values('".$data['id']."','".$data['restaurant_address']."','".$data['customer']."')");
+		$sql =$this->db->query("insert into  pitstop_suggest (restaurant_address,customer) values('".$data['restaurant_address']."','".$data['customer']."')");
 		
 		if($sql){
+			/* $message="<h3>New pitstop suggestion</h3>
+			<h6>restaurant_address: ".$data['restaurant_address']."</h6>";
+			   $config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'localhost',
+				'smtp_port' => 25,
+				'smtp_user' => 'suggest@wolotech.com',
+				'smtp_pass' => 'Devang123',
+				'mailtype'  => 'html', 
+				'charset'   => 'iso-8859-1',
+				'crlf' => "\r\n",
+				'newline' => "\r\n"
+			);
+			$this->load->library('email',$config);
+			$this->email->from('suggest@wolotech.com', 'EatsApp');
+			$this->email->to('lvijetha90@gmail.com');
+
+			$this->email->subject('EatsApp: pitstop suggestion');
+			$this->email->message($message);
+			$this->email->send(); */
 			return true;
 		}
 			

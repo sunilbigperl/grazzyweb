@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Admin Panel</title>
+    <title>Eatsapp...</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url('vendors/css/bootstrap.css');?>" rel="stylesheet">
@@ -31,7 +31,49 @@
       <a class="hiddenanchor" id="signin"></a>
 
       <div class="login_wrapper">
-	  
+	  <div class="container">
+	
+		<?php
+		//lets have the flashdata overright "$message" if it exists
+		if($this->session->flashdata('message'))
+		{
+			$message    = $this->session->flashdata('message');
+		}
+		
+		if($this->session->flashdata('error'))
+		{
+			$error  = $this->session->flashdata('error');
+		}
+		
+		if(function_exists('validation_errors') && validation_errors() != '')
+		{
+			$error  = validation_errors();
+		}
+		?>
+		
+		<div id="js_error_container" class="alert alert-error" style="display:none;"> 
+			<p id="js_error"></p>
+		</div>
+		
+		<div id="js_note_container" class="alert alert-note" style="display:none;">
+			
+		</div>
+		
+		<?php if (!empty($message)): ?>
+			<div class="alert alert-success">
+				<a class="close" data-dismiss="alert">×</a>
+				<?php echo $message; ?>
+			</div>
+		<?php endif; ?>
+
+		<?php if (!empty($error)): ?>
+			<div class="alert alert-error">
+				<a class="close" data-dismiss="alert">×</a>
+				<?php echo $error; ?>
+			</div>
+		<?php endif; ?>
+</div>   
+
         <div class="animate form login_form">
           <section class="login_content" id="loginwhite">
 		  <?php if (!empty($error)): ?>
@@ -52,14 +94,16 @@
               </div>
 			  
 			  <br/>
-              <div>
+              <div >
                  <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
 				 <input type="hidden" value="submitted" name="submitted"/>
-				<label> <input class="btn btn-primary" type="submit" style="text-align:center;"	 value="<?php echo lang('login');?>"/> </label>
+				<label style="text-align:center;"> <input class="btn btn-primary" type="submit" style="text-align:center;"	 value="<?php echo lang('login');?>"/> </label>
               </div>
 
               <div class="clearfix"></div>
-
+			 <div style="text-align:center;">
+				<a href="<?php echo site_url('login/forgot_password'); ?>">Forgot password</a>
+			</div>
               <div class="separator">
                
                 <div class="clearfix"></div>
@@ -67,7 +111,7 @@
 
                 <div style="color: white;background: red;font-family: sans-serif;padding: 10px;border-radius: 5px;">
                   <h1><i class=""></i>Welcome to Eatsapp!</h1>
-                  <p>©2017 All Rights Reserved. Privacy and Terms</p>
+                  <p>©2017 All Rights Reserved.</p>
                 </div>
               </div>
             <?php echo  form_close(); ?>
