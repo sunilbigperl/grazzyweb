@@ -74,6 +74,17 @@ class Orders extends Admin_Controller {
 			
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
 		}
+		
+		$sql = $this->db->query("select * from charges where id = 1");
+		if($sql->num_rows() > 0){
+			$res	= $sql->result_array();
+			$data['servicetax'] = $res[0]['servicetax'];
+			$data['deliverycharge'] = $res[0]['deliverycharge'];
+		}else{
+			$data['servicetax'] = '';
+			$data['deliverycharge'] = '';
+		}
+		
 		$data['orders'] = $this->Order_model->get_previousorders($data);
 		$this->view($this->config->item('admin_folder').'/previousordersdelpartner',$data);
 	}
@@ -200,7 +211,9 @@ class Orders extends Admin_Controller {
 
     function GetMenudetails(){
 		$data = $this->input->post('data');
+		
 		$menus = $this->Order_model->GetMenudetails($data);
+		
 		$html="";
 		if($menus != 0){
 			if($data['ordertype_id'] == 3){

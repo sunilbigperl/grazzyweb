@@ -26,7 +26,7 @@ function areyousure()
 	<tbody>
 <?php foreach ($admins as $admin):?>
 		<tr>
-			<td><?php echo $admin->firstname; ?></td>
+			<td><?php echo isset($admin->firstname) ? $admin->firstname : ''; echo "<br/>"; echo  isset($admin->lastname) ? $admin->lastname : '';?></td>
 			<td><a href="mailto:<?php echo $admin->email;?>"><?php echo $admin->email; ?></a></td>
 			
 			<td><?php echo $admin->phone; ?></td>

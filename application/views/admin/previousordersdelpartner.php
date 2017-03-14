@@ -1,6 +1,6 @@
-<?php $url = $this->uri->segment(4);  if(!isset($url)){ ?>
+<?php $url = $this->uri->segment(4); if(isset($url)){ $idurl = $url; }else{ $idurl = ''; }  ?>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">
-	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/previousordersdelpartner'); ?>" method="post">
+	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/previousordersdelpartner/'.$idurl); ?>" method="post">
 		<div class="form-group">
 		  <label for="from date"><strong>From date:</strong></label>
 		  <input type="date" class="form-control" id="fromdate" name="fromdate">
@@ -9,7 +9,7 @@
 		  <label for="to date"><strong>To date:</strong></label>
 		  <input type="date" class="form-control" id="todate" name="todate">
 		</div>
-		<?php if($this->auth->check_access('Admin')){ ?>
+		<?php if($this->auth->check_access('Admin') && !isset($url)){ ?>
 		<div class="form-group">
 			<label for="to date"><strong>Delivery partner:</strong></label>
 			<?php $delpartners = $this->Message_model->get_delpartners(); ?>
@@ -37,7 +37,7 @@
 		</div>
 	</form>
 </div>
-<?php } ?>
+<?php //} ?>
 <?php  if(count($orders) > 0){ ?>
 <!--<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">-->
@@ -54,6 +54,7 @@
 			<th data-field="distance">KM</th>
 			<th data-field="Penalty">Penalty</th>
 			<th>Service tax</th>
+			<th>Net amount</th>
 			<th>Total</th>
 			<th>Remarks</th>
 		</tr>
@@ -93,7 +94,7 @@
 					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
 				</td>
 				<td>
-					
+					<?=$deliverycharge;?>
 				</td>
 				<td>
 					<?php echo isset($order->distance) ?  $order->distance : '';?>
@@ -102,9 +103,10 @@
 				<td>
 					<?=$order->penalty;?>
 				</td>
-				<td><?=$order->servicetax;?></td>
+				<td><?=$servicetax;?></td>
+				<td><?php $netamount = $deliverycharge-$order->penalty; echo $netamount;?></td>
 				<td>
-					
+					<?php echo $netamount*$servicetax; ?>
 				</td>
 			
 				<td> 

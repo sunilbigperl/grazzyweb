@@ -137,6 +137,7 @@ class Admin extends Admin_Controller
 		}
 	}
 	
+	
 	function check_username($str)
 	{
 		$email = $this->auth->check_username($str, $this->admin_id);

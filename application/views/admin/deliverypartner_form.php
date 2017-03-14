@@ -95,7 +95,7 @@
 					<input type="text" name="penalty" value="<?=$penalty?>" class="form-control" <?=$readonly;?>>
 				
 				</div>
-				<div class="form-group">
+				<div class="form-group" style="display:none;">
 					<label for="servicetax">Service tax(%)</label>
 					<input type="text" name="servicetax" value="<?=$servicetax?>" class="form-control" <?=$readonly;?>>
 					

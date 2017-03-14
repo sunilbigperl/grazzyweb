@@ -250,14 +250,14 @@
 					echo form_input($data);
 					?>
 				</div>
-				<div class="form-group">
+				<div class="form-group" style="display:none;">
 					<label for="penalty " >Delivery Charges</label>
 					<?php
 					$data	= array('name'=>'delivery_charge', 'value'=>set_value('delivery_charge', $delivery_charge), 'class'=>'form-control');
 					echo form_input($data);
 					?>
 				</div>
-				<div class="form-group">
+				<div class="form-group" style="display:none;">
 					<label for="servicetax">Service tax(%)</label>
 					<?php
 					$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'form-control');

@@ -14,6 +14,30 @@ class Customers extends Admin_Controller {
 		$this->lang->load('customer');
 	}
 	
+	function charges(){
+		$this->load->helper('form');
+		$sql = $this->db->query("select * from charges where id = 1");
+		if($sql->num_rows() > 0){
+			$res	= $sql->result_array();
+			$data = $res[0];
+		}else{
+			$data['servicetax'] = '';
+			$data['deliverycharge'] = '';
+		}
+		$this->view($this->config->item('admin_folder').'/charges_form',$data);
+	}
+	
+	function SaveCharges(){
+		$this->load->helper('form');
+		$data['servicetax'] = $this->input->post('servicetax');
+		$data['deliverycharge'] = $this->input->post('deliverycharge');
+		$sql = $this->db->query("update charges set servicetax='".$data['servicetax']."', deliverycharge='".$data['deliverycharge']."' where id =1");
+		if($sql){
+			$this->session->set_flashdata('message', 'Charges saved successfuly');
+		}
+		redirect($this->config->item('admin_folder').'/customers/charges');
+	}
+	
 	function index($field='lastname', $by='ASC', $page=0)
 	{
 		//we're going to use flash data and redirect() after form submissions to stop people from refreshing and duplicating submissions
