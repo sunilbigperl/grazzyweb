@@ -567,7 +567,7 @@ print_r(json_encode($result)); exit;
 		$sql =$this->db->query("insert into  pitstop_suggest (restaurant_address,customer) values('".$data['restaurant_address']."','".$data['customer']."')");
 		
 		if($sql){
-			/* $message="<h3>New pitstop suggestion</h3>
+			$message="<h3>New pitstop suggestion</h3>
 			<h6>restaurant_address: ".$data['restaurant_address']."</h6>";
 			   $config = Array(
 				'protocol' => 'smtp',
@@ -586,7 +586,7 @@ print_r(json_encode($result)); exit;
 
 			$this->email->subject('EatsApp: pitstop suggestion');
 			$this->email->message($message);
-			$this->email->send(); */
+			
 			return true;
 		}
 			

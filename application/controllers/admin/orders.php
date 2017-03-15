@@ -71,7 +71,6 @@ class Orders extends Admin_Controller {
 			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
 			$delpartner_post = $this->input->post('delpartner');
 			$delpartner_get = $this->uri->segment(4);
-			
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
 		}
 		
@@ -143,6 +142,30 @@ class Orders extends Admin_Controller {
 		redirect("http://localhost/grazzyweb/".$filename);
 	}
 
+	function delpartnerbill($id,$type){
+		
+		$data['date'] = date("Y-m-d");
+		$restaurant       = $this->Restaurant_model->get_restaurant($id);
+		
+		$data['name'] = $restaurant->restaurant_name;
+		$data['address'] = $restaurant->restaurant_address;
+		$data['branch'] = $restaurant->restaurant_branch;
+		$data['email'] = $restaurant->restaurant_email;
+		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data, true);
+		if($type == "pdf"){
+			$filename  = "bills/delpartnerbill.pdf";
+			$fnamee = "delpartnerbill.pdf";
+		}else{
+			 $filename  = "bills/delpartnerbill.xls";
+			 $fnamee = "delpartnerbill.xls";
+		}
+		$this->load->library('m_pdf');
+        $this->m_pdf->pdf->WriteHTML($html);
+		$this->m_pdf->pdf->Output($filename, "F");
+		chmod($fnamee,0777);
+		redirect("http://localhost/grazzyweb/".$filename);
+	}
+	
 	function getOrderDetails(){
 		$html="";
 		$data = $this->input->post('data');

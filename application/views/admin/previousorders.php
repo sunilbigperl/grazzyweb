@@ -1,6 +1,6 @@
-<?php $url = $this->uri->segment(4);  if(!isset($url)){ ?>
+<?php $url = $this->uri->segment(4); if(isset($url)){ $idurl = $url; }else{ $idurl = ''; }  ?>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">
-	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/GetPreviousOrders'); ?>" method="post">
+	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/GetPreviousOrders'.$idurl); ?>" method="post">
 		<div class="form-group">
 		  <label for="from date"><strong>from date:</strong></label>
 		  <input type="date" class="form-control" id="fromdate" name="fromdate">
@@ -9,7 +9,7 @@
 		  <label for="to date"><strong>To date:</strong></label>
 		  <input type="date" class="form-control" id="todate" name="todate">
 		</div>
-		<?php if($this->auth->check_access('Admin')){ ?>
+		<?php if($this->auth->check_access('Admin') && !isset($url)){ ?>
 		<div class="form-group">
 			<label for="to date"><strong>delivery partner:</strong></label>
 			<?php $delpartners = $this->Message_model->get_delpartners(); ?>
@@ -29,7 +29,7 @@
 		</div>
 	</form>
 </div>
-<?php } ?>
+
 <?php if(count($orders) > 0){ ?>
 <?php if(isset($id)){ ?>
 <div class="btn-group">
