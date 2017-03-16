@@ -366,7 +366,7 @@ Class Customer_model extends CI_Model
 		
         if ($customer)
         {
-           /*  $this->load->helper('string');
+            $this->load->helper('string');
             $this->load->library('email');
             
             $new_password       = random_string('alnum', 8);
@@ -377,15 +377,15 @@ Class Customer_model extends CI_Model
             $this->email->to($email);
             $this->email->subject($this->config->item('site_name').': Password Reset');
             $this->email->message('Your password has been reset to <strong>'. $new_password .'</strong>.');
-            $this->email->send(); */
+            $this->email->send();
 			
 			$new_password       = random_string('alnum', 8);
             $customer['password']   = sha1($new_password);
             $this->save($customer);
-			   $config = Array(
+			 $config = Array(
 				'protocol' => 'smtp',
-				'smtp_host' => 'localhost',
-				'smtp_port' => 25,
+				'smtp_host' => 'ssl://smtp.gmail.com',
+				'smtp_port' => 465,
 				'smtp_user' => 'suggest@wolotech.com',
 				'smtp_pass' => 'Devang123',
 				'mailtype'  => 'html', 

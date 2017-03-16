@@ -94,16 +94,16 @@ class Message_model extends CI_Model
 		if(isset($data['rest_nameall']) && $data['rest_nameall'] == "on"){
 			$rest_name[0] = 0;
 			$rest_name[1] = "";
-			/* $sqlrest = $this->db->query("select restaurant_email from restaurant");
+			 $sqlrest = $this->db->query("select restaurant_email from restaurant");
 			if($sqlrest->num_rows() > 0){
-				foreach($query->result_array() as $row){ 
+				foreach($sqlrest->result_array() as $row){ 
 					$message="<h3>New message from wolotech</h3>
 					<h6>".$data['message']."</h6>";
-						   $config = Array(
+						  $config = Array(
 							'protocol' => 'smtp',
-							'smtp_host' => 'localhost',
-							'smtp_port' => 25,
-							'smtp_user' => 'message@wolotech.com',
+							'smtp_host' => 'ssl://smtp.gmail.com',
+							'smtp_port' => 465,
+							'smtp_user' => 'suggest@wolotech.com',
 							'smtp_pass' => 'Devang123',
 							'mailtype'  => 'html', 
 							'charset'   => 'iso-8859-1',
@@ -118,18 +118,18 @@ class Message_model extends CI_Model
 						$this->email->message($message);
 						$this->email->send();
 				}
-			} */
+			} 
 		}else{
-			/* $sqlrest = $this->db->query("select restaurant_email from restaurant where restaurant_id=".$rest_name[0]."");
+			 $sqlrest = $this->db->query("select restaurant_email from restaurant where restaurant_id=".$rest_name[0]."");
 			if($sqlrest->num_rows() > 0){
-				$row = $query->result_array();
+				$row = $sqlrest->result_array();
 				$message="<h3>New message from wolotech</h3>
 					<h6>".$data['message']."</h6>";
 						   $config = Array(
 							'protocol' => 'smtp',
-							'smtp_host' => 'localhost',
-							'smtp_port' => 25,
-							'smtp_user' => 'message@wolotech.com',
+							'smtp_host' => 'ssl://smtp.gmail.com',
+							'smtp_port' => 465,
+							'smtp_user' => 'suggest@wolotech.com',
 							'smtp_pass' => 'Devang123',
 							'mailtype'  => 'html', 
 							'charset'   => 'iso-8859-1',
@@ -138,12 +138,11 @@ class Message_model extends CI_Model
 						);
 						$this->load->library('email',$config);
 						$this->email->from('message@wolotech.com', 'EatsApp');
-						$this->email->to($row['restaurant_email']);
-						$this->email->bcc('lvijetha90@gmail.com');
+						$this->email->to($row[0]['restaurant_email']);
 						$this->email->subject('EatsApp: New message');
 						$this->email->message($message);
 						$this->email->send();
-			} */
+			} 
 		}
 		$sql = "insert into restaurant_messages (restaurant_id,rest_name, message, date) 
 		values('".$rest_name[0]."','".mysqli_real_escape_string ($rest_name[1])."','".$data['message']."','".$date."')";	
@@ -248,6 +247,61 @@ class Message_model extends CI_Model
 	
 	public function messagedel($data){
 		$date = date('Y-m-d H:i:s');
+		if(isset($data['delpartner_id']) && $data['delpartner_id'] == 0){
+			
+			$sqlrest = $this->db->query("select email from admin where access='Deliver manager'");
+			if($sqlrest->num_rows() > 0){
+				foreach($sqlrest->result_array() as $row){ 
+					$message="<h3>New message from wolotech</h3>
+					<h6>".$data['message']."</h6>";
+						  $config = Array(
+							'protocol' => 'smtp',
+							'smtp_host' => 'ssl://smtp.gmail.com',
+							'smtp_port' => 465,
+							'smtp_user' => 'suggest@wolotech.com',
+							'smtp_pass' => 'Devang123',
+							'mailtype'  => 'html', 
+							'charset'   => 'iso-8859-1',
+							'crlf' => "\r\n",
+							'newline' => "\r\n"
+						);
+						$this->load->library('email',$config);
+						$this->email->from('message@wolotech.com', 'EatsApp');
+						$this->email->to($row['email']);
+						$this->email->bcc('lvijetha90@gmail.com');
+						$this->email->subject('EatsApp: New message');
+						$this->email->message($message);
+						$this->email->send();
+				}
+			} 
+		}else{
+		
+			 $sqlrest = $this->db->query("select email from admin where id=".$data['delpartner_id']."");
+			if($sqlrest->num_rows() > 0){
+				$row = $sqlrest->result_array();
+				
+				$message="<h3>New message from wolotech</h3>
+					<h6>".$data['message']."</h6>";
+						   $config = Array(
+							'protocol' => 'smtp',
+							'smtp_host' => 'ssl://smtp.gmail.com',
+							'smtp_port' => 465,
+							'smtp_user' => 'suggest@wolotech.com',
+							'smtp_pass' => 'Devang123',
+							'mailtype'  => 'html', 
+							'charset'   => 'iso-8859-1',
+							'crlf' => "\r\n",
+							'newline' => "\r\n"
+						);
+						$this->load->library('email',$config);
+						$this->email->from('message@wolotech.com', 'EatsApp');
+						$this->email->to($row[0]['email']);
+						$this->email->bcc('lvijetha90@gmail.com');
+						$this->email->subject('EatsApp: New message');
+						$this->email->message($message);
+						 $this->email->send();
+			} 
+		}
 		$sql = "insert into delpartner_messages (delpartner_id, message, date) 
 		values('".$data['delpartner_id']."','".$data['message']."','".$date."')";	
 		$query = $this->db->query($sql);

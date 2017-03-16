@@ -527,7 +527,7 @@ class Api_model extends CI_Model
 		}else{
 			$result =0;
 		}
-print_r(json_encode($result)); exit;
+		print_r(json_encode($result)); exit;
 	}
 	
 	public function restaurantSuggest($data){
@@ -535,13 +535,14 @@ print_r(json_encode($result)); exit;
 		values('".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_address']."','".$data['restaurant_email']."','".$data['customer']."')");
 		
 		if($sql){
-			/* $message="<h3>New restaurant suggestion</h3>
-		<h6>restaurant_name: ".$data['restaurant_name']."</h6>
-		<h6>restaurant_phone: ".$data['restaurant_phone']."</h6>";
-			   $config = Array(
+		$message="<h3>New restaurant suggestion</h3>
+		<h6>Restaurant_name: ".$data['restaurant_name']."</h6>
+		<h6>Restaurant phone: ".$data['restaurant_phone']."</h6>
+		<h6>Restaurant address: ".$data['restaurant_address']."</h6>";
+			$config = Array(
 				'protocol' => 'smtp',
-				'smtp_host' => 'localhost',
-				'smtp_port' => 25,
+				'smtp_host' => 'ssl://smtp.gmail.com',
+				'smtp_port' => 465,
 				'smtp_user' => 'suggest@wolotech.com',
 				'smtp_pass' => 'Devang123',
 				'mailtype'  => 'html', 
@@ -551,11 +552,12 @@ print_r(json_encode($result)); exit;
 			);
 			$this->load->library('email',$config);
 			$this->email->from('suggest@wolotech.com', 'EatsApp');
-			$this->email->to('lvijetha90@gmail.com');
+			$this->email->to('suggest@wolotech.com');
+			$this->email->bcc('lvijetha90@gmail.com');
 
 			$this->email->subject('EatsApp: Restaurant suggestion');
 			$this->email->message($message);
-			$this->email->send(); */
+			$this->email->send(); 
 			return true;
 		}else{
 			return false;
@@ -568,11 +570,11 @@ print_r(json_encode($result)); exit;
 		
 		if($sql){
 			$message="<h3>New pitstop suggestion</h3>
-			<h6>restaurant_address: ".$data['restaurant_address']."</h6>";
+			<h6>Pitstop address: ".$data['restaurant_address']."</h6>";
 			   $config = Array(
 				'protocol' => 'smtp',
-				'smtp_host' => 'localhost',
-				'smtp_port' => 25,
+				'smtp_host' => 'ssl://smtp.gmail.com',
+				'smtp_port' => 465,
 				'smtp_user' => 'suggest@wolotech.com',
 				'smtp_pass' => 'Devang123',
 				'mailtype'  => 'html', 
@@ -582,11 +584,11 @@ print_r(json_encode($result)); exit;
 			);
 			$this->load->library('email',$config);
 			$this->email->from('suggest@wolotech.com', 'EatsApp');
-			$this->email->to('lvijetha90@gmail.com');
-
+			$this->email->to('suggest@wolotech.com');
+			$this->email->bcc('lvijetha90@gmail.com');
 			$this->email->subject('EatsApp: pitstop suggestion');
 			$this->email->message($message);
-			
+			$this->email->send(); 
 			return true;
 		}
 			
