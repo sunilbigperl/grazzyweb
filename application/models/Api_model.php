@@ -588,8 +588,8 @@ class Api_model extends CI_Model
 			$this->email->bcc('lvijetha90@gmail.com');
 			$this->email->subject('EatsApp: pitstop suggestion');
 			$this->email->message($message);
-			$this->email->send(); 
-			return true;
+			echo $this->email->send();  exit;
+			return true; 
 		}
 			
 	}

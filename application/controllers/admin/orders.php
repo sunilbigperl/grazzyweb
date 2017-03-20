@@ -14,6 +14,7 @@ class Orders extends Admin_Controller {
 		$this->load->model('Restaurant_model');
 		$this->load->model('Roadrunner_model');
 		$this->load->model('Pitstop_model');
+		$this->load->model('Deliveryboy_model');
 		$this->load->helper('url');
     }
 
@@ -128,42 +129,48 @@ class Orders extends Admin_Controller {
 		$data['branch'] = $restaurant->restaurant_branch;
 		$data['email'] = $restaurant->restaurant_email;
 		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data, true);
+		
 		if($type == "pdf"){
-			$filename  = "bills/restbill.pdf";
-			$fnamee = "restbill.pdf";
+			$fnamee = rand()."restbill.pdf";
+			$filename  = "bills/".$fnamee;
 		}else{
-			 $filename  = "bills/restbill.xls";
-			 $fnamee = "restbill.xls";
-		}
+			$fnamee =  rand()."restbill.xls";
+			 $filename  = "bills/".$fnamee;
+			 
+		} 
+		fopen($filename,"w");
+		chmod($fnamee,0777);
 		$this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
-		chmod($fnamee,0777);
-		redirect("http://localhost/grazzyweb/".$filename);
+		redirect("http://app.eatsapp.in/".$filename);
 	}
 
 	function delpartnerbill($id,$type){
 		
 		$data['date'] = date("Y-m-d");
-		$restaurant       = $this->Restaurant_model->get_restaurant($id);
+		$Deliveryboy       = $this->Deliveryboy_model->get_deliveryPartner($id);
 		
-		$data['name'] = $restaurant->restaurant_name;
-		$data['address'] = $restaurant->restaurant_address;
-		$data['branch'] = $restaurant->restaurant_branch;
-		$data['email'] = $restaurant->restaurant_email;
-		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data, true);
-		if($type == "pdf"){
-			$filename  = "bills/delpartnerbill.pdf";
-			$fnamee = "delpartnerbill.pdf";
+		$data['name'] = $Deliveryboy->firstname;
+		$data['email'] = $Deliveryboy->email;
+		$html = $this->load->view($this->config->item('admin_folder').'/delpartnertbill',$data, true);
+		
+		
+		 if($type == "pdf"){
+			$fnamee = rand()."delpartnerbill.pdf";
+			$filename  = "bills/".$fnamee;
 		}else{
-			 $filename  = "bills/delpartnerbill.xls";
-			 $fnamee = "delpartnerbill.xls";
-		}
+			$fnamee =  rand()."delpartnerbill.xls";
+			 $filename  = "bills/".$fnamee;
+			 
+		} 
+		fopen($filename,"w");
+		chmod($fnamee,0777);
 		$this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
-		chmod($fnamee,0777);
-		redirect("http://localhost/grazzyweb/".$filename);
+		
+		redirect("http://app.eatsapp.in/".$filename);
 	}
 	
 	function getOrderDetails(){

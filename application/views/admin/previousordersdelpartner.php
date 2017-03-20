@@ -43,7 +43,7 @@
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/pdf') ?>" class="btn btn-xs btn-primary">Download pdf</a>
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a>
 </div>
-<?php } ?>
+<?php } } ?>
 
 <?php  if(count($orders) > 0){ ?>
 <!--<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
@@ -60,8 +60,9 @@
 			<th data-field="price">Delivery charge</th>
 			<th data-field="distance">KM</th>
 			<th data-field="Penalty">Penalty</th>
-			<th>Service tax</th>
+			
 			<th>Net amount</th>
+			<th>Service tax</th>
 			<th>Total</th>
 			<th>Remarks</th>
 		</tr>
@@ -101,19 +102,37 @@
 					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
 				</td>
 				<td>
-					<?=$deliverycharge;?>
+					<?php if($order->status == "Accepted"){
+						echo $deliverycharge;
+					}else{
+						echo "0";
+					} ?>
+					
 				</td>
 				<td>
 					<?php echo isset($order->distance) ?  $order->distance : '';?>
 				</td>
 				
 				<td>
-					<?=$order->penalty;?>
+					<?php if($order->status == "Accepted"){
+						echo "0";
+					}else{
+						echo $order->penalty;
+					}
+					?>
 				</td>
-				<td><?=$servicetax;?></td>
-				<td><?php $netamount = $deliverycharge-$order->penalty; echo $netamount;?></td>
+				
+				<td> <?php if($order->status == "Accepted"){
+						$netamount = $deliverycharge;
+					}else{
+						$netamount = $order->penalty;
+					}
+					echo $netamount;
+					?>
+				</td>
+				<td><?php $servicetax1 = ($netamount/100)*$servicetax; echo $servicetax1; ?></td>
 				<td>
-					<?php echo $netamount*$servicetax; ?>
+					<?php echo $netamount+$servicetax1; ?>
 				</td>
 			
 				<td> 
