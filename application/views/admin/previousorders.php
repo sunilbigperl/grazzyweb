@@ -1,6 +1,6 @@
 <?php $url = $this->uri->segment(4); if(isset($url)){ $idurl = $url; }else{ $idurl = ''; }  ?>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">
-	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/GetPreviousOrders'.$idurl); ?>" method="post">
+	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/GetPreviousOrders/'.$idurl); ?>" method="post">
 		<div class="form-group">
 		  <label for="from date"><strong>from date:</strong></label>
 		  <input type="date" class="form-control" id="fromdate" name="fromdate">
@@ -47,6 +47,7 @@
 			<th data-field="price">Customer bill amount(Rs)</th>
 			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
+			<th>Net amount</th>
 			<th>Service tax</th>
 			<th>Total</th>
 			<th>Status</th>
@@ -74,14 +75,27 @@
 				</td>
 				
 				<td>
-					<?=$order->commission;?>
+					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission = (($order->total_cost * $order->commission)/100); }else{ $commission="0"; }
+					echo $commission;
+					?>
 				</td>
 				<td>
-					<?=$order->penalty;?>
+					<?php  if($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{  $penalty = (($order->total_cost * $order->penalty)/100);  }
+					echo $penalty;
+					?>
 				</td>
-				<td><?=$order->servicetax;?></td>
 				<td>
-					
+					 <?php if($order->restaurant_manager_status == "Accepted"){
+						$netamount = $commission;
+					}else{
+						$netamount = $penalty;
+					}
+					echo $netamount;
+					?>
+				</td>
+				<td><?php $servicetax1 = ($netamount*$servicetax)/100; echo $servicetax1; ?></td>
+				<td>
+					<?php echo $netamount+$servicetax1; ?>
 				</td>
 			
 				<td>

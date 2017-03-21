@@ -123,67 +123,38 @@
                
             </tr>
             
-            <tr>
-				<table>
 					<tr class="item">
-						<td>Value of orders forwarded</td>
-						<td></td>
-						<td></td>
+						<td>&nbsp;</td>
+						<td>Deliveries</td>
+						<td>Rate</td>
+						<td>Delivery charge</td>
 					</tr>
 					<tr class="item">
-						<td>
-							Commission
-						</td>
 						<td> </td>
 						<td>
-							$75.00
+							<?=$deliveries;?>
+						</td>
+						<td> <?=$rate;?></td>
+						<td>
+							<?=$delivery_charge;?>
 						</td>
 					</tr>
 					<tr class="item last">
 						<td> Service tax</td>
 						<td></td>
-						<td> $10.00</td>
+						<td><?=$servicetax1;?></td>
+						<td><?=$servicetax;?></td>
 					</tr>
 					<tr class="total">
 						<td>Total</td>
 						 <td></td>
+						  <td></td>
 						<td>
-						   $385.00
+						  <?=$total;?>
 						</td>
 					</tr>
-                </table>
-            </tr>
+              
             
-             <tr>
-				<table>
-					<tr class="item">
-						<td>Value of orders forwarded</td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr class="item">
-						<td>
-							Commission
-						</td>
-						<td> </td>
-						<td>
-							$75.00
-						</td>
-					</tr>
-					<tr class="item last">
-						<td> Service tax</td>
-						<td></td>
-						<td> $10.00</td>
-					</tr>
-					<tr class="total">
-						<td>Total</td>
-						 <td></td>
-						<td>
-						   $385.00
-						</td>
-					</tr>
-                </table>
-            </tr>
 
             
             

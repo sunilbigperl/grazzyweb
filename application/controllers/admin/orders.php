@@ -61,11 +61,15 @@ class Orders extends Admin_Controller {
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
 			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
-			$data['delpartner'] = $this->input->post('delpartner');
+			$delpartner_post = $this->input->post('delpartner');
+			$delpartner_get = $this->uri->segment(4);
+			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
 			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of last month'));
-			$data['delpartner'] = $this->input->post('delpartner');
+			$delpartner_post = $this->input->post('delpartner');
+			$delpartner_get = $this->uri->segment(4);
+			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
 		}else{
 
 			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
@@ -102,7 +106,15 @@ class Orders extends Admin_Controller {
 			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
 			$data['delpartner'] = $this->input->post('delpartner');
 		}
-
+		$sql = $this->db->query("select * from charges where id = 1");
+		if($sql->num_rows() > 0){
+			$res	= $sql->result_array();
+			$data['servicetax'] = $res[0]['servicetax'];
+			$data['deliverycharge'] = $res[0]['deliverycharge'];
+		}else{
+			$data['servicetax'] = '';
+			$data['deliverycharge'] = '';
+		}
 		$data['orders'] = $this->Order_model->get_previousorders($data);
 		$this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
@@ -116,6 +128,15 @@ class Orders extends Admin_Controller {
 
 		$data['page_title'] = "Previous Orders and sales of ".$restaurant->restaurant_name;
 		$data['orders'] = $this->Order_model->get_restpreviousorders($data);
+		$sql = $this->db->query("select * from charges where id = 1");
+		if($sql->num_rows() > 0){
+			$res	= $sql->result_array();
+			$data['servicetax'] = $res[0]['servicetax'];
+			$data['deliverycharge'] = $res[0]['deliverycharge'];
+		}else{
+			$data['servicetax'] = '';
+			$data['deliverycharge'] = '';
+		}
 		$this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
 	
@@ -150,9 +171,22 @@ class Orders extends Admin_Controller {
 		
 		$data['date'] = date("Y-m-d");
 		$Deliveryboy       = $this->Deliveryboy_model->get_deliveryPartner($id);
-		
+		$orders = $this->Deliveryboy_model->get_deliveryPartnerorders($id);
+		if($orders == 0){ $data['deliveries'] = 0;}else{ $data['deliveries'] = count($orders); }
 		$data['name'] = $Deliveryboy->firstname;
 		$data['email'] = $Deliveryboy->email;
+		$sql = $this->db->query("select * from charges where id = 1");
+		if($sql->num_rows() > 0){
+			$res	= $sql->result_array();
+			$data['servicetax1'] = $res[0]['servicetax'];
+			$data['rate'] = $res[0]['deliverycharge'];
+		}else{
+			$data['servicetax1'] = '';
+			$data['rate'] = '';
+		}
+		$data['delivery_charge'] = $data['rate'] * $data['deliveries'];
+		$data['servicetax'] = (($data['delivery_charge'] * $data['servicetax1'])/100);
+		$data['total']	=$data['delivery_charge']+ $data['servicetax'];
 		$html = $this->load->view($this->config->item('admin_folder').'/delpartnertbill',$data, true);
 		
 		

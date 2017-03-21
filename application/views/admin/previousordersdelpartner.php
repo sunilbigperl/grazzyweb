@@ -102,7 +102,7 @@
 					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
 				</td>
 				<td>
-					<?php if($order->status == "Accepted"){
+					<?php if($order->delivery_partner_status == "Accepted"){
 						echo $deliverycharge;
 					}else{
 						echo "0";
@@ -114,7 +114,7 @@
 				</td>
 				
 				<td>
-					<?php if($order->status == "Accepted"){
+					<?php if($order->delivery_partner_status == "Accepted"){
 						echo "0";
 					}else{
 						echo $order->penalty;
@@ -122,7 +122,7 @@
 					?>
 				</td>
 				
-				<td> <?php if($order->status == "Accepted"){
+				<td> <?php if($order->delivery_partner_status == "Accepted"){
 						$netamount = $deliverycharge;
 					}else{
 						$netamount = $order->penalty;
@@ -130,7 +130,7 @@
 					echo $netamount;
 					?>
 				</td>
-				<td><?php $servicetax1 = ($netamount/100)*$servicetax; echo $servicetax1; ?></td>
+				<td><?php $servicetax1 = (($netamount*$servicetax)/100); echo $servicetax1; ?></td>
 				<td>
 					<?php echo $netamount+$servicetax1; ?>
 				</td>
