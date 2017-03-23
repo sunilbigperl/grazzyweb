@@ -82,9 +82,12 @@ Class Restaurant_model extends CI_Model
 		
 		return $result;
 	}
-	function get_managers(){
+	function get_managers($id=""){
 		 $this->db->select('*');
 		 $this->db->where('access', 'Restaurant manager');
+		 if($id != ""){
+			 $this->db->where('id', $id);
+		 }
 		 $result = $this->db->get('admin');
 		 $managers = array();
         foreach($result->result() as $rest)

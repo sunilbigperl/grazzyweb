@@ -84,6 +84,7 @@ var oTable = $('#table-pagination').DataTable( {
 					<?php }else{ ?>
 						<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/menus/MenuStatusChange/'.$menu->menu_id.'/'.$res_id.''); ?>" >Activate</a>
 					<?php } ?>
+					<?php if(count($cats) == 0){ echo '<img src="../../../../assets/img/warning.jpg" width="30px" height="30px" title="Please Select a Category">'; }?>
 				</td>
 			</tr>
 			<?php

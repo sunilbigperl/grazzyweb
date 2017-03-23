@@ -497,7 +497,12 @@ Class Customer_model extends CI_Model
 	}
 	
 	function ChangeStatus($id,$status){
-		$sql = $this->db->query("update customers set active='".$status."' where id='".$id."'");
+		$and = "";
+		if($status == 2){
+			$date = date("Y-m-d H:i:s");
+			$and.= " , DeactivatedDate='".$date."' ";
+		}
+		$sql = $this->db->query("update customers set active='".$status."' ".$and." where id='".$id."'");
 		if($sql){ return true; }
 	}
 	
