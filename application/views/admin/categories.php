@@ -43,7 +43,7 @@ function areyousure()
 					<a class="btn btn-success btn-xs" href="<?php echo site_url(ADMIN_FOLDER.'/categories/ChangeStatus/'.$cat->id."/1"); ?>">activate</a>
 					<?php } ?>
 					<?php if($cat->enabled == 1) { ?>
-					<a class="btn btn-danger btn-xs" href="<?php echo site_url(ADMIN_FOLDER.'/categories/ChangeStatus/'.$cat->id."/0"); ?>">Deactivate</a>
+					<a class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#DeactivateMenu" onclick="$('#catid').val('<?=$cat->id;?>')" >Deactivate</a>
 					
 					<?php } ?>
 					</div>
@@ -67,3 +67,33 @@ function areyousure()
 		?>
 	</tbody>
 </table>
+
+<div class="modal fade" id="DeactivateMenu" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+	<form action="<?php echo site_url(ADMIN_FOLDER.'/categories/ChangeStatus'); ?>" method="post">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Deactivate category</h4>
+		</div>
+		<div class="modal-body">
+		  <div class="form-group">
+			<input type="hidden" name="categoryid" id="catid">
+			<label><strong>From date</strong></label>
+			<input type="date" name="FromDate" id="FromDate">
+			<label><strong>To date</strong></label>
+			<input type="date" name="ToDate" id="ToDate">
+			<input type="hidden" name="enabled" value="0">
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <input type="submit" name="submit" value="submit" class="btn btn-primary">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	</form>
+  </div>
+  
+</div>
+</div>

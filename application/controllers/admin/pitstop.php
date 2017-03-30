@@ -19,8 +19,13 @@ class Pitstop extends Admin_Controller {
 		redirect("admin/pitstop");
 	}
 	
-	public function ChangeStatus($id,$status){
-		$result = $this->Pitstop_model->ChangeStatus($id,$status);
+	public function ChangeStatus($id=false,$status=false){
+		$enabled = $this->input->post('enabled');
+		$data['pitstop_id'] = false == $this->input->post('pitid') ? $id : $this->input->post('pitid');
+		$data['enabled'] = isset($enabled) ? $enabled : 1;
+		$data['deactivatefrom'] = date('Y-m-d',strtotime($this->input->post('FromDate')));
+		$data['deactivateto'] = date('Y-m-d',strtotime($this->input->post('ToDate')));
+		$result = $this->Pitstop_model->ChangeStatus($data);
 		if($result){
 			redirect("admin/pitstop");
 		}

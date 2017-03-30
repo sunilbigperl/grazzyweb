@@ -311,8 +311,12 @@ class Categories extends Admin_Controller {
         }
     }
 	
-	public function ChangeStatus($id,$status){
-		$result = $this->Category_model->ChangeStatus($id,$status);
+	public function ChangeStatus($id=false,$enabled=false){
+		$data['id'] = false == $this->input->post('categoryid') ? $id : $this->input->post('categoryid');
+		$data['enabled'] = isset($enabled) ? $enabled : 1;
+		$data['deactivatefrom'] = date('Y-m-d',strtotime($this->input->post('FromDate')));
+		$data['deactivateto'] = date('Y-m-d',strtotime($this->input->post('ToDate')));
+		$result = $this->Category_model->ChangeStatus($data);
 		if($result){
 			redirect("admin/categories");
 		}

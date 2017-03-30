@@ -197,7 +197,7 @@
 					
 					 <li><a><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-						    <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>
+						     <!--<li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous orders</a></li>-->
                             <li><a href="<?php echo $admin_url;?>customers"><?php echo lang('common_customers') ?></a></li>
                              <!--<li><a href="<?php echo $admin_url;?>customers/groups"><?php echo lang('common_groups') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>reports"><?php echo lang('common_reports') ?></a></li>

@@ -29,9 +29,15 @@ Class Pitstop_model extends CI_Model
 		}
 	}
 	
-	function ChangeStatus($id,$status){
-		$sql = $this->db->query("update pitstops set enabled='".$status."' where pitstop_id='".$id."'");
-		if($sql){ return true; }
+	function ChangeStatus($data){
+		if ($data['pitstop_id'])
+        {
+			$this->db->where('pitstop_id', $data['pitstop_id']);
+            $this->db->update('pitstops', $data);
+			//echo $this->db->last_query(); exit;
+			return true;
+        }
+		
 	}
 	
     function get_pitstop($id,$related_restaurants=true)

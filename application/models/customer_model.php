@@ -472,6 +472,7 @@ Class Customer_model extends CI_Model
         }
     }
 	
+	
 	function GetReviewRest($id,$type){
 		$sql = $this->db->query("select a.*,b.restaurant_name from feedback a, restaurant b where a.feedbackfrom=b.restaurant_id and a.feedbacktype='".$type."' and a.feedbackto='".$id."'");
 		if($sql->num_rows() > 0){

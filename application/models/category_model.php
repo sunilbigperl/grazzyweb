@@ -158,8 +158,13 @@ Class Category_model extends CI_Model
         $this->db->delete('menu_categories');
     }
 	
-	function ChangeStatus($id,$status){
-		$sql = $this->db->query("update categories set enabled='".$status."' where id='".$id."'");
-		if($sql){ return true; }
+	function ChangeStatus($data){
+		if ($data['id'])
+        {
+			$this->db->where('id', $data['id']);
+            $this->db->update('categories', $data);
+			return true;
+        }
+		
 	}
 }

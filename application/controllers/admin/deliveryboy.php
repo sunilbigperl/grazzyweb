@@ -158,9 +158,9 @@ class Deliveryboy extends Admin_Controller
 	}
 	
 	public function ShowReviewDetails($id){
-		$RestReview = $this->Customer_model->GetReview($id,3);
+		$RestReview = $this->Customer_model->GetReviewRest($id,3);
 		$RestReviewavg= isset($RestReview['avg'][0]->avg) ? $RestReview['avg'][0]->avg : 0;
-		$delpartnerreview = $this->Customer_model->GetReview($id,5);
+		$delpartnerreview = $this->Customer_model->GetReviewDelPartner($id,5);
 		$delpartnerreviewavg = isset($delpartnerreview['avg'][0]->avg) ? $delpartnerreview['avg'][0]->avg :0;
 		$deliveryboy       = $this->Deliveryboy_model->get_deliveryboy($id); 
 		echo  "<div class='modal-header'>

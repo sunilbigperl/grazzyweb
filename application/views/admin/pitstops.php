@@ -15,17 +15,29 @@
 $(document).ready(function() {
 var oTable = $('#table-pagination').DataTable( {
         dom: 'Blfrtip',
+		
         buttons: [
        {
            extend: 'csv',
 		   text: 'Export pitstops',
+		    filename: 'pitstops',
            footer: false,
 		   exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4 ]
+                    columns: [ 0, 2, 3, 4 ]
             },
 			aoColumns: [{ "sTitle": "name" }],
-       }        
-    ]  
+			"columnDefs": [
+            {
+                "targets": [ 1 ],
+                "visible": false,
+                "searchable": false
+            },
+            
+			],	 
+       },
+		
+    ],
+		
     } );
 
 } );
@@ -72,7 +84,7 @@ var oTable = $('#table-pagination').DataTable( {
 	<thead>
 		<tr>
 			<th data-field="state" data-checkbox="true"></th>
-			<th data-field="id">Sl.No</th>
+			<th data-field="id" data-hidden="true">Sl.No</th>
 			<th data-field="name">Pitstop name</th>
 			<th data-field="price">Latitude</th>
 			<th>Longitude</th>
@@ -93,7 +105,7 @@ var oTable = $('#table-pagination').DataTable( {
 		?>
 			<tr class="gc_row" id="<?=$pitstop->pitstop_id;?>">
 				<td></td>
-				<td><?=$pitstop->pitstop_id;?></td>
+				<td data-hidden="true"><?=$pitstop->pitstop_id;?></td>
 				<td><input type="checkbox" style="display:none;" name="DeleteOptions[<?=$pitstop->pitstop_id;?>]" id="DeleteOption<?=$pitstop->pitstop_id;?>" class="DeleteOption">
 					<?=$pitstop->pitstop_name;?>
 				</td>
@@ -108,7 +120,7 @@ var oTable = $('#table-pagination').DataTable( {
 					<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/ChangeStatus/'.$pitstop->pitstop_id."/1"); ?>">activate</a>
 					<?php } ?>
 					<?php if($pitstop->enabled == 1) { ?>
-					<a class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/ChangeStatus/'.$pitstop->pitstop_id."/0"); ?>">Deactivate</a>
+					<a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#DeactivateMenu" onclick="$('#pitid').val('<?=$pitstop->pitstop_id;?>')">Deactivate</a>
 					
 					<?php } ?>
 				</td>
@@ -122,3 +134,33 @@ var oTable = $('#table-pagination').DataTable( {
 	<?php endif;?>
 </table>
 </form>
+
+<div class="modal fade" id="DeactivateMenu" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+	<form action="<?php echo site_url($this->config->item('admin_folder').'/pitstop/ChangeStatus'); ?>" method="post">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Deactivate Menu</h4>
+		</div>
+		<div class="modal-body">
+		  <div class="form-group">
+			<input type="hidden" name="pitid" id="pitid">
+			<label><strong>From date</strong></label>
+			<input type="date" name="FromDate" id="FromDate">
+			<label><strong>To date</strong></label>
+			<input type="date" name="ToDate" id="ToDate">
+			<input type="hidden" name="enabled" value="0">
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <input type="submit" name="submit" value="submit" class="btn btn-primary">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	</form>
+  </div>
+  
+</div>
+</div>
