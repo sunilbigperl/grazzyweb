@@ -44,6 +44,16 @@
 				<select name="city" class="form-control" required>
 					<option value="">Select city</option>
 					<option value="Mumbai" <?php if($city == "Mumbai"){ echo "selected"; } ?>>Mumbai</option>
+					<option value="Bangalore" <?php if($city == "Bangalore"){ echo "selected"; } ?>>Bangalore</option>
+					<option value="Delhi" <?php if($city == "Delhi"){ echo "selected"; } ?>>Delhi</option>
+					<option value="NCR" <?php if($city == "NCR"){ echo "selected"; } ?>>NCR</option>
+					<option value="Chennai" <?php if($city == "Chennai"){ echo "selected"; } ?>>Chennai</option>
+					<option value="Hyderabad" <?php if($city == "Hyderabad"){ echo "selected"; } ?>>Hyderabad</option>
+					<option value="Ahmedabad" <?php if($city == "Ahmedabad"){ echo "selected"; } ?>>Ahmedabad</option>
+				<option value="Pune" <?php if($city == "Pune"){ echo "selected"; } ?>>Pune</option>
+				<option value="Kolkata" <?php if($city ="Kolkata"){ echo "selected"; } ?>>Kolkata</option>
+				<option value="Surat" <?php if($city == "Surat"){ echo "selected"; } ?>>Surat</option>
+				<option value="Baroda" <?php if($city == "Baroda"){ echo "selected"; } ?>>Baroda</option>
 				</select>
 			
 			</div>
