@@ -314,7 +314,7 @@
 		<div class="tab-pane" id="pt_tab">
 			<fieldset style="padding:10px;">
 				<div class="form-group">	
-					<label for="preparation_time">Preparation time(In mins)</label>
+					<label for="preparation_time">Cutoff Preparation time(In mins)</label>
 					<select class="form-control" name="preparation_time">
 					<option value="1" <?php if($preparation_time == 1){echo "selected=selected"; }?>>1</option>
 					<option value="2" <?php if($preparation_time == 2){echo "selected=selected"; }?>>2</option>
