@@ -84,7 +84,7 @@ var oTable = $('#table-pagination').DataTable( {
 	<thead>
 		<tr>
 			<th data-field="state" data-checkbox="true"></th>
-			<th data-field="id" data-hidden="true">Sl.No</th>
+			<!--<th data-field="id" data-hidden="true">Sl.No</th>-->
 			<th data-field="name">Pitstop name</th>
 			<th data-field="price">Latitude</th>
 			<th>Longitude</th>
