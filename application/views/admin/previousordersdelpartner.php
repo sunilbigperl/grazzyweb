@@ -15,8 +15,8 @@
 			<?php $delpartners = $this->Message_model->get_delpartners(); ?>
 			<select name="delpartner" class="form-control">
 				<option value="">Select delivery partner</option>
-				<?php foreach($delpartners as $delpartner){?>
-				<option value="<?=$delpartner['id']?>"><?=$delpartner['username']?></option>
+				<?php foreach($delpartners as $delpat){?>
+				<option value="<?=$delpat['id']?>"><?=$delpat['username']?></option>
 				<?php } ?>
 			</select>
 			<label for="to date"><strong>Restaurant:</strong></label>
@@ -37,7 +37,7 @@
 		</div>
 	</form>
 </div>
-<?php if(count($orders) > 0){ ?>
+<?php if(count($orders) > 0){?>
 <?php if(isset($delpartner)){ ?>
 <div class="btn-group">
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/pdf') ?>" class="btn btn-xs btn-primary">Download pdf</a>
@@ -57,14 +57,15 @@
 			<th data-field="name">Order number</th>
 			<th data-field="pickup">Pickup location</th>
 			<th data-field="delivery">Delivery location</th>
+			<?php if(isset($url)){ ?>
 			<th data-field="price">Delivery charge</th>
 			<th data-field="distance">KM</th>
 			<th data-field="Penalty">Penalty</th>
-			
 			<th>Net amount</th>
 			<th>Service tax</th>
 			<th>Total</th>
 			<th>Remarks</th>
+			<?php } ?>
 		</tr>
 	</thead>
 	
@@ -101,6 +102,7 @@
 				
 					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
 				</td>
+				<?php if(isset($url)){ ?>
 				<td>
 					<?php if($order->delivery_partner_status == "Accepted"){
 						echo $deliverycharge;
@@ -140,7 +142,7 @@
 					<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/ShowReviewDetailstodelpartner/'.$order->delivery_partner.'');?>');" style="color: #2f2fd0;text-decoration:underline;">Reviews/Ratings</a>
 					<?php } ?>
 				</td>
-				
+				<?php } ?>
 			</tr>
 			<?php
 			$i++;

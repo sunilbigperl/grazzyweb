@@ -5,16 +5,18 @@ class Message_model extends CI_Model
 	public function get_restmessage($id){
 		$query = $this->db->query("select a.*,b.restaurant_name from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and a.restaurant_id=".$id." ORDER BY date DESC");
 		$query1 = $this->db->query("select * from restaurant_messages where restaurant_id = 0");
+		$result1 = array();
 		if($query1->num_rows() > 0){
-			$result1 = array();
+			
 			$i=0;
 			foreach($query1->result_array() as $row1){ 
 				$result1[] = $row1;
 			$i++;
 			}
 		}
+		$result2 = array();
 		if($query->num_rows() > 0){
-			$result2 = array();
+			
 			$i=0;
 			foreach($query->result_array() as $row){ 
 				$result2[] = $row;
