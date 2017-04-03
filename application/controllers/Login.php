@@ -107,7 +107,7 @@ class Login extends Base_Controller {
 			}
 			else
 			{
-				$this->session->set_flashdata('error', lang('error_no_account_record'));
+				$this->session->set_flashdata('error',"Mail id is not registered");
 			}
 			redirect('login/forgot_password');
 		}

@@ -102,24 +102,16 @@ class Login extends Base_Controller {
 			
 			if ($reset)
 			{						
-				$this->session->set_flashdata('message', lang('message_new_password'));
+				$this->session->set_flashdata('message',"Password mailed");
 			}
 			else
 			{
-				$this->session->set_flashdata('error', lang('error_no_account_record'));
+				$this->session->set_flashdata('error', "Mail id is not registered");
 			}
 			redirect('admin/forgot_password');
 		}
 		
 		// load other page content 
-		//$this->load->model('banner_model');
-		$this->load->helper('directory');
-	
-		//if they want to limit to the top 5 banners and use the enable/disable on dates, add true to the get_banners function
-		//$data['banners']	= $this->banner_model->get_banners();
-		//$data['ads']		= $this->banner_model->get_banners(true);
-		$data['categories']	= $this->Category_model->get_categories_tiered();
-		
 		
 		$this->load->view($this->config->item('admin_folder').'/forgot_password', $data);
 	}

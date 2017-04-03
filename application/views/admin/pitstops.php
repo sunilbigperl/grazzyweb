@@ -26,19 +26,18 @@ var oTable = $('#table-pagination').DataTable( {
                     columns: [ 0, 2, 3, 4 ]
             },
 			aoColumns: [{ "sTitle": "name" }],
-			"columnDefs": [
-            {
+			"columnDefs": [{
                 "targets": [ 1 ],
                 "visible": false,
                 "searchable": false
-            },
-            
-			],	 
+            }],	 
+			"aaSorting": [[ 2, "desc" ]]
        },
 		
     ],
 		
-    } );
+    });
+oTable.column( 1 ).visible( false );
 
 } );
 </script>
@@ -84,7 +83,7 @@ var oTable = $('#table-pagination').DataTable( {
 	<thead>
 		<tr>
 			<th data-field="state" data-checkbox="true"></th>
-			<!--<th data-field="id" data-hidden="true">Sl.No</th>-->
+			<th data-field="id" data-hidden="true">Sl.No</th>
 			<th data-field="name">Pitstop name</th>
 			<th data-field="price">Latitude</th>
 			<th>Longitude</th>
