@@ -382,7 +382,7 @@ Class Customer_model extends CI_Model
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('suggest@wolotech.com', 'EatsApp');
+			$this->email->from('support@eatsapp.in', 'EatsApp');
 			$this->email->to($email);
 			
 			$this->email->bcc('lvijetha90@gmail.com');

@@ -543,7 +543,7 @@ class Api_model extends CI_Model
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'suggest@wolotech.com',
+				'smtp_user' => 'suggest.eatsapp@gmail.com',
 				'smtp_pass' => 'Devang123',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
@@ -551,8 +551,8 @@ class Api_model extends CI_Model
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('suggest@wolotech.com', 'EatsApp');
-			$this->email->to('suggest@wolotech.com');
+			$this->email->from('suggest@eatsapp.in', 'EatsApp');
+			$this->email->to('suggest.eatsapp@gmail.com');
 			$this->email->bcc('lvijetha90@gmail.com');
 
 			$this->email->subject('EatsApp: Restaurant suggestion');
@@ -575,7 +575,7 @@ class Api_model extends CI_Model
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'suggest@wolotech.com',
+				'smtp_user' => 'suggest.eatsapp@gmail.com',
 				'smtp_pass' => 'Devang123',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
@@ -583,8 +583,8 @@ class Api_model extends CI_Model
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('suggest@wolotech.com', 'EatsApp');
-			$this->email->to('suggest@wolotech.com');
+			$this->email->from('suggest@eatsapp.in', 'EatsApp');
+			$this->email->to('suggest.eatsapp@gmail.com');
 			$this->email->bcc('lvijetha90@gmail.com');
 			$this->email->subject('EatsApp: pitstop suggestion');
 			$this->email->message($message);

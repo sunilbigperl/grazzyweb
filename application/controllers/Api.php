@@ -717,16 +717,16 @@ class Api extends REST_Controller {
 			'protocol' => 'smtp',
 			'smtp_host' => 'ssl://smtp.googlemail.com',
 			'smtp_port' => 465,
-			'smtp_user' => 'laxman.bigperl@gmail.com',
-			'smtp_pass' => 'bigperl@123',
+			'smtp_user' => 'suggest.eatsapp@gmail.com',
+			'smtp_pass' => 'Devang123',
 			'mailtype'  => 'html', 
 			'charset'   => 'iso-8859-1',
 			'crlf' => "\r\n",
 			'newline' => "\r\n"
 		);
 
-		$this->email->from('laxman.bigperl@gmail.com', 'Grazzy');
-		$this->email->to('laxman.bigperl@gmail.com');
+		$this->email->from('order@eatsapp.in', 'Grazzy');
+		$this->email->to('lvijetha90@gmail.com');
 		//$this->email->cc('laxman.bigperl@gmail.com');
 		//$this->email->bcc('them@their-example.com');
 

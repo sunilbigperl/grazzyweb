@@ -43,8 +43,8 @@ function areyousure()
 					<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/deliverypartner/ChangeStatus/'.$admin->id."/1"); ?>">activate</a>
 					<?php } ?>
 					<?php if($admin->enabled == 1) { ?>
-					<a class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/deliverypartner/ChangeStatus/'.$admin->id."/0"); ?>">Deactivate</a>
 					
+					<a href="#" class="btn btn-danger  btn-xs" data-toggle="modal" data-target="#DeactivateMenu" onclick="$('#patid').val('<?=$admin->id;?>');">Deactivate</a>
 					<?php } ?>
 				</div>
 			</td>
@@ -57,6 +57,35 @@ function areyousure()
 <?php endforeach; ?>
 	</tbody>
 </table>
+<div class="modal fade" id="DeactivateMenu" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+	<form action="<?php echo site_url($this->config->item('admin_folder').'/deliverypartner/ChangeStatus'); ?>" method="post">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Deactivate Menu</h4>
+		</div>
+		<div class="modal-body">
+		  <div class="form-group">
+			<input type="hidden" name="patid" id="patid">
+			<label><strong>From date</strong></label>
+			<input type="date" name="FromDate" id="FromDate">
+			<label><strong>To date</strong></label>
+			<input type="date" name="ToDate" id="ToDate">
+			<input type="hidden" name="enabled" value="0">
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <input type="submit" name="submit" value="submit" class="btn btn-primary">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	</form>
+  </div>
+  
+</div>
+</div>
 
 
 <div id="ratingdetails" class="modal fade" role="dialog">

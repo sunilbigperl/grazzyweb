@@ -332,8 +332,14 @@ class Deliverypartner extends Admin_Controller
 		}
 	}
 	
-	public function ChangeStatus($id,$status){
-		$result = $this->Deliveryboy_model->ChangeStatus($id,$status);
+	public function ChangeStatus($id=false,$enabled=false){
+		$enabled = $this->input->post('enabled');
+		$data['id'] = false == $this->input->post('patid') ? $id : $this->input->post('patid');
+		$data['enabled'] = isset($enabled) ? $enabled : 1;
+		$data['deactivatefrom'] = date('Y-m-d',strtotime($this->input->post('FromDate')));
+		$data['deactivateto'] = date('Y-m-d',strtotime($this->input->post('ToDate')));
+		
+		$result = $this->Deliveryboy_model->ChangeStatus($data);
 		if($result){
 			redirect("admin/deliverypartner");
 		}

@@ -38,7 +38,7 @@ class Cron extends Admin_Controller
 					'protocol' => 'smtp',
 					'smtp_host' => 'ssl://smtp.gmail.com',
 					'smtp_port' => 465,
-					'smtp_user' => 'suggest@wolotech.com',
+					'smtp_user' => 'suggest.eatsapp@gmail.com',
 					'smtp_pass' => 'Devang123',
 					'mailtype'  => 'html', 
 					'charset'   => 'iso-8859-1',
@@ -46,7 +46,7 @@ class Cron extends Admin_Controller
 					'newline' => "\r\n"
 				);
 				$this->load->library('email',$config);
-				$this->email->from('suggest@wolotech.com', 'EatsApp');
+				$this->email->from('suggest@eatsapp.in', 'EatsApp');
 				$this->email->to($row['restaurant_email']);
 				$this->email->bcc('lvijetha90@gmail.com');
 				$this->email->subject('EatsApp: Restaurant order accept pending');
@@ -71,7 +71,7 @@ class Cron extends Admin_Controller
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'suggest@wolotech.com',
+				'smtp_user' => 'suggest.eatsapp@gmail.com',
 				'smtp_pass' => 'Devang123',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
@@ -79,7 +79,7 @@ class Cron extends Admin_Controller
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('suggest@wolotech.com', 'EatsApp');
+			$this->email->from('suggest@eatsapp.in', 'EatsApp');
 			$this->email->to($row['email']);
 			$this->email->bcc('lvijetha90@gmail.com');
 			$this->email->subject('EatsApp: Delivery partner order accept pending');
