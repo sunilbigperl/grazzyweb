@@ -534,7 +534,7 @@ Class Customer_model extends CI_Model
 		if($all == false){
 			$yes = date('Y-m-d H:i:s',strtotime("-1 days"));
 			$today =  date('Y-m-d H:i:s');
-			$where = "and a.date between '".$yes."' and '".$today."'";
+			$where = "and a.date >= '".$yes."'";
 		}
 		
 		$sql1 = $this->db->query("select * from pitstop_suggest a, customers b where a.customer=b.id  ".$where."");

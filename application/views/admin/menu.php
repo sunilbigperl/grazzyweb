@@ -75,7 +75,10 @@ var oTable = $('#table-pagination').DataTable( {
 					}
 				}
 				echo $category;
-				?></td>
+				?>
+				
+					<?php if(count($cats) == 0){ echo '<img src="../../../../assets/img/warning.jpg" width="30px" height="30px" title="Please Select a Category">'; echo "Please Select a Category"; }?>
+				</td>
 				<td>
 				<a class="btn btn-info btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/'.$menu->menu_id.'/'.$res_id.''); ?>">Edit</a>
 				&nbsp;<a class="btn btn-danger btn-xs" href="#" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/menus/delete/'.$menu->menu_id.'/'.$res_id.''); ?>'; }">delete</a>
@@ -84,7 +87,6 @@ var oTable = $('#table-pagination').DataTable( {
 					<?php }else{ ?>
 						<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/menus/MenuStatusChange/'.$menu->menu_id.'/'.$res_id.''); ?>" >Activate</a>
 					<?php } ?>
-					<?php if(count($cats) == 0){ echo '<img src="../../../../assets/img/warning.jpg" width="30px" height="30px" title="Please Select a Category">'; }?>
 				</td>
 			</tr>
 			<?php

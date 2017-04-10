@@ -549,7 +549,8 @@ class Api extends REST_Controller {
 
 	public function suggestPitstop_post(){
 		 
-		$data=array('restaurant_address'=>$this->post('location'),'customer'=>$this->post('user_id'));
+		$data=array('restaurant_address'=>$this->post('location'),'customer'=>$this->post('user_id'),'restaurant_latitude'=>$this->post('restaurant_latitude'),
+		'restaurant_langitude'=>$this->post('restaurant_langitude'));
         $result=$this->api_model->pitstopSuggest($data);
         if(isset($result)){
 			

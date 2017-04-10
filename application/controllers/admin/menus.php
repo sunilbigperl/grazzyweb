@@ -200,6 +200,7 @@ class Menus extends Admin_Controller {
 			$save['description']		 = $this->input->post('description');
 			$save['itemPreparation_time']		 = $this->input->post('itemPreparation_time');
             $save['enabled']     = $this->input->post('enabled');
+			//print_r($this->input->post('option')); exit;
 			$save['customisation'] = serialize($this->input->post('option'));
 			//print_r($save); exit;
 			//save categories

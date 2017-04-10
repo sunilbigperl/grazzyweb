@@ -240,8 +240,10 @@
 					</li>
 				<?php  } endif; ?>
                 <?php if($this->auth->check_access('Admin')) : ?>
-					<?php $RestSuggestions = $this->Customer_model->GetRestSuggestions();  
+					<?php $RestSuggestions = $this->Customer_model->GetRestSuggestions(); 
+							
 						  $PitstopSuggestion = $this->Customer_model->GetPitstopSuggestion(); 
+						 // print_r($PitstopSuggestion); exit;
 						  $total = count($RestSuggestions['data']) + count($PitstopSuggestion['data']);
 					?>
 					

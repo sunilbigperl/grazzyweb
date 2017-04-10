@@ -566,7 +566,8 @@ class Api_model extends CI_Model
 	}
 	public function pitstopSuggest($data){
 		
-		$sql =$this->db->query("insert into  pitstop_suggest (restaurant_address,customer) values('".$data['restaurant_address']."','".$data['customer']."')");
+		$sql =$this->db->query("insert into  pitstop_suggest (restaurant_address,restaurant_latitude,restaurant_langitude,customer) values('".$data['restaurant_address']."',
+		'".$data['restaurant_latitude']."','".$data['restaurant_langitude']."','".$data['customer']."')");
 		
 		if($sql){
 			$message="<h3>New pitstop suggestion</h3>
