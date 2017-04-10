@@ -51,6 +51,7 @@ class Restaurant extends Admin_Controller {
         $data['restaurant_name']           = '';
         $data['restaurant_address']           = '';
         $data['restaurant_phone']    		= '';
+		$data['restaurant_mobile']    		= '';
         $data['restaurant_email']       	 = '';
         $data['image']       	 = 				'';
         $data['restaurant_latitude']          = '';
@@ -94,6 +95,7 @@ class Restaurant extends Admin_Controller {
             $data['restaurant_name']           = $restaurant->restaurant_name;
             $data['restaurant_address']           = $restaurant->restaurant_address;
             $data['restaurant_phone']   	 = $restaurant->restaurant_phone;
+			 $data['restaurant_mobile']   	 = $restaurant->restaurant_mobile;
             $data['restaurant_email']        = $restaurant->restaurant_email;
             $data['restaurant_latitude']       = $restaurant->restaurant_latitude;
             $data['restaurant_langitude']      = $restaurant->restaurant_langitude;
@@ -130,7 +132,7 @@ class Restaurant extends Admin_Controller {
 		//$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
         $this->form_validation->set_rules('restaurant_name', 'lang:restaurant_name', 'trim|required|max_length[64]');
         $this->form_validation->set_rules('restaurant_address', 'lang:restaurant_address', 'trim|required');
-        $this->form_validation->set_rules('restaurant_phone', 'lang:restaurant_phone', 'trim|required|max_length[11]|callback_validate_phone_number');
+        $this->form_validation->set_rules('restaurant_mobile', 'lang:restaurant_mobile', 'trim|required|max_length[11]|callback_validate_phone_number');
         $this->form_validation->set_rules('enabled', 'lang:enabled', 'trim|numeric');
 		
 		//if this is a new account require a password, or if they have entered either a password or a password confirmation
@@ -250,6 +252,7 @@ class Restaurant extends Admin_Controller {
             $save['restaurant_name']       = $this->input->post('restaurant_name');
             $save['restaurant_address']    = $this->input->post('restaurant_address');
             $save['restaurant_phone']      = $this->input->post('restaurant_phone');
+			 $save['restaurant_mobile']      = $this->input->post('restaurant_mobile');
             $save['restaurant_email']      = $this->input->post('restaurant_email');
             $save['restaurant_latitude']   = $this->input->post('restaurant_latitude');
             $save['restaurant_langitude']  = $this->input->post('restaurant_langitude');
@@ -390,7 +393,7 @@ class Restaurant extends Admin_Controller {
 		if (preg_match($match, $value)) {
 			return true;
 		} else {
-			$this->form_validation->set_message('validate_phone_number', 'Invalid Phone.');
+			$this->form_validation->set_message('validate_phone_number', 'Invalid Monile no.');
 			return false;
 		}
 	}

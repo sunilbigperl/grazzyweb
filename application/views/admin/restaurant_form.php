@@ -31,10 +31,22 @@
 					echo form_textarea($data);
 					?>
 				</div>
-				<div class="form-group">	
+				<div class="form-group">
 					<label for="restaurant_address">Restaurant phone</label>
-					<input type="number" name="restaurant_phone" value="<?=$restaurant_phone?>" class="form-control"  pattern="/(7|8|9)\d{9}/" required>
-					
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">080</span>
+						
+						<input type="number" name="restaurant_phone" value="<?=$restaurant_phone?>" class="form-control" required>
+					</div>
+				</div>
+				
+				<div class="form-group">	
+					<label for="restaurant_address">Restaurant mobile</label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">+91</span>
+						
+					<input type="number" name="restaurant_mobile" value="<?=$restaurant_mobile?>" class="form-control"  pattern="/(7|8|9)\d{9}/" required>
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="restaurant_address">Restaurant email</label>
