@@ -920,4 +920,20 @@ class Api extends REST_Controller {
             ], REST_Controller::HTTP_OK);
         }
 	}
+	
+	public function GetOrderStatus_get($id){
+		$OrderStatus = $this->api_model->GetOrderStatus($id);
+	
+        if (!empty($OrderStatus))
+        {
+            $this->set_response($OrderStatus, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'Orders could not be found'
+            ], REST_Controller::HTTP_OK);
+        }
+	}
 }

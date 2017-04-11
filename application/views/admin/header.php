@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
 	 
-	 <?php if($this->auth->check_access('Restaurant manager')) { ?>
+	 <?php date_default_timezone_set('Asia/Kolkata'); 
+	 if($this->auth->check_access('Restaurant manager')) { ?>
     <title>POS</title>
  <?php }elseif($this->auth->check_access('Deliver manager')) { ?>
          <title>DBOS</title>
@@ -338,6 +339,7 @@
 	</div>      
 
 	<div class="container">
+		 <div id="sound"></div>
 		<?php if(!empty($page_title1)):?>
 		<div class="page-header">
 			<?php if($this->auth->check_access('Restaurant manager')) { ?>
@@ -354,3 +356,23 @@
 		</div>
 		<?php endif;?>
     
+	<script>
+		setInterval(function(){
+			$.ajax({
+				url: "<?php echo site_url($this->config->item('admin_folder').'/customers/ShowAlert'); ?>",
+				method:"post",
+				datatype:'json',
+				data:{},
+				success:function(data){
+					if(data != ""){
+						playSound('http://localhost/grazzyweb/smsalert5_7xL1bIAv',data);
+					}
+				}
+			});
+		
+		}, 600*1000);
+		function playSound(filename,data){   
+			document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
+			alert(data);
+		}
+	</script>

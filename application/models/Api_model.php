@@ -687,6 +687,19 @@ class Api_model extends CI_Model
 		}
 			return $result;
 	}
+	
+	public function GetOrderStatus($id){
+		$sql=$this->db->query("select * from orders where id='".$id."'");
+       
+		if($sql->num_rows()>0){
+			$res = $sql->result_array();
+			$result = $res[0]['status'];
+		}else{
+			$result = '';	
+		}
+			return $result;
+	}
+	
 	public function addFeedback($data){
 	
 		$sql =$this->db->query("insert into  feedback (customer_id,user_feedback) values('".$data['customer_id']."','".$data['user_feedback']."')");
@@ -707,7 +720,7 @@ class Api_model extends CI_Model
 		$pitstop_id = isset($data['pitstop_id']) ? $data['pitstop_id'] : '';
 		$keep_ready = isset($data['keep_ready']) ? $data['keep_ready'] : '';
 		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on,keep_ready,pitstop_id)
-		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Order Placed','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
+		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Payment pending','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
 		'".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$data['shipping_address']."','".$data['delivered_on']."','".$keep_ready."','".$data['pitstop_id']."')";
 		$this->db->query($sql);
 		$id = $this->db->insert_id();
@@ -724,6 +737,8 @@ class Api_model extends CI_Model
 					$data = $query3->result_array();
 					$sql4 =  $this->db->query("update orders set passcode='".$data[0]['passcode']."' where id='".$id."'");
 					$result['data'] = $data[0]['passcode'];
+					$result['order_id'] = $id;
+					$result['order_number'] = $order_number;
 					$result[0] = true;
 				}
 			}else{

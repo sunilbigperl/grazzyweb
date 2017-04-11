@@ -611,4 +611,30 @@ class Customers extends Admin_Controller {
 		$data['PitstopSuggestion'] = $this->Customer_model->GetPitstopSuggestion($all = true); 
 		$this->view($this->config->item('admin_folder').'/suggestions', $data);
 	}
+	
+	public function ShowAlert(){
+		$html = "";
+		
+		if($this->auth->check_access('Restaurant manager')){ 
+		
+		}
+		elseif($this->auth->check_access('Deliver manager')){ 
+		
+		}
+		else{
+			$date = date('Y-m-d H:i:s'); 
+			$date1 = date("Y-m-d H:i:s",strtotime($date." -15 minutes"));
+			$sql = $this->db->query("select * from pitstop_suggest where date >= '".$date1."'");
+			if($sql->num_rows() > 0){
+				$result =  $sql->result_array();
+				foreach($result as $res){
+					$html.="There is new pitstop suggest : ".$res['restaurant_address']."\n";
+					$p = 1;
+				}
+			}
+		}
+		
+			echo $html;
+		
+	}
 }
