@@ -139,12 +139,12 @@
 							<!--  <li><a href="<?php echo $admin_url;?>restaurant">Restaurants</a></li>-->
 							</ul>
 						</li>
-						<li><a href="<?php echo $admin_url;?>orders/previousorders"><i class="fa fa-home"></i>Previous Orders </a></li>
+						<li><a href="<?php echo $admin_url;?>orders/previousorders"><i class="fa fa-shopping-cart"></i>Previous Orders </a></li>
 							
 					<!--	<li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li>-->
 					   
 						 <li><a href="<?php echo $admin_url;?>orders/SalesChart"><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class=""></span></a>
-						 <li><a href="<?php echo $admin_url;?>message/restmessage"><i class="fa fa-home"></i> Messages </a></li>
+						 <li><a href="<?php echo $admin_url;?>message/restmessage"><i class="fa fa-comments"></i> Messages </a></li>
 
 						<ul class="nav child_menu">
 						
@@ -159,12 +159,12 @@
 							<!--  <li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner">Previous Orders</a></li> -->
 							<!--</ul>-->
 						</li>
-						<li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner"><i class="fa fa-home"></i> Previous Orders</a>
+						<li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner"><i class="fa fa-shopping-cart"></i> Previous Orders</a>
 
 					<!--	<li><a href="<?php echo $admin_url;?>message/delmessage"><i class="fa fa-home"></i> Messages </a></li> -->
 						<li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boys </a></li>
 						<li><a href="<?php echo $admin_url;?>deliverypartner/form/<?=$userdata['id'];?>"><i class="fa fa-home"></i> Profile</a></li>
-                         <li><a href="<?php echo $admin_url;?>message/delmessage"><i class="fa fa-home"></i> Messages </a></li>
+                         <li><a href="<?php echo $admin_url;?>message/delmessage"><i class="fa fa-comments"></i> Messages </a></li>
 
 					<!--	  <li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li> -->
 				<?php endif; ?>
@@ -176,7 +176,7 @@
                            <!-- <li><a href="<?php echo $admin_url;?>dashboard/recentinfo">Recent information</a></li>-->
 						</ul>
 					</li>
-					<li><a><i class="fa fa-home"></i>Messages <span class="fa fa-chevron-down"></span></a>
+					<li><a><i class="fa fa-comments"></i>Messages <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a href="<?php echo $admin_url;?>message/restmessage">Restaurant message</a></li>
                             <li><a href="<?php echo $admin_url;?>message/delmessage">Delivery partner message</a></li>
@@ -184,21 +184,21 @@
                             <li><a href="<?php echo $admin_url;?>message/notifications">Notification messages</a></li>
 						</ul>
 					</li>
-					<li><a href="<?php echo $admin_url;?>deliverypartner"><i class="fa fa-home"></i>Delivery Partner </a></li>
+					<li><a href="<?php echo $admin_url;?>deliverypartner"><i class="fa fa-users"></i>Delivery Partner </a></li>
                    
-					<li><a><i class="fa fa-home"></i> <?php echo lang('common_catalog') ?> <span class="fa fa-chevron-down"></span></a>
+					<li><a><i class="fa fa-book"></i> <?php echo lang('common_catalog') ?> <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a href="<?php echo $admin_url;?>categories"><?php echo lang('common_categories') ?></a></li>
                             <li><a href="<?php echo $admin_url;?>restaurant">Restaurants</a></li>
 							
 						</ul>
 					</li>
-					<li><a href="<?php echo $admin_url;?>pitstop"><i class="fa fa-home"></i>Pitstops</a></li>
+					<li><a href="<?php echo $admin_url;?>pitstop"><i class="fa fa-map-marker"></i>Pitstops</a></li>
                    <!-- <li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li> -->
-					<li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner"><i class="fa fa-home"></i>Previous orders</a></li>
-					<li><a href="<?php echo $admin_url;?>customers"><i class="fa fa-home"></i>Customers</a></li>
+					<li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner"><i class="fa fa-shopping-cart"></i>Previous orders</a></li>
+					<li><a href="<?php echo $admin_url;?>customers"><i class="fa fa-users"></i>Customers</a></li>
 					 
-					<li><a href="<?php echo $admin_url;?>admin"><i class="fa fa-home"></i><?php echo lang('common_administrative') ?>  </a></li>
+					<li><a href="<?php echo $admin_url;?>admin"><i class="fa fa-user"></i><?php echo lang('common_administrative') ?>  </a></li>
                     <?php endif; ?>
                 </ul>
               </div>
