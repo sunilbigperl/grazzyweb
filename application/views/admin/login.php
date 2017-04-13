@@ -97,12 +97,12 @@
               <div >
                  <input type="hidden" value="<?php echo $redirect; ?>" name="redirect"/>
 				 <input type="hidden" value="submitted" name="submitted"/>
-				<label style="text-align:center;"> <input class="btn btn-primary" type="submit" style="text-align:center;"	 value="<?php echo lang('login');?>"/> </label>
+				<label> <input class="btn btn-primary" type="submit" style="margin-left: 0em;"	 value="<?php echo lang('login');?>"/> </label>
               </div>
 
               <div class="clearfix"></div>
-			 <div style="text-align:center;">
-				<a href="<?php echo site_url('login/forgot_password'); ?>">Forgot password</a>
+			 <div >
+				<a href="<?php echo site_url('login/forgot_password'); ?>" style="text-align:center;">Forgot password</a>
 			</div>
               <div class="separator">
                
