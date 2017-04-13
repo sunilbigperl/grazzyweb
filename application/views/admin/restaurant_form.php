@@ -269,6 +269,13 @@
 					echo form_input($data);
 					?>
 				</div>
+				<div class="form-group">
+					<label for="penalty " >Reimbursement of Ddelivery charges(%)</label>
+					<?php
+					$data	= array('name'=>'Reimb', 'value'=>set_value('Reimb', $penalty), 'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
 				<div class="form-group" style="display:none;">
 					<label for="penalty " >Delivery Charges</label>
 					<?php

@@ -104,7 +104,7 @@
 	<?php $admin_url = site_url($this->config->item('admin_folder')).'/';?>
 		<div class="col-md-3 left_col">
           <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
+            <div class="navbar nav_title" style="border: 0;background-color: red;">
               <?php if($this->auth->check_access('Admin')){ ?>
               <a href="<?=$admin_url;?>" class="site_title"> <span>Admin Panel</span></a>
 			<?php } elseif($this->auth->check_access('Restaurant manager')){  ?>
@@ -184,7 +184,7 @@
                             <li><a href="<?php echo $admin_url;?>message/notifications">Notification messages</a></li>
 						</ul>
 					</li>
-					<li><a href="<?php echo $admin_url;?>deliverypartner"><i class="fa fa-users"></i>Delivery Partner </a></li>
+					<li><a href="<?php echo $admin_url;?>deliverypartner"><i class="fa fa-motorcycle"></i>Delivery Partner </a></li>
                    
 					<li><a><i class="fa fa-book"></i> <?php echo lang('common_catalog') ?> <span class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
