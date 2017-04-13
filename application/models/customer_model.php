@@ -375,7 +375,7 @@ Class Customer_model extends CI_Model
 				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
 				'smtp_user' => 'suggest.eatsapp@gmail.com',
-				'smtp_pass' => 'Devang123',
+				'smtp_pass' => 'devang123',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
 				'crlf' => "\r\n",

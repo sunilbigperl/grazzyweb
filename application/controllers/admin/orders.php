@@ -565,7 +565,7 @@ class Orders extends Admin_Controller {
 			'smtp_host' => 'ssl://smtp.gmail.com',
 			'smtp_port' => 465,
 			'smtp_user' => 'suggest.eatsapp@gmail.com',
-			'smtp_pass' => 'Devang123',
+			'smtp_pass' => 'devang123',
 			'mailtype'  => 'html',
 			'charset'   => 'utf-8',
 			'newline'    => "\r\n"
