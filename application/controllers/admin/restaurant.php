@@ -59,7 +59,7 @@ class Restaurant extends Admin_Controller {
         $data['restaurant_branch']           = '';
 		$data['restaurant_manager']           = '';
         $data['enabled']        = '';
-		$data[' preparation_time'] ="";
+		$data['preparation_time'] ="";
 		$data['servicetax'] = '';
 		$data['commission'] = '';
 		$data['penalty'] ='';
@@ -102,7 +102,7 @@ class Restaurant extends Admin_Controller {
             $data['image']          = $restaurant->image;
             $data['restaurant_branch']      = $restaurant->restaurant_branch;
             $data['restaurant_manager']           = $restaurant->restaurant_manager;
-			$data[' preparation_time'] = $restaurant-> preparation_time;
+			$data['preparation_time'] = $restaurant->preparation_time;
             $data['enabled']        = $restaurant->enabled;
 			$data['servicetax'] = $restaurant->servicetax;
 			$data['commission'] = $restaurant->commission;
