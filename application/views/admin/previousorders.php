@@ -47,6 +47,7 @@
 			<th data-field="price">Customer bill amount(Rs)</th>
 			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
+			<th data-field="Reimb">Reimbursement of delivery charges</th>
 			<th>Net amount</th>
 			<th>Service tax</th>
 			<th>Total</th>
