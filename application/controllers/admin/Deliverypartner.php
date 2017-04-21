@@ -110,7 +110,7 @@ class Deliverypartner extends Admin_Controller
 		
 		
 		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]');
-		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[11]|callback_check_phone');
+		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[10]|callback_check_phone|regex_match[/^[0-9]{10}$/]');
 		$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
 		$this->form_validation->set_rules('access', 'lang:access', 'trim|required');
 		

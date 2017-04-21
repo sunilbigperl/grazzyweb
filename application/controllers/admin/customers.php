@@ -152,7 +152,7 @@ class Customers extends Admin_Controller {
 		$this->form_validation->set_rules('firstname', 'lang:firstname', 'trim|required|max_length[32]');
 		$this->form_validation->set_rules('lastname', 'lang:lastname', 'trim|required|max_length[32]');
 		$this->form_validation->set_rules('email', 'lang:email', 'trim|required|valid_email|max_length[128]|callback_check_email');
-		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('phone', 'lang:phone', 'trim|required|max_length[32]|regex_match[/^[0-9]{10}$/]');
 		$this->form_validation->set_rules('company', 'lang:company', 'trim|max_length[128]');
 		$this->form_validation->set_rules('active', 'lang:active');
 		$this->form_validation->set_rules('dob', 'lang:dob', 'trim|required');
@@ -577,7 +577,8 @@ class Customers extends Admin_Controller {
 		<div class=''><strong>Age:</strong> ".$from->diff($to)->y."</div>
 		<div><strong>Prefered Food outlets </strong>";
 		foreach($FoodOutlets['data'] as $FoodOutlet){
-			echo $FoodOutlet->restaurant_name.",";
+			echo $FoodOutlet->restaurant_name."\n";
+			
 		}
 		
 		
@@ -586,7 +587,8 @@ class Customers extends Admin_Controller {
 				foreach($addresses as $address){ 
 					$f = $address['field_data'];
 					echo "<div>";
-					echo "<strong>Address".$i." :</strong> "; echo isset($f['address1']) ? $f['address1'] : "";
+					echo "<strong>Address".$i." :</strong> ";
+					echo isset($f['address1']) ? $f['address1'] : "";
 					echo isset($f['address2']) ? $f['address2'] : ""; 
 					 echo isset($f['city']) ? $f['city'] : "";
 					echo isset($f['zip']) ? $f['zip'] : "";
