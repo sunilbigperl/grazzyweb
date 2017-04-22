@@ -48,16 +48,13 @@
 					<input type="number" name="restaurant_mobile" value="<?=$restaurant_mobile?>" class="form-control"  pattern="/(7|8|9)\d{9}/" required>
 					</div>
 				</div>
-				
 				<div class="form-group">	
 					<label for="restaurant_address">Restaurant Manager Mobile No</label>
-					<div class="input-group col-lg-12">
+					<div class="input-group">
 						
-						
-					<input type="text" name="restaurant_mngrmobile" value="<?=$restaurant_mobile?>" class="form-control"  pattern="/(7|8|9)\d{9}/" required>
+						<input type="number" name="restaurant_mngrmobile" value="<?=$restaurant_mobile?>" class="form-control"  pattern="/(7|8|9)\d{9}/" required>
 					</div>
 				</div>
-				
 				<div class="form-group">
 					<label for="restaurant_address">Restaurant email</label>
 					<?php
