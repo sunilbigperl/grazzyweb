@@ -27,7 +27,7 @@ Class Restaurant_model extends CI_Model
 		
 		foreach($restaurants as $men){
 			foreach($men as $restaurant){
-				$sql =$this->db->query("INSERT INTO `restaurant`(`restaurant_name`,`restaurant_address`,`restaurant_phone`,`restaurant_email`,
+				$sql =$this->db->query("INSERT INTO `restaurant`(`restaurant_name`,`restaurant_address`,`restaurant_phone`,'restaurant_mobile',`restaurant_email`,
 				`image`,`restaurant_latitude`,`restaurant_langitude`,`restaurant_branch`,`restaurant_manager`,`preparation_time`,
 				`enabled`,`deactivatefrom`,`deactivateto`,`fromtime`,`totime`,`commission`,`penalty`,`servicetax`,`days`) 
 				VALUES ('".$restaurant['restaurant_name']."','".$restaurant['restaurant_address']."','".$restaurant['restaurant_phone']."',

@@ -262,7 +262,7 @@ class Restaurant extends Admin_Controller {
 			$save['commission'] 		   = $this->input->post('commission');
 			$save['penalty'] 			   = $this->input->post('penalty');
             $save['enabled']      		   = $this->input->post('enabled');
-			$save[' preparation_time']	   = $this->input->post(' preparation_time');
+			$save['preparation_time']	   = $this->input->post('preparation_time');
 			$save['fromtime'] 			   = $this->input->post('fromtime');
 			$save['totime'] 			   = $this->input->post('totime');
 			$save['days'] 				   = serialize($this->input->post('days'));
