@@ -85,6 +85,7 @@ oTable.column( 1 ).visible( false );
 			<th data-field="state" data-checkbox="true"></th>
 			<th data-field="id" data-hidden="true">Sl.No</th>
 			<th data-field="name">Pitstop name</th>
+			<th data-field="city">City</th>
 			<th data-field="price">Latitude</th>
 			<th>Longitude</th>
 			<th>Connected</th>
@@ -108,6 +109,7 @@ oTable.column( 1 ).visible( false );
 				<td><input type="checkbox" style="display:none;" name="DeleteOptions[<?=$pitstop->pitstop_id;?>]" id="DeleteOption<?=$pitstop->pitstop_id;?>" class="DeleteOption">
 					<?=$pitstop->pitstop_name;?>
 				</td>
+				<td><?=$pitstop->city;?></td>
 				<td>
 					<?=$pitstop->latitude; ?>
 				</td>

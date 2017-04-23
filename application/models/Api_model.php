@@ -538,7 +538,8 @@ class Api_model extends CI_Model
 		$message="<h3>New restaurant suggestion</h3>
 		<h6>Restaurant_name: ".$data['restaurant_name']."</h6>
 		<h6>Restaurant phone: ".$data['restaurant_phone']."</h6>
-		<h6>Restaurant address: ".$data['restaurant_address']."</h6>";
+		<h6>Restaurant address: ".$data['restaurant_address']."</h6>
+		<h6>Customer id: ".$data['customer']."</h6>";
 			$config = Array(
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
@@ -571,7 +572,10 @@ class Api_model extends CI_Model
 		
 		if($sql){
 			$message="<h3>New pitstop suggestion</h3>
-			<h6>Pitstop address: ".$data['restaurant_address']."</h6>";
+			<h6>Pitstop address: ".$data['restaurant_address']."</h6>
+			<h6>Pitstop latitude: ".$data['restaurant_latitude']."</h6>
+			<h6>Pitstop langitude: ".$data['restaurant_langitude']."</h6>
+			<h6>Customer id: ".$data['customer']."</h6>";
 			   $config = Array(
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',

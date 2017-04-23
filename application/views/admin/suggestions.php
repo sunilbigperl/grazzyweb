@@ -86,7 +86,6 @@
   </div>
 <script type="text/javascript">
 function ShowMap(lat,lang){
-	alert();
  var myCenter = new google.maps.LatLng(lat,lang);
   var mapCanvas = document.getElementById("map");
   var mapOptions = {center: myCenter, zoom: 5};

@@ -50,10 +50,10 @@
 					<option value="Chennai" <?php if($city == "Chennai"){ echo "selected"; } ?>>Chennai</option>
 					<option value="Hyderabad" <?php if($city == "Hyderabad"){ echo "selected"; } ?>>Hyderabad</option>
 					<option value="Ahmedabad" <?php if($city == "Ahmedabad"){ echo "selected"; } ?>>Ahmedabad</option>
-				<option value="Pune" <?php if($city == "Pune"){ echo "selected"; } ?>>Pune</option>
-				<option value="Kolkata" <?php if($city ="Kolkata"){ echo "selected"; } ?>>Kolkata</option>
-				<option value="Surat" <?php if($city == "Surat"){ echo "selected"; } ?>>Surat</option>
-				<option value="Baroda" <?php if($city == "Baroda"){ echo "selected"; } ?>>Baroda</option>
+					<option value="Pune" <?php if($city == "Pune"){ echo "selected"; } ?>>Pune</option>
+					<option value="Kolkata" <?php if($city == "Kolkata"){ echo "selected"; } ?>>Kolkata</option>
+					<option value="Surat" <?php if($city == "Surat"){ echo "selected"; } ?>>Surat</option>
+					<option value="Baroda" <?php if($city == "Baroda"){ echo "selected"; } ?>>Baroda</option>
 				</select>
 			
 			</div>
@@ -87,7 +87,7 @@ jQuery(document).ready(function() {
   var myLatlng = new google.maps.LatLng(<?php echo $lat;  ?>,<?php echo $lon; ?>);
 
   var myOptions = {
-     zoom: 10,
+     zoom: 4,
      center: myLatlng,
 	 center: new google.maps.LatLng(19.0760, 72.8777),
      mapTypeId: google.maps.MapTypeId.ROADMAP
