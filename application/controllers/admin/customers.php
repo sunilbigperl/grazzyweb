@@ -16,7 +16,7 @@ class Customers extends Admin_Controller {
 	
 	function charges(){
 		$this->load->helper('form');
-		$sql = $this->db->query("select * from charges where id = 1");
+		$sql = $this->db->query("select * from charges order by id desc limit 1");
 		if($sql->num_rows() > 0){
 			$res	= $sql->result_array();
 			$data = $res[0];
@@ -29,9 +29,18 @@ class Customers extends Admin_Controller {
 	
 	function SaveCharges(){
 		$this->load->helper('form');
+		$end_date = date("Y-m-d H:i:s");
 		$data['servicetax'] = $this->input->post('servicetax');
 		$data['deliverycharge'] = $this->input->post('deliverycharge');
-		$sql = $this->db->query("update charges set servicetax='".$data['servicetax']."', deliverycharge='".$data['deliverycharge']."' where id =1");
+		$this->load->helper('form');
+		$sql = $this->db->query("select id from charges order by id desc limit 1");
+		if($sql->num_rows() > 0){
+			$res	= $sql->result_array();
+			$sql = $this->db->query("update charges set end_date = '".$end_date."' where id = '".$res[0]['id']."'");
+		}
+		
+		$sql1 = $this->db->query("insert into charges(servicetax,deliverycharge) values('".$data['servicetax']."','".$data['deliverycharge']."')");
+		
 		if($sql){
 			$this->session->set_flashdata('message', 'Charges saved successfuly');
 		}

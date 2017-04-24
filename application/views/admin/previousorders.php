@@ -64,12 +64,18 @@
 		$GLOBALS['admin_folder'] = $this->config->item('admin_folder');
 			$i=1;
 			foreach($orders as $order)
-			{?>
+			{
+			$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
+			
+			$servicetax = $charges['servicetax'];
+			$deliverycharge = $charges['deliverycharge'];
+		?>
 			<tr class="gc_row">
 				<td><?=$i;?></td>
-				<td><?=$order->ordered_on;;?></td>
+				<td><?=$order->ordered_on;?> </td>
 				<td>
-					<a href="#" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
+					<a href="#" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?> </a>
+					
 				</td>
 				<td>
 					<?=$order->total_cost; ?>

@@ -517,4 +517,17 @@ Class order_model extends CI_Model
 		}
 		return $result;
 	}
+	
+	public function GetChargesForOrder($date){
+		$sql = $this->db->query("select * from charges where start_date <= '".$date."' and end_date >= '".$date."' limit 1");
+		if($sql->num_rows() > 0){
+			$res	= $sql->result_array();
+			$data['servicetax'] = $res[0]['servicetax'];
+			$data['deliverycharge'] = $res[0]['deliverycharge'];
+		}else{
+			$data['servicetax'] = '';
+			$data['deliverycharge'] = '';
+		}
+		return $data;
+	}
 }
