@@ -12,6 +12,7 @@
 					<tr>
 						<th>Restaurant name</th>
 						<th>Suggested customer</th>
+						<th>customer Phoneno</th>
 						<th>Restaurant email</th>
 						<th>Restaurant phone</th>
 						<th>Restaurant address</th>
@@ -26,6 +27,7 @@
 					<tr>
 						<td><?=$ressuggestion->restaurant_name;?></td>
 						<td><?=isset($ressuggestion->firstname) ? $ressuggestion->firstname : '';?></td>
+						<td><?=isset($ressuggestion->phone) ? $ressuggestion->phone : '';?></td>
 						<td><?=isset($ressuggestion->restaurant_email) ? $ressuggestion->restaurant_email : '';?></td>
 						<td><?=isset($ressuggestion->restaurant_phone) ? $ressuggestion->restaurant_phone : '';?></td>
 						<td><?=isset($ressuggestion->restaurant_address) ? $ressuggestion->restaurant_address : '';?></td>
