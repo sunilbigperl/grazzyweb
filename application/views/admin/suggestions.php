@@ -44,6 +44,8 @@
 				<thead>
 					<tr>
 						<th>Pitstop address</th>
+						<th>Suggested customer</th>
+						<th>Customer phoneno</th>
 						<th>Latitude</th>
 						<th>Langitude</th>
 						<th>Date</th>
@@ -56,6 +58,8 @@
 					?>
 					<tr >
 						<td><a data-toggle="modal" data-target="#myModal"  onclick="ShowMap('<?=$Pitstop->restaurant_latitude; ?>','<?=$Pitstop->restaurant_langitude; ?>');"><?=$Pitstop->restaurant_address;?></a></td>
+						<td><?=isset($Pitstop->firstname) ? $Pitstop->firstname : '';?></td>
+						<td><?=isset($Pitstop->phone) ? $Pitstop->phone : '';?></td>
 						<td><?=isset($Pitstop->restaurant_latitude) ?  $Pitstop->restaurant_latitude : '';?></td>
 						<td><?=isset($Pitstop->restaurant_langitude) ? $Pitstop->restaurant_langitude : '';?></td>
 						<td><?=$Pitstop->date;?></td>
