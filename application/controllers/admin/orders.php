@@ -124,7 +124,7 @@ class Orders extends Admin_Controller {
 		$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
 		$data['todate'] =  date('Y-m-d',strtotime('last day of last month'));
 		$data['id'] = $id;
-		$restaurant       = $this->Restaurant_model->get_restaurant($id);
+		$restaurant  = $this->Restaurant_model->get_restaurant($id);
 
 		$data['page_title'] = "Previous Orders and sales of ".$restaurant->restaurant_name;
 		$data['orders'] = $this->Order_model->get_restpreviousorders($data);

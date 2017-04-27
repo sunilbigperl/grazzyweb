@@ -50,6 +50,7 @@
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
 			<th>Net amount</th>
 			<th>Service tax</th>
+			<th>Keep amount</th>
 			<th>Total</th>
 			<th>Status</th>
 			<th>Del partner remarks</th>
@@ -61,14 +62,13 @@
 	<tbody>
 		
 		<?php
-		$GLOBALS['admin_folder'] = $this->config->item('admin_folder');
+			$GLOBALS['admin_folder'] = $this->config->item('admin_folder');
 			$i=1;
 			foreach($orders as $order)
 			{
-			$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
-			
-			$servicetax = $charges['servicetax'];
-			$deliverycharge = $charges['deliverycharge'];
+				$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
+				$servicetax = $charges['servicetax'];
+				$deliverycharge = $charges['deliverycharge'];
 		?>
 			<tr class="gc_row">
 				<td><?=$i;?></td>
@@ -87,24 +87,19 @@
 					?>
 				</td>
 				<td>
-					<?php  if($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{  $penalty = (($order->total_cost * $order->penalty)/100);  }
+					<?php  if($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{ $penalty = (($order->total_cost * $order->penalty)/100);  }
 					echo $penalty;
 					?>
 				</td>
 				<td>
-					 <?php if($order->restaurant_manager_status == "Accepted"){
-						$netamount = $commission;
-					}else{
-						$netamount = $penalty;
-					}
-					echo $netamount;
-					?>
+					 <?php echo $order->delivery_charge; ?>
 				</td>
-				<td><?php $servicetax1 = ($netamount*$servicetax)/100; echo $servicetax1; ?></td>
+				<td><?php $netamount = $commission + $penalty + $order->delivery_charge;  echo $netamount;  ?></td>
 				<td>
-					<?php echo $netamount+$servicetax1; ?>
+					<?php $servicetax1 = ($netamount*$servicetax)/100; echo $servicetax1;   ?>
 				</td>
-			
+				<td><?php $keepamt =  $netamount+$servicetax1; echo $keepamt; ?></td>
+				<td><?php echo $order->total_cost- $keepamt; ?></td>
 				<td>
 					<?php if($order->restaurant_manager_status == "0"){ ?>
 						Not acted yet
