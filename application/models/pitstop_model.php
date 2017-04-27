@@ -123,4 +123,11 @@ Class Pitstop_model extends CI_Model
 	{
 		return	$this->db->like('restaurant_name', $name)->get('restaurant', $limit)->result();
 	}
+
+
+	public function fetch_data()
+{
+	$query=$this->db->get("pitstops");
+	return $query;
+}
 }

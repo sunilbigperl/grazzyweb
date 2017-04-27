@@ -79,7 +79,7 @@ class Orders extends Admin_Controller {
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
 		}
 		
-		$sql = $this->db->query("select * from delpartner_charges where id = 1");
+		$sql = $this->db->query("select * from charges where id = 1");
 		if($sql->num_rows() > 0){
 			$res	= $sql->result_array();
 			$data['servicetax'] = $res[0]['servicetax'];

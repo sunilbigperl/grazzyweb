@@ -263,16 +263,17 @@
 					?>
 				</div>
 				<div class="form-group">
-					<label for="penalty " >Penalty(%)</label>
+					<label for="penalty " >Penalty</label>
 					<?php
 					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control');
 					echo form_input($data);
 					?>
 				</div>
+
 				<div class="form-group">
-					<label for="penalty " >Reimbursement of Ddelivery charges(%)</label>
+					<label for="reimb " >Reimbursement of Ddelivery charges</label>
 					<?php
-					$data	= array('name'=>'Reimb', 'value'=>set_value('Reimb', $penalty), 'class'=>'form-control');
+					$data	= array('name'=>'reimb', 'value'=>set_value('reimb', $reimb), 'class'=>'form-control');
 					echo form_input($data);
 					?>
 				</div>
@@ -290,6 +291,7 @@
 					echo form_input($data);
 					?>
 				</div>
+				
 				<?php } ?>
 				
 			</fieldset>

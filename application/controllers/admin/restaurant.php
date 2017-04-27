@@ -61,8 +61,10 @@ class Restaurant extends Admin_Controller {
         $data['enabled']        = '';
 		$data['preparation_time'] ="";
 		$data['servicetax'] = '';
+		$data['keepamount'] = '';
 		$data['commission'] = '';
 		$data['penalty'] ='';
+		$data['reimb'] ='';
         $data['fromtime'] ='';
 		$data['totime'] ='';
 		$data['days'] ='';
@@ -93,7 +95,7 @@ class Restaurant extends Admin_Controller {
 			
             $data['restaurant_id']             = $restaurant->restaurant_id;
             $data['restaurant_name']           = $restaurant->restaurant_name;
-            $data['restaurant_address']           = $restaurant->restaurant_address;
+            $data['restaurant_address']           = $restaurant->restauranr_address;
             $data['restaurant_phone']   	 = $restaurant->restaurant_phone;
 			 $data['restaurant_mobile']   	 = $restaurant->restaurant_mobile;
             $data['restaurant_email']        = $restaurant->restaurant_email;
@@ -107,6 +109,7 @@ class Restaurant extends Admin_Controller {
 			$data['servicetax'] = $restaurant->servicetax;
 			$data['commission'] = $restaurant->commission;
 			$data['penalty']	= $restaurant->penalty;
+			$data['reimb']	= $restaurant->reimb;
 			$data['fromtime']	= $restaurant->fromtime;
 			$data['totime']	= $restaurant->totime;
 			$data['days']	= $restaurant->days;
@@ -132,7 +135,9 @@ class Restaurant extends Admin_Controller {
 		//$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
         $this->form_validation->set_rules('restaurant_name', 'lang:restaurant_name', 'trim|required|max_length[64]');
         $this->form_validation->set_rules('restaurant_address', 'lang:restaurant_address', 'trim|required');
-        $this->form_validation->set_rules('restaurant_mobile', 'lang:restaurant_mobile', 'trim|required|max_length[11]|callback_validate_phone_number');
+        $this->form_validation->set_rules('restaurant_phone', 'lang:restaurant_phone', 'trim|required|max_length[8]');
+        $this->form_validation->set_rules('restaurant_mobile', 'lang:restaurant_mobile', 'trim|required|max_length[10]|callback_validate_phone_number|regex_match[/^[0-9]{10}$/]');
+        $this->form_validation->set_rules('restaurant_mngrmobile', 'lang:restaurant_mngrmobile', 'trim|required|max_length[10]|callback_validate_phone_number|regex_match[/^[0-9]{10}$/]');
         $this->form_validation->set_rules('enabled', 'lang:enabled', 'trim|numeric');
 		
 		//if this is a new account require a password, or if they have entered either a password or a password confirmation
@@ -261,6 +266,7 @@ class Restaurant extends Admin_Controller {
 			$save['servicetax']			   = $this->input->post('servicetax');
 			$save['commission'] 		   = $this->input->post('commission');
 			$save['penalty'] 			   = $this->input->post('penalty');
+			$save['reimb'] 			   = $this->input->post('reimb');
             $save['enabled']      		   = $this->input->post('enabled');
 			$save['preparation_time']	   = $this->input->post('preparation_time');
 			$save['fromtime'] 			   = $this->input->post('fromtime');
