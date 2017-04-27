@@ -56,6 +56,7 @@
 			<th>Del partner remarks</th>
 		</tr>
 	</thead>
+
 	
 	<?php echo (count($orders) < 1)?	'<tr><td style="text-align:center;" colspan="2">No new orders found</td></tr>'	:	''; ?>
 	<?php if($orders):?>
