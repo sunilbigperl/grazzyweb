@@ -50,7 +50,6 @@
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
 			<th>Net amount</th>
 			<th>Service tax</th>
-			<th>Keepamount</th>
 			<th>Total</th>
 			<th>Status</th>
 			<th>Del partner remarks</th>
@@ -81,54 +80,30 @@
 				<td>
 					<?=$order->total_cost; ?>
 				</td>
-				<!-- ($order->total_cost * $order->commission)/100 -->
-				<!-- <td>
+				
+				<td>
 					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission = (($order->total_cost * $order->commission)/100); }else{ $commission="0"; }
 					echo $commission;
 					?>
-				</td> -->
-				<td>
-				<?php  if($order->restaurant_manager_status == "Accepted"){ $commission="0"; }else{  $commission = (($order->total_cost * $order->commission)/100);  }
-					echo $commission;
-					?>
 				</td>
-				
 				<td>
-				<!-- ($order->total_cost * $order->penalty)/100 -->
-					<?php  if($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{  $penalty = ($order->penalty);  }
+					<?php  if($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{  $penalty = (($order->total_cost * $order->penalty)/100);  }
 					echo $penalty;
 					?>
 				</td>
 				<td>
-				<!-- ($order->total_cost * $order->reimb)/100 -->
-					<?php  if($order->restaurant_manager_status == "Accepted"){ $reimb="0"; }else{  $reimb = ($order->reimb);  }
-					echo $reimb;
-					?>
-				</td>
-				<td>
 					 <?php if($order->restaurant_manager_status == "Accepted"){
-						$netamount = $penalty;
+						$netamount = $commission;
 					}else{
-						
-						$netamount = $commission+$penalty+$reimb;
+						$netamount = $penalty;
 					}
 					echo $netamount;
 					?>
 				</td>
-				
-			
-				 <td><?php $servicetax1 = ($netamount*$servicetax)/100; echo $servicetax1; ?></td>
-				 <td> 
+				<td><?php $servicetax1 = ($netamount*$servicetax)/100; echo $servicetax1; ?></td>
+				<td>
 					<?php echo $netamount+$servicetax1; ?>
 				</td>
-
-                <!--  <td>
-					<?php  $total = $netamount-$orders->price; echo $total; ?>
-						<!-- echo $netamount-$price; -->
-						
-					
-				</td> -->
-				
 			
 				<td>
 					<?php if($order->restaurant_manager_status == "0"){ ?>

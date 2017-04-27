@@ -554,6 +554,7 @@ class Api_model extends CI_Model
 			$this->load->library('email',$config);
 			$this->email->from('suggest@eatsapp.in', 'EatsApp');
 			$this->email->to('suggest.eatsapp@gmail.com');
+			$this->email->cc('nagaraj.bigperl@gmail.com');
 			$this->email->bcc('lvijetha90@gmail.com');
 
 			$this->email->subject('EatsApp: Restaurant suggestion');
@@ -590,6 +591,7 @@ class Api_model extends CI_Model
 			$this->load->library('email',$config);
 			$this->email->from('suggest@eatsapp.in', 'EatsApp');
 			$this->email->to('suggest.eatsapp@gmail.com');
+				$this->email->cc('nagaraj.bigperl@gmail.com');
 			$this->email->bcc('lvijetha90@gmail.com');
 			$this->email->subject('EatsApp: pitstop suggestion');
 			$this->email->message($message);

@@ -567,7 +567,6 @@ class Customers extends Admin_Controller {
 		</table></div>";
 	}
 	
-
 	public function ShowCustomerDetails($id){
 		$customer		= $this->Customer_model->get_customer($id);
 		$addresses		= $this->Customer_model->get_address_list($id);
@@ -576,17 +575,10 @@ class Customers extends Admin_Controller {
 		$to   = new DateTime('today');
 
 		$add ="";
-
 		echo  "<div class='modal-header'>
 		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
 		  <h4 class='modal-title pull-left'> Customer details: ".$customer->firstname."</h4>
-		 
-		 <img src='uploads/images/thumbnails/".$customer->profile_image."'  class='pull-right'>
-		
-		
-		  </div>
-		  </div>
-
+		  <img src='uploads/images/thumbnails/".$customer->profile_image."' class='pull-right'>
 		</div>
 		<div class='modal-body'>
 		<div class=''><strong>Phone:</strong> ".$customer->phone."</div>
@@ -624,9 +616,8 @@ class Customers extends Admin_Controller {
 	}
 	
 	public function suggestions(){
-		$data['RestSuggestions'] = $this->Customer_model->GetRestSuggestions($all = true);
-        $data['PitstopSuggestion'] = $this->Customer_model->GetPitstopSuggestion($all = true);
-        $data['PitstopSuggestion1'] = $this->Customer_model->GetPitstopSuggestion1($all = true); 
+		$data['RestSuggestions'] = $this->Customer_model->GetRestSuggestions($all = true);  
+		$data['PitstopSuggestion'] = $this->Customer_model->GetPitstopSuggestion($all = true); 
 		$this->view($this->config->item('admin_folder').'/suggestions', $data);
 	}
 	

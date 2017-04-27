@@ -161,35 +161,7 @@
 <?php endforeach; ?>
 	</tbody>
 </table>
-<?php 
-if($fetch_data->num_rows()>0)
-{
-foreach($fetch_data->result() as $row)
-{
-  ?> 
 
-      <tr>
-       
-        <td><?php echo $row->pitstop_name;?></td><br>
-        <td><?php echo $row->latitude;?></td><br>
-         <td><?php echo $row->langitude;?></td><br>
-         <td><?php echo $row->enabled;?></td><br>
-         
-      </tr>
-  <?php
-}
-}
-else
-{
-
-  echo "no data found";
-?>
-
-  
-<?php
-}
-?>
- 
 
 <div class="row">
 	<div class="form-control" style="text-align:center;">
