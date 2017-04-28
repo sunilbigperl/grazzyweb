@@ -63,6 +63,7 @@ class Restaurant extends Admin_Controller {
 		$data['servicetax'] = '';
 		$data['commission'] = '';
 		$data['penalty'] ='';
+		$data['Reimb'] ='';
         $data['fromtime'] ='';
 		$data['totime'] ='';
 		$data['days'] ='';
@@ -107,6 +108,7 @@ class Restaurant extends Admin_Controller {
 			$data['servicetax'] = $restaurant->servicetax;
 			$data['commission'] = $restaurant->commission;
 			$data['penalty']	= $restaurant->penalty;
+			$data['Reimb']	= $restaurant->reimb;
 			$data['fromtime']	= $restaurant->fromtime;
 			$data['totime']	= $restaurant->totime;
 			$data['days']	= $restaurant->days;
@@ -261,6 +263,7 @@ class Restaurant extends Admin_Controller {
 			$save['servicetax']			   = $this->input->post('servicetax');
 			$save['commission'] 		   = $this->input->post('commission');
 			$save['penalty'] 			   = $this->input->post('penalty');
+			$save['Reimb'] 			   = $this->input->post('Reimb');
             $save['enabled']      		   = $this->input->post('enabled');
 			$save['preparation_time']	   = $this->input->post('preparation_time');
 			$save['fromtime'] 			   = $this->input->post('fromtime');
