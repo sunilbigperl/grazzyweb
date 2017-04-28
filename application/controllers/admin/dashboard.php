@@ -63,7 +63,8 @@ class Dashboard extends Admin_Controller {
 	}
 
 	function index(){
-$restaurant = $this->Customer_model->get_restaurants();
+		
+		$restaurant = $this->Customer_model->get_restaurants();
 		if($restaurant != 0 ){
 			$data['restaurant'] = json_encode($restaurant);
 		}else{
@@ -89,23 +90,5 @@ $restaurant = $this->Customer_model->get_restaurants();
 		$sql3  = $this->db->query("SELECT COUNT(id) as count FROM `orders`");
 		$data['totalorders'] = $sql3->result()[0]->count;
 		$this->view($this->config->item('admin_folder').'/map', $data);
-// print_r($data) ;
-//  exit;
-// $this->load->model('pitstop_model');
-//  $data['fetch_data']=$this->pitstop_model->fetch_data(); 
-// $this->load->view('admin/dashboard',$data);
-
 	}
-
-// 	public function pitstop()
-// {
-
-//   $this->load->model('pitstop_model');
-//  $data['fetch_data']=$this->pitstop_model->fetch_data();
-//  print_r($data['fetch_data']) ;
-//  exit;
-// $this->load->view('admin/dashboard',$data);
-
-// }
-
 }

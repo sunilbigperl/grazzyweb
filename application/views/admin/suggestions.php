@@ -12,7 +12,7 @@
 					<tr>
 						<th>Restaurant name</th>
 						<th>Suggested customer</th>
-						<th>Customer PhoneNo</th>
+						<th>customer Phoneno</th>
 						<th>Restaurant email</th>
 						<th>Restaurant phone</th>
 						<th>Restaurant address</th>
@@ -44,7 +44,8 @@
 				<thead>
 					<tr>
 						<th>Pitstop address</th>
-						<th>customer name</th>
+						<th>Suggested customer</th>
+						<th>Customer phoneno</th>
 						<th>Latitude</th>
 						<th>Langitude</th>
 						<th>Date</th>
@@ -56,8 +57,9 @@
 						foreach($PitstopSuggestion['data'] as $Pitstop){
 					?>
 					<tr >
-						<td><a data-toggle="modal" data-target="#myModal"  onclick="ShowMap('<?=$Pitstop->restaurant_latitude; ?>','<?=$Pitstop->restaurant_langitude; ?>',);"><?=$Pitstop->restaurant_address;?></a></td>
+						<td><a data-toggle="modal" data-target="#myModal"  onclick="ShowMap('<?=$Pitstop->restaurant_latitude; ?>','<?=$Pitstop->restaurant_langitude; ?>');"><?=$Pitstop->restaurant_address;?></a></td>
 						<td><?=isset($Pitstop->firstname) ? $Pitstop->firstname : '';?></td>
+						<td><?=isset($Pitstop->phone) ? $Pitstop->phone : '';?></td>
 						<td><?=isset($Pitstop->restaurant_latitude) ?  $Pitstop->restaurant_latitude : '';?></td>
 						<td><?=isset($Pitstop->restaurant_langitude) ? $Pitstop->restaurant_langitude : '';?></td>
 						<td><?=$Pitstop->date;?></td>

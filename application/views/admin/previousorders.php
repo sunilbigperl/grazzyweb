@@ -50,7 +50,7 @@
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
 			<th>Net amount</th>
 			<th>Service tax</th>
-			<th>Keepamount</th>
+			<th>Keep amount</th>
 			<th>Total</th>
 			<th>Status</th>
 			<th>Del partner remarks</th>
@@ -63,14 +63,13 @@
 	<tbody>
 		
 		<?php
-		$GLOBALS['admin_folder'] = $this->config->item('admin_folder');
+			$GLOBALS['admin_folder'] = $this->config->item('admin_folder');
 			$i=1;
 			foreach($orders as $order)
 			{
-			$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
-			
-			$servicetax = $charges['servicetax'];
-			$deliverycharge = $charges['deliverycharge'];
+				$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
+				$servicetax = $charges['servicetax'];
+				$deliverycharge = $charges['deliverycharge'];
 		?>
 			<tr class="gc_row">
 				<td><?=$i;?></td>
@@ -82,55 +81,26 @@
 				<td>
 					<?=$order->total_cost; ?>
 				</td>
-				<!-- ($order->total_cost * $order->commission)/100 -->
-				<!-- <td>
+				
+				<td>
 					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission = (($order->total_cost * $order->commission)/100); }else{ $commission="0"; }
 					echo $commission;
 					?>
-				</td> -->
-				<td>
-				<?php  if($order->restaurant_manager_status == "Accepted"){ $commission="0"; }else{  $commission = (($order->total_cost * $order->commission)/100);  }
-					echo $commission;
-					?>
 				</td>
-				
 				<td>
-				<!-- ($order->total_cost * $order->penalty)/100 -->
-					<?php  if($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{  $penalty = ($order->penalty);  }
+					<?php  if($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{ $penalty = (($order->total_cost * $order->penalty)/100);  }
 					echo $penalty;
 					?>
 				</td>
 				<td>
-				<!-- ($order->total_cost * $order->reimb)/100 -->
-					<?php  if($order->restaurant_manager_status == "Accepted"){ $reimb="0"; }else{  $reimb = ($order->reimb);  }
-					echo $reimb;
-					?>
+					 <?php echo $order->delivery_charge; ?>
 				</td>
+				<td><?php $netamount = $commission + $penalty + $order->delivery_charge;  echo $netamount;  ?></td>
 				<td>
-					 <?php if($order->restaurant_manager_status == "Accepted"){
-						$netamount = $penalty;
-					}else{
-						
-						$netamount = $commission+$penalty+$reimb;
-					}
-					echo $netamount;
-					?>
+					<?php $servicetax1 = ($netamount*$servicetax)/100; echo $servicetax1;   ?>
 				</td>
-				
-			
-				 <td><?php $servicetax1 = ($netamount*$servicetax)/100; echo $servicetax1; ?></td>
-				 <td> 
-					<?php echo $netamount+$servicetax1; ?>
-				</td>
-
-                <!--  <td>
-					<?php  $total = $netamount-$orders->price; echo $total; ?>
-						<!-- echo $netamount-$price; -->
-						
-					
-				</td> -->
-				
-			
+				<td><?php $keepamt =  $netamount+$servicetax1; echo $keepamt; ?></td>
+				<td><?php echo $order->total_cost- $keepamt; ?></td>
 				<td>
 					<?php if($order->restaurant_manager_status == "0"){ ?>
 						Not acted yet

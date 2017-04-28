@@ -546,23 +546,6 @@ Class Customer_model extends CI_Model
 		}
 		return $result;
 	}
-
-function GetPitstopSuggestion1($all = false){
-        $where="";
-        if($all == false){
-            $yes = date('Y-m-d H:i:s',strtotime("-1 days"));
-            $today =  date('Y-m-d H:i:s');
-            $where = "and a.date >= '".$yes."'";
-        }
-        
-        $sql1 = $this->db->query("select * from pitstop_suggest a, pitstops b where a.id=b.pitstop_id  ".$where."");
-        if($sql1->num_rows() > 0){
-            $result['data'] = $sql1->result();
-        }
-        else{
-            $result = 0;
-        }
-        return $result;
-    }	
+	
 	
 }

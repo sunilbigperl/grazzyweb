@@ -114,7 +114,7 @@ Class Deliveryboy_model extends CI_Model
 	}
 	
 	function get_ListValues($id){
-		$sql = $this->db->query("select * from charges where delpartner_id='".$id."'");
+		$sql = $this->db->query("select * from delpartner_charges where delpartner_id='".$id."'");
 		if($sql->num_rows() > 0){
 			$result['data']	= $sql->result();
 			
@@ -126,10 +126,10 @@ Class Deliveryboy_model extends CI_Model
 	
 	function SaveCharges($data,$id){
 		
-		$sql = $this->db->query("delete from charges where delpartner_id='".$id."'");
+		$sql = $this->db->query("delete from delpartner_charges where delpartner_id='".$id."'");
 		if($sql){
 			foreach($data as $datas){
-				$this->db->insert('charges', $datas);
+				$this->db->insert('delpartner_charges', $datas);
 			}
 		}
 	}

@@ -605,11 +605,6 @@ class Api extends REST_Controller {
 			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 			
 		}
 	  }
-
-     
-
-      //
-      
 	  
 	  public function updateProfilepicture_post(){
 		 
