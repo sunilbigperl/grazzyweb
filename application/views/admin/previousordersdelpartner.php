@@ -59,7 +59,7 @@
 			<th data-field="delivery">Delivery location</th>
 			<?php if(isset($url)){ ?>
 			<th data-field="price">Delivery charge</th>
-				<th data-field="delprice">Reimbursement of Delivery charge</th>
+			<!--	<th data-field="delprice">Reimbursement of Delivery charge</th> -->
 			<th data-field="distance">KM</th>
 			<th data-field="Penalty">Penalty</th>
 			<th>Net amount</th>
