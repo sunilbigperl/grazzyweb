@@ -8,7 +8,7 @@ class Customers extends Admin_Controller {
 	function __construct()
 	{		
 		parent::__construct();
-		$this->auth->check_access('Admin', true);
+		//$this->auth->check_access('Admin', true);
 		$this->load->model(array('Customer_model', 'Location_model'));
 		$this->load->helper('formatting_helper');
 		$this->lang->load('customer');
@@ -622,6 +622,7 @@ class Customers extends Admin_Controller {
 	}
 	
 	public function ShowAlert(){
+		
 		$html = "";
 		date_default_timezone_set('Asia/Calcutta');
 		if($this->auth->check_access('Restaurant manager')){ 
