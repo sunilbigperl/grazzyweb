@@ -88,7 +88,7 @@
 					?>
 				</td> -->
 				<td>
-					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission="0";  }else{ $commission = (($order->commission)/100); }
+					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission="0";  }else{  $commission = (($order->total_cost * $order->commission)/100); }
 					echo $commission;
 					?>
 				</td> 
