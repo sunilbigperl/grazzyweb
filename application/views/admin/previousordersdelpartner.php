@@ -130,7 +130,7 @@
 						$netamount = $deliverycharge;
 					}else{
 						$netamount = $deliverycharge-$order->penalty;
-					}
+					} 
 					echo $netamount;
 					?>
 				</td>
