@@ -59,7 +59,7 @@
 			<th data-field="delivery">Delivery location</th>
 			<?php if(isset($url)){ ?>
 			<th data-field="price">Delivery charge</th>
-				<th data-field="delprice">Reimbursement of Delivery charge</th>
+				<!-- <th data-field="delprice">Reimbursement of Delivery charge</th> -->
 			<th data-field="distance">KM</th>
 			<th data-field="Penalty">Penalty</th>
 			<th>Net amount</th>
@@ -106,9 +106,10 @@
 				<?php if(isset($url)){ ?>
 				<td>
 					<?php if($order->delivery_partner_status == "Accepted"){
-						echo $deliverycharge;
-					}else{
 						echo "0";
+					}else{
+						echo $deliverycharge;
+						
 					} ?>
 					
 				</td>
@@ -128,7 +129,7 @@
 				<td> <?php if($order->delivery_partner_status == "Accepted"){
 						$netamount = $deliverycharge;
 					}else{
-						$netamount = $order->penalty;
+						$netamount = $deliverycharge-$order->penalty;
 					}
 					echo $netamount;
 					?>
