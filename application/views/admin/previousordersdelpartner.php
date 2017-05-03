@@ -78,7 +78,11 @@
 		$GLOBALS['admin_folder'] = $this->config->item('admin_folder');
 			$i=1;
 			foreach($orders as $order)
-			{?>
+			{
+				$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
+				$servicetax = $charges['servicetax'];
+				$deliverycharge = $charges['deliverycharge'];
+				?>
 			<tr class="gc_row">
 				<td><?=$i;?></td>
 				<td><?=$order->ordered_on;?></td>
