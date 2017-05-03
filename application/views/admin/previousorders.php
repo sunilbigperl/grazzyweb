@@ -82,16 +82,18 @@
 					<?=$order->total_cost; ?>
 				</td>
 				
-				<td>
+				<!-- <td>
 					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission = (($order->total_cost * $order->commission)/100); }else{ $commission="0"; }
 					echo $commission;
 					?>
-				</td> 
-				<!-- <td>
-					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission="0";  }else{  $commission = (($order->total_cost * $order->commission)/100); }
+				</td> -->
+				<td>
+					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission = (($order->commission)/100); }else{ $commission = "0"; }
 					echo $commission;
 					?>
-				</td> -->
+				</td> 
+
+
 				<td>
 				<!-- (($order->total_cost * $order->penalty)/100) -->
 					<?php  if($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{ $penalty = ($order->penalty);  }
@@ -101,15 +103,10 @@
 				<td>
 					 <?php echo $order->reimb; ?>
 				</td>
+				
+				 <td><?php $netamount = $commission + $penalty + $order->reimb;  echo $netamount;  ?></td>
 				<td>
-				<!-- (($order->total_cost * $order->penalty)/100) -->
-					<?php  if($order->restaurant_manager_status == "Accepted"){$netamount = $commission + $penalty + $order->reimb; }else{ $netamount = "0";  }
-					echo $netamount;
-					?>
-				</td>
-				<!-- <td><?php $netamount = $commission + $penalty + $order->reimb;  echo $netamount;  ?></td> -->
-				<td>
-					<?php $servicetax1 = ($netamount*$servicetax)/100; echo $servicetax1;   ?>
+					<?php $servicetax1 =($netamount*$servicetax)/100; echo $servicetax1;   ?>
 				</td>
 				<td><?php $keepamt =  $netamount+$servicetax1; echo $keepamt; ?></td>
 				<td><?php echo $order->total_cost- $keepamt; ?></td>
