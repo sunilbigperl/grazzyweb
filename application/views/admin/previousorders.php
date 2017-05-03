@@ -101,7 +101,13 @@
 				<td>
 					 <?php echo $order->reimb; ?>
 				</td>
-				<td><?php $netamount = $commission + $penalty + $order->reimb;  echo $netamount;  ?></td>
+				<td>
+				<!-- (($order->total_cost * $order->penalty)/100) -->
+					<?php  if($order->restaurant_manager_status == "Accepted"){$netamount = $commission + $penalty + $order->reimb; }else{ $netamount = "0";  }
+					echo $netamount;
+					?>
+				</td>
+				<!-- <td><?php $netamount = $commission + $penalty + $order->reimb;  echo $netamount;  ?></td> -->
 				<td>
 					<?php $servicetax1 = ($netamount*$servicetax)/100; echo $servicetax1;   ?>
 				</td>
