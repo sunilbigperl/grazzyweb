@@ -82,16 +82,16 @@
 					<?=$order->total_cost; ?>
 				</td>
 				
-				<td>
+				<!-- <td>
 					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission = (($order->total_cost * $order->commission)/100); }else{ $commission="0"; }
 					echo $commission;
 					?>
-				</td> 
-				<!-- <td>
-					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission = (($order->commission)/100); }else{ $commission = "0"; }
+				</td> --> 
+				<td>
+					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission = ((order->total_cost *$order->commission)/100); }else{ $commission = "0"; }
 					echo $commission;
 					?>
-				</td>  -->
+				</td> 
 
 
 				<td>
