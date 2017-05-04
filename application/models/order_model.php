@@ -526,8 +526,15 @@ Class order_model extends CI_Model
 			$data['servicetax'] = $res[0]['servicetax'];
 			$data['deliverycharge'] = $res[0]['deliverycharge'];
 		}else{
-			$data['servicetax'] = '';
-			$data['deliverycharge'] = '';
+			$sql = $this->db->query("select * from charges order by start_date desc  limit 1");
+			if($sql->num_rows() > 0){
+				$res	= $sql->result_array();
+				$data['servicetax'] = $res[0]['servicetax'];
+				$data['deliverycharge'] = $res[0]['deliverycharge'];
+			}else{
+				$data['servicetax'] = '';
+				$data['deliverycharge'] = '';
+			}
 		}
 		return $data;
 	}
