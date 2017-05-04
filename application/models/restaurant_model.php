@@ -10,7 +10,7 @@ Class Restaurant_model extends CI_Model
 		 $this->db->where('restaurant_manager', $userdata['id']);
 		}
         $this->db->order_by('restaurant_name', 'ASC');
-
+		 $this->db->where('delete',0);
         $result = $this->db->get('restaurant');
         
         $restaurants = array();
@@ -43,7 +43,8 @@ Class Restaurant_model extends CI_Model
 		$today =  date('Y-m-d H:i:s');
 		$userdata = $this->session->userdata('admin');
 		
-		$sql = $this->db->query("select * from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and b.restaurant_manager='".$userdata['id']."' or a.restaurant_id=0
+		$sql = $this->db->query("select * from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and b.restaurant_manager='".$userdata['id']."' 
+		or a.restaurant_id=0 and delete = 0
 		order by date desc limit 1");
 		$sql1 = $this->db->query("select * from restaurant_messages  where restaurant_id=".rand()." order by date desc limit 1" );
 		if($sql1->num_rows() > 0){  
@@ -148,12 +149,17 @@ Class Restaurant_model extends CI_Model
     
     function delete($id)
     {
-        $this->db->where('restaurant_id', $id);
-        $this->db->delete('restaurant');
+        /* $this->db->where('restaurant_id', $id);
+        $this->db->delete('restaurant'); */
+		$data['delete'] = 1;
+		$this->db->where('restaurant_id', $id);
+        $this->db->update('restaurant', $data);
         
         //delete references to this category in the product to category table
-        $this->db->where('restaurant_id', $id);
-		$this->db->delete('restaurant_menu');
+		$this->db->where('restaurant_id', $id);
+            $this->db->update('restaurant_menu', $data);
+       /*  $this->db->where('restaurant_id', $id);
+		$this->db->delete('restaurant_menu'); */
 		
     }
 	

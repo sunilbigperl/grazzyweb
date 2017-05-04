@@ -2,7 +2,7 @@
 Class Menu_model extends CI_Model
 {
 	function GetMenus($id){
-		$sql = "SELECT * FROM `restaurant_menu` where restaurant_id=$id order by menu asc";
+		$sql = "SELECT * FROM `restaurant_menu` where restaurant_id=$id and `delete` = 0 order by menu asc";
 		
 		$query = $this->db->query($sql);
 		if($query->num_rows() ==''){
@@ -15,7 +15,7 @@ Class Menu_model extends CI_Model
 	}
 	
 	function GetMenu($id){
-		$result	= $this->db->get_where('restaurant_menu', array('menu_id'=>$id))->row();
+		$result	= $this->db->get_where('restaurant_menu', array('menu_id'=>$id,'delete'=>0))->row();
 		//echo $this->db->last_query(); exit;
 		if(!$result)
 		{
@@ -117,9 +117,11 @@ Class Menu_model extends CI_Model
 	
 	  function delete($id,$res_id)
     {
+		$data['delete'] = 1;
         $this->db->where('menu_id', $id);
 		$this->db->where('restaurant_id', $res_id);
-        $this->db->delete('restaurant_menu');
+        //$this->db->delete('restaurant_menu');
+		 $this->db->update('restaurant_menu',$data);
        
     }
 	

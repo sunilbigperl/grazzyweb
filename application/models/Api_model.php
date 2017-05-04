@@ -193,7 +193,7 @@ class Api_model extends CI_Model
 		$date = date("Y-m-d");
 		$threadmsg = $this->db->query("select a.* from restaurant a, pitstops b, pitstop_restaurants c, admin d where 
 		a.restaurant_id = c.restaurants_id and b.pitstop_id=c.pitstop_id  and d.id = a.restaurant_manager and 
-		d.NextRenewalDate <= '".$date."' and b.pitstop_id='".$id."' and a.enabled=1");
+		d.NextRenewalDate <= '".$date."' and b.pitstop_id='".$id."' and a.enabled=1 and a.`delete`=0");
 
 			if($threadmsg->num_rows()>0){
 				$result = array();
@@ -267,7 +267,7 @@ class Api_model extends CI_Model
     }
 	
 	public function pitstopsuser($data){
-		$sql = "SELECT * FROM `pitstops` WHERE `latitude` > '".$data['southwest_lat']."' and `latitude` < '".$data['northeast_lat']."'
+		$sql = "SELECT * FROM `pitstops` WHERE `latitude` > '".$data['southwest_lat']."' and `latitude` < '".$data['northeast_lat']." and `delete`=0'
 		and `langitude` > '".$data['southwest_lng']."' and`langitude` < '".$data['northeast_lng']."' and enabled = 1";
 		$query = $this->db->query($sql);
 		if($query->num_rows()>0){
@@ -339,7 +339,7 @@ class Api_model extends CI_Model
 				$result[$i]['total_cost'] = $row['total_cost'];
 				$result[$i]['order_number'] = $row['order_number'];
 				
-				$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id";
+				$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and a.`delete`=0";
 				$query2 = $this->db->query($sql2);
 				//print_r($query2->result_array()); exit;
 				if($query2->num_rows()>0){
@@ -401,7 +401,7 @@ class Api_model extends CI_Model
 					$res = $query1->result_array();
 					$result[$i]['restaurant_name'] = $res[0]['restaurant_name'];
 				}
-				$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id";
+				$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and a.`delete`=0";
 				
 				$query2 = $this->db->query($sql2);
 				if($query2->num_rows()>0){
@@ -444,7 +444,8 @@ class Api_model extends CI_Model
 		$sql3 = $this->db->query("select servicetax from restaurant where restaurant_id='".$id."'");
 		$servicetax =  $sql3->result_array();
 		
-		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id";
+		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
+		a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0";
 		
 		$query = $this->db->query($sql);
 		$result = array();
@@ -456,7 +457,8 @@ class Api_model extends CI_Model
 					$result[$i]['category_id'] = $menu['category_id'];
 					$result[$i]['category'] = $menu['name'];
 					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
-					$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' and a.menu_id = b.menu_category and b.category_id = c.id";
+					$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
+					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0";
 					$query1 = $this->db->query($sql1);
 					if($query1->num_rows()>0){
 						$data1 = $query1->result_array();
@@ -509,7 +511,7 @@ class Api_model extends CI_Model
 	}
 	
 	public function pitstopsuser1($data){
-		$sql = $this->db->query("select * from pitstops where enabled=1");
+		$sql = $this->db->query("select * from pitstops where enabled=1 and `delete`=0");
 		if($sql->num_rows()>0){
 			$data = $sql->result_array();
 			$i=0;

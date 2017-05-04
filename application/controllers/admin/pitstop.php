@@ -14,7 +14,8 @@ class Pitstop extends Admin_Controller {
     
 	function Deleteall(){
 		foreach($_POST['DeleteOptions'] as $key=>$DeleteOption){
-			$sql = $this->db->query('delete from pitstops where pitstop_id="'.$key.'"');
+			//$sql = $this->db->query('delete from pitstops where pitstop_id="'.$key.'"');
+			$sql = $this->db->query('update pitstops set delete=1 where pitstop_id="'.$key.'"');
 		}
 		redirect("admin/pitstop");
 	}

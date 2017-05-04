@@ -6,6 +6,7 @@ Class Pitstop_model extends CI_Model
     {
         if(!$admin)
         $this->db->where('enabled', 1);
+		$this->db->where('delete', 0);
         $this->db->order_by('pitstop_name', 'ASC');
         $pitstops = $this->db->get('pitstops')->result();
       
@@ -111,9 +112,11 @@ Class Pitstop_model extends CI_Model
     
     function delete($id)
     {
+		$data['delete'] = 1 ;
         $this->db->where('pitstop_id', $id);
-        $this->db->delete('pitstops');
-        
+        $this->db->update('pitstops',$data);
+		//echo $this->db->last_query(); exit;
+       // $sql = $this->db->query('update pitstops set `delete`=1 where pitstop_id="'.$id.'"');
         //delete references to this category in the product to category table
        // $this->db->where('category_id', $id);
         //$this->db->delete('category_products');

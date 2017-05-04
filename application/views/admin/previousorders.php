@@ -82,14 +82,11 @@
 					<?=$order->total_cost; ?>
 				</td>
 				
-				<!-- <td>
-					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission = (($order->total_cost * $order->commission)/100); }else{ $commission="0"; }
-					echo $commission;
-					?>
-				</td> -->
 				
 				<td>
-					<?php  if($order->restaurant_manager_status == "Accepted"){ $commission = (($order->total_cost *$order->commission)/100); }else{ $commission = "0"; }
+					<?php  if($order->delivery_partner_status == "Rejected"){
+						$commission = 0;
+					}elseif($order->restaurant_manager_status == "Accepted"){ $commission = (($order->total_cost *$order->commission)/100); }else{ $commission = "0"; }
 					echo $commission;
 					?>
 				</td> 
@@ -97,20 +94,46 @@
 
 				<td>
 				<!-- (($order->total_cost * $order->penalty)/100) -->
-					<?php  if($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{ $penalty = ($order->penalty);  }
+					<?php  if($order->delivery_partner_status == "Rejected"){
+						$penalty = 0;
+					}elseif($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{ $penalty = ($order->penalty);  }
 					echo $penalty;
 					?>
 				</td>
 				<td>
-					 <?php echo $order->reimb; ?>
+					 <?php if($order->delivery_partner_status == "Rejected"){
+						echo 0;
+					}else{
+						echo $order->reimb; 
+					}?>
 				</td>
 				
-				 <td><?php $netamount = $commission + $penalty + $order->reimb;  echo $netamount;  ?></td>
+				 <td><?php if($order->delivery_partner_status == "Rejected"){
+						$netamount = 0;
+					}else{
+						$netamount = $commission + $penalty + $order->reimb; ; 
+					}
+					 echo $netamount
+					?></td>
 				<td>
-					<?php $servicetax1 =($netamount*$servicetax)/100; echo $servicetax1;   ?>
+					<?php  if($order->delivery_partner_status == "Rejected"){
+						$servicetax1 = 0;
+					}else{
+						$servicetax1 =($netamount*$servicetax)/100; 
+					}
+					echo $servicetax1;   ?>
 				</td>
-				<td><?php $keepamt =  $netamount+$servicetax1; echo $keepamt; ?></td>
-				<td><?php echo $order->total_cost- $keepamt; ?></td>
+				<td><?php  if($order->delivery_partner_status == "Rejected"){
+						$keepamt = 0;
+					}else{
+						$keepamt =  $netamount+$servicetax1;
+					}
+					echo $keepamt; ?></td>
+				<td><?php if($order->delivery_partner_status == "Rejected"){
+						echo  0;
+					}else{
+						echo $order->total_cost - $keepamt;
+					}						?></td>
 				<td>
 					<?php if($order->restaurant_manager_status == "0"){ ?>
 						Not acted yet
