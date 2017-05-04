@@ -103,9 +103,17 @@
 					echo $penalty;
 					?>
 				</td>
+
 				<td>
-					 <?php echo $order->reimb; ?>
+				
+					<?php  if($order->restaurant_manager_status == "Accepted"){ $order->reimb; }else{ $order->reimb=0;  }
+					echo $order->reimb;
+					?>
 				</td>
+
+				<!-- <td>
+					 <?php echo $order->reimb; ?>
+				</td> -->
 				
 				 <td><?php $netamount = $commission + $penalty + $order->reimb;  echo $netamount;  ?></td>
 				<td>
