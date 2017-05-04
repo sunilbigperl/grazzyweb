@@ -120,7 +120,15 @@
 					<?php $servicetax1 =($netamount*$servicetax)/100; echo $servicetax1;   ?>
 				</td>
 				<td><?php $keepamt =  $netamount+$servicetax1; echo $keepamt; ?></td>
-				<td><?php echo $order->total_cost- $keepamt; ?></td>
+
+
+				<td>
+				
+					<?php  if($order->restaurant_manager_status == "Accepted"){ echo $order->total_cost- $keepamt; }else{echo  -$keepamt;  }
+					
+					?>
+				</td>
+				<!-- <td><?php echo $order->total_cost- $keepamt; ?></td> -->
 				<td>
 					<?php if($order->restaurant_manager_status == "0"){ ?>
 						Not acted yet
