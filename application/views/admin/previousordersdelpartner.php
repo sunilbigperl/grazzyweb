@@ -109,7 +109,7 @@
 				</td>
 				<?php if(isset($url)){ ?>
 				<td>
-					<?php if($order->delivery_partner_status == "Accepted by delivery partner"){
+					<?php if($order->delivery_partner_status == "Accepted"){
 						echo "0";
 					}else{
 						echo $deliverycharge;
@@ -122,7 +122,7 @@
 				</td>
 				
 				<td>
-					<?php if($order->delivery_partner_status == "Accepted by delivery partner"){
+					<?php if($order->delivery_partner_status == "Accepted"){
 						echo "0";
 					}else{
 						echo $order->penalty;
@@ -130,7 +130,7 @@
 					?>
 				</td>
 				
-				<td> <?php if($order->delivery_partner_status == "Accepted by delivery partner"){
+				<td> <?php if($order->delivery_partner_status == "Accepted"){
 						$netamount = $deliverycharge;
 					}else{
 						$netamount = $deliverycharge-$order->penalty;
