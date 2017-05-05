@@ -86,7 +86,7 @@
 				<td>
 					<?php  if($order->delivery_partner_status == "Rejected"){
 						$commission = 0;
-					}elseif($order->restaurant_manager_status == "Accepted by restaurant"){ $commission = (($order->total_cost *$order->commission)/100); }else{ $commission = "0"; }
+					}elseif($order->restaurant_manager_status == "Accepted"){ $commission = (($order->total_cost *$order->commission)/100); }else{ $commission = "0"; }
 					echo $commission;
 					?>
 				</td> 
