@@ -103,9 +103,11 @@
 				<td>
 					 <?php if($order->delivery_partner_status == "Rejected"){
 						echo 0;
-					}else{
+					}elseif($order->restaurant_manager_status == "Accepted"){ $order->reimb; }else{ $order->reimb=0;  }
+				?>
+					<!-- else{
 						echo $order->reimb; 
-					}?>
+					} -->
 				</td>
 				
 				 <td><?php if($order->delivery_partner_status == "Rejected"){
@@ -129,10 +131,13 @@
 						$keepamt =  $netamount+$servicetax1;
 					}
 					echo $keepamt; ?></td>
+
 				<td><?php if($order->delivery_partner_status == "Rejected"){
 						echo  0;
-					}else{
-						echo $order->total_cost - $keepamt;
+					}elseif($order->restaurant_manager_status == "Accepted"){ echo $order->total_cost - $keepamt; }
+					else{
+						echo - $keepamt;
+					}
 					}						?></td>
 				<td>
 					<?php if($order->restaurant_manager_status == "0"){ ?>
