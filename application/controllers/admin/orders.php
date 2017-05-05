@@ -342,7 +342,7 @@ class Orders extends Admin_Controller {
 			$result = $this->Roadrunner_model->CheckServicability($data);
 			$roadrunner = json_decode($result);
 			if($roadrunner->status->code ==  200){
-				$sql = $this->db->query("update orders set delivery_partner = '123', delivery_partner_status = 'Accepted by delivery partner' where id='".$id."'");
+				$sql = $this->db->query("update orders set delivery_partner = '123', delivery_partner_status = 'Accepted' where id='".$id."'");
 				echo '<script>alert("Order assigned success. delivered by roadrunner.")</script>';
 			}
 		}
