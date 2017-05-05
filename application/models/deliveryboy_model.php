@@ -23,7 +23,7 @@ Class Deliveryboy_model extends CI_Model
 	}
 	
 	function get_deliveryPartnerorders($id){
-		$sql = $this->db->query("select * from orders where delivery_partner='".$id."' and delivery_partner_status = 'Accepted'");
+		$sql = $this->db->query("select * from orders where delivery_partner='".$id."' and delivery_partner_status = 'Accepted by delivery partner'");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
