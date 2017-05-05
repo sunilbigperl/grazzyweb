@@ -103,7 +103,7 @@
 				<td>
 					 <?php if($order->delivery_partner_status == "Rejected"){
 						echo 0;
-					}elseif($order->restaurant_manager_status == "Accepted"){ $order->reimb; }else{ $order->reimb=0;  }
+					}elseif($order->restaurant_manager_status == "Accepted"){echo $order->reimb; }else{ echo $order->reimb=0;  }
 				?>
 					<!-- else{
 						echo $order->reimb; 
@@ -138,7 +138,7 @@
 					else{
 						echo - $keepamt;
 					}
-					}						?></td>
+											?></td>
 				<td>
 					<?php if($order->restaurant_manager_status == "0"){ ?>
 						Not acted yet
