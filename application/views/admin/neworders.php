@@ -57,7 +57,7 @@ echo "" . date("jS F Y") . "<br>";
 				</td>-->
 				<td>
 				<?php if($order->restaurant_manager_status == "0"){ ?>
-					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-success btn-xs">Rejected by restaurant</a>
+					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-success btn-xs">Accept</a>
 					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
 				<?php }else{
 					echo $order->restaurant_manager_status;
