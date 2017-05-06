@@ -137,8 +137,12 @@
 				<td>
 					<?php if($order->restaurant_manager_status == "0"){ ?>
 						Not acted yet
-					<?php }else{
-						echo $order->restaurant_manager_status;
+					<?php }elseif($order->delivery_partner_status == "Rejected"){
+						Delivery manager rejected
+					}elseif($order->delivery_partner_status == "Accepted"){
+						Delivery manager Accepted
+					}else
+						Restaurant manager accepted
 					} ?>
 				</td>
 				<td> 

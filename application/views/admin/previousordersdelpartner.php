@@ -81,7 +81,7 @@
 			{
 				$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
 				$servicetax = $charges['servicetax'];
-				$deliverycharge = $charges['deliverycharge'];
+				$deliverycharge = $this->order_model->DelPartnerDeliveryCharge($order->distance);
 				?>
 			<tr class="gc_row">
 				<td><?=$i;?></td>
@@ -112,7 +112,7 @@
 					<?php if($order->delivery_partner_status == "Accepted"){
 						echo "0";
 					}else{
-						echo $deliverycharge;
+						echo $deliverycharge['rate'];
 						
 					} ?>
 					

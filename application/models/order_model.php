@@ -538,4 +538,16 @@ Class order_model extends CI_Model
 		}
 		return $data;
 	}
+	
+	public function DelPartnerDeliveryCharge($distance){
+		$distance = str_replace("KM","",$distance);
+		$sql= $this->db->query("select * from delpartner_charges where fromKm >= '".$distance."' and toKm <= '".$distance."' limit 1");
+		if($sql->num_rows() > 0){
+			$res	= $sql->result_array();
+			$data['rate'] = $res[0]['rate'];
+		}else{
+			$data['rate'] = 20;
+		}
+		$return $data;
+	}
 }
