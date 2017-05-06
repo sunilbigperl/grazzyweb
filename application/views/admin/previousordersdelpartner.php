@@ -81,7 +81,8 @@
 			{
 				$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
 				$servicetax = $charges['servicetax'];
-				$deliverycharge = $this->order_model->DelPartnerDeliveryCharge($order->distance);
+				$deliverycharge = $this->Order_model->DelPartnerDeliveryCharge($order->distance);
+				
 				?>
 			<tr class="gc_row">
 				<td><?=$i;?></td>
@@ -133,7 +134,8 @@
 				<td> <?php if($order->delivery_partner_status == "Accepted"){
 						$netamount = $deliverycharge;
 					}else{
-						$netamount = $deliverycharge-$order->penalty;
+						
+						$netamount = $deliverycharge['rate'] - $order->penalty;
 					} 
 					echo $netamount;
 					?>
