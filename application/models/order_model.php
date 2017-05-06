@@ -66,7 +66,7 @@ Class order_model extends CI_Model
 		$userdata = $this->session->userdata('admin');
 		$date = date("Y-m-d 00:00:00");
 		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`restaurant_id` = b.restaurant_id 
-		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.restaurant_manager_status = 'Accept' and  a.delivery_partner_status != 'Rejected' and a.order_type != 3 and a.ordered_on >= '".$date."' and a.delivery_partner != '123' order by a.ordered_on desc");
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.restaurant_manager_status = 'Accepted' and  a.delivery_partner_status != 'Rejected' and a.order_type != 3 and a.ordered_on >= '".$date."' and a.delivery_partner != '123' order by a.ordered_on desc");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
