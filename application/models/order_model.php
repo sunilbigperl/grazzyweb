@@ -548,6 +548,6 @@ Class order_model extends CI_Model
 		}else{
 			$data['rate'] = 20;
 		}
-		$return $data;
+		return $data;
 	}
 }
