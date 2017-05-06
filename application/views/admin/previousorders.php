@@ -144,6 +144,7 @@
 					}else{
 						echo "Restaurant manager accepted";
 					} ?>
+
 				</td>
 				<td> 
 					<?php $remarks = $this->Order_model->get_delpartnerremarks($order);
