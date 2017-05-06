@@ -44,7 +44,7 @@ Class Restaurant_model extends CI_Model
 		$userdata = $this->session->userdata('admin');
 		
 		$sql = $this->db->query("select * from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and b.restaurant_manager='".$userdata['id']."' 
-		or a.restaurant_id=0 and delete = 0
+		or a.restaurant_id=0 and b.delete = 0
 		order by date desc limit 1");
 		$sql1 = $this->db->query("select * from restaurant_messages  where restaurant_id=".rand()." order by date desc limit 1" );
 		if($sql1->num_rows() > 0){  

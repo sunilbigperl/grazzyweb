@@ -103,9 +103,11 @@
 				<td>
 					 <?php if($order->delivery_partner_status == "Rejected"){
 						echo 0;
-					}else{
+					}elseif($order->restaurant_manager_status == "Accepted"){echo $order->reimb; }else{ echo $order->reimb=0;  }
+				?>
+					<!-- else{
 						echo $order->reimb; 
-					}?>
+					} -->
 				</td>
 				
 				 <td><?php if($order->delivery_partner_status == "Rejected"){
@@ -129,11 +131,14 @@
 						$keepamt =  $netamount+$servicetax1;
 					}
 					echo $keepamt; ?></td>
+
 				<td><?php if($order->delivery_partner_status == "Rejected"){
 						echo  0;
-					}else{
-						echo $order->total_cost - $keepamt;
-					}						?></td>
+					}elseif($order->restaurant_manager_status == "Accepted"){ echo $order->total_cost - $keepamt; }
+					else{
+						echo - $keepamt;
+					}
+											?></td>
 				<td>
 					<?php if($order->restaurant_manager_status == "0"){ ?>
 						Not acted yet
@@ -185,5 +190,24 @@
 			}
 		});
 	}
+</script>
+
+<script type="text/javascript">
+    var datefield=document.createElement("input")
+    datefield.setAttribute("type", "date")
+    if (datefield.type!="date"){ //if browser doesn't support input type="date", load files for jQuery UI Date Picker
+        document.write('<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />\n')
+        document.write('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"><\/script>\n')
+        document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"><\/script>\n') 
+    }
+</script>
+ 
+<script>
+if (datefield.type!="date"){ //if browser doesn't support input type="date", initialize date picker widget:
+    jQuery(function($){ //on document.ready
+        $('#fromdate').datepicker();
+        $('#todate').datepicker();
+    })
+}
 </script>
 <?php $this->load->view('admin/marque'); ?>
