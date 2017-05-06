@@ -146,9 +146,10 @@
 						Delivery manager rejected
 					}elseif($order->delivery_partner_status == "Accepted"){
 						Delivery manager Accepted
-					}else
+					}else{
 						Restaurant manager accepted
-					} ?>
+					}
+					?>
 				</td>
 				<td> 
 					<?php $remarks = $this->Order_model->get_delpartnerremarks($order);
