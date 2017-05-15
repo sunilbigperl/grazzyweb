@@ -525,18 +525,9 @@ class Api extends REST_Controller {
 	
 	 public function suggestRestaurant_post(){
 		 $params = json_decode(file_get_contents('php://input'), TRUE);
-
-         $data=array(
-
-           // 'id' =>$params['id'],
-           'restaurant_name' => $params['restaurant_name'],
-            'restaurant_address' => $params['restaurant_address'],
-             'restaurant_phone' => $params['restaurant_phone'],
-              'restaurant_email' => $params['restaurant_email'],
-          
-     
-
-        );
+$data=array('restaurant_name'=>$params['restaurant_name'],'restaurant_address'=>$params['restaurant_address'],
+         'restaurant_phone'=>$params['restaurant_phone'],'restaurant_email'=>$params['restaurant_email'],'customer'=>$this->post('user_id'));
+        
 $result=$this->api_model->restaurantSuggest($data);
 
 if (isset($result)){
