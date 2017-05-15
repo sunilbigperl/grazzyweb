@@ -387,6 +387,45 @@ class Api_model extends CI_Model
 			return false;
 		}
 	}
+	// public function orderlist($id){
+	// 	$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status='Shipped'  order by a.ordered_on desc";
+	// 	$query = $this->db->query($sql);
+	// 	if($query->num_rows()>0){
+	// 		$result = array();
+	// 		$i=0;
+	// 		foreach($query->result_array() as $row){ 
+	// 			$result[$i]['order_number'] = $row['id'];
+	// 			$sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
+	// 			$query1 = $this->db->query($sql1);
+	// 			if($query1->num_rows()>0){
+	// 				$res = $query1->result_array();
+	// 				$result[$i]['restaurant_name'] = $res[0]['restaurant_name'];
+	// 			}
+	// 			$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and a.`delete`=0";
+				
+	// 			$query2 = $this->db->query($sql2);
+	// 			if($query2->num_rows()>0){
+	// 				$j=0;
+	// 				foreach($query2->result_array() as $row1){
+						
+	// 					$result[$i]['items'][$j]['id'] = $row1['id'];
+	// 					$result[$i]['items'][$j]['ordered_on'] = $row['ordered_on'];
+	// 					$result[$i]['items'][$j]['menu_id'] = $row1['menu_id'];
+	// 					$result[$i]['items'][$j]['menu'] = $row1['menu'];
+	// 					$result[$i]['items'][$j]['quantity'] = $row1['quantity'];
+	// 					$result[$i]['items'][$j]['cost'] = $row1['cost'];
+	// 				$j++;
+	// 				}
+	// 			}
+	// 		$i++;
+	// 		}
+	// 		return $result;
+	// 	}else{
+	// 		return false;
+	// 	}
+	// }
+	
+
 	public function orderlist($id){
 		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status='Shipped'  order by a.ordered_on desc";
 		$query = $this->db->query($sql);
@@ -394,20 +433,23 @@ class Api_model extends CI_Model
 			$result = array();
 			$i=0;
 			foreach($query->result_array() as $row){ 
-				$result[$i]['order_number'] = $row['id'];
-				$sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
-				$query1 = $this->db->query($sql1);
+				//$result[$i]['order_number'] = $row['id'];
+				// $sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
+				$sql2 = "select a.menu,c.restaurant_name,b.* from restaurant_menu a, order_items b,restaurant c where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and c.restaurant_id='".$row['restaurant_id']."' and a.`delete`=0";
+				$query1 = $this->db->query($sql2);
 				if($query1->num_rows()>0){
 					$res = $query1->result_array();
+					$result[$i]['order_number'] = $row['id'];
 					$result[$i]['restaurant_name'] = $res[0]['restaurant_name'];
 				}
-				$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and a.`delete`=0";
+			 	
 				
 				$query2 = $this->db->query($sql2);
+
 				if($query2->num_rows()>0){
+
 					$j=0;
 					foreach($query2->result_array() as $row1){
-						
 						$result[$i]['items'][$j]['id'] = $row1['id'];
 						$result[$i]['items'][$j]['ordered_on'] = $row['ordered_on'];
 						$result[$i]['items'][$j]['menu_id'] = $row1['menu_id'];
@@ -424,7 +466,6 @@ class Api_model extends CI_Model
 			return false;
 		}
 	}
-	
 	public function updateprofile($data){
 		$sql = "update customers set firstname='".$data['firstname']."',email='".$data['email']."',dob='".$data['dob']."',gender='".$data['gender']."' where id='".$data['id']."'";
 		//echo $sql; exit;
@@ -531,17 +572,20 @@ class Api_model extends CI_Model
 		}
 		print_r(json_encode($result)); exit;
 	}
+
+
 	
 	public function restaurantSuggest($data){
-		$sql =$this->db->query("insert into  restaurant_suggest (restaurant_name,restaurant_phone,restaurant_address,restaurant_email,customer) 
-		values('".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_address']."','".$data['restaurant_email']."','".$data['customer']."')");
+
+		$sql =$this->db->query("insert into  restaurant_suggest (restaurant_name,restaurant_phone,restaurant_address,restaurant_email) 
+		values('".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_address']."','".$data['restaurant_email']."')");
 		
 		if($sql){
 		$message="<h3>New restaurant suggestion</h3>
-		<h6>Restaurant_name: ".$data['restaurant_name']."</h6>
+	     <h6>Restaurant_name: ".$data['restaurant_name']."</h6>
 		<h6>Restaurant phone: ".$data['restaurant_phone']."</h6>
-		<h6>Restaurant address: ".$data['restaurant_address']."</h6>
-		<h6>Customer id: ".$data['customer']."</h6>";
+		<h6>Restaurant address: ".$data['restaurant_address']."</h6>";
+		// <h6>Customer id: ".$data['customer']."</h6>";
 			$config = Array(
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
@@ -565,7 +609,9 @@ class Api_model extends CI_Model
 			return true;
 		}else{
 			return false;
-		}		
+		}	
+
+		
 			
 	}
 	public function pitstopSuggest($data){
