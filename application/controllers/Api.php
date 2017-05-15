@@ -524,28 +524,61 @@ class Api extends REST_Controller {
 	}
 	
 	 public function suggestRestaurant_post(){
-		  
-		$data=array('restaurant_name'=>$this->post('restaurant_name'),'restaurant_address'=>$this->post('location'),
-		  'restaurant_phone'=>$this->post('phone_number'),'restaurant_email'=>$this->post('email'),'customer'=>$this->post('user_id'));
-		$result=$this->api_model->restaurantSuggest($data);
+		 $params = json_decode(file_get_contents('php://input'), TRUE);
+
+         $data=array(
+
+           // 'id' =>$params['id'],
+           'restaurant_name' => $params['restaurant_name'],
+            'restaurant_address' => $params['restaurant_address'],
+             'restaurant_phone' => $params['restaurant_phone'],
+              'restaurant_email' => $params['restaurant_email'],
+          
+     
+
+        );
+$result=$this->api_model->restaurantSuggest($data);
+
+if (isset($result)){
+        $message=[
+        'Status'=> 'Success',
+           ];
+            $this->set_response($message, REST_Controller::HTTP_CREATED);  
+              
+           }else{
+           $this->set_response([
+            
+         'status'=>FALSE,
+          'message'=>'Customers Address Information Could not be found'
+          ],REST_Controller::HTTP_OK);
+            
+                      
+           }
+          
+       } 
+         
+		// $data=array('restaurant_name'=>$this->post('restaurant_name'),'restaurant_address'=>$this->post('location'),
+		//   'restaurant_phone'=>$this->post('phone_number'),'restaurant_email'=>$this->post('email'),'customer'=>$this->post('user_id'));
+		//$result=$this->api_model->restaurantSuggest($data);
 		
-		if (isset($result)){
-			  $message=[
-			  'Status'=> 'Success',
-			  ];
-			  $this->set_response($message, REST_Controller::HTTP_CREATED);  
+
+		// if (isset($result)){
+		// 	  $message=[
+		// 	  'Status'=> 'Success',
+		// 	  ];
+		// 	  $this->set_response($message, REST_Controller::HTTP_CREATED);  
 			  
-		  }else{
-		   $this->set_response([
+		//   }else{
+		//    $this->set_response([
 			
-			'status'=>FALSE,
-			'message'=>'Customers Address Information Could not be found'
-			],REST_Controller::HTTP_OK);
+		// 	'status'=>FALSE,
+		// 	'message'=>'Customers Address Information Could not be found'
+		// 	],REST_Controller::HTTP_OK);
 			
 				  	  
-		  }
+		//   }
 		  
-	  }  
+	 //  } 
 
 	public function suggestPitstop_post(){
 		 
@@ -704,6 +737,7 @@ class Api extends REST_Controller {
 		
 		$data=array('customer_id'=>$this->post('user_id'));
 		$result=$this->api_model->userOrderEmail($data);
+        
         if(isset($result)){
 			$message=[
 			'Status'=>'Success'
