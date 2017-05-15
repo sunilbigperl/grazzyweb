@@ -577,15 +577,15 @@ class Api_model extends CI_Model
 	
 	public function restaurantSuggest($data){
 
-		$sql =$this->db->query("insert into  restaurant_suggest (restaurant_name,restaurant_phone,restaurant_address,restaurant_email) 
-		values('".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_address']."','".$data['restaurant_email']."')");
+		$sql =$this->db->query("insert into  restaurant_suggest (restaurant_name,restaurant_phone,restaurant_address,restaurant_email,customer) 
+		values('".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_address']."','".$data['restaurant_email']."','".$data['customer']."')");
 		
 		if($sql){
 		$message="<h3>New restaurant suggestion</h3>
 	     <h6>Restaurant_name: ".$data['restaurant_name']."</h6>
 		<h6>Restaurant phone: ".$data['restaurant_phone']."</h6>
-		<h6>Restaurant address: ".$data['restaurant_address']."</h6>";
-		// <h6>Customer id: ".$data['customer']."</h6>";
+		<h6>Restaurant address: ".$data['restaurant_address']."</h6>;
+		<h6>Customer id: ".$data['customer']."</h6>";
 			$config = Array(
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
