@@ -34,9 +34,9 @@
 				<div class="form-group">
 					<label for="restaurant_address">Restaurant phone</label>
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">080</span>
+						<span class="input-group-addon" id="basic-addon1">+91</span>
 						
-						<input type="number" name="restaurant_phone" value="<?=$restaurant_phone?>" class="form-control" required>
+						<input type="number" name="restaurant_phone" value="<?=$restaurant_phone?>" class="form-control"  pattern="/(7|8|9)\d{9}/" required>
 					</div>
 				</div>
 				
