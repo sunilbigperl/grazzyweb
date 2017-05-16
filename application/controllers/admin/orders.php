@@ -87,7 +87,7 @@ class Orders extends Admin_Controller {
 			$data['deliverycharge'] = $res[0]['deliverycharge'];
 		}else{
 			$data['servicetax'] = '';
-			$data['deliverycharge'] = '';
+			$data['deliverycharge'] = '';    
 		}
 		
 		$data['orders'] = $this->Order_model->get_previousorders($data);
