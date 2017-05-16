@@ -34,10 +34,10 @@
 				echo form_input($data);
 				?>
 			</div>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="pitstop_address">Address</label>
 				<textarea name="address" required ><?=$address;?></textarea>
-			</div>
+			</div> -->
 			<div class="form-group">
 				<label for="restaurant_address">Pitstop City</label>
 				
