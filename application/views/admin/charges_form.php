@@ -11,7 +11,7 @@
 
 	<div class="row">
 		<div class="form-group">
-			<label>Delivery charge</label>
+			<label>Delivery charge(To Show in Customer App)</label>
 			<?php
 			$data	= array('name'=>'deliverycharge', 'value'=>set_value('deliverycharge', $deliverycharge), 'class'=>'form-control');
 			echo form_input($data); ?>

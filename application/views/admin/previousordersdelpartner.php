@@ -38,6 +38,7 @@
 	</form>
 </div>
 <?php if(count($orders) > 0){?>
+
 <?php if(isset($delpartner)){ ?>
 <div class="btn-group">
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/pdf') ?>" class="btn btn-xs btn-primary">Download pdf</a>
@@ -46,8 +47,8 @@
 <?php } } ?>
 
 <?php  if(count($orders) > 0){ ?>
-<!--<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
-		 data-search="true" id="table-pagination" data-sort-order="desc">-->
+<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
+		 data-search="true" id="table-pagination" data-sort-order="desc">
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">		 
 	<thead>

@@ -23,7 +23,7 @@ var oTable = $('#table-pagination').DataTable( {
 		    filename: 'pitstops',
            footer: false,
 		   exportOptions: {
-                    columns: [ 0, 2, 3, 4 ]
+                    columns: [ 0, 2, 3, 4,5]
             },
 			aoColumns: [{ "sTitle": "name" }],
 			"columnDefs": [{

@@ -34,9 +34,9 @@
 				<div class="form-group">
 					<label for="restaurant_address">Restaurant phone</label>
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">080</span>
+						<span class="input-group-addon" id="basic-addon1">+91</span>
 						
-						<input type="number" name="restaurant_phone" value="<?=$restaurant_phone?>" class="form-control" required>
+						<input type="number" name="restaurant_phone" value="<?=$restaurant_phone?>" class="form-control"  pattern="/(7|8|9)\d{9}/" required>
 					</div>
 				</div>
 				
@@ -263,14 +263,14 @@
 					?>
 				</div>
 				<div class="form-group">
-					<label for="penalty " >Penalty(%)</label>
+					<label for="penalty " >Penalty(Rs)</label>
 					<?php
 					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control');
 					echo form_input($data);
 					?>
 				</div>
 				<div class="form-group">
-					<label for="penalty " >Reimbursement of Ddelivery charges(%)</label>
+					<label for="penalty " >Reimbursement of Ddelivery charges(Rs)</label>
 					<?php
 					$data	= array('name'=>'Reimb', 'value'=>set_value('Reimb', $penalty), 'class'=>'form-control');
 					echo form_input($data);
