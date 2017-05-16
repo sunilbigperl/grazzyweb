@@ -99,7 +99,7 @@ class Message_model extends CI_Model
 			 $sqlrest = $this->db->query("select restaurant_email from restaurant");
 			if($sqlrest->num_rows() > 0){
 				foreach($sqlrest->result_array() as $row){ 
-					$message="<h3>New message from wolotech</h3>
+					$message="<h3>New message from Eatsapp</h3>
 					<h6>".$data['message']."</h6>";
 						  $config = Array(
 							'protocol' => 'smtp',
@@ -254,7 +254,7 @@ class Message_model extends CI_Model
 			$sqlrest = $this->db->query("select email from admin where access='Deliver manager'");
 			if($sqlrest->num_rows() > 0){
 				foreach($sqlrest->result_array() as $row){ 
-					$message="<h3>New message from wolotech</h3>
+					$message="<h3>New message from Eatsapp</h3>
 					<h6>".$data['message']."</h6>";
 						  $config = Array(
 							'protocol' => 'smtp',
@@ -282,7 +282,7 @@ class Message_model extends CI_Model
 			if($sqlrest->num_rows() > 0){
 				$row = $sqlrest->result_array();
 				
-				$message="<h3>New message from wolotech</h3>
+				$message="<h3>New message from Eatsapp</h3>
 					<h6>".$data['message']."</h6>";
 						   $config = Array(
 							'protocol' => 'smtp',
