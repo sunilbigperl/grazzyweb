@@ -21,7 +21,7 @@ class Api_model extends CI_Model
 				$url = 'https://android.googleapis.com/gcm/send';
 
 				$fields = array(
-					'registration_ids' => $datas[0]['did'],
+					'registration_ids' => array($datas[0]['did']),
 					'data' => $message,
 				);
 				

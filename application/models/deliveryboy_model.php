@@ -129,6 +129,7 @@ Class Deliveryboy_model extends CI_Model
 		$sql = $this->db->query("delete from delpartner_charges where delpartner_id='".$id."'");
 		if($sql){
 			foreach($data as $datas){
+				$datas['delpartner_id'] = $id;
 				$this->db->insert('delpartner_charges', $datas);
 			}
 		}

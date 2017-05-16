@@ -1,6 +1,6 @@
 <?php $url = $this->uri->segment(4); if(isset($url)){ $idurl = $url; }else{ $idurl = ''; }  ?>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">
-	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/GetPreviousOrders/'.$idurl); ?>" method="post">
+	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/GetRestPreviousOrders/'.$idurl); ?>" method="post">
 		<div class="form-group">
 		  <label for="from date"><strong>from date:</strong></label>
 		  <input type="date" class="form-control" id="fromdate" name="fromdate">
@@ -9,18 +9,7 @@
 		  <label for="to date"><strong>To date:</strong></label>
 		  <input type="date" class="form-control" id="todate" name="todate">
 		</div>
-		<?php if($this->auth->check_access('Admin') && !isset($url)){ ?>
-		<div class="form-group">
-			<label for="to date"><strong>delivery partner:</strong></label>
-			<?php $delpartners = $this->Message_model->get_delpartners(); ?>
-			<select name="delpartner" class="form-control">
-				<option value="">Select delivery partner</option>
-				<?php foreach($delpartners as $delpartner){?>
-				<option value="<?=$delpartner['id']?>"><?=$delpartner['firstname']?></option>
-				<?php } ?>
-			</select>
-		</div>
-		<?php } ?>
+		
 		<div class="form-group"><input type="submit" class="btn btn-primary" value="Go" name="action"></div>
 
 		<div  style="margin-top:20px;">

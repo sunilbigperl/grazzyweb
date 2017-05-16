@@ -122,8 +122,16 @@ class Orders extends Admin_Controller {
 
 	function GetRestPreviousOrders($id){
 		$this->load->model('Restaurant_model');
-		$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
-		$data['todate'] =  date('Y-m-d',strtotime('last day of last month'));
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
+			$data['todate'] =  date('Y-m-d',strtotime('last day of last month'));
+		}else{
+			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
+		}
 		$data['id'] = $id;
 		$restaurant  = $this->Restaurant_model->get_restaurant($id);
 
@@ -138,7 +146,7 @@ class Orders extends Admin_Controller {
 			$data['servicetax'] = '';
 			$data['deliverycharge'] = '';
 		}
-		$this->view($this->config->item('admin_folder').'/previousorders',$data);
+		$this->view($this->config->item('admin_folder').'/previousordersrest',$data);
 	}
 	
 	function restbill($id,$type){

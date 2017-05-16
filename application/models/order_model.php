@@ -53,7 +53,7 @@ Class order_model extends CI_Model
 		$date = date("Y-m-d 00:00:00");
 	
 		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
-		and d.ordertype_id =a.order_type and c.id = '".$userdata['id']."' and a.ordered_on >='".$date."' order by a.ordered_on desc");
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager  = '".$userdata['id']."' and a.ordered_on >='".$date."' order by a.ordered_on desc");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
@@ -77,7 +77,8 @@ Class order_model extends CI_Model
 	}
 	
 	function AssignDeliveryBoy($data){
-		$sql = $this->db->query("update orders set delivered_by='".$data['delBoy']."', status='Assigned' where id='".$data['id']."'");
+		$userdata = $this->session->userdata('admin');
+		$sql = $this->db->query("update orders set delivery_partner ='".$userdata['id']."',delivery_partner_status='Accepted' , delivered_by='".$data['delBoy']."', status='Assigned' where id='".$data['id']."'");
 		if($sql){ 
 			$query = $this->db->query("SELECT `did` FROM `delivery_boy` WHERE `id` = '".$data['delBoy']."'");	
 			if($query->num_rows() > 0){					
@@ -202,7 +203,9 @@ Class order_model extends CI_Model
 			if(isset($data['restaurant']) && $data['restaurant'] != ""){
 				$where.=" and a.restaurant_id = '".$data['restaurant']."'";
 			}
-			
+			/* echo "SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
+			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id   and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') ".$where."
+			 order by ordered_on desc"; exit; */
 			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
 			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id   and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') ".$where."
 			 order by ordered_on desc");
@@ -264,7 +267,9 @@ Class order_model extends CI_Model
 	
 	function get_restpreviousorders($data){
 		$userdata = $this->session->userdata('admin');
-		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`status` = 'Order placed' and a.`restaurant_id` = b.restaurant_id 
+		echo "SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_id='".$data['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."' order by ordered_on desc"; exit;
+		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
 		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_id='".$data['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."' order by ordered_on desc");
 		
 		if($sql->num_rows() > 0){
@@ -324,6 +329,7 @@ Class order_model extends CI_Model
 			$sql = $this->db->query('update orders set delivery_partner ="'.$userdata['id'].'",delivery_partner_status="'.$data.'" where id="'.$id.'"');
 		}else{ 
 			$data = "Rejected";
+			//echo 'update orders set delivery_partner ="'.$userdata['id'].'",delivery_partner_status="'.$data.'", status="'.$data.'" where id="'.$id.'"'; exit;
 			$sql = $this->db->query('update orders set delivery_partner ="'.$userdata['id'].'",delivery_partner_status="'.$data.'", status="'.$data.'" where id="'.$id.'"');
 		}
 		
@@ -541,13 +547,25 @@ Class order_model extends CI_Model
 	}
 	
 	public function DelPartnerDeliveryCharge($distance){
-		$distance = str_replace("KM","",$distance);
-		$sql= $this->db->query("select * from delpartner_charges where fromKm >= '".$distance."' and toKm <= '".$distance."' limit 1");
-		if($sql->num_rows() > 0){
-			$res	= $sql->result_array();
-			$data['rate'] = $res[0]['rate'];
+		$iddd = $this->uri->segment(4);
+		if(isset($iddd)){
+			$delpartnerid = $this->uri->segment(4);
 		}else{
-			$data['rate'] = 20;
+			$userdata = $this->session->userdata('admin');
+			$delpartnerid =  $userdata['id'];
+		}
+		
+		$distance = trim(str_replace("KM","",$distance));
+		if($distance == 0){
+			$data['rate'] = 0;
+		}else{
+			$sql= $this->db->query("select * from delpartner_charges where fromKm <= '".$distance."' and toKm >= '".$distance."' and delpartner_id = '".$delpartnerid."' limit 1");
+			if($sql->num_rows() > 0){
+				$res	= $sql->result_array();
+				$data['rate'] = $res[0]['rate'];
+			}else{
+				$data['rate'] = 0;
+			}
 		}
 		return $data;
 	}

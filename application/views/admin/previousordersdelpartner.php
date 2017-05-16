@@ -67,6 +67,7 @@
 			<th>Total</th>
 			<th>Remarks</th>
 			<?php } ?>
+			<th>Status</th>
 		</tr>
 	</thead>
 	
@@ -110,12 +111,10 @@
 				</td>
 				<?php if(isset($url)){ ?>
 				<td>
-					<?php if($order->delivery_partner_status == "Accepted"){
-						echo "0";
-					}else{
+					<?php 
 						echo $deliverycharge['rate'];
 						
-					} ?>
+					 ?>
 					
 				</td>
 				<td>
@@ -132,7 +131,7 @@
 				</td>
 				
 				<td> <?php if($order->delivery_partner_status == "Accepted"){
-						$netamount = $deliverycharge;
+						$netamount = $deliverycharge['rate'];
 					}else{
 						
 						$netamount = $deliverycharge['rate'] - $order->penalty;
@@ -151,6 +150,10 @@
 					<?php } ?>
 				</td>
 				<?php } ?>
+				<td>
+				
+				<?php echo $order->status; ?>
+				</td>
 			</tr>
 			<?php
 			$i++;
