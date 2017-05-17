@@ -270,9 +270,9 @@
 					?>
 				</div>
 				<div class="form-group">
-					<label for="penalty " >Reimbursement of Ddelivery charges(Rs)</label>
+					<label for="Reimb " >Reimbursement of Ddelivery charges(Rs)</label>
 					<?php
-					$data	= array('name'=>'Reimb', 'value'=>set_value('Reimb', $penalty), 'class'=>'form-control');
+					$data	= array('name'=>'Reimb', 'value'=>set_value('Reimb', $Reimb), 'class'=>'form-control');
 					echo form_input($data);
 					?>
 				</div>
