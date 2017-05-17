@@ -3,7 +3,7 @@ class Api_model extends CI_Model
 {
 	
 	public function customercheck($data){
-		$sql = "select * from customers where  phone ='".$data['phone']."' and active = 1";
+		$sql = "select * from customers where  phone ='".$data['phone']."'an and active = 1";
 		$query = $this->db->query($sql);
 		if($query->num_rows() == 0){
 			$sql = "insert into customers (phone, did, active) values('".$data['phone']."','".$data['did']."', 1)";	
@@ -387,45 +387,6 @@ class Api_model extends CI_Model
 			return false;
 		}
 	}
-	// public function orderlist($id){
-	// 	$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status='Shipped'  order by a.ordered_on desc";
-	// 	$query = $this->db->query($sql);
-	// 	if($query->num_rows()>0){
-	// 		$result = array();
-	// 		$i=0;
-	// 		foreach($query->result_array() as $row){ 
-	// 			$result[$i]['order_number'] = $row['id'];
-	// 			$sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
-	// 			$query1 = $this->db->query($sql1);
-	// 			if($query1->num_rows()>0){
-	// 				$res = $query1->result_array();
-	// 				$result[$i]['restaurant_name'] = $res[0]['restaurant_name'];
-	// 			}
-	// 			$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and a.`delete`=0";
-				
-	// 			$query2 = $this->db->query($sql2);
-	// 			if($query2->num_rows()>0){
-	// 				$j=0;
-	// 				foreach($query2->result_array() as $row1){
-						
-	// 					$result[$i]['items'][$j]['id'] = $row1['id'];
-	// 					$result[$i]['items'][$j]['ordered_on'] = $row['ordered_on'];
-	// 					$result[$i]['items'][$j]['menu_id'] = $row1['menu_id'];
-	// 					$result[$i]['items'][$j]['menu'] = $row1['menu'];
-	// 					$result[$i]['items'][$j]['quantity'] = $row1['quantity'];
-	// 					$result[$i]['items'][$j]['cost'] = $row1['cost'];
-	// 				$j++;
-	// 				}
-	// 			}
-	// 		$i++;
-	// 		}
-	// 		return $result;
-	// 	}else{
-	// 		return false;
-	// 	}
-	// }
-	
-
 	public function orderlist($id){
 		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status='Shipped'  order by a.ordered_on desc";
 		$query = $this->db->query($sql);
@@ -433,23 +394,20 @@ class Api_model extends CI_Model
 			$result = array();
 			$i=0;
 			foreach($query->result_array() as $row){ 
-				//$result[$i]['order_number'] = $row['id'];
-				// $sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
-				$sql2 = "select a.menu,c.restaurant_name,b.* from restaurant_menu a, order_items b,restaurant c where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and c.restaurant_id='".$row['restaurant_id']."' and a.`delete`=0";
-				$query1 = $this->db->query($sql2);
+				$result[$i]['order_number'] = $row['id'];
+				$sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
+				$query1 = $this->db->query($sql1);
 				if($query1->num_rows()>0){
 					$res = $query1->result_array();
-					$result[$i]['order_number'] = $row['id'];
 					$result[$i]['restaurant_name'] = $res[0]['restaurant_name'];
 				}
-			 	
+				$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and a.`delete`=0";
 				
 				$query2 = $this->db->query($sql2);
-
 				if($query2->num_rows()>0){
-
 					$j=0;
 					foreach($query2->result_array() as $row1){
+						
 						$result[$i]['items'][$j]['id'] = $row1['id'];
 						$result[$i]['items'][$j]['ordered_on'] = $row['ordered_on'];
 						$result[$i]['items'][$j]['menu_id'] = $row1['menu_id'];
@@ -466,6 +424,48 @@ class Api_model extends CI_Model
 			return false;
 		}
 	}
+	
+
+	// public function orderlist($id){
+	// 	$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status='Shipped'  order by a.ordered_on desc";
+	// 	$query = $this->db->query($sql);
+	// 	if($query->num_rows()>0){
+	// 		$result = array();
+	// 		$i=0;
+	// 		foreach($query->result_array() as $row){ 
+	// 			$result[$i]['order_number'] = $row['id'];
+	// 			// $sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
+	// 			$sql2 = "select a.menu,c.restaurant_name,b.* from restaurant_menu a, order_items b,restaurant c where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and c.restaurant_id='".$row['restaurant_id']."' and a.`delete`=0";
+	// 			$query1 = $this->db->query($sql2);
+	// 			if($query1->num_rows()>0){
+	// 				$res = $query1->result_array();
+	// 				$result[$i]['order_number'] = $row['id'];
+	// 				$result[$i]['restaurant_name'] = $res[0]['restaurant_name'];
+	// 			}
+			 	
+				
+	// 			$query2 = $this->db->query($sql2);
+
+	// 			if($query2->num_rows()>0){
+
+	// 				$j=0;
+	// 				foreach($query2->result_array() as $row1){
+	// 					$result[$i]['items'][$j]['id'] = $row1['id'];
+	// 					$result[$i]['items'][$j]['ordered_on'] = $row['ordered_on'];
+	// 					$result[$i]['items'][$j]['menu_id'] = $row1['menu_id'];
+	// 					$result[$i]['items'][$j]['menu'] = $row1['menu'];
+	// 					$result[$i]['items'][$j]['quantity'] = $row1['quantity'];
+	// 					$result[$i]['items'][$j]['cost'] = $row1['cost'];
+	// 				$j++;
+	// 				}
+	// 			}
+	// 		$i++;
+	// 		}
+	// 		return $result;
+	// 	}else{
+	// 		return false;
+	// 	}
+	// }
 	public function updateprofile($data){
 		$sql = "update customers set firstname='".$data['firstname']."',email='".$data['email']."',dob='".$data['dob']."',gender='".$data['gender']."' where id='".$data['id']."'";
 		//echo $sql; exit;
