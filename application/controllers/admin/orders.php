@@ -16,6 +16,7 @@ class Orders extends Admin_Controller {
 		$this->load->model('Pitstop_model');
 		$this->load->model('Deliveryboy_model');
 		$this->load->helper('url');
+
     }
 
 	function dashboard(){
@@ -94,6 +95,7 @@ class Orders extends Admin_Controller {
 		$this->view($this->config->item('admin_folder').'/previousordersdelpartner',$data);
 	}
 	function GetPreviousOrders(){
+		
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
 			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
@@ -119,6 +121,8 @@ class Orders extends Admin_Controller {
 		$data['orders'] = $this->Order_model->get_previousorders($data);
 		$this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
+
+	
 
 	function GetRestPreviousOrders($id){
 		$this->load->model('Restaurant_model');
@@ -159,41 +163,50 @@ class Orders extends Admin_Controller {
 		$data['branch'] = $restaurant->restaurant_branch;
 		$data['email'] = $restaurant->restaurant_email;
 		$orders = $this->restaurant_model->get_restaurantorders($id);
-		if($orders == 0){ $data['deliveries'] = 0;}else{ $data['deliveries'] = count($orders); }
-		$sql = $this->db->query("select * from restaurant where restaurant_id = 1");
-		if($sql->num_rows() > 0){
-			$res	= $sql->result_array();
-			$data['commision'] = $res[0]['commission'];
-			$data['penalty'] = $res[0]['penalty'];
-			$data['reimb'] = $res[0]['reimb'];
-			$data['servicetax'] = $res[0]['servicetax'];
-			$data['keepamount'] = $res[0]['keepamount'];
-			$data['total'] = $res[0]['total'];
-		}else{
-			$data['commision'] = '';
-			$data['penalty'] = '';
-			$data['reimb'] = '';
-			$data['servicetax'] = '';
-			$data['keepamount'] = '';
-			$data['total'] = '';
-		}
-		$data['commission'] = $data['total_cost'] * $data['commision'];
+		// if($orders == 0){ $data['deliveries'] = 0;}else{ $data['deliveries'] = count($orders); }
+		// $sql = $this->db->query("select * from restaurant where restaurant_id = 1");
+		// if($sql->num_rows() > 0){
+		// 	$res	= $sql->result_array();
+		// 	$data['commision'] = $res[0]['commission'];
+		// 	$data['penalty'] = $res[0]['penalty'];
+		// 	$data['reimb'] = $res[0]['reimb'];
+		// 	$data['servicetax'] = $res[0]['servicetax'];
+		// 	$data['keepamount'] = $res[0]['keepamount'];
+		// 	$data['total'] = $res[0]['total'];
+		// }else{
+		// 	$data['commision'] = '';
+		// 	$data['penalty'] = '';
+		// 	$data['reimb'] = '';
+		// 	$data['servicetax'] = '';
+		// 	$data['keepamount'] = '';
+		// 	$data['total'] = '';
+		// }
+		// $data['commission'] = $data['total_cost'] * $data['commision'];
 		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data, true);
 		
-		if($type == "pdf"){
-			$fnamee = rand()."restbill.pdf";
-			$filename  = "bills/".$fnamee;
-		}else{
-			$fnamee =  rand()."restbill.xls";
-			 $filename  = "bills/".$fnamee;
+		// if($type == "pdf"){
+		// 	$fnamee = rand()."restbill.pdf";
+		// 	$filename  = "bills/".$fnamee;
+		// }else{
+		// 	$fnamee =  rand()."restbill.xls";
+		// 	 $filename  = "bills/".$fnamee;
 			 
-		} 
-		fopen($filename,"w");
-		chmod($fnamee,0777);
-		$this->load->library('m_pdf');
-        $this->m_pdf->pdf->WriteHTML($html);
-		$this->m_pdf->pdf->Output($filename, "F");
-		redirect("http://app.eatsapp.in/".$filename);
+		// } 
+		// fopen($filename,"w");
+		// chmod($fnamee,0777);
+
+		// if ($type == "pdf") {
+		// 	$this->load->library('m_pdf');
+	 //        $this->m_pdf->pdf->WriteHTML($html);
+		// 	$this->m_pdf->pdf->Output($filename, "F");
+		// 	redirect("http://app.eatsapp.in/".$filename);
+		// }else{
+		// 	$this->load->library('m_xls');
+	 //        $this->m_xls->xls->WriteHTML($html);
+		// 	$this->m_xls->xls->Output($filename, "F");
+		// 	redirect("http://app.eatsapp.in/".$filename);
+		// }
+		
 	}
 
 	function delpartnerbill($id,$type){
