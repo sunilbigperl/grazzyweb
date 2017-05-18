@@ -158,7 +158,7 @@ class Orders extends Admin_Controller {
 		$data['address'] = $restaurant->restaurant_address;
 		$data['branch'] = $restaurant->restaurant_branch;
 		$data['email'] = $restaurant->restaurant_email;
-		$orders = $this->Restaurant_model->get_restaurantorders($id);
+		$orders = $this->restaurant_model->get_restaurantorders($id);
 		if($orders == 0){ $data['deliveries'] = 0;}else{ $data['deliveries'] = count($orders); }
 		$sql = $this->db->query("select * from restaurant where restaurant_id = 1");
 		if($sql->num_rows() > 0){
