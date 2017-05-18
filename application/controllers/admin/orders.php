@@ -1,4 +1,4 @@
- <?php
+<?php
 
 class Orders extends Admin_Controller {
 
@@ -52,8 +52,10 @@ class Orders extends Admin_Controller {
     }
 
 	function previousorders(){
-		//$data['orders'] = $this->Order_model->get_previousorders();
-		$data['orders'] = "";
+		$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
+		$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
+		$data['orders'] = $this->Order_model->get_previousorders($data);
+		//$data['orders'] = "";
         $this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
 	function previousordersdelpartner(){

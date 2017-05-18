@@ -51,9 +51,8 @@ Class order_model extends CI_Model
 	function get_neworders(){
 		$userdata = $this->session->userdata('admin');
 		$date = date("Y-m-d 00:00:00");
-	
 		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
-		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and'".$userdata['id']."' and a.ordered_on >='".$date."' order by a.ordered_on desc");
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager='".$userdata['id']."' and a.ordered_on >='".$date."' order by a.ordered_on desc");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
@@ -296,7 +295,7 @@ Class order_model extends CI_Model
 		 $this->db->query($sql);
 	}
 	function GetMenudetails($data){
-		
+		//echo "select a.*,b.menu from order_items a, restaurant_menu b where a.menu_id=b.menu_id and order_id='".$data['id']."'"; exit;
 		$sql = $this->db->query("select a.*,b.menu from order_items a, restaurant_menu b where a.menu_id=b.menu_id and order_id='".$data['id']."'");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
