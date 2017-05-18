@@ -158,6 +158,26 @@ class Orders extends Admin_Controller {
 		$data['address'] = $restaurant->restaurant_address;
 		$data['branch'] = $restaurant->restaurant_branch;
 		$data['email'] = $restaurant->restaurant_email;
+		$orders = $this->Restaurant_model->get_restaurantorders($id);
+		if($orders == 0){ $data['deliveries'] = 0;}else{ $data['deliveries'] = count($orders); }
+		$sql = $this->db->query("select * from restaurant where id = 1");
+		if($sql->num_rows() > 0){
+			$res	= $sql->result_array();
+			$data['commision'] = $res[0]['commission'];
+			$data['penalty'] = $res[0]['penalty'];
+			$data['reimb'] = $res[0]['reimb'];
+			$data['servicetax'] = $res[0]['servicetax'];
+			$data['keepamount'] = $res[0]['keepamount'];
+			$data['total'] = $res[0]['total'];
+		}else{
+			$data['commision'] = '';
+			$data['penalty'] = '';
+			$data['reimb'] = '';
+			$data['servicetax'] = '';
+			$data['keepamount'] = '';
+			$data['total'] = '';
+		}
+		$data['commission'] = $data['total_cost'] * $data['commision'];
 		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data, true);
 		
 		if($type == "pdf"){
