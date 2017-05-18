@@ -123,6 +123,17 @@
                 </td>
                
             </tr>
+
+            <tr class="item">
+                        <td>&nbsp;</td>
+                        <td>commision</td>
+                        <td>penalty</td>
+                        <td>Reimbursement of delivery charges</td>
+                         <td>net amount</td>
+                         <td>service tax</td>
+                         <td>keep amount</td>
+                          <td>total</td>
+                    </tr>
             
             <tr>
 				<table>
