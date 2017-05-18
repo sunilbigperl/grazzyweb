@@ -716,7 +716,9 @@ if (isset($result)){
      	if(isset($result)){
 			 $message=[
 			 'Status'=>'Success',
-			 'Passcode'=>$result['data']
+			 'Passcode'=>$result['data'],
+			 'order_id' => $result['order_id'],
+			 'order_number' => $result['order_number']
 			 ]; 
 			 $this->response($message, REST_Controller::HTTP_CREATED); 	
 		}else{

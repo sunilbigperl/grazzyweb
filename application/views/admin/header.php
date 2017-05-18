@@ -21,8 +21,6 @@
     <!-- Bootstrap -->
     <link href="<?php echo base_url('vendors/css/bootstrap.css');?>" rel="stylesheet">
 	
-	 
-	<link href="http://localhost/peptkraf/app/themes/default/assets/css/examples.css">
     <!-- Font Awesome -->
     <link href="<?php echo base_url('vendors/css/font-awesome.min.css');?>"  rel="stylesheet">
     <!-- NProgress -->
