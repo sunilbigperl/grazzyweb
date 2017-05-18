@@ -16,6 +16,7 @@ class Orders extends Admin_Controller {
 		$this->load->model('Pitstop_model');
 		$this->load->model('Deliveryboy_model');
 		$this->load->helper('url');
+
     }
 
 	function dashboard(){
@@ -96,6 +97,7 @@ class Orders extends Admin_Controller {
 		$this->view($this->config->item('admin_folder').'/previousordersdelpartner',$data);
 	}
 	function GetPreviousOrders(){
+		
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
 			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
@@ -121,6 +123,8 @@ class Orders extends Admin_Controller {
 		$data['orders'] = $this->Order_model->get_previousorders($data);
 		$this->view($this->config->item('admin_folder').'/previousorders',$data);
 	}
+
+	
 
 	function GetRestPreviousOrders($id){
 		$this->load->model('Restaurant_model');
@@ -176,6 +180,7 @@ class Orders extends Admin_Controller {
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
 		redirect("http://app.eatsapp.in/".$filename);
+		
 	}
 
 	function delpartnerbill($id,$type){

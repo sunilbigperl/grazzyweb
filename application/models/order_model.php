@@ -179,8 +179,8 @@ Class order_model extends CI_Model
 		$userdata = $this->session->userdata('admin');
 		if($this->auth->check_access('Restaurant manager')){
 		
-			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`restaurant_id` = b.restaurant_id 
-			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager = '".$userdata['id']."' and a.restaurant_manager_status = 'Accepted' and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') order by ordered_on desc");
+			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_id='".$userdata['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."' order by ordered_on desc");
 		}elseif($this->auth->check_access('Deliver manager')){
 			
 			if($this->auth->check_access('Deliver manager')){
@@ -268,6 +268,7 @@ Class order_model extends CI_Model
 		$userdata = $this->session->userdata('admin');
 		// echo $sql = $this->db->query"SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
 		// and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_id='".$data['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."' order by ordered_on desc"; exit;
+
 		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
 		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_id='".$data['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."' order by ordered_on desc");
 		
@@ -278,6 +279,8 @@ Class order_model extends CI_Model
 		}
 		return $result;
 	}
+
+	
 	function CheckFeedback($order,$type){
 		$sql = $this->db->query("select * from feedback where order_number='".$order."' and feedbacktype=".$type."");
 		

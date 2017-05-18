@@ -34,6 +34,7 @@ class Api extends REST_Controller {
 		 $data = [
             'firstname' => $this->post('firstname'),
             'phone' => $this->post('phone'),
+
 			'did'	=> $this->post('did')
         ];
 
@@ -524,9 +525,13 @@ class Api extends REST_Controller {
 	}
 	
 	 public function suggestRestaurant_post(){
-		 $params = json_decode(file_get_contents('php://input'), TRUE);
-$data=array('restaurant_name'=>$params['restaurant_name'],'restaurant_address'=>$params['restaurant_address'],
-         'restaurant_phone'=>$params['restaurant_phone'],'restaurant_email'=>$params['restaurant_email'],'customer'=>$this->post('user_id'));
+// 		 $params = json_decode(file_get_contents('php://input'), TRUE);
+// $data=array('restaurant_name'=>$params['restaurant_name'],'restaurant_address'=>$params['restaurant_address'],
+//          'restaurant_phone'=>$params['restaurant_phone'],'restaurant_email'=>$params['restaurant_email'],'customer'=>$this->post('user_id'));
+
+$data=array('restaurant_name'=>$this->post('restaurant_name'),'restaurant_address'=>$this->post('location'),
+          'restaurant_phone'=>$this->post('phone_number'),'restaurant_email'=>$this->post('email'),'customer'=>$this->post('user_id'));
+        $result=$this->api_model->restaurantSuggest($data);
         
 $result=$this->api_model->restaurantSuggest($data);
 
@@ -599,7 +604,7 @@ if (isset($result)){
 		 if(!empty($result)){
 		$message=[
 			'Status'=>'Success',
-			'url'=>$result['data']
+			 'url'=>$result['data']
 			
 			];
 			 $this->set_response($message, REST_Controller::HTTP_OK); // 
