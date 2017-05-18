@@ -160,7 +160,7 @@ class Orders extends Admin_Controller {
 		$data['email'] = $restaurant->restaurant_email;
 		$orders = $this->Restaurant_model->get_restaurantorders($id);
 		if($orders == 0){ $data['deliveries'] = 0;}else{ $data['deliveries'] = count($orders); }
-		$sql = $this->db->query("select * from restaurant where id = 1");
+		$sql = $this->db->query("select * from restaurant where restaurant_id = 1");
 		if($sql->num_rows() > 0){
 			$res	= $sql->result_array();
 			$data['commision'] = $res[0]['commission'];
