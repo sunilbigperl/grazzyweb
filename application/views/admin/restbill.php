@@ -124,77 +124,148 @@
                
             </tr>
 
-            <tr class="item">
-                        <td>&nbsp;</td>
-                        <td>commision</td>
-                        <td>penalty</td>
-                        <td>Reimbursement of delivery charges</td>
-                         <td>net amount</td>
-                         <td>service tax</td>
-                         <td>keep amount</td>
-                          <td>total</td>
-                    </tr>
+            
             
             <tr>
-				<table>
+				
 					<tr class="item">
 						<td>Value of orders forwarded</td>
-						<td></td>
-						<td></td>
+                        <td></td>
+                        <td>
+                        
+                        </td>
 					</tr>
+
 					<tr class="item">
 						<td>
 							Commission
 						</td>
 						<td> </td>
-						<td>
-							$75.00
-						</td>
+                        <td> 75</td>
+						<!-- <td>
+							<?=$commision;?>
+						</td> -->
 					</tr>
+
+                   
+
 					<tr class="item last">
 						<td> Service tax</td>
 						<td></td>
-						<td> $10.00</td>
+                        <td>75</td>
+						<!-- <td> <?=$servicetax;?></td> -->
 					</tr>
+                   
+                   
+                   
+
 					<tr class="total">
-						<td>Total</td>
+						<td>Total1</td>
 						 <td></td>
-						<td>
-						   $385.00
-						</td>
+                         <td>75</td>
+						<!-- <td>
+						   <?=$total1;?>
+						</td> -->
 					</tr>
-                </table>
+                
             </tr>
             
              <tr>
-				<table>
-					<tr class="item">
-						<td>Value of orders forwarded</td>
+				<tr class="item">
+						<td>Number of Orders forwarded</td>
 						<td></td>
 						<td></td>
 					</tr>
 					<tr class="item">
 						<td>
-							Commission
+							Reimbursement of Delivery Charges
 						</td>
 						<td> </td>
-						<td>
-							$75.00
-						</td>
+                        <td>75 </td>
+						<!-- <td>
+							<?=$reimb;?>
+						</td> -->
 					</tr>
-					<tr class="item last">
-						<td> Service tax</td>
-						<td></td>
-						<td> $10.00</td>
-					</tr>
+					
 					<tr class="total">
-						<td>Total</td>
+						<td>ServiceTax</td>
 						 <td></td>
-						<td>
-						   $385.00
-						</td>
+                          <td>75</td>
+						<!-- <td>
+						   <?=$servicetax;?>
+						</td> -->
 					</tr>
-                </table>
+                    
+                    <tr class="total">
+                        <td>Total2</td>
+                         <td></td>
+                         <td>75</td>
+                       <!--  <td>
+                           <?=$total2;?>
+                        </td> -->
+                    </tr>
+                
+            </tr>
+
+            <tr>
+                
+                    <tr class="item">
+                        <td>Number of Orders Cancelled</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="item">
+                        <td>
+                            Penalty
+                        </td>
+                        <td> </td>
+                        <td>
+                           <?=$penalty;?>
+                        </td>
+                    </tr>
+                    
+                    <tr class="total">
+                        <td>ServiceTax</td>
+                         <td></td>
+                        <td>
+                          <?=$servicetax;?>
+                        </td>
+                    </tr>
+                    
+                    
+                
+            </tr>
+            <tr>
+                
+                    <tr class="item">
+                        <td>Total Bill(Keep Amount)</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="item">
+                        <td>
+                            Value oforders forwarded
+                        </td>
+                        <td> </td>
+                        <td>
+                            $75.00
+                        </td>
+                    </tr>
+                    <tr class="item last">
+                        <td> Amount due to us(Keep Amount)</td>
+                        <td></td>
+                        <td> $10.00</td>
+                    </tr>
+                    <tr class="total">
+                        <td>Netamount payable to you</td>
+                         <td></td>
+                        <td>
+                           $385.00
+                        </td>
+                    </tr>
+                    
+                    
+                
             </tr>
 
             
