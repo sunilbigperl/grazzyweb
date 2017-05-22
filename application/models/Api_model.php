@@ -3,14 +3,13 @@ class Api_model extends CI_Model
 {
 	
 	public function customercheck($data){
-		$sql = "select * from customers where  phone ='".$data['phone']."'an and active = 1";
+		$sql = "select * from customers where  phone ='".$data['phone']."' and and active = 1";
 		$query = $this->db->query($sql);
 		if($query->num_rows() == 0){
 			$sql = "insert into customers (phone, did, active) values('".$data['phone']."','".$data['did']."', 1)";	
 			$query = $this->db->query($sql);
 			$result['id'] = $this->db->insert_id();
 		}else{
-		
 			$datas = $query->result_array();
 			if($datas[0]['did'] == $data['did']){
 				$result['id'] =  $datas[0]['id'];
@@ -30,8 +29,6 @@ class Api_model extends CI_Model
 					'Content-Type: application/json'
 				);
 				$ch = curl_init();
-
-
 				curl_setopt($ch, CURLOPT_URL, $url);
 				curl_setopt($ch, CURLOPT_POST, true);
 				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -42,9 +39,7 @@ class Api_model extends CI_Model
 				if ($result1 === FALSE) {
 					$result1 = false;
 				}
-
 				curl_close($ch);
-				
 				$result['id'] =  $datas[0]['id'];
 			
 				$sql = $this->db->query("update customers set did = '".$data['did']."'  where  id='".$result['id']."'");	
