@@ -151,7 +151,7 @@
 						<td> </td>
                         <td></td>
                        <td>
-							<?=$commision;?>
+							<?=$commission;?>
 						</td>
 					</tr>
 
@@ -176,7 +176,7 @@
                        <!--  <td>15%</td> -->
 						<td> <?=$servicetax;?></td> 
 					</tr>
-                    <tr class="item last">
+                    <tr class="item ">
                         <td> Service tax</td>
                         <td></td>
                         <td>Rs.</td>
@@ -187,7 +187,7 @@
                    
                    
 
-					<tr class="total">
+					<tr class="item">
 						<td>Total</td>
 						 <td></td>
                          <td>Rs.</td>
@@ -229,7 +229,7 @@
                         </td> -->
                     </tr>
 					
-					<tr class="total">
+					<tr class="item">
 						<td>ServiceTax</td>
 						 <td></td>
                          <td></td>
@@ -238,7 +238,7 @@
 						   <?=$servicetax;?>
 						</td> 
 					</tr>
-                    <tr class="total">
+                    <tr class="item">
                         <td>ServiceTax</td>
                          <td></td>
                          <td>Rs.</td>
@@ -248,7 +248,7 @@
                         </td> -->
                     </tr>
                     
-                    <tr class="total">
+                    <tr class="item">
                         <td></td>
                          <td></td>
                           <td>Rs.</td>
@@ -292,7 +292,7 @@
                         </td>  -->
                     </tr>
                     
-                    <tr class="total">
+                    <tr class="item">
                         <td>ServiceTax</td>
                          <td></td>
                          <td></td>
@@ -301,7 +301,7 @@
                           <?=$servicetax;?>
                         </td>
                     </tr>
-                      <tr class="total">
+                      <tr class="item">
                         <td>ServiceTax</td>
                          <td></td>
                           <td>Rs.</td>
@@ -310,7 +310,7 @@
                           <?=$servicetax3;?>
                         </td> --> 
                     </tr>
-                    <tr class="total">
+                    <tr class="item">
                         <td></td>
                          <td></td>
                           <td>Rs.</td>
@@ -343,7 +343,7 @@
                             25000.00
                         </td>
                     </tr>
-                    <tr class="item last">
+                    <tr class="item">
                         <td> Amount due to us(Keep Amount)</td>
                         <td></td>
                         <td>Rs.</td>
