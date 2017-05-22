@@ -164,12 +164,14 @@ class Orders extends Admin_Controller {
 		$data['address'] = $restaurant->restaurant_address;
 		$data['branch'] = $restaurant->restaurant_branch;
 		$data['email'] = $restaurant->restaurant_email;
-		$data['cost'] = $orders->total_cost;
-		if($orders == 0){ $data['orders'] = 0;}else{ $data['orders'] = count($orders); }
-		$sql = $this->db->query("select * from restaurant where restaurant_id = 1");
+		$data['cost']= $orders->total_cost;
+		$data['noorderscancelled']='';
+		if($orders == 0){ $data['noorders'] = 0;}else{ $data['noorders'] = count($orders);
+		 }
+		$sql = $this->db->query("select * from restaurant where restaurant_id = 6");
 		if($sql->num_rows() > 0){
 			$res	= $sql->result_array();
-			$data['commission'] = $res[0]['commision'];
+			$data['commission'] = $res[0]['commission'];
 			$data['servicetax'] = $res[0]['servicetax'];
 			$data['penalty'] = $res[0]['penalty'];
 			$data['reimb'] = $res[0]['reimb'];
@@ -179,14 +181,17 @@ class Orders extends Admin_Controller {
 			$data['penalty'] = '';
 			$data['reimb'] = '';
 		}
-		$data['commision']=($data['commission']*10)/100;
-		$data['servicetax']=($data['commision']*15)/100;
-		$data['reimb'] = '';
-		$data['penalty'] = '';
-		$data['total1']=$data['commision']+$data['servicetax'];
-		$data['total2']=$data['reimb']+$data['servicetax'];
-		$data['total3']=$data['penalty']+$data['servicetax'];
+		$data['commision1']=(($data['cost']*$data['commission'])/100);
+		$data['servicetax1']=(($data['commision1']*$data['servicetax'])/100);
+		$data['reimb1'] = $data['noorders']*$data['reimb'];
+		$data['servicetax2']=(($data['reimb1']*$data['servicetax'])/100);
+		$data['penalty1'] = $data['noorderscancelled']*$data['penalty'];
+		$data['servicetax3']=(($data['penalty1']*$data['servicetax'])/100);
+		$data['total1']=$data['commision1']+$data['servicetax1'];
+		$data['total2']=$data['reimb1']+$data['servicetax2'];
+		$data['total3']=$data['penalty1']+$data['servicetax3'];
 		$data['totalbill']=$data['total1']+$data['total2']+$data['total3'];
+		$data['netamount']=$data['penalty1']-$data['totalbill'];
 		
 
 
