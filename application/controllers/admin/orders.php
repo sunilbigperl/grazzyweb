@@ -159,11 +159,38 @@ class Orders extends Admin_Controller {
 		
 		$data['date'] = date("Y-m-d");
 		$restaurant       = $this->Restaurant_model->get_restaurant($id);
-		
+		$orders = $this->Restaurant_model->get_restaurantorders($id);
 		$data['name'] = $restaurant->restaurant_name;
 		$data['address'] = $restaurant->restaurant_address;
 		$data['branch'] = $restaurant->restaurant_branch;
 		$data['email'] = $restaurant->restaurant_email;
+		$data['cost'] = $orders->total_cost;
+		if($orders == 0){ $data['orders'] = 0;}else{ $data['orders'] = count($orders); }
+		$sql = $this->db->query("select * from restaurant where restaurant_id = 1");
+		if($sql->num_rows() > 0){
+			$res	= $sql->result_array();
+			$data['commission'] = $res[0]['commision'];
+			$data['servicetax'] = $res[0]['servicetax'];
+			$data['penalty'] = $res[0]['penalty'];
+			$data['reimb'] = $res[0]['reimb'];
+		}else{
+			$data['commission'] = '';
+			$data['servicetax'] = '';
+			$data['penalty'] = '';
+			$data['reimb'] = '';
+		}
+		$data['commision']=($data['commission']*10)/100;
+		$data['servicetax']=($data['commision']*15)/100;
+		$data['reimb'] = '';
+		$data['penalty'] = '';
+		$data['total1']=$data['commision']+$data['servicetax'];
+		$data['total2']=$data['reimb']+$data['servicetax'];
+		$data['total3']=$data['penalty']+$data['servicetax'];
+		$data['totalbill']=$data['total1']+$data['total2']+$data['total3'];
+		
+
+
+
 		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data, true);
 		
 		if($type == "pdf"){
