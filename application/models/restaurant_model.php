@@ -179,7 +179,7 @@ Class Restaurant_model extends CI_Model
 
 	function get_restaurantorders($id)
 	{
-		$sql = $this->db->query("select * from orders where restaurant_name='".$id."' and restaurant_manager_status = 'Accepted'");
+		$sql = $this->db->query("select * from orders where restaurant_id='".$id."' and restaurant_manager_status = 'Accepted'");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
