@@ -179,7 +179,8 @@ Class Restaurant_model extends CI_Model
 
 	function get_restaurantorders($id)
 	{
-		$sql = $this->db->query("select * from orders where restaurant_id='".$id."' and restaurant_manager_status = 'Accepted'");
+
+		$sql = $this->db->query("select * from orders where restaurant_id=7 and restaurant_manager_status = 'Accepted'");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
@@ -187,4 +188,28 @@ Class Restaurant_model extends CI_Model
 		}
 		return $result;
 	}
+
+	 function get_restaurantorderscancel($id)
+	 {
+
+		$sql = $this->db->query("select * from orders where restaurant_id=7 and restaurant_manager_status = 'Rejected'");
+		if($sql->num_rows() > 0){
+			$result	= $sql->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
+
+	 function get_restorders($data)
+	 {
+	 	$sql=$this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$data['fromdate']."' and ordered_on <= '".$data['todate']."'  ");
+       if($sql->num_rows() > 0){
+			$result	= $sql->result();
+
+		}else{
+			$result = 0;
+		}
+		return $result;
+	 }
 }
