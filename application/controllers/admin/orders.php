@@ -156,19 +156,53 @@ class Orders extends Admin_Controller {
 	}
 	
 	function restbill($id,$type){
+		$this->load->model('Restaurant_model');
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] = date("Y-m-d ",strtotime($this->input->post('fromdate')));
+			$data['todate'] = date("Y-m-d ",strtotime($this->input->post('todate')));
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
+			$data['todate'] =  date('Y-m-d',strtotime('last day of last month'));
+		}else{
+			$data['fromdate'] =  date('Y-m-d ',strtotime('first day of this month'));
+			$data['todate'] =  date('Y-m-d ',strtotime('last day of this month'));
+		}
 		
 		$data['date'] = date("Y-m-d");
 		$restaurant       = $this->Restaurant_model->get_restaurant($id);
 		$orders = $this->Restaurant_model->get_restaurantorders($id);
+		$corders = $this->Restaurant_model->get_restaurantorderscancel($id);
 		$data['name'] = $restaurant->restaurant_name;
 		$data['address'] = $restaurant->restaurant_address;
 		$data['branch'] = $restaurant->restaurant_branch;
 		$data['email'] = $restaurant->restaurant_email;
-		$data['cost']= $orders->total_cost;
-		$data['noorderscancelled']='';
+		
+		//$data['id'] = $id;
+		//$data['orders1'] = $this->Restaurant_model->get_restorders($data);
+
+		 // $sql1 = $this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='2017-01-29' and ordered_on <='2017-02-28'  ");
+
+
+		 $sql1=$this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$data['fromdate']."' and ordered_on <= '".$data['todate']."'  ");
+		
+		if($sql1->num_rows() > 0){
+			$res1	= $sql1->result_array();
+			$data['cost'] = $res1[0]['SUM(total_cost)'];
+			
+			
+		}else{
+
+			$data['cost'] = '';
+			
+		}
+	
+		if($corders == 0){ $data['cancelorders'] = 0;}else{ $data['cancelorders'] = count($corders);
+}
+
 		if($orders == 0){ $data['noorders'] = 0;}else{ $data['noorders'] = count($orders);
+
 		 }
-		$sql = $this->db->query("select * from restaurant where restaurant_id = 6");
+		$sql = $this->db->query("select * from restaurant where restaurant_id ='".$id."' ");
 		if($sql->num_rows() > 0){
 			$res	= $sql->result_array();
 			$data['commission'] = $res[0]['commission'];
@@ -185,18 +219,18 @@ class Orders extends Admin_Controller {
 		$data['servicetax1']=(($data['commision1']*$data['servicetax'])/100);
 		$data['reimb1'] = $data['noorders']*$data['reimb'];
 		$data['servicetax2']=(($data['reimb1']*$data['servicetax'])/100);
-		$data['penalty1'] = $data['noorderscancelled']*$data['penalty'];
+		$data['penalty1'] = $data['cancelorders']*$data['penalty'];
 		$data['servicetax3']=(($data['penalty1']*$data['servicetax'])/100);
 		$data['total1']=$data['commision1']+$data['servicetax1'];
 		$data['total2']=$data['reimb1']+$data['servicetax2'];
 		$data['total3']=$data['penalty1']+$data['servicetax3'];
 		$data['totalbill']=$data['total1']+$data['total2']+$data['total3'];
-		$data['netamount']=$data['penalty1']-$data['totalbill'];
+		$data['netamount']=$data['cost']-$data['totalbill'];
 		
 
 
 
-		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data, true);
+		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
 		
 		if($type == "pdf"){
 			$fnamee = rand()."restbill.pdf";
@@ -211,7 +245,8 @@ class Orders extends Admin_Controller {
 		$this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
-		redirect("http://app.eatsapp.in/".$filename);
+		redirect("http://localhost/grazzyweb/".$filename);
+		// redirect("http://app.eatsapp.in/".$filename);
 		
 	}
 
@@ -252,7 +287,8 @@ class Orders extends Admin_Controller {
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
 		
-		redirect("http://app.eatsapp.in/".$filename);
+		// redirect("http://app.eatsapp.in/".$filename);
+		redirect("http://localhost/grazzyweb/".$filename);
 	}
 	
 	function getOrderDetails(){
