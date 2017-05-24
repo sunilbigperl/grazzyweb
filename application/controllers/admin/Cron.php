@@ -31,6 +31,7 @@ class Cron extends Admin_Controller
 		if($sql->num_rows() > 0){
 			$result =  $sql->result_array();
 			foreach($result as $row){
+				$this->db->query("update orders set status='order cancelled' and where id='".$row['id']."'");
 				$restaurant_phone = $row['restaurant_phone'];
 				$message = "<h4>Your order with order number ".$row['order_number']." is pending</h4>
 				<h4>Please accept the order to avoid the penalty</h4>";
