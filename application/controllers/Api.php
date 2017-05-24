@@ -533,7 +533,7 @@ $data=array('restaurant_name'=>$this->post('restaurant_name'),'restaurant_addres
           'restaurant_phone'=>$this->post('phone_number'),'restaurant_email'=>$this->post('email'),'customer'=>$this->post('user_id'));
         $result=$this->api_model->restaurantSuggest($data);
         
-$result=$this->api_model->restaurantSuggest($data);
+//$result=$this->api_model->restaurantSuggest($data);
 
 if (isset($result)){
         $message=[
