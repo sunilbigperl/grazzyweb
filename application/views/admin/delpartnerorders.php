@@ -54,10 +54,13 @@ echo "" . date("jS F Y") . "<br>";
 						</select>
 						<?php if($order->delivered_by == 0){ ?>
 						<input type="submit" value="Assign" name="assign" class="btn btn-primary">
+
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a> 
 						<?php } ?>
-						
+						<!-- 
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a> -->
 					</form>
-					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
+					
 				</td>
 			<!--	<td> 
 				<?php $userdata = $this->session->userdata('admin'); 
