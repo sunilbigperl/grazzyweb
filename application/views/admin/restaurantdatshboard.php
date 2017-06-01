@@ -1,4 +1,3 @@
-
  <?php if($this->auth->check_access('Restaurant manager')) : ?>
 			<div class="alert alert-error" style="font-size:16px;text-align:center">
 				<a class="close" data-dismiss="alert">×</a>
@@ -13,6 +12,7 @@
 	 <p id="margin"> 
 <?php
 echo "" . date("jS F Y") . "<br>";
+
 
 ?></p>
 <!--<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
@@ -39,10 +39,15 @@ echo "" . date("jS F Y") . "<br>";
 		<?php
 		$GLOBALS['admin_folder'] = $this->config->item('admin_folder');
 			$i=1;
+			
 			foreach($orders as $order)
-			{?>
+			{
+				
+				?>
+
 			<tr class="gc_row">
 				<td><?=$i;?></td>
+
 				<td>
 					<a href="#" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
 				</td>
@@ -56,7 +61,19 @@ echo "" . date("jS F Y") . "<br>";
 				<td>
 					<?=$order->order_type;?>
 				</td>
-				<td><?=$order->delivered_on;?></td>
+				<?php
+				
+    $t1=date("h:i:s", strtotime("$order->delivered_on")) . "\n";
+//     $t2=date("h:i:s", strtotime("$t1-$order->preparation_time minutes"));             
+
+// echo $t1;
+// echo $t2; 
+      
+                 
+?>
+				<td><?php echo date("h:i:s", strtotime("$t1-$order->preparation_time minutes"));?></td>
+				 
+				
 				<!--<td> 
 					<?php if($order->ordertype_id == 3){ ?>
 						<a href="#" data-toggle="modal" data-target="#orderdetails"style="color: #2f2fd0;text-decoration:underline;"  class="btn btn-primary btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/Review/2');?>',<?=htmlspecialchars(json_encode($order));?>);">Review customer</a>
