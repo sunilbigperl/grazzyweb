@@ -162,6 +162,8 @@ class Deliveryboy extends Admin_Controller
 		$RestReviewavg= isset($RestReview['avg'][0]->avg) ? $RestReview['avg'][0]->avg : 0;
 		$delpartnerreview = $this->Customer_model->GetReviewDelPartner($id,5);
 		$delpartnerreviewavg = isset($delpartnerreview['avg'][0]->avg) ? $delpartnerreview['avg'][0]->avg :0;
+		$delboyreview = $this->Deliveryboy_model->GetReviewboyPartner($id,8);
+        $delboyreviewavg = isset($delboyreview['avg'][0]->avg) ? $delboyreview['avg'][0]->avg :0;
 		$deliveryboy       = $this->Deliveryboy_model->get_deliveryboy($id); 
 		echo  "<div class='modal-header'>
 		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
@@ -181,6 +183,11 @@ class Deliveryboy extends Admin_Controller
 			if($RestReviewavg['data']){
 				foreach($customerreviewavg['data'] as $customer1){ 
 					echo "<tr><td>".$customer1->date."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->firstname."</td></tr>";
+				}
+			}
+			if( $delboyreview['data']){
+				foreach( $delboyreview['data'] as $customer1){ 
+					echo "<tr><td>".$customer1->date."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->name."</td></tr>";
 				}
 			}
 		echo "</tbody>

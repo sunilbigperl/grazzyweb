@@ -164,4 +164,17 @@ Class Deliveryboy_model extends CI_Model
             return false;
         }
     }
+
+    function GetReviewboyPartner($id,$type)
+    {
+    	$sql = $this->db->query("select a.*,b.name from feedback a, delivery_boy b where a.feedbackfrom=b.id and a.feedbacktype='".$type."' and a.feedbackto='".$id."'");
+		if($sql->num_rows() > 0){
+			$result['data']	= $sql->result();
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype='".$type."' and feedbackto='".$id."'");
+			$result['avg']	= $sql1->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+    }
 }
