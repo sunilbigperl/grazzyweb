@@ -38,7 +38,12 @@
 	<script src="<?php echo base_url('vendors/js/jquery.min.js');?>"></script>
     <!-- Bootstrap -->
     <script src="<?php echo base_url('vendors/js/bootstrap.min.js');?>"></script>
+	
+	<script src="<?php echo base_url('vendors/js/bootstrap-table.js ');?>"></script>
+   
+
 	 <script src="<?php echo base_url('vendors/js/jquery.tabletoCSV.js');?>"></script>
+	 
 	
 	<?php if($this->auth->is_logged_in(false, false)):?>
 		
