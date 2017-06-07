@@ -131,12 +131,15 @@ class Orders extends Admin_Controller {
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
 			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
-			$data['todate'] =  date('Y-m-d',strtotime('last day of last month'));
+			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of last month'));
+
 		}else{
 			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
 			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
+
 		}
 		$data['id'] = $id;
 		$restaurant  = $this->Restaurant_model->get_restaurant($id);
@@ -156,17 +159,21 @@ class Orders extends Admin_Controller {
 	}
 	
 	function restbill($id,$type){
-		$this->load->model('Restaurant_model');
+		//$this->load->model('Restaurant_model');
+		
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] = date("Y-m-d ",strtotime($this->input->post('fromdate')));
-			$data['todate'] = date("Y-m-d ",strtotime($this->input->post('todate')));
+			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] =  date('Y-m-d',strtotime('last day of last month'));
+
 		}else{
-			$data['fromdate'] =  date('Y-m-d ',strtotime('first day of this month'));
-			$data['todate'] =  date('Y-m-d ',strtotime('last day of this month'));
+			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
+
 		}
+
 		
 		$data['date'] = date("Y-m-d");
 		$restaurant       = $this->Restaurant_model->get_restaurant($id);
@@ -229,25 +236,126 @@ class Orders extends Admin_Controller {
 		
 
 
-
-		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
+$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
 		
 		if($type == "pdf"){
-			$fnamee = rand()."restbill.pdf";
+            $fnamee = rand()."restbill.pdf";
 			$filename  = "bills/".$fnamee;
+		
 		}else{
+			
 			$fnamee =  rand()."restbill.xls";
 			 $filename  = "bills/".$fnamee;
 			 
 		} 
-		fopen($filename,"w");
+		
+	     fopen($filename,"w");
 		chmod($fnamee,0777);
 		$this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
-		// redirect("http://localhost/grazzyweb/".$filename);
-		redirect("http://app.eatsapp.in/".$filename);
+		redirect("http://localhost/grazzyweb/".$filename);
+		//redirect("http://app.eatsapp.in/".$filename);
+
+	}
+
+
+	public function excel($id)
+	{
+		$this->load->model('Restaurant_model');
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
+			$data['todate'] =  date('Y-m-d',strtotime('last day of last month'));
+		}else{
+			$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
+		}
+
+		$this->load->library('Excel');
+		$this->excel->setActiveSheetIndex(0);
+
+		//set cell A1 content with some text
+         $this->excel->getActiveSheet()->setCellValue('A1', 'order id');
+         $this->excel->getActiveSheet()->setCellValue('B1', 'order date');
+	     $this->excel->getActiveSheet()->setCellValue('C1', 'order number');
+         $this->excel->getActiveSheet()->setCellValue('D1', 'customer bill amount');
+
+	                
+
+	       for($col = ord('A'); $col <= ord('C'); $col++){ //set column dimension $this->excel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
+
+	                
+
+	                $this->excel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
+
+                  }
+	       
+	       
+
+//$rs = $this->db->query("select * from restaurant where restaurant_id ='".$id."' ");
+                   //$data['orders'] = $this->Order_model->get_restpreviousorders($data);
 		
+	                // $rs = $this->db->get('admin');
+                  $sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_id='".$id."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."' order by ordered_on desc");
+
+
+                  if($sql->num_rows() > 0){
+
+			$result	= $sql->result_array();
+			$data['ordered_on'] = $result[0]['ordered_on'];
+			$data['order_number'] = $result[0]['order_number'];
+			$data['total_cost'] = $result[0]['total_cost'];
+			$data['commission'] = $result[0]['commission'];
+			
+
+			
+			//echo $sql->num_rows();
+		}else{
+			$data['ordered_on'] = '';
+			$data['order_number'] = '';
+			$data['total_cost'] = '';
+			$data['commission'] = '';
+			$data['penalty'] = '';
+			$data['reimb'] = '';
+			$data['remarks'] = '';
+		}
+		// return $result
+
+	     //$exceldata="";
+		//$result=""
+
+	        foreach ($sql->result_array() as $row){
+
+	                $data['ordered_on'] = $row['ordered_on'];
+	                $data['order_number'] = $row['order_number'];
+			        $data['total_cost'] = $row['total_cost'];
+			        $data['commission'] = $row['commission'];
+			         $data['penalty'] = $row['penalty'];
+
+
+	         }
+
+	                //Fill data
+
+	                $this->excel->getActiveSheet()->fromArray($data, null, 'A2');
+
+	                 $filename='restbill.xls'; //save our workbook as this file name
+
+	                header('Content-Type: application/vnd.ms-excel'); //mime type
+
+	                header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+
+	                header('Cache-Control: max-age=0'); //no cache
+
+	                $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
+
+	                 $objWriter->save('php://output');
+	                $this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
+
 	}
 
 	function delpartnerbill($id,$type){
@@ -277,10 +385,12 @@ class Orders extends Admin_Controller {
 			$fnamee = rand()."delpartnerbill.pdf";
 			$filename  = "bills/".$fnamee;
 		}else{
+
 			$fnamee =  rand()."delpartnerbill.xls";
 			 $filename  = "bills/".$fnamee;
 			 
-		} 
+			 } 
+			 
 		fopen($filename,"w");
 		chmod($fnamee,0777);
 		$this->load->library('m_pdf');
