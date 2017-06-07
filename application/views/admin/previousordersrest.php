@@ -12,20 +12,22 @@
 		
 		<div class="form-group"><input type="submit" class="btn btn-primary" value="Go" name="action"></div>
 
+      
 		<div  style="margin-top:20px;">
 			<div class="form-group"><input type="submit" class="btn btn-primary" value="PreviousMonth" name="action"></div>
 			<div class="form-group"><input type="submit" class="btn btn-primary" value="CurrentMonth" name="action"></div>
 		</div>
-	</form>
-</div>
+		
 
 <?php if(count($orders) > 0){ ?>
 <?php if(isset($id)){ ?>
 <div class="btn-group">
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/restbill/'.$id.'/pdf') ?>" class="btn btn-xs btn-primary">Download pdf</a>
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/restbill/'.$id.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a>
-</div>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/excel/'.$id.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a>
+</div> 
 <?php } ?>
+</form>
+</div>
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
