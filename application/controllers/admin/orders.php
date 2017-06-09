@@ -278,11 +278,28 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 		$this->excel->setActiveSheetIndex(0);
 
 		//set cell A1 content with some text
-         $this->excel->getActiveSheet()->setCellValue('A1', 'order id');
-         $this->excel->getActiveSheet()->setCellValue('B1', 'order date');
-	     $this->excel->getActiveSheet()->setCellValue('C1', 'order number');
-         $this->excel->getActiveSheet()->setCellValue('D1', 'customer bill amount');
-
+         $this->excel->getActiveSheet()->setCellValue('A1', 'Period');
+         $this->excel->getActiveSheet()->setCellValue('B1', '');
+	     $this->excel->getActiveSheet()->setCellValue('C1', 'Value of orders forwarded');
+         $this->excel->getActiveSheet()->setCellValue('D1', 'Commission');
+          $this->excel->getActiveSheet()->setCellValue('E1', 'Commission');
+         $this->excel->getActiveSheet()->setCellValue('F1', 'Service tax');
+	     $this->excel->getActiveSheet()->setCellValue('G1', 'Service tax');
+         $this->excel->getActiveSheet()->setCellValue('H1', 'Total');
+          $this->excel->getActiveSheet()->setCellValue('I1', 'Number of Orders');
+         $this->excel->getActiveSheet()->setCellValue('J1', 'Reimbursement of Delivery Charges');
+	     $this->excel->getActiveSheet()->setCellValue('K1', 'Reimbursement of Delivery Charges');
+	     $this->excel->getActiveSheet()->setCellValue('L1', 'Service tax');
+         $this->excel->getActiveSheet()->setCellValue('M1', 'Total');
+         $this->excel->getActiveSheet()->setCellValue('N1', 'Number of Orders Cancelled');
+         $this->excel->getActiveSheet()->setCellValue('O1', 'Penalty');
+	     $this->excel->getActiveSheet()->setCellValue('P1', 'Penalty');
+         $this->excel->getActiveSheet()->setCellValue('Q1', 'ServiceTax');
+         $this->excel->getActiveSheet()->setCellValue('R1', 'Total');
+          $this->excel->getActiveSheet()->setCellValue('S1', 'Total Bill(Keep Amount)');
+         $this->excel->getActiveSheet()->setCellValue('T1', 'Netamount payable to you');
+	     
+         $this->excel->getActiveSheet()->getStyle('A1:T1')->getFont()->setBold(true);
 	                
 
 	       for($col = ord('A'); $col <= ord('C'); $col++){ //set column dimension $this->excel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
@@ -292,54 +309,66 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 	                $this->excel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
 
                   }
-	       
-	       
 
-//$rs = $this->db->query("select * from restaurant where restaurant_id ='".$id."' ");
-                   //$data['orders'] = $this->Order_model->get_restpreviousorders($data);
+                  $orders = $this->Restaurant_model->get_restaurantorders($id);
+		$corders = $this->Restaurant_model->get_restaurantorderscancel($id);
+
+	       $sql1=$this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$data['fromdate']."' and ordered_on <= '".$data['todate']."'  ");
 		
-	                // $rs = $this->db->get('admin');
-                  $sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
-		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_id='".$id."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."' order by ordered_on desc");
-
-
-                  if($sql->num_rows() > 0){
-
-			$result	= $sql->result_array();
-			$data['ordered_on'] = $result[0]['ordered_on'];
-			$data['order_number'] = $result[0]['order_number'];
-			$data['total_cost'] = $result[0]['total_cost'];
-			$data['commission'] = $result[0]['commission'];
+		if($sql1->num_rows() > 0){
+			$res1	= $sql1->result_array();
+			$data['cost'] = $res1[0]['SUM(total_cost)'];
 			
-
 			
-			//echo $sql->num_rows();
 		}else{
-			$data['ordered_on'] = '';
-			$data['order_number'] = '';
-			$data['total_cost'] = '';
-			$data['commission'] = '';
-			$data['penalty'] = '';
-			$data['reimb'] = '';
-			$data['remarks'] = '';
+
+			$data['cost'] = '';
+			
 		}
-		// return $result
-
-	     //$exceldata="";
-		//$result=""
-
-	        foreach ($sql->result_array() as $row){
-
-	                $data['ordered_on'] = $row['ordered_on'];
-	                $data['order_number'] = $row['order_number'];
-			        $data['total_cost'] = $row['total_cost'];
-			        $data['commission'] = $row['commission'];
-			         $data['penalty'] = $row['penalty'];
+	
 
 
-	         }
-
-	                //Fill data
+		
+		$sql = $this->db->query("select * from restaurant where restaurant_id ='".$id."' ");
+		if($sql->num_rows() > 0){
+			$res	= $sql->result_array();
+			$data['commission'] = $res[0]['commission'];
+			$data['commision1']=(($data['cost']*$data['commission'])/100);
+			$data['servicetax'] = $res[0]['servicetax'];
+			$data['servicetax1']=(($data['commision1']*$data['servicetax'])/100);
+			$data['total1']=$data['commision1']+$data['servicetax1'];
+			if($orders == 0){ $data['noorders'] = 0;}else{ $data['noorders'] = count($orders);	 }
+			$data['reimb'] = $res[0]['reimb'];
+			$data['reimb1'] = $data['noorders']*$data['reimb'];
+			$data['servicetax2']=(($data['reimb1']*$data['servicetax'])/100);
+			$data['total2']=$data['reimb1']+$data['servicetax2'];
+		 		if($corders == 0){ $data['cancelorders'] = 0;}else{ $data['cancelorders'] = count($corders); }
+			$data['penalty'] = $res[0]['penalty'];
+			$data['penalty1'] = $data['cancelorders']*$data['penalty'];
+			$data['servicetax3']=(($data['penalty1']*$data['servicetax'])/100);
+			$data['total3']=$data['penalty1']+$data['servicetax3'];
+			$data['totalbill']=$data['total1']+$data['total2']+$data['total3'];
+			$data['netamount']=$data['cost']-$data['totalbill'];
+		}else{
+			$data['commission'] = '';
+			$data['commision1']='';
+			$data['servicetax'] = '';
+			$data['servicetax1']='';
+			$data['total1']='';
+			
+			$data['reimb'] = '';
+			$data['reimb1'] = '';
+			$data['servicetax2']='';
+			$data['penalty'] = '';
+			$data['penalty1'] = '';
+			$data['servicetax3']='';
+			$data['total3']='';
+			$data['totalbill']='';
+			$data['netamount']='';
+		}
+		
+		
+		         //Fill data
 
 	                $this->excel->getActiveSheet()->fromArray($data, null, 'A2');
 

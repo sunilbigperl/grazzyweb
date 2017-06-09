@@ -40,7 +40,7 @@ class Login extends Base_Controller {
 					if($this->auth->check_access('Restaurant manager')){
 						
 						$date = date('Y-m-d');
-						$sql = $this->db->query("select * from admin where NextRenewalDate > '".$date."' and username='".$username."' and enabled=1 ");
+						$sql = $this->db->query("select * from admin where NextRenewalDate > '".$date."' and username='".$username."'");
 						//print_r("select * from admin where NextRenewalDate > '".$date."' and username='".$username."'"); exit;
 						if($sql->num_rows() > 0){
 							$redirect = $this->config->item('admin_folder').'/orders/dashboard';
@@ -56,7 +56,7 @@ class Login extends Base_Controller {
 						
 						$date = date('Y-m-d');
 						
-						$sql = $this->db->query("select * from admin where NextRenewalDate > '".$date."' and username='".$username."' and enabled=1 ");
+						$sql = $this->db->query("select * from admin where NextRenewalDate > '".$date."' and username='".$username."' ");
 						
 						if($sql->num_rows() > 0){
 							$redirect = $this->config->item('admin_folder').'/orders/delpartnerorders';
