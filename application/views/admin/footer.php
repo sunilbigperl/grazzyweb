@@ -6,7 +6,7 @@
     <hr/>
 	<script>
 		$(document).ready(function(){
-			$("ul.tabs li").click(function(){
+			$("ul.side-menu li").click(function(){
 				$(this).closest("li").addClass('active');
 				 if($(this).closest("li").children("ul").length) {
 					 $(this).closest("li").children("ul").css("display",'block');
