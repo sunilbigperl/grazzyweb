@@ -708,7 +708,12 @@ class Api_model extends CI_Model
 		
 	    if($sql){
 			$path = "uploads/images/thumbnails/".$image;
-			file_put_contents($path,base64_decode($data['profile_image']));
+			$ifp = fopen( $path, 'wb' ); 
+			$data = explode( ',', $data['profile_image'] );
+			fwrite( $ifp, base64_decode( $data[ 1 ] ) );
+			fclose( $ifp ); 
+
+			//file_put_contents($path,base64_decode($data['profile_image']));
 			$result[0] = true;
 		}else{
 			$result[0] = false;
