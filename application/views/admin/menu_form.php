@@ -1,8 +1,8 @@
-<link href="http://localhost/gocart/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link type="text/css" href="http://localhost/gocart/assets/css/redactor.css" rel="stylesheet" />
+<link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet" type="text/css" />
+<link type="text/css" href="<?php echo base_url('assets/css/redactor.css'); ?>" rel="stylesheet" />
 
-<script type="text/javascript" src="http://localhost/gocart/assets/js/jquery-ui.js"></script>
-<script type="text/javascript" src="http://localhost/gocart/assets/js/redactor.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/redactor.min.js');?>"></script>
 <?php $GLOBALS['option_value_count'] = 0;?>
 <style type="text/css">
 	.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container{width:100%;}
