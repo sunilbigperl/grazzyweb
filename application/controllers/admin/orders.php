@@ -159,8 +159,6 @@ class Orders extends Admin_Controller {
 	}
 	
 	function restbill($id,$type){
-		//$this->load->model('Restaurant_model');
-		
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
 			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
@@ -174,7 +172,6 @@ class Orders extends Admin_Controller {
 
 		}
 
-		
 		$data['date'] = date("Y-m-d");
 		$restaurant       = $this->Restaurant_model->get_restaurant($id);
 		$orders = $this->Restaurant_model->get_restaurantorders($id);
@@ -545,9 +542,9 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 
 	function ChangeRestMangerStatus($status,$id){
 		$statuss = $this->Order_model->ChangeRestMangerStatus($status,$id);
-		if($statuss && $status == 1){
+		if($statuss && $statuss == 1){
 			$data['order'] = $this->Order_model->get_order($id);
-			
+			if($data['order']->order_type != 3){
 				$data['restaurant'] = $this->Restaurant_model->get_restaurant($data['order']->restaurant_id);
 				$data['customer'] = $this->Customer_model->get_customer($data['order']->customer_id);
 				$data['fromaddress'] = $data['restaurant']->restaurant_address;
@@ -561,15 +558,15 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 					$data['tocity'] = $data['restaurant']->restaurant_branch;
 				}
 			
-			if($data['order']->order_type != 3){
+				
 				$result = $this->Roadrunner_model->CheckServicability($data);
-			$roadrunner = json_decode($result);
-			if($roadrunner->status->code ==  200){
-				$sql = $this->db->query("update orders set delivery_partner = '123', delivery_partner_status = 'Accepted' where id='".$id."'");
-				echo '<script>alert("Order assigned success. delivered by roadrunner.")</script>';
+				$roadrunner = json_decode($result);
+				if($roadrunner->status->code ==  200){
+					$sql = $this->db->query("update orders set delivery_partner = '123', delivery_partner_status = 'Accepted' where id='".$id."'");
+					echo '<script>alert("Order assigned success. delivered by roadrunner.")</script>';
+				}
 			}
 		}
-	}
 		redirect('admin/orders/dashboard', 'refresh');
 
 	}
