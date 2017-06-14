@@ -547,13 +547,7 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 		$statuss = $this->Order_model->ChangeRestMangerStatus($status,$id);
 		if($statuss && $status == 1){
 			$data['order'] = $this->Order_model->get_order($id);
-			if($data['order']->order_type != 3){
-				$result = $this->Roadrunner_model->CheckServicability($data);
-			$roadrunner = json_decode($result);
-			if($roadrunner->status->code ==  200){
-				$sql = $this->db->query("update orders set delivery_partner = '123', delivery_partner_status = 'Accepted' where id='".$id."'");
-				echo '<script>alert("Order assigned success. delivered by roadrunner.")</script>';
-			}
+			
 				$data['restaurant'] = $this->Restaurant_model->get_restaurant($data['order']->restaurant_id);
 				$data['customer'] = $this->Customer_model->get_customer($data['order']->customer_id);
 				$data['fromaddress'] = $data['restaurant']->restaurant_address;
@@ -566,14 +560,16 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 					$data['toaddress'] = $data['order']->delivery_location;
 					$data['tocity'] = $data['restaurant']->restaurant_branch;
 				}
+			
+			if($data['order']->order_type != 3){
+				$result = $this->Roadrunner_model->CheckServicability($data);
+			$roadrunner = json_decode($result);
+			if($roadrunner->status->code ==  200){
+				$sql = $this->db->query("update orders set delivery_partner = '123', delivery_partner_status = 'Accepted' where id='".$id."'");
+				echo '<script>alert("Order assigned success. delivered by roadrunner.")</script>';
 			}
-			// $result = $this->Roadrunner_model->CheckServicability($data);
-			// $roadrunner = json_decode($result);
-			// if($roadrunner->status->code ==  200){
-			// 	$sql = $this->db->query("update orders set delivery_partner = '123', delivery_partner_status = 'Accepted' where id='".$id."'");
-			// 	echo '<script>alert("Order assigned success. delivered by roadrunner.")</script>';
-			// }
 		}
+	}
 		redirect('admin/orders/dashboard', 'refresh');
 
 	}

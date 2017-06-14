@@ -22,7 +22,7 @@
 <?php if(count($orders) > 0){ ?>
 <?php if(isset($id)){ ?>
 <div class="btn-group">
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/restbill/'.$id.'/pdf') ?>" class="btn btn-xs btn-primary">Download pdf</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/restbill/'.$id.'/pdf') ?>" class="btn btn-xs btn-primary" onclick="showdetails1(fromdate.value,todate.value);">Download pdf</a>
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/excel/'.$id.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a>
 </div> 
 <?php } ?>
@@ -204,4 +204,27 @@ if (datefield.type!="date"){ //if browser doesn't support input type="date", ini
     })
 }
 </script>
+
+<script>
+
+	function showdetails1(fromdate,todate){
+alert("success");
+		
+
+		$.ajax({
+			url:"<?php echo site_url($this->config->item('admin_folder').'/orders/restbill/'.$id.'/pdf') ?>",
+			type:"post",
+			datatype:'json',
+			data: $('form').serialize(),
+			success:function(data){
+				$("#fromdate").html(data);
+				$("#todate").html(data);
+
+				//alert('Success');
+				 
+			}
+		});
+	}
+	
+</script> 
 <?php $this->load->view('admin/marque'); ?>
