@@ -186,22 +186,24 @@ class Api_model extends CI_Model
 	
 	public function getRestaurants($id){
 		$date = date("Y-m-d");
+		date_default_timezone_set('Asia/Calcutta');
+		$time = date('H:i:s',time());
 		$threadmsg = $this->db->query("select a.* from restaurant a, pitstops b, pitstop_restaurants c, admin d where 
 		a.restaurant_id = c.restaurants_id and b.pitstop_id=c.pitstop_id  and d.id = a.restaurant_manager and 
 		d.NextRenewalDate <= '".$date."' and b.pitstop_id='".$id."' and a.enabled=1 and a.`delete`=0");
 
 			if($threadmsg->num_rows()>0){
-				// print_r($threadmsg->num_rows()); exit;
+				
 				$result = array();
 				$i=0;
 				foreach($threadmsg->result_array() as $row){ 
-					//print_r($threadmsg->result_array()); exit;
-					$result[] = $row;
+					
 					$days = unserialize($row['days']);
+					
 					$days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
 					$day =  $days1[date("N")];
-					$time = date('H:i:s',time());
-					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] >= $time && $row['totime'] <= $time)){
+					
+					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && $row['totime'] >= $time)){
 					
 						$result[$i]['restaurant_id'] = $row['restaurant_id'];
 						$result[$i]['restaurant_name'] = $row['restaurant_name'];
