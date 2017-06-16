@@ -191,9 +191,12 @@ class Api_model extends CI_Model
 		d.NextRenewalDate <= '".$date."' and b.pitstop_id='".$id."' and a.enabled=1 and a.`delete`=0");
 
 			if($threadmsg->num_rows()>0){
+				// print_r($threadmsg->num_rows()); exit;
 				$result = array();
 				$i=0;
 				foreach($threadmsg->result_array() as $row){ 
+					//print_r($threadmsg->result_array()); exit;
+					$result[] = $row;
 					$days = unserialize($row['days']);
 					$days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
 					$day =  $days1[date("N")];

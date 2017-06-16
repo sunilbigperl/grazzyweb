@@ -159,6 +159,9 @@ class Orders extends Admin_Controller {
 	}
 	
 	function restbill($id,$type){
+		$fromdate=$this->input->post('fromdate');
+		$todate=$this->input->post('todate');
+
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
 			$data['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
@@ -186,8 +189,9 @@ class Orders extends Admin_Controller {
 
 		 // $sql1 = $this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='2017-01-29' and ordered_on <='2017-02-28'  ");
 
+        // print_r("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$fromdate."' and ordered_on <= '".$todate."'  ");exit;
 
-		 $sql1=$this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$data['fromdate']."' and ordered_on <= '".$data['todate']."'  ");
+		 $sql1=$this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$fromdate."' and ordered_on <= '".$todate."'  ");
 		
 		if($sql1->num_rows() > 0){
 			$res1	= $sql1->result_array();
