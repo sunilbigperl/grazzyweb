@@ -76,12 +76,12 @@
 
         <div class="animate form login_form">
           <section class="login_content" id="loginwhite">
-		  <?php if (!empty($error)): ?>
+		  <!-- <?php if (!empty($error)): ?>
 			<div class="alert alert-error">
 				<a class="close" data-dismiss="alert">×</a>
 				<?php echo $error; ?>
 			</div>
-		<?php endif; ?>
+		<?php endif; ?> -->
             <?php echo form_open($this->config->item('admin_folder').'/login') ?>
               <img src="<?php echo base_url('uploads/images/logo1.png');?>" height="150" width="150" alt="logo">
               <div>
