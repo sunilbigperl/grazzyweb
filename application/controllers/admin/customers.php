@@ -292,7 +292,8 @@ class Customers extends Admin_Controller {
 		$sub_list = '';
 		foreach($subscribers as $subscriber)
 		{
-			$sub_list .= $subscriber['email'].",\n";
+			// $sub_list .= $subscriber['email'].",\n";
+			$sub_list .= $subscriber['firstname'].",".$subscriber['email'].",".$subscriber['active'].",".$subscriber['phone'].",\n";
 		}
 		
 		$data['sub_list']	= $sub_list;
