@@ -255,8 +255,8 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 		$this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
-		redirect("http://localhost/grazzyweb/".$filename);
-		//redirect("http://app.eatsapp.in/".$filename);
+		//redirect("http://localhost/grazzyweb/".$filename);
+		redirect("http://app.eatsapp.in/".$filename);
 
 	}
 

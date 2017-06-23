@@ -219,7 +219,9 @@ function showdetails1(fromdate,todate){
 		data: {fromdate:fromdate,todate:todate,action:action},
 		success:function(data){
 			console.log(data);
+			 window.location.href="<?php echo site_url($this->config->item('admin_folder').'/orders/restbill/'.$id.'/pdf'); ?>"
 			//alert('Success');
+
 			 
 		}
 	});
