@@ -545,7 +545,7 @@ class Api_model extends CI_Model
 								$i++;
 								}
 							}else{
-								$data= array();
+								$data= false;
 							}
 
 							$result[$i]['menus'][$j]['customisation'] = $data;
