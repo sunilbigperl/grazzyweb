@@ -509,7 +509,9 @@ class Api_model extends CI_Model
 					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
 					$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
 					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0";
+					//echo $sql1; exit;
 					$query1 = $this->db->query($sql1);
+				
 					if($query1->num_rows()>0){
 						$data1 = $query1->result_array();
 						$j=0;
@@ -526,23 +528,24 @@ class Api_model extends CI_Model
 							$result[$i]['menus'][$j]['image'] = 'uploads/images/thumbnails/'.$mn['image'];
 							$result[$i]['menus'][$j]['type'] = $mn['type'];
 							$result[$i]['menus'][$j]['itemPreparation_time'] = $mn['itemPreparation_time'];
-							if($mn['customisation'] != ""){
+							
+							if($mn['customisation'] != "" && strlen($mn['customisation']) > 5){
 								$cust = unserialize($mn['customisation']);
 								$data= array();
-								$i=0;
+								$l=0;
 								foreach($cust as $str){
-									$data['customisation'][$i]['type'] = $str['type'];
-									$data['customisation'][$i]['name'] = $str['name'];
+									$data[$l]['type'] = $str['type'];
+									$data[$l]['name'] = $str['name'];
 									if(isset($str['values']) && count($str['values']) > 0){
-										$j=0;
+										$m=0;
 										foreach($str['values'] as $value){
-											$data['customisation'][$i]['values'][$j]['name'] = $value['name'];
-											$data['customisation'][$i]['values'][$j]['weight'] = $value['weight'];
-											$data['customisation'][$i]['values'][$j]['price'] = $value['price'];
-										$j++;
+											$data[$l]['values'][$m]['name'] = $value['name'];
+											$data[$l]['values'][$m]['weight'] = $value['weight'];
+											$data[$l]['values'][$m]['price'] = $value['price'];
+										$m++;
 										}		
 									}
-								$i++;
+								$l++;
 								}
 							}else{
 								$data= false;
@@ -552,11 +555,12 @@ class Api_model extends CI_Model
 						$j++;
 						}
 					}
+					$i++;
 				}
-			$i++;
+			
 			}
 		}
-		
+		//print_r($result); exit;
 		return $result;
 	}
 	
