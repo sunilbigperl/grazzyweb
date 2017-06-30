@@ -92,7 +92,7 @@ Class Customer_model extends CI_Model
 	
     function get_subscribers()
     {
-        $this->db->where('email_subscribe','1');
+        //$this->db->where('email_subscribe','1');
         $res = $this->db->get('customers');
         return $res->result_array();
     }
