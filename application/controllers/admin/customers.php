@@ -572,14 +572,15 @@ class Customers extends Admin_Controller {
 		$customer		= $this->Customer_model->get_customer($id);
 		$addresses		= $this->Customer_model->get_address_list($id);
 		$FoodOutlets =$this->Customer_model->PreferedRest($id);
+		
 		$from = new DateTime($customer->dob);
 		$to   = new DateTime('today');
-
+		$img =base_url('uploads/images/thumbnails/'.$customer->profile_image);
 		$add ="";
 		echo  "<div class='modal-header'>
 		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
 		  <h4 class='modal-title pull-left'> Customer details: ".$customer->firstname."</h4>
-		  <img src='uploads/images/thumbnails/".$customer->profile_image."' class='pull-right'>
+		  <img src='".$img."' class='pull-right' style='width: 80px;height: 50px;'>
 		</div>
 		<div class='modal-body'>
 		<div class=''><strong>Phone:</strong> ".$customer->phone."</div>
@@ -587,8 +588,10 @@ class Customers extends Admin_Controller {
 		<div class=''><strong>Age:</strong> ".$from->diff($to)->y."</div>
 		<div><strong>Prefered Food outlets </strong>";
 		echo "<ul>";
-		foreach($FoodOutlets['data'] as $FoodOutlet){
-			echo "<li>".$FoodOutlet->restaurant_name."</li>";
+		if(count($FoodOutlets['data']) > 0){
+			foreach($FoodOutlets['data'] as $FoodOutlet){
+				echo "<li>".$FoodOutlet->restaurant_name."</li>";
+			}
 		}
 		echo "</ul>";
 			if (count($addresses) > 1){
