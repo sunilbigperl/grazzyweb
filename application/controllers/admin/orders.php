@@ -509,6 +509,7 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 			 $name = $customer_details->firstname." ".$customer_details->lastname;
 			 $phone = $customer_details->phone;
 			 $email = $customer_details->email;
+			  $email = $customer_details->email;
 			}else{
 				$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
 				$name = isset($deliveryboy_details->name) ? $deliveryboy_details->name : "Not assigned yet";
@@ -523,15 +524,17 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 					<div class='form-group'>
 						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":</strong>".$name."</label></br>
 						<label><strong>Mobile No:</strong>".$phone."</label></br>
+						<label><strong>Email:</strong>".$email."</label></br>
+						
 
 					</div>
 					<table class='table table-bordered'>
 					<thead>
-						<tr><th>Item name</th><th>Item code</th><th>No of items</th><th>Amount</th><tr>
+						<tr><th>Item name</th><th>Item code</th><th>No of items</th><th>Amount</th><th>Type</th><th>Description</th><th>Preparationtime</th><th>RestName</th><tr>
 					</thead>
 					<tbody>";
 			foreach($menus as $menu){
-					$html.="<tr><td>".$menu->menu."</td><td>".$menu->menu_id."</td><td>".$menu->quantity."</td><td>".$menu->cost."</td></td>";
+					$html.="<tr><td>".$menu->menu."</td><td>".$menu->menu_id."</td><td>".$menu->quantity."</td><td>".$menu->cost."</td><td>".$menu->type."</td><td>".$menu->description."</td><td>".$menu->itemPreparation_time."</td><td>".$menu->restaurant_name."</td></td>";
 
 			}
 			$html.="</tbody>
