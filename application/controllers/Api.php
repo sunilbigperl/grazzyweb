@@ -647,7 +647,6 @@ if (isset($result)){
 			
 		}else{
 			 $this->set_response([
-			
 			'status'=>FALSE,
 			'message'=>'Sorry profile picture not updated'
 			],REST_Controller::HTTP_OK);
