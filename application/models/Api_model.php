@@ -127,8 +127,7 @@ class Api_model extends CI_Model
 	}
 	
 	public function SearchRest($data){
-
-		$date = date("Y-m-d");
+$date = date("Y-m-d");
 			date_default_timezone_set('Asia/Calcutta');
 			$time = date('H:i:s',time());
 			$threadmsg = $this->db->query("SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) )
@@ -157,6 +156,7 @@ class Api_model extends CI_Model
 			}else{
 				return false;
 			}
+		
 		$where ='';
 		
 		if(isset($data['area']) && $data['area'] != ""){
@@ -551,7 +551,7 @@ class Api_model extends CI_Model
 		$servicetax =  $sql3->result_array();
 		
 		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
-		a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0";
+		a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
 		
 		$query = $this->db->query($sql);
 		$result = array();
@@ -564,7 +564,7 @@ class Api_model extends CI_Model
 					$result[$i]['category'] = $menu['name'];
 					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
 					$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
-					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0";
+					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
 					//echo $sql1; exit;
 					$query1 = $this->db->query($sql1);
 				
