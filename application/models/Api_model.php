@@ -127,6 +127,36 @@ class Api_model extends CI_Model
 	}
 	
 	public function SearchRest($data){
+
+		$date = date("Y-m-d");
+			date_default_timezone_set('Asia/Calcutta');
+			$time = date('H:i:s',time());
+			$threadmsg = $this->db->query("SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) )
+			* cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + 
+			sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance 
+			FROM restaurant HAVING distance < 2 and enabled = 1 and `delete`=0");
+
+			if($threadmsg->num_rows()>0){
+				
+				$result = array();
+				$i=0;
+				foreach($threadmsg->result_array() as $row){ 
+					
+					$days = unserialize($row['days']);
+					
+					$days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
+					$day =  $days1[date("N")];
+					
+					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && $row['totime'] >= $time)){
+					
+						$result[] = $row;
+					}
+				$i++;
+				}
+				return $result;
+			}else{
+				return false;
+			}
 		$where ='';
 		
 		if(isset($data['area']) && $data['area'] != ""){
