@@ -38,7 +38,7 @@
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     var infowindow = new google.maps.InfoWindow();
-    var marker, i;
+    var marker, marker1, i, j;
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
@@ -51,23 +51,24 @@
         }
       })(marker, i));
     }
+	
 	var icon = {
 		url: "http://app.eatsapp.in/assets/img/Map.png", // url
 		scaledSize: new google.maps.Size(50, 50), // scaled size
-		origin: new google.maps.Point(0,0), // origin
-		anchor: new google.maps.Point(0, 0) // anchor
+		//origin: new google.maps.Point(0,0), // origin
+		//anchor: new google.maps.Point(0, 0) // anchor
 	};
-	for (i = 0; i < locations1.length; i++) {  
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations1[i][1], locations1[i][2]),
+	for (j = 0; j < locations1.length; j++) {  
+      marker1 = new google.maps.Marker({
+        position: new google.maps.LatLng(locations1[j][1], locations1[j][2]),
         map: map,
 		icon: icon
       });
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      google.maps.event.addListener(marker1, 'click', (function(marker1, j) {
         return function() {
-          infowindow.setContent(locations1[i][0]);
-          infowindow.open(map, marker);
+          infowindow.setContent(locations1[j][0]);
+          infowindow.open(map, marker1);
         }
-      })(marker, i));
+      })(marker1, j));
     }
 </script>
