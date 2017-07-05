@@ -704,9 +704,9 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 
 	public function ShowReviewDetails($id){
 		$this->load->model('Restaurant_model');
-		$customerreview = $this->Order_model->GetCustomerReview($id);
+		$customerreview = $this->Order_model->GetCustomerReview($id,7);
 		$customerreviewavg= isset($customerreview['avg'][0]->avg) ? $customerreview['avg'][0]->avg : 0;
-		$delpartnerreview = $this->Order_model->GetDelPartnerReview($id);
+		$delpartnerreview = $this->Order_model->GetDelPartnerReview($id,7);
 		$delpartnerreviewavg = isset($delpartnerreview['avg'][0]->avg) ? $delpartnerreview['avg'][0]->avg :0;
 
 		$delboyreview = $this->Order_model->GetDelBoyReview($id);
