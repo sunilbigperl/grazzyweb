@@ -547,7 +547,7 @@ $date = date("Y-m-d");
 		}
 	}
 	public function getMenus($id){
-		$sql3 = $this->db->query("select servicetax from restaurant where restaurant_id='".$id."'");
+		$sql3 = $this->db->query("select servicetax,delivery_charge from restaurant where restaurant_id='".$id."'");
 		$servicetax =  $sql3->result_array();
 		
 		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
@@ -563,6 +563,7 @@ $date = date("Y-m-d");
 					$result[$i]['category_id'] = $menu['category_id'];
 					$result[$i]['category'] = $menu['name'];
 					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
+					$result[$i]['delivery_charge'] =  $servicetax[0]['delivery_charge'];
 					$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
 					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
 					//echo $sql1; exit;
