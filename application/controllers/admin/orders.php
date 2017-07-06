@@ -530,11 +530,11 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 					</div>
 					<table class='table table-bordered'>
 					<thead>
-						<tr><th>Item name</th><th>Item code</th><th>No of items</th><th>Amount</th><th>Type</th><th>Description</th><th>Preparationtime</th><th>RestName</th><tr>
+						<tr><th>Item name</th><th>Item code</th><th>No of items</th><th>Amount</th><th>RestName</th><th>Ordertype</th><th>Keepready</th><th>deliveredon</th><tr>
 					</thead>
 					<tbody>";
 			foreach($menus as $menu){
-					$html.="<tr><td>".$menu->menu."</td><td>".$menu->menu_id."</td><td>".$menu->quantity."</td><td>".$menu->cost."</td><td>".$menu->type."</td><td>".$menu->description."</td><td>".$menu->itemPreparation_time."</td><td>".$menu->restaurant_name."</td></td>";
+					$html.="<tr><td>".$menu->menu."</td><td>".$menu->menu_id."</td><td>".$menu->quantity."</td><td>".$menu->cost."</td><td>".$menu->restaurant_name."</td><td>".$menu->order_type."</td><td>".$menu->keep_ready."</td><td>".$menu->delivered_on."</td></td>";
 
 			}
 			$html.="</tbody>
