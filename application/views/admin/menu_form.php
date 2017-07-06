@@ -10,6 +10,8 @@
 	.sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; height: 18px; }
 	.sortable li>span { position: absolute; margin-left: -1.3em; margin-top:.4em; }
 	.form-control{height:35px;}
+	.nav-sm ul.nav.child_menu li a:hover{background-color: #e86051;}
+
 </style>
 
 
