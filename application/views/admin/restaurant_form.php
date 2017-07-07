@@ -71,12 +71,12 @@
 					</select>
 				
 				</div>
-				
+				<?php if($this->auth->check_access('Admin')) {?>
 				<div class="form-group">	
 					<label for="enabled"><?php echo lang('enabled');?> </label>
 					<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class="form-control"'); ?>
 				</div>
-				
+				<?php } ?>
 				
 			</fieldset>
 		</div>
