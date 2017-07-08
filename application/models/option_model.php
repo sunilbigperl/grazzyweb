@@ -142,7 +142,7 @@ Class Option_model extends CI_Model
 		$this->db->order_by('sequence', 'ASC');
 		
 		$result	= $this->db->get('options');
-		
+		echo $this->db->last_query(); exit;
 		$return = array();
 		foreach($result->result() as $option)
 		{

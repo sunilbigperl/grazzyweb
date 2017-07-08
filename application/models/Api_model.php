@@ -127,16 +127,23 @@ class Api_model extends CI_Model
 	}
 	
 	public function SearchRest($data){
-$date = date("Y-m-d");
+			$date = date("Y-m-d");
 			date_default_timezone_set('Asia/Calcutta');
 			$time = date('H:i:s',time());
-			$threadmsg = $this->db->query("SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) )
-			* cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + 
-			sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance 
-			FROM restaurant HAVING distance < 2 and enabled = 1 and `delete`=0");
+			$where ='';
+			
+			if(isset($data['area']) && $data['area'] != ""){
+				$sql ="SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant   HAVING distance < 4 and restaurant_branch like '%".$data['area']."%'
+				and enabled=1 and `delete`=0";
+			}
+			if(isset($data['name']) && $data['name'] != ""){
+				$sql="SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant   HAVING distance < 40 and enabled = 1 and  `restaurant_name` like  '%".$data['name']."%' and `delete`=0" ;
+			
+			}
+			echo $sql; exit;
+			$threadmsg = $this->db->query($sql);
 
 			if($threadmsg->num_rows()>0){
-				
 				$result = array();
 				$i=0;
 				foreach($threadmsg->result_array() as $row){ 
@@ -148,31 +155,14 @@ $date = date("Y-m-d");
 					
 					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && $row['totime'] >= $time)){
 					
-						$result[] = $row;
+						$result[$i]['restaurant_id'] = $row['restaurant_id'];
+						$result[$i]['restaurant_name'] = $row['restaurant_name'];
+						$result[$i]['restaurant_latitude'] = $row['restaurant_latitude'];
+						$result[$i]['restaurant_langitude'] = $row['restaurant_langitude'];
 					}
 				$i++;
 				}
-				return $result;
-			}else{
-				return false;
-			}
-		
-		$where ='';
-		
-		if(isset($data['area']) && $data['area'] != ""){
-			$sql ="select restaurant_id,restaurant_name,image,restaurant_latitude,restaurant_langitude from restaurant where restaurant_branch like '%".$data['area']."%'";
-		}
-		if(isset($data['name']) && $data['name'] != ""){
-				$sql="SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant   HAVING distance < 2 and enabled = 1 and  `restaurant_name` like  '%".$data['name']."%'";
-		
-		}
-		
-		//echo "select restaurant_id,restaurant_name,image,restaurant_latitude,restaurant_langitude from restaurant ".$where.""; exit;
-		$threadmsg = $this->db->query($sql);
-
-			if($threadmsg->num_rows()>0){
-
-				return $threadmsg->result_array();
+				return $result;	
 			}else{
 			
 				return false;

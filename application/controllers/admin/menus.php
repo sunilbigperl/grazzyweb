@@ -57,7 +57,8 @@ class Menus extends Admin_Controller {
 		
 		if($menu_id){
 			$menus       = $this->Menu_model->GetMenu($menu_id);
-			$data['product_options']	= $this->Option_model->get_product_options($menu_id);
+			//$data['product_options']	= $this->Option_model->get_product_options($menu_id);
+			$data['product_options'] = unserialize($menus->customisation);
             //if the category does not exist, redirect them to the category list with an error
             if (!$menus)
             {
