@@ -6,7 +6,7 @@ function areyousure()
 </script>
 <div class="btn-group pull-left">
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/customers/get_subscriber_list');?>"><i class="icon-download"></i> <?php echo lang('subscriber_download');?></a>
-	&nbsp;<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/customers/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_customer');?></a>
+	&nbsp;<a class="btn btn-primary" style="display:none;" href="<?php echo site_url($this->config->item('admin_folder').'/customers/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_customer');?></a>
 </div>
 
 <!--<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
@@ -37,7 +37,7 @@ function areyousure()
 				<?php if($field == 'email'){ echo ($by == 'ASC')?'<i class="icon-chevron-up"></i>':'<i class="icon-chevron-down"></i>';} ?></a></th>
 			<th><?php echo lang('active');?></th>
 			<th>Phone No</th>
-			<th>Actions</th>
+			<!-- <th>Actions</th> -->
 			<th>Reviews & reatings</th>
 		</tr>
 	</thead>
@@ -71,7 +71,7 @@ function areyousure()
 				?>
 			</td>
 			<td><?php echo $customer->phone; ?></td>
-			<td>
+			<!-- <td>
 				<div >
 					<?php if($customer->active == 2 || $customer->active == 0) { ?>
 					<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/customers/ChangeStatus/'.$customer->id."/1"); ?>">activate</a>
@@ -81,14 +81,14 @@ function areyousure()
 					&nbsp;<a class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/customers/ChangeStatus/'.$customer->id."/2"); ?>">Deactivate 3 months</a>
 					<?php } ?>
 				</div>
-				<!--<div class="btn-group" style="float:right">
+				<div class="btn-group" style="float:right">
 					<a class="btn btn-info btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/customers/form/'.$customer->id); ?>"><i class="icon-pencil"></i> <?php echo lang('edit');?></a>
 					
 					<a class="btn btn-primary btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/customers/addresses/'.$customer->id); ?>"><i class="icon-envelope"></i> <?php echo lang('addresses');?></a>
 					
 					<a class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/customers/delete/'.$customer->id); ?>" onclick="return areyousure();"><i class="fa fa-trash"></i> <?php echo lang('delete');?></a>
-				</div>-->
-			</td>
+				</div>
+			</td> -->
 			<td>
 				<a href="#"  data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/customers/ShowReviewDetails/'.$customer->id.'');?>');">Reviews</a>
 			</td>
