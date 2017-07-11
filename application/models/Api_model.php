@@ -140,7 +140,7 @@ class Api_model extends CI_Model
 				$sql="SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant   HAVING distance < 40 and enabled = 1 and  `restaurant_name` like  '%".$data['name']."%' and `delete`=0" ;
 			
 			}
-			echo $sql; exit;
+			//echo $sql; exit;
 			$threadmsg = $this->db->query($sql);
 
 			if($threadmsg->num_rows()>0){
