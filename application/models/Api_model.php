@@ -159,6 +159,7 @@ class Api_model extends CI_Model
 						$result[$i]['restaurant_name'] = $row['restaurant_name'];
 						$result[$i]['restaurant_latitude'] = $row['restaurant_latitude'];
 						$result[$i]['restaurant_langitude'] = $row['restaurant_langitude'];
+						$result[$i]['image'] = $row['image'];
 					}
 				$i++;
 				}
