@@ -302,7 +302,8 @@ Class order_model extends CI_Model
 	}
 	function GetMenudetails($data){
 		// echo "select a.*,b.menu from order_items a, restaurant_menu b where a.menu_id=b.menu_id and order_id='".$data['id']."'"; exit;
-		$sql = $this->db->query("select a.*,b.*,c.restaurant_name,d.* from order_items a, restaurant_menu b,restaurant c,orders d  where a.menu_id=b.menu_id and b.restaurant_id=c.restaurant_id and c.restaurant_id=d.restaurant_id and order_id='".$data['id']."'");
+		$sql = $this->db->query("select a.*,b.*,c.*,d.*,e.order_type from order_items a, restaurant_menu b,restaurant c,orders d,order_type e  where a.menu_id=b.menu_id and c.restaurant_id=d.restaurant_id and a.order_id=d.id and d.order_type=e.ordertype_id and order_id='".$data['id']."'");
+		
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
