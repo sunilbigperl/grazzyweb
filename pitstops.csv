@@ -1,3 +1,3 @@
-"pitstop_name","latitude","langitude","enabled"
-"pitstop3","19.1175","72.934","1"
-"pitstop4","-33.8001","151.287","1"
+"pitstop_name",latitude","langitude","enabled","city"
+"pitstop3","19.1175","72.934","1","bangalore"
+"pitstop4","-33.8001","151.287","1","bangalore"

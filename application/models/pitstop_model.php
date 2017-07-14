@@ -24,8 +24,8 @@ Class Pitstop_model extends CI_Model
 		
 		foreach($pitstops as $men){
 			foreach($men as $pitstop){
-				$sql =$this->db->query("INSERT INTO `pitstops`(`pitstop_name`, `latitude`, `langitude`, `enabled`) 
-				VALUES ('".$pitstop['pitstop_name']."','".$pitstop['latitude']."','".$pitstop['langitude']."','".$pitstop['enabled']."')");
+				$sql =$this->db->query("INSERT INTO `pitstops`(`pitstop_name`, `latitude`, `langitude`, `enabled`,`city`) 
+				VALUES ('".$pitstop['pitstop_name']."','".$pitstop['latitude']."','".$pitstop['langitude']."','".$pitstop['enabled']."','".$pitstop['city']."')");
 			}
 		}
 	}
