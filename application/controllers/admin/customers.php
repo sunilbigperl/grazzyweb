@@ -539,7 +539,9 @@ class Customers extends Admin_Controller {
 	}
 	
 	public function ShowReviewDetails($id){
-		$RestReview = $this->Customer_model->GetReviewRest($id,2);
+		$delboyreview = $this->Customer_model->GetDelBoyReview($id);
+		$delboyreviewavg = isset($delboyreview['avg'][0]->avg) ? $delboyreview['avg'][0]->avg :0;
+		$RestReview = $this->Customer_model->GetReviewRest($id,7);
 		$RestReviewavg= isset($RestReview['avg'][0]->avg) ? $RestReview['avg'][0]->avg : 0;
 		$delpartnerreview = $this->Customer_model->GetReviewDelPartner($id,8);
 		$delpartnerreviewavg = isset($delpartnerreview['avg'][0]->avg) ? $delpartnerreview['avg'][0]->avg :0;
@@ -559,9 +561,15 @@ class Customers extends Admin_Controller {
 					echo "<tr><td>".$customer->date."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
 				}
 			}
-			if($RestReviewavg['data']){
-				foreach($customerreviewavg['data'] as $customer1){ 
+			if($RestReview['data']){
+				foreach($RestReview['data'] as $customer1){ 
 					echo "<tr><td>".$customer1->date."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->restaurant_name."</td></tr>";
+				}
+			}
+
+			if(isset($delboyreview['data']) && $delboyreview['data']){
+				foreach($delboyreview['data'] as $customer1){
+					echo "<tr><td>".$customer1->date."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->name."</td></tr>";
 				}
 			}
 		echo "</tbody>
