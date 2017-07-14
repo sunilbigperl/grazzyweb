@@ -538,8 +538,10 @@ class Api_model extends CI_Model
 		}
 	}
 	public function getMenus($id){
+		$date = date('Y-m-d H:i:s');
 		// $sql3 = $this->db->query("select servicetax,delivery_charge from restaurant where restaurant_id='".$id."'");
-		$sql3 = $this->db->query("select servicetax,deliverycharge from charges where id='".$id."'");
+		$sql3 = $this->db->query("select servicetax,deliverycharge from charges order by 
+			'".$date."' desc limit 1 ");
 		$servicetax =  $sql3->result_array();
 		
 		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
