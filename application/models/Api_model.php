@@ -557,7 +557,7 @@ class Api_model extends CI_Model
 					$result[$i]['category_id'] = $menu['category_id'];
 					$result[$i]['category'] = $menu['name'];
 					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
-					$result[$i]['deliverycharge'] =  $servicetax[0]['deliverycharge'];
+					$result[$i]['delivery_charge'] =  $servicetax[0]['deliverycharge'];
 					$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
 					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
 					//echo $sql1; exit;
