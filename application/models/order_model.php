@@ -220,11 +220,11 @@ Class order_model extends CI_Model
 		return $result;
 	}
 	
-	function GetCustomerReview($id,$type){
-		$sql = $this->db->query("select a.*,b.firstname from feedback a, customers b where a.feedbackfrom=b.id and a.feedbacktype='".$type."' and a.feedbackto='".$id."'");
+	function GetCustomerReview($id){
+		$sql = $this->db->query("select a.*,b.firstname,c.feedbacktype from feedback a, customers b,feedbacktype c where a.feedbackfrom=b.id and a.feedbacktype=6 and a.feedbacktype=c.feedbacktype_id and a.feedbackto='".$id."'");
 		if($sql->num_rows() > 0){
 			$result['data']	= $sql->result();
-			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype='".$type."' and feedbackto='".$id."'");
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=6 and feedbackto='".$id."'");
 			$result['avg']	= $sql1->result();
 		}else{
 			$result = 0;
@@ -242,11 +242,11 @@ Class order_model extends CI_Model
 		}
 		return $result;
 	}
-	function GetDelPartnerReview($id,$type){
-		$sql = $this->db->query("select a.*,b.firstname from feedback a, admin b  where a.feedbackfrom=b.id and a.feedbacktype='".$type."' and a.feedbackto='".$id."'");
+	function GetDelPartnerReview($id){
+		$sql = $this->db->query("select a.*,b.firstname,c.feedbacktype from feedback a, admin b,feedbacktype c  where a.feedbackfrom=b.id and a.feedbacktype=4 and a.feedbacktype=c.feedbacktype_id and a.feedbackto='".$id."'");
 		if($sql->num_rows() > 0){
 			$result['data']	= $sql->result();
-			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype='".$type."' and feedbackto='".$id."'");
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=4 and feedbackto='".$id."'");
 			$result['avg']	= $sql1->result();
 		}else{
 			$result = 0;
@@ -256,10 +256,10 @@ Class order_model extends CI_Model
 	}
 	
 	function GetDelBoyReview($id){
-		$sql = $this->db->query("select a.*,b.name from feedback a, delivery_boy b  where a.feedbackfrom=b.id and a.feedbacktype=7 and a.feedbackto='".$id."'");
+		$sql = $this->db->query("select a.*,b.name,c.feedbacktype from feedback a, delivery_boy b,feedbacktype c  where a.feedbackfrom=b.id and a.feedbacktype=7 and a.feedbacktype=c.feedbacktype_id and a.feedbackto='".$id."'");
 		if($sql->num_rows() > 0){
 			$result['data']	= $sql->result();
-			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=4 and feedbackto='".$id."'");
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=7 and feedbackto='".$id."'");
 			$result['avg']	= $sql1->result();
 		}else{
 			$result = 0;
