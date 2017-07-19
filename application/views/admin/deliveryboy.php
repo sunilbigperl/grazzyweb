@@ -12,7 +12,7 @@ function areyousure()
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
-			<th data-field="id">id</th>
+			<!-- <th data-field="id">id</th> -->
 			<th data-field="name">Name</th>
 			<th>Phone</th>
 			<th>Action</th>
@@ -29,9 +29,9 @@ function areyousure()
 			foreach($pages as $page)
 			{?>
 			<tr class="gc_row">
-				<td>
+				<!-- <td>
 					<?=$page->id;?>
-				</td>
+				</td> -->
 				<td>
 					<?php echo $page->name; ?>
 				</td>
