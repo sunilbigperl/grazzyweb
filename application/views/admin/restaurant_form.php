@@ -247,13 +247,13 @@
 					echo form_input($data);
 					?>
 				</div>
-				<div class="form-group">
+				<div class="form-group" style="display:none;">
 					<label for="servicetax">Service tax(%)</label>
 					<?php
 					$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'form-control','readonly'=>'readonly');
 					echo form_input($data);
 					?>
-				</div>
+				</div> 
 				<?php } else {?>
 				<div class="form-group " >	
 					<label for="commission " >Commission(%)</label>	
