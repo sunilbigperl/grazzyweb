@@ -53,7 +53,7 @@
     }
 	
 	var icon = {
-		url: "http://app.eatsapp.in/assets/img/Map.png", // url
+		url: "http://localhost/grazzyweb/assets/img/Map1.png", // url
 		scaledSize: new google.maps.Size(50, 50), // scaled size
 		//origin: new google.maps.Point(0,0), // origin
 		//anchor: new google.maps.Point(0, 0) // anchor
