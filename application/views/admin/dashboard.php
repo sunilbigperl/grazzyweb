@@ -28,7 +28,7 @@
       })(marker, i));
     }
 	var icon = {
-		url: "http://localhost/grazzyweb/assets/img/Map1.png", // url
+		url: "http://app.eatsapp.in/assets/img/Map1.png", // url
 		scaledSize: new google.maps.Size(50, 50), // scaled size
 		origin: new google.maps.Point(0,0), // origin
 		anchor: new google.maps.Point(0, 0) // anchor
