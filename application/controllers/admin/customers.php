@@ -594,7 +594,7 @@ class Customers extends Admin_Controller {
 		echo  "<div class='modal-header'>
 		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
 		  <h4 class='modal-title pull-left'> Customer details: ".$customer->firstname."</h4>
-		  <img src='".$img."' class='pull-right' style='width: 80px;height: 50px;'>
+		  <img src='".$img."' class='pull-right' style='width: 50px;height: 50px;'>
 		</div>
 		<div class='modal-body'>
 		<div class=''><strong>Phone:</strong> ".$customer->phone."</div>
