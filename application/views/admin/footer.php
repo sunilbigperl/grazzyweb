@@ -12,7 +12,7 @@
 					 $(this).closest("li").children("ul").css("display",'block');
 				 }
 			});
-			$("ul.child_menu li:second").each(function(){
+			$("ul.child_menu ").each(function(){
 				if($(this).css('display') == "block"){
 					$(this).css('display','none');
 				}
