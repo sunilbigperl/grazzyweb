@@ -20,7 +20,7 @@ var oTable = $('#table-pagination').DataTable( {
        {
            extend: 'csv',
 		   text: 'Export pitstops',
-		    filename: 'pitstops',
+		    filename: 'PitstopInformationOnly',
            footer: false,
 		   exportOptions: {
                     columns: [ 0, 2, 3, 4,5]
@@ -74,7 +74,7 @@ oTable.column( 1 ).visible( false );
 				<input type="submit" name="submit" value="Upload" class="btn btn-xs btn-primary">
 		</div>
 	</form>
-	<a href="../../pitstops.csv" style="text-decoration:underline">(Download the pitstop import format)</a>
+	<a href="../../UseThisFileToImportPitstops.csv" style="text-decoration:underline">(Download the pitstop import format)</a>
 </div>
 
 <form action="<?php echo site_url($this->config->item('admin_folder').'/pitstop/Deleteall'); ?>" method="post">
