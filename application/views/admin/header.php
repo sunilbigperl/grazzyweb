@@ -372,7 +372,7 @@
 					}
 				}
 			});
-		}, 100*1000);
+		}, 10*1000);
 		//}, 600*1000);
 		function playSound(filename,data){   
 			document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
