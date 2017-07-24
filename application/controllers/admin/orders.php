@@ -240,12 +240,12 @@ class Orders extends Admin_Controller {
 $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
 		
 		if($type == "pdf"){
-            $fnamee = rand()."restbill.pdf";
+            $fnamee = rand()."apsarawalkeshwar0105201731052017.pdf";
 			$filename  = "bills/".$fnamee;
 		
 		}else{
 			
-			$fnamee =  rand()."restbill.xls";
+			$fnamee =  rand()."apsarawalkeshwar0105201731052017.xls";
 			 $filename  = "bills/".$fnamee;
 			 
 		} 
@@ -373,7 +373,7 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 
 	                $this->excel->getActiveSheet()->fromArray($data, null, 'A2');
 
-	                 $filename='restbill.xls'; //save our workbook as this file name
+	                 $filename='apsarawalkeshwar0105201731052017.xls'; //save our workbook as this file name
 
 	                header('Content-Type: application/vnd.ms-excel'); //mime type
 
@@ -412,11 +412,11 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 		
 		
 		 if($type == "pdf"){
-			$fnamee = rand()."delpartnerbill.pdf";
+			$fnamee = rand()."purplkite0105201731052017.pdf";
 			$filename  = "bills/".$fnamee;
 		}else{
 
-			$fnamee =  rand()."delpartnerbill.xls";
+			$fnamee =  rand()."purplkite0105201731052017.xls";
 			 $filename  = "bills/".$fnamee;
 			 
 			 } 
