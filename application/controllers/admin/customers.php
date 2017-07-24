@@ -555,7 +555,7 @@ class Customers extends Admin_Controller {
 		// echo  "<div class=''><strong>Ratings By deliver Partner:</strong> ".$delpartnerreviewavg."</div>";
 		echo  "<div class=''><strong>Ratings By delivery Boy:</strong> ".$delboyreviewavg."</div>";
 		echo "<table class='table table-bordered'>
-			<thead><tr><th>Date</th><th>Feedbacktype</th><th>Feedback</th><th>Stars</th><th>from</th></tr></thead>
+			<thead><tr><th>Date</th><th>order_number</th><th>Feedbacktype</th><th>Feedback</th><th>Stars</th><th>from</th></tr></thead>
 			<tbody>";
 			// if($delpartnerreview['data']){
 			// 	foreach($delpartnerreview['data'] as $customer){ 
@@ -564,18 +564,18 @@ class Customers extends Admin_Controller {
 			// }
 			if($RestReview['data']){
 				foreach($RestReview['data'] as $customer1){ 
-					echo "<tr><td>".$customer1->date."</td><td>".$customer1->feedbacktype."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->restaurant_name."</td></tr>";
+					echo "<tr><td>".$customer1->date."</td><td>".$customer1->order_number."</td><td>".$customer1->feedbacktype."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->restaurant_name."</td></tr>";
 				}
 			}
                
                if($delboyreview['data']){
 				foreach($delboyreview['data'] as $customer1){ 
-					echo "<tr><td>".$customer1->date."</td><td>".$customer1->feedbacktype."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->name."</td></tr>";
+					echo "<tr><td>".$customer1->date."</td><td>".$customer1->order_number."</td><td>".$customer1->feedbacktype."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->name."</td></tr>";
 				}
 			}
 			// if(isset($delboyreview['data']) && $delboyreview['data']){
 			// 	foreach($delboyreview['data'] as $customer1){
-			// 		echo "<tr><td>".$customer1->date."</td><td>".$customer1->feedbacktype."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->name."</td></tr>";
+			// 		echo "<tr><td>".$customer1->date."</td><td>".$customer1->order_number."</td><td>".$customer1->feedbacktype."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->name."</td></tr>";
 			// 	}
 			// }
 		echo "</tbody>
