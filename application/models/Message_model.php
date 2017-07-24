@@ -125,7 +125,7 @@ class Message_model extends CI_Model
 			 $sqlrest = $this->db->query("select restaurant_email from restaurant where restaurant_id=".$rest_name[0]."");
 			if($sqlrest->num_rows() > 0){
 				$row = $sqlrest->result_array();
-				$message="<h3>New message from wolotech</h3>
+				$message="<h3>New message from Eatsapp</h3>
 					<h6>".$data['message']."</h6>";
 						   $config = Array(
 							'protocol' => 'smtp',
