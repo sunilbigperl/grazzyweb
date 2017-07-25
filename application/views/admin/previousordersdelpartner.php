@@ -63,7 +63,7 @@
 			<th data-field="distance">KM</th>
 			<th data-field="Penalty">Penalty</th>
 			<th>Net amount</th>
-			<th>Service tax</th>
+			<th>GST</th>
 			<th>Total</th>
 			<th>Remarks</th>
 			<?php } ?>
@@ -153,6 +153,17 @@
 				<td>
 				
 				<?php echo $order->status; ?>
+				<!-- <?php if($order->restaurant_manager_status == "0"){ ?>
+						Not acted yet
+					<?php }elseif($order->delivery_partner_status == "Rejected"){
+						echo " $order->restaurant_name Delivery manager rejected";
+					}elseif($order->delivery_partner_status == "Accepted"){
+						echo "$order->restaurant_name Delivery manager Accepted";
+					}elseif($order->restaurant_manager_status == "Accepted"){
+						echo "$order->restaurant_name Restaurant manager accepted";
+					}else{
+						echo "$order->restaurant_name Restaurant manager rejected";
+					} ?>  -->
 				</td>
 			</tr>
 			<?php

@@ -40,7 +40,7 @@
 			<th data-field="Penalty">Penalty</th>
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
 			<th>Net amount</th>
-			<th>Service tax</th>
+			<th>GST</th>
 			<th>Keep amount</th>
 			<th>Total</th>
 			<th>Status</th>
@@ -132,17 +132,18 @@
 						echo  "-".$keepamt;
 					}						?></td>
 				<td>
-					<?php if($order->restaurant_manager_status == "0"){ ?>
+				<?php echo $order->status; ?>
+					<!-- <?php if($order->restaurant_manager_status == "0"){ ?>
 						Not acted yet
 					<?php }elseif($order->delivery_partner_status == "Rejected"){
-						echo "Delivery manager rejected";
+						echo "$order->restaurant_name Delivery manager rejected";
 					}elseif($order->delivery_partner_status == "Accepted"){
-						echo "Delivery manager Accepted";
+						echo "$order->restaurant_name Delivery manager Accepted";
 					}elseif($order->restaurant_manager_status == "Accepted"){
-						echo "Restaurant manager accepted";
+						echo "$order->restaurant_name Restaurant manager accepted ";
 					}else{
-						echo "Restaurant manager rejected";
-					} ?>
+						echo "$order->restaurant_name Restaurant manager rejected ";
+					} ?> -->
 
 				</td>
 				<td> 
