@@ -8,18 +8,25 @@
 		$(document).ready(function(){
 			$("ul.side-menu li").click(function(){
 				$(this).closest("li").addClass('active');
+				
 				 if($(this).closest("li").children("ul").length) {
+				 	
 					 $(this).closest("li").children("ul").css("display",'block');
+
 				 }
 			});
-			$("ul.child_menu ").each(function(){
+			$("ul.child_menu li:second ").each(function(){
 				if($(this).css('display') == "block"){
 					$(this).css('display','none');
 				}
 			});
-				/* if($(".child_menu").css("display",'block')){
-					$(this).css("display",'none')
-				} */
+		
+   
+			
+    
+		//  if($(".child_menu").css("display",'block')){
+				// 	$(this).css("display",'none')
+				// } 
 			
 		});
 		
@@ -27,6 +34,7 @@
                 // alert();
            }, 300000); 
 	</script>
+
 	<script src="<?php echo base_url('vendors/js/bootstrap-table.js ');?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/redactor.min.js');?>"></script>
 
