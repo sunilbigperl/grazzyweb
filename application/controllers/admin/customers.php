@@ -543,8 +543,8 @@ class Customers extends Admin_Controller {
 		$delboyreviewavg = isset($delboyreview['avg'][0]->avg) ? $delboyreview['avg'][0]->avg :0;
 		$RestReview = $this->Customer_model->GetReviewRest($id);
 		$RestReviewavg= isset($RestReview['avg'][0]->avg) ? $RestReview['avg'][0]->avg : 0;
-		// $delpartnerreview = $this->Customer_model->GetReviewDelPartner($id);
-		// $delpartnerreviewavg = isset($delpartnerreview['avg'][0]->avg) ? $delpartnerreview['avg'][0]->avg :0;
+		$delpartnerreview = $this->Customer_model->GetReviewDelPartner($id);
+		$delpartnerreviewavg = isset($delpartnerreview['avg'][0]->avg) ? $delpartnerreview['avg'][0]->avg :0;
 		$customer       = $this->Customer_model->get_customer($id); 
 		echo  "<div class='modal-header'>
 		  <button type='button' class='close' data-dismiss='modal'>&times;</button>
@@ -557,11 +557,11 @@ class Customers extends Admin_Controller {
 		echo "<table class='table table-bordered'>
 			<thead><tr><th>Date</th><th>order_number</th><th>Feedbacktype</th><th>Feedback</th><th>Stars</th><th>from</th></tr></thead>
 			<tbody>";
-			// if($delpartnerreview['data']){
-			// 	foreach($delpartnerreview['data'] as $customer){ 
-			// 		echo "<tr><td>".$customer->date."</td><td>".$customer->feedbacktype."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
-			// 	}
-			// }
+			if($delpartnerreview['data']){
+				foreach($delpartnerreview['data'] as $customer){ 
+					echo "<tr><td>".$customer->date."</td><td>".$customer->order_number."</td><td>".$customer->feedbacktype."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
+				}
+			}
 			if($RestReview['data']){
 				foreach($RestReview['data'] as $customer1){ 
 					echo "<tr><td>".$customer1->date."</td><td>".$customer1->order_number."</td><td>".$customer1->feedbacktype."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->restaurant_name."</td></tr>";

@@ -385,7 +385,7 @@ Class Customer_model extends CI_Model
 			$this->email->from('support@eatsapp.in', 'EatsApp');
 			$this->email->to($email);
 			
-			$this->email->bcc('lvijetha90@gmail.com');
+			$this->email->bcc('gkamatagi@gmail.com');
 			$this->email->subject('EatsApp: Password Reset');
 			$this->email->message('Your password has been reset to <strong>'. $new_password .'</strong>.');
 			$this->email->send();

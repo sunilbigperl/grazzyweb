@@ -721,22 +721,22 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 		echo  "<div class=''><strong>Ratings By delivery partner:</strong> ".$delpartnerreviewavg."</div>";
 	echo  "<div class=''><strong>Ratings By delivery boy:</strong> ".$delboyreviewavg."</div>";
 		echo "<table class='table table-bordered'>
-			<thead><tr><th>Date</th><th>Feedbacktype</th><th>Feedback</th><th>Stars</th><th>from</th></tr></thead>
+			<thead><tr><th>Date</th><th>Order_Number</th><th>Feedbacktype</th><th>Feedback</th><th>Stars</th><th>from</th></tr></thead>
 			<tbody>";
 			if($delpartnerreview['data']){
 				foreach($delpartnerreview['data'] as $customer){
-					echo "<tr><td>".$customer->date."</td><td>".$customer->feedbacktype."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
+					echo "<tr><td>".$customer->date."</td><td>".$customer->order_number."</td><td>".$customer->feedbacktype."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
 				}
 			}
 			if($customerreview['data']){
 				foreach($customerreview['data'] as $customer1){
-					echo "<tr><td>".$customer1->date."</td><td>".$customer1->feedbacktype."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->firstname."</td></tr>";
+					echo "<tr><td>".$customer1->date."</td><td>".$customer1->order_number."</td><td>".$customer1->feedbacktype."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->firstname."</td></tr>";
 				}
 			}
 
 			if($delboyreview['data']){
 				foreach($delboyreview['data'] as $customer1){
-					echo "<tr><td>".$customer1->date."</td><td>".$customer1->feedbacktype."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->name."</td></tr>";
+					echo "<tr><td>".$customer1->date."</td><td>".$customer1->order_number."</td><td>".$customer1->feedbacktype."</td><td>".$customer1->comments."</td><td>".$customer1->ratings."</td><td>".$customer1->name."</td></tr>";
 				}
 			}
 			// if(isset($delboyreview['data']) && $delboyreview['data']){
