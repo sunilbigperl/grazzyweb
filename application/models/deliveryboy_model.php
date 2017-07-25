@@ -34,7 +34,7 @@ Class Deliveryboy_model extends CI_Model
     function get_lists()
     {
 		$userdata = $this->session->userdata('admin');
-		$this->db->order_by('id', 'ASC');
+		$this->db->order_by('name', 'ASC');
 		$this->db->where('delivery_partner', $userdata['id']);
 		$this->db->where('enabled', 1);
         $result = $this->db->get('delivery_boy');
