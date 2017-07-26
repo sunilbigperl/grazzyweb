@@ -179,11 +179,23 @@ Class Deliveryboy_model extends CI_Model
     }
 
     function GetReviewRest($id){
-		$sql = $this->db->query("select a.*,b.restaurant_name from feedback a, restaurant b where a.feedbackfrom=b.restaurant_id and a.feedbacktype=3 and  a.feedbackto='".$id."' order by date desc");
+		$sql = $this->db->query("select a.*,b.restaurant_name,c.feedbacktype from feedback a, restaurant b,feedbacktype c where a.feedbackfrom=b.restaurant_id and a.feedbacktype=3 and a.feedbacktype=c.feedbacktype_id and a.feedbackto='".$id."' order by date desc");
         // echo "select a.*,b.restaurant_name from feedback a, restaurant b where a.feedbackfrom=b.restaurant_id and a.feedbacktype='".$type."' and a.feedbackto='".$id."'";exit;
 		if($sql->num_rows() > 0){
 			$result['data']	= $sql->result();
 			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=3 and feedbackto='".$id."'");
+			$result['avg']	= $sql1->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
+
+	function GetReviewDelPartner1($id){
+		$sql = $this->db->query("select a.*,b.restaurant_name,c.feedbacktype from feedback a, restaurant b,feedbacktype c where a.feedbackfrom=b.restaurant_id and a.feedbacktype=9 and a.feedbacktype=c.feedbacktype_id and a.feedbackto='".$id."' order by date desc");
+		if($sql->num_rows() > 0){
+			$result['data']	= $sql->result();
+			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=9 and feedbackto='".$id."'");
 			$result['avg']	= $sql1->result();
 		}else{
 			$result = 0;

@@ -489,17 +489,17 @@ Class Customer_model extends CI_Model
 		return $result;
 	}
 	
-	function GetReviewDelPartner($id){
-		$sql = $this->db->query("select a.*,b.firstname,c.feedbacktype from feedback a, admin b,feedbacktype c where a.feedbackfrom=b.id and a.feedbacktype=8 and a.feedbacktype=c.feedbacktype_id and a.feedbackto='".$id."' order by date desc");
-		if($sql->num_rows() > 0){
-			$result['data']	= $sql->result();
-			$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=8 and feedbackto='".$id."'");
-			$result['avg']	= $sql1->result();
-		}else{
-			$result = 0;
-		}
-		return $result;
-	}
+	// function GetReviewDelPartner($id){
+	// 	$sql = $this->db->query("select a.*,b.firstname,c.feedbacktype from feedback a, admin b,feedbacktype c where a.feedbackfrom=b.id and a.feedbacktype=8 and a.feedbacktype=c.feedbacktype_id and a.feedbackto='".$id."' order by date desc");
+	// 	if($sql->num_rows() > 0){
+	// 		$result['data']	= $sql->result();
+	// 		$sql1 = $this->db->query("select AVG(ratings) as avg from feedback where feedbacktype=8 and feedbackto='".$id."'");
+	// 		$result['avg']	= $sql1->result();
+	// 	}else{
+	// 		$result = 0;
+	// 	}
+	// 	return $result;
+	// }
 	
 	function ChangeStatus($id,$status){
 		$and = "";

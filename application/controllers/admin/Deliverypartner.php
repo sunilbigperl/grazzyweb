@@ -196,7 +196,7 @@ class Deliverypartner extends Admin_Controller
 	}
 	
 	public function ShowReviewDetails($id){
-		$delpartnerreview = $this->Deliveryboy_model->GetReviewDelPartner($id,8);
+		$delpartnerreview = $this->Deliveryboy_model->GetReviewDelPartner1($id);
 		$delpartnerreviewavg = isset($delpartnerreview['avg'][0]->avg) ? $delpartnerreview['avg'][0]->avg :0;
 		$delpartner       = $this->Deliveryboy_model->get_deliveryPartner($id); 
 		echo  "<div class='modal-header'>
@@ -210,7 +210,7 @@ class Deliverypartner extends Admin_Controller
 			<tbody>";
 			if($delpartnerreview['data']){
 				foreach($delpartnerreview['data'] as $customer){ 
-					echo "<tr><td>".$customer->date."</td><td>".$customer->order_number."</td><td>".$customer->feedbacktype."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->firstname."</td></tr>";
+					echo "<tr><td>".$customer->date."</td><td>".$customer->order_number."</td><td>".$customer->feedbacktype."</td><td>".$customer->comments."</td><td>".$customer->ratings."</td><td>".$customer->restaurant_name."</td></tr>";
 				}
 			}
 			
