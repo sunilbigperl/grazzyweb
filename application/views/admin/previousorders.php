@@ -49,7 +49,7 @@
 			<th data-field="Penalty">Penalty</th>
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
 			<th>Net amount</th>
-			<th>Service tax</th>
+			<th>GST</th>
 			<th>Keep amount</th>
 			<th>Total</th>
 			<th>Status</th>
