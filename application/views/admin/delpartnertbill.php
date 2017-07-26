@@ -140,7 +140,7 @@
 						</td>
 					</tr>
 					<tr class="item last">
-						<td> Service tax</td>
+						<td>GST</td>
 						<td></td>
 						<td><?=$servicetax1;?></td>
 						<td><?=$servicetax;?></td>

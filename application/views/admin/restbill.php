@@ -177,14 +177,14 @@
                    
 
 					<tr class="item">
-						<td> Service tax</td>
+						<td>GST</td>
 						<td></td>
                         <td></td>
                        <!--  <td>15%</td> -->
 						<td> <?=$servicetax;?></td> 
 					</tr>
                     <tr class="item last">
-                        <td> Service tax</td>
+                        <td> GST</td>
                         <td></td>
                         <td>Rs.</td>
                         <td> <?=$servicetax1;?></td> 
@@ -237,7 +237,7 @@
                     </tr>
 					
 					<tr class="item">
-						<td>ServiceTax</td>
+						<td>GST</td>
 						 <td></td>
                          <td></td>
 						<td>
@@ -245,7 +245,7 @@
 						</td> 
 					</tr>
                     <tr class="item last">
-                        <td>ServiceTax</td>
+                        <td>GST</td>
                          <td></td>
                          <td>Rs.</td>
                           <!-- <td>750.00</td> -->
@@ -301,7 +301,7 @@
                     </tr>
                     
                     <tr class="item">
-                        <td>ServiceTax</td>
+                        <td>GST</td>
                          <td></td>
                          <td></td>
                         
@@ -310,7 +310,7 @@
                         </td>
                     </tr>
                       <tr class="item last">
-                        <td>ServiceTax</td>
+                        <td>GST</td>
                          <td></td>
                           <td>Rs.</td>
                           <td>
