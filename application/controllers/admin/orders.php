@@ -177,6 +177,7 @@ class Orders extends Admin_Controller {
 
 		$data['date'] = date("Y-m-d");
 		$restaurant       = $this->Restaurant_model->get_restaurant($id);
+		//print_r($restaurant); exit;
 		$orders = $this->Restaurant_model->get_restaurantorders($id);
 		$corders = $this->Restaurant_model->get_restaurantorderscancel($id);
 		$data['name'] = $restaurant->restaurant_name;
@@ -237,15 +238,15 @@ class Orders extends Admin_Controller {
 		
 
 
-$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
-		
+		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
+		$filename = $restaurant->restaurant_name.strtotime(date('Y-m-d H:i:s'));
 		if($type == "pdf"){
-            $fnamee = rand()."apsarawalkeshwar0105201731052017.pdf";
+            $fnamee = $filename.".pdf";
 			$filename  = "bills/".$fnamee;
 		
 		}else{
 			
-			$fnamee =  rand()."apsarawalkeshwar0105201731052017.xls";
+			$fnamee =  $filename.".xls";
 			 $filename  = "bills/".$fnamee;
 			 
 		} 
