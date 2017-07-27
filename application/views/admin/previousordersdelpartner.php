@@ -89,7 +89,7 @@
 				<td><?=$i;?></td>
 				<td><?=$order->ordered_on;?></td>
 				<td>
-					<a href="#" data-toggle="modal" style="color: #2f2fd0;text-decoration:underline;"  data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
+					<a href="#" data-toggle="modal" style="color: #2f2fd0;text-decoration:underline;"  data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails1');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
 				</td>
 				<?php 
 				$data['restaurant'] = $this->Restaurant_model->get_restaurant($order->restaurant_id);

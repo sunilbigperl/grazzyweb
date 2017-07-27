@@ -530,7 +530,7 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 					</div>
 					<table class='table table-bordered'>
 					<thead>
-						<tr><th>Item name</th><th>Item code</th><th>No of items</th><th>Amount</th><th>RestName</th><th>Ordertype</th><th>Keepready</th><th>deliveredat</th><tr>
+						<tr><th>Item name</th><th>Item code</th><th>No of items</th><th>Amount</th><th>RestName</th><th>Order Type</th><th>Pickup Time</th><th>Scheduled Delivery Time</th><tr>
 					</thead>
 					<tbody>";
 			foreach($menus as $menu){
@@ -852,5 +852,56 @@ $html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,t
 		echo "<script>alert('Notification sent. admin will contact you soon');location.reload();</script>";
 		 redirect($this->config->item('admin_folder').'/orders/dashboard');
 	}
+
+	function GetMenudetails1(){
+		$data = $this->input->post('data');
+		
+		$menus = $this->Order_model->GetMenudetails($data);
+		
+		$html="";
+		if($menus != 0){
+			if($data['ordertype_id'] == 3){
+			 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
+			 $name = $customer_details->firstname." ".$customer_details->lastname;
+			 $phone = $customer_details->phone;
+			 $email = $customer_details->email;
+			  $email = $customer_details->email;
+			}else{
+				$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
+				$name = isset($deliveryboy_details->name) ? $deliveryboy_details->name : "Not assigned yet";
+				$phone = isset($deliveryboy_details->phone) ? $deliveryboy_details->phone : "";
+				$email = isset($deliveryboy_details->email) ? $deliveryboy_details->email : "";
+			}
+			$html.="<div class='modal-header'>
+					<button type='button' class='close' data-dismiss='modal'>&times;</button>
+					<h4 class='modal-title'>Delivery of order id: ".$data['order_number']."</h4>
+				  </div>
+				  <div class='modal-body' class='form-horizontal'>
+					<div class='form-group'>
+						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":</strong>".$name."</label></br>
+						<label><strong>Mobile No:</strong>".$phone."</label></br>
+						<label><strong>Email:</strong>".$email."</label></br>
+						
+
+					</div>
+					<table class='table table-bordered'>
+					<thead>
+						<tr><th>RestName</th><th>Order Type</th><th>Pickup Time</th><th>Scheduled Delivery Time</th><tr>
+					</thead>
+					<tbody>";
+			foreach($menus as $menu){
+					$html.="<tr><td>".$menu->restaurant_name."</td><td>".$menu->order_type."</td><td>".$menu->keep_ready."</td><td>".$menu->delivered_on."</td></td>";
+
+			}
+			$html.="</tbody>
+				</table>
+				</div>
+			  <div class='modal-footer'>
+				<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+			  </div>";
+		}
+		echo $html;
+	}
+
 
 }
