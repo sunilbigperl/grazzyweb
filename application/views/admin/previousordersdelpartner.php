@@ -59,7 +59,7 @@
 			<th>Customer Mobileno</th> 
 			<th data-field="pickup">Pickup location</th>
 			<th data-field="delivery">Delivery location</th>
-			<!-- <?php if(isset($url)){ ?> -->
+			<?php if(isset($url)){ ?>
 			<th data-field="price">Delivery charge</th>
 				<!-- <th data-field="delprice">Reimbursement of Delivery charge</th> -->
 			<th data-field="distance">KM</th>
@@ -68,7 +68,7 @@
 			<th>GST</th>
 			<th>Total</th>
 			<th>Remarks</th>
-			<!-- <?php } ?> -->
+			<?php } ?> 
 			<th>Status</th>
 		</tr>
 	</thead>
