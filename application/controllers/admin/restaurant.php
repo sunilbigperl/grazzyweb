@@ -59,6 +59,7 @@ class Restaurant extends Admin_Controller {
         $data['restaurant_branch']           = '';
 		$data['restaurant_manager']           = '';
         $data['enabled']        = '';
+        $data['gst'] = '';
 		$data['preparation_time'] ="";
 		$data['servicetax'] = '';
 		$data['commission'] = '';
@@ -105,6 +106,7 @@ class Restaurant extends Admin_Controller {
             $data['restaurant_manager']           = $restaurant->restaurant_manager;
 			$data['preparation_time'] = $restaurant->preparation_time;
             $data['enabled']        = $restaurant->enabled;
+            $data['gst'] = $restaurant->GST;
 			$data['servicetax'] = $restaurant->servicetax;
 			$data['commission'] = $restaurant->commission;
 			$data['penalty']	= $restaurant->penalty;
@@ -136,6 +138,7 @@ class Restaurant extends Admin_Controller {
         $this->form_validation->set_rules('restaurant_address', 'lang:restaurant_address', 'trim|required');
         $this->form_validation->set_rules('restaurant_mobile', 'lang:restaurant_mobile', 'trim|required|max_length[11]|callback_validate_phone_number');
         $this->form_validation->set_rules('enabled', 'lang:enabled', 'trim|numeric');
+        // $this->form_validation->set_rules('gst','GST','required|alpha_numaric|max_length[15]');
 		
 		//if this is a new account require a password, or if they have entered either a password or a password confirmation
 		if ($this->input->post('password') != '' || $this->input->post('confirm') != '' || !$id)
@@ -265,6 +268,7 @@ class Restaurant extends Admin_Controller {
 			$save['penalty'] 			   = $this->input->post('penalty');
 			$save['Reimb'] 			   = $this->input->post('Reimb');
             $save['enabled']      		   = $this->input->post('enabled');
+            $save['gst']			   = $this->input->post('gst');
 			$save['preparation_time']	   = $this->input->post('preparation_time');
 			$save['fromtime'] 			   = $this->input->post('fromtime');
 			$save['totime'] 			   = $this->input->post('totime');

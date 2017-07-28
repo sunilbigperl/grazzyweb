@@ -79,6 +79,12 @@
 					echo form_password($data);
 					?>
 				</div>
+
+				<div class="form-group">	
+					<label for="gst">GSTIN</label>
+					<input type="text" name="gst" value="<?=$gst?>" class="form-control" maxlength='15' >
+					
+				</div>
 			</fieldset>
 		</div>
 		<div class="tab-pane" id="timings_tab">

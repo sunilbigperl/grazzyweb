@@ -68,6 +68,7 @@ class Deliverypartner extends Admin_Controller
 		$data['FromDate']	='';
 		$data['ToDate']	='';
 		$data['servicetax'] = '';
+		$data['gst'] = '';
 		$data['commission'] = '';
 		$data['penalty'] ='';
         $data['fromtime'] ='';
@@ -98,6 +99,7 @@ class Deliverypartner extends Admin_Controller
 			$data['enabled']		= $admin->enabled;
 			$data['FromDate']		= $admin->FromDate;
 			$data['ToDate']		= $admin->ToDate;
+			$data['gst'] = $admin->GST;
 			$data['servicetax'] = $admin->servicetax;
 			$data['commission'] = $admin->commission;
 			$data['penalty']	= $admin->penalty;
@@ -139,6 +141,7 @@ class Deliverypartner extends Admin_Controller
 			$save['FromDate'] = isset($FromDate) ? $FromDate : '';
 			$ToDate		= date('Y-m-d',strtotime($this->input->post('ToDate')));;
 			$save['ToDate'] = isset($ToDate) ? $ToDate : '';
+			$save['gst']			   = $this->input->post('gst');
 			$save['servicetax']			   = $this->input->post('servicetax');
 			$save['commission'] 		   = $this->input->post('commission');
 			$save['penalty'] 			   = $this->input->post('penalty');
