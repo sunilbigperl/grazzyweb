@@ -34,9 +34,9 @@
 		<tr>
 			<th data-field="id">Order id</th>
 			<th data-field="date">Ordered date</th>
+			<th data-field="name">Order number</th>
 			<th>Customer name</th>
 			<th>Customer mobileno</th>
-			<th data-field="name">Order number</th>
 			<th data-field="price">Customer bill amount(Rs)</th>
 			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
