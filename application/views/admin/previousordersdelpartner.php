@@ -55,9 +55,11 @@
 			<th data-field="id">Order id</th>
 			<th data-field="date">Ordered date</th>
 			<th data-field="name">Order number</th>
+			<th>Customer Name</th>
+			<th>Customer Mobileno</th> 
 			<th data-field="pickup">Pickup location</th>
 			<th data-field="delivery">Delivery location</th>
-			<?php if(isset($url)){ ?>
+			<!-- <?php if(isset($url)){ ?> -->
 			<th data-field="price">Delivery charge</th>
 				<!-- <th data-field="delprice">Reimbursement of Delivery charge</th> -->
 			<th data-field="distance">KM</th>
@@ -66,7 +68,7 @@
 			<th>GST</th>
 			<th>Total</th>
 			<th>Remarks</th>
-			<?php } ?>
+			<!-- <?php } ?> -->
 			<th>Status</th>
 		</tr>
 	</thead>
@@ -91,6 +93,13 @@
 				<td>
 					<a href="#" data-toggle="modal" style="color: #2f2fd0;text-decoration:underline;"  data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails1');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
 				</td>
+				
+				<td>
+				<?php echo $order->firstname; ?>
+				</td>
+				<td>
+				<?php echo $order->phone; ?>
+				</td>
 				<?php 
 				$data['restaurant'] = $this->Restaurant_model->get_restaurant($order->restaurant_id);
 				$data['fromaddress'] = $data['restaurant']->restaurant_address;
@@ -109,7 +118,7 @@
 				
 					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
 				</td>
-				<?php if(isset($url)){ ?>
+				<?php if(isset($url)){ ?> 
 				<td>
 					<?php 
 						echo $deliverycharge['rate'];

@@ -44,6 +44,8 @@
 			<th data-field="id">Order id</th>
 			<th data-field="date">Ordered date</th>
 			<th data-field="name">Order number</th>
+			<th>Customer Name</th>
+			<th>Customer Mobileno</th>
 			<th data-field="price">Customer bill amount(Rs)</th>
 			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
@@ -77,6 +79,12 @@
 				<td>
 					<a href="#" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?> </a>
 					
+				</td>
+				<td>
+					<?=$order->firstname; ?>
+				</td>
+				<td>
+					<?=$order->phone; ?>
 				</td>
 				<td>
 					<?=$order->total_cost; ?>
