@@ -140,18 +140,18 @@
 						echo  "-".$keepamt;
 					}						?></td>
 				<td>
-				<?php echo $order->status; ?>
-					<!-- <?php if($order->restaurant_manager_status == "0"){ ?>
+				
+					<?php if($order->restaurant_manager_status == "0"){ ?>
 						Not acted yet
 					<?php }elseif($order->delivery_partner_status == "Rejected"){
-						echo "$order->restaurant_name Delivery manager rejected";
+						echo "Delivery manager rejected";
 					}elseif($order->delivery_partner_status == "Accepted"){
-						echo "$order->restaurant_name Delivery manager Accepted";
+						echo "Delivery manager Accepted";
 					}elseif($order->restaurant_manager_status == "Accepted"){
-						echo "$order->restaurant_name Restaurant manager accepted ";
+						echo "Restaurant manager accepted ";
 					}else{
-						echo "$order->restaurant_name Restaurant manager rejected ";
-					} ?> -->
+						echo "Restaurant manager rejected ";
+					} ?>
 
 				</td>
 				<td> 
