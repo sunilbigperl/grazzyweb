@@ -284,21 +284,82 @@ class Customers extends Admin_Controller {
 	}
 	
 	
-	// download email blast list (subscribers)
+	//download email blast list (subscribers)
 	function get_subscriber_list()
 	{
-		$subscribers = $this->Customer_model->get_subscribers();
+		// $subscribers = $this->Customer_model->get_subscribers();
 		
-		$sub_list = '';
-		foreach($subscribers as $subscriber)
-		{
-			// $sub_list .= $subscriber['email'].",\n";
-			$sub_list .= $subscriber['firstname'].",".$subscriber['email'].",".$subscriber['active'].",".$subscriber['phone'].",\n";
-		}
+		// $sub_list = '';
+		// foreach($subscribers as $subscriber)
+		// {
+		// 	// $sub_list .= $subscriber['email'].",\n";
+		// 	$sub_list .= $subscriber['firstname'].",".$subscriber['email'].",".$subscriber['active'].",".$subscriber['phone'].",".$subscriber['profile_image'].",".$subscriber['dob'].",".$subscriber['gender'].",\n";
+		// }
 		
-		$data['sub_list']	= $sub_list;
+		// $data['sub_list']	= $sub_list;
+		$this->load->library('Excel');
+		$this->excel->setActiveSheetIndex(0);
+
+		//set cell A1 content with some text
+         $this->excel->getActiveSheet()->setCellValue('A1', 'Customer Id');
+         $this->excel->getActiveSheet()->setCellValue('B1', 'Customer Name');
+	     $this->excel->getActiveSheet()->setCellValue('C1', 'Customer Last Name');
+         $this->excel->getActiveSheet()->setCellValue('D1', 'Email');
+          $this->excel->getActiveSheet()->setCellValue('E1', 'Email_subscribe');
+         $this->excel->getActiveSheet()->setCellValue('F1', 'Phone');
+	     $this->excel->getActiveSheet()->setCellValue('G1', 'Company');
+         $this->excel->getActiveSheet()->setCellValue('H1', 'Date of Birth');
+         $this->excel->getActiveSheet()->setCellValue('I1', 'Gender');
+         $this->excel->getActiveSheet()->setCellValue('J1', 'Default billing address');
+         $this->excel->getActiveSheet()->setCellValue('K1', 'default_shipping_address');
+         $this->excel->getActiveSheet()->setCellValue('L1', 'ship_to_bill_address');
+         $this->excel->getActiveSheet()->setCellValue('M1', 'Password');
+         $this->excel->getActiveSheet()->setCellValue('N1', 'Active');
+         $this->excel->getActiveSheet()->setCellValue('O1', 'Group_id');
+         $this->excel->getActiveSheet()->setCellValue('P1', 'Conformed');
+         $this->excel->getActiveSheet()->setCellValue('Q1', 'Fb_login');
+         $this->excel->getActiveSheet()->setCellValue('R1', 'Profile_image');
+         $this->excel->getActiveSheet()->setCellValue('S1', 'did');
+         $this->excel->getActiveSheet()->setCellValue('T1', 'DeactvatedDate');
+          
+         $this->excel->getActiveSheet()->getStyle('A1:T1')->getFont()->setBold(true);
+	     for($col = ord('A'); $col <= ord('C'); $col++){ //set column dimension $this->excel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
+         $this->excel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
+
+                  }
+
+         $sql = $this->db->query("select * from customers");
+	
+		if($sql->num_rows() > 0){
+         $res	= $sql->result_array();
+
+			// $data['firstname'] = $res[0]['firstname'];
+			// $data['email'] = $res[0]['email'];
+			// $data['active'] = $res[0]['active'];
+			// $data['phone'] = $res[0]['phone'];
+			// $data['dob'] = $res[0]['dob'];
+			// $data['gender'] = $res[0]['gender'];
+			// $data['profile_image'] = $res[0]['profile_image'];
+			// $data['ship_to_bill_address'] = $res[0]['ship_to_bill_address'];
+			
+			}else{
+			// $data['firstname'] = '';
+			
+		    }
 		
-		$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list', $data);
+		
+		    //Fill data
+
+	        $this->excel->getActiveSheet()->fromArray($res, null, 'A2');
+            $filename='customerlist.xls'; //save our workbook as this file name
+            header('Content-Type: application/vnd.ms-excel'); //mime type
+            header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+            header('Cache-Control: max-age=0'); //no cache
+            $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
+            $objWriter->save('php://output');
+	        $this->load->view($this->config->item('admin_folder').'/customer_subscriber_list',$data,true);
+		
+		
 	}	
 	
 	//  customer groups
@@ -701,4 +762,7 @@ class Customers extends Admin_Controller {
 			echo $html;
 		
 	}
+
+
+	
 }
