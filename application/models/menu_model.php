@@ -48,12 +48,12 @@ Class Menu_model extends CI_Model
 	function save($menu, $categories=false)
 	{
 		
-		 if($menu['menu_id'] == ""){$menu['menu_id'] = false;}
+		if($menu['menu_id'] == ""){$menu['menu_id'] = false;}
 		if ($menu['menu_id'])
 		{
 			$this->db->where('menu_id', $menu['menu_id']);
 			$this->db->update('restaurant_menu', $menu);
-
+			
 			$id	= $menu['menu_id'];
 		}
 		else

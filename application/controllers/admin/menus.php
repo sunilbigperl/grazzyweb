@@ -78,6 +78,7 @@ class Menus extends Admin_Controller {
 			$data['menus'] = $this->Menu_model->GetMenu($menu_id);
 			$data['menu_id'] =$menu_id;
 			$data['customisation'] = $menus->customisation;
+			//print_r($data['customisation']); exit;
 			if(!$this->input->post('submit'))
 			{
 				
@@ -203,7 +204,7 @@ class Menus extends Admin_Controller {
             $save['enabled']     = $this->input->post('enabled');
 			//print_r($this->input->post('option')); exit;
 			$save['customisation'] = serialize($this->input->post('option'));
-			//print_r($save); exit;
+			//print_r($save['customisation']); exit;
 			//save categories
 			$categories			= $this->input->post('categories');
 			if(!$categories)

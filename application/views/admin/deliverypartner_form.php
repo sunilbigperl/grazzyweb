@@ -147,6 +147,7 @@
 					 }
 				
 				</script>
+								<?php if(!$this->auth->check_access('Deliver manager')){  ?>
 				<div class="form-group">	
 					<label for="enabled"><?php echo lang('enabled');?> </label>
 					<?php echo form_dropdown('enabled', array(''=>'select','1' => lang('enabled'),'0' => lang('disabled')), set_value('enabled',$enabled),'class="form-control" id="enableddata"'); ?>
@@ -157,6 +158,8 @@
 						<label><strong>Disabled To date</strong></label>
 						<input type="date" name="ToDate" id="ToDate" value="<?=$ToDate;?>" <?=$readonly;?>>
 				</div>
+				<?php } ?>
+				
 				
 			</fieldset>
 		</div>

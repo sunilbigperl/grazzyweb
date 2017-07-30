@@ -406,11 +406,11 @@ function add_option_value($po, $count, $valcount, $value)
 			<div class="span3"><input type="text" class="span12" name="option[<?php echo $count;?>][values][<?php echo $valcount ?>][name]" value="<?php echo $value->name ?>" /></div>
 		
 			<div class="span2"><select class="span12" name="option[<?php echo $count;?>][values][<?php echo $valcount ?>][weight]" value="<?php echo $value->weight ?>" >
-				<option value="Small">Small</option>
-				<option value="Medium">Medium</option>
-				<option value="Large">Large</option>
-				<option value="Full">Full</option>
-				<option value="Half">Half</option>
+				<option value="Small" <?php if($value->weight == "Small"){ echo "selected=selected"; } ?> >Small</option>
+				<option value="Medium"  <?php if($value->weight == "Medium"){ echo "selected=selected"; } ?>>Medium</option>
+				<option value="Large"  <?php if($value->weight == "Large"){ echo "selected=selected"; } ?>>Large</option>
+				<option value="Full"  <?php if($value->weight == "Full"){ echo "selected=selected"; } ?>>Full</option>
+				<option value="Half"  <?php if($value->weight == "Half"){ echo "selected=selected"; } ?> >Half</option>
 			</select></div>
 			<div class="span2"><input type="text" class="span12" name="option[<?php echo $count;?>][values][<?php echo $valcount ?>][price]" value="<?php echo $value->price ?>" /></div>
 			<div class="span2">
