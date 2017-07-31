@@ -297,67 +297,60 @@ class Customers extends Admin_Controller {
 		// }
 		
 		// $data['sub_list']	= $sub_list;
-		$this->load->library('Excel');
-		$this->excel->setActiveSheetIndex(0);
+		
+	$this->load->library('excel');
+    //Create a new Object
+    $objPHPExcel = new PHPExcel();
+    // Set the active Excel worksheet to sheet 0
+    $objPHPExcel->setActiveSheetIndex(0); 
 
-		//set cell A1 content with some text
-         $this->excel->getActiveSheet()->setCellValue('A1', 'Customer Id');
-         $this->excel->getActiveSheet()->setCellValue('B1', 'Customer Name');
-	     $this->excel->getActiveSheet()->setCellValue('C1', 'Customer Last Name');
-         $this->excel->getActiveSheet()->setCellValue('D1', 'Email');
-          $this->excel->getActiveSheet()->setCellValue('E1', 'Email_subscribe');
-         $this->excel->getActiveSheet()->setCellValue('F1', 'Phone');
-	     $this->excel->getActiveSheet()->setCellValue('G1', 'Company');
-         $this->excel->getActiveSheet()->setCellValue('H1', 'Date of Birth');
-         $this->excel->getActiveSheet()->setCellValue('I1', 'Gender');
-         $this->excel->getActiveSheet()->setCellValue('J1', 'Default billing address');
-         $this->excel->getActiveSheet()->setCellValue('K1', 'default_shipping_address');
-         $this->excel->getActiveSheet()->setCellValue('L1', 'ship_to_bill_address');
-         $this->excel->getActiveSheet()->setCellValue('M1', 'Password');
-         $this->excel->getActiveSheet()->setCellValue('N1', 'Active');
-         $this->excel->getActiveSheet()->setCellValue('O1', 'Group_id');
-         $this->excel->getActiveSheet()->setCellValue('P1', 'Conformed');
-         $this->excel->getActiveSheet()->setCellValue('Q1', 'Fb_login');
-         $this->excel->getActiveSheet()->setCellValue('R1', 'Profile_image');
-         $this->excel->getActiveSheet()->setCellValue('S1', 'did');
-         $this->excel->getActiveSheet()->setCellValue('T1', 'DeactvatedDate');
+    $heading=array('CustomerName','Email','Phoneno','Date of Birth','Gender','Active','Profile_image','DeactivatedDate'); //set title in excel sheet
+    $rowNumberH = 1; //set in which row title is to be printed
+    $colH = 'A'; //set in which column title is to be printed
+    
+    $objPHPExcel->getActiveSheet()->getStyle($rowNumberH)->getFont()->setBold(true);
+    
+	for($col = ord('A'); $col <= ord('H'); $col++){ //set column dimension 
+		 $objPHPExcel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
+         $objPHPExcel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
+	}
+    foreach($heading as $h){ 
+
+        $objPHPExcel->getActiveSheet()->setCellValue($colH.$rowNumberH,$h);
+        $colH++;    
+    }
+
+
+			
+		
+    $export_excel = $this->db->query("select * from customers")->result_array();
+
+    $rowCount = 2; // set the starting row from which the data should be printed
+    foreach($export_excel as $excel)
+    {         
+        $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['firstname']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['email']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['phone']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['dob']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['gender']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['active']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $excel['profile_image']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, $excel['DeactivatedDate']); 
           
-         $this->excel->getActiveSheet()->getStyle('A1:T1')->getFont()->setBold(true);
-	     for($col = ord('A'); $col <= ord('C'); $col++){ //set column dimension $this->excel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
-         $this->excel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
+        $rowCount++; 
+    } 
 
-                  }
+    // Instantiate a Writer 
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
 
-         $sql = $this->db->query("select * from customers");
-	
-		if($sql->num_rows() > 0){
-         $res	= $sql->result_array();
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="customerlist."".xls"');
+    header('Cache-Control: max-age=0');
 
-			// $data['firstname'] = $res[0]['firstname'];
-			// $data['email'] = $res[0]['email'];
-			// $data['active'] = $res[0]['active'];
-			// $data['phone'] = $res[0]['phone'];
-			// $data['dob'] = $res[0]['dob'];
-			// $data['gender'] = $res[0]['gender'];
-			// $data['profile_image'] = $res[0]['profile_image'];
-			// $data['ship_to_bill_address'] = $res[0]['ship_to_bill_address'];
-			
-			}else{
-			// $data['firstname'] = '';
-			
-		    }
-		
-		
-		    //Fill data
+    $objWriter->save('php://output');
+    //exit();
 
-	        $this->excel->getActiveSheet()->fromArray($res, null, 'A2');
-            $filename='customerlist.xls'; //save our workbook as this file name
-            header('Content-Type: application/vnd.ms-excel'); //mime type
-            header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
-            header('Cache-Control: max-age=0'); //no cache
-            $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
-            $objWriter->save('php://output');
-	        $this->load->view($this->config->item('admin_folder').'/customer_subscriber_list',$data,true);
+	$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list',$data,true);
 		
 		
 	}	
