@@ -730,7 +730,7 @@ class Customers extends Admin_Controller {
 			if($sql->num_rows() > 0){
 				$result =  $sql->result_array();
 				foreach($result as $res){
-					$html.="There is new pitstop suggest : ".$res['restaurant_address']."\n";
+					//$html.="There is new pitstop suggest : ".$res['restaurant_address']."\n";
 					$p = 1;
 				}
 			}
@@ -739,7 +739,7 @@ class Customers extends Admin_Controller {
 			if($sql->num_rows() > 0){
 				$result =  $sql->result_array();
 				foreach($result as $res){
-					$html.="There is new restaurant suggest : ".$res['restaurant_name']."\n";
+					//$html.="There is new restaurant suggest : ".$res['restaurant_name']."\n";
 					
 				}
 			}
@@ -748,7 +748,7 @@ class Customers extends Admin_Controller {
 			if($sql->num_rows() > 0){
 				$result =  $sql->result_array();
 				foreach($result as $res){
-					$html.="There is new order : ".$res['order_number']."\n";
+					//$html.="There is new order : ".$res['order_number']."\n";
 				}
 			}
 		}

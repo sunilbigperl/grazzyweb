@@ -60,7 +60,7 @@
 			<th>Deliveryboy Name</th>
 			<th data-field="pickup">Pickup location</th>
 			<th data-field="delivery">Delivery location</th>
-			<?php if(isset($url)){ ?>
+		
 			<th data-field="price">Delivery charge</th>
 				<!-- <th data-field="delprice">Reimbursement of Delivery charge</th> -->
 			<th data-field="distance">KM</th>
@@ -69,7 +69,7 @@
 			<th>GST</th>
 			<th>Total</th>
 			<th>Remarks</th>
-			<?php } ?> 
+			
 			<th>Status</th>
 		</tr>
 	</thead>
@@ -122,7 +122,7 @@
 				
 					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
 				</td>
-				<?php if(isset($url)){ ?> 
+				
 				<td>
 					<?php 
 						echo $deliverycharge['rate'];
@@ -162,7 +162,7 @@
 					<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/ShowReviewDetailstodelpartner/'.$order->delivery_partner.'');?>');" style="color: #2f2fd0;text-decoration:underline;">Reviews/Ratings</a>
 					<?php } ?>
 				</td>
-				<?php } ?>
+				
 				<td>
 				
 				<?php echo $order->status; ?>

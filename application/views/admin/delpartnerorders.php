@@ -14,7 +14,7 @@ echo "" . date("jS F Y") . "<br>";
 		<!--	<th data-field="price">Cost(Rs)</th> -->
 			<th data-field="date">Ordered on</th>
 			<th data-field="type">Order type</th>
-			<th>Keep ready by</th>
+			<!-- <th>Keep ready by</th> -->
 			<th>Assign Delivery boy</th>
 			<!--<th>Info</th>-->
 			<th>Order status</th>
@@ -45,12 +45,12 @@ echo "" . date("jS F Y") . "<br>";
 				<td>
 					<?=$order->order_type;?>
 				</td>
-				<?php
+				<!-- <?php
 				
                     $t1=date("h:i:s", strtotime("$order->delivered_on")) . "\n";
 
                   ?>
-				<td><?php echo date("h:i:s", strtotime("$t1-$order->preparation_time minutes"));?></td> 
+				<td><?php echo date("h:i:s", strtotime("$t1-$order->preparation_time minutes"));?></td>  -->
 				<td> 
 					<form id="the-basics" method="post" action="AssignDeliveryBoy/<?=$order->id;?>">
 						<select type="text" name="deliveryboy" class="form-control typeahead" <?php if($order->delivered_by != 0){ echo "disabled";}?>>
