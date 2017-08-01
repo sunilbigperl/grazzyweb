@@ -699,11 +699,10 @@ class Customers extends Admin_Controller {
 		$html = "";
 		$userdata = $this->session->userdata('admin');
 		date_default_timezone_set('Asia/Calcutta');
-		// $date = date('Y-m-d H:i:s'); 
-		// $date1 = date("Y-m-d H:i:s",strtotime($date." -1 minutes"));
-		if($this->auth->check_access('Restaurant manager')){ 
-			$date = date('Y-m-d H:i:s'); 
+		$date = date('Y-m-d H:i:s'); 
 		$date1 = date("Y-m-d H:i:s",strtotime($date." -1 minutes"));
+		if($this->auth->check_access('Restaurant manager')){ 
+			
 			$sql = $this->db->query("select * from orders as a left join restaurant as b on a.restaurant_id = b.restaurant_id
 			where a.ordered_on >= '".$date1."' and b.restaurant_manager='".$userdata['id']."'");
 			if($sql->num_rows() > 0){
@@ -714,8 +713,7 @@ class Customers extends Admin_Controller {
 			}
 		}
 		elseif($this->auth->check_access('Deliver manager')){ 
-			$date = date('Y-m-d H:i:s'); 
-		    $date1 = date("Y-m-d H:i:s",strtotime($date." -1 minutes"));
+			
 			$userdata = $this->session->userdata('admin');
 			$sql = $this->db->query("select * from orders where ordered_on >= '".$date1."' and delivery_partner='".$userdata['id']."'");
 			if($sql->num_rows() > 0){
@@ -732,7 +730,7 @@ class Customers extends Admin_Controller {
 			if($sql->num_rows() > 0){
 				$result =  $sql->result_array();
 				foreach($result as $res){
-					//$html.="There is new pitstop suggest : ".$res['restaurant_address']."\n";
+					$html.="There is new pitstop suggest : ".$res['restaurant_address']."\n";
 					$p = 1;
 				}
 			}
@@ -741,7 +739,7 @@ class Customers extends Admin_Controller {
 			if($sql->num_rows() > 0){
 				$result =  $sql->result_array();
 				foreach($result as $res){
-					//$html.="There is new restaurant suggest : ".$res['restaurant_name']."\n";
+					$html.="There is new restaurant suggest : ".$res['restaurant_name']."\n";
 					
 				}
 			}
@@ -750,7 +748,7 @@ class Customers extends Admin_Controller {
 			if($sql->num_rows() > 0){
 				$result =  $sql->result_array();
 				foreach($result as $res){
-					//$html.="There is new order : ".$res['order_number']."\n";
+					$html.="There is new order : ".$res['order_number']."\n";
 				}
 			}
 		}
