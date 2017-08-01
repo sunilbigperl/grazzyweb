@@ -848,8 +848,8 @@ class Api_model extends CI_Model
 		$shipping_address =  isset($data['shipping_address']) ? $data['shipping_address'] :  '';
 		$delivered_on = isset($data['delivered_on']) ? $data['delivered_on'] : '';
 		$pitstop_id = isset($data['pitstop_id']) ? $data['pitstop_id'] : '';
-		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on,keep_ready,pitstop_id)
-		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Payment pending','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
+		$sql="insert into orders (order_number,customer_id,restaurant_id,deliveryboy_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on,keep_ready,pitstop_id)
+		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['deliveryboy_id']."','".$data['shipping']."','".$date."','Payment pending','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
 		'".$data['order_type']."','".$data['total_cost']."',  '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$shipping_address."','".$delivered_on."','".$keep_ready."','".$pitstop_id."')";
 		$this->db->query($sql);
 		$id = $this->db->insert_id();

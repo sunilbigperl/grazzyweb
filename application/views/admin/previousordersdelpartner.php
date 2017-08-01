@@ -57,6 +57,7 @@
 			<th data-field="name">Order number</th>
 			<th>Customer Name</th>
 			<th>Customer Mobileno</th> 
+			<th>Deliveryboy Name</th>
 			<th data-field="pickup">Pickup location</th>
 			<th data-field="delivery">Delivery location</th>
 			<?php if(isset($url)){ ?>
@@ -99,6 +100,9 @@
 				</td>
 				<td>
 				<?php echo $order->phone; ?>
+				</td>
+				<td>
+				<?php echo $order->name; ?>
 				</td>
 				<?php 
 				$data['restaurant'] = $this->Restaurant_model->get_restaurant($order->restaurant_id);
