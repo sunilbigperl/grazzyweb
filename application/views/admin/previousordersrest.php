@@ -146,7 +146,8 @@
 					<?php }elseif($order->delivery_partner_status == "Rejected"){
 						echo "Delivery manager rejected";
 					}elseif($order->delivery_partner_status == "Accepted"){
-						echo "Delivery manager Accepted";
+						// echo "Delivery manager Accepted";
+						 echo "$order->status";
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						echo "Restaurant manager accepted ";
 					}else{
