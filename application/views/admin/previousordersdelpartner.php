@@ -12,7 +12,7 @@
 		<?php if($this->auth->check_access('Admin') && !isset($url)){ ?>
 		<div class="form-group">
 			<label for="to date"><strong>Delivery partner:</strong></label>
-			<?php $delpartners = $this->Message_model->get_delpartners(); ?>
+			<?php $delpartners= $this->Message_model->get_delpartners(); ?>
 			<select name="delpartner" class="form-control">
 				<option value="">Select delivery partner</option>
 				<?php foreach($delpartners as $delpat){?>
@@ -55,12 +55,12 @@
 			<th data-field="id">Order id</th>
 			<th data-field="date">Ordered date</th>
 			<th data-field="name">Order number</th>
-			<!-- <th>Customer Name</th>
+			<th>Customer Name</th>
 			<th>Customer Mobileno</th> 
-			<th>Deliveryboy Name</th> -->
+			<!-- <th>Deliveryboy Name</th> -->
 			<th data-field="pickup">Pickup location</th>
 			<th data-field="delivery">Delivery location</th>
-		<?php if(isset($url)){ ?>
+		
 			<th data-field="price">Delivery charge</th>
 				<!-- <th data-field="delprice">Reimbursement of Delivery charge</th> -->
 			<th data-field="distance">KM</th>
@@ -69,7 +69,7 @@
 			<th>GST</th>
 			<th>Total</th>
 			<th>Remarks</th>
-			<?php } ?> 
+			
 			<th>Status</th>
 		</tr>
 	</thead>
@@ -95,13 +95,13 @@
 					<a href="#" data-toggle="modal" style="color: #2f2fd0;text-decoration:underline;"  data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails1');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
 				</td>
 				
-				<!-- <td>
+			     <td>
 				<?php echo $order->firstname; ?>
 				</td>
 				<td>
 				<?php echo $order->phone; ?>
 				</td>
-				<td>
+				<!-- <td>
 				<?php echo $order->name; ?>
 				</td> -->
 				<?php 
@@ -122,7 +122,7 @@
 				
 					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
 				</td>
-				<?php if(isset($url)){ ?> 
+				
 				<td>
 					<?php 
 						echo $deliverycharge['rate'];
@@ -162,20 +162,20 @@
 					<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/ShowReviewDetailstodelpartner/'.$order->delivery_partner.'');?>');" style="color: #2f2fd0;text-decoration:underline;">Reviews/Ratings</a>
 					<?php } ?>
 				</td>
-				<?php } ?>
+				
 				<td>
 				
 				<!-- <?php echo $order->status; ?> -->
 				<?php if($order->restaurant_manager_status == "0"){ 
 						echo "$order->status";
 					}elseif($order->delivery_partner_status == "Rejected"){
-						echo " Rejected by delivery partner";
+						echo " Rejected by Delivery partner";
 					}elseif($order->delivery_partner_status == "Accepted"){
 						echo "$order->status";
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						echo "$order->status";
 					}else{
-						echo "Rejected by restaurant manager";
+						echo "Rejected by $order->restaurant_name";
 					} ?> 
 				
 				</td>
