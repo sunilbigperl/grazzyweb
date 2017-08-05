@@ -304,13 +304,13 @@ class Customers extends Admin_Controller {
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('CustomerName','Email','Phoneno','Date of Birth','Gender','Active','Profile_image','DeactivatedDate','Field_data'); //set title in excel sheet
+    $heading=array('CustomerName','Email','Phoneno','Date of Birth','Gender','Active','Profile_image','Address1','Address2','Zip code'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
     
     $objPHPExcel->getActiveSheet()->getStyle($rowNumberH)->getFont()->setBold(true);
     
-	for($col = ord('A'); $col <= ord('H'); $col++){ //set column dimension 
+	for($col = ord('A'); $col <= ord('I'); $col++){ //set column dimension 
 		 $objPHPExcel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
          $objPHPExcel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
 	}
@@ -325,9 +325,21 @@ class Customers extends Admin_Controller {
 		
     $export_excel = $this->db->query("select a.*,b.field_data from customers a,customers_address_bank b where a.id=b.customer_id")->result_array();
 
+
+
+
+
     $rowCount = 2; // set the starting row from which the data should be printed
     foreach($export_excel as $excel)
-    {         
+    {  
+
+    $excel1 = unserialize($excel['field_data']);
+	$data= array();
+	$data[0]['address1'] = $excel1['address1'];
+	$data[0]['address2'] = $excel1['address2'];
+	$data[0]['zip'] = $excel1['zip'];
+	
+
         $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['firstname']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['email']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['phone']); 
@@ -335,8 +347,9 @@ class Customers extends Admin_Controller {
         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['gender']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['active']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $excel['profile_image']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, $excel['DeactivatedDate']); 
-          $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount, $excel['field_data']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$data[0]['address1']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$data[0]['address2']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$data[0]['zip']); 
           
         $rowCount++; 
     } 
