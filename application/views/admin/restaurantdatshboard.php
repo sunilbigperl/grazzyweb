@@ -90,8 +90,7 @@ echo "" . date("jS F Y") . "<br>";
 				<?php }else{
 					//echo $order->restaurant_manager_status;
 					if($order->status == "Assigned"){ echo "Order Confirmed";}
-					if($order->status == "Rejected"){ echo "Order Cancelled ";}
-
+					if($order->status == "Rejected"){ echo "Order Cancelled";}
 					if($order->status == "Order Placed") { echo "Wait for confirmation"; }
 				} ?>
 				</td>
