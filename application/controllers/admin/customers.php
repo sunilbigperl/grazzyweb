@@ -366,7 +366,7 @@ class Customers extends Admin_Controller {
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
 
     header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename="customerlist."".xls"');
+    header('Content-Disposition: attachment;filename="customer_list.xls"');
     header('Cache-Control: max-age=0');
 
     $objWriter->save('php://output');
