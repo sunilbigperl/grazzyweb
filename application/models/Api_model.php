@@ -15,6 +15,8 @@ class Api_model extends CI_Model
 				$result['id'] =  $datas[0]['id'];
 				$sql = $this->db->query("update customers set did = '".$data['did']."'  where  id='".$result['id']."'");	
 				$result['firstname'] = isset($datas[0]['firstname']) ? $datas[0]['firstname'] : "";
+				//to get email
+				$result['email'] = isset($datas[0]['email']) ? $datas[0]['email'] : "";
 			}else{
 				$message = array("msg" => "logout");      
 				$url = 'https://android.googleapis.com/gcm/send';
@@ -44,6 +46,8 @@ class Api_model extends CI_Model
 			
 				$sql = $this->db->query("update customers set did = '".$data['did']."'  where  id='".$result['id']."'");	
 				$result['firstname'] = isset($datas[0]['firstname']) ? $datas[0]['firstname'] : "";
+				//to get email
+				$result['email'] = isset($datas[0]['email']) ? $datas[0]['email'] : "";
 
 			}
 		}
