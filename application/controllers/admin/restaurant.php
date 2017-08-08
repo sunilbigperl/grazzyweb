@@ -404,4 +404,83 @@ class Restaurant extends Admin_Controller {
 			return false;
 		}
 	}
+
+	public function getrestaurantlist()
+	{
+		$this->load->library('excel');
+    //Create a new Object
+    $objPHPExcel = new PHPExcel();
+    // Set the active Excel worksheet to sheet 0
+    $objPHPExcel->setActiveSheetIndex(0); 
+
+    $heading=array('Restaurant_name','Restaurant_address','Restaurant_phone','Restaurant_mobile','Restaurant_email','Image','Restaurant_latitude','Restaurant_langitude','Restaurant_branch','preparation_time','enabled','Deactivatefrom','Deactivateto','Fromtime','Totime','Commission','Penalty','Reimbursement of delivery charges(Rs)','GST'); //set title in excel sheet
+    $rowNumberH = 1; //set in which row title is to be printed
+    $colH = 'A'; //set in which column title is to be printed
+    
+    $objPHPExcel->getActiveSheet()->getStyle($rowNumberH)->getFont()->setBold(true);
+    
+	for($col = ord('A'); $col <= ord('N'); $col++){ //set column dimension 
+		 $objPHPExcel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
+         $objPHPExcel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
+	}
+    foreach($heading as $h){ 
+
+        $objPHPExcel->getActiveSheet()->setCellValue($colH.$rowNumberH,$h);
+        $colH++;    
+    }
+
+
+			
+		
+    $export_excel = $this->db->query("select * from restaurant")->result_array();
+
+
+
+
+
+    $rowCount = 2; // set the starting row from which the data should be printed
+    foreach($export_excel as $excel)
+    {  
+
+     // $days = unserialize($excel['days']);
+     // $days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
+
+    
+	
+
+        $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['restaurant_name']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['restaurant_address']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['restaurant_phone']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['restaurant_mobile']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['restaurant_email']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['image']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $excel['restaurant_latitude']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$excel['restaurant_langitude']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$excel['restaurant_branch']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$excel['preparation_time']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$excel['enabled']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$excel['deactivatefrom']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount,$excel['deactivateto']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount,$excel['fromtime']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$excel['totime']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$excel['commission']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$excel['penalty']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$excel['reimb']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$excel['GST']); 
+          
+        $rowCount++; 
+    } 
+
+    // Instantiate a Writer 
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
+
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="restaurant.xls"');
+    header('Cache-Control: max-age=0');
+
+    $objWriter->save('php://output');
+    //exit();
+
+	$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list',$data,true);
+	}
 }

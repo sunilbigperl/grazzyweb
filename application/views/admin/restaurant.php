@@ -13,7 +13,10 @@
 		</div>
 	</form>
 	<a href="../../restaurant.csv" style="text-decoration:underline">(Download the Restaurant import format)</a>
+
+
 </div>
+<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/getrestaurantlist');?>"><i class="icon-download"></i>Export Restaurant</a>
 <?php } ?>
 
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true"  <?php if($this->auth->check_access('Admin')) { ?>  data-search="true" <?php } ?> id="table-pagination" data-sort-order="desc">
