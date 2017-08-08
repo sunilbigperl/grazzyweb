@@ -195,7 +195,7 @@ class Restaurant extends Admin_Controller {
                 $data['error']  = $this->upload->display_errors();
                 if($_FILES['image']['error'] != 4)
                 {
-                    $data['error']  .= $this->upload->display_errors();
+                    //$data['error']  .= $this->upload->display_errors();
                     $this->view($this->config->item('admin_folder').'/restaurant_form', $data);
                     return; //end script here if there is an error
                 }

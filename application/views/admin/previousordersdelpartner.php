@@ -169,7 +169,7 @@
 				<?php if($order->restaurant_manager_status == "0"){ 
 						echo "$order->status";
 					}elseif($order->delivery_partner_status == "Rejected"){
-						echo " Rejected by Delivery partner";
+						echo " Rejected by $order->username ";
 					}elseif($order->delivery_partner_status == "Accepted"){
 						echo "$order->status";
 					}elseif($order->restaurant_manager_status == "Accepted"){
