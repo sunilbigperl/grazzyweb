@@ -20,7 +20,7 @@ var oTable = $('#table-pagination').DataTable( {
 		   text: 'Export menu',
            footer: false,
 		   exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4 ]
+                    columns: [ 0, 1, 2, 3, 4,5,6,7,8]
             },
        }        
     ]  
@@ -38,10 +38,15 @@ var oTable = $('#table-pagination').DataTable( {
 	<thead>
 		<tr>
 			<th data-field="id">Id</th>
+			<th data-field="id">code</th>
 			<th data-field="name">menu</th>
+			<th data-field="name">description</th>
 			<th data-field="price">price</th>
-			<th data-field="time">Item preparation time(In mins)</th>
-			<th>Category</th>
+			<th data-field="price">type</th>
+			<th data-field="price">size</th>
+			<th data-field="time">itemPreparation_time</th>
+			<th>enabled</th>
+			<th>category</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -58,14 +63,29 @@ var oTable = $('#table-pagination').DataTable( {
 			<tr class="gc_row">
 				<td><?=$menu->menu_id;?></td>
 				<td>
+					<?=$menu->code;?>
+				</td>
+				<td>
 					<?=$menu->menu;?>
+				</td>
+				<td>
+					<?=$menu->description;?>
 				</td>
 				<td>
 					<?=$menu->price; ?>
 				</td>
+				<td>
+					<?=$menu->type; ?>
+				</td>
+				<td>
+					<?=$menu->size; ?>
+				</td>
 				
 				<td>
 					<?=$menu->itemPreparation_time; ?>
+				</td>
+				<td>
+					<?=$menu->enabled; ?>
 				</td>
 				<td><?php $cats = $this->Menu_model->get_menu_categories($menu->menu_id);
 				$category = "";

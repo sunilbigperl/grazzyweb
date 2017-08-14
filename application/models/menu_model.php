@@ -39,7 +39,7 @@ Class Menu_model extends CI_Model
 				$menu_category = $this->db->insert_id();
 				if(count($categories) > 0){
 					foreach($categories as $cat){
-						$sql =$this->db->query("INSERT INTO `menu_categories`(category_id,menu_category) VALUES (".$cat.",'".$menu_category."')");
+						$sql =$this->db->query("INSERT INTO `menu_categories`(category_id,menu_category) VALUES ('".$cat."','".$menu_category."')");
 					}
 				}
 			}
