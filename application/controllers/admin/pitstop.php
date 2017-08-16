@@ -215,4 +215,60 @@ class Pitstop extends Admin_Controller {
 		}
 		
 	}
+
+	function get_pitstop_list()
+	{
+		
+	$this->load->library('excel');
+    //Create a new Object
+    $objPHPExcel = new PHPExcel();
+    // Set the active Excel worksheet to sheet 0
+    $objPHPExcel->setActiveSheetIndex(0); 
+
+    $heading=array('SI.No','PitstopName','City','Lattitude','Longitude','Restaurant_name'); 
+    //set title in excel sheet
+    $rowNumberH = 1; //set in which row title is to be printed
+    $colH = 'A'; //set in which column title is to be printed
+    
+    $objPHPExcel->getActiveSheet()->getStyle($rowNumberH)->getFont()->setBold(true);
+    
+	for($col = ord('A'); $col <= ord('F'); $col++){ //set column dimension 
+		 $objPHPExcel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
+         $objPHPExcel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
+	}
+    foreach($heading as $h){ 
+
+        $objPHPExcel->getActiveSheet()->setCellValue($colH.$rowNumberH,$h);
+        $colH++;    
+    }
+
+    $export_excel = $this->db->query("select * from pitstops a,restaurant b ,pitstop_restaurants c where a.pitstop_id=c.pitstop_id and c.restaurants_id=b.restaurant_id and a.enabled=1 and a.delete=0 ")->result_array();
+
+     $rowCount = 2; // set the starting row from which the data should be printed
+    foreach($export_excel as $excel)
+    {  
+
+        $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['pitstop_id']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['pitstop_name']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('c'.$rowCount, $excel['city']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['latitude']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['langitude']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['restaurant_name']); 
+       $rowCount++; 
+    } 
+
+    // Instantiate a Writer 
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
+
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="PitstopInformationOnly.xls"');
+    header('Cache-Control: max-age=0');
+
+    $objWriter->save('php://output');
+    //exit();
+
+	
+		
+		
+	}	
 }
