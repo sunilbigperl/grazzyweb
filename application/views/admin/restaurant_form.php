@@ -90,13 +90,23 @@
 			<fieldset style="padding: 10px;">
 			
 				<div class="form-group">
-					<label for="fromtime">From time</label>
+					<label for="fromtime">From time(as per the availability of the delivery partner)</label>
 					<input type="time" name="fromtime" class="form-control" value="<?=$fromtime;?>">
 				</div>
 				<div class="form-group">
-					<label for="fromtime">To time</label>
+					<label for="fromtime">To time(as per the availability of the delivery partner)</label>
 					<input type="time" name="totime" class="form-control"  value="<?=$totime;?>">
 				</div>
+                 <?php if($this->auth->check_access('Admin')) {?>
+                <div class="form-group">	
+					<label for="comment">Comment</label>
+					<?php
+					$data= array('name'=>'comment', 'class'=>'','rows' => '5','cols'=> '10', 
+						'style' => 'width:50%','value'=>set_value('comment', $comment));
+					echo form_textarea($data);
+					?>
+				</div>
+                 <?php } ?>
 				<div class="form-group">
 					<label for="days">Days</label>
 					<br/><?php $dayss = unserialize($days);  ?>

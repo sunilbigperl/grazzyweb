@@ -67,6 +67,7 @@ class Restaurant extends Admin_Controller {
 		$data['Reimb'] ='';
         $data['fromtime'] ='';
 		$data['totime'] ='';
+		$data['comment']= '';
 		$data['days'] ='';
 		$data['delivery_charge'] = '';
 		$data['username']	= '';
@@ -113,6 +114,7 @@ class Restaurant extends Admin_Controller {
 			$data['Reimb']	= $restaurant->reimb;
 			$data['fromtime']	= $restaurant->fromtime;
 			$data['totime']	= $restaurant->totime;
+			$data['comment']= $restaurant->comment;
 			$data['days']	= $restaurant->days;
 			$data['delivery_charge'] = $restaurant->delivery_charge;
 			$data['username']	= $admin->username;
@@ -272,6 +274,7 @@ class Restaurant extends Admin_Controller {
 			$save['preparation_time']	   = $this->input->post('preparation_time');
 			$save['fromtime'] 			   = $this->input->post('fromtime');
 			$save['totime'] 			   = $this->input->post('totime');
+			$save['comment'] 			   = $this->input->post('comment');
 			$save['days'] 				   = serialize($this->input->post('days'));
 			$save['delivery_charge'] = $this->input->post('delivery_charge');
 			if($this->input->post('related_pitstops'))
