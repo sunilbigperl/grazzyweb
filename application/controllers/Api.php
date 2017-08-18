@@ -634,6 +634,24 @@ if (isset($result)){
 			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); 			
 		}
 	  }
+
+      public function OrderProfilepicture_get(){
+         $data=array('id'=>$this->get('order_id')); 
+         $result=$this->api_model->orderProfile($data);
+        if(!empty($result)){
+            $message=[
+            'Status'=>'Success',
+            'url'=>$result['data']
+            ];
+            $this->set_response($message, REST_Controller::HTTP_OK); // 
+             
+        }else{
+            $message=[
+            'url'=>'No picture'
+            ];
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);           
+        }
+      }
 	  
 	  public function updateProfilepicture_post(){
 		 
