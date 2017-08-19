@@ -52,7 +52,8 @@
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
 			<th>Net amount</th>
 			<th>GST</th>
-			<th>Keep amount</th>
+			<!-- <th>Keep amount</th> -->
+			<th>For Eatsapp</th>
 			<th>Total</th>
 			<th>Status</th>
 			<th>Del partner remarks</th>
