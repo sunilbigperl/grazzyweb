@@ -11,7 +11,9 @@
 		<li><a href="#location_tab" data-toggle="tab">Location</a></li>
 		<li><a href="#preparation_tab" data-toggle="tab">Restaurant Manager</a></li>
 		<li><a href="#charge_tab" data-toggle="tab">Charges</a></li>
+		<?php if($this->auth->check_access('Admin')) {?>
 		<li><a href="#pt_tab" data-toggle="tab">Preparation Time</a></li>
+		<?php } ?>
 	</ul>
 	
 
@@ -351,7 +353,7 @@
 	
 			</fieldset>
 		</div>
-		
+		 <?php if($this->auth->check_access('Admin')) {?>
 		<div class="tab-pane" id="pt_tab">
 			<fieldset style="padding:10px;">
 				<div class="form-group">	
@@ -370,6 +372,7 @@
 				</select>
 				
 				</div>
+				<?php } ?>
 			</fieldset>
 		</div>
 	</div>
