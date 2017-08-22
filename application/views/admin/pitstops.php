@@ -18,12 +18,12 @@ var oTable = $('#table-pagination').DataTable( {
 		
         buttons: [
        {
-           //extend: 'csv',
-		   //text: 'Export pitstops',
-		    filename: 'PitstopInformationOnly',
+           extend: 'csv',
+		   text: 'Export All pitstops',
+		   filename: 'PitstopInformationOnly',
            footer: false,
 		   exportOptions: {
-                    columns: [ 0, 2, 3, 4,5]
+                    columns: [ 0, 2, 3, 4,5,6]
             },
 			aoColumns: [{ "sTitle": "name" }],
 			"columnDefs": [{
@@ -77,7 +77,7 @@ oTable.column( 1 ).visible( false );
 	<a href="../../UseThisFileToImportPitstops.csv" style="text-decoration:underline">(Download the pitstop import format)</a>
 </div>
 
-<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/get_pitstop_list');?>"><i class="icon-download"></i>Export pitstops</a>
+<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/get_pitstop_list');?>"><i class="icon-download"></i>Export Connected pitstops</a>
 
 <form action="<?php echo site_url($this->config->item('admin_folder').'/pitstop/Deleteall'); ?>" method="post">
 <input type="submit" name="submit" value="delete all" class="btn btn-xs btn-primary">

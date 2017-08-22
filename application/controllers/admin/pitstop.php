@@ -225,7 +225,7 @@ class Pitstop extends Admin_Controller {
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('SI.No','PitstopName','City','Lattitude','Longitude','Restaurant_name'); 
+    $heading=array('PitstopName','City','Lattitude','Longitude','Restaurant_name'); 
     //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
@@ -248,12 +248,12 @@ class Pitstop extends Admin_Controller {
     foreach($export_excel as $excel)
     {  
 
-        $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['pitstop_id']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['pitstop_name']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('c'.$rowCount, $excel['city']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['latitude']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['langitude']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['restaurant_name']); 
+        // $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['pitstop_id']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['pitstop_name']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['city']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['latitude']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['langitude']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['restaurant_name']); 
        $rowCount++; 
     } 
 
@@ -261,7 +261,7 @@ class Pitstop extends Admin_Controller {
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
 
     header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename="PitstopInformationOnly.xls"');
+    header('Content-Disposition: attachment;filename="PitstopConnectedInformationOnly.xls"');
     header('Cache-Control: max-age=0');
 
     $objWriter->save('php://output');
