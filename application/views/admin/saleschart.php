@@ -26,7 +26,7 @@ $.ajax({
 function drawColColors(array1) {
   var data = new google.visualization.DataTable();
       data.addColumn('string', 'month');
-      data.addColumn('number', 'Category1');
+      data.addColumn('number', 'Categories');
       //data.addColumn('number', 'Category2');
 
       dataArray=[];
