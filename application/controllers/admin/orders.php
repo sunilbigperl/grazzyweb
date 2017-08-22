@@ -840,14 +840,17 @@ class Orders extends Admin_Controller {
 			echo "Error in sending Email.";
          }
 	}
+	
 	public function SalesChart(){
 
-	     $data['saleschart'] = "";
-        $this->view($this->config->item('admin_folder').'/saleschart',$data);
+        $this->view($this->config->item('admin_folder').'/saleschart');
+       } 
 
-
-	}
-
+     public function data() 
+        { 
+          echo json_encode($this->Order_model->getdata());
+        } 
+	
 	public function renew(){
 		$userdata = $this->session->userdata('admin');
 

@@ -575,4 +575,10 @@ Class order_model extends CI_Model
 		}
 		return $data;
 	}
+
+	public function getdata(){
+
+      return $this->db->query("select a.*,b.* from order_items a,restaurant_menu b where a.menu_id=b.menu_id  order by b.menu asc")->result();
+ 
+    }
 }
