@@ -23,7 +23,7 @@ var oTable = $('#table-pagination').DataTable( {
 		   filename: 'PitstopInformationOnly',
            footer: false,
 		   exportOptions: {
-                    columns: [ 0, 2, 3, 4,5,6]
+                    columns: [2, 3, 4,5,6]
             },
 			aoColumns: [{ "sTitle": "name" }],
 			"columnDefs": [{
@@ -78,6 +78,10 @@ oTable.column( 1 ).visible( false );
 </div>
 
 <a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/get_pitstop_list');?>"><i class="icon-download"></i>Export Connected pitstops</a>
+
+
+<!-- <a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/ChangeStatus1'); ?>">activate all</a> -->
+
 
 <form action="<?php echo site_url($this->config->item('admin_folder').'/pitstop/Deleteall'); ?>" method="post">
 <input type="submit" name="submit" value="delete all" class="btn btn-xs btn-primary">
