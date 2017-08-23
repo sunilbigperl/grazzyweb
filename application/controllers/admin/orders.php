@@ -95,6 +95,7 @@ class Orders extends Admin_Controller {
 		}
 		
 		$data['orders'] = $this->Order_model->get_previousorders($data);
+		$data['orders1'] = $this->Order_model->get_previousorders1($data);
 		$this->view($this->config->item('admin_folder').'/previousordersdelpartner',$data);
 	}
 	function GetPreviousOrders(){
