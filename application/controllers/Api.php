@@ -370,7 +370,7 @@ class Api extends REST_Controller {
         ];
 		
 		$deliveryboylocation =  $this->api_model->deliveryboylocation($data);
-		print_r($deliveryboylocation); exit;
+		//print_r($deliveryboylocation); exit;
 	
         if ($deliveryboylocation)
         {

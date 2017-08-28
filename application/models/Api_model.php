@@ -887,7 +887,7 @@ class Api_model extends CI_Model
 	  
 	  public function deliveryboylocation($data){
 		if(isset($data['deliveryboy_id']) && $data['deliveryboy_id'] != ""){
-			$sql=$this->db->query("select * from deliveryboy_locations where deliveryboy_id='".$id."' order by location_id desc limit 1");
+			$sql=$this->db->query("select * from deliveryboy_locations where deliveryboy_id='".$data['deliveryboy_id']."' order by location_id desc limit 1");
 		   
 			if($sql->num_rows()>0){
 				$data = $sql->result_array();
