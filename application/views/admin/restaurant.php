@@ -45,7 +45,8 @@
 				<td>
 					<?=$restaurant->restaurant_name;?></br></br>
 					
-			        <?php $res_manager = $this->Restaurant_model->get_managers($restaurant->restaurant_id); echo isset($res_manager[0]->firstname) ? $res_manager[0]->firstname : ''; ?>
+			        <?php $res_manager = $this->Restaurant_model->get_managers($restaurant->restaurant_manager); echo isset($res_manager[0]->firstname) ? $res_manager[0]->firstname : ''; ?>
+
 				</td>
 				<td>
 				   Cell:<a href="" style="color: #2f2fd0;text-decoration:underline;" > <?=$restaurant->restaurant_phone; ?></a></br></br>
