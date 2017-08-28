@@ -207,4 +207,23 @@ Class Restaurant_model extends CI_Model
 		}
 		return $result;
 	 }
+
+	 function check_restaurantname($str)
+    {
+        $this->db->select('restaurant_name');
+        $this->db->from('restaurant');
+        $this->db->where('restaurant_name', $str);
+        
+        $count = $this->db->count_all_results();
+         
+        
+        if ($count > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }	
 }
