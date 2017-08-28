@@ -225,7 +225,7 @@ class Pitstop extends Admin_Controller {
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('PitstopName','City','Lattitude','Longitude','Restaurant_name'); 
+    $heading=array('PitstopName','City','Lattitude','Longitude','Enabled','Restaurant_name'); 
     //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
@@ -242,7 +242,7 @@ class Pitstop extends Admin_Controller {
         $colH++;    
     }
 
-    $export_excel = $this->db->query("select * from pitstops a,restaurant b ,pitstop_restaurants c where a.pitstop_id=c.pitstop_id and c.restaurants_id=b.restaurant_id and a.enabled=1 and a.delete=0 ")->result_array();
+    $export_excel = $this->db->query("select * from pitstops a,restaurant b ,pitstop_restaurants c where a.pitstop_id=c.pitstop_id and c.restaurants_id=b.restaurant_id  and a.delete=0 ")->result_array();
 
      $rowCount = 2; // set the starting row from which the data should be printed
     foreach($export_excel as $excel)
@@ -252,8 +252,9 @@ class Pitstop extends Admin_Controller {
         $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['pitstop_name']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['city']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['latitude']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['langitude']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['restaurant_name']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['langitude']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['enabled']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['restaurant_name']); 
        $rowCount++; 
     } 
 
