@@ -23,7 +23,7 @@ var oTable = $('#table-pagination').DataTable( {
 		   filename: 'PitstopInformationOnly',
            footer: false,
 		   exportOptions: {
-                    columns: [2, 3, 4,5,6]
+                    columns: [2, 3, 4,5,6,7]
             },
 			aoColumns: [{ "sTitle": "name" }],
 			"columnDefs": [{
@@ -94,6 +94,7 @@ oTable.column( 1 ).visible( false );
 			<th data-field="city">City</th>
 			<th data-field="price">Latitude</th>
 			<th>Longitude</th>
+			<th>Enabled</th>
 			<th>Connected</th>
 			<th>Action</th>
 			
@@ -120,6 +121,7 @@ oTable.column( 1 ).visible( false );
 					<?=$pitstop->latitude; ?>
 				</td>
 				<td><?=$pitstop->langitude;?></td>
+				<td><?=$pitstop->enabled;?></td>
 				<td><?php echo $this->Pitstop_model->CheckConnection($pitstop->pitstop_id); ?></td>
 				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/form/'.$pitstop->pitstop_id); ?>" class="btn btn-info btn-xs">Edit</a>
 				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/delete/'.$pitstop->pitstop_id); ?>" class="btn btn-danger btn-xs">delete</a>
