@@ -844,12 +844,29 @@ class Orders extends Admin_Controller {
 	
 	public function SalesChart(){
 
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			 $data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
+
+		}else{
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
+			
+		}
+
         $this->view($this->config->item('admin_folder').'/saleschart');
-       } 
+       }  
 
      public function data() 
         { 
+  
           echo json_encode($this->Order_model->getdata());
+
+  
         } 
 	
 	public function renew(){

@@ -577,8 +577,21 @@ Class order_model extends CI_Model
 	}
 
 	public function getdata(){
+  
+     $sql=$this->db->query("select a.*,b.* from order_items a,restaurant_menu b,orders c where  a.order_id=c.id and a.menu_id=b.menu_id and c.ordered_on >= '".$_SESSION['fromdate']."' and c.ordered_on <= '".$_SESSION['todate']."' order by b.menu asc");
 
-      return $this->db->query("select a.*,b.* from order_items a,restaurant_menu b where a.menu_id=b.menu_id  order by b.menu asc")->result();
+       // $sql=$this->db->query("select a.*,b.* from order_items a,restaurant_menu b,orders c where  a.order_id=c.id and a.menu_id=b.menu_id and c.ordered_on >= '2017-05-1' and c.ordered_on <= '2017-06-29' order by b.menu asc");
+
+      if($sql->num_rows() > 0){
+      	$result	= $sql->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+  
+
+      // return $this->db->query("select a.*,b.*,c.* from order_items a,restaurant_menu b,orders c where a.menu_id=b.menu_id and a.order_id=c.id  order by b.menu asc")->result();
+
  
     }
 
