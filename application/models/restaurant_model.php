@@ -144,11 +144,11 @@ Class Restaurant_model extends CI_Model
     
     function delete($id)
     {
-        /* $this->db->where('restaurant_id', $id);
-        $this->db->delete('restaurant'); */
-		$data['delete'] = 1;
-		$this->db->where('restaurant_id', $id);
-        $this->db->update('restaurant', $data);
+        $this->db->where('restaurant_id', $id);
+        $this->db->delete('restaurant'); 
+		 $data['delete'] = 1;
+		// $this->db->where('restaurant_id', $id);
+  //       $this->db->update('restaurant', $data);
         
         //delete references to this category in the product to category table
 		$this->db->where('restaurant_id', $id);

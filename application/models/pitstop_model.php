@@ -112,9 +112,12 @@ Class Pitstop_model extends CI_Model
     
     function delete($id)
     {
-		$data['delete'] = 1 ;
+
         $this->db->where('pitstop_id', $id);
-        $this->db->update('pitstops',$data);
+        $this->db->delete('pitstops');
+		// $data['delete'] = 1 ;
+  //       $this->db->where('pitstop_id', $id);
+  //       $this->db->update('pitstops',$data);
 		//echo $this->db->last_query(); exit;
        // $sql = $this->db->query('update pitstops set `delete`=1 where pitstop_id="'.$id.'"');
         //delete references to this category in the product to category table
