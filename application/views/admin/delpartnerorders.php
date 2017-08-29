@@ -53,9 +53,9 @@ echo "" . date("jS F Y") . "<br>";
 				<td><?php echo date("h:i:s", strtotime("$t1-$order->preparation_time minutes"));?></td>  -->
 				<td> 
 					<form id="the-basics" method="post" action="AssignDeliveryBoy/<?=$order->id;?>">
-						<select type="text" name="deliveryboy" class="form-control typeahead" <?php if($order->delivered_by != 0){ echo "disabled";}?>>
+						<select type="text" name="deliveryboy" class="form-control typeahead" <?php if($order->delivered_by != 0 ||$order->status=='Rejected'){ echo "disabled";}?>>
 							<option value="">select delivery boy</option>
-							<?php foreach($deliveryboys as $deliveryboy){ if($order->delivered_by == $deliveryboy->id){ $select= "selected";}else{$select ="";}?>
+							<?php foreach($deliveryboys as $deliveryboy){ if($order->delivered_by == $deliveryboy->id ){ $select= "selected";}else{$select ="";}?>
 								<option value="<?=$deliveryboy->id?>" <?=$select?>><?=$deliveryboy->name;?></option>
 							<?php } ?>
 						</select>
