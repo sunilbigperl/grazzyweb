@@ -545,7 +545,7 @@ class Api_model extends CI_Model
 		$date = date('Y-m-d H:i:s');
 		
 		// $sql3 = $this->db->query("select servicetax,delivery_charge from restaurant where restaurant_id='".$id."'");
-		$sql3 = $this->db->query("select servicetax,deliverycharge from charges order by 
+		$sql3 = $this->db->query("select servicetax,deliverycharge,minordervalue from charges order by 
 			start_date desc limit 1 ");
 		$servicetax =  $sql3->result_array();
 		
@@ -563,6 +563,7 @@ class Api_model extends CI_Model
 					$result[$i]['category'] = $menu['name'];
 					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
 					$result[$i]['delivery_charge'] =  $servicetax[0]['deliverycharge'];
+					$result[$i]['minordervalue'] =  $servicetax[0]['minordervalue'];
 					$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
 					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
 					//echo $sql1; exit;

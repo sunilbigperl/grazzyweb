@@ -23,6 +23,7 @@ class Customers extends Admin_Controller {
 		}else{
 			$data['servicetax'] = '';
 			$data['deliverycharge'] = '';
+			$data['minordervalue'] = '';
 		}
 		$this->view($this->config->item('admin_folder').'/charges_form',$data);
 	}
@@ -32,6 +33,7 @@ class Customers extends Admin_Controller {
 		$end_date = date("Y-m-d H:i:s");
 		$data['servicetax'] = $this->input->post('servicetax');
 		$data['deliverycharge'] = $this->input->post('deliverycharge');
+		$data['minordervalue'] = $this->input->post('minordervalue');
 		$this->load->helper('form');
 		$sql = $this->db->query("select id from charges order by id desc limit 1");
 		if($sql->num_rows() > 0){
@@ -39,7 +41,7 @@ class Customers extends Admin_Controller {
 			$sql = $this->db->query("update charges set end_date = '".$end_date."' where id = '".$res[0]['id']."'");
 		}
 		
-		$sql1 = $this->db->query("insert into charges(servicetax,deliverycharge) values('".$data['servicetax']."','".$data['deliverycharge']."')");
+		$sql1 = $this->db->query("insert into charges(servicetax,deliverycharge,minordervalue) values('".$data['servicetax']."','".$data['deliverycharge']."','".$data['minordervalue']."')");
 		
 		if($sql){
 			$this->session->set_flashdata('message', 'Charges saved successfuly');
