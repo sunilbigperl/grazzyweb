@@ -934,7 +934,7 @@ class Orders extends Admin_Controller {
 					</div>
 					<table class='table table-bordered'>
 					<thead>
-						<tr><th>RestName</th><th>Order Type</th><th>Pickup Time</th><th>Scheduled Delivery Time</th><tr>
+						<tr><th>RestName</th><th>Order Type</th><th>Scheduled Pickup Time</th><th>Scheduled Delivery Time</th><tr>
 					</thead>
 					<tbody>";
 			foreach($menus as $menu){
