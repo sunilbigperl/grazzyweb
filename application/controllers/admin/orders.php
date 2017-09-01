@@ -536,11 +536,11 @@ class Orders extends Admin_Controller {
 					</div>
 					<table class='table table-bordered'>
 					<thead>
-						<tr><th>Item name</th><th>Item code</th><th>No of items</th><th>Amount</th><th>RestName</th><th>Order Type</th><th>Pickup Time</th><th>Scheduled Delivery Time</th><tr>
+						<tr><th>Item name</th><th>Item code</th><th>No of items</th><th>Amount</th><tr>
 					</thead>
 					<tbody>";
 			foreach($menus as $menu){
-					$html.="<tr><td>".$menu->menu."</td><td>".$menu->menu_id."</td><td>".$menu->quantity."</td><td>".$menu->cost."</td><td>".$menu->restaurant_name."</td><td>".$menu->order_type."</td><td>".$menu->keep_ready."</td><td>".$menu->delivered_on."</td></td>";
+					$html.="<tr><td>".$menu->menu."</td><td>".$menu->menu_id."</td><td>".$menu->quantity."</td><td>".$menu->cost."</td></td>";
 
 			}
 			$html.="</tbody>
