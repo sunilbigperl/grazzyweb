@@ -37,7 +37,7 @@
 		</div>
 	</form>
 </div>
-<?php foreach($orders1 as $order1) ?>
+<!-- <?php foreach($orders1 as $order1) ?> -->
 
 <?php if(count($orders) > 0){?>
 
@@ -169,7 +169,7 @@
 				
 				<!-- <?php echo $order->status; ?> --> 
 				 <?php if($order->delivery_partner_status == "Rejected"){ 
-						echo "Rejected by $order1->username";
+						echo "$order->status";
 					}elseif($order->delivery_partner_status == "Accepted"){
 						echo " $order->status";
 					}elseif($order->restaurant_manager_status == "Accepted"){
