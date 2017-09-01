@@ -408,12 +408,12 @@ class Api_model extends CI_Model
 				$result[$i]['shipping_long'] = $row['shipping_long'];
 				if($result[$i]['order_type'] == 1 || $result[$i]['order_type'] == 2 || $result[$i]['order_type'] == 4){
 					if($result[$i]['delivered_by'] != 0){
-						$sql4  = $this->db->query("select * from admin where id='".$result[$i]['delivered_by']."'");
+						$sql4  = $this->db->query("select * from delivery_boy where id='".$result[$i]['delivered_by']."'");
 						 
 						//$res_del = $sql4->num_rows();
 						 if($sql4->num_rows() > 0){
 						 	$res_del = $sql4->result_array();
-							$result[$i]['name'] = $res_del[0]['firstname'];
+							$result[$i]['name'] = $res_del[0]['name'];
 							$result[$i]['phone'] = isset($res_del[0]['phone']) ? $res_del[0]['phone'] : "";
 						}else{
 							$result[$i]['name'] = 0;
