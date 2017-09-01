@@ -1,4 +1,4 @@
-<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script><script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>			
+<!-- <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script><script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script> -->			
 <style>.nicEdit-main {width:600px !important; height: 300px !important;} </style>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">
 	<form class="form-horizontal" action="<?php echo site_url($this->config->item('admin_folder').'/message/addnotification'); ?>" method="post">

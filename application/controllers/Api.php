@@ -362,7 +362,30 @@ class Api extends REST_Controller {
         }
 	}
 	
-	public function deliveryboylocation_post(){
+	public function deliveryboylocation_get(){
+        
+        $data = [
+            'deliveryboy_id' => $this->get('deliveryboy_id'),
+            'order_id' => $this->get('order_id'),
+        ];
+        
+        $deliveryboylocation =  $this->api_model->deliveryboylocation($data);
+        //print_r($deliveryboylocation); exit;
+    
+        if ($deliveryboylocation)
+        {
+            $this->set_response($deliveryboylocation, REST_Controller::HTTP_OK); 
+        }
+        else
+        {
+            $this->set_response([
+                'status' => FALSE,
+                'message' => 'deliveryboy location  could not be found for the customer'
+            ], REST_Controller::HTTP_OK);
+        }
+    }
+
+    public function deliveryboylocation_post(){
 		
 		$data = [
             'deliveryboy_id' => $this->post('deliveryboy_id'),
