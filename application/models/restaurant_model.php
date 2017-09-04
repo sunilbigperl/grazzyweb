@@ -10,7 +10,7 @@ Class Restaurant_model extends CI_Model
 		 $this->db->where('restaurant_manager', $userdata['id']);
 		}
         $this->db->order_by('restaurant_name', 'ASC');
-		 $this->db->where('delete',0);
+		 // $this->db->where('delete',0);
         $result = $this->db->get('restaurant');
         
         $restaurants = array();
