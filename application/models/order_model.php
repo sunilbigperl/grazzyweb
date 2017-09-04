@@ -638,5 +638,11 @@ Class order_model extends CI_Model
 		}
 		return $result;
 }
+
+function get_orders($id)
+    {
+        $result = $this->db->get_where('orders', array('id'=>$id));
+        return $result->row();
+    }
 		
 }

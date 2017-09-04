@@ -441,6 +441,7 @@ class Orders extends Admin_Controller {
 		$html="";
 		$data = $this->input->post('data');
 		$restaurant = $this->Restaurant_model->get_restaurant($data['restaurant_id']);
+		$orders = $this->Order_model->get_orders($data['id']);
 		if($data['ordertype_id'] == 3){
 			 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
 			 $cname = $customer_details->firstname." ".$customer_details->lastname;
@@ -494,6 +495,12 @@ class Orders extends Admin_Controller {
             </tr>
             <tr>
 						<th>Passcode:</th><td>".$data['passcode']."</td>
+            </tr>
+             <tr>
+						<th>Scheduled Pickup Time:</th><td>".$data['keep_ready']."</td>
+            </tr>
+            <tr>
+						<th>Scheduled Delivery Time:</th><td>".$data['delivered_on']."</td>
             </tr>
 
             </table>
