@@ -29,12 +29,12 @@ $.ajax({
   url:"<?php echo site_url($this->config->item('admin_folder').'/orders/data'); ?>",
   dataType:"JSON",
   success:function(result){
-    // alert(result);
+     //alert(result);
 
     var array1=[];
     
     for(let i=0;i<result.length;i++){
-      array1.push([result[i].menu,parseInt(result[i].price)]);
+      array1.push([result[i].num_orders,parseInt(result[i].daily_total)]);
     }
 
    
@@ -70,7 +70,7 @@ function drawColColors(array1) {
         }
       };
 
-      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
       chart.draw(data, options);
     }
 </script>
