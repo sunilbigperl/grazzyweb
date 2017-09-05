@@ -881,9 +881,22 @@ class Orders extends Admin_Controller {
 			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
+
+		}elseif($this->input->post('action') == "ThreeMonth"){
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('-3 months'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
+
+
+		}elseif($this->input->post('action') == "SixMonth"){
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('-6 months'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
+
+
 		}else{
 			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
+			
+
 			
 		}
 

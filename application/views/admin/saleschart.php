@@ -12,9 +12,10 @@
     
     <div class="form-group"><input type="submit" class="btn btn-primary" value="Go" name="action"></div>
 <div  style="margin-top:20px;">
+      <div class="form-group"><input type="submit" class="btn btn-primary" value="SixMonth" name="action"></div>
+      <div class="form-group"><input type="submit" class="btn btn-primary" value="ThreeMonth" name="action"></div>
       <div class="form-group"><input type="submit" class="btn btn-primary" value="PreviousMonth" name="action"></div>
       <div class="form-group"><input type="submit" class="btn btn-primary" value="CurrentMonth" name="action"></div>
-    </div>
     
   </form>
 </div>
@@ -34,7 +35,7 @@ $.ajax({
     var array1=[];
     
     for(let i=0;i<result.length;i++){
-      array1.push([result[i].num_orders,parseInt(result[i].daily_total)]);
+      array1.push([result[i].day,parseInt(result[i].daily_total)]);
     }
 
    
