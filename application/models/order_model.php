@@ -332,7 +332,7 @@ Class order_model extends CI_Model
 			    //print_r($registatoin_ids[0]);exit;
 		     }
 
-		     $url =file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=wolotech@654&senderid=EATSAP&dest_mobileno=" .$registatoin_ids[0] ."&tempid=52492&message=your+order+is+cancled&response=Y");
+		     $url =file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=wolotech@654&senderid=EATSAP&dest_mobileno=" .$registatoin_ids[0] ."&tempid=52492&message=We+regret+to+inform+you+that+the+Food+Outlet+you+selected+is+unable+to+accept+your+order+.+Please+order+from+some+other+Food+Outlet+.+We+will+refund+your+payment+within+5+working+days&response=Y");
 	       }
 
 		}
@@ -353,6 +353,26 @@ Class order_model extends CI_Model
 			$data = "Rejected";
 			//echo 'update orders set delivery_partner ="'.$userdata['id'].'",delivery_partner_status="'.$data.'", status="'.$data.'" where id="'.$id.'"'; exit;
 			$sql = $this->db->query('update orders set delivery_partner ="'.$userdata['id'].'",delivery_partner_status="'.$data.'", status="'.$data.'" where id="'.$id.'"');
+
+           $query1 = $this->db->query("SELECT `phone` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
+	     
+	
+	    if($query1->num_rows() > 0){
+		$res	= $query1->result_array();
+		
+		foreach($res as $result){
+			$registatoin_ids[0]=$result['phone'];
+			
+			//print_r($registatoin_ids[0]);exit;
+		}
+
+		$url =
+		     file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=wolotech@654&senderid=EATSAP&dest_mobileno=" .
+    	     $registatoin_ids[0] ."&tempid=52492&message=your+order+is+Cancled&response=Y");
+	}
+  
+
+
 		}
 		
 		if($sql){
