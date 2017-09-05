@@ -588,25 +588,21 @@ class Orders extends Admin_Controller {
 			}
 		}
          $query1 = $this->db->query("SELECT `phone` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
-	     //echo "SELECT `phone` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ";
+	     
 	
 	    if($query1->num_rows() > 0){
 		$res	= $query1->result_array();
-		$i=0;
-		 //print_r($query1->result_array());exit;
+		
 		foreach($res as $result){
-			$registatoin_ids[$i]=$result['phone'];
-			$i++;
+			$registatoin_ids[0]=$result['phone'];
+			
 			//print_r($registatoin_ids[0]);exit;
 		}
 
-		http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=wolotech@654&senderid=EATSAP&dest_mobileno=9820076457&tempid=52492&F1=hello&response=Y
-		 
-       //    $url =  file("http://smssigma.com/API/WebSMS/Http/v1.0a/index.php?username=bigperl&password=Bigperl123&sender=BIGPER&to=" . 
-					 	// $registatoin_ids[0] ."&message=your+order+is+cancled&route_id=7");
-
- $url =file("http://123.63.33.43/blank/sms/user/index.php?username=wolotech&pass=wolotech@654&senderid=EATSAP&dest_mobileno=9820076457&tempid=52492&F1=hello&response=Y");
+		$url =file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=wolotech@654&senderid=EATSAP&dest_mobileno=" .
+    	$registatoin_ids[0] ."&tempid=52492&message=your+order+is+cancled&response=Y");
 	}
+
 
 
 		redirect('admin/orders/dashboard', 'refresh');
