@@ -368,7 +368,7 @@ Class order_model extends CI_Model
 
 		$url =
 		     file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=wolotech@654&senderid=EATSAP&dest_mobileno=" .
-    	     $registatoin_ids[0] ."&tempid=52492&message=your+order+is+Cancled&response=Y");
+    	     $registatoin_ids[0] ."&tempid=52492&message=We+regret+to+inform+you+that+your+order+was+not+accepted+.+We+will+refund+your+payment+within+5+working+days&response=Y");
 	}
   
 
