@@ -65,11 +65,11 @@ echo "" . date("jS F Y") . "<br>";
 						<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a> 
 						<?php } ?>  -->
                         <?php if($order->status =='Rejected' ){ ?>
-                        
+
                          <?php }else if($order->delivered_by == 0){?>
 					     <input type="submit" value="Assign" name="assign" class="btn btn-primary">
 
-			              <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs"  onclick="two()">Reject</a>
+			              <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs" >Reject</a>
 				 <?php }else{?>
 
 				<?php }?>
