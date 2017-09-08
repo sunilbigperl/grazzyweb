@@ -88,6 +88,7 @@
 				$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
 				$servicetax = $charges['servicetax'];
 				$deliverycharge = $this->Order_model->DelPartnerDeliveryCharge($order->distance);
+				$orders1 = $this->Order_model->get_previousorders1($order->delivery_partner);
 				
 				?>
 			<tr class="gc_row">
@@ -169,7 +170,9 @@
 				
 				<!-- <?php echo $order->status; ?> --> 
 				 <?php if($order->delivery_partner_status == "Rejected"){ 
-						echo "$order->status";
+						// echo "$order->status";
+				 	$username=$orders1[0]->username;
+				 	echo "Rejected by $username";
 					}elseif($order->delivery_partner_status == "Accepted"){
 						echo " $order->status";
 					}elseif($order->restaurant_manager_status == "Accepted"){

@@ -89,17 +89,17 @@ echo "" . date("jS F Y") . "<br>";
 					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
 				<?php }else{
 					//echo $order->restaurant_manager_status;
-					// if($order->status == "Assigned"){ echo "Order Confirmed";}
-					// if($order->status == "Rejected"){ echo "Order Cancelled";}
-					// if($order->status == "Order Placed") { echo "Wait for confirmation"; }
+					if($order->status == "Assigned"){ echo "Order Confirmed";}
+					if($order->status == "Rejected"){ echo "Order Cancelled";}
+					if($order->status == "Order Placed") { echo "Wait for confirmation"; }
 					
 
-						if($order->status == "Assigned"){ echo "Order Confirmed";}
-						elseif($order->status == "Rejected"){ echo "Order Cancelled";}
-						elseif($order->status == "Order Placed") { echo "Wait for confirmation"; }
-						else{
-							echo $order->status;
-						}
+						// if($order->status == "Assigned"){ echo "Order Confirmed";}
+						// elseif($order->status == "Rejected"){ echo "Order Cancelled";}
+						// elseif($order->status == "Order Placed") { echo "Wait for confirmation"; }
+						// else{
+						// 	echo $order->status;
+						// }
 				} ?>
 				</td>
 			</tr>
