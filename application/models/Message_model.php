@@ -189,7 +189,8 @@ class Message_model extends CI_Model
 			//print_r($registatoin_ids); exit;
 					if(count($registatoin_ids) > 0){
 						
-						$message = array("type" => "Message");    
+						// $message = array("type" => "Message");  
+						$message = array("msg" => $data['message']);  
 						$url = 'https://android.googleapis.com/gcm/send';
 
 
