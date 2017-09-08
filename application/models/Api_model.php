@@ -9,6 +9,7 @@ class Api_model extends CI_Model
 			$sql = "insert into customers (phone, did, active) values('".$data['phone']."','".$data['did']."', 1)";	
 			$query = $this->db->query($sql);
 			$result['id'] = $this->db->insert_id();
+			$result['email'] = "";
 		}else{
 			$datas = $query->result_array();
 			if($datas[0]['did'] == $data['did']){
