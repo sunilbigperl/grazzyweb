@@ -59,11 +59,26 @@ echo "" . date("jS F Y") . "<br>";
 								<option value="<?=$deliveryboy->id?>" <?=$select?>><?=$deliveryboy->name;?></option>
 							<?php } ?>
 						</select>
-						<?php if($order->delivered_by == 0){ ?>
+						<!-- <?php if($order->delivered_by == 0){ ?>
 						<input type="submit" value="Assign" name="assign" class="btn btn-primary">
 
 						<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a> 
-						<?php } ?>
+						<?php } ?>  -->
+                        <?php if($order->status =='Rejected' ){ ?>
+                        
+                         <?php }else if($order->delivered_by == 0){?>
+					     <input type="submit" value="Assign" name="assign" class="btn btn-primary">
+
+			              <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs"  onclick="two()">Reject</a>
+				 <?php }else{?>
+
+				<?php }?>
+
+
+
+
+
+
 						<!-- 
 						<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a> -->
 					</form>
