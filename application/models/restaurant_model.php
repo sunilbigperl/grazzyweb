@@ -27,8 +27,14 @@ Class Restaurant_model extends CI_Model
 		
 		foreach($restaurants as $men){
 			foreach($men as $restaurant){
-				$sql =$this->db->query("INSERT INTO `restaurant`(`restaurant_name`,`restaurant_address`,`restaurant_phone`,`restaurant_mobile`,`restaurant_email`,`image`,`restaurant_latitude`,`restaurant_langitude`,`restaurant_branch`,`restaurant_manager`,`preparation_time`,`enabled`,`deactivatefrom`,`deactivateto`,`fromtime`,`totime`,`commission`,`penalty`,`reimb`,`days`,`GST`) 
-				VALUES ('".$restaurant['restaurant_name']."','".$restaurant['restaurant_address']."','".$restaurant['restaurant_phone']."','".$restaurant['restaurant_mobile']."','".$restaurant['restaurant_email']."','".$restaurant['image']."','".$restaurant['restaurant_latitude']."','".$restaurant['restaurant_langitude']."','".$restaurant['restaurant_branch']."','".$restaurant['restaurant_manager']."','".$restaurant['preparation_time']."','".$restaurant['enabled']."','".$restaurant['deactivatefrom']."','".$restaurant['deactivateto']."','".$restaurant['fromtime']."','".$restaurant['totime']."','".$restaurant['commission']."','".$restaurant['penalty']."','".$restaurant['reimb']."','".$restaurant['days']."','".$restaurant['GST']."')");
+
+				$sql1 =$this->db->query("INSERT INTO `admin`(`firstname`,`username`,`access`,`NextRenewalDate`) 
+				VALUES ('".$restaurant['firstname']."','".$restaurant['username']."','".$restaurant['access']."','".$restaurant['NextRenewalDate']."')");
+                  $last_id = $this->db->insert_id();
+
+				$sql =$this->db->query("INSERT INTO `restaurant`(`restaurant_name`,`restaurant_address`,`restaurant_phone`,`restaurant_mobile`,`restaurant_email`,`image`,`restaurant_latitude`,`restaurant_langitude`,`restaurant_branch`,`restaurant_manager`,`preparation_time`,`enabled`,`fromtime`,`totime`,`commission`,`penalty`,`reimb`,`GST`) 
+				VALUES ('".$restaurant['restaurant_name']."','".$restaurant['restaurant_address']."','".$restaurant['restaurant_phone']."','".$restaurant['restaurant_mobile']."','".$restaurant['restaurant_email']."','".$restaurant['image']."','".$restaurant['restaurant_latitude']."','".$restaurant['restaurant_langitude']."','".$restaurant['restaurant_branch']."','".$last_id."','".$restaurant['preparation_time']."','".$restaurant['enabled']."','".$restaurant['fromtime']."','".$restaurant['totime']."','".$restaurant['commission']."','".$restaurant['penalty']."','".$restaurant['reimb']."','".$restaurant['GST']."')");
+				
 				
 			}
 		}
