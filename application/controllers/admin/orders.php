@@ -104,7 +104,7 @@ class Orders extends Admin_Controller {
 			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
 			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 			$data['delpartner'] = $this->input->post('delpartner');
-		}elseif($this->input->post('action') == "PreviousMonth"){
+		}elseif($this->input->post('action') == "Previous Month"){
 			$data['fromdate'] = $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 			$data['delpartner'] = $this->input->post('delpartner');

@@ -24,8 +24,10 @@
 		<div class="form-group"><input type="submit" class="btn btn-primary" value="Go" name="action"></div>
 
 		<div  style="margin-top:20px;">
-			<div class="form-group"><input type="submit" class="btn btn-primary" value="PreviousMonth" name="action"></div>
-			<div class="form-group"><input type="submit" class="btn btn-primary" value="CurrentMonth" name="action"></div>
+			<div class="form-group"><input type="submit" class="btn btn-primary" 
+			value="Previous Month" name="action"></div>
+			<div class="form-group"><input type="submit" class="btn btn-primary" 
+			value="Current Month" name="action"></div>
 		</div>
 	</form>
 </div>
@@ -53,7 +55,7 @@
 			<th>Net amount</th>
 			<th>GST</th>
 			<!-- <th>Keep amount</th> -->
-			<th>For Eatsapp</th>
+			<th>eatsapp</th>
 			<th>Total</th>
 			<th>Status</th>
 			<th>Del partner remarks</th>
