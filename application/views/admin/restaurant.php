@@ -49,7 +49,7 @@
 
 				</td>
 				<td>
-				   Cell:<a href="" style="color: #2f2fd0;text-decoration:underline;" > <?=$restaurant->restaurant_phone; ?></a></br></br>
+				   Phone:<a href="" style="color: #2f2fd0;text-decoration:underline;" > <?=$restaurant->restaurant_phone; ?></a></br></br>
 					Email:<a href="" style="color: #2f2fd0;text-decoration:underline;" ><?=$restaurant->restaurant_email; ?></a>
 					
 				</td>
