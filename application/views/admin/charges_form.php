@@ -1,3 +1,5 @@
+<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/custbill/pdf'); ?>" class="btn btn-xs btn-primary">Customerbill pdf</a>
+
 <?php echo form_open($this->config->item('admin_folder').'/customers/SaveCharges'); ?>
 
 	<div class="row">
