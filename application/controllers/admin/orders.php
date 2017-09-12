@@ -310,6 +310,51 @@ class Orders extends Admin_Controller {
 
 	}
 
+	public function custrestbill($type){
+
+       $data['date'] = date("Y-m-d");
+		
+		// $sql = $this->db->query("select * from charges order by start_date desc limit 1  ");
+		// if($sql->num_rows() > 0){
+		// 	$res	= $sql->result_array();
+		// 	$data['servicetax'] = $res[0]['servicetax'];
+		// 	$data['deliverycharge'] = $res[0]['deliverycharge'];
+			
+		// }else{
+		// 	$data['servicetax'] = '';
+		// 	$data['deliverycharge'] = '';
+			
+		// }
+		//  $data['deliverycharge1']=(($data['deliverycharge'])/1.18);
+		//  $data['servicetax1']=(($data['servicetax']*9)/100);
+		//  $data['totalbill']=$data['deliverycharge1']+$data['servicetax1']+$data['servicetax1'];
+		
+		
+
+
+		$html =$this->load->view($this->config->item('admin_folder').'/custrestbill',$data,true);
+		$filename ='custrestbill';
+		if($type == "pdf"){
+            $fnamee = $filename.".pdf";
+			$filename  = "bills/".$fnamee;
+		
+		}else{
+			
+			$fnamee =  $filename.".xls";
+			 $filename  = "bills/".$fnamee;
+			 
+		} 
+		
+	     fopen($filename,"w");
+		chmod($fnamee,0777);
+		$this->load->library('m_pdf');
+        $this->m_pdf->pdf->WriteHTML($html);
+		$this->m_pdf->pdf->Output($filename, "F");
+		redirect("http://localhost/grazzyweb/".$filename);
+		//redirect("http://app.eatsapp.in/".$filename);
+
+	}
+
 
 	public function excel($id)
 	{
