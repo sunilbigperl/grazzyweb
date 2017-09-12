@@ -65,10 +65,10 @@
 					?>
 				</div>
 				<div class="form-group">
-					<label for="restaurant_address">Restaurant branch</label>
+					<label for="restaurant_address">City</label>
 					
 					<select name="restaurant_branch" class="form-control" required>
-						<option value="">Select Branch</option>
+						<option value="">Select City</option>
 						<option value="Mumbai" <?php if($restaurant_branch == "Mumbai"){ echo "selected"; } ?>>Mumbai</option>
 					</select>
 				
@@ -356,7 +356,7 @@
 		 <?php if($this->auth->check_access('Admin')) {?>
 		<div class="tab-pane" id="pt_tab">
 			<fieldset style="padding:10px;">
-				<div class="form-group">	
+				<!-- <div class="form-group">	
 					<label for="preparation_time">Cutoff Preparation time(In mins)</label>
 					<select class="form-control" name="preparation_time">
 					<option value="1" <?php if($preparation_time == 1){echo "selected=selected"; }?>>1</option>
@@ -371,6 +371,11 @@
 					<option value="30" <?php if($preparation_time == 30){echo "selected=selected"; }?>>30</option>
 				</select>
 				
+				</div> -->
+				<div class="form-group">	
+					<label for="preparation_time">Cutoff Preparation time(In mins)</label>
+					<input type="number" name="preparation_time" value="<?=$preparation_time?>" class="form-control" required>
+					
 				</div>
 				<?php } ?>
 			</fieldset>
