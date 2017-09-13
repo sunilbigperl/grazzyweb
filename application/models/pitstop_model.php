@@ -129,4 +129,13 @@ Class Pitstop_model extends CI_Model
 	{
 		return	$this->db->like('restaurant_name', $name)->get('restaurant', $limit)->result();
 	}
+
+	public function getpitstop()
+{
+      
+      $query=$this->db->get('charges');
+      if($query->num_rows()>0){
+      return $query->result();
+}
+}
 }

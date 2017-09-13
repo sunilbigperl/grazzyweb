@@ -38,7 +38,7 @@
 				<label for="pitstop_address">Address</label>
 				<textarea name="address" required ><?=$address;?></textarea>
 			</div> -->
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="restaurant_address">Pitstop City</label>
 				
 				<select name="city" class="form-control" required>
@@ -56,7 +56,18 @@
 					<option value="Baroda" <?php if($city == "Baroda"){ echo "selected"; } ?>>Baroda</option>
 				</select>
 			
-			</div>
+			</div> -->
+
+			   <div class="form-group">
+				<label for="restaurant_address">Pitstop City</label>
+				<select name="city" class="form-control" required>
+					<option value="">Select city</option>
+					<?php foreach($getpitstop as $city):?>
+				    <option value="<?php echo $city->city;?>"><?php echo $city->city;?> 
+                     </option>
+                      <?php endforeach;?>
+                      </select>
+			     </div>
 			<div class="form-group">	
 				<label for="enabled"><?php echo lang('enabled');?> </label>
         		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled), 'class=form-control'); ?>

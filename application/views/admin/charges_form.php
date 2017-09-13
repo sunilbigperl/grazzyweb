@@ -33,6 +33,15 @@ class="btn btn-xs btn-primary">CustomerRestbill pdf</a>
 		</div>
 		
 	</div>
+	<div class="row">
+		<div class="form-group">
+			<label>City</label>
+			<?php
+			$data	= array('name'=>'city', 'value'=>set_value('city', $city), 'class'=>'form-control');
+			echo form_input($data); ?>
+		</div>
+		
+	</div>
 
 	
 	<div class="form-actions">
