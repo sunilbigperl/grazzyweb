@@ -231,5 +231,14 @@ Class Restaurant_model extends CI_Model
         {
             return false;
         }
-    }	
+    }
+
+    public function getrestaurant()
+{
+      
+      $query=$this->db->get('charges');
+      if($query->num_rows()>0){
+      return $query->result();
+}
+}	
 }

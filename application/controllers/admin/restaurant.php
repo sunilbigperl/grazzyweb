@@ -41,6 +41,7 @@ class Restaurant extends Admin_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         
+        $data['getcity'] = $this->Restaurant_model->getrestaurant();
 		$data['managers'] = $this->Restaurant_model->get_managers();
         $data['restaurants']     = $this->Restaurant_model->get_restaurants();
         $data['page_title']     = "Restaurant form";

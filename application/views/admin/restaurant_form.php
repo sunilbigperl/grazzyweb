@@ -69,7 +69,10 @@
 					
 					<select name="restaurant_branch" class="form-control" required>
 						<option value="">Select City</option>
-						<option value="Mumbai" <?php if($restaurant_branch == "Mumbai"){ echo "selected"; } ?>>Mumbai</option>
+						<?php foreach($getcity as $city):?>
+				    <option value="<?php echo $city->city;?>"><?php echo $city->city;?> 
+                     </option>
+                      <?php endforeach;?>
 					</select>
 				
 				</div>
