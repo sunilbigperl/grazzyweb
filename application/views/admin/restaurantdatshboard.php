@@ -95,7 +95,7 @@ echo "" . date("jS F Y") . "<br>";
 					
 
 						if($order->status == "Assigned"){ echo "Order Confirmed";}
-						elseif($order->status == "Rejected"){ echo "Order Cancelled";}
+						
 						elseif($order->status == "Order Placed") { echo "Wait for confirmation"; }
 						else{
 							echo $order->status;
