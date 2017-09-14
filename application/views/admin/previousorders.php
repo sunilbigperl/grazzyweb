@@ -161,7 +161,7 @@
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						echo "Restaurant manager accepted";
 					}else{
-						echo "Restaurant manager rejected";
+						echo "Rejected by $order->restaurant_name";
 					} ?>
 
 				</td>
