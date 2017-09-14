@@ -650,5 +650,11 @@ function get_orders($id)
         $result = $this->db->get_where('orders', array('id'=>$id));
         return $result->row();
     }
+
+    function get_deliveryPartner($id)
+    {
+        $result = $this->db->get_where('admin', array('id'=>$id));
+        return $result->row();
+    }
 		
 }

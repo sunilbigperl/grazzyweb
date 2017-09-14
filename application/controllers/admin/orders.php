@@ -609,16 +609,21 @@ class Orders extends Admin_Controller {
 		$html="";
 		if($menus != 0){
 			if($data['ordertype_id'] == 3){
+				
+				
 			 $customer_details = $this->Customer_model->get_customer($data['customer_id']);
 			 $name = $customer_details->firstname." ".$customer_details->lastname;
 			 $phone = $customer_details->phone;
 			 $email = $customer_details->email;
-			  $email = $customer_details->email;
+			  
 			}else{
+				$deliverypartner_details = $this->Order_model->get_deliveryPartner($data['delivery_partner']);
 				$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
 				$name = isset($deliveryboy_details->name) ? $deliveryboy_details->name : "Not assigned yet";
 				$phone = isset($deliveryboy_details->phone) ? $deliveryboy_details->phone : "";
 				$email = isset($deliveryboy_details->email) ? $deliveryboy_details->email : "";
+				$deliverypartnername = isset($deliverypartner_details->firstname) ? 
+				$deliverypartner_details->firstname : "";
 			}
 			$html.="<div class='modal-header'>
 					<button type='button' class='close' data-dismiss='modal'>&times;</button>
@@ -626,9 +631,11 @@ class Orders extends Admin_Controller {
 				  </div>
 				  <div class='modal-body' class='form-horizontal'>
 					<div class='form-group'>
-						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":&nbsp;</strong>".$name."</label></br>
-						<label><strong>Mobile No:&nbsp;</strong>".$phone."</label></br>
-						<label><strong>Email:&nbsp;</strong>".$email."</label></br>
+						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":&ensp;</strong>".$name." &ensp;</strong>(".$deliverypartnername.")</label></br>
+
+						<label><strong>Mobile No:&ensp;</strong>".$phone."</label></br>
+						<label><strong>Email:&ensp;</strong>".$email."</label></br>
+						
 						
 
 					</div>
@@ -1008,10 +1015,13 @@ class Orders extends Admin_Controller {
 			 $email = $customer_details->email;
 			  $email = $customer_details->email;
 			}else{
+				$deliverypartner_details = $this->Order_model->get_deliveryPartner($data['delivery_partner']);
 				$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
 				$name = isset($deliveryboy_details->name) ? $deliveryboy_details->name : "Not assigned yet";
 				$phone = isset($deliveryboy_details->phone) ? $deliveryboy_details->phone : "";
 				$email = isset($deliveryboy_details->email) ? $deliveryboy_details->email : "";
+				$deliverypartnername = isset($deliverypartner_details->firstname) ? 
+				$deliverypartner_details->firstname : "";
 			}
 			$html.="<div class='modal-header'>
 					<button type='button' class='close' data-dismiss='modal'>&times;</button>
@@ -1019,7 +1029,7 @@ class Orders extends Admin_Controller {
 				  </div>
 				  <div class='modal-body' class='form-horizontal'>
 					<div class='form-group'>
-						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":</strong>".$name."</label></br>
+						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":</strong>".$name."&ensp;</strong>(".$deliverypartnername.")</label></br>
 						<label><strong>Mobile No:</strong>".$phone."</label></br>
 						<label><strong>Email:</strong>".$email."</label></br>
 						
