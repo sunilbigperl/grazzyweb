@@ -60,6 +60,7 @@
 			$i=1;
 			foreach($orders as $order)
 			{
+				$orders1 = $this->Order_model->get_previousorders1($order->delivery_partner);
 				$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
 				$servicetax = $charges['servicetax'];
 				$deliverycharge = $charges['deliverycharge'];
@@ -144,7 +145,9 @@
 					<?php if($order->restaurant_manager_status == "0"){ ?>
 						Not acted yet
 					<?php }elseif($order->delivery_partner_status == "Rejected"){
-						echo "Delivery manager rejected";
+						// echo "Delivery manager rejected";
+						$username=$orders1[0]->username;
+				 	    echo "Rejected by $username";
 					}elseif($order->delivery_partner_status == "Accepted"){
 						// echo "Delivery manager Accepted";
 						 echo "$order->status";
