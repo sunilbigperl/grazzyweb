@@ -137,7 +137,7 @@ class Restaurant extends Admin_Controller {
 		
 		
 		//$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
-        $this->form_validation->set_rules('restaurant_name', 'lang:restaurant_name', 'trim|required|max_length[64]|callback_check_restaurantname');
+        $this->form_validation->set_rules('restaurant_name', 'lang:restaurant_name', 'trim|required|max_length[64]');
         $this->form_validation->set_rules('restaurant_address', 'lang:restaurant_address', 'trim|required');
         $this->form_validation->set_rules('restaurant_mobile', 'lang:restaurant_mobile', 'trim|required|max_length[11]|callback_validate_phone_number');
         $this->form_validation->set_rules('enabled', 'lang:enabled', 'trim|numeric');
