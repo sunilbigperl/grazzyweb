@@ -339,7 +339,7 @@ Class order_model extends CI_Model
 				foreach($query2->result_array() as $row){ 
 					
 					$message="<h3>New message from Eatsapp</h3>
-					<h5>We regret to inform you that the Food Outlet you selected is unable to accept your order.Please order from some other Food outlet.We will refund your payment within 5 working days</h5>";
+					<h5>We regret to inform you that the Food Outlet you selected is unable to accept your order. Please order from some other Food outlet. We will refund your payment within 5 working days</h5>";
 					// <h6>".$data['message']."</h6>";
 						  $config = Array(
 							'protocol' => 'smtp',
@@ -405,7 +405,7 @@ Class order_model extends CI_Model
 				foreach($query2->result_array() as $row){ 
 					
 					$message="<h3>New message from Eatsapp</h3>
-					          <h5>We regreat to inform you that your order was not accepted.We will refund your payment within 5 working days</h5>";
+					        <h5>We regreat to inform you that your order was not accepted. We will refund your payment within 5 working days</h5>";
 					// <h6>".$data['message']."</h6>";
 						  $config = Array(
 							'protocol' => 'smtp',
