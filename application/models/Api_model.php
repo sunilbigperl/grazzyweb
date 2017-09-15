@@ -216,7 +216,7 @@ class Api_model extends CI_Model
 		$time = date('H:i:s',time());
 		$threadmsg = $this->db->query("select a.* from restaurant a, pitstops b, pitstop_restaurants c, admin d where 
 		a.restaurant_id = c.restaurants_id and b.pitstop_id=c.pitstop_id  and d.id = a.restaurant_manager and 
-		d.NextRenewalDate <= '".$date."' and b.pitstop_id='".$id."' and a.enabled=1 and a.`delete`=0");
+		d.NextRenewalDate >= '".$date."' and b.pitstop_id='".$id."' and a.enabled=1 and a.`delete`=0");
 
 			if($threadmsg->num_rows()>0){
 				
