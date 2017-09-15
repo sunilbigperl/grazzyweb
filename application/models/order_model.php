@@ -320,7 +320,7 @@ Class order_model extends CI_Model
 			$data = "Rejected"; 
 			$sql = $this->db->query('update orders set restaurant_manager_status="'.$data.'", status="'.$data.'" where id="'.$id.'"');
 			
-			$query1 = $this->db->query("SELECT `phone` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
+			$query1 = $this->db->query("SELECT a.`phone` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
 	     
 	
 	         if($query1->num_rows() > 0){
@@ -334,6 +334,35 @@ Class order_model extends CI_Model
 
 		     $url =file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=wolotech@654&senderid=EATSAP&dest_mobileno=" .$registatoin_ids[0] ."&tempid=52492&message=We+regret+to+inform+you+that+the+Food+Outlet+you+selected+is+unable+to+accept+your+order+.+Please+order+from+some+other+Food+Outlet+.+We+will+refund+your+payment+within+5+working+days&response=Y");
 	       }
+            $query2 = $this->db->query("SELECT a.`email` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
+			if($query2->num_rows() > 0){
+				foreach($query2->result_array() as $row){ 
+					
+					$message="<h3>New message from Eatsapp</h3>
+					<h5>We regret to inform you that the Food Outlet you selected is unable to accept your order.Please order from some other Food outlet.We will refund your payment within 5 working days</h5>";
+					// <h6>".$data['message']."</h6>";
+						  $config = Array(
+							'protocol' => 'smtp',
+							'smtp_host' => 'ssl://smtp.gmail.com',
+							'smtp_port' => 465,
+							'smtp_user' => 'suggest.eatsapp@gmail.com',
+							'smtp_pass' => 'devang123',
+							'mailtype'  => 'html', 
+							'charset'   => 'iso-8859-1',
+							'crlf' => "\r\n",
+							'newline' => "\r\n"
+						);
+						$this->load->library('email',$config);
+						$this->email->from('orders@eatsapp.in', 'EatsApp');
+						$this->email->to($row['email']);
+						//$this->email->cc('gkamatagi@gmail.com');
+						$this->email->subject('EatsApp: New message');
+						$this->email->message($message);
+						$this->email->send();
+						
+				}
+			} 
+	       
 
 		}
 		if($sql){
@@ -370,6 +399,35 @@ Class order_model extends CI_Model
 		     file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=wolotech@654&senderid=EATSAP&dest_mobileno=" .
     	     $registatoin_ids[0] ."&tempid=52492&message=We+regret+to+inform+you+that+your+order+was+not+accepted+.+We+will+refund+your+payment+within+5+working+days&response=Y");
 	}
+
+	$query2 = $this->db->query("SELECT a.`email` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
+			if($query2->num_rows() > 0){
+				foreach($query2->result_array() as $row){ 
+					
+					$message="<h3>New message from Eatsapp</h3>
+					          <h5>We regreat to inform you that your order was not accepted.We will refund your payment within 5 working days</h5>";
+					// <h6>".$data['message']."</h6>";
+						  $config = Array(
+							'protocol' => 'smtp',
+							'smtp_host' => 'ssl://smtp.gmail.com',
+							'smtp_port' => 465,
+							'smtp_user' => 'suggest.eatsapp@gmail.com',
+							'smtp_pass' => 'devang123',
+							'mailtype'  => 'html', 
+							'charset'   => 'iso-8859-1',
+							'crlf' => "\r\n",
+							'newline' => "\r\n"
+						);
+						$this->load->library('email',$config);
+						$this->email->from('orders@eatsapp.in', 'EatsApp');
+						$this->email->to($row['email']);
+						//$this->email->cc('gkamatagi@gmail.com');
+						$this->email->subject('EatsApp: New message');
+						$this->email->message($message);
+						$this->email->send();
+						
+				}
+			}
   
 
 
