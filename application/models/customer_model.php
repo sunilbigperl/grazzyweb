@@ -534,7 +534,7 @@ Class Customer_model extends CI_Model
 			$where = "and a.date between '".$yes."' and '".$today."'";
 		}
 		
-		$sql = $this->db->query("select * from restaurant_suggest a, customers b where a.customer=b.id ".$where."");
+		$sql = $this->db->query("select * from restaurant_suggest a, customers b where a.customer=b.id ".$where." order by date desc");
 		if($sql->num_rows() > 0){
 			$result['data']	= $sql->result();
 		}else{
@@ -552,7 +552,7 @@ Class Customer_model extends CI_Model
 			$where = "and a.date >= '".$yes."'";
 		}
 		
-		$sql1 = $this->db->query("select * from pitstop_suggest a, customers b where a.customer=b.id  ".$where."");
+		$sql1 = $this->db->query("select * from pitstop_suggest a, customers b where a.customer=b.id  ".$where." order by date desc");
 		if($sql1->num_rows() > 0){
 			$result['data']	= $sql1->result();
 		}
