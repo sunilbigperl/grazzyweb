@@ -431,7 +431,7 @@ class Restaurant extends Admin_Controller {
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('restaurant_name','restaurant_address','restaurant_phone','restaurant_mobile','restaurant_email','restaurant_branch','enabled','GST','fromtime','totime','image','restaurant_latitude','restaurant_langitude','firstname','username','password','NextRenewalDate','access','commission','penalty','reimb','preparation_time'); //set title in excel sheet
+    $heading=array('Restaurant name','Restaurant address','Restaurant phone','Restaurant mobile','Restaurant email','City','Enabled','GSTIN','From time','To time','Image','Restaurant latitude','Restaurant longitude','Restaurant manager name','Manager user name','Password','Next Renewal Date','access','Commission(%)','Penalty(Rs)','Reimbursement of delivery charges(Rs)','Cutoff Preparation time(In mins)'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
     

@@ -235,7 +235,7 @@
 				<input type="text" class="form-control" value="<?=$restaurant_latitude;?>" name="restaurant_latitude" id="lat">
 				
 				
-				<label for="restaurant_address">Restaurant langitude</label>
+				<label for="restaurant_address">Restaurant longitude</label>
 				<input type="text" class="form-control" value="<?=$restaurant_langitude;?>" name="restaurant_langitude" id="lng">
 				
 				<div id="map_canvas" style="width:500px;height:500px;" class="col-sm-8"></div>	
