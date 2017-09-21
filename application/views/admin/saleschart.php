@@ -33,11 +33,49 @@ $.ajax({
      //alert(result);
 
     var array1=[];
+	
+	var start_date = new Date(result[0].day);
+	var current_date = new Date(result[0].day);	
+	var end_date = new Date(result[result.length-1].day);
+	
+	var pushed=false;
+	
+	var i=10;
+	
+	
+	while(current_date<=end_date)
+	{
+		
+		
+		pushed = false;
+		
+		for(let i=0;i<result.length;i++){
+			
+			var temp_date = new Date(result[i].day);
+			
+			console.log("dates compare "+current_date+" "+temp_date+" "+result[i].day+" "+(current_date==temp_date));
+			
+			if(current_date.getTime()==temp_date.getTime())
+			{
+				//console.log("push date"+current_date.getFullYear()+"-"+(current_date.getMonth()+1)+"-"+current_date.getDate()+"val"+result[i].daily_total);
+				array1.push([current_date.getFullYear()+"-"+(current_date.getMonth()+1)+"-"+current_date.getDate(),parseInt(result[i].daily_total)]);
+				pushed = true;
+				break;
+			}
+		}	
+		
+		if(!pushed)
+		{
+			//console.log("push date"+current_date.getFullYear()+"-"+(current_date.getMonth()+1)+"-"+current_date.getDate());
+			array1.push([current_date.getFullYear()+"-"+(current_date.getMonth()+1)+"-"+current_date.getDate(),0]);
+		}
+		
+		current_date.setDate(current_date.getDate() + 1);
+		
+	}    
     
-    for(let i=0;i<result.length;i++){
-      array1.push([result[i].day,parseInt(result[i].daily_total)]);
-    }
-
+	//console.log("after loop "+current_date);
+	console.log("array"+array1);
    
     google.charts.load('current', {packages: ['corechart', 'bar']});
     google.charts.setOnLoadCallback(function(){
@@ -68,10 +106,10 @@ function drawColColors(array1) {
         },
         vAxis: {
           title: 'Sales amount of items( in Rs)'
-        }
+        } 
       };
 
-      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
       chart.draw(data, options);
     }
 </script>
