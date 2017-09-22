@@ -53,6 +53,7 @@ class Restaurant extends Admin_Controller {
         $data['restaurant_address']           = '';
         $data['restaurant_phone']    		= '';
 		$data['restaurant_mobile']    		= '';
+		$data['restaurantmanager_mobile']   = '';
         $data['restaurant_email']       	 = '';
         $data['image']       	 = 				'';
         $data['restaurant_latitude']          = '';
@@ -99,7 +100,8 @@ class Restaurant extends Admin_Controller {
             $data['restaurant_name']           = $restaurant->restaurant_name;
             $data['restaurant_address']           = $restaurant->restaurant_address;
             $data['restaurant_phone']   	 = $restaurant->restaurant_phone;
-			 $data['restaurant_mobile']   	 = $restaurant->restaurant_mobile;
+			$data['restaurant_mobile']   	 = $restaurant->restaurant_mobile;
+			$data['restaurantmanager_mobile']   = $restaurant->restaurantmanager_mobile;
             $data['restaurant_email']        = $restaurant->restaurant_email;
             $data['restaurant_latitude']       = $restaurant->restaurant_latitude;
             $data['restaurant_langitude']      = $restaurant->restaurant_langitude;
@@ -260,7 +262,8 @@ class Restaurant extends Admin_Controller {
             $save['restaurant_name']       = $this->input->post('restaurant_name');
             $save['restaurant_address']    = $this->input->post('restaurant_address');
             $save['restaurant_phone']      = $this->input->post('restaurant_phone');
-			 $save['restaurant_mobile']      = $this->input->post('restaurant_mobile');
+			$save['restaurant_mobile']      = $this->input->post('restaurant_mobile');
+			$save['restaurantmanager_mobile'] = $this->input->post('restaurantmanager_mobile');
             $save['restaurant_email']      = $this->input->post('restaurant_email');
             $save['restaurant_latitude']   = $this->input->post('restaurant_latitude');
             $save['restaurant_langitude']  = $this->input->post('restaurant_langitude');
@@ -431,7 +434,7 @@ class Restaurant extends Admin_Controller {
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('Restaurant name','Restaurant address','Restaurant phone','Restaurant mobile','Restaurant email','City','Enabled','GSTIN','From time','To time','Image','Restaurant latitude','Restaurant longitude','Restaurant manager name','Manager user name','Password','Next Renewal Date','access','Commission(%)','Penalty(Rs)','Reimbursement of delivery charges(Rs)','Cutoff Preparation time(In mins)'); //set title in excel sheet
+    $heading=array('Restaurant name','Restaurant address','Restaurant phone','Restaurant mobile','Restaurant Manager Mobile No','Restaurant email','City','Enabled','GSTIN','From time','To time','Image','Restaurant latitude','Restaurant longitude','Restaurant manager name','Manager user name','Password','Next Renewal Date','Commission(%)','Penalty(Rs)','Reimbursement of delivery charges(Rs)','Cutoff Preparation time(In mins)'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
     
@@ -469,20 +472,21 @@ class Restaurant extends Admin_Controller {
         $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['restaurant_name']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['restaurant_address']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['restaurant_phone']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['restaurant_mobile']); $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['restaurant_email']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount,$excel['restaurant_branch']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['enabled']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$excel['GST']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$excel['fromtime']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$excel['totime']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, $excel['image']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, $excel['restaurant_latitude']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount,$excel['restaurant_langitude']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount,$excel['firstname']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$excel['username']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$excel['password']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$excel['NextRenewalDate']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$excel['access']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['restaurant_mobile']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['restaurantmanager_mobile']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['restaurant_email']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['restaurant_branch']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$excel['enabled']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$excel['GST']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$excel['fromtime']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$excel['totime']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, $excel['image']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $excel['restaurant_latitude']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount,$excel['restaurant_langitude']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$excel['firstname']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$excel['username']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$excel['password']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$excel['NextRenewalDate']);
         $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$excel['commission']);
         $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount,$excel['penalty']);
         $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$excel['reimb']);

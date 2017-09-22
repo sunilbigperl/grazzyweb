@@ -28,12 +28,12 @@ Class Restaurant_model extends CI_Model
 		foreach($restaurants as $men){
 			foreach($men as $restaurant){
 
-				$sql1 =$this->db->query("INSERT INTO `admin`(`firstname`,`username`,`password`,`access`,`NextRenewalDate`) 
-				VALUES ('".$restaurant['Restaurant manager name']."','".$restaurant['Manager user name']."',sha1('".$restaurant['Password']."'),'".$restaurant['access']."','".$restaurant['Next Renewal Date']."')");
+				$sql1 =$this->db->query("INSERT INTO `admin`(`firstname`,`username`,`password`,`NextRenewalDate`) 
+				VALUES ('".$restaurant['Restaurant manager name']."','".$restaurant['Manager user name']."',sha1('".$restaurant['Password']."'),'".$restaurant['Next Renewal Date']."')");
                   $last_id = $this->db->insert_id();
 
-				$sql =$this->db->query("INSERT INTO `restaurant`(`restaurant_name`,`restaurant_address`,`restaurant_phone`,`restaurant_mobile`,`restaurant_email`,`image`,`restaurant_latitude`,`restaurant_langitude`,`restaurant_branch`,`restaurant_manager`,`preparation_time`,`enabled`,`fromtime`,`totime`,`commission`,`penalty`,`reimb`,`GST`) 
-				VALUES ('".$restaurant['Restaurant name']."','".$restaurant['Restaurant address']."','".$restaurant['Restaurant phone']."','".$restaurant['Restaurant mobile']."','".$restaurant['Restaurant email']."','".$restaurant['Image']."','".$restaurant['Restaurant latitude']."','".$restaurant['Restaurant longitude']."','".$restaurant['City']."','".$last_id."','".$restaurant['Cutoff Preparation time(In mins)']."','".$restaurant['Enabled']."','".$restaurant['From time']."','".$restaurant['To time']."','".$restaurant['Commission(%)']."','".$restaurant['Penalty(Rs)']."','".$restaurant['Reimbursement of delivery charges(Rs)']."','".$restaurant['GSTIN']."')");
+				$sql =$this->db->query("INSERT INTO `restaurant`(`restaurant_name`,`restaurant_address`,`restaurant_phone`,`restaurant_mobile`,`restaurantmanager_mobile`,`restaurant_email`,`image`,`restaurant_latitude`,`restaurant_langitude`,`restaurant_branch`,`restaurant_manager`,`preparation_time`,`enabled`,`fromtime`,`totime`,`days`,`commission`,`penalty`,`reimb`,`GST`) 
+				VALUES ('".$restaurant['Restaurant name']."','".$restaurant['Restaurant address']."','".$restaurant['Restaurant phone']."','".$restaurant['Restaurant mobile']."','".$restaurant['Restaurant Manager Mobile No']."','".$restaurant['Restaurant email']."','".$restaurant['Image']."','".$restaurant['Restaurant latitude']."','".$restaurant['Restaurant longitude']."','".$restaurant['City']."','".$last_id."','".$restaurant['Cutoff Preparation time(In mins)']."','".$restaurant['Enabled']."','".$restaurant['From time']."','".$restaurant['To time']."','".$restaurant['Days']."','".$restaurant['Commission(%)']."','".$restaurant['Penalty(Rs)']."','".$restaurant['Reimbursement of delivery charges(Rs)']."','".$restaurant['GSTIN']."')");
 				
 				
 			}
