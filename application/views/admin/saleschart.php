@@ -99,12 +99,18 @@ function drawColColors(array1) {
       
       var options = {
         title: 'Sales Chart',
+        fontSize:10,
+        width:2200,
+        titleFontSize:12,
+       
         colors: ['#9575cd', '#33ac71'],
         hAxis: {
           title: '',
 
+         
         },
         vAxis: {
+           titleFontSize:12,
           title: 'Sales amount of items( in Rs)'
         } 
       };
