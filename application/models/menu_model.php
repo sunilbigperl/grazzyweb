@@ -2,7 +2,8 @@
 Class Menu_model extends CI_Model
 {
 	function GetMenus($id){
-		$sql = "SELECT * FROM `restaurant_menu` where restaurant_id=$id and `delete` = 0 order by menu asc";
+		$sql = "SELECT * FROM `restaurant_menu` where restaurant_id=$id and `delete` = 0 and 
+		`enabled`=1 order by menu asc";
 		
 		$query = $this->db->query($sql);
 		if($query->num_rows() ==''){
@@ -42,6 +43,23 @@ Class Menu_model extends CI_Model
 						$sql =$this->db->query("INSERT INTO `menu_categories`(category_id,menu_category) VALUES ('".$cat."','".$menu_category."')");
 					}
 				}
+			}
+		}
+	}
+
+	function InsertMenus1($menus,$id){
+		foreach($menus as $men){
+			foreach($men as $menu){
+				//$categories = explode(":", $menu['category_id']);
+				
+				$sql =$this->db->query("INSERT INTO `restaurant_menu`(`customisation`
+				) VALUES ('".$id."','".$menu['customisation']."')");
+				//$menu_category = $this->db->insert_id();
+				// if(count($categories) > 0){
+				// 	foreach($categories as $cat){
+				// 		$sql =$this->db->query("INSERT INTO `menu_categories`(category_id,menu_category) VALUES ('".$cat."','".$menu_category."')");
+				// 	}
+				// }
 			}
 		}
 	}
