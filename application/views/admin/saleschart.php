@@ -32,12 +32,16 @@ $.ajax({
   success:function(result){
      //alert(result);
 
-    var array1=[];
-	
-	var start_date = new Date(result[0].day);
-	var current_date = new Date(result[0].day);	
-	var end_date = new Date(result[result.length-1].day);
-	
+  var array1=[];
+	var fromdate = <?php echo  '"'. $fromdate . '"'; ?>;
+  var todate = <?php echo  '"'. $todate . '"'; ?>;
+	// 	var current_date = new Date(result[0].day);
+  //var current_date = new Date('2017-09-01');
+  var current_date = new Date(fromdate);	
+  
+  // var end_date = new Date(result[result.length-1].day);
+  var end_date = new Date(todate);
+ 
 	var pushed=false;
 	
 	var i=10;
@@ -51,31 +55,36 @@ $.ajax({
 		
 		for(let i=0;i<result.length;i++){
 			
-			var temp_date = new Date(result[i].day);
-			
-			console.log("dates compare "+current_date+" "+temp_date+" "+result[i].day+" "+(current_date==temp_date));
-			
-			if(current_date.getTime()==temp_date.getTime())
+    var temp_date = new Date(result[i].day);
+
+		console.log("dates compare "+temp_date+" "+current_date+" "+result[i].day+" "+(current_date==temp_date));
+     
+    if(current_date.getTime()==temp_date.getTime())
 			{
-				//console.log("push date"+current_date.getFullYear()+"-"+(current_date.getMonth()+1)+"-"+current_date.getDate()+"val"+result[i].daily_total);
+         
+				// console.log("push date"+current_date.getFullYear()+"-"+(current_date.getMonth()+1)+"-"+current_date.getDate()+"val"+result[i].daily_total);
 				array1.push([current_date.getFullYear()+"-"+(current_date.getMonth()+1)+"-"+current_date.getDate(),parseInt(result[i].daily_total)]);
-				pushed = true;
+        pushed = true;
 				break;
+
 			}
+
 		}	
 		
+
 		if(!pushed)
-		{
-			//console.log("push date"+current_date.getFullYear()+"-"+(current_date.getMonth()+1)+"-"+current_date.getDate());
+		{ 
+      
+     //console.log("push date"+current_date.getFullYear()+"-"+(current_date.getMonth()+1)+"-"+current_date.getDate());
 			array1.push([current_date.getFullYear()+"-"+(current_date.getMonth()+1)+"-"+current_date.getDate(),0]);
+     
 		}
-		
+   
 		current_date.setDate(current_date.getDate() + 1);
-		
+   
 	}    
-    
-	//console.log("after loop "+current_date);
-	console.log("array"+array1);
+ 
+	  console.log("array"+array1);
    
     google.charts.load('current', {packages: ['corechart', 'bar']});
     google.charts.setOnLoadCallback(function(){
@@ -100,7 +109,7 @@ function drawColColors(array1) {
       var options = {
         title: 'Sales Chart',
         fontSize:10,
-        width:2200,
+        width:6000,
         titleFontSize:12,
        
         colors: ['#9575cd', '#33ac71'],
