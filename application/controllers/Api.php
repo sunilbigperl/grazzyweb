@@ -797,14 +797,14 @@ if (isset($result)){
 			'crlf' => "\r\n",
 			'newline' => "\r\n"
 		);
-
+         $this->email->initialize($config);
 		$this->email->from('order@eatsapp.in', 'Grazzy');
-		$this->email->to('lvijetha90@gmail.com');
+		$this->email->to('gkamatagi@gmail.com');
 		//$this->email->cc('laxman.bigperl@gmail.com');
 		//$this->email->bcc('them@their-example.com');
 
 		$this->email->subject('Order Details From Grazzy ');
-		$this->email->message('Order id is '.$message.'');
+		$this->email->message('Order id is '.$message.' ');
 
 		$this->email->send();
 		}else{
