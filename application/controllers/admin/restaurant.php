@@ -489,7 +489,7 @@ class Restaurant extends Admin_Controller {
         $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$excel['restaurant_langitude']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$excel['firstname']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$excel['username']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$excel['password'])); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$excel['password']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$excel['NextRenewalDate']);
         $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount,$excel['commission']);
         $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$excel['penalty']);
