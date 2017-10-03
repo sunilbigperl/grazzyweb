@@ -453,7 +453,7 @@ class Restaurant extends Admin_Controller {
 
 			
 		
-    $export_excel = $this->db->query("select a.*,b.* from restaurant a,admin b where a.restaurant_manager=b.id ")->result_array();
+    $export_excel = $this->db->query("select a.*,b.firstname,b.username,b.password,b.NextRenewalDate from restaurant a,admin b where a.restaurant_manager=b.id ")->result_array();
 
 
 
@@ -483,13 +483,13 @@ class Restaurant extends Admin_Controller {
         $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$excel['GST']);
         $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$excel['fromtime']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$excel['totime']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,unserialize($excel['days'])); 
+        // $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,unserialize($excel['days'])); 
         $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $excel['image']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount, $excel['restaurant_latitude']);
         $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$excel['restaurant_langitude']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$excel['firstname']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$excel['username']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$excel['password']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$excel['password'])); 
         $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$excel['NextRenewalDate']);
         $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount,$excel['commission']);
         $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$excel['penalty']);
