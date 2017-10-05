@@ -573,27 +573,35 @@ class Api_model extends CI_Model
 					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
 					$result[$i]['delivery_charge'] =  $servicetax[0]['deliverycharge'];
 					$result[$i]['minordervalue'] =  $servicetax[0]['minordervalue'];
-					$sql1 ="SELECT * FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
+					$sql1 ="SELECT *,a.description FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
 					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
 					//echo $sql1; exit;
+                      
 					$query1 = $this->db->query($sql1);
-				
+				 
 					if($query1->num_rows()>0){
 						$data1 = $query1->result_array();
+						
 						$j=0;
 						foreach($data1 as $mn){
+							
 							$sqlq =  $this->db->query("select b.name from menu_categories a, categories b where a.category_id = b.id and a.menu_category ='".$mn['menu_id']."' and b.parent_id='".$menu['category_id']."'");
 							if($sqlq->num_rows()>0){
 								$parent = $sqlq->result_array();
-								$result[$i]['menus'][$j]['subcat'] = $parent;
+                                $result[$i]['menus'][$j]['subcat'] = $parent;
+
+								
 							}
+
 							$result[$i]['menus'][$j]['menu_id'] = $mn['menu_id'];
 							$result[$i]['menus'][$j]['menu'] = $mn['menu'];
+							$result[$i]['menus'][$j]['description'] = $mn['description'];
 							$result[$i]['menus'][$j]['price'] = $mn['price'];
 							$result[$i]['menus'][$j]['size'] = $mn['size'];
 							$result[$i]['menus'][$j]['image'] = 'uploads/images/thumbnails/'.$mn['image'];
 							$result[$i]['menus'][$j]['type'] = $mn['type'];
-							$result[$i]['menus'][$j]['itemPreparation_time'] = $mn['itemPreparation_time'];
+							$result[$i]['menus'][$j]['itemPreparation_time'] = $mn['itemPreparation_time'];	
+							
 							
 							if($mn['customisation'] != "" && strlen($mn['customisation']) > 5){
 								$cust = unserialize($mn['customisation']);
