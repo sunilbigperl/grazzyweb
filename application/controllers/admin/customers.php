@@ -729,7 +729,7 @@ class Customers extends Admin_Controller {
 		if($this->auth->check_access('Restaurant manager')){ 
 			
 			$sql = $this->db->query("select * from orders as a left join restaurant as b on a.restaurant_id = b.restaurant_id
-			where a.ordered_on >= '".$date1."' and b.restaurant_manager='".$userdata['id']."'");
+			where a.ordered_on >= '".$date1."' and a.status='Order Placed' and b.restaurant_manager='".$userdata['id']."'");
 			if($sql->num_rows() > 0){
 				$result =  $sql->result_array();
 				foreach($result as $res){
