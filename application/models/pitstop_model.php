@@ -99,7 +99,7 @@ Class Pitstop_model extends CI_Model
             $id = $this->db->insert_id();
         }
 		
-		if(count($restaurants) > 0){
+		if(count($restaurants) >= 0){
 			 $this->db->where('pitstop_id', $id);
 			$this->db->delete('pitstop_restaurants');
 			foreach($restaurants as $restaurant){
