@@ -15,7 +15,7 @@
             <div class="count"><?=$pitstop;?></div>
           </div>
 		   <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-            <span class="count_top"><i class="fa fa-user"></i> Previous Month Orders</span>
+            <span class="count_top"><i class="fa fa-user"></i> All Previous Month Orders</span>
             <div class="count"><?=$previousorders;?></div>
           </div>
           <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
