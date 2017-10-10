@@ -687,8 +687,8 @@ class Api_model extends CI_Model
 			$this->load->library('email',$config);
 			$this->email->from('suggest@eatsapp.in', 'EatsApp');
 			$this->email->to('suggest.eatsapp@gmail.com');
-			$this->email->cc('nagaraj.bigperl@gmail.com');
-			$this->email->bcc('lvijetha90@gmail.com');
+			$this->email->cc('gkamatagi@gmail.com');
+			//$this->email->bcc('lvijetha90@gmail.com');
 
 			$this->email->subject('EatsApp: Restaurant suggestion');
 			$this->email->message($message);
@@ -710,7 +710,7 @@ class Api_model extends CI_Model
 			$message="<h3>New pitstop suggestion</h3>
 			<h6>Pitstop address: ".$data['restaurant_address']."</h6>
 			<h6>Pitstop latitude: ".$data['restaurant_latitude']."</h6>
-			<h6>Pitstop langitude: ".$data['restaurant_langitude']."</h6>
+			<h6>Pitstop longitude: ".$data['restaurant_langitude']."</h6>
 			<h6>Customer id: ".$data['customer']."</h6>";
 			   $config = Array(
 				'protocol' => 'smtp',
@@ -726,8 +726,8 @@ class Api_model extends CI_Model
 			$this->load->library('email',$config);
 			$this->email->from('suggest@eatsapp.in', 'EatsApp');
 			$this->email->to('suggest.eatsapp@gmail.com');
-				$this->email->cc('nagaraj.bigperl@gmail.com');
-			$this->email->bcc('lvijetha90@gmail.com');
+				$this->email->cc('gkamatagi@gmail.com');
+			//$this->email->bcc('lvijetha90@gmail.com');
 			$this->email->subject('EatsApp: pitstop suggestion');
 			$this->email->message($message);
 			$this->email->send(); 
