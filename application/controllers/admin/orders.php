@@ -265,9 +265,16 @@ class Orders extends Admin_Controller {
 	}
 
 
-	public function custbill($type){
+	public function custbill($id,$type){
 
        $data['date'] = date("Y-m-d");
+
+       $customer       = $this->Customer_model->get_customer1($id);
+		//print_r($customer); exit;
+	  
+		
+		$data['firstname'] = $customer->firstname;
+		$data['email'] = $customer->email;
 		
 		$sql = $this->db->query("select * from charges order by start_date desc limit 1  ");
 		if($sql->num_rows() > 0){
@@ -280,9 +287,11 @@ class Orders extends Admin_Controller {
 			$data['deliverycharge'] = '';
 			
 		}
-		 $data['deliverycharge1']=(($data['deliverycharge'])/1.18);
-		 $data['servicetax1']=(($data['servicetax']*9)/100);
-		 $data['totalbill']=$data['deliverycharge1']+$data['servicetax1']+$data['servicetax1'];
+
+		$data['deliverycharge1'] = (($data['deliverycharge'])/1.18);
+		$data['servicetax1']=(($data['deliverycharge1']*$data['servicetax']/100)/2);
+		$data['totalbill']=$data['deliverycharge1']+$data['servicetax1']+$data['servicetax1'];
+		
 		
 		
 
@@ -293,20 +302,21 @@ class Orders extends Admin_Controller {
             $fnamee = $filename.".pdf";
 			$filename  = "bills/".$fnamee;
 		
-		}else{
+		}
+		// else{
 			
-			$fnamee =  $filename.".xls";
-			 $filename  = "bills/".$fnamee;
+		// 	$fnamee =  $filename.".xls";
+		// 	 $filename  = "bills/".$fnamee;
 			 
-		} 
+		// } 
 		
 	     fopen($filename,"w");
 		chmod($fnamee,0777);
 		$this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
-		//redirect("http://localhost/grazzyweb/".$filename);
-		redirect("http://app.eatsapp.in/".$filename);
+		redirect("http://localhost/grazzyweb/".$filename);
+		//redirect("http://app.eatsapp.in/".$filename);
 
 	}
 
@@ -350,8 +360,8 @@ class Orders extends Admin_Controller {
 		$this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
-		//redirect("http://localhost/grazzyweb/".$filename);
-		redirect("http://app.eatsapp.in/".$filename);
+		redirect("http://localhost/grazzyweb/".$filename);
+		//redirect("http://app.eatsapp.in/".$filename);
 
 	}
 

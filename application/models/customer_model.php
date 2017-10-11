@@ -561,6 +561,22 @@ Class Customer_model extends CI_Model
 		}
 		return $result;
 	}
+
+
+    function get_customer1($id)
+    {
+         $result = $this->db->get_where('customers', array('id'=>$id))->row();
+
+        // $result = $this->db->query("select * from customers a,customers_address_bank b where a.id=b.customer_id and a.id='".$id."' ")->row();
+        
+        
+        if(!$result)
+        {
+            return false;
+        }
+        
+        return $result;
+    }
 	
 	
 }

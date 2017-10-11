@@ -101,13 +101,14 @@
                         <tr>
                             <td>
                                 To<br>
-                                Customer Name<br>
-                                Address Line1<br>
+                                <?php echo $firstname;?><br>
+                                <?php echo $email;?><br>
+                                <!--Address Line1<br>
                                 Address Line2<br>
                                 Branch<br>
                                 Email
 
-                               <!-- <?php echo $name;?><br>
+                               <?php echo $name;?><br>
 								<?php echo $address;?><br/>
 								<?php echo $branch;?><br/>
                                <?php echo $email;?> -->

@@ -47,12 +47,7 @@
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a>
 </div>
 
-<div class="btn-group">
-<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/custbill/pdf'); ?>" 
-class="btn btn-xs btn-primary">Customerbill pdf</a>
-<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/custrestbill/pdf'); ?>" 
-class="btn btn-xs btn-primary">CustomerRestbill pdf</a>
-</div>
+
 <?php } } ?>
 
 <?php  if(count($orders) > 0){ ?>
