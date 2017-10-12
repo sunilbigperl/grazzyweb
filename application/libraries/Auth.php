@@ -75,6 +75,7 @@ class Auth
         //$default_redirect points is to the login page, if you do not want this, you can set it to false and then redirect wherever you wish.
 
         $admin = $this->CI->session->userdata('admin');
+        //print_r($admin);exit;
         
         if (!$admin)
         {
@@ -117,9 +118,11 @@ class Auth
     function login_admin($username, $password, $remember=false)
     {
         // make sure the username doesn't go into the query as false or 0
+        //print_r($username);exit;
         if(!$username)
         {
             return false;
+//print_r($username);exit;
         }
 
         $this->CI->db->select('*');
@@ -128,6 +131,7 @@ class Auth
         $this->CI->db->limit(1);
         $result = $this->CI->db->get('admin');
         $result = $result->row_array();
+        // print_r($result);exit;
         
         if (sizeof($result) > 0)
         {

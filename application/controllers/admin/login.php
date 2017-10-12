@@ -31,6 +31,7 @@ class Login extends Base_Controller {
 			$remember   = $this->input->post('remember');
 			$redirect	= $this->input->post('redirect');
 			$login		= $this->auth->login_admin($username, $password, $remember);
+			//print_r($login);exit;
 			
 			if ($login)
 			{
