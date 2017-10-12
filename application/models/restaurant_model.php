@@ -236,7 +236,7 @@ Class Restaurant_model extends CI_Model
     public function getrestaurant()
 {
       
-      $query=$this->db->get('charges');
+      $query=$this->db->get('pitstopcity');
       if($query->num_rows()>0){
       return $query->result();
 }

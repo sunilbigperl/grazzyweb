@@ -133,7 +133,7 @@ Class Pitstop_model extends CI_Model
 	public function getpitstop()
 {
       
-      $query=$this->db->get('charges');
+      $query=$this->db->get('pitstopcity');
       if($query->num_rows()>0){
       return $query->result();
 }

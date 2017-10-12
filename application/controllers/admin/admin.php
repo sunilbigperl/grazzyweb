@@ -164,4 +164,91 @@ class Admin extends Admin_Controller
 			return TRUE;
 		}
 	}
+
+
+	function addcity($id = false)
+    {
+        
+        $this->Id  = $id;
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $data['orders'] = $this->Customer_model->get_city();
+        $data['page_title']     = lang('category_form');
+        
+        //default values are empty if the customer is new
+		
+        $data['id']             = '';
+        $data['city']           = '';
+
+        
+       
+        
+        if ($id)
+        {   
+		
+            $pitstopcity    = $this->Customer_model->addcity($id);
+
+            //if the category does not exist, redirect them to the category list with an error
+            if (!$pitstopcity)
+            {
+                //$this->session->set_flashdata('error', lang('error_not_found'));
+                redirect($this->config->item('admin_folder').'/addcity');
+            }
+            
+            
+			
+            $data['id']             = $pitstopcity->Id;
+            $data['city']           = $pitstopcity->city;
+            
+			
+            
+        }
+        
+        $this->form_validation->set_rules('city', 'city', 'required|is_unique[pitstopcity.city]');
+        
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->view($this->config->item('admin_folder').'/city_form', $data);
+        }
+        else
+        {
+            
+            
+            $save['id']             = $id;
+			
+            $save['city']           = $this->input->post('city');
+           
+		
+			
+			
+            $pitstopcity_id    = $this->Customer_model->savecity($save);
+       
+            $this->session->set_flashdata('message', 'city saved');
+            
+            //go back to the category list
+            redirect($this->config->item('admin_folder').'/admin/addcity');
+        }
+    }
+
+    function deletecity($id)
+    {
+        
+        $category   = $this->Customer_model->get_city($id);
+        //if the category does not exist, redirect them to the customer list with an error
+        if ($category)
+        {
+            
+            $this->Customer_model->deletecity($id);
+            
+            $this->session->set_flashdata('message', "The Cityname has been deleted.");
+            redirect($this->config->item('admin_folder').'/admin/addcity');
+        }
+        else
+        {
+            $this->session->set_flashdata('error', lang('error_not_found'));
+        }
+    }
+
+    
 }

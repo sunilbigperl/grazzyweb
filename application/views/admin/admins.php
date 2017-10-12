@@ -6,6 +6,7 @@ function areyousure()
 </script>
 
 <div style="text-align:right;">
+	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/admin/addcity'); ?>"><i class="icon-plus-sign"></i> Add city</a>
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/customers/charges'); ?>"><i class="icon-plus-sign"></i> Add data</a>
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/admin/form'); ?>"><i class="icon-plus-sign"></i> <?php echo lang('add_new_admin');?></a>
 </div>

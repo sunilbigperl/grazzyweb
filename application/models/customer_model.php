@@ -578,5 +578,65 @@ Class Customer_model extends CI_Model
         return $result;
     }
 	
-	
+	function addcity($id)
+    {
+        
+        $result = $this->db->get_where('pitstopcity', array('id'=>$id))->row();
+        if(!$result)
+        {
+            return false;
+        }
+        
+        return $result;
+    }
+
+
+    function savecity($pitstop)
+    {
+        
+        if ($pitstop['id'])
+        {
+            $this->db->where('id', $pitstop['id']);
+            $this->db->update('pitstopcity', $pitstop);
+            
+            $id= $pitstop['id'];
+        }
+        else
+        {
+            $this->db->insert('pitstopcity', $pitstop);
+            $id = $this->db->insert_id();
+        }
+        
+        // if(count($restaurants) >= 0){
+        //      $this->db->where('pitstop_id', $id);
+        //     $this->db->delete('pitstop_restaurants');
+        //     foreach($restaurants as $restaurant){
+        //         $pitstop_restaurants = array('pitstop_id'=> $id,'restaurants_id'=>$restaurant);
+        //         $this->db->insert('pitstop_restaurants', $pitstop_restaurants);
+                
+        //     }
+        // }
+    }
+
+
+    function get_city(){
+        $sql=$this->db->query("select * from pitstopcity");
+           
+        if($sql->num_rows() > 0){
+            $result = $sql->result();
+        }else{
+            $result = 0;
+        }
+        return $result;
+    }
+
+
+    function deletecity($id)
+    {
+        $this->db->where('Id', $id);
+        $this->db->delete('pitstopcity'); 
+        
+    }
+
+    
 }
