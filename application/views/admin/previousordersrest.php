@@ -22,8 +22,11 @@
 <?php if(count($orders) > 0){ ?>
 <?php if(isset($id)){ ?>
 <div class="btn-group">
+<!-- <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/restbill/'.$id.'/pdf'); ?>" class="btn btn-xs btn-primary">Download pdf</a>
 <a href="#" class="btn btn-xs btn-primary" onclick="showdetails1($('#fromdate').val(),$('#todate').val());">Download pdf</a>
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/excel/'.$id.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/excel/'.$id.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a>-->
+<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/orders/GetRestPreviousOrdersbill/'.$id); ?>"><i class="icon-plus-sign"></i>Download Pdf</a> 
+<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/orders/GetRestPreviousOrdersbill1/'.$id); ?>"><i class="icon-plus-sign"></i>Download Excel </a>
 </div> 
 <?php } ?>
 </form>

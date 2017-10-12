@@ -159,6 +159,46 @@ class Orders extends Admin_Controller {
 		}
 		$this->view($this->config->item('admin_folder').'/previousordersrest',$data);
 	}
+
+	function GetRestPreviousOrdersbill(){
+		$this->load->model('Restaurant_model');
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
+
+		}else{
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
+
+		}
+		
+		
+		$this->view($this->config->item('admin_folder').'/previousordersrestbill',$data);
+	}
+
+	function GetRestPreviousOrdersbill1(){
+		$this->load->model('Restaurant_model');
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
+
+		}else{
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
+
+		}
+		
+		
+		$this->view($this->config->item('admin_folder').'/previousordersrestbill1',$data);
+	}
 	
 	function restbill($id,$type){
 		$fromdate=$this->input->post('fromdate');
@@ -195,7 +235,7 @@ class Orders extends Admin_Controller {
 
         // print_r("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$fromdate."' and ordered_on <= '".$todate."'  ");exit;
 
-		 $sql1=$this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$fromdate."' and ordered_on <= '".$todate."'  ");
+		 $sql1=$this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$_SESSION['fromdate']."' and ordered_on <= '".$_SESSION['todate']."'  ");
 		
 		if($sql1->num_rows() > 0){
 			$res1	= $sql1->result_array();
@@ -214,16 +254,23 @@ class Orders extends Admin_Controller {
 		if($orders == 0){ $data['noorders'] = 0;}else{ $data['noorders'] = count($orders);
 
 		 }
+		 $sql1 = $this->db->query("select servicetax from charges order by start_date desc limit 1 ");
+		 if($sql1->num_rows() > 0){
+			$res	= $sql1->result_array();
+			$data['servicetax'] = $res[0]['servicetax'];
+			
+		 }else{
+			$data['servicetax'] = '';
+			
+		}
 		$sql = $this->db->query("select * from restaurant where restaurant_id ='".$id."' ");
 		if($sql->num_rows() > 0){
 			$res	= $sql->result_array();
 			$data['commission'] = $res[0]['commission'];
-			$data['servicetax'] = $res[0]['servicetax'];
 			$data['penalty'] = $res[0]['penalty'];
 			$data['reimb'] = $res[0]['reimb'];
 		}else{
 			$data['commission'] = '';
-			$data['servicetax'] = '';
 			$data['penalty'] = '';
 			$data['reimb'] = '';
 		}
@@ -259,8 +306,8 @@ class Orders extends Admin_Controller {
 		$this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
-		//redirect("http://localhost/grazzyweb/".$filename);
-		redirect("http://app.eatsapp.in/".$filename);
+		redirect("http://localhost/grazzyweb/".$filename);
+		//redirect("http://app.eatsapp.in/".$filename);
 
 	}
 

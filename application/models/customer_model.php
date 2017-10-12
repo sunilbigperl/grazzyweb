@@ -607,15 +607,7 @@ Class Customer_model extends CI_Model
             $id = $this->db->insert_id();
         }
         
-        // if(count($restaurants) >= 0){
-        //      $this->db->where('pitstop_id', $id);
-        //     $this->db->delete('pitstop_restaurants');
-        //     foreach($restaurants as $restaurant){
-        //         $pitstop_restaurants = array('pitstop_id'=> $id,'restaurants_id'=>$restaurant);
-        //         $this->db->insert('pitstop_restaurants', $pitstop_restaurants);
-                
-        //     }
-        // }
+        
     }
 
 

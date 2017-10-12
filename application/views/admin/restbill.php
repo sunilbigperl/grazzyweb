@@ -155,11 +155,12 @@
 						<td>
 							Commission
 						</td>
-						<td> </td>
+						<td></td>
                         <td></td>
                        <td>
-							<?=$commission;?>
+							<?=$commission;?>%
 						</td>
+
 					</tr>
 
                     <tr class="item">
@@ -181,7 +182,7 @@
 						<td></td>
                         <td></td>
                        <!--  <td>15%</td> -->
-						<td> <?=$servicetax;?></td> 
+						<td> <?=$servicetax;?>%</td> 
 					</tr>
                     <tr class="item last">
                         <td> GST</td>
@@ -241,7 +242,7 @@
 						 <td></td>
                          <td></td>
 						<td>
-						   <?=$servicetax;?>
+						   <?=$servicetax;?>%
 						</td> 
 					</tr>
                     <tr class="item last">
@@ -306,7 +307,7 @@
                          <td></td>
                         
                        <td>
-                          <?=$servicetax;?>
+                          <?=$servicetax;?>%
                         </td>
                     </tr>
                       <tr class="item last">
