@@ -43,7 +43,7 @@ class Customers extends Admin_Controller {
 			$sql = $this->db->query("update charges set end_date = '".$end_date."' where id = '".$res[0]['id']."'");
 		}
 		
-		$sql1 = $this->db->query("insert into charges(servicetax,deliverycharge,minordervalue,city) values('".$data['servicetax']."','".$data['deliverycharge']."','".$data['minordervalue']."')");
+		$sql1 = $this->db->query("insert into charges(servicetax,deliverycharge,minordervalue) values('".$data['servicetax']."','".$data['deliverycharge']."','".$data['minordervalue']."')");
 		
 		if($sql){
 			$this->session->set_flashdata('message', 'Charges saved successfuly');
