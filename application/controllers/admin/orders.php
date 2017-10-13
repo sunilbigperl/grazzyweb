@@ -413,78 +413,62 @@ class Orders extends Admin_Controller {
 	}
 
 
-	public function excel($id)
+	function excel($id)
 	{
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
 			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
-			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
 			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
-		$restaurant       = $this->Restaurant_model->get_restaurant($id);
-		$this->load->library('Excel');
-		$this->excel->setActiveSheetIndex(0);
+		 $restaurant       = $this->Restaurant_model->get_restaurant($id);
+		 $orders = $this->Restaurant_model->get_restaurantorders($id);
+	     $corders = $this->Restaurant_model->get_restaurantorderscancel($id);
+		
+		
+	$this->load->library('excel');
+    //Create a new Object
+    $objPHPExcel = new PHPExcel();
+    // Set the active Excel worksheet to sheet 0
+    $objPHPExcel->setActiveSheetIndex(0); 
 
-		//set cell A1 content with some text
-         $this->excel->getActiveSheet()->setCellValue('A1', 'Period');
-         $this->excel->getActiveSheet()->setCellValue('B1', '');
-	     $this->excel->getActiveSheet()->setCellValue('C1', 'Value of orders forwarded');
-         $this->excel->getActiveSheet()->setCellValue('D1', 'Commission');
-          $this->excel->getActiveSheet()->setCellValue('E1', 'Commission');
-         $this->excel->getActiveSheet()->setCellValue('F1', 'Service tax');
-	     $this->excel->getActiveSheet()->setCellValue('G1', 'Service tax');
-         $this->excel->getActiveSheet()->setCellValue('H1', 'Total');
-          $this->excel->getActiveSheet()->setCellValue('I1', 'Number of Orders');
-         $this->excel->getActiveSheet()->setCellValue('J1', 'Reimbursement of Delivery Charges');
-	     $this->excel->getActiveSheet()->setCellValue('K1', 'Reimbursement of Delivery Charges');
-	     $this->excel->getActiveSheet()->setCellValue('L1', 'Service tax');
-         $this->excel->getActiveSheet()->setCellValue('M1', 'Total');
-         $this->excel->getActiveSheet()->setCellValue('N1', 'Number of Orders Cancelled');
-         $this->excel->getActiveSheet()->setCellValue('O1', 'Penalty');
-	     $this->excel->getActiveSheet()->setCellValue('P1', 'Penalty');
-         $this->excel->getActiveSheet()->setCellValue('Q1', 'ServiceTax');
-         $this->excel->getActiveSheet()->setCellValue('R1', 'Total');
-          $this->excel->getActiveSheet()->setCellValue('S1', 'Total Bill(Keep Amount)');
-         $this->excel->getActiveSheet()->setCellValue('T1', 'Netamount payable to you');
-	     
-         $this->excel->getActiveSheet()->getStyle('A1:T1')->getFont()->setBold(true);
-	                
+    $heading=array('Fromdate','Todate','Value of orders forwarded','Commission%','Commission','GST%','GST','Total','Number of Orders','Reimbursement of Delivery Charges','Reimbursement of Delivery Charges','GST%','GST','Total','Number of Orders Cancelled','Penalty','Penalty','GST%','GST','Total','Total Bill(Keep Amount)','Value of orders forwarded','Amount due to us(Keep Amount)','Netamount payable to you'); //set title in excel sheet
+    $rowNumberH = 1; //set in which row title is to be printed
+    $colH = 'A'; //set in which column title is to be printed
+    
+    $objPHPExcel->getActiveSheet()->getStyle($rowNumberH)->getFont()->setBold(true);
+    
+	for($col = ord('A'); $col <= ord('X'); $col++){ //set column dimension 
+		 $objPHPExcel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
+         $objPHPExcel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
+	}
+    foreach($heading as $h){ 
 
-	       for($col = ord('A'); $col <= ord('C'); $col++){ //set column dimension $this->excel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->setCellValue($colH.$rowNumberH,$h);
+        $colH++;    
+    }
 
-	                
 
-	                $this->excel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
-
-                  }
-
-                  $orders = $this->Restaurant_model->get_restaurantorders($id);
-			$corders = $this->Restaurant_model->get_restaurantorderscancel($id);
-
-	       $sql1=$this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$data['fromdate']."' and ordered_on <= '".$data['todate']."'  ");
+	$sql1=$this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$data['fromdate']."' and ordered_on <= '".$data['todate']."'  ");
 		
 		if($sql1->num_rows() > 0){
 			$res1	= $sql1->result_array();
 			$data['cost'] = $res1[0]['SUM(total_cost)'];
-			
 			
 		}else{
 
 			$data['cost'] = '';
 			
 		}
-	
 
-
-		
-		$sql = $this->db->query("select * from restaurant where restaurant_id ='".$id."' ");
+		$sql = $this->db->query("select *,b.servicetax from restaurant a,charges b where a.restaurant_id ='".$id."' order by b.start_date desc limit 1 ");
 		if($sql->num_rows() > 0){
 			$res	= $sql->result_array();
 			$data['commission'] = $res[0]['commission'];
@@ -510,7 +494,6 @@ class Orders extends Admin_Controller {
 			$data['servicetax'] = '';
 			$data['servicetax1']='';
 			$data['total1']='';
-			
 			$data['reimb'] = '';
 			$data['reimb1'] = '';
 			$data['servicetax2']='';
@@ -522,24 +505,53 @@ class Orders extends Admin_Controller {
 			$data['netamount']='';
 		}
 		
+        $rowCount = 2; // set the starting row from which the data should be printed
+     
+	
+
+        $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $data['fromdate']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $data['todate']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $data['cost']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $data['commission']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $data['commision1']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $data['servicetax']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $data['servicetax1']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, $data['total1']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount, $data['noorders']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount, $data['reimb']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, $data['reimb1']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, $data['servicetax']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $data['servicetax2']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount, $data['total2']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount, $data['cancelorders']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount, $data['penalty']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount, $data['penalty1']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount, $data['servicetax']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount, $data['servicetax3']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount, $data['total3']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount, $data['totalbill']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('V'.$rowCount, $data['cost']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('W'.$rowCount, $data['totalbill']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('X'.$rowCount, $data['netamount']);
+
+        
+          
+         $rname= $restaurant->restaurant_name;
+	 	 $filename=$rname.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).'.xls'; //save our workbook as this file name
+
+    // Instantiate a Writer 
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
+
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="'.$filename.'" ');
+    header('Cache-Control: max-age=0');
+
+    $objWriter->save('php://output');
+    //exit();
+
+	$this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
 		
-		//Fill data
-
-		$this->excel->getActiveSheet()->fromArray($data, null, 'A2');
-		$rname= $restaurant->restaurant_name;
-		 $filename=$rname.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).'.xls'; //save our workbook as this file name
-
-		header('Content-Type: application/vnd.ms-excel'); //mime type
-
-		header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
-
-		header('Cache-Control: max-age=0'); //no cache
-
-		$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5'); 
-
-		 $objWriter->save('php://output');
-		$this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
-
+		
 	}
 
 	function delpartnerbill($id,$type){
