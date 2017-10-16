@@ -40,7 +40,7 @@
 			<th data-field="name">Order number</th>
 			<th>Customer name</th>
 			<th>Customer mobileno</th>
-			<th data-field="price">Customer bill amount(Rs)</th>
+			<th data-field="price">Restaurant bill amount(Rs)</th>
 			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
@@ -82,7 +82,7 @@
 					<?=$order->phone; ?>
 				</td>
 				<td>
-					<?=$order->total_cost; ?>
+					<?=$order->total_cost-$deliverycharge; ?>
 				</td>
 				
 				
