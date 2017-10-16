@@ -419,15 +419,16 @@ class Orders extends Admin_Controller {
 	{
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
+			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
-			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
+			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
-			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
 
 		}
 		 $restaurant       = $this->Restaurant_model->get_restaurant($id);
