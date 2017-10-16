@@ -130,7 +130,7 @@
                         <td>Period:</td>
                         <td><?=$fromdate;?></td>
                         <td>to</td>
-                        <td><?=$todate;?></td>
+                        <td><?=$todate1;?></td>
                     </tr>
             
                 

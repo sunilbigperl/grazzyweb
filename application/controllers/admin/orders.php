@@ -209,6 +209,7 @@ class Orders extends Admin_Controller {
 			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
 			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
+			$data['todate1'] = $_SESSION['todate1'] = date("Y-m-d",strtotime($this->input->post('todate')));
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
