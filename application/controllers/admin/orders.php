@@ -207,7 +207,8 @@ class Orders extends Admin_Controller {
 
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
@@ -307,7 +308,7 @@ class Orders extends Admin_Controller {
 		$this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
-		//redirect("http://localhost/grazzyweb/".$filename);
+	    //redirect("http://localhost/grazzyweb/".$filename);
 		redirect("http://app.eatsapp.in/".$filename);
 
 	}
@@ -422,7 +423,7 @@ class Orders extends Admin_Controller {
 			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
-			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
+			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
 			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));

@@ -183,7 +183,7 @@ Class Restaurant_model extends CI_Model
 
 		// $sql = $this->db->query("select * from orders where restaurant_id=7 and restaurant_manager_status = 'Accepted'");
 
-        $sql = $this->db->query("select * from orders a where a.restaurant_id='".$id."' and a.restaurant_manager_status!= 'Rejected' and a.ordered_on>='".$_SESSION['fromdate']."' and a.ordered_on<='".$_SESSION['todate']."' ");
+        $sql = $this->db->query("select * from orders a where a.restaurant_id='".$id."' and a.restaurant_manager_status!= 'Rejected' and a.ordered_on>='".$_SESSION['fromdate']."' and a.ordered_on<'".$_SESSION['todate']."' ");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
@@ -196,8 +196,8 @@ Class Restaurant_model extends CI_Model
 	 {
 
 		// $sql = $this->db->query("select * from orders where restaurant_id=7 and restaurant_manager_status = 'Rejected'");
-		
-		$sql = $this->db->query("select * from orders a where a.restaurant_id='".$id."' and a.restaurant_manager_status = 'Rejected' and a.ordered_on>='".$_SESSION['fromdate']."' and a.ordered_on<='".$_SESSION['todate']."' ");
+
+		$sql = $this->db->query("select * from orders a where a.restaurant_id='".$id."' and a.restaurant_manager_status = 'Rejected' and a.ordered_on>='".$_SESSION['fromdate']."' and a.ordered_on<'".$_SESSION['todate']."' ");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{
