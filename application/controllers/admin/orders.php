@@ -609,8 +609,8 @@ class Orders extends Admin_Controller {
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
 		
-		//redirect("http://app.eatsapp.in/".$filename);
-		redirect("http://localhost/grazzyweb/".$filename);
+		redirect("http://app.eatsapp.in/".$filename);
+		//redirect("http://localhost/grazzyweb/".$filename);
 	}
 	
 	function getOrderDetails(){
