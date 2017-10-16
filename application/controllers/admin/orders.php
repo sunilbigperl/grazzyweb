@@ -558,7 +558,19 @@ class Orders extends Admin_Controller {
 	}
 
 	function delpartnerbill($id,$type){
-		
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
+			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
+
+		}else{
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+
+		}
 		$data['date'] = date("Y-m-d");
 		$Deliveryboy       = $this->Deliveryboy_model->get_deliveryPartner($id);
 		$orders = $this->Deliveryboy_model->get_deliveryPartnerorders($id);
@@ -579,13 +591,14 @@ class Orders extends Admin_Controller {
 		$data['total']	=$data['delivery_charge']+ $data['servicetax'];
 		$html = $this->load->view($this->config->item('admin_folder').'/delpartnertbill',$data, true);
 		
-		
+		$filename = $Deliveryboy->firstname;
 		 if($type == "pdf"){
-			$fnamee = rand()."purplkite0105201731052017.pdf";
+		 	 $fnamee = $filename.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".pdf";
+			//$fnamee = rand()."purplkite0105201731052017.pdf";
 			$filename  = "bills/".$fnamee;
 		}else{
-
-			$fnamee =  rand()."purplkite0105201731052017.xls";
+			$fnamee = $filename.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".xls";
+			//$fnamee =  rand()."purplkite0105201731052017.xls";
 			 $filename  = "bills/".$fnamee;
 			 
 			 } 
@@ -596,8 +609,8 @@ class Orders extends Admin_Controller {
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
 		
-		redirect("http://app.eatsapp.in/".$filename);
-		//redirect("http://localhost/grazzyweb/".$filename);
+		//redirect("http://app.eatsapp.in/".$filename);
+		redirect("http://localhost/grazzyweb/".$filename);
 	}
 	
 	function getOrderDetails(){
