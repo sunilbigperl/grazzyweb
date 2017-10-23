@@ -29,7 +29,7 @@ Class Category_model extends CI_Model
         if(!$admin) //$this->db->where('company', 0);
         $this->db->where('enabled', 1);
         $this->db->order_by('sequence');
-        $this->db->order_by('name', 'ASC');
+        //$this->db->order_by('name', 'ASC');
         $categories = $this->db->get('categories')->result();
        
         $results    = array();
