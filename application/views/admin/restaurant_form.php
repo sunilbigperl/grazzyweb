@@ -296,6 +296,20 @@
 					echo form_input($data);
 					?>
 				</div>
+				<div class="form-group">
+					<label for="discount1 " >Discount(%)</label>
+					<?php
+					$data	= array('name'=>'discount1', 'value'=>set_value('discount1', $discount1), 'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">
+					<label for="discount2 " >Discount(Rs)</label>
+					<?php
+					$data	= array('name'=>'discount2', 'value'=>set_value('discount2', $discount2), 'class'=>'form-control');
+					echo form_input($data);
+					?>
+				</div>
 				<div class="form-group" style="display:none;">
 					<label for="penalty " >Delivery Charges</label>
 					<?php

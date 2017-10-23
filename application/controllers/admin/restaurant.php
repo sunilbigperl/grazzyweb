@@ -67,6 +67,8 @@ class Restaurant extends Admin_Controller {
 		$data['commission'] = '';
 		$data['penalty'] ='';
 		$data['Reimb'] ='';
+		$data['discount1'] ='';
+		$data['discount2'] ='';
         $data['fromtime'] ='';
 		$data['totime'] ='';
 		$data['comment']= '';
@@ -115,6 +117,8 @@ class Restaurant extends Admin_Controller {
 			$data['commission'] = $restaurant->commission;
 			$data['penalty']	= $restaurant->penalty;
 			$data['Reimb']	= $restaurant->reimb;
+			$data['discount1']	= $restaurant->discount1;
+			$data['discount2']	= $restaurant->discount2;
 			$data['fromtime']	= $restaurant->fromtime;
 			$data['totime']	= $restaurant->totime;
 			$data['comment']= $restaurant->comment;
@@ -273,6 +277,8 @@ class Restaurant extends Admin_Controller {
 			$save['commission'] 		   = $this->input->post('commission');
 			$save['penalty'] 			   = $this->input->post('penalty');
 			$save['Reimb'] 			   = $this->input->post('Reimb');
+			$save['discount1'] 			   = $this->input->post('discount1');
+			$save['discount2'] 			   = $this->input->post('discount2');
             $save['enabled']      		   = $this->input->post('enabled');
             $save['gst']			   = $this->input->post('gst');
 			$save['preparation_time']	   = $this->input->post('preparation_time');
@@ -466,6 +472,8 @@ class Restaurant extends Admin_Controller {
 
      //$days = unserialize($excel['days']);
 
+     
+
      // $days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
 	 //$days1[]=$days;
     
@@ -495,6 +503,7 @@ class Restaurant extends Admin_Controller {
         $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount,$excel['penalty']);
         $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$excel['reimb']);
         $objPHPExcel->getActiveSheet()->SetCellValue('V'.$rowCount,$excel['preparation_time']); 
+        // $objPHPExcel->getActiveSheet()->SetCellValue('W'.$rowCount,$data); 
         
         
         
