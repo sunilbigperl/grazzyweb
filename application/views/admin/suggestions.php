@@ -1,7 +1,7 @@
 <div class="tabbable">
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#description_tab" data-toggle="tab">Restaurants suggestions</a></li>
-		<li><a href="#attributes_tab" data-toggle="tab">Pitstops suggestions</a></li>
+		<li><a href="#attributes_tab" data-toggle="tab">Delivery Point suggestions</a></li>
 	</ul>
 
 	<div class="tab-content" >
@@ -43,7 +43,7 @@
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 				<thead>
 					<tr>
-						<th>Pitstop address</th>
+						<th>Delivery Point address</th>
 						<th>Suggested customer</th>
 						<th>Customer phoneno</th>
 						<th>Latitude</th>

@@ -196,7 +196,7 @@
 							
 						</ul>
 					</li>
-					<li><a href="<?php echo $admin_url;?>pitstop"><i class="fa fa-map-marker"></i>Pitstops</a></li>
+					<li><a href="<?php echo $admin_url;?>pitstop"><i class="fa fa-map-marker"></i>Delivery Point</a></li>
                    <!-- <li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li> -->
 					<li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner"><i class="fa fa-shopping-cart"></i>Previous orders</a></li>
 					<li><a href="<?php echo $admin_url;?>customers"><i class="fa fa-users"></i>Customers</a></li>
@@ -274,7 +274,7 @@
 						<?php $i++; }} ?>
 						<?php if(count($PitstopSuggestion['data']) > 0){ 
 						$j=0;
-						echo "<li><h5><strong>Recently Suggested Pitstops</strong></h5></li>";
+						echo "<li><h5><strong>Recently Suggested Delivery Point</strong></h5></li>";
 						foreach($PitstopSuggestion['data'] as $pitsuggestion){ if($j > 2){ break ;} ?>
 						
 						<li>

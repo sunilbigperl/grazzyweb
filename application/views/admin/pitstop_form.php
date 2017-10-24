@@ -14,21 +14,21 @@
 			
 			<fieldset style="padding:10px">
 			<div class="form-group">	
-				<label for="name">pitstop name</label>
+				<label for="name">Delivery Point name</label>
 				<?php
 				$data	= array('name'=>'pitstop_name', 'value'=>set_value('pitstop_name', $pitstop_name), 'class'=>'form-control');
 				echo form_input($data);
 				?>
 			</div>
 			<div class="form-group">	
-				<label for="pitstop_address">pitstop latitude</label>
+				<label for="pitstop_address">Delivery Point latitude</label>
 				<?php
 				$data	= array('name'=>'latitude', 'value'=>set_value('latitude', $latitude), 'class'=>'form-control', 'id'=>"lat");
 				echo form_input($data);
 				?>
 			</div>
 			<div class="form-group">	
-				<label for="pitstop_address">pitstop langitude</label>
+				<label for="pitstop_address">Delivery Point langitude</label>
 				<?php
 				$data	= array('name'=>'langitude', 'value'=>set_value('langitude', $langitude), 'class'=>'form-control',  'id'=>"lng");
 				echo form_input($data);
@@ -59,7 +59,7 @@
 			</div> -->
 
 			   <div class="form-group">
-				<label for="restaurant_address">Pitstop City</label>
+				<label for="restaurant_address">Delivery Point City</label>
 				<select name="city" class="form-control" required>
 					<option value="">Select city</option>
 					<?php foreach($getpitstop as $city):?>

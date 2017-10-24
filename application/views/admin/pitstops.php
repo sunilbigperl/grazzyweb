@@ -19,7 +19,7 @@ var oTable = $('#table-pagination').DataTable( {
         buttons: [
        {
            extend: 'csv',
-		   text: 'Export All pitstops',
+		   text: 'Export All Delivery Point',
 		   filename: 'PitstopInformationOnly',
            footer: false,
 		   exportOptions: {
@@ -64,7 +64,7 @@ oTable.column( 1 ).visible( false );
 	});
 </script>
 <div class="btn-group pull-right">
-	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/form'); ?>"><i class="icon-plus-sign"></i> Add new pitstop</a>
+	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/form'); ?>"><i class="icon-plus-sign"></i> Add new Delivery Point</a>
 </div>
 <br/>
 <div style="display:block;clear:both;margin-bottom:40px;">
@@ -74,10 +74,10 @@ oTable.column( 1 ).visible( false );
 				<input type="submit" name="submit" value="Upload" class="btn btn-xs btn-primary">
 		</div>
 	</form>
-	<a href="../../UseThisFileToImportPitstops.csv" style="text-decoration:underline">(Download the pitstop import format)</a>
+	<a href="../../UseThisFileToImportPitstops.csv" style="text-decoration:underline">(Download the delivery point import format)</a>
 </div>
 
-<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/get_pitstop_list');?>"><i class="icon-download"></i>Export Connected pitstops</a>
+<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/get_pitstop_list');?>"><i class="icon-download"></i>Export Connected Delivery Point</a>
 
 
 <!-- <a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/ChangeStatus1'); ?>">activate all</a> -->
@@ -90,7 +90,7 @@ oTable.column( 1 ).visible( false );
 		<tr>
 			<th data-field="state" data-checkbox="true"></th>
 			<th data-field="id" data-hidden="true">Sl.No</th>
-			<th data-field="name">Pitstop name</th>
+			<th data-field="name">Delivery Point name</th>
 			<th data-field="city">City</th>
 			<th data-field="price">Latitude</th>
 			<th>Longitude</th>
@@ -152,7 +152,7 @@ oTable.column( 1 ).visible( false );
 	<form action="<?php echo site_url($this->config->item('admin_folder').'/pitstop/ChangeStatus'); ?>" method="post">
 		<div class="modal-header">
 		  <button type="button" class="close" data-dismiss="modal">&times;</button>
-		  <h4 class="modal-title">Deactivate Pitstop</h4>
+		  <h4 class="modal-title">Deactivate Delivery Point</h4>
 		</div>
 		<div class="modal-body">
 		  <div class="form-group">
