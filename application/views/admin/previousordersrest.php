@@ -40,14 +40,21 @@
 			<th data-field="name">Order number</th>
 			<th>Customer name</th>
 			<th>Customer mobileno</th>
-			<th data-field="price">Restaurant bill amount(Rs)</th>
+			<th data-field="price">Order value(Rs)</th>
+			<th>Discount(%)</th>
+			<th>Discount(Rs)</th>
+			<th>Net Order Value</th>
+			<th>GST on Net Order Value </th>
+			<th>Net Order Value fulfilled</th>
+			<th>GST on Net Order Value fulfilled</th>
 			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
 			<th>Net amount</th>
 			<th>GST</th>
-			<th>Keep amount</th>
-			<th>Total</th>
+			<th>Keep amount for eatsapp</th>
+			<th>Give to Restaurant</th>
+			<!-- <th>Give to Customer</th> -->
 			<th>Status</th>
 			<th>Del partner remarks</th>
 		</tr>
@@ -67,6 +74,7 @@
 				$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
 				$servicetax = $charges['servicetax'];
 				$deliverycharge = $charges['deliverycharge'];
+				//print_r($servicetax);exit;
 		?>
 			<tr class="gc_row">
 				<td><?=$i;?></td>
@@ -84,7 +92,34 @@
 				<td>
 					<?=$order->total_cost-$deliverycharge; ?>
 				</td>
-				
+				<td>
+					<?=($order->total_cost-$deliverycharge)*$order->discount1/100; ?>
+				</td>
+				<td>
+					<?=$order->discount2; ?>
+				</td>
+				<td>
+					<?=$order->total_cost-$deliverycharge-(($order->total_cost-$deliverycharge)*$order->discount1/100)-$order->discount2; ?>
+				</td>
+
+				<td>
+					<?=($order->total_cost-$deliverycharge-(($order->total_cost-$deliverycharge)*$order->discount1/100)-$order->discount2)*$servicetax/100; ?>
+				</td>
+				<td>
+					<?php  if($order->delivery_partner_status == "Rejected"){
+						$netordervalue = 0;
+					}elseif($order->restaurant_manager_status == "Accepted"){ $netordervalue = $order->total_cost-$deliverycharge-(($order->total_cost-$deliverycharge)*$order->discount1/100)-$order->discount2; }else{ $netordervalue = "0"; }
+					echo $netordervalue;
+					?>
+				</td>
+
+				<td>
+					<?php  if($order->delivery_partner_status == "Rejected"){
+						$gstnetordervalue = 0;
+					}elseif($order->restaurant_manager_status == "Accepted"){ $gstnetordervalue = ($order->total_cost-$deliverycharge-(($order->total_cost-$deliverycharge)*$order->discount1/100)-$order->discount2)*$servicetax/100; }else{ $gstnetordervalue = "0"; }
+					echo $gstnetordervalue;
+					?>
+				</td>
 				
 				<td>
 					<?php  if($order->delivery_partner_status == "Rejected"){
@@ -139,7 +174,8 @@
 				<td><?php if($order->delivery_partner_status == "Rejected"){
 						echo  0;
 					}elseif($order->restaurant_manager_status == "Accepted"){
-						echo $order->total_cost - $keepamt;
+						//echo $order->total_cost - $keepamt;
+						echo $netordervalue+$gstnetordervalue-$keepamt;
 					}else{
 						echo  "-".$keepamt;
 					}						?></td>
