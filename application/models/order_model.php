@@ -311,6 +311,18 @@ Class order_model extends CI_Model
 		}
 		return $result;
 	}
+
+	function GetMenudetails1($data){
+		// echo "select a.*,b.menu from order_items a, restaurant_menu b where a.menu_id=b.menu_id and order_id='".$data['id']."'"; exit;
+		$sql = $this->db->query("select a.restaurant_name,b.*,c.order_type from restaurant a,orders b,order_type c  where a.restaurant_id=b.restaurant_id and  b.order_type=c.ordertype_id and id='".$data['id']."'");
+		
+		if($sql->num_rows() > 0){
+			$result	= $sql->result();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
 	
 	function ChangeRestMangerStatus($status,$id){
 		if($status == "1"){ 

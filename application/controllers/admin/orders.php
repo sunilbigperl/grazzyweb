@@ -1091,7 +1091,7 @@ class Orders extends Admin_Controller {
 	function GetMenudetails1(){
 		$data = $this->input->post('data');
 		
-		$menus = $this->Order_model->GetMenudetails($data);
+		$menus = $this->Order_model->GetMenudetails1($data);
 		
 		$html="";
 		if($menus != 0){
