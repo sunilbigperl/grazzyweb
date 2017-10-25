@@ -48,15 +48,22 @@
 			<th data-field="name">Order number</th>
 			<!-- <th>Customer Name</th>
 			<th>Customer Mobileno</th> -->
-			<th data-field="price">Customer bill amount(Rs)</th>
+			<th data-field="price">Order value(Rs)</th>
+			<th>Convience charge</th>
+			<th>Discount(%)</th>
+			<th>Discount(Rs)</th>
+			<th>Net Order Value</th>
+			<th>GST on Net Order Value </th>
+			<th>Net Order Value fulfilled</th>
+			<th>GST on Net Order Value fulfilled</th>
 			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
 			<th>Net amount</th>
 			<th>GST</th>
-			<!-- <th>Keep amount</th> -->
-			<th>eatsapp</th>
-			<th>Total</th>
+			<th>Keep amount for eatsapp</th>
+			<th>Give to Restaurant</th>
+			<th>Give to Customer</th>
 			<th>Status</th>
 			<th>Del partner remarks</th>
 		</tr>
@@ -91,14 +98,53 @@
 					<?=$order->phone; ?>
 				</td> -->
 				<td>
-					<?=$order->total_cost; ?>
+				<?php $ordervalue=$order->total_cost-$deliverycharge-$servicetax;?>
+				    <?=$ordervalue; ?>
 				</td>
-				
+
+				<td>
+				<?=$deliverycharge; ?>
+				</td>
+                
+                <td>
+                    <?php $discount1=$ordervalue*($order->discount1/100);?> 
+					<?=$discount1; ?>
+				</td>
+
+				<td>
+					<?=$order->discount2; ?>
+				</td>
+				<td>
+				    <?php $netordervalue=$ordervalue-$discount1-$order->discount2;?>
+					<?=$netordervalue; ?>
+				</td>
+
+				<td>
+				<?php $gstonnetordervalue=$netordervalue*($servicetax/100);?>
+				<?=$gstonnetordervalue; ?>
+				</td>
+
+				<td>
+					<?php  if($order->delivery_partner_status == "Rejected"){
+						$netordervalue1 = 0;
+					}elseif($order->restaurant_manager_status == "Accepted"){ $netordervalue1=$netordervalue ; }else{ $netordervalue1 = "0"; }
+					echo $netordervalue1;
+					?>
+				</td>
+
+				<td>
+					<?php  if($order->delivery_partner_status == "Rejected"){
+						$gstonnetordervalue1 = 0;
+					}elseif($order->restaurant_manager_status == "Accepted"){ $gstonnetordervalue1=$gstonnetordervalue; }else{ $gstonnetordervalue1 = "0"; }
+					echo $gstonnetordervalue1;
+					?>
+				</td>
 				
 				<td>
 					<?php  if($order->delivery_partner_status == "Rejected"){
 						$commission = 0;
-					}elseif($order->restaurant_manager_status == "Accepted"){ $commission = (($order->total_cost *$order->commission)/100); }else{ $commission = "0"; }
+					}elseif($order->restaurant_manager_status == "Accepted"){ $commission = 
+						$ordervalue*($order->commission/100); }else{ $commission = "0"; }
 					echo $commission;
 					?>
 				</td> 
@@ -131,13 +177,14 @@
 					}
 					 echo $netamount
 					?></td>
+				
 				<td>
 					<?php  if($order->delivery_partner_status == "Rejected"){
 						$servicetax1 = 0;
 					}else{
-						$servicetax1 =($netamount*$servicetax)/100; 
+						$servicetax1 =$netamount*($servicetax/100); 
 					}
-					echo $servicetax1;   ?>
+					echo $servicetax1;?>
 				</td>
 				<td><?php  if($order->delivery_partner_status == "Rejected"){
 						$keepamt = 0;
@@ -145,14 +192,28 @@
 						$keepamt =  $netamount+$servicetax1;
 					}
 					echo $keepamt; ?></td>
+
 				<td><?php if($order->delivery_partner_status == "Rejected"){
 						echo  0;
 					}elseif($order->restaurant_manager_status == "Accepted"){
-						echo $order->total_cost - $keepamt;
+						//echo $order->total_cost - $keepamt;
+						echo $netordervalue+$gstonnetordervalue-$keepamt;
 					}else{
 						echo  "-".$keepamt;
 					}						?></td>
-				<td>
+
+					<td><?php if($order->restaurant_manager_status == "Rejected"){
+					 $givetocust=$netordervalue+$gstonnetordervalue;
+				      echo $givetocust;
+					}elseif($order->delivery_partner_status== "Rejected"){
+						$givetocust=$netordervalue+$gstonnetordervalue;
+						echo $givetocust;
+					}else{
+						echo  0;
+					}?></td>
+ 
+
+                   <td>
 					<?php if($order->restaurant_manager_status == "0"){ ?>
 						Not acted yet
 					<?php }elseif($order->delivery_partner_status == "Rejected"){
