@@ -7,7 +7,9 @@
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#description_tab" data-toggle="tab"><?php echo lang('description');?></a></li>
 		<li><a href="#timings_tab" data-toggle="tab">Timings</a></li>
-		<!-- <li><a href="#attributes_tab" data-toggle="tab">Image</a></li> -->
+		<?php if($this->auth->check_access('Admin')) {?>
+		<li><a href="#attributes_tab" data-toggle="tab">Image</a></li>
+		<?php } ?> 
 		<li><a href="#location_tab" data-toggle="tab">Location</a></li>
 		<li><a href="#preparation_tab" data-toggle="tab">Restaurant Manager</a></li>
 		<li><a href="#charge_tab" data-toggle="tab">Charges</a></li>
