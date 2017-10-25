@@ -185,11 +185,14 @@
 						echo  "-".$keepamt;
 					}						?></td>
 				
+				
+			
 				<td><?php if($order->delivery_partner_status == "Rejected"){
 					$giventocust=((($order->total_cost-$deliverycharge-$servicetax)-(($order->total_cost-$deliverycharge-$servicetax)*$order->discount1/100)-$order->discount2)+((($order->total_cost-$deliverycharge-$servicetax)-(($order->total_cost-$deliverycharge-$servicetax)*$order->discount1/100)-$order->discount2)*$servicetax/100))+$deliverycharge;
 						echo $giventocust;
 					}elseif($order->restaurant_manager_status == "Rejected"){
 						//echo $order->total_cost - $keepamt;
+						$giventocust=((($order->total_cost-$deliverycharge-$servicetax)-(($order->total_cost-$deliverycharge-$servicetax)*$order->discount1/100)-$order->discount2)+((($order->total_cost-$deliverycharge-$servicetax)-(($order->total_cost-$deliverycharge-$servicetax)*$order->discount1/100)-$order->discount2)*$servicetax/100))+$deliverycharge;
 						echo $giventocust;
 					}else{
 						echo 0;
