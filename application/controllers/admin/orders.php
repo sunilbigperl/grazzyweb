@@ -721,7 +721,7 @@ class Orders extends Admin_Controller {
 						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":&ensp;</strong>".$name." </label></br>
 
 						<label><strong>Mobile No:&ensp;</strong>".$phone."</label></br>
-						<label><strong>Email:&ensp;</strong>".$email."</label></br>
+						
 						
 						
 
