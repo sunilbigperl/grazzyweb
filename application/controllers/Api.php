@@ -431,14 +431,14 @@ class Api extends REST_Controller {
 	}
 	
 	public function pitstopsuser_post(){
-		$data = [
-			'southwest_lat' => $this->post('southwest_lat'),
+        $data = [
+            'southwest_lat' => $this->post('southwest_lat'),
             'southwest_lng' => $this->post('southwest_lng'),
             'northeast_lat' => $this->post('northeast_lat'),
-			'northeast_lng' => $this->post('northeast_lng'),
+            'northeast_lng' => $this->post('northeast_lng'),
         ];
-		$pitstopsuser =  $this->api_model->pitstopsuser1($data);
-		if (!empty($pitstopsuser))
+        $pitstopsuser =  $this->api_model->pitstopsuser1($data);
+        if (!empty($pitstopsuser))
         {
             $this->set_response($pitstopsuser, REST_Controller::HTTP_OK); 
         }
@@ -450,7 +450,7 @@ class Api extends REST_Controller {
             ], REST_Controller::HTTP_OK);
         }
 
-	}
+    }
 	
 	public function restaurantNearbyUser_post(){
 		$data = [
