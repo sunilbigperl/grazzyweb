@@ -63,7 +63,7 @@ var oTable = $('#table-pagination').DataTable( {
 			foreach($menus as $menu)
 			{?>
 			<tr class="gc_row">
-				<td><?=$menu->menu_id;?></td>
+				<!-- <td><?=$menu->menu_id;?></td> --> 
 				<td>
 					<?=$menu->code;?>
 				</td> 

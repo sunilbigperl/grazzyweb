@@ -53,7 +53,7 @@
 					</div>
 				</div>
 				<div class="form-group">	
-					<label for="restaurantmanager_mobile">Restaurant Manager Mobile Number</label>
+					<label for="restaurantmanager_mobile">Restaurant Manager mobile mumber</label>
 					<div class="input-group">
 						
 						<input type="number" name="restaurantmanager_mobile" value="<?=$restaurantmanager_mobile?>" class="form-control"  pattern="/(7|8|9)\d{9}/" required>
