@@ -10,6 +10,7 @@
     margin-right: 20px;
 	}
 </style>
+<?php if($this->auth->check_access('Admin')) {?>
 <script>
 $(document).ready(function() {
 var oTable = $('#table-pagination').DataTable( {
@@ -28,6 +29,7 @@ var oTable = $('#table-pagination').DataTable( {
 
 } );
 </script>
+<?php } ?>
 <div class="btn-group pull-left" style="margin-bottom:20px;">
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/0/'.$res_id); ?>"><i class="icon-plus-sign"></i> Add New Menu Item</a>
   	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant'); ?>"><i class="icon-plus-sign"></i> Back</a> 
@@ -37,16 +39,16 @@ var oTable = $('#table-pagination').DataTable( {
 <table class="table table-striped table-bordered"  id="table-pagination" >
 	<thead>
 		<tr>
-			<th data-field="id">Id</th>
-			<th data-field="id">code</th>
-			<th data-field="name">menu</th>
-			<th data-field="name">description</th>
-			<th data-field="price">price</th>
-			<th data-field="price">type</th>
+			<!-- <th data-field="id">Id</th> -->
+			<th data-field="id">Code</th>
+			<th data-field="name">Menu</th>
+			<th data-field="name">Description</th>
+			<th data-field="price">Price</th>
+			<th data-field="price">Type</th>
 			<!-- <th data-field="price">size</th> -->
-			<th data-field="time">itemPreparation_time</th>
-			<th>enabled</th>
-			<th>category</th>
+			<th data-field="time">Item Preparation Time</th>
+			<th>Enabled</th>
+			<th>Category</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -101,7 +103,7 @@ var oTable = $('#table-pagination').DataTable( {
 				</td>
 				<td>
 				<a class="btn btn-info btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/'.$menu->menu_id.'/'.$res_id.''); ?>">Edit</a>
-				&nbsp;<a class="btn btn-danger btn-xs" href="#" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/menus/delete/'.$menu->menu_id.'/'.$res_id.''); ?>'; }">delete</a>
+				&nbsp;<a class="btn btn-warning btn-xs" href="#" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/menus/delete/'.$menu->menu_id.'/'.$res_id.''); ?>'; }">Delete</a>
 					&nbsp;&nbsp;<?php if($menu->enabled == 1){ ?> 
 						<a href="#" class="btn btn-danger  btn-xs" data-toggle="modal" data-target="#DeactivateMenu" onclick="$('#restid').val('<?=$res_id;?>');$('#menuid').val('<?=$menu->menu_id;?>')">Deactivate</a>
 					<?php }else{ ?>

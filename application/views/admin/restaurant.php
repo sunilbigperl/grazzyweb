@@ -19,14 +19,16 @@
 <a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/getrestaurantlist');?>" style="margin-top:20px"><i class="icon-download"></i>Export Restaurant</a>
 <?php } ?>
 
-<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true"  <?php if($this->auth->check_access('Admin')) { ?>  data-search="true" <?php } ?> id="table-pagination" data-sort-order="desc">
+<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false"   <?php if($this->auth->check_access('Admin')) { ?>  data-search="true" data-pagination="true" <?php } ?> id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
-			<th data-field="id">Sl.No</th>
+			<!-- <th data-field="id">Sl.No</th> -->
 			<th data-field="name">Restaurant name</th>
 			<th data-field="price">Contact Details</th>
 			<th>Action</th>
+			<?php if($this->auth->check_access('Admin')) {?>
 			<th>Import menus<br/><a href="../../restaurant_menu.csv">(Download the Menu format)</a></th>
+			<?php } ?>
 			<th>Reviews</th>
 		</tr>
 	</thead>
@@ -41,7 +43,7 @@
 			foreach($restaurants as $restaurant)
 			{?>
 			<tr class="gc_row">
-				<td><?=$i;?></td>
+				<!-- <td><?=$i;?></td> -->
 				<td>
 					<?=$restaurant->restaurant_name;?></br></br>
 					
@@ -72,7 +74,9 @@
                      <?php } ?>
 					</span>
 				</td>
+				<?php if($this->auth->check_access('Admin')) {?>
 				<td>
+				
 					<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/menus/ImportMenu/'.$restaurant->restaurant_id); ?>" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<div class="form-group">
@@ -81,7 +85,9 @@
 							</div>
 						</div>
 					</form>
+					
 				</td>
+				<?php } ?>
 				<td>
 					<span class="btn-group">
 					<?php if($this->auth->check_access('Admin')){ ?>

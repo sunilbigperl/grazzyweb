@@ -53,7 +53,7 @@
 					</div>
 				</div>
 				<div class="form-group">	
-					<label for="restaurantmanager_mobile">Restaurant Manager Mobile No</label>
+					<label for="restaurantmanager_mobile">Restaurant Manager Mobile Number</label>
 					<div class="input-group">
 						
 						<input type="number" name="restaurantmanager_mobile" value="<?=$restaurantmanager_mobile?>" class="form-control"  pattern="/(7|8|9)\d{9}/" required>
@@ -97,11 +97,11 @@
 			<fieldset style="padding: 10px;">
 			
 				<div class="form-group">
-					<label for="fromtime">From time(as per the availability of the delivery partner)</label>
+					<label for="fromtime">From time (as per the availability of the delivery partner)</label>
 					<input type="time" name="fromtime" class="form-control" value="<?=$fromtime;?>">
 				</div>
 				<div class="form-group">
-					<label for="fromtime">To time(as per the availability of the delivery partner)</label>
+					<label for="fromtime">To time (as per the availability of the delivery partner)</label>
 					<input type="time" name="totime" class="form-control"  value="<?=$totime;?>">
 				</div>
                  <?php if($this->auth->check_access('Admin')) {?>
@@ -249,21 +249,21 @@
 			
 				 <?php if($this->auth->check_access('Restaurant manager')){ ?>
 				<div class="form-group " >	
-					<label for="commission " >Commission(%)</label>	
+					<label for="commission " >Commission (%)</label>	
 					<?php
 					$data	= array('name'=>'commission', 'value'=>set_value('commission', $commission), 'class'=>'form-control', 'readonly'=>'readonly');
 					echo form_input($data);
 					?>
 				</div>
 				<div class="form-group">
-					<label for="penalty " >Penalty(%)</label>
+					<label for="penalty " >Penalty (%)</label>
 					<?php
 					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control','readonly'=>'readonly');
 					echo form_input($data);
 					?>
 				</div>
 				<div class="form-group">
-					<label for="penalty " >Delivery Charges</label>
+					<label for="penalty " >Reimbursement of delivery charges</label>
 					<?php
 					$data	= array('name'=>'delivery_charge', 'value'=>set_value('delivery_charge', $delivery_charge), 'class'=>'form-control','readonly'=>'readonly');
 					echo form_input($data);
