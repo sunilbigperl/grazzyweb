@@ -10,7 +10,7 @@
     margin-right: 20px;
 	}
 </style>
-<?php if($this->auth->check_access('Admin')) {?>
+
 <script>
 $(document).ready(function() {
 var oTable = $('#table-pagination').DataTable( {
@@ -29,7 +29,7 @@ var oTable = $('#table-pagination').DataTable( {
 
 } );
 </script>
-<?php } ?>
+
 <div class="btn-group pull-left" style="margin-bottom:20px;">
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/0/'.$res_id); ?>"><i class="icon-plus-sign"></i> Add New Menu Item</a>
   	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant'); ?>"><i class="icon-plus-sign"></i> Back</a> 
