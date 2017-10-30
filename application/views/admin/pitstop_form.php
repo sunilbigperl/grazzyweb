@@ -59,27 +59,7 @@
 			</div> -->
 
 
-  <!--  <?php
-
-
-                $sl_class=$city;
-
-                   foreach($classes as $class){
-                              $is_selected='';
-
-                                        if($class['city']==$sl_class){
-                                            $is_selected='selected';
-                                        }
-                                ?>
-                                <select name="" class="form-control" required>
-                                        <option value="<?php echo $class['Id'];?>" <?php echo $is_selected;?>><?php echo $class['city'];?></option>
-                                        </select>
-                                <?php
-                                    }
-                                ?>
- -->
-
-           <div class="form-group">
+          <div class="form-group">
 				<label for="restaurant_address">Delivery Point City</label>
 				<select name="city" class="form-control" required>
 
