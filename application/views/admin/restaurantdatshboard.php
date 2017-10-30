@@ -6,7 +6,7 @@
 					Items In The Menu or Do You Need To Disable Certain Items?
 					<br/>
 
-					To Disable The Menu Items, <a href="<?php echo site_url($this->config->item('admin_folder'));?>/restaurant">Please Click Here</a>”
+					To Deactivate The Menu Items, <a href="<?php echo site_url($this->config->item('admin_folder'));?>/restaurant">Please Click Here</a>”
 			</div>
 	<?php endif; ?>
 	 <p id="margin"> 
