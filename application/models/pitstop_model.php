@@ -130,12 +130,40 @@ Class Pitstop_model extends CI_Model
 		return	$this->db->like('restaurant_name', $name)->get('restaurant', $limit)->result();
 	}
 
-	public function getpitstop()
-{
+// 	public function getpitstop($id)
+// {
+
+// 		// $sql = $this->db->query("select a.*,b.city from pitstopcity a,pitstop b where pitstop_id='".$id."' ");
+// 		// if($sql->num_rows() > 0){
+// 		// 	$result	= $sql->result();
+// 		// }else{
+// 		// 	$result = 0;
+// 		// }
+// 		// return $result;
       
-      $query=$this->db->get('pitstopcity');
-      if($query->num_rows()>0){
-      return $query->result();
-}
-}
+//       $query=$this->db->get('pitstopcity',$id);
+//       if($query->num_rows()>0){
+//       return $query->result();
+// }
+// }
+
+
+function get_class()
+    {
+       $class=$this->db->get('pitstopcity');
+       return $class->result_array();
+    }
+
+// public function getpitstop($id)
+//     {
+		
+// 		$result	= $this->db->get_where('pitstopcity', array('Id'=>$id))->row();
+// 		if(!$result)
+// 		{
+// 			return false;
+// 		}
+		
+		
+// 		return $result;
+//     }
 }

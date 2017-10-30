@@ -81,8 +81,8 @@ class Pitstop extends Admin_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-        $data['getpitstop'] = $this->Pitstop_model->getpitstop();
-        $data['pitstops']     = $this->Pitstop_model->get_pitstops_tiered();
+        $data['getpitstop'] = $this->Pitstop_model->get_class();
+        //$data['pitstops']     = $this->Pitstop_model->get_pitstops_tiered();
         $data['page_title']     = lang('category_form');
         
         //default values are empty if the customer is new
@@ -99,8 +99,10 @@ class Pitstop extends Admin_Controller {
         
         if ($id)
         {   
+            //$pitstop1 = $this->Pitstop_model->getpitstop($id);
 		
             $pitstop       = $this->Pitstop_model->get_pitstop($id);
+            //print_r($pitstop);exit;         
 
             //if the category does not exist, redirect them to the category list with an error
             if (!$pitstop)
@@ -117,6 +119,7 @@ class Pitstop extends Admin_Controller {
             $data['langitude']    = $pitstop->langitude;
 			// $data['address']    = $pitstop->address;
 			$data['city']    = $pitstop->city;
+            //print_r($data['city']);exit;
             $data['enabled']        = $pitstop->enabled;
 			if(!$this->input->post('submit'))
 			{
