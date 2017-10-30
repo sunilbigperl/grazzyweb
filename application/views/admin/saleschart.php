@@ -12,10 +12,10 @@
     
     <div class="form-group"><input type="submit" class="btn btn-primary" value="Go" name="action"></div>
 <div  style="margin-top:20px;">
-      <div class="form-group"><input type="submit" class="btn btn-primary" value="SixMonth" name="action"></div>
-      <div class="form-group"><input type="submit" class="btn btn-primary" value="ThreeMonth" name="action"></div>
-      <div class="form-group"><input type="submit" class="btn btn-primary" value="PreviousMonth" name="action"></div>
-      <div class="form-group"><input type="submit" class="btn btn-primary" value="CurrentMonth" name="action"></div>
+      <div class="form-group"><input type="submit" class="btn btn-primary" value="Six Months" name="action"></div>
+      <div class="form-group"><input type="submit" class="btn btn-primary" value="Three Months" name="action"></div>
+      <div class="form-group"><input type="submit" class="btn btn-primary" value="Previous Month" name="action"></div>
+      <div class="form-group"><input type="submit" class="btn btn-primary" value="Current Month" name="action"></div>
     
   </form>
 </div>

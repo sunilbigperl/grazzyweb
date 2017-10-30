@@ -1044,17 +1044,17 @@ class Orders extends Admin_Controller {
 			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
 			 $data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
 			
-		}elseif($this->input->post('action') == "PreviousMonth"){
+		}elseif($this->input->post('action') == "Previous Month"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
 
 
-		}elseif($this->input->post('action') == "ThreeMonth"){
+		}elseif($this->input->post('action') == "Three Months"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('-3 months',strtotime('first day of this month')));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
 
 
-		}elseif($this->input->post('action') == "SixMonth"){
+		}elseif($this->input->post('action') == "Six Months"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('-6 months',strtotime('first day of this month')));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
 
