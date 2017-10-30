@@ -87,7 +87,15 @@ var oTable = $('#table-pagination').DataTable( {
 					<?=$menu->itemPreparation_time; ?>
 				</td>
 				<td>
-					<?=$menu->enabled; ?>
+					<!-- <?=$menu->enabled; ?> -->
+					<?php if($menu->enabled==1)
+					{
+						echo 'Yes';
+					}
+					else{
+						echo 'No';
+					}?>
+
 				</td> 
 				<td><?php $cats = $this->Menu_model->get_menu_categories($menu->menu_id);
 				$category = "";

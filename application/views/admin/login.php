@@ -111,7 +111,7 @@
 
                 <div style="color: white;background: red;font-family: sans-serif;padding: 10px;border-radius: 5px;">
                   <h1><i class=""></i>Welcome to Eatsapp!</h1>
-                  <p>©2017 All Rights Reserved.</p>
+                  <p>© 2017 All Rights Reserved.</p>
                 </div>
               </div>
             <?php echo  form_close(); ?>
