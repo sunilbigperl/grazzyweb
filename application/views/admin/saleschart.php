@@ -110,6 +110,7 @@ function drawColColors(array1) {
         title: 'Sales Chart',
         fontSize:10,
         width:6000,
+        'chartArea': {left: 100},
         titleFontSize:12,
        
         colors: ['#9575cd', '#33ac71'],
@@ -120,6 +121,7 @@ function drawColColors(array1) {
         },
         vAxis: {
            titleFontSize:12,
+
           title: 'Sales amount of items( in Rs)'
         } 
       };
