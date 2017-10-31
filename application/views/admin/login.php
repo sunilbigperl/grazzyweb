@@ -102,7 +102,7 @@
 
               <div class="clearfix"></div>
 			 <div >
-				<a href="<?php echo site_url('login/forgot_password'); ?>" style="text-align:center;">Forgot Password</a>
+				<a href="<?php echo site_url('login/forgot_password'); ?>" style="text-align:center;margin-left:10px;">Forgot Password</a>
 			</div>
               <div class="separator">
                
