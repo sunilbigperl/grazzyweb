@@ -112,10 +112,12 @@
               <a href="<?=$admin_url;?>" class="site_title"> <span>Admin Panel</span></a>
 			<?php } elseif($this->auth->check_access('Restaurant manager')){  ?>
 			
-              <a href="<?=$admin_url;?>" class="site_title"> <span>POS</span></a>
+             <!-- <a href="<?=$admin_url;?>" class="site_title"> <span>POS</span></a> -->
+              <a href="" class="site_title"> <span>POS</span></a>
 			<?php }else{ ?>
 			
-              <a href="<?=$admin_url;?>" class="site_title"> <span>DBOS</span></a>
+              <!-- <a href="<?=$admin_url;?>" class="site_title"> <span>DBOS</span></a> -->
+              <a href="" class="site_title"> <span>DBOS</span></a>
 			<?php } ?>
             </div>
 
