@@ -102,7 +102,7 @@
 
               <div class="clearfix"></div>
 			 <div >
-				<a href="<?php echo site_url('login/forgot_password'); ?>" style="text-align:center;">Forgot password</a>
+				<a href="<?php echo site_url('login/forgot_password'); ?>" style="text-align:center;">Forgot Password</a>
 			</div>
               <div class="separator">
                
@@ -110,7 +110,7 @@
                 <br />
 
                 <div style="color: white;background: red;font-family: sans-serif;padding: 10px;border-radius: 5px;">
-                  <h1><i class=""></i>Welcome to Eatsapp!</h1>
+                  <h1><i class=""></i>Welcome to eatsapp</h1>
                   <p>© 2017 All Rights Reserved.</p>
                 </div>
               </div>
