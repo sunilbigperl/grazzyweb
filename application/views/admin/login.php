@@ -110,7 +110,7 @@
                 <br />
 
                 <div style="color: white;background: red;font-family: sans-serif;padding: 10px;border-radius: 5px;">
-                  <h1><i class=""></i>Welcome to eatsapp</h1>
+                  <p style="font-family:Century Gothic;font-size:25px;"><i class=""></i>Welcome to eatsapp</p>
                   <p>© 2017 All Rights Reserved.</p>
                 </div>
               </div>
