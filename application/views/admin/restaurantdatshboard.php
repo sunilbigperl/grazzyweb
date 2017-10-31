@@ -29,6 +29,7 @@ echo "" . date("jS F Y") . "<br>";
 			<th>Keep ready by</th>
 			<!--<th>Delivery Status</th>-->
 			<th>Action</th>
+			<th>Passcode</th>
 		</tr>
 	</thead>
 	
@@ -102,6 +103,7 @@ echo "" . date("jS F Y") . "<br>";
 						}
 				} ?>
 				</td>
+				<td><?=$order->passcode;?></td>
 			</tr>
 			<?php
 			$i++;
