@@ -49,7 +49,7 @@
 			<!-- <th>Customer Name</th>
 			<th>Customer Mobileno</th> -->
 			<th data-field="price">Order value(Rs)</th>
-			<th>Convience charge</th>
+			<!-- <th>Convience charge</th> -->
 			<th>Discount(%)</th>
 			<th>Discount(Rs)</th>
 			<th>Net Order Value</th>
@@ -63,9 +63,10 @@
 			<th>GST</th>
 			<th>Keep amount for eatsapp</th>
 			<th>Give to Restaurant</th>
-			<th>Give to Customer</th>
+			<!-- <th>Give to Customer</th> -->
 			<th>Status</th>
-			<th>Del partner remarks</th>
+			<!-- <th>Del partner remarks</th> -->
+			<th>Passcode</th>
 		</tr>
 	</thead>
 
@@ -193,7 +194,7 @@
 					}
 					echo $keepamt; ?></td>
 
-				<td><?php if($order->delivery_partner_status == "Rejected"){
+				<!-- <td><?php if($order->delivery_partner_status == "Rejected"){
 						echo  0;
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						//echo $order->total_cost - $keepamt;
@@ -210,7 +211,7 @@
 						echo $givetocust;
 					}else{
 						echo  0;
-					}?></td>
+					}?></td> -->
  
 
                    <td>
@@ -229,9 +230,12 @@
 					} ?>
 
 				</td>
-				<td> 
+				<!-- <td> 
 					<?php $remarks = $this->Order_model->get_delpartnerremarks($order);
 					echo isset($remarks[0]->comments) ? $remarks[0]->comments : "No comments" ; ?>
+				</td> -->
+				<td>
+				<?=$order->passcode;?>
 				</td>
 				
 			</tr>
@@ -242,6 +246,7 @@
 		?>
 	</tbody>
 	<?php endif;?>
+
 </table>
 
 <div id="orderdetails" class="modal fade" role="dialog">
