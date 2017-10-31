@@ -66,21 +66,10 @@
 					echo form_input($data);
 					?>
 				</div>
-				<!-- <div class="form-group">
-					<label for="restaurant_address">City</label>
-					
-					<select name="restaurant_branch" class="form-control" required>
-						<option value="">Select City</option>
-						<?php foreach($getcity as $city):?>
-				    <option value="<?php echo $city->city;?>"><?php echo $city->city;?> 
-                     </option>
-                      <?php endforeach;?>
-					</select> 
-</div>-->
-
+				
 
 <div class="form-group">
-				<label for="restaurant_address">Delivery Point City</label>
+				<label for="restaurant_address">City</label>
 				<select name="restaurant_branch" class="form-control" required>
 
 					<!-- <option value="">Select city</option> -->
@@ -275,16 +264,30 @@
 					?>
 				</div>
 				<div class="form-group">
-					<label for="penalty " >Penalty (%)</label>
+					<label for="penalty " >Penalty (Rs)</label>
 					<?php
 					$data	= array('name'=>'penalty', 'value'=>set_value('penalty', $penalty), 'class'=>'form-control','readonly'=>'readonly');
 					echo form_input($data);
 					?>
 				</div>
 				<div class="form-group">
-					<label for="penalty " >Reimbursement of delivery charges</label>
+					<label for="penalty " >Reimbursement of delivery charges (Rs)</label>
 					<?php
 					$data	= array('name'=>'delivery_charge', 'value'=>set_value('delivery_charge', $delivery_charge), 'class'=>'form-control','readonly'=>'readonly');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">
+					<label for="discount1 " >Discount (%)</label>
+					<?php
+					$data	= array('name'=>'discount1', 'value'=>set_value('discount1', $discount1), 'class'=>'form-control','readonly'=>'readonly');
+					echo form_input($data);
+					?>
+				</div>
+				<div class="form-group">
+					<label for="discount2 " >Discount (Rs)</label>
+					<?php
+					$data	= array('name'=>'discount2', 'value'=>set_value('discount2', $discount2), 'class'=>'form-control','readonly'=>'readonly');
 					echo form_input($data);
 					?>
 				</div>
