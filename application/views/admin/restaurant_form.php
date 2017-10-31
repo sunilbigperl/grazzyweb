@@ -80,8 +80,8 @@
 
 
 <div class="form-group">
-				<label for="restaurant_address">City</label>
-				<select name="city" class="form-control" required>
+				<label for="restaurant_address">Delivery Point City</label>
+				<select name="restaurant_branch" class="form-control" required>
 
 					<!-- <option value="">Select city</option> -->
 
@@ -92,7 +92,7 @@
                       <?php endforeach;?> 
                       </select>
                     
-			     </div> 
+			     </div>  
 
 
 
