@@ -66,7 +66,7 @@
 					echo form_input($data);
 					?>
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label for="restaurant_address">City</label>
 					
 					<select name="restaurant_branch" class="form-control" required>
@@ -75,9 +75,28 @@
 				    <option value="<?php echo $city->city;?>"><?php echo $city->city;?> 
                      </option>
                       <?php endforeach;?>
-					</select>
-				
-				</div>
+					</select> 
+</div>-->
+
+
+<div class="form-group">
+				<label for="restaurant_address">City</label>
+				<select name="city" class="form-control" required>
+
+					<!-- <option value="">Select city</option> -->
+
+					<?php foreach($getcity as $class):?>
+						
+                     <option value="<?php echo $class['city'];?>" <?php if($class['city']==$restaurant_branch){echo "selected";}?>><?php echo $class['city'];?> 
+                     </option>
+                      <?php endforeach;?> 
+                      </select>
+                    
+			     </div> 
+
+
+
+
 				<?php if($this->auth->check_access('Admin')) {?>
 				<div class="form-group">	
 					<label for="enabled"><?php echo lang('enabled');?> </label>

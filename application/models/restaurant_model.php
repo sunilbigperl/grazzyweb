@@ -237,12 +237,19 @@ Class Restaurant_model extends CI_Model
         }
     }
 
-    public function getrestaurant()
-{
+//     public function getrestaurant()
+// {
       
-      $query=$this->db->get('pitstopcity');
-      if($query->num_rows()>0){
-      return $query->result();
-}
-}	
+//       $query=$this->db->get('pitstopcity');
+//       if($query->num_rows()>0){
+//       return $query->result();
+// }
+// }	
+
+
+    function get_class()
+    {
+       $class=$this->db->get('pitstopcity');
+       return $class->result_array();
+    }
 }
