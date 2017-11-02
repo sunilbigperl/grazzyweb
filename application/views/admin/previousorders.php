@@ -62,7 +62,7 @@
 			<th>Net amount</th>
 			<th>GST</th>
 			<th>Keep amount for eatsapp</th>
-			<th>Give to Restaurant</th>
+			<th>For Restaurant</th>
 			<!-- <th>Give to Customer</th> -->
 			<th>Status</th>
 			<!-- <th>Del partner remarks</th> -->
@@ -103,9 +103,9 @@
 				    <?=$ordervalue; ?>
 				</td>
 
-				<td>
+				<!-- <td>
 				<?=$deliverycharge; ?>
-				</td>
+				</td> -->
                 
                 <td>
                     <?php $discount1=$ordervalue*($order->discount1/100);?> 
@@ -194,7 +194,7 @@
 					}
 					echo $keepamt; ?></td>
 
-				<!-- <td><?php if($order->delivery_partner_status == "Rejected"){
+				<td><?php if($order->delivery_partner_status == "Rejected"){
 						echo  0;
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						//echo $order->total_cost - $keepamt;
@@ -203,7 +203,7 @@
 						echo  "-".$keepamt;
 					}						?></td>
 
-					<td><?php if($order->restaurant_manager_status == "Rejected"){
+					<!-- <td><?php if($order->restaurant_manager_status == "Rejected"){
 					 $givetocust=$netordervalue+$gstonnetordervalue;
 				      echo $givetocust;
 					}elseif($order->delivery_partner_status== "Rejected"){
