@@ -48,10 +48,10 @@
 			<th data-field="name">Order number</th>
 			<!-- <th>Customer Name</th>
 			<th>Customer Mobileno</th> -->
-			<th data-field="price">Order value(Rs)</th>
+			<th data-field="price">Order value (Rs)</th>
 			<!-- <th>Convience charge</th> -->
-			<th>Discount(%)</th>
-			<th>Discount(Rs)</th>
+			<th>Discount (%)</th>
+			<th>Discount (Rs)</th>
 			<th>Net Order Value</th>
 			<th>GST on Net Order Value </th>
 			<th>Net Order Value fulfilled</th>
