@@ -75,6 +75,7 @@
 			<th>Remarks</th>
 			
 			<th>Status</th>
+			<th>Passcode</th>
 		</tr>
 	</thead>
 	
@@ -185,6 +186,9 @@
 					} ?>  
                     
 
+				</td>
+				<td>
+				<?php echo $order->passcode; ?>
 				</td>
 			</tr>
 			<?php
