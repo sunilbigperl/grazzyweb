@@ -58,6 +58,7 @@
 			<th>Give to Customer</th>
 			<th>Status</th>
 			<th>Del partner remarks</th>
+			<th>Passcode</th>
 		</tr>
 	</thead>
 
@@ -225,7 +226,9 @@
 					<?php $remarks = $this->Order_model->get_delpartnerremarks($order);
 					echo isset($remarks[0]->comments) ? $remarks[0]->comments : "No comments" ; ?>
 				</td>
-				
+				<td>
+					<?=$order->passcode; ?>
+				</td>
 			</tr>
 			<?php
 			$i++;
