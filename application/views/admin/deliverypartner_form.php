@@ -169,7 +169,7 @@
 					 <form method="post" name="ExternalContactValueForm">
 					  <table class="table table-bordered" style="background:white;">
 					  <div class="form-group">
-					<label for="penalty " >Penalty(Rs/-)</label>
+					<label for="penalty " >Penalty (Rupees)</label>
 					<input type="text" name="penalty" value="<?=$penalty?>" class="form-control" <?=$readonly;?>>
 				
 				</div>
@@ -185,7 +185,7 @@
 								<th>Sr No</th>
 								<th>From Km</th>
 								<th>To Km</th>
-								<th>Charge</th>
+								<th>Charge (Rupees)</th>
 								
 							</tr>
 						</thead>

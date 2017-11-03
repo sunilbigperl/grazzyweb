@@ -40,12 +40,15 @@
 <!-- <?php foreach($orders1 as $order1) ?> -->
 
 <?php if(count($orders) > 0){?>
-
-<?php if(isset($delpartner)){ ?>
-<!-- <div class="btn-group">
+<div class="btn-group">
+<?php if($this->auth->check_access('Admin')){ ?>
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/pdf') ?>" class="btn btn-xs btn-primary">Download pdf</a>
+	<?php } ?>
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a>
-</div> -->
+	
+</div>
+<?php if(isset($delpartner)){ ?>
+
 
 
 <?php } } ?>
