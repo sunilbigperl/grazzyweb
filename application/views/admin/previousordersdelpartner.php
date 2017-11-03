@@ -60,19 +60,19 @@
 			<th data-field="date">Ordered date</th>
 			<th data-field="name">Order number</th>
 			<th>Customer Name</th>
-			<th>Customer Mobileno</th> 
+			<th>Customer Mobile</th> 
 			<!-- <th>Deliveryboy Name</th> -->
-			<th data-field="pickup">Pickup location</th>
-			<th data-field="delivery">Delivery location</th>
+			<th data-field="pickup">Pickup Location</th>
+			<th data-field="delivery">Delivery Location</th>
 		
-			<th data-field="price">Delivery charge</th>
+			<th data-field="price">Delivery Charge</th>
 				<!-- <th data-field="delprice">Reimbursement of Delivery charge</th> -->
 			<th data-field="distance">KM</th>
 			<th data-field="Penalty">Penalty</th>
 			<th>Net amount</th>
 			<th>GST</th>
 			<th>Total</th>
-			<th>Remarks</th>
+			<!-- <th>Remarks</th> -->
 			
 			<th>Status</th>
 			<th>Passcode</th>
@@ -163,11 +163,11 @@
 					<?php echo $netamount+$servicetax1; ?>
 				</td>
 			
-				<td> 
+				<!-- <td> 
 					<?php if($order->delivery_partner != 0 ){ ?>
 					<a href="#" data-toggle="modal" data-target="#orderdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/ShowReviewDetailstodelpartner/'.$order->delivery_partner.'');?>');" style="color: #2f2fd0;text-decoration:underline;">Reviews/Ratings</a>
 					<?php } ?>
-				</td>
+				</td> -->
 				
 				<td>
 				

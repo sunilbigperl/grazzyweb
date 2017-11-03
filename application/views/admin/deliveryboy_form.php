@@ -40,6 +40,13 @@
 	<div class="form-group">	
 		<label for="enabled"><?php echo lang('enabled');?> </label>
         <?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class="form-control"'); ?>
+	</div>
+	<div class="form-group">	
+		<label>Aadhar Number</label>
+		<?php
+		$data	= array('name'=>'adharno', 'value'=>set_value('adharno', $adharno),'class'=>'form-control');
+		echo form_input($data);
+		?>
 	</div>			
 		<div class="form-actions">
 			<input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>"/>

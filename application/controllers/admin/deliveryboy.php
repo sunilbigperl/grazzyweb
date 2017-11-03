@@ -47,6 +47,7 @@ class Deliveryboy extends Admin_Controller
 		$data['email']	= '';
 		$data['enabled'] = '';
 		$data['image'] = '';
+		$data['adharno'] = '';
 		
 	
 		$data['deliveryboys']		= $this->Deliveryboy_model->get_lists();
@@ -73,7 +74,8 @@ class Deliveryboy extends Admin_Controller
 			$data['phone']		= $page->phone;
 			$data['email']		= $page->email;
 			$data['image']		= $page->image;
-			$data['enabled']	=   $page->enabled;;
+			$data['enabled']	=   $page->enabled;
+            $data['adharno']	=   $page->adharno;
 			
 		}
 		
@@ -135,6 +137,7 @@ class Deliveryboy extends Admin_Controller
 			$save['phone']	= $this->input->post('phone'); 
 			$save['email']	= $this->input->post('email');
 			$save['enabled']        = $this->input->post('enabled');
+			$save['adharno']        = $this->input->post('adharno');
 			$save['delivery_partner'] = $userdata['id'];
 			//save the page
 			$page_id	= $this->Deliveryboy_model->save($save);

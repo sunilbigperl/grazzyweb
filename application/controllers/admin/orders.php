@@ -63,21 +63,21 @@ class Orders extends Admin_Controller {
 	function previousordersdelpartner(){
 
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] = $_SESSION['fromdated'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todated'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['fromdate'] = $_SESSION['fromdated'] = date("d-m-Y H:i:s",strtotime($this->input->post('fromdate')));
+			$data['todate'] = $_SESSION['todated'] = date("d-m-Y H:i:s",strtotime($this->input->post('todate')));
 			$delpartner_post = $this->input->post('delpartner');
 			$delpartner_get = $this->uri->segment(4);
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] = $_SESSION['fromdated'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
-			$data['todate'] =  $_SESSION['todated'] =date('Y-m-d H:i:s',strtotime('last day of last month'));
+			$data['fromdate'] = $_SESSION['fromdated'] = date('d-m-Y H:i:s',strtotime('first day of last month'));
+			$data['todate'] =  $_SESSION['todated'] =date('d-m-Y H:i:s',strtotime('last day of last month'));
 			$delpartner_post = $this->input->post('delpartner');
 			$delpartner_get = $this->uri->segment(4);
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
 		}else{
 
-			$data['fromdate'] =  $_SESSION['fromdated'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
-			$data['todate'] = $_SESSION['todated'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdated'] = date('d-m-Y H:i:s',strtotime('first day of this month'));
+			$data['todate'] = $_SESSION['todated'] = date('d-m-Y H:i:s',strtotime('last day of this month'));
 			$delpartner_post = $this->input->post('delpartner');
 			$delpartner_get = $this->uri->segment(4);
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
