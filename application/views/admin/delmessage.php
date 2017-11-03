@@ -19,7 +19,7 @@ if($this->auth->check_access('Admin') && !isset($url)){ ?>
 	</form>
 </div>
 <?php } ?>
-<h4>Message History</h4>
+<h4>Messages  History</h4>
 <!--<table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true" data-show-refresh="true" 
 		 data-search="true" id="table-pagination" data-sort-order="desc">-->
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false" data-pagination="true"
@@ -28,8 +28,8 @@ if($this->auth->check_access('Admin') && !isset($url)){ ?>
 		<tr>
 			<th data-field="Date">Date</th>
 			<th data-field="Time">Time</th>
-			<th data-field="Restaurant">Delivery partner</th>
-			<th data-field="Message">Message</th>
+			<!-- <th data-field="Restaurant">Delivery partner</th> -->
+			<th data-field="Message">Messages</th>
 			
 		</tr>
 	</thead>
@@ -43,15 +43,15 @@ if($this->auth->check_access('Admin') && !isset($url)){ ?>
 			{ 
 		?>
 			<tr class="gc_row">
-				<td>
+				<td class="col-md-1">
 					<?=date('d-m-Y',strtotime($message['date'])); ?>
 				</td>
-				<td>
+				<td class="col-md-1">
 					<?=date('h:i:s',strtotime($message['date'])); ?>
 				</td>
-				<td>
+				<!-- <td>
 					<?=isset($message['username']) ? $message['username'] : '';?>
-				</td>
+				</td> -->
 				<td>
 					<?=$message['message'];?>
 				</td>

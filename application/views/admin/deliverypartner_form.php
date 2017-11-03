@@ -4,10 +4,10 @@
 <div class="tabbable">
 
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="#description_tab" data-toggle="tab">Delivery partner details</a></li>
+		<li class="active"><a href="#description_tab" data-toggle="tab">BASIC DETAILS</a></li>
 		
-		<li><a href="#timings_tab" data-toggle="tab">Other Details</a></li>
-		<li><a href="#charge_tab" data-toggle="tab">Charge Details</a></li>
+		<li><a href="#timings_tab" data-toggle="tab">TIMINGS</a></li>
+		<li><a href="#charge_tab" data-toggle="tab">CHARGE DETAILS</a></li>
 		
 	</ul>	
 	<div class="tab-content">
@@ -21,7 +21,7 @@
 					?>
 				</div>
 				<div class="form-group">		
-					<label>Delivery Manager name</label>
+					<label>Delivery Manager Name</label>
 					<?php
 					$data	= array('name'=>'lastname', 'value'=>set_value('lastname', $lastname),'class'=>'form-control');
 					echo form_input($data);
@@ -44,7 +44,7 @@
 					<?php } ?>
 				</div>
 				<div class="form-group">		
-					<label>Phone No</label>
+					<label>Phone Number</label>
 					<?php
 					$data	= array('name'=>'phone', 'value'=>set_value('phone', $phone),'class'=>'form-control');
 					echo form_input($data);
@@ -96,11 +96,11 @@
 					echo form_input($data);
 					?>
 				</div>-->
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label for="penalty " >Penalty(Rs/-)</label>
 					<input type="text" name="penalty" value="<?=$penalty?>" class="form-control" <?=$readonly;?>>
 				
-				</div>
+				</div> -->
 				<div class="form-group" style="display:none;">
 					<label for="servicetax">Service tax(%)</label>
 					<input type="text" name="servicetax" value="<?=$servicetax?>" class="form-control" <?=$readonly;?>>
@@ -164,19 +164,28 @@
 			</fieldset>
 		</div>
 		<div class="tab-pane" id="charge_tab">
-			<div class="col-sm-1 pull-right">
-				<input type="button" class="btn btn-primary" name="AddNewRow" id="AddNewRow"  value="Add new" <?=$disabled;?>>
-			</div>
-			<div class="">
+		<div class="">
 				
 					 <form method="post" name="ExternalContactValueForm">
 					  <table class="table table-bordered" style="background:white;">
+					  <div class="form-group">
+					<label for="penalty " >Penalty(Rs/-)</label>
+					<input type="text" name="penalty" value="<?=$penalty?>" class="form-control" <?=$readonly;?>>
+				
+				</div>
+				<?php if($this->auth->check_access('Admin')){  ?>
+			<div class="col-sm-1 pull-right">
+				<input type="button" class="btn btn-primary" name="AddNewRow" id="AddNewRow"  value="Add new" <?=$disabled;?>>
+				<?php } ?>
+			</div>
+
 						<thead>
+
 							<tr>
 								<th>Sr No</th>
-								<th>From km</th>
-								<th>To km</th>
-								<th>charge</th>
+								<th>From Km</th>
+								<th>To Km</th>
+								<th>Charge</th>
 								
 							</tr>
 						</thead>

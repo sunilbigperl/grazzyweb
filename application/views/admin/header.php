@@ -10,9 +10,9 @@
 	 
 	 <?php date_default_timezone_set('Asia/Kolkata'); 
 	 if($this->auth->check_access('Restaurant manager')) { ?>
-    <title>POS</title>
+    <title>POS eatsapp</title>
  <?php }elseif($this->auth->check_access('Deliver manager')) { ?>
-         <title>DBOS</title>
+         <title>DBOS eatsapp</title>
  <?php }else{ ?>
  <title>Eatsapp…</title>
     
@@ -126,7 +126,7 @@
              
               <div class="profile_info">
 				<?php $userdata = $this->session->userdata('admin'); ?>
-                <h2>Welcome,<?=$userdata['firstname'];?></h2>
+                <h2>Welcome, <?=$userdata['firstname'];?></h2>
                 
               </div>
             </div>

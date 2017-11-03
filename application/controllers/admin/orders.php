@@ -634,14 +634,14 @@ class Orders extends Admin_Controller {
       $name = $customer_details->firstname." ".$customer_details->lastname;
 
 			$deliveryboy_details = $this->Customer_model->get_deliveryboy($data['delivered_by']);
-			$dname = isset($deliveryboy_details->name) ? $deliveryboy_details->name : "Not assigned yet";
+			$dname = isset($deliveryboy_details->name) ? $deliveryboy_details->name : "Not Assigned Yet";
 			$dphone = isset($deliveryboy_details->phone) ? $deliveryboy_details->phone : "";
 
 		}
 
 		$html.="<div class='modal-header'>
 					<button type='button' class='close' data-dismiss='modal'>&times;</button>
-					<h4 class='modal-title'>Delivery of order id: ".$data['order_number']."</h4>
+					<h4 class='modal-title'>Order Number: ".$data['order_number']."</h4>
 				  </div>
 				  <div class='modal-body' class='form-horizontal'>
 					<div class='form-group'>
@@ -650,25 +650,25 @@ class Orders extends Admin_Controller {
           <th>Restaurant Name:</th><td>".$restaurant->restaurant_name."</td>
           </tr>
           <tr>
-          <th>Restaurant Contact number:</th><td>".$restaurant->restaurant_phone."</td>
+          <th>Restaurant Contact Number:</th><td>".$restaurant->restaurant_phone."</td>
           </tr>
           <tr>
-						<th>Restaurant location:</th><td>".$restaurant->restaurant_address."</td>
+						<th>Restaurant Location:</th><td>".$restaurant->restaurant_address."</td>
             </tr>
             <tr>
 						<th>Customer Name:</th><td>".$customer_details->firstname." ".$customer_details->lastname."</td>
             </tr>
             <tr>
-						<th>Customer contact number:</th><td>".$cphone."</td>
+						<th>Customer Contact Number:</th><td>".$cphone."</td>
             </tr>
             <tr>
-            <th>Delivery location:</th><td>".$data['delivery_location']."</td>
+            <th>Delivery Location:</th><td>".$data['delivery_location']."</td>
             </tr>
             <tr>
-            <th>Delivery Boy name:</th><td>".$dname."</td>
+            <th>Delivery Boy Name:</th><td>".$dname."</td>
             </tr>
             <tr>
-						<th>Delivery contact number:</th><td>".$dphone."</td>
+						<th>Delivery Boy Contact Number:</th><td>".$dphone."</td>
             </tr>
             <tr>
 						<th>Passcode:</th><td>".$data['passcode']."</td>

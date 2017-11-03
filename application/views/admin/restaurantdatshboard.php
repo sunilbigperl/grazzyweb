@@ -24,9 +24,9 @@ echo "" . date("jS F Y") . "<br>";
 			<!-- <th data-field="id">Order id</th> -->
 			<th data-field="name">Order Number</th>
 			<th data-field="price">Cost (Rs)</th>
-			<th data-field="date">Ordered on</th>
-			<th data-field="type">Order type</th>
-			<th>Keep ready by</th>
+			<th data-field="date">Ordered On</th>
+			<th data-field="type">Order Type</th>
+			<th>Keep Ready By</th>
 			<!--<th>Delivery Status</th>-->
 			<th>Action</th>
 			<th>Passcode</th>

@@ -9,15 +9,16 @@ echo "" . date("jS F Y") . "<br>";
 		 data-search="true" id="table-pagination" data-sort-order="desc">
 	<thead>
 		<tr>
-			<th data-field="id">Sl.No</th>
+			<!-- <th data-field="id">Sl.No</th> -->
 			<th data-field="name">Order Number</th>
 		<!--	<th data-field="price">Cost(Rs)</th> -->
-			<th data-field="date">Ordered on</th>
-			<th data-field="type">Order type</th>
+			<th data-field="date">Ordered On</th>
+			<th data-field="type">Order Type</th>
 			<!-- <th>Keep ready by</th> -->
-			<th>Assign Delivery boy</th>
+			<th>Assign Delivery Boy</th>
 			<!--<th>Info</th>-->
-			<th>Order status</th>
+			<th>Order Status</th>
+			<th>Passcode</th>
 		</tr>
 	</thead>
 	
@@ -31,7 +32,7 @@ echo "" . date("jS F Y") . "<br>";
 			foreach($orders as $order)
 			{?>
 			<tr class="gc_row">
-				<td><?=$i;?></td>
+				<!-- <td><?=$i;?></td> -->
 				<td>
 					<a href="#" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getOrderDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
 				</td>
@@ -103,6 +104,9 @@ echo "" . date("jS F Y") . "<br>";
 				</td>-->
 				<td>
 					<?=$order->status;?>
+				</td>
+				<td>
+					<?=$order->passcode;?>
 				</td>
 			</tr>
 			<?php

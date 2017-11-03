@@ -36,9 +36,11 @@ function areyousure()
 					<?php echo $page->name; ?>
 				</td>
 				<td><?=$page->phone;?></td>
-				<td><a  class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/delete/'.$page->id.''); ?>">delete</a>&nbsp;&nbsp;
+				<td><a class="btn btn-danger btn-xs" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/delete/'.$page->id.''); ?>'; }">delete</a>&nbsp;&nbsp;
+
+				<!-- <a  class="btn btn-danger btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/delete/'.$page->id.''); ?>">delete</a>&nbsp;&nbsp; -->
 				<a class="btn btn-info btn-xs"href="<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/form/'.$page->id.''); ?>">Edit</a>
-				<a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/ShowReviewDetails/'.$page->id.'');?>');" style="color:white;text-decoration:none;">Reviews</a>
+				<!-- <a href="#" data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/deliveryboy/ShowReviewDetails/'.$page->id.'');?>');" style="color:white;text-decoration:none;">Reviews</a> -->
 				</td>
 			</tr>
 			<?php
