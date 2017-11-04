@@ -64,7 +64,7 @@
 			<th data-field="name">Order number</th>
 			<th>Customer Name</th>
 			<th>Customer Mobile</th> 
-			<!-- <th>Deliveryboy Name</th> -->
+			<th>Delivery Boy Name</th>
 			<th data-field="pickup">Pickup Location</th>
 			<th data-field="delivery">Delivery Location</th>
 		
@@ -110,9 +110,9 @@
 				<td>
 				<?php echo $order->phone; ?>
 				</td>
-				<!-- <td>
+				<td>
 				<?php echo $order->name; ?>
-				</td> -->
+				</td>
 				<?php 
 				$data['restaurant'] = $this->Restaurant_model->get_restaurant($order->restaurant_id);
 				$data['fromaddress'] = $data['restaurant']->restaurant_address;
