@@ -728,11 +728,11 @@ class Orders extends Admin_Controller {
 					</div>
 					<table class='table table-bordered'>
 					<thead>
-						<tr><th>Item name</th><th>Item code</th><th>No of items</th><th>Amount</th><tr>
+						<tr><th>Item name</th><th>Amount</th><tr>
 					</thead>
 					<tbody>";
 			foreach($menus as $menu){
-					$html.="<tr><td>".$menu->menu."</td><td>".$menu->menu_id."</td><td>".$menu->quantity."</td><td>".$menu->cost."</td></td>";
+					$html.="<tr><td>".$menu->menu."</td><td>".$menu->cost."</td></td>";
 
 			}
 			$html.="</tbody>
@@ -1111,7 +1111,7 @@ class Orders extends Admin_Controller {
 			}
 			$html.="<div class='modal-header'>
 					<button type='button' class='close' data-dismiss='modal'>&times;</button>
-					<h4 class='modal-title'>Delivery of order id: ".$data['order_number']."</h4>
+					<h4 class='modal-title'>Order Number: ".$data['order_number']."</h4>
 				  </div>
 				  <div class='modal-body' class='form-horizontal'>
 					<div class='form-group'>
