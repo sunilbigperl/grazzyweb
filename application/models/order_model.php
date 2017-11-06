@@ -703,7 +703,7 @@ Class order_model extends CI_Model
 
     function get_previousorders1($id){
 		
-		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.*,e.firstname,e.phone,c.username FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id 
+		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.*,e.firstname,e.phone,c.firstname FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id 
 			and d.ordertype_id =a.order_type and a.delivery_partner = c.id  and  a.delivery_partner=".$id."
 			 order by ordered_on desc");
 		

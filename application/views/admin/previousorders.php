@@ -219,7 +219,7 @@
 						Not acted yet
 					<?php }elseif($order->delivery_partner_status == "Rejected"){
 						// echo "Delivery manager rejected";
-						$username=$orders1[0]->username;
+						$username=$orders1[0]->firstname;
 				 	echo "Rejected by $username";
 					}elseif($order->delivery_partner_status == "Accepted"){
 						echo "Delivery manager Accepted";
