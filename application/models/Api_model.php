@@ -550,13 +550,16 @@ class Api_model extends CI_Model
 			return "success";
 		}
 	}
-	public function getMenus($id){
+	ppublic function getMenus($id){
 		$date = date('Y-m-d H:i:s');
 		
 		// $sql3 = $this->db->query("select servicetax,delivery_charge from restaurant where restaurant_id='".$id."'");
 		$sql3 = $this->db->query("select servicetax,deliverycharge,minordervalue from charges order by 
 			start_date desc limit 1 ");
 		$servicetax =  $sql3->result_array();
+		
+		$sql_discount = $this->db->query("SELECT `discount1` , `discount2`,`reimb` FROM `restaurant` WHERE `restaurant_id` = '".$id."'");
+		$discounts =  $sql_discount->result_array();
 		
 		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
 		a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1 order by c.`id`";
@@ -576,6 +579,9 @@ class Api_model extends CI_Model
 					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
 					$result[$i]['delivery_charge'] =  $servicetax[0]['deliverycharge'];
 					$result[$i]['minordervalue'] =  $servicetax[0]['minordervalue'];
+					$result[$i]['discount1'] =  $discounts[0]['discount1'];
+					$result[$i]['discount2'] =  $discounts[0]['discount2']; 
+					$result[$i]['reimb'] =  $discounts[0]['reimb']; 
 					$sql1 ="SELECT *,a.description FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
 					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
 					//echo $sql1; exit;
