@@ -558,7 +558,7 @@ class Api_model extends CI_Model
 			start_date desc limit 1 ");
 		$servicetax =  $sql3->result_array();
 		
-		$sql_discount = $this->db->query("SELECT `discount1` , `discount2`,`reimb` FROM `restaurant` WHERE `restaurant_id` = '".$id."'");
+		$sql_discount = $this->db->query("SELECT `discount1` , `discount2`,`reimb`,`commission`,`penalty` FROM `restaurant` WHERE `restaurant_id` = '".$id."'");
 		$discounts =  $sql_discount->result_array();
 		
 		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
@@ -879,9 +879,9 @@ class Api_model extends CI_Model
 		$shipping_address =  isset($data['shipping_address']) ? $data['shipping_address'] :  '';
 		$delivered_on = isset($data['delivered_on']) ? $data['delivered_on'] : '';
 		$pitstop_id = isset($data['pitstop_id']) ? $data['pitstop_id'] : '';
-		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,discount1,discount2,reimb,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on,keep_ready,pitstop_id)
+		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,discount1,discount2,reimb,commission,penalty,netordervalue,gstonfood,total_amount,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on,keep_ready,pitstop_id)
 		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Payment pending','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
-		'".$data['order_type']."','".$data['total_cost']."', '".$data['discount1']."','".$data['discount2']."','".$data['reimb']."', '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$shipping_address."','".$delivered_on."','".$keep_ready."','".$pitstop_id."')";
+		'".$data['order_type']."','".$data['total_cost']."', '".$data['discount1']."','".$data['discount2']."','".$data['reimb']."','".$data['commission']."','".$data['penalty']."','".$data['netordervalue']."','".$data['gstonfood']."','".$data['total_amount']."', '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$shipping_address."','".$delivered_on."','".$keep_ready."','".$pitstop_id."')";
 		$this->db->query($sql);
 		$id = $this->db->insert_id();
 		if($id > 0){
