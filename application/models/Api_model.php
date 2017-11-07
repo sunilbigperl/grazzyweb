@@ -558,7 +558,7 @@ class Api_model extends CI_Model
 			start_date desc limit 1 ");
 		$servicetax =  $sql3->result_array();
 		
-		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name,d.discount1,d.discount2,d.reimb FROM `restaurant_menu` a, menu_categories b, categories c,restaurant d where 
+		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
 		a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1 order by c.`id`";
 
 		// $sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
@@ -573,9 +573,6 @@ class Api_model extends CI_Model
 				if($menu['parent_id'] == 0){
 					$result[$i]['category_id'] = $menu['category_id'];
 					$result[$i]['category'] = $menu['name'];
-					$result[$i]['discount1'] = $menu['discount1'];
-					$result[$i]['discount2'] = $menu['discount2'];
-					$result[$i]['reimb'] = $menu['reimb'];
 					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
 					$result[$i]['delivery_charge'] =  $servicetax[0]['deliverycharge'];
 					$result[$i]['minordervalue'] =  $servicetax[0]['minordervalue'];
