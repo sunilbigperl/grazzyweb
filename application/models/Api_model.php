@@ -550,7 +550,7 @@ class Api_model extends CI_Model
 			return "success";
 		}
 	}
-	ppublic function getMenus($id){
+	public function getMenus($id){
 		$date = date('Y-m-d H:i:s');
 		
 		// $sql3 = $this->db->query("select servicetax,delivery_charge from restaurant where restaurant_id='".$id."'");
