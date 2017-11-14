@@ -582,6 +582,8 @@ class Api_model extends CI_Model
 					$result[$i]['discount1'] =  $discounts[0]['discount1'];
 					$result[$i]['discount2'] =  $discounts[0]['discount2']; 
 					$result[$i]['reimb'] =  $discounts[0]['reimb']; 
+					$result[$i]['commission'] =  $discounts[0]['commission']; 
+					$result[$i]['penalty'] =  $discounts[0]['penalty']; 
 					$sql1 ="SELECT *,a.description FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
 					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
 					//echo $sql1; exit;
@@ -881,7 +883,7 @@ class Api_model extends CI_Model
 		$pitstop_id = isset($data['pitstop_id']) ? $data['pitstop_id'] : '';
 		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,discount1,discount2,reimb,commission,penalty,netordervalue,gstonfood,total_amount,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on,keep_ready,pitstop_id)
 		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Payment pending','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
-		'".$data['order_type']."','".$data['total_cost']."', '".$data['discount1']."','".$data['discount2']."','".$data['reimb']."','".$data['commission']."','".$data['penalty']."','".$data['netordervalue']."','".$data['gstonfood']."','".$data['total_amount']."', '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$shipping_address."','".$delivered_on."','".$keep_ready."','".$pitstop_id."')";
+		'".$data['order_type']."','".$data['total_cost']."', '".$data['discount1']."','".$data['discount2']."','".$data['reimb']."','".$data['commission']."','".$data['penalty']."','".$data['net_order_value']."','".$data['tax']."','".$data['total_amount']."', '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$shipping_address."','".$delivered_on."','".$keep_ready."','".$pitstop_id."')";
 		$this->db->query($sql);
 		$id = $this->db->insert_id();
 		if($id > 0){

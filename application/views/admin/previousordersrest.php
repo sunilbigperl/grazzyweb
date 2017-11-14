@@ -92,28 +92,28 @@
 					<?=$order->phone; ?>
 				</td>
 				<td>
-				   <?php $ordervalue=$order->total_cost-$deliverycharge-$servicetax;?>
-				    <?=$ordervalue; ?>
+				   <!-- <?php $ordervalue=$order->total_cost-$deliverycharge-$servicetax;?> -->
+				    <?=$order->total_amount; ?>
 				</td>
 				
 				<td>
 					<?=$deliverycharge; ?>
 				</td>
 				<td>
-                    <?php $discount1=$ordervalue*($order->discount1/100);?> 
-					<!-- <?=($order->total_cost-$deliverycharge-$servicetax)*$order->discount1/100; ?> -->
-					<?=$discount1; ?>
+                    <!-- <?php $discount1=$ordervalue*($order->discount1/100);?> --> 
+					
+					<?=$order->discount1; ?>
 				</td>
 				<td>
 					<?=$order->discount2; ?>
 				</td>
 				<td>
-				    <?php $netordervalue=$ordervalue-$discount1-$order->discount2;?>
+				   <?php $netordervalue=$order->netordervalue;?> 
 					<?=$netordervalue; ?>
 				</td>
 
 				<td>
-				<?php $gstonnetordervalue=$netordervalue*($servicetax/100);?>
+				<?php $gstonnetordervalue=$order->tax;?> 
 				<?=$gstonnetordervalue; ?>
 				</td>
 				<td>
@@ -136,7 +136,7 @@
 					<?php  if($order->delivery_partner_status == "Rejected"){
 						$commission = 0;
 					}elseif($order->restaurant_manager_status == "Accepted"){ $commission = 
-						$netordervalue*($order->commission/100); }else{ $commission = "0"; }
+						$order->commission; }else{ $commission = "0"; }
 					echo $commission;
 					?>
 				</td> 
