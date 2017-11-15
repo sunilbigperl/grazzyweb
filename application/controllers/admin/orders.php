@@ -715,11 +715,12 @@ class Orders extends Admin_Controller {
 					</div>
 					<table class='table table-bordered'>
 					<thead>
-						<tr><th>Item name</th><th>Amount</th><th>Customization</th><tr>
+						<tr><th>Item name</th><th>Customization</th><tr>
 					</thead>
 					<tbody>";
 			foreach($menus as $menu){
-					$html.="<tr><td>".$menu->menu."</td><td>".$menu->cost."</td><td>".$menu->contents."</td></td>";
+					// $html.="<tr><td>".$menu->menu."</td><td>".$menu->cost."</td><td>".$menu->contents."</td></td>";
+				$html.="<tr><td>".$menu->menu."</td><td>".$menu->contents."</td></td>";
 
 			}
 			$html.="</tbody>
