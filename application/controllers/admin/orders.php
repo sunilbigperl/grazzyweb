@@ -231,66 +231,53 @@ class Orders extends Admin_Controller {
 		$data['branch'] = $restaurant->restaurant_branch;
 		$data['email'] = $restaurant->restaurant_email;
 		
-		//$data['id'] = $id;
-		//$data['orders1'] = $this->Restaurant_model->get_restorders($data);
-
-		 // $sql1 = $this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='2017-01-29' and ordered_on <='2017-02-28'  ");
-
-        // print_r("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$fromdate."' and ordered_on <= '".$todate."'  ");exit;
-
-		 $sql1=$this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$_SESSION['fromdate']."' and ordered_on <= '".$_SESSION['todate']."'  ");
+		
+		 $sql1=$this->db->query("select SUM(netordervalue),SUM(tax),SUM(commission) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$_SESSION['fromdate']."' and restaurant_manager_status='Accepted' and delivery_partner_status!='Rejected' and ordered_on <= '".$_SESSION['todate']."'  ");
 		
 		if($sql1->num_rows() > 0){
 			$res1	= $sql1->result_array();
-			$data['cost'] = $res1[0]['SUM(total_cost)'];
+			$data['netordervalue'] = $res1[0]['SUM(netordervalue)'];
+			$data['tax'] = $res1[0]['SUM(tax)'];
+			$data['commission'] = $res1[0]['SUM(commission)'];
 			
+			}else{
+
+			$data['netordervalue'] = '';
+			$data['tax'] = '';
+			$data['commission'] = '';
+			
+		}
+
+		 $sql=$this->db->query("select SUM(reimb) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$_SESSION['fromdate']."' and restaurant_manager_status!='Rejected' and delivery_partner_status!='Rejected' and ordered_on <= '".$_SESSION['todate']."'  ");
+		
+		if($sql->num_rows() > 0){
+			$res1	= $sql->result_array();
+			$data['reimb'] = $res1[0]['SUM(reimb)'];
 			
 		}else{
 
-			$data['cost'] = '';
+			$data['reimb'] = '';
+			
 			
 		}
 	
-		if($corders == 0){ $data['cancelorders'] = 0;}else{ $data['cancelorders'] = count($corders);
-}
-
-		if($orders == 0){ $data['noorders'] = 0;}else{ $data['noorders'] = count($orders);
-
-		 }
-		 $sql1 = $this->db->query("select servicetax from charges order by start_date desc limit 1 ");
-		 if($sql1->num_rows() > 0){
-			$res	= $sql1->result_array();
-			$data['servicetax'] = $res[0]['servicetax'];
+		
+		 $sql2 = $this->db->query("select SUM(penalty) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$_SESSION['fromdate']."' and restaurant_manager_status!='Accepted' and delivery_partner_status!='Rejected'  and ordered_on <= '".$_SESSION['todate']."' ");
+		 if($sql2->num_rows() > 0){
+			$res	= $sql2->result_array();
+			$data['penalty'] = $res[0]['SUM(penalty)'];
 			
 		 }else{
-			$data['servicetax'] = '';
+			$data['penalty'] = '';
 			
 		}
-		$sql = $this->db->query("select * from restaurant where restaurant_id ='".$id."' ");
-		if($sql->num_rows() > 0){
-			$res	= $sql->result_array();
-			$data['commission'] = $res[0]['commission'];
-			$data['penalty'] = $res[0]['penalty'];
-			$data['reimb'] = $res[0]['reimb'];
-		}else{
-			$data['commission'] = '';
-			$data['penalty'] = '';
-			$data['reimb'] = '';
-		}
-		$data['commision1']=(($data['cost']*$data['commission'])/100);
-		$data['servicetax1']=(($data['commision1']*$data['servicetax'])/100);
-		$data['reimb1'] = $data['noorders']*$data['reimb'];
-		$data['servicetax2']=(($data['reimb1']*$data['servicetax'])/100);
-		$data['penalty1'] = $data['cancelorders']*$data['penalty'];
-		$data['servicetax3']=(($data['penalty1']*$data['servicetax'])/100);
-		$data['total1']=$data['commision1']+$data['servicetax1'];
-		$data['total2']=$data['reimb1']+$data['servicetax2'];
-		$data['total3']=$data['penalty1']+$data['servicetax3'];
-		$data['totalbill']=$data['total1']+$data['total2']+$data['total3'];
-		$data['netamount']=$data['cost']-$data['totalbill'];
+
+
+
+		$data['netamount1']=$data['penalty']+$data['commission']+$data['reimb'];
+		$data['giveback']=$data['netordervalue']+$data['tax']-$data['netamount1'];
 		
-
-
+		
 		$html =$this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
 		$filename = $restaurant->restaurant_name;
 		if($type == "pdf"){
@@ -309,8 +296,8 @@ class Orders extends Admin_Controller {
 		$this->load->library('m_pdf');
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
-	    //redirect("http://localhost/grazzyweb/".$filename);
-		redirect("http://app.eatsapp.in/".$filename);
+	    redirect("http://localhost/grazzyweb/".$filename);
+		//redirect("http://app.eatsapp.in/".$filename);
 
 	}
 

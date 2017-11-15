@@ -130,7 +130,7 @@
                         <td>Period:</td>
                         <td><?=$fromdate;?></td>
                         <td>to</td>
-                        <td><?=$todate1;?></td>
+                        <td><?=$todate;?></td>
                     </tr>
             
                 
@@ -138,27 +138,23 @@
           
 				
 					<tr class="item">
-						<td>Value of orders forwarded</td>
+						<td>Value of Orders Forwarded</td>
                         <td></td>
                          <td>Rs.</td>
  
- 
-
-   
-                     <td> <?=$cost;?></td> 
+                         <td> <?=$netordervalue;?></td> 
                          
-                        
-					</tr>
+                         </tr>
                     
 
 					<tr class="item">
 						<td>
-							Commission
+							GST Collected on behalf of Restaurant
 						</td>
 						<td></td>
                         <td></td>
                        <td>
-							<?=$commission;?>%
+							<?=$tax;?>
 						</td>
 
 					</tr>
@@ -171,198 +167,63 @@
                         <td>Rs.</td>
                         <!-- <td>2500.00</td> -->
                         <td>
-                            <?=$commision1;?>
+                            <?=$commission;?>
                         </td> 
                     </tr>
 
                    
 
 					<tr class="item">
-						<td>GST</td>
+						<td>Penalty</td>
 						<td></td>
                         <td></td>
                        <!--  <td>15%</td> -->
-						<td> <?=$servicetax;?>%</td> 
+						<td> <?=$penalty;?></td> 
 					</tr>
                     <tr class="item last">
-                        <td> GST</td>
+                        <td> Reimbursement of Delivery charges</td>
                         <td></td>
                         <td>Rs.</td>
-                        <td> <?=$servicetax1;?></td> 
+                        <td> <?=$reimb;?></td> 
                     </tr>
                    
                    
                    
 
 					<tr class="total">
-						<td>Total</td>
+						<td>Net Amount of Service provided</td>
 						 <td></td>
                          <td>Rs.</td>
                          <!-- <td>2875.00</td> -->
 						<td>
-						   <?=$total1;?>
+						   <?=$netamount1;?>
 						</td> 
 					</tr>
                 
           
             
-            
-				<tr class="item">
-						<td>Number of Orders</td>
-						<td></td>
-                        <td></td>
-                        <td>
-                        <?=$noorders;?></td>
-						
-					</tr>
-
-					<tr class="item">
+                  <tr class="item">
 						<td>
-							Reimbursement of Delivery Charges
+							eatsapp Keep Amount
 						</td>
 						<td> </td>
                         <td></td>
 						<td>
-							<?=$reimb;?>
+							<?=$netamount1;?>
 						</td> 
 					</tr>
-                    <tr class="item">
-                        <td>
-                            Reimbursement of Delivery Charges
-                        </td>
-                        <td> </td>
-                        <td>Rs.</td>
-                      <td>
-                            <?=$reimb1;?>
-                        </td>
-                    </tr>
+                    
 					
-					<tr class="item">
-						<td>GST</td>
-						 <td></td>
-                         <td></td>
-						<td>
-						   <?=$servicetax;?>%
-						</td> 
-					</tr>
-                    <tr class="item last">
-                        <td>GST</td>
-                         <td></td>
-                         <td>Rs.</td>
-                          <!-- <td>750.00</td> -->
-                        <td>
-                           <?=$servicetax2;?>
-                        </td> 
-                    </tr>
+					
                     
                     <tr class="total">
-                        <td></td>
-                         <td></td>
-                          <td>Rs.</td>
-                         <td>
-                           <?=$total2;?>
-                        </td>
-                    </tr>
-                
-           
-
-            
-                
-                    <tr class="item">
-                        <td>Number of Orders Cancelled</td>
-                        <td></td>
-                        <td></td>
-                       
-                         <td>
-                           <?=$cancelorders;?>
-                        </td> 
-                       
-                    </tr>
-                    <tr class="item">
-                        <td>
-                            Penalty
-                        </td>
-                        <td> </td>
-                        <td></td>
-                        <!--  <td>10.00 </td> -->
-                        <td>
-                           <?=$penalty;?>
-                        </td> 
-                    </tr>
-
-                    <tr class="item">
-                        <td>
-                            Penalty
-                        </td>
-                        <td> </td>
-                        <td>Rs.</td>
-                        <td>
-                           <?=$penalty1;?>
-                        </td> 
-                    </tr>
-                    
-                    <tr class="item">
-                        <td>GST</td>
-                         <td></td>
-                         <td></td>
-                        
-                       <td>
-                          <?=$servicetax;?>%
-                        </td>
-                    </tr>
-                      <tr class="item last">
-                        <td>GST</td>
-                         <td></td>
-                          <td>Rs.</td>
-                          <td>
-                          <?=$servicetax3;?>
-                        </td> 
-                    </tr>
-                    <tr class="total">
-                        <td></td>
-                         <td></td>
-                          <td>Rs.</td>
-                          
-                       <td>
-                          <?=$total3;?>
-                        </td> 
-                    </tr>
-                    
-                    
-                <tr class="item">
-                        <td>Total Bill(Keep Amount)</td>
-                         <td></td>
-                        <td>Rs.</td>
-                        <!-- <td>8935.50</td> -->
-                        <td><?=$totalbill;?> </td>
-                       
-                    </tr>
-                    <tr class="item">
-                        <td>
-                            Value of orders forwarded
-                        </td>
-                         <td></td>
-                        <td>Rs.</td>
-                        <td><?=$cost;?> </td>
-                        <!-- <td>
-                            25000.00
-                        </td> -->
-                    </tr>
-                    <tr class="item">
-                        <td> Amount due to us(Keep Amount)</td>
-                        <td></td>
-                        <td>Rs.</td>
-                       
-                         <td><?=$totalbill;?> </td>
-                    </tr>
-                    <tr class="total">
-                        <td>Netamount payable to you</td>
+                        <td>Give Back</td>
                          <td></td>
                          <td>Rs.</td>
                        <!--  <td>
                            16064.50
                         </td> -->
-                      <td><?=$netamount;?> </td>
+                      <td><?=$giveback;?> </td>
                     </tr>
                     
                     
