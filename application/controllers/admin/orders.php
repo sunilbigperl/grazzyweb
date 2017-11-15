@@ -430,13 +430,13 @@ class Orders extends Admin_Controller {
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('Fromdate','Todate','Value of orders forwarded','Commission%','Commission','GST%','GST','Total','Number of Orders','Reimbursement of Delivery Charges','Reimbursement of Delivery Charges','GST%','GST','Total','Number of Orders Cancelled','Penalty','Penalty','GST%','GST','Total','Total Bill(Keep Amount)','Value of orders forwarded','Amount due to us(Keep Amount)','Netamount payable to you'); //set title in excel sheet
+    $heading=array('Fromdate','Todate','Value of Orders Forwarded','GST Collected on behalf of Restaurant','Commission','Penalty','Reimbursement of Delivery charges','Net Amount of Service provided','eatsapp Keep Amount','Give Back'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
     
     $objPHPExcel->getActiveSheet()->getStyle($rowNumberH)->getFont()->setBold(true);
     
-	for($col = ord('A'); $col <= ord('X'); $col++){ //set column dimension 
+	for($col = ord('A'); $col <= ord('J'); $col++){ //set column dimension 
 		 $objPHPExcel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
          $objPHPExcel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
 	}
@@ -447,54 +447,53 @@ class Orders extends Admin_Controller {
     }
 
 
-	$sql1=$this->db->query("select SUM(total_cost) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$data['fromdate']."' and ordered_on <= '".$data['todate']."'  ");
+	$sql1=$this->db->query("select SUM(netordervalue),SUM(tax),SUM(commission) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$_SESSION['fromdate']."' and restaurant_manager_status='Accepted' and delivery_partner_status!='Rejected' and ordered_on <= '".$_SESSION['todate']."'  ");
 		
 		if($sql1->num_rows() > 0){
 			$res1	= $sql1->result_array();
-			$data['cost'] = $res1[0]['SUM(total_cost)'];
+			$data['netordervalue'] = $res1[0]['SUM(netordervalue)'];
+			$data['tax'] = $res1[0]['SUM(tax)'];
+			$data['commission'] = $res1[0]['SUM(commission)'];
 			
-		}else{
+			}else{
 
-			$data['cost'] = '';
-			
-		}
-
-		$sql = $this->db->query("select *,b.servicetax from restaurant a,charges b where a.restaurant_id ='".$id."' order by b.start_date desc limit 1 ");
-		if($sql->num_rows() > 0){
-			$res	= $sql->result_array();
-			$data['commission'] = $res[0]['commission'];
-			$data['commision1']=(($data['cost']*$data['commission'])/100);
-			$data['servicetax'] = $res[0]['servicetax'];
-			$data['servicetax1']=(($data['commision1']*$data['servicetax'])/100);
-			$data['total1']=$data['commision1']+$data['servicetax1'];
-			if($orders == 0){ $data['noorders'] = 0;}else{ $data['noorders'] = count($orders);	 }
-			$data['reimb'] = $res[0]['reimb'];
-			$data['reimb1'] = $data['noorders']*$data['reimb'];
-			$data['servicetax2']=(($data['reimb1']*$data['servicetax'])/100);
-			$data['total2']=$data['reimb1']+$data['servicetax2'];
-		 		if($corders == 0){ $data['cancelorders'] = 0;}else{ $data['cancelorders'] = count($corders); }
-			$data['penalty'] = $res[0]['penalty'];
-			$data['penalty1'] = $data['cancelorders']*$data['penalty'];
-			$data['servicetax3']=(($data['penalty1']*$data['servicetax'])/100);
-			$data['total3']=$data['penalty1']+$data['servicetax3'];
-			$data['totalbill']=$data['total1']+$data['total2']+$data['total3'];
-			$data['netamount']=$data['cost']-$data['totalbill'];
-		}else{
+			$data['netordervalue'] = '';
+			$data['tax'] = '';
 			$data['commission'] = '';
-			$data['commision1']='';
-			$data['servicetax'] = '';
-			$data['servicetax1']='';
-			$data['total1']='';
-			$data['reimb'] = '';
-			$data['reimb1'] = '';
-			$data['servicetax2']='';
-			$data['penalty'] = '';
-			$data['penalty1'] = '';
-			$data['servicetax3']='';
-			$data['total3']='';
-			$data['totalbill']='';
-			$data['netamount']='';
+			
 		}
+
+		$sql=$this->db->query("select SUM(reimb) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$_SESSION['fromdate']."' and restaurant_manager_status!='Rejected' and delivery_partner_status!='Rejected' and ordered_on <= '".$_SESSION['todate']."'  ");
+		
+		if($sql->num_rows() > 0){
+			$res1	= $sql->result_array();
+			$data['reimb'] = $res1[0]['SUM(reimb)'];
+			
+		}else{
+
+			$data['reimb'] = '';
+			
+			
+		}
+	
+		
+		 $sql2 = $this->db->query("select SUM(penalty) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$_SESSION['fromdate']."' and restaurant_manager_status!='Accepted' and delivery_partner_status!='Rejected'  and ordered_on <= '".$_SESSION['todate']."' ");
+		 if($sql2->num_rows() > 0){
+			$res	= $sql2->result_array();
+			$data['penalty'] = $res[0]['SUM(penalty)'];
+			
+		 }else{
+			$data['penalty'] = '';
+			
+		}
+
+
+
+		$data['netamount1']=$data['penalty']+$data['commission']+$data['reimb'];
+		$data['giveback']=$data['netordervalue']+$data['tax']-$data['netamount1'];
+
+
+		
 		
         $rowCount = 2; // set the starting row from which the data should be printed
      
@@ -502,28 +501,15 @@ class Orders extends Admin_Controller {
 
         $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $data['fromdate']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $data['todate']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $data['cost']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $data['commission']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $data['commision1']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $data['servicetax']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $data['servicetax1']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, $data['total1']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount, $data['noorders']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount, $data['reimb']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, $data['reimb1']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, $data['servicetax']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $data['servicetax2']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount, $data['total2']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount, $data['cancelorders']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount, $data['penalty']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount, $data['penalty1']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount, $data['servicetax']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount, $data['servicetax3']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount, $data['total3']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount, $data['totalbill']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('V'.$rowCount, $data['cost']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('W'.$rowCount, $data['totalbill']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('X'.$rowCount, $data['netamount']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $data['netordervalue']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $data['tax']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $data['commission']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $data['penalty']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $data['reimb']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, $data['netamount1']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount, $data['netamount1']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount, $data['giveback']);
+        
 
         
           
