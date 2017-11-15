@@ -60,7 +60,7 @@
 			<th data-field="Penalty">Penalty</th>
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
 			<th>Net amount</th>
-			<th>GST</th>
+			<!-- <th>GST</th> -->
 			<th>Keep amount for eatsapp</th>
 			<th>For Restaurant</th>
 			<!-- <th>Give to Customer</th> -->
@@ -179,18 +179,18 @@
 					 echo $netamount
 					?></td>
 				
-				<td>
+				<!-- <td>
 					<?php  if($order->delivery_partner_status == "Rejected"){
 						$servicetax1 = 0;
 					}else{
 						$servicetax1 =$netamount*($servicetax/100); 
 					}
 					echo $servicetax1;?>
-				</td>
+				</td> -->
 				<td><?php  if($order->delivery_partner_status == "Rejected"){
 						$keepamt = 0;
 					}else{
-						$keepamt =  $netamount+$servicetax1;
+						$keepamt =  $netamount;
 					}
 					echo $keepamt; ?></td>
 
