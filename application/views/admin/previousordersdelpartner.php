@@ -59,15 +59,36 @@
 		 data-search="true" id="table-pagination" data-sort-order="desc">		 
 	<thead>
 		<tr>
+
 			<!-- <th data-field="id">Order id</th> -->
 			<th data-field="date">Ordered date</th>
 			<th data-field="name">Order number</th>
 			<th>Customer Name</th>
 			<th>Customer Mobile</th> 
-			<th>Delivery Boy Name</th>
+			
+			<!-- <th>Delivery Boy Name</th> -->
+			
 			<th data-field="pickup">Pickup Location</th>
 			<th data-field="delivery">Delivery Location</th>
-		
+
+		    <th>Order value(Rs)</th>
+		   
+			<th>Convience charge</th>
+			<th>Discount(%)</th>
+			<th>Discount(Rs)</th>
+			<th>Net Order Value</th>
+			<th>GST on Net Order Value </th>
+			<th>Net Order Value fulfilled</th>
+			<th>GST on Net Order Value fulfilled</th>
+			<th data-field="Commission">Commission</th>
+			<th data-field="Penalty">Penalty</th>
+			<th data-field="Reimb">Reimbursement of delivery charges</th>
+			<th>Net amount</th>
+			<!-- <th>GST</th> -->
+			<th>Keep amount for eatsapp</th>
+			<th>Give to Restaurant</th>
+			<th>Give to Customer</th>
+			
 			<th data-field="price">Delivery Charge</th>
 				<!-- <th data-field="delprice">Reimbursement of Delivery charge</th> -->
 			<th data-field="distance">KM</th>
@@ -93,6 +114,7 @@
 			{
 				$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
 				$servicetax = $charges['servicetax'];
+				$deliverycharge1 = $charges['deliverycharge'];
 				$deliverycharge = $this->Order_model->DelPartnerDeliveryCharge($order->distance);
 				$orders1 = $this->Order_model->get_previousorders1($order->delivery_partner);
 				
@@ -110,9 +132,11 @@
 				<td>
 				<?php echo $order->phone; ?>
 				</td>
-				<td>
+				
+				<!-- <td>
 				<?php echo $order->name; ?>
-				</td>
+				</td> -->
+				
 				<?php 
 				$data['restaurant'] = $this->Restaurant_model->get_restaurant($order->restaurant_id);
 				$data['fromaddress'] = $data['restaurant']->restaurant_address;
@@ -131,6 +155,106 @@
 				
 					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
 				</td>
+
+				<td>
+				   <?php echo $order->total_amount; ?>
+				</td>
+
+				<td>
+					<?=$deliverycharge1; ?>
+				</td>
+
+				<td>
+                    
+					<?=$order->discount1; ?>
+				</td>
+				<td>
+					<?=$order->discount2; ?>
+				</td>
+				<td>
+				   <?php $netordervalue=$order->netordervalue;?> 
+					<?=$netordervalue; ?>
+				</td>
+				<td>
+				<?php $gstonnetordervalue=$order->tax;?> 
+				<?=$gstonnetordervalue; ?>
+				</td>
+				<td>
+					<?php  if($order->delivery_partner_status == "Rejected"){
+						$netordervalue1 = 0;
+					}elseif($order->restaurant_manager_status == "Accepted"){ $netordervalue1=$netordervalue ; }else{ $netordervalue1 = "0"; }
+					echo $netordervalue1;
+					?>
+				</td>
+
+				<td>
+					<?php  if($order->delivery_partner_status == "Rejected"){
+						$gstonnetordervalue1 = 0;
+					}elseif($order->restaurant_manager_status == "Accepted"){ $gstonnetordervalue1=$gstonnetordervalue; }else{ $gstonnetordervalue1 = "0"; }
+					echo $gstonnetordervalue1;
+					?>
+				</td>
+				
+				<td>
+					<?php  if($order->delivery_partner_status == "Rejected"){
+						$commission = 0;
+					}elseif($order->restaurant_manager_status == "Accepted"){ $commission = 
+						$order->commission; }else{ $commission = "0"; }
+					echo $commission;
+					?>
+				</td> 
+
+				<td>
+				<!-- (($order->total_cost * $order->penalty)/100) -->
+					<?php  if($order->delivery_partner_status == "Rejected"){
+						$penalty = 0;
+					}elseif($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{ $penalty = ($order->penalty);  }
+					echo $penalty;
+					?>
+				</td>
+				<td>
+					 <?php if($order->delivery_partner_status == "Rejected"){
+						$reimb =  0;
+					}elseif($order->restaurant_manager_status == "Rejected"){
+						$reimb = 0;
+					}else{
+						$reimb = $order->reimb; 
+					}
+					echo $reimb;
+					?>
+				</td>
+				<td><?php if($order->delivery_partner_status == "Rejected"){
+						$netamount = 0;
+					}else{
+						$netamount = $commission + $penalty + $reimb; ; 
+					}
+					 echo $netamount
+					?></td>
+
+					<td><?php  if($order->delivery_partner_status == "Rejected"){
+						$keepamt = 0;
+					}else{
+						$keepamt =  $netamount;
+					}
+					echo $keepamt; ?></td>
+				<td><?php if($order->delivery_partner_status == "Rejected"){
+						echo  0;
+					}elseif($order->restaurant_manager_status == "Accepted"){
+						//echo $order->total_cost - $keepamt;
+						echo $netordervalue+$gstonnetordervalue-$keepamt;
+					}else{
+						echo  "-".$keepamt;
+					}						?></td>
+				
+				<td><?php if($order->restaurant_manager_status == "Rejected"){
+					 $givetocust=$netordervalue+$gstonnetordervalue;
+				      echo $givetocust;
+					}elseif($order->delivery_partner_status== "Rejected"){
+						$givetocust=$netordervalue+$gstonnetordervalue;
+						echo $givetocust;
+					}else{
+						echo  0;
+					}?></td>
 				
 				<td>
 					<?php 
@@ -177,7 +301,7 @@
 				<!-- <?php echo $order->status; ?> --> 
 				 <?php if($order->delivery_partner_status == "Rejected"){ 
 						// echo "$order->status";
-				 	$username=$orders1[0]->username;
+				 	$username=$orders1[0]->firstname;
 				 	echo "Rejected by $username";
 					}elseif($order->delivery_partner_status == "Accepted"){
 						echo " $order->status";
