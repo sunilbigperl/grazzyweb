@@ -59,7 +59,7 @@
 		 data-search="true" id="table-pagination" data-sort-order="desc">		 
 	<thead>
 		<tr>
-
+           
 			<!-- <th data-field="id">Order id</th> -->
 			<th data-field="date">Ordered date</th>
 			<th data-field="name">Order number</th>
@@ -93,9 +93,9 @@
 				<!-- <th data-field="delprice">Reimbursement of Delivery charge</th> -->
 			<th data-field="distance">KM</th>
 			<th data-field="Penalty">Penalty</th>
-			<th>Net amount</th>
-			<th>GST</th>
-			<th>Total</th>
+			<!-- <th>Net amount</th>
+			<th>GST</th> -->
+			<th>Total Amount</th>
 			<!-- <th>Remarks</th> -->
 			
 			<th>Status</th>
@@ -285,10 +285,12 @@
 					echo $netamount;
 					?>
 				</td>
-				<td><?php $servicetax1 = (($netamount*$servicetax)/100); echo $servicetax1; ?></td>
-				<td>
+				<!--
+				<td><?php $servicetax1 = (($netamount*$servicetax)/100); echo $servicetax1; ?></td> -->
+				<!-- <td>
 					<?php echo $netamount+$servicetax1; ?>
-				</td>
+
+				</td> -->
 			
 				<!-- <td> 
 					<?php if($order->delivery_partner != 0 ){ ?>
