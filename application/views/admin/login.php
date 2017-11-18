@@ -61,14 +61,16 @@
 		
 		<?php if (!empty($message)): ?>
 			<div class="alert alert-success">
-				<a class="close" data-dismiss="alert">×</a>
+				<!-- <a class="close" data-dismiss="alert">×</a> -->
+				<a class="close" data-dismiss="alert"></a>
 				<?php echo $message; ?>
 			</div>
 		<?php endif; ?>
 
 		<?php if (!empty($error)): ?>
 			<div class="alert alert-error">
-				<a class="close" data-dismiss="alert">×</a>
+				<!-- <a class="close" data-dismiss="alert">×</a> -->
+				<a class="close" data-dismiss="alert"></a>
 				<?php echo $error; ?>
 			</div>
 		<?php endif; ?>
