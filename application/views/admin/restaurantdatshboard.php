@@ -53,7 +53,10 @@ echo "" . date("jS F Y") . "<br>";
 					<a href="#" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
 				</td>
 				<td>
-					<?=$order->total_amount; ?>
+				     <?php $cost=$order->total_amount-$order->discount1-$order->discount2+$order->tax;?>
+				     
+					<!-- <?=$order->total_amount; ?> -->
+					<?=$cost; ?>
 				</td>
 				<td>
 					<?=$order->ordered_on; ?>
