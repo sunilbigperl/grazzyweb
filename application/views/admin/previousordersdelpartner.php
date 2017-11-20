@@ -41,7 +41,7 @@
 
 <?php if(count($orders) > 0){?>
 <div class="btn-group">
-<?php if($this->auth->check_access('Admin')){ ?>
+<?php if($this->auth->check_access('Admin') ){ ?>
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/pdf') ?>" class="btn btn-xs btn-primary">Download pdf</a>
 	<?php } ?>
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a>
@@ -71,6 +71,7 @@
 			<th data-field="pickup">Pickup Location</th>
 			<th data-field="delivery">Delivery Location</th>
 
+            <?php if($this->auth->check_access('Admin')&& !isset($url) ){ ?>
 		    <th>Order value(Rs)</th>
 		   
 			<th>Convience charge</th>
@@ -88,7 +89,7 @@
 			<th>Keep amount for eatsapp</th>
 			<th>Give to Restaurant</th>
 			<th>Give to Customer</th>
-			
+			<?php } ?>
 			<th data-field="price">Delivery Charge</th>
 				<!-- <th data-field="delprice">Reimbursement of Delivery charge</th> -->
 			<th data-field="distance">KM</th>
@@ -155,7 +156,7 @@
 				
 					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
 				</td>
-
+                <?php if($this->auth->check_access('Admin') && !isset($url)){ ?>
 				<td>
 				   <?php echo $order->total_amount; ?>
 				</td>
@@ -255,7 +256,7 @@
 					}else{
 						echo  0;
 					}?></td>
-				
+				<?php } ?>
 				<td>
 					<?php 
 						echo $deliverycharge['rate'];
