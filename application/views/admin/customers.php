@@ -39,7 +39,7 @@ function areyousure()
 			<th>Phone No</th>
 			<!-- <th>Actions</th> -->
 			<th>Reviews & reatings</th>
-			<th>Download customerbill</th>
+			<!-- <th>Download customerbill</th> -->
 		</tr>
 	</thead>
 	
@@ -93,15 +93,15 @@ function areyousure()
 			<td>
 				<a href="#"  data-toggle="modal" data-target="#ratingdetails" class="btn btn-info btn-xs" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/customers/ShowReviewDetails/'.$customer->id.'');?>');">Reviews</a>
 			</td>
-			<td>
-			<div class="btn-group">
-			<!-- "<?php echo site_url($this->config->item('admin_folder').'/orders/restbill/'.$id.'/pdf'); ?>" -->
+			<!-- <td> -->
+			<!-- <div class="btn-group">
+			
              <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/custbill/'.$customer->id.'/pdf'); ?>" 
               class="btn btn-xs btn-primary">Customerbill pdf</a>
              <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/custrestbill/pdf'); ?>" 
              class="btn btn-xs btn-primary">CustomerRestbill pdf</a>
-            </div>
-			</td>
+            </div> -->
+			<!-- </td> -->
 		</tr>
 <?php endforeach;
 		if($page_links != ''):?>
