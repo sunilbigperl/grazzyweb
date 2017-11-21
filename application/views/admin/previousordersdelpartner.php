@@ -41,10 +41,14 @@
 
 <?php if(count($orders) > 0){?>
 <div class="btn-group">
-<?php if($this->auth->check_access('Admin') ){ ?>
+<!-- <?php if($this->auth->check_access('Admin') ){ ?>
 	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/pdf') ?>" class="btn btn-xs btn-primary">Download pdf</a>
 	<?php } ?>
-	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a>
+	<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$delpartner.'/xls') ?>" class="btn btn-xs btn-primary">Download xls</a> -->
+	<?php if($this->auth->check_access('Admin') ){ ?>
+	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/orders/GetDelpartnerBill/'.$delpartner); ?>"><i class="icon-plus-sign"></i>Download Pdf</a> 
+	<?php } ?>
+<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/orders/GetDelpartnerBill1/'.$delpartner); ?>"><i class="icon-plus-sign"></i>Download Excel </a>
 	
 </div>
 <?php if(isset($delpartner)){ ?>
@@ -257,13 +261,27 @@
 						echo  0;
 					}?></td>
 				<?php } ?>
+
 				<td>
+					 <?php if($order->delivery_partner_status == "Rejected"){
+						$delivery  =  0;
+						
+					}elseif($order->restaurant_manager_status == "Rejected"){
+						$delivery  = 0;
+						
+					}else{
+						$delivery = $deliverycharge['rate']; 
+					}
+					echo $delivery;
+					?>
+			<!-- 	</td> 
+			<td>
 					<?php 
 						echo $deliverycharge['rate'];
 						
 					 ?>
 					
-				</td>
+				</td>  -->
 				<td>
 					<?php echo isset($order->distance) ?  $order->distance : '';?>
 				</td>
