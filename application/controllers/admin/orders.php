@@ -779,6 +779,161 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		
 		
 	}
+
+	function delpartnerexcel($id)
+	{
+		$this->load->model('Deliveryboy_model');
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
+			$data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			// $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
+			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
+
+		}else{
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+
+		}
+		
+
+		$Deliveryboy       = $this->Deliveryboy_model->get_deliveryPartner($id);
+		$orders = $this->Deliveryboy_model->get_deliveryPartnerorders($id);
+		
+		$data['name'] = $Deliveryboy->firstname;
+		$data['email'] = $Deliveryboy->email;
+		 
+		
+	$this->load->library('excel');
+    //Create a new Object
+    $objPHPExcel = new PHPExcel();
+    // Set the active Excel worksheet to sheet 0
+    $objPHPExcel->setActiveSheetIndex(0); 
+
+    $heading=array('Ordered date','Order number','Customer Name','Customer Mobile','Pickup Location','Delivery Location','Delivery Charge','KM','Penalty','Total Amount','Status','Passcode'); //set title in excel sheet
+    $rowNumberH = 1; //set in which row title is to be printed
+    $colH = 'A'; //set in which column title is to be printed
+   
+    $objPHPExcel->getActiveSheet()->getStyle($rowNumberH)->getFont()->setBold(true);
+    
+	for($col = ord('A'); $col <= ord('L'); $col++){ //set column dimension 
+		 $objPHPExcel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
+         $objPHPExcel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
+	}
+    foreach($heading as $h){ 
+
+        $objPHPExcel->getActiveSheet()->setCellValue($colH.$rowNumberH,$h);
+        $colH++;    
+    }
+
+   // $data['restaurant'] = $this->Restaurant_model->get_restaurant($order->restaurant_id);
+			// 	$data['fromaddress'] = $data['restaurant']->restaurant_address;
+
+	$export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id 
+			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id   and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') and a.delivery_partner = '".$id."'
+			 order by ordered_on desc")->result_array();
+
+
+
+
+    $rowCount = 2; // set the starting row from which the data should be printed
+    foreach($export_excel as $excel)
+    {  
+    	$orders1 = $this->Order_model->get_previousorders1($excel['delivery_partner']);
+    	$deliverycharge = $this->Order_model->DelPartnerDeliveryCharge($excel['distance']);
+    	$deliverycharge1=$deliverycharge['rate'];
+		$data['restaurant'] = $this->Restaurant_model->get_restaurant($excel['restaurant_id']);
+
+		$data['fromaddress'] = $data['restaurant']->restaurant_address;
+         if($excel['order_type'] == 1 && $excel['pitstop_id ']!= ""){
+					$pitstop = $this->Pitstop_model->get_pitstop($excel['pitstop_id']);
+					$data['toaddress'] = $pitstop->address;
+				}else{
+					$data['toaddress'] = $excel['delivery_location'];
+				}
+
+
+		if($excel['delivery_partner_status'] == "Rejected"){
+						$delivery  =  0;
+						
+		}elseif($excel['restaurant_manager_status'] == "Rejected"){
+						$delivery  = 0;
+						
+		}else{
+				$delivery = $deliverycharge1; 
+			}
+
+	   $km=isset($excel['distance']) ?  $excel['distance'] : '';
+	
+	   if($excel['delivery_partner_status'] == "Accepted"){
+						$penalty=0;
+		}else{
+						$penalty=$excel['penalty'];
+			}
+
+
+	   if($excel['delivery_partner_status'] == "Accepted"){
+						$netamount = $deliverycharge['rate'];
+		}else{
+						
+						$netamount = $deliverycharge['rate'] - $excel['penalty'];
+			} 
+
+	    if($excel['delivery_partner_status'] == "Rejected"){ 
+						
+				 	$username=$orders1[0]->firstname;
+				 	$status="Rejected by $username";
+				 	//echo "Rejected by $username";
+					}elseif($excel['delivery_partner_status'] == "Accepted"){
+						$status=$excel['status'];
+						//echo " $order->status";
+					}elseif($excel['restaurant_manager_status'] == "Accepted"){
+						$status=$excel['status'];
+						//echo "$order->status ";
+					}
+					else{
+						$restaurantname=$excel['restaurant_name'];
+						$status="Rejected by $restaurantname";
+						//echo "Rejected by $order->restaurant_name";
+					} 
+					
+					
+		$objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['ordered_on']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['order_number']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['firstname']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['phone']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $data['fromaddress']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $data['toaddress']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$delivery);
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$km); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$penalty);
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$netamount); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$status);
+        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$excel['passcode']); 
+        
+         $rowCount++; 
+    } 
+        
+          
+         $filename = $Deliveryboy->firstname;
+         $fnamee = $filename.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".xls";
+	 	 
+
+    // Instantiate a Writer 
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
+
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="'.$fnamee.'" ');
+    header('Cache-Control: max-age=0');
+
+    $objWriter->save('php://output');
+    //exit();
+
+	$this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
+		
+		
+	}
 	function delpartnerbill($id,$type){
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
@@ -832,8 +987,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
 		
-		redirect("http://app.eatsapp.in/".$filename);
-		//redirect("http://localhost/grazzyweb/".$filename);
+		//redirect("http://app.eatsapp.in/".$filename);
+		redirect("http://localhost/grazzyweb/".$filename);
 	}
 	
 	function getOrderDetails(){

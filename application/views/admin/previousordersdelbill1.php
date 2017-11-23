@@ -1,6 +1,6 @@
 <?php $url = $this->uri->segment(4); if(isset($url)){ $idurl = $url; }else{ $idurl = ''; }  ?>
 <div class="container" style="margin-top:20px;margin-bottom:20px;">
-	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerbill/'.$idurl.'/pdf'); ?>" method="post">
+	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/orders/delpartnerexcel/'.$idurl.'/pdf'); ?>" method="post">
 		<div class="form-group">
 		  <label for="from date"><strong>from date:</strong></label>
 		  <input type="date" class="form-control" id="fromdate" name="fromdate">
