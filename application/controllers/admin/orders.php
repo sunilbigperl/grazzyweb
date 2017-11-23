@@ -801,8 +801,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		$Deliveryboy       = $this->Deliveryboy_model->get_deliveryPartner($id);
 		$orders = $this->Deliveryboy_model->get_deliveryPartnerorders($id);
 		
-		//$data['name'] = $Deliveryboy->firstname;
-		//$data['email'] = $Deliveryboy->email;
+		$data['name'] = $Deliveryboy->firstname;
+		$data['email'] = $Deliveryboy->email;
 		 
 		
 	$this->load->library('excel');
