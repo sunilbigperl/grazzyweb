@@ -784,16 +784,16 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 	{
 		$this->load->model('Deliveryboy_model');
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 			// $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
-			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
-			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
 		
@@ -801,8 +801,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		$Deliveryboy       = $this->Deliveryboy_model->get_deliveryPartner($id);
 		$orders = $this->Deliveryboy_model->get_deliveryPartnerorders($id);
 		
-		$data['name'] = $Deliveryboy->firstname;
-		$data['email'] = $Deliveryboy->email;
+		//$data['name'] = $Deliveryboy->firstname;
+		//$data['email'] = $Deliveryboy->email;
 		 
 		
 	$this->load->library('excel');
@@ -827,12 +827,9 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $colH++;    
     }
 
-   // $data['restaurant'] = $this->Restaurant_model->get_restaurant($order->restaurant_id);
-			// 	$data['fromaddress'] = $data['restaurant']->restaurant_address;
+   
 
-	$export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id 
-			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id   and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') and a.delivery_partner = '".$id."'
-			 order by ordered_on desc")->result_array();
+     $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') and a.delivery_partner = '".$id."' order by ordered_on desc ")->result_array();
 
 
 
