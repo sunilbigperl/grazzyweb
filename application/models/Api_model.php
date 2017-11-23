@@ -740,7 +740,7 @@ class Api_model extends CI_Model
 			$this->email->to('suggest.eatsapp@gmail.com');
 				$this->email->cc('gkamatagi@gmail.com');
 			//$this->email->bcc('lvijetha90@gmail.com');
-			$this->email->subject('EatsApp: pitstop suggestion');
+			$this->email->subject('EatsApp: Delivery Point suggestion');
 			$this->email->message($message);
 			$this->email->send(); 
 			return true; 
