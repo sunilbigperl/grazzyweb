@@ -799,5 +799,31 @@ function addcity(){
 		}
 		$this->view($this->config->item('admin_folder').'/charges_form',$data);
 	}
+
+
+	function ImportPasscode()
+	{
+			$target_file =  basename($_FILES["restaurantfile"]["name"]);
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+			$uploadOk = 0;
+			if($imageFileType == "csv"){
+				$uploadOk = 1;
+			}
+			if ($uploadOk == 1) {
+				
+				if (move_uploaded_file($_FILES["restaurantfile"]["tmp_name"], "uploads/" . basename($_FILES["restaurantfile"]["name"]))) {
+						$this->load->library('csvreader');
+						$result =   $this->csvreader->parse_file("uploads/".$_FILES["restaurantfile"]["name"]);//path to csv file
+						
+						$data['restaurants'] =  $result;
+						$this->Customer_model->InsertPasscode($data);
+						unlink("uploads/".$_FILES["restaurantfile"]["name"]); 
+						redirect('admin/customers/charges', 'refresh');
+						
+				}
+			
+			}
+		
+	}
 	
 }

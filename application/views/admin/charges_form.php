@@ -36,3 +36,12 @@
 		<input class="btn btn-primary" type="submit" value="<?php echo lang('save');?>"/>
 	</div>
 </form>
+
+<div style="display:block;clear:both;margin-top:40px">
+	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/customers/ImportPasscode'); ?>" method="post" enctype="multipart/form-data">
+		<div class="form-group">
+				<input type="file" name="restaurantfile" style="display:inline;">
+				<input type="submit" name="submit" value="Upload Passcode" class="btn btn-xs btn-primary">
+		</div>
+	</form>
+	</div>

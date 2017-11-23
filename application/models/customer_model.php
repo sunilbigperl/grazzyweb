@@ -630,5 +630,19 @@ Class Customer_model extends CI_Model
         
     }
 
+    function InsertPasscode($restaurants){
+        
+        foreach($restaurants as $men){
+            foreach($men as $restaurant){
+
+                
+                $sql =$this->db->query("INSERT INTO `passcode`(`passcode`) 
+                VALUES ('".$restaurant['Passcode']."')");
+                
+                
+            }
+        }
+    }
+
     
 }
