@@ -68,7 +68,7 @@ oTable.column( 1 ).visible( false );
 </div>
 <br/>
 <div style="display:block;clear:both;margin-bottom:40px;">
-	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/pitstop/ImportPitstops'); ?>" method="post" enctype="multipart/form-data">
+	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/here/Importhere'); ?>" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 				<input type="file" name="pitstopfile" style="display:inline;">
 				<input type="submit" name="submit" value="Upload" class="btn btn-xs btn-primary">
@@ -124,7 +124,7 @@ oTable.column( 1 ).visible( false );
 				<td><?=$pitstop->enabled;?></td>
 				<!-- <td><?php echo $this->Pitstop_model->CheckConnection($pitstop->pitstop_id); ?></td> -->
 				<td><a href="<?php echo site_url($this->config->item('admin_folder').'/here/form/'.$pitstop->id); ?>" class="btn btn-info btn-xs">Edit</a>
-				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/delete/'.$pitstop->id); ?>" class="btn btn-danger btn-xs">delete</a>
+				&nbsp;<a href="<?php echo site_url($this->config->item('admin_folder').'/here/delete/'.$pitstop->id); ?>" class="btn btn-danger btn-xs">delete</a>
 				<?php if($pitstop->enabled == 0) { ?>
 					<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/here/ChangeStatus/'.$pitstop->id."/1"); ?>">activate</a>
 					<?php } ?>

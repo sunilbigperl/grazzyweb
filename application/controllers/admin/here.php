@@ -126,4 +126,59 @@ class Here extends Admin_Controller {
         }
     }
 
+    function Importhere()
+	{
+			$target_file =  basename($_FILES["pitstopfile"]["name"]);
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+			$uploadOk = 0;
+			if($imageFileType == "csv"){
+				$uploadOk = 1;
+			}
+			if ($uploadOk == 1) {
+				
+				if (move_uploaded_file($_FILES["pitstopfile"]["tmp_name"], "uploads/" . basename($_FILES["pitstopfile"]["name"]))) {
+						$this->load->library('csvreader');
+						$result =   $this->csvreader->parse_file("uploads/".$_FILES["pitstopfile"]["name"]);//path to csv file
+						
+						$data['here'] =  $result;
+						$this->Here_model->Inserthere($data);
+						unlink("uploads/".$_FILES["pitstopfile"]["name"]); 
+						redirect('admin/here/index', 'refresh');
+						
+				}
+			
+			}
+		
+	}
+
+	function delete($id)
+    {
+        
+        $pitstop   = $this->Here_model->get_here($id);
+        //if the category does not exist, redirect them to the customer list with an error
+        if ($pitstop)
+        {
+            $this->Here_model->delete($id);
+            
+            $this->session->set_flashdata('message', "The Here location has been deleted.");
+            redirect($this->config->item('admin_folder').'/here');
+        }
+        else
+        {
+            $this->session->set_flashdata('error', lang('error_not_found'));
+        }
+    }
+
+    public function ChangeStatus($id=false,$status=false){
+		$enabled = $this->input->post('enabled');
+		$data['id'] = false == $this->input->post('pitid') ? $id : $this->input->post('pitid');
+		$data['enabled'] = isset($enabled) ? $enabled : 1;
+		$data['deactivatefrom'] = date('Y-m-d',strtotime($this->input->post('FromDate')));
+		$data['deactivateto'] = date('Y-m-d',strtotime($this->input->post('ToDate')));
+		$result = $this->Here_model->ChangeStatus($data);
+		if($result){
+			redirect("admin/here");
+		}
+	}
+
    }
