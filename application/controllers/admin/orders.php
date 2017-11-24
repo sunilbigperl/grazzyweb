@@ -920,10 +920,10 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 
 
 	   if($excel['delivery_partner_status'] == "Accepted"){
-						$netamount = $deliverycharge['rate'];
+						$netamount1 = $deliverycharge['rate'];
 		}else{
 						
-						$netamount = $deliverycharge['rate'] - $excel['penalty'];
+						$netamount1 = $deliverycharge['rate'] - $excel['penalty'];
 			} 
 
 	    if($excel['delivery_partner_status'] == "Rejected"){ 
@@ -1018,7 +1018,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$delivery);
         $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$km); 
         $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$penalty);
-        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$netamount); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$netamount1); 
         $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$status);
         $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$excel['passcode']);
          if($this->auth->check_access('Admin') && !isset($url)){ 
