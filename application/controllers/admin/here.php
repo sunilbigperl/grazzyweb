@@ -181,4 +181,12 @@ class Here extends Admin_Controller {
 		}
 	}
 
+	function Deleteall(){
+		// foreach($_POST['DeleteOptions'] as $key=>$DeleteOption){
+			$sql = $this->db->query('delete from here');
+			//$sql = $this->db->query('update pitstops set delete=1 where pitstop_id="'.$key.'"');
+		//}
+		redirect("admin/here");
+	}
+
    }

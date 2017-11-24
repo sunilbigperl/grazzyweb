@@ -83,7 +83,7 @@ oTable.column( 1 ).visible( false );
 
 
 
-<form action="<?php echo site_url($this->config->item('admin_folder').'/pitstop/Deleteall'); ?>" method="post">
+<form action="<?php echo site_url($this->config->item('admin_folder').'/here/Deleteall'); ?>" method="post">
 <input type="submit" name="submit" value="delete all" class="btn btn-xs btn-primary">
 <table class="table table-bordered" data-toggle="table"  id="table-pagination">		 
 	<thead>
