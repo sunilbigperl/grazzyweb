@@ -308,7 +308,7 @@ class Customers extends Admin_Controller {
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('CustomerName','Email','Phoneno','Date of Birth','Gender','Active','Profile_image','Address1','Address2','City_State','Location','Prominent Location1','Promient Location2','Pincode'); //set title in excel sheet
+    $heading=array('CustomerName','Email','Phoneno','Date of Birth','Gender','Active','Profile_image','Address1','Address2','Location','City_State','Prominent Location1','Promient Location2','Pincode'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
     
@@ -357,8 +357,8 @@ class Customers extends Admin_Controller {
         $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $excel['profile_image']);
         $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$data[0]['address1']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$data[0]['address2']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$data[0]['city_state']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$data[0]['location0']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$data[0]['location0']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$data[0]['city_state']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$data[0]['location1']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount,$data[0]['location2']);
          $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount,$data[0]['zip']); 
