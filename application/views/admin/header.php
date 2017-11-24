@@ -199,6 +199,7 @@
 						</ul>
 					</li>
 					<li><a href="<?php echo $admin_url;?>pitstop"><i class="fa fa-map-marker"></i>Delivery Point</a></li>
+					<li><a href="<?php echo $admin_url;?>here"><i class="fa fa-map-marker"></i>Here</a></li>
                    <!-- <li><a href="<?php echo $admin_url;?>orders/RequestBill"><i class="fa fa-home"></i> Request Bill <span class=""></span></a></li> -->
 					<li><a href="<?php echo $admin_url;?>orders/previousordersdelpartner"><i class="fa fa-shopping-cart"></i>Previous orders</a></li>
 					<li><a href="<?php echo $admin_url;?>customers"><i class="fa fa-users"></i>Customers</a></li>
