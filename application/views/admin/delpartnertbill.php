@@ -124,33 +124,32 @@
             </tr>
             
 					<tr class="item">
-						<td>&nbsp;</td>
-						<td>Deliveries</td>
-						<td>Rate</td>
-						<td>Delivery charge</td>
-					</tr>
-					<tr class="item">
-						<td> </td>
+						<td>Total Delivery Charge</td>
 						<td>
-							<?=$deliveries;?>
+							<?=$delivery;?>
 						</td>
-						<td> <?=$rate;?></td>
-						<td>
-							<?=$delivery_charge;?>
-						</td>
-					</tr>
+						
+					
 					<tr class="item last">
-						<td>GST</td>
-						<td></td>
-						<td><?=$servicetax1;?></td>
-						<td><?=$servicetax;?></td>
+						<td>Delivery Charge Post Discount</td>
+						<td><?=$delivery;?></td>
+						
 					</tr>
+                    <tr class="item last">
+                        <td>Penalty Charges</td>
+                        <td><?=$penalty;?></td>
+                        
+                    </tr>
+                    <tr class="item last">
+                        <td>Net Delivery Charges</td>
+                        <td><?=$netdeliverycharge;?></td>
+                        
+                    </tr>
 					<tr class="total">
-						<td>Total</td>
-						 <td></td>
-						  <td></td>
+						<td>Amount due to delivery partner</td>
+						 
 						<td>
-						  <?=$total;?>
+						  <?=$netdeliverycharge;?>
 						</td>
 					</tr>
               

@@ -1063,16 +1063,16 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 	}
 	function delpartnerbill($id){
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
-			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
-			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			// $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
-			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
-			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
         
@@ -1082,6 +1082,35 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		if($orders == 0){ $data['deliveries'] = 0;}else{ $data['deliveries'] = count($orders); }
 		$data['name'] = $Deliveryboy->firstname;
         $data['email'] = $Deliveryboy->email;
+
+        $sql1 = $this->db->query("SELECT SUM(b.rate) FROM `orders` a,delpartner_charges b WHERE b.fromKm <= a.distance and b.toKm >= a.distance and a.delivery_partner_status!='Rejected' and a.status!='Rejected ' and a.delivery_partner=b.delpartner_id and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') and a.delivery_partner = '".$id."' order by ordered_on desc limit 1");
+
+		if($sql1->num_rows() > 0){
+			$res	= $sql1->result_array();
+			$data['delivery'] = $res[0]['SUM(b.rate)'];
+           
+			
+		}else{
+			$data['delivery'] = '';
+			
+		}
+
+        $sql2 = $this->db->query("SELECT SUM(a.penalty) FROM `orders` a WHERE a.`delivery_partner_status`!='Accepted' and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') and a.delivery_partner = '".$id."' order by ordered_on desc  ");
+
+		if($sql2->num_rows() > 0){
+			$res	= $sql2->result_array();
+			$data['penalty'] = $res[0]['SUM(a.penalty)'];
+           
+			
+		}else{
+			$data['penalty'] = '';
+			
+		}
+
+		$data['netdeliverycharge'] = $data['delivery'] - $data['penalty'];
+		
+
+
 		$sql = $this->db->query("select * from charges where id = 1");
 		if($sql->num_rows() > 0){
 			$res	= $sql->result_array();
@@ -1096,10 +1125,10 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		$data['total']	=$data['delivery_charge']+ $data['servicetax'];
 		$html = $this->load->view($this->config->item('admin_folder').'/delpartnertbill',$data, true);
 		
-		//$filename = $Deliveryboy->firstname;
+		$filename = $Deliveryboy->firstname;
 		 // if($type == "pdf"){
-		 	 // $fnamee = $filename.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".pdf";
-		 	$fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".pdf";
+		 	 $fnamee = $filename.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".pdf";
+		 	// $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".pdf";
 			//$fnamee = rand()."purplkite0105201731052017.pdf";
 			$filename  = "bills/".$fnamee;
 		// }
