@@ -1075,11 +1075,9 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
 
 		}
-         $url = $this->uri->segment(4); if(isset($url)){ $idurl = $url; }else{ $idurl = ''; 
         
-        }  
 		$data['date'] = date("Y-m-d");
-		$Deliveryboy       = $this->Deliveryboy_model->get_deliveryPartner($url);
+		$Deliveryboy       = $this->Deliveryboy_model->get_deliveryPartner($id);
 		$orders = $this->Deliveryboy_model->get_deliveryPartnerorders($id);
 		if($orders == 0){ $data['deliveries'] = 0;}else{ $data['deliveries'] = count($orders); }
 		$data['name'] = $Deliveryboy->firstname;
@@ -1118,8 +1116,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
 		
-		redirect("http://app.eatsapp.in/".$filename);
-		//redirect("http://localhost/grazzyweb/".$filename);
+		//redirect("http://app.eatsapp.in/".$filename);
+		redirect("http://localhost/grazzyweb/".$filename);
 	}
 	
 	function getOrderDetails(){
