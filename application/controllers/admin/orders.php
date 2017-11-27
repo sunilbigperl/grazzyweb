@@ -1145,8 +1145,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
 		
-		//redirect("http://app.eatsapp.in/".$filename);
-		redirect("http://localhost/grazzyweb/".$filename);
+		redirect("http://app.eatsapp.in/".$filename);
+		//redirect("http://localhost/grazzyweb/".$filename);
 	}
 	
 	function getOrderDetails(){
