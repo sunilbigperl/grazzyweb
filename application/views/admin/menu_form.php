@@ -50,20 +50,20 @@ function remove_option(id)
 			<div class="form-group">		
 				<label for="name"><?php echo lang('name');?></label>
 				<?php
-				$data	= array('name'=>'menu', 'value'=>set_value('menu', $menu), 'class'=>'form-control');
+				$data	= array('name'=>'menu', 'value'=>set_value('menu', $menu), 'class'=>'form-control','style'=>'width:70%');
 				echo form_input($data);
 				?>
 			</div>
 			<div class="form-group">
 				<label for="name">Menu code</label>
 				<?php
-				$data	= array('name'=>'code', 'value'=>set_value('code', $code), 'class'=>'form-control');
+				$data	= array('name'=>'code', 'value'=>set_value('code', $code), 'class'=>'form-control','style'=>'width:70%');
 				echo form_input($data);
 				?>
 			</div>
 			<div class="form-group">	
 				<label for="type">Type</label>
-				<select name="type" class="form-control">
+				<select name="type" class="form-control" style="width:70%;!">
 					<option value="">Select veg/nonveg</option>
 					<option value="veg" <?php if($type == "veg"){echo "selected";}?>>veg</option>
 					<option value="non veg" <?php if($type == "non veg"){echo "selected";}?>>non veg</option>
@@ -81,13 +81,13 @@ function remove_option(id)
 			<div class="form-group">
 				<label for="price">Price</label>
 				<?php
-				$data	= array('name'=>'price', 'value'=>set_value('price', $price), 'class'=>'form-control');
+				$data	= array('name'=>'price', 'value'=>set_value('price', $price), 'class'=>'form-control','style'=>'width:70%');
 				echo form_input($data);
 				?>
 			</div>
 			<div class="form-group">
 				<label for="name">Item preparation time(In mins)</label>
-				<select class="form-control" name="itemPreparation_time">
+				<select class="form-control" name="itemPreparation_time" style="width:70%;!">
 					<option value="1" <?php if($itemPreparation_time == 1){echo "selected=selected"; }?>>1</option>
 					<option value="2" <?php if($itemPreparation_time == 2){echo "selected=selected"; }?>>2</option>
 					<option value="5" <?php if($itemPreparation_time == 5){echo "selected=selected"; }?>>5</option>
@@ -103,11 +103,11 @@ function remove_option(id)
 			</div>
 			<div class="form-group">
 				<label for="description">Description</label>
-				<textarea name="description" class="form-control"><?=$description;?></textarea>
+				<textarea name="description" class="form-control" style="width:400px;!"><?=$description;?></textarea>
 			</div>
 			<div class="form-group">	
 				<label for="enabled"><?php echo lang('enabled');?> </label>
-        		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class=form-control'); ?>
+        		<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'style=width:70%;! ','class=form-control' ); ?>
 			</div>
 			</div>
 			<div class="col-sm-6">
