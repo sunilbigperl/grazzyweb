@@ -130,21 +130,21 @@
 						</td>
 						
 					
-					<tr class="item last">
+					<!-- <tr class="item last">
 						<td>Delivery Charge Post Discount</td>
 						<td><?=$delivery;?></td>
 						
-					</tr>
+					</tr> -->
                     <tr class="item last">
                         <td>Penalty Charges</td>
                         <td><?=$penalty;?></td>
                         
                     </tr>
-                    <tr class="item last">
+                    <!-- <tr class="item last">
                         <td>Net Delivery Charges</td>
                         <td><?=$netdeliverycharge;?></td>
                         
-                    </tr>
+                    </tr> -->
 					<tr class="total">
 						<td>Amount due to delivery partner</td>
 						 
