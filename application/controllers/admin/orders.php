@@ -247,9 +247,9 @@ class Orders extends Admin_Controller {
 
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
-			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
-			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
-			$data['todate1'] = $_SESSION['todate1'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			// $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
+			// $data['todate1'] = $_SESSION['todate1'] = date("Y-m-d",strtotime($this->input->post('todate')));
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
@@ -1084,6 +1084,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $data['email'] = $Deliveryboy->email;
 
         $sql1 = $this->db->query("SELECT SUM(b.rate) FROM `orders` a,delpartner_charges b WHERE b.fromKm <= a.distance and b.toKm >= a.distance and a.delivery_partner_status!='Rejected' and a.status!='Rejected ' and a.delivery_partner=b.delpartner_id and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') and a.delivery_partner = '".$id."' order by ordered_on desc");
+        
 
 
 		if($sql1->num_rows() > 0){
