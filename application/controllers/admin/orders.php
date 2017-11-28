@@ -272,7 +272,7 @@ class Orders extends Admin_Controller {
 		$data['email'] = $restaurant->restaurant_email;
 		
 		
-		 $sql1=$this->db->query("select SUM(netordervalue),SUM(tax),SUM(commission) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$_SESSION['fromdate']."' and restaurant_manager_status='Accepted' and delivery_partner_status!='Rejected' and ordered_on <= '".$_SESSION['todate']."'  ");
+		 $sql1=$this->db->query("select SUM(netordervalue),SUM(tax),SUM(commission) FROM `orders` where restaurant_id='".$id."' and ordered_on >='".$_SESSION['fromdate']."' and restaurant_manager_status='Accepted' and delivery_partner_status!='Rejected' and status!='Rejected' and ordered_on <= '".$_SESSION['todate']."'  ");
 		
 		if($sql1->num_rows() > 0){
 			$res1	= $sql1->result_array();
