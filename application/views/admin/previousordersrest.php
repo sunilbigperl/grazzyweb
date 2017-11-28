@@ -193,10 +193,10 @@
 					}						?></td>
 				
 				<td><?php if($order->restaurant_manager_status == "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue;
+					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge;
 				      echo $givetocust;
 					}elseif($order->delivery_partner_status== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue;
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge;
 						echo $givetocust;
 					}else{
 						echo  0;
