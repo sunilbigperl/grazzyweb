@@ -26,13 +26,28 @@
 				echo form_input($data);
 				?>
 			</div>
-			<div class="form-group">	
+			<!-- <div class="form-group">	
 				<label for="pitstop_address">City</label>
 				<?php
 				$data	= array('name'=>'city', 'value'=>set_value('city', $city), 'class'=>'form-control');
 				echo form_input($data);
 				?>
-			</div>
+			</div> -->
+
+			<div class="form-group">
+				<label for="restaurant_address">City</label>
+				<select name="city" class="form-control" required>
+
+					<!-- <option value="">Select city</option> -->
+
+					<?php foreach($getpitstop as $class):?>
+						
+                     <option value="<?php echo $class['city'];?>" <?php if($class['city']==$city){echo "selected";}?>><?php echo $class['city'];?> 
+                     </option>
+                      <?php endforeach;?> 
+                      </select>
+                    
+			     </div>
 			<!-- <div class="form-group">	
 				<label for="pitstop_address">Delivery Point langitude</label>
 				<?php

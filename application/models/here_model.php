@@ -70,4 +70,10 @@ Class Here_model extends CI_Model
         }
 		
 	}
+
+    function get_class()
+    {
+       $class=$this->db->get('pitstopcity');
+       return $class->result_array();
+    }
 }

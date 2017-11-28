@@ -37,7 +37,7 @@ class Here extends Admin_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-        //$data['getpitstop'] = $this->Pitstop_model->get_class();
+        $data['getpitstop'] = $this->Here_model->get_class();
         //$data['pitstops']     = $this->Pitstop_model->get_pitstops_tiered();
         $data['page_title']     = lang('category_form');
         
