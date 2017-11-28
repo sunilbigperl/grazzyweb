@@ -1083,7 +1083,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		$data['name'] = $Deliveryboy->firstname;
         $data['email'] = $Deliveryboy->email;
 
-        $sql1 = $this->db->query("SELECT SUM(b.rate) FROM `orders` a,delpartner_charges b WHERE b.fromKm <= a.distance and b.toKm >= a.distance and a.delivery_partner_status!='Rejected' and a.status!='Rejected ' and a.delivery_partner=b.delpartner_id and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') and a.delivery_partner = '".$id."' order by ordered_on desc limit 1");
+        $sql1 = $this->db->query("SELECT SUM(b.rate) FROM `orders` a,delpartner_charges b WHERE b.fromKm <= a.distance and b.toKm >= a.distance and a.delivery_partner_status!='Rejected' and a.status!='Rejected ' and a.delivery_partner=b.delpartner_id and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') and a.delivery_partner = '".$id."' order by ordered_on desc");
+
 
 		if($sql1->num_rows() > 0){
 			$res	= $sql1->result_array();
@@ -1145,8 +1146,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $this->m_pdf->pdf->WriteHTML($html);
 		$this->m_pdf->pdf->Output($filename, "F");
 		
-		redirect("http://app.eatsapp.in/".$filename);
-		//redirect("http://localhost/grazzyweb/".$filename);
+		//redirect("http://app.eatsapp.in/".$filename);
+		redirect("http://localhost/grazzyweb/".$filename);
 	}
 	
 	function getOrderDetails(){
