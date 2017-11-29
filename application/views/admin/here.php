@@ -112,9 +112,10 @@ oTable.column( 1 ).visible( false );
 			<tr class="gc_row" id="<?=$pitstop->id;?>">
 				<td></td>
 				<td data-hidden="true"><?=$pitstop->id;?></td>
-				<td><input type="checkbox" style="display:none;" name="DeleteOptions[<?=$pitstop->id;?>]" id="DeleteOption<?=$pitstop->id;?>" class="DeleteOption">
+				<!-- <td><input type="checkbox" style="display:none;" name="DeleteOptions[<?=$pitstop->id;?>]" id="DeleteOption<?=$pitstop->id;?>" class="DeleteOption">
 					<?=$pitstop->name;?>
-				</td>
+				</td> -->
+				<td><?=$pitstop->name;?></td>
 				<td><?=$pitstop->city;?></td>
 				<td>
 					<?=$pitstop->coordinates; ?>
