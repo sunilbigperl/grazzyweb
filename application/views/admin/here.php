@@ -23,7 +23,7 @@ var oTable = $('#table-pagination').DataTable( {
 		   filename: 'HereLocationInformation',
            footer: false,
 		   exportOptions: {
-                    columns: [2, 3, 4]
+                    columns: [2, 3, 4,5]
             },
 			aoColumns: [{ "sTitle": "name" }],
 			"columnDefs": [{
@@ -92,7 +92,7 @@ oTable.column( 1 ).visible( false );
 			<th data-field="id" data-hidden="true">Sl.No</th>
 			<th>Here Location name</th>
 			<th>City</th>
-			<!-- <th>Coordinates</th> -->
+			<th>Coordinates</th>
 			<!-- <th>Longitude</th> -->
 			<th>Enabled</th>
 			<!-- <th>Connected</th> -->
@@ -117,9 +117,9 @@ oTable.column( 1 ).visible( false );
 					<?=$pitstop->name;?>
 				</td>
 				<td><?=$pitstop->city;?></td>
-				<!-- <td>
+				<td>
 					<?=$pitstop->coordinates; ?>
-				</td> -->
+				</td>
 				<!-- <td><?=$pitstop->langitude;?></td> -->
 				<td><?=$pitstop->enabled;?></td>
 				<!-- <td><?php echo $this->Pitstop_model->CheckConnection($pitstop->pitstop_id); ?></td> -->
