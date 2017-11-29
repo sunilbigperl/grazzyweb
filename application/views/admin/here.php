@@ -67,15 +67,15 @@ oTable.column( 1 ).visible( false );
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/here/form'); ?>"><i class="icon-plus-sign"></i> Add new Here Location</a>
 </div>
 <br/>
-<div style="display:block;clear:both;margin-top:40px">
+<div style="display:block;clear:both;margin-bottom:40px;">
 	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/here/ImportHere'); ?>" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 				<input type="file" name="restaurantfile" style="display:inline;">
 				<input type="submit" name="submit" value="Upload" class="btn btn-xs btn-primary">
 		</div>
 	</form>
-	</div>
-
+	<!-- <a href="../../UseThisFileToImportPitstops.csv" style="text-decoration:underline">(Download the delivery point import format)</a> -->
+</div>
 <!-- <a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/get_pitstop_list');?>"><i class="icon-download"></i>Export Connected Delivery Point</a> -->
 
 
@@ -118,7 +118,7 @@ oTable.column( 1 ).visible( false );
 				<td><?=$pitstop->city;?></td>
 				<td>
 					<?=$pitstop->coordinates; ?>
-				</td>
+				</td> 
 				<!-- <td><?=$pitstop->langitude;?></td> -->
 				<td><?=$pitstop->enabled;?></td>
 				<!-- <td><?php echo $this->Pitstop_model->CheckConnection($pitstop->pitstop_id); ?></td> -->
