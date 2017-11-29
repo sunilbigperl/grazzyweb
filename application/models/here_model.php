@@ -42,15 +42,18 @@ Class Here_model extends CI_Model
 	
     }
 
-    function Inserthere($here){
-		
-		foreach($here as $men){
-			foreach($men as $pitstop){
-				$sql =$this->db->query("INSERT INTO `here`(`name`, `coordinates`, `city`, `enabled`) 
-				VALUES ('".$pitstop['Name']."','".$pitstop['coordinates']."','".$pitstop['city']."','".$pitstop['enabled']."')");
-			}
-		}
-	}
+    function InsertHere($restaurants){
+        
+        foreach($restaurants as $men){
+            foreach($men as $restaurant){
+
+                $sql =$this->db->query("INSERT INTO `here`(`name`,`city`,`coordinates`,`enabled`) 
+                VALUES ('".$restaurant['Here Location name']."','".$restaurant['City']."','".$restaurant['Coordinates']."','".$restaurant['Enabled']."')");
+                
+                
+            }
+        }
+    }
 
 	function delete($id)
     {

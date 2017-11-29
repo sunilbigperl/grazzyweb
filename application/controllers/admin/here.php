@@ -126,30 +126,30 @@ class Here extends Admin_Controller {
         }
     }
 
-    function Importhere()
-	{
-			$target_file =  basename($_FILES["pitstopfile"]["name"]);
-			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-			$uploadOk = 0;
-			if($imageFileType == "csv"){
-				$uploadOk = 1;
-			}
-			if ($uploadOk == 1) {
-				
-				if (move_uploaded_file($_FILES["pitstopfile"]["tmp_name"], "uploads/" . basename($_FILES["pitstopfile"]["name"]))) {
-						$this->load->library('csvreader');
-						$result =   $this->csvreader->parse_file("uploads/".$_FILES["pitstopfile"]["name"]);//path to csv file
-						
-						$data['here'] =  $result;
-						$this->Here_model->Inserthere($data);
-						unlink("uploads/".$_FILES["pitstopfile"]["name"]); 
-						redirect('admin/here/index', 'refresh');
-						
-				}
-			
-			}
-		
-	}
+    function ImportHere()
+    {
+            $target_file =  basename($_FILES["restaurantfile"]["name"]);
+            $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+            $uploadOk = 0;
+            if($imageFileType == "csv"){
+                $uploadOk = 1;
+            }
+            if ($uploadOk == 1) {
+                
+                if (move_uploaded_file($_FILES["restaurantfile"]["tmp_name"], "uploads/" . basename($_FILES["restaurantfile"]["name"]))) {
+                        $this->load->library('csvreader');
+                        $result =   $this->csvreader->parse_file("uploads/".$_FILES["restaurantfile"]["name"]);//path to csv file
+                        
+                        $data['restaurants'] =  $result;
+                        $this->Here_model->InsertHere($data);
+                        unlink("uploads/".$_FILES["restaurantfile"]["name"]); 
+                        redirect('admin/here/index', 'refresh');
+                        
+                }
+            
+            }
+        
+    }
 
 	function delete($id)
     {
