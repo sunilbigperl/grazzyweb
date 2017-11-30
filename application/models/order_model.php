@@ -349,7 +349,12 @@ Class order_model extends CI_Model
 			    //print_r($registatoin_ids[0]);exit;
 		     }
 
-		     $url =file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=MDSpiLUi&senderid=EATSAP&dest_mobileno=" .$registatoin_ids[0] ."&tempid=52492&message=We+regret+to+inform+you+that+the+Food+Outlet+you+selected+is+unable+to+accept+your+order+.+Please+order+from+some+other+Food+Outlet+.+We+will+refund+your+payment+within+5+working+days&response=Y");
+		     // $url =file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=MDSpiLUi&senderid=EATSAP&dest_mobileno=" .$registatoin_ids[0] ."&tempid=52492&message=We+regret+to+inform+you+that+the+Food+Outlet+you+selected+is+unable+to+accept+your+order+.+Please+order+from+some+other+Food+Outlet+.+We+will+refund+your+payment+within+5+working+days&response=Y");
+
+		     $url =file("http://193.105.74.159/api/v3/sendsms/plain?user=wolotech&password=FBXM0Fv4&&sender=EATSAP&SMSText=We+regret+to+inform+you+that+the+Food+Outlet+you+selected+is+unable+to+accept+your+order+.+Please+order+from+some+other+Food+Outlet+.+We+will+refund+your+payment+within+5+working+days&type=longsms&GSM=91".$registatoin_ids[0]." ");
+		     
+    
+
 	       }
             $query2 = $this->db->query("SELECT a.`email` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
 			if($query2->num_rows() > 0){
@@ -412,9 +417,11 @@ Class order_model extends CI_Model
 			//print_r($registatoin_ids[0]);exit;
 		}
 
-		$url =
-		     file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=MDSpiLUi&senderid=EATSAP&dest_mobileno=" .
-    	     $registatoin_ids[0] ."&tempid=52492&message=We+regret+to+inform+you+that+your+order+was+not+accepted+.+We+will+refund+your+payment+within+5+working+days&response=Y");
+		// $url =
+		//      file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=MDSpiLUi&senderid=EATSAP&dest_mobileno=" .
+  //   	     $registatoin_ids[0] ."&tempid=52492&message=We+regret+to+inform+you+that+your+order+was+not+accepted+.+We+will+refund+your+payment+within+5+working+days&response=Y");
+
+		$url =file("http://193.105.74.159/api/v3/sendsms/plain?user=wolotech&password=FBXM0Fv4&&sender=EATSAP&SMSText=We+regret+to+inform+you+that+your+order+was+not+accepted+.+We+will+refund+your+payment+within+5+working+days&type=longsms&GSM=91".$registatoin_ids[0]." ");
 	}
 
 	$query2 = $this->db->query("SELECT a.`email` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
