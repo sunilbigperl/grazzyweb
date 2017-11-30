@@ -681,25 +681,24 @@ class Api_model extends CI_Model
 		
 		if($sql){
         
-		$sql1 =$this->db->query("select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' and a.id=b.customer");
+		// $sql1 =$this->db->query("select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' and a.id=b.customer")->result_array();
 
-		if($sql1->num_rows()>0){
-                $i=0;
-				foreach($sql1->result_array() as $row){ 
-					$result[$i]['firstname'] = $row['firstname'];
+		// if($sql1->num_rows()>0){
+               
+		// 		foreach($sql1->result_array() as $row){ 
+		// 			$data[$i]['firstname'] = $row['firstname'];
 					
-				$i++;
-				}
-				// return $result;
+		// 		$i++;
+		// 		}
+		// 		// return $result;
 
-			}
-		return $result;
+		// 	}
+		//return $result;
 		$message="<h3>New restaurant suggestion</h3>
 	     <h6>Restaurant_name: ".$data['restaurant_name']."</h6>
 		<h6>Restaurant phone: ".$data['restaurant_phone']."</h6>
 		<h6>Restaurant address: ".$data['restaurant_address']."</h6>
 		<h6>Restaurant Email: ".$data['restaurant_email']."</h6>
-		<h6>Customername: ".$result['firstname']."</h6>
 		<h6>Customer id: ".$data['customer']."</h6>";
 
 			$config = Array(
