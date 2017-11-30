@@ -208,7 +208,7 @@ Class order_model extends CI_Model
 			//  echo "SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
 			// and d.ordertype_id =a.order_type and b.restaurant_manager = c.id   and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') ".$where."
 			//  order by ordered_on desc"; exit; 
-			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id 
+			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone,f.name FROM `orders` a, restaurant b, order_type d, admin c,customers e,delivery_boy f WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id and a.`delivered_by` = f.id
 			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id   and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."') ".$where."
 			 order by ordered_on desc");
 			
@@ -349,7 +349,7 @@ Class order_model extends CI_Model
 			    //print_r($registatoin_ids[0]);exit;
 		     }
 
-		     $url =file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=wolotech@654&senderid=EATSAP&dest_mobileno=" .$registatoin_ids[0] ."&tempid=52492&message=We+regret+to+inform+you+that+the+Food+Outlet+you+selected+is+unable+to+accept+your+order+.+Please+order+from+some+other+Food+Outlet+.+We+will+refund+your+payment+within+5+working+days&response=Y");
+		     $url =file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=MDSpiLUi&senderid=EATSAP&dest_mobileno=" .$registatoin_ids[0] ."&tempid=52492&message=We+regret+to+inform+you+that+the+Food+Outlet+you+selected+is+unable+to+accept+your+order+.+Please+order+from+some+other+Food+Outlet+.+We+will+refund+your+payment+within+5+working+days&response=Y");
 	       }
             $query2 = $this->db->query("SELECT a.`email` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
 			if($query2->num_rows() > 0){
@@ -413,7 +413,7 @@ Class order_model extends CI_Model
 		}
 
 		$url =
-		     file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=wolotech@654&senderid=EATSAP&dest_mobileno=" .
+		     file("http://123.63.33.43/blank/sms/user/urlsmstemp.php?username=wolotech&pass=MDSpiLUi&senderid=EATSAP&dest_mobileno=" .
     	     $registatoin_ids[0] ."&tempid=52492&message=We+regret+to+inform+you+that+your+order+was+not+accepted+.+We+will+refund+your+payment+within+5+working+days&response=Y");
 	}
 

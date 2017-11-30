@@ -69,8 +69,7 @@
 			<th data-field="name">Order number</th>
 			<th>Customer Name</th>
 			<th>Customer Mobile</th> 
-			
-			<!-- <th>Delivery Boy Name</th> -->
+			<th>Delivery Boy Name</th> 
 			
 			<th data-field="pickup">Pickup Location</th>
 			<th data-field="delivery">Delivery Location</th>
@@ -138,9 +137,9 @@
 				<?php echo $order->phone; ?>
 				</td>
 				
-				<!-- <td>
+				<td>
 				<?php echo $order->name; ?>
-				</td> -->
+				</td>
 				
 				<?php 
 				$data['restaurant'] = $this->Restaurant_model->get_restaurant($order->restaurant_id);
@@ -252,10 +251,10 @@
 					}						?></td>
 				
 				<td><?php if($order->restaurant_manager_status == "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue;
+					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1;
 				      echo $givetocust;
 					}elseif($order->delivery_partner_status== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue;
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1;
 						echo $givetocust;
 					}else{
 						echo  0;
