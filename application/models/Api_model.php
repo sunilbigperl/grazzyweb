@@ -677,17 +677,7 @@ class Api_model extends CI_Model
 
 		$sql =$this->db->query("insert into  restaurant_suggest (restaurant_name,restaurant_phone,restaurant_address,restaurant_email,customer) 
 		values('".$data['restaurant_name']."','".$data['restaurant_phone']."','".$data['restaurant_address']."','".$data['restaurant_email']."','".$data['customer']."')");
-		sql1=$this->db->query("select firstname,phone from customer where id='".$data['customer']."'");
-		if($sql1->num_rows()>0){
-				$i=0;
-				foreach($sql1->result_array() as $row){ 
-					$result['firstname'] = $row['firstname'];
-					$result['phone'] = $row['phone'];
-				$i++;
-				}
-				return $result;
-
-			}
+		
 		
 		if($sql){
 		$message="<h3>New restaurant suggestion</h3>
@@ -695,9 +685,9 @@ class Api_model extends CI_Model
 		<h6>Restaurant phone: ".$data['restaurant_phone']."</h6>
 		<h6>Restaurant address: ".$data['restaurant_address']."</h6>
 		<h6>Restaurant Email: ".$data['restaurant_email']."</h6>
-		<h6>Customername: ".$result['firstname']."</h6>
-		<h6>Customermobile: ".$result['phone']."</h6>";
-		 // <h6>Customer id: ".$data['customer']."</h6>";
+		
+		<h6>Customer id: ".$data['customer']."</h6>";
+
 			$config = Array(
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
@@ -730,26 +720,19 @@ class Api_model extends CI_Model
 		
 		$sql =$this->db->query("insert into  pitstop_suggest (restaurant_address,restaurant_latitude,restaurant_langitude,customer) values('".$data['restaurant_address']."',
 		'".$data['restaurant_latitude']."','".$data['restaurant_langitude']."','".$data['customer']."')");
-		$sql1=$this->db->query("select firstname,phone from customer where id='".$data['customer']."'");
-		if($sql1->num_rows()>0){
-				$i=0;
-				foreach($sql1->result_array() as $row){ 
-					$result['firstname'] = $row['firstname'];
-					$result['phone'] = $row['phone'];
-				$i++;
-				}
-				return $result;
+		
 
-			}
+		
 		
 		if($sql){
 			$message="<h3>New Delivery Point suggestion</h3>
 			<h6>Delivery Point address: ".$data['restaurant_address']."</h6>
 			<h6>Delivery Point latitude: ".$data['restaurant_latitude']."</h6>
 			<h6>Delivery Point longitude: ".$data['restaurant_langitude']."</h6>
-			<h6>Customername: ".$result['firstname']."</h6>
-			<h6>Customermobile: ".$result['phone']."</h6>
 			<h6>Customer id: ".$data['customer']."</h6>";
+             
+
+
 			   $config = Array(
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
