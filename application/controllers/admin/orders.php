@@ -167,7 +167,8 @@ class Orders extends Admin_Controller {
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
@@ -187,7 +188,8 @@ class Orders extends Admin_Controller {
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
@@ -207,7 +209,8 @@ class Orders extends Admin_Controller {
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
@@ -227,7 +230,9 @@ class Orders extends Admin_Controller {
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
@@ -248,17 +253,17 @@ class Orders extends Admin_Controller {
 		$todate=$this->input->post('todate');
 
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
-			// $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 			// $data['todate1'] = $_SESSION['todate1'] = date("Y-m-d",strtotime($this->input->post('todate')));
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
-			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
-			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
 		
@@ -583,16 +588,16 @@ function excel($id)
 
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
-			// $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime($this->input->post('fromdate')));
+			// $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
-			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
-			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
 		
@@ -765,7 +770,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         
           
          $rname= $restaurant->restaurant_name;
-	 	 $filename=$rname.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).'.xls'; //save our workbook as this file name
+	 	 $filename=$rname.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d H:i:s',strtotime($_SESSION['todate'])).'.xls'; //save our workbook as this file name
 
     // Instantiate a Writer 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
@@ -1046,7 +1051,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
           
          //$filename = $Deliveryboy->firstname;
          // $fnamee = $filename.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".xls";
-     $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".xls";
+     $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d H:i:s',strtotime($_SESSION['todate'])).".xls";
 	 	 
 
     // Instantiate a Writer 
@@ -1066,8 +1071,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 	function delpartnerbill($id){
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
-			// $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
+			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
@@ -1131,7 +1136,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		
 		$filename = $Deliveryboy->firstname;
 		 // if($type == "pdf"){
-		 	 $fnamee = $filename.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".pdf";
+		 	 $fnamee = $filename.date('Y-m-d H:i:s',strtotime($_SESSION['fromdate'])).date('Y-m-d H:i:s',strtotime($_SESSION['todate'])).".pdf";
 		 	// $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".pdf";
 			//$fnamee = rand()."purplkite0105201731052017.pdf";
 			$filename  = "bills/".$fnamee;
