@@ -1025,7 +1025,7 @@ class Api_model extends CI_Model
 		
    public function feedbackGet($data){
 		   
-		  $sql=$this->db->query("select id,user_feedback from feedback where customer_id='".$data['customer_id']."' ORDER BY DATE DESC");
+		  $sql=$this->db->query("select id,user_feedback,date from feedback where customer_id='".$data['customer_id']."' ORDER BY DATE DESC");
 		    $i=0;
 		if($sql->num_rows()>0){
 			$result[$i] = true;
@@ -1033,6 +1033,7 @@ class Api_model extends CI_Model
 			foreach($sql->result_array() as $row){
 			$result['data'][$i]['id']=$row['id']	;
 	        $result['data'][$i]['user_feedback']=$row['user_feedback']	;
+	        $result['data'][$i]['date']=$row['date']	;
 				$i++;	
 			}
 		
