@@ -64,7 +64,8 @@ class Orders extends Admin_Controller {
 
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = $_SESSION['fromdated'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todated'] = date("y-m-d H:i:s",strtotime($this->input->post('todate')));
+			// $data['todate'] = $_SESSION['todated'] = date("y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todated'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 			$delpartner_post = $this->input->post('delpartner');
 			$delpartner_get = $this->uri->segment(4);
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
@@ -102,7 +103,8 @@ class Orders extends Admin_Controller {
 		
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 			$data['delpartner'] = $this->input->post('delpartner');
 		}elseif($this->input->post('action') == "Previous Month"){
 			$data['fromdate'] = $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
@@ -132,8 +134,8 @@ class Orders extends Admin_Controller {
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
-			// $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
+			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
