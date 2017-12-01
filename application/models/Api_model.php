@@ -396,6 +396,7 @@ class Api_model extends CI_Model
 				$result[$i]['passcode'] = $row['passcode'];
 				$result[$i]['total_cost'] = $row['total_cost'];
 				$result[$i]['order_number'] = $row['order_number'];
+				$result[$i]['status'] = $row['status'];
 				
 				$sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and a.`delete`=0";
 				$query2 = $this->db->query($sql2);
