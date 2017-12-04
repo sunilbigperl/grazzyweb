@@ -17,7 +17,8 @@ class Login extends Base_Controller {
 		//if they are logged in, we send them back to the dashboard by default, if they are not logging in
 		if ($redirect)
 		{
-			redirect($this->config->item('admin_folder').'/customers');
+			//redirect($this->config->item('admin_folder').'/customers');
+			redirect($this->config->item('admin_folder'));
 		}
 		
 		
