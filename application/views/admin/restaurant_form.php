@@ -86,13 +86,12 @@
 
 
 
-				<?php if($this->auth->check_access('Admin')) {?>
+				
 				<div class="form-group">	
 					<label for="enabled"><?php echo lang('enabled');?> </label>
 					<?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class="form-control"'); ?>
 				</div>
-				<?php } ?>
-
+				
 				<div class="form-group">	
 					<label for="gst">GSTIN</label>
 					<input type="text" name="gst" value="<?=$gst?>" class="form-control" maxlength='15'  required>
