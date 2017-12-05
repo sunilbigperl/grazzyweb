@@ -682,7 +682,7 @@ class Api_model extends CI_Model
 		
 		if($sql){
         
-		$sql1 =$this->db->query("select firstname,phone from customers a,restaurant_suggest b where a.id='".$data['customer']."' ");
+		$sql1 =$this->db->query("select firstname,phone from customers where id='".$data['customer']."' ");
 			// echo "select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' ";exit;
          $i=0;
 		if($sql1->num_rows()>0){
@@ -744,10 +744,27 @@ class Api_model extends CI_Model
 		
 		
 		if($sql){
+			$sql1 =$this->db->query("select firstname,phone from customers where id='".$data['customer']."' ");
+			// echo "select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' ";exit;
+         $i=0;
+		if($sql1->num_rows()>0){
+               
+				foreach($sql1->result_array() as $row){ 
+					$user_data['firstname'] = $row['firstname'];
+					$user_data['phone'] = $row['phone'];
+					//echo $user_data[$i]['firstname'];exit;
+					
+				$i++;
+				}
+				
+
+			}
 			$message="<h3>New Delivery Point suggestion</h3>
 			<h6>Delivery Point address: ".$data['restaurant_address']."</h6>
 			<h6>Delivery Point latitude: ".$data['restaurant_latitude']."</h6>
 			<h6>Delivery Point longitude: ".$data['restaurant_langitude']."</h6>
+			<h6>CustomerName: ".$user_data['firstname']."</h6>
+		    <h6>Customer Mobile: ".$user_data['phone']."</h6>
 			<h6>Customer id: ".$data['customer']."</h6>";
              
 
