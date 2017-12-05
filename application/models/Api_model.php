@@ -688,7 +688,8 @@ class Api_model extends CI_Model
 		if($sql1->num_rows()>0){
                
 				foreach($sql1->result_array() as $row){ 
-					$user_data[$i]['firstname'] = $row['firstname'];
+					$user_data['firstname'] = $row['firstname'];
+					$user_data['phone'] = $row['phone'];
 					//echo $user_data[$i]['firstname'];exit;
 					
 				$i++;
@@ -702,8 +703,8 @@ class Api_model extends CI_Model
 		<h6>Restaurant phone: ".$data['restaurant_phone']."</h6>
 		<h6>Restaurant address: ".$data['restaurant_address']."</h6>
 		<h6>Restaurant Email: ".$data['restaurant_email']."</h6>
-		<h6>CustomerName: ".$user_data[$i]['firstname']."</h6>
-		<h6>Customer Mobile: ".$user_data[$i]['phone']."</h6>
+		<h6>CustomerName: ".$user_data['firstname']."</h6>
+		<h6>Customer Mobile: ".$user_data['phone']."</h6>
         <h6>Customer id: ".$data['customer']."</h6>";
 
 			$config = Array(
