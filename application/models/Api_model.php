@@ -111,8 +111,8 @@ class Api_model extends CI_Model
 	}
 	
 	public function getHereList(){
-		
 		$threadmsg = $this->db->query("select * from here order by name asc");
+		// $threadmsg = $this->db->query("select * from here WHERE `city` LIKE 'bangalore' order by name asc");
 
 			if($threadmsg->num_rows()>0){
 				$i=0;
@@ -682,25 +682,29 @@ class Api_model extends CI_Model
 		
 		if($sql){
         
-		// $sql1 =$this->db->query("select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' and a.id=b.customer")->result_array();
-
-		// if($sql1->num_rows()>0){
+		$sql1 =$this->db->query("select firstname,phone from customers a,restaurant_suggest b where a.id='".$data['customer']."' ");
+			// echo "select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' ";exit;
+         $i=0;
+		if($sql1->num_rows()>0){
                
-		// 		foreach($sql1->result_array() as $row){ 
-		// 			$data[$i]['firstname'] = $row['firstname'];
+				foreach($sql1->result_array() as $row){ 
+					$user_data[$i]['firstname'] = $row['firstname'];
+					//echo $user_data[$i]['firstname'];exit;
 					
-		// 		$i++;
-		// 		}
-		// 		// return $result;
+				$i++;
+				}
+				
 
-		// 	}
-		//return $result;
+			}
+		
 		$message="<h3>New restaurant suggestion</h3>
 	     <h6>Restaurant_name: ".$data['restaurant_name']."</h6>
 		<h6>Restaurant phone: ".$data['restaurant_phone']."</h6>
 		<h6>Restaurant address: ".$data['restaurant_address']."</h6>
 		<h6>Restaurant Email: ".$data['restaurant_email']."</h6>
-		<h6>Customer id: ".$data['customer']."</h6>";
+		<h6>CustomerName: ".$user_data[$i]['firstname']."</h6>
+		<h6>Customer Mobile: ".$user_data[$i]['phone']."</h6>
+        <h6>Customer id: ".$data['customer']."</h6>";
 
 			$config = Array(
 				'protocol' => 'smtp',
