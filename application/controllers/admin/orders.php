@@ -656,7 +656,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		if($excel['delivery_partner_status'] == "Rejected"){
 						$commission = 0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $commission = 
-						$excel['commission']; }else{ $commission = "0"; }
+						$netordervalue*($excel['commission']/100); }else{ $commission = "0"; }
 
 
 	    if($excel['delivery_partner_status'] == "Rejected"){
@@ -918,7 +918,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         if($excel['delivery_partner_status'] == "Rejected"){
 						$commission = 0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $commission = 
-						$excel['commission']; }else{ $commission = "0"; }
+						$netordervalue*($excel['commission']/100); }else{ $commission = "0"; }
 
 		
 		if($excel['delivery_partner_status'] == "Rejected"){
