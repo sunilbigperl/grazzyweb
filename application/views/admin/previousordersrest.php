@@ -136,7 +136,7 @@
 					<?php  if($order->delivery_partner_status == "Rejected"){
 						$commission = 0;
 					}elseif($order->restaurant_manager_status == "Accepted"){ $commission = 
-						$order->commission; }else{ $commission = "0"; }
+						$netordervalue*($order->commission/100); }else{ $commission = "0"; }
 					echo $commission;
 					?>
 				</td> 
