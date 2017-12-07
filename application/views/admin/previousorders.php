@@ -160,12 +160,18 @@
 					?>
 				</td>
 				<td>
-					 <?php if($order->delivery_partner_status == "Rejected"){
+					 <?php if($order->delivery_partner_status == "Rejected" ){
 						$reimb =  0;
-					}elseif($order->restaurant_manager_status == "Rejected"){
+					}elseif($order->restaurant_manager_status == "Rejected" ){
 						$reimb = 0;
 					}else{
-						$reimb = $order->reimb; 
+						if($order->order_type==3)
+						{
+							$reimb = 0;
+						}
+						else{
+						$reimb = $order->reimb;
+						} 
 					}
 					echo $reimb;
 					?>
