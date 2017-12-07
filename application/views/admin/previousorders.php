@@ -165,12 +165,14 @@
 					}elseif($order->restaurant_manager_status == "Rejected" ){
 						$reimb = 0;
 					}else{
-						if($order->order_type==3)
+						
+						if($order->order_type!="I'll pickup")
 						{
-							$reimb = 0;
+							$reimb = $order->reimb;
+							
 						}
 						else{
-						$reimb = $order->reimb;
+						    $reimb = 0;
 						} 
 					}
 					echo $reimb;
