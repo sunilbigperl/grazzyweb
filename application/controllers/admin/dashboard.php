@@ -8,7 +8,7 @@ class Dashboard extends Admin_Controller {
 
 		if($this->auth->check_access('Restaurant manager'))
 		{
-			redirect($this->config->item('admin_folder').'/restaurant');
+			redirect($this->config->item('admin_folder').'/orders/dashboard');
 		}
 		if($this->auth->check_access('Deliver manager')){
 			

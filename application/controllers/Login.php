@@ -19,6 +19,7 @@ class Login extends Base_Controller {
 		if ($redirect)
 		{
 			//redirect($this->config->item('admin_folder').'/customers');
+			redirect($this->config->item('admin_folder').'/dashboard');
 		}
 		
 		
