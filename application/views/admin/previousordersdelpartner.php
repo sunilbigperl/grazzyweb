@@ -121,7 +121,8 @@
 				$deliverycharge1 = $charges['deliverycharge'];
 				$deliverycharge = $this->Order_model->DelPartnerDeliveryCharge($order->distance);
 				$orders1 = $this->Order_model->get_previousorders1($order->delivery_partner);
-				
+				$orders2 = $this->Order_model->get_deliveryboy($order->delivered_by);
+				// print_r($orders2[0]->name);exit;
 				?>
 			<tr class="gc_row">
 				<!-- <td><?=$i;?></td> -->
@@ -138,7 +139,14 @@
 				</td>
 				
 				<td>
-				<?php echo $order->name; ?>
+				 <?php if($order->delivered_by == "0"){ ?>
+						No Deliveryboy
+					<?php }else{
+						// echo $order->delivered_by;
+						$beliveryboy=$orders2[0]->name;
+				 	    echo "$beliveryboy";
+					} ?>
+				
 				</td>
 				
 				<?php 
