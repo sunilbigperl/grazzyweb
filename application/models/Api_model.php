@@ -1028,7 +1028,7 @@ class Api_model extends CI_Model
 					$user_data['order_id'] = $row['order_id'];
 					$user_data['cost'] = $row['cost'];
 					$user_data['contents'] = $row['contents'];
-					
+					$user_data['email'] = $row['email'];
 					//echo $user_data[$i]['firstname'];exit;
 					
 				
