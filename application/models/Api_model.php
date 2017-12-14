@@ -179,8 +179,9 @@ class Api_model extends CI_Model
 	
 	public function delboyOrders($id){
 		//echo "select * from orders a , customers b, restaurant c where a.customer_id=b.id and a.restaurant_id = c.restaurant_id and a.delivered_by != 0 and a.delivered_by='".$id."' and a.order_type != 3"; exit;
-		$threadmsg = $this->db->query("select a.*, b.firstname,b.lastname, b.email, b.phone, c.* from orders a , customers b, restaurant c 
-		where a.customer_id=b.id and a.restaurant_id = c.restaurant_id and a.delivered_by != 0  and a.delivered_by='".$id."' and a.order_type != 3");
+		$threadmsg = $this->db->query("select a.*, b.firstname,b.lastname, b.email, b.phone, c.* from orders a , customers b, restaurant c where a.customer_id=b.id and a.restaurant_id = c.restaurant_id and a.delivered_by != 0  and a.delivered_by='".$id."' and a.order_type != 3 order by a.id desc");
+
+
 
 			if($threadmsg->num_rows()>0){
 				foreach($threadmsg->result_array() as $row){ 
