@@ -11,7 +11,7 @@
 <MARQUEE WIDTH=100% HEIGHT=100 >
 <?php if(isset($messages['data'])){
 	foreach($messages['data'] as $message){ ?> 
-	<div id="content" style="margin-right:20px;color:red;"><strong></strong> <?=$message['message']; ?></div>
+	<div style="margin-right:20px;color:red;"><strong></strong> <?=$message['message']; ?></div>
 <?php } } ?>
 </MARQUEE>
 </div>
