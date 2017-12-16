@@ -587,7 +587,7 @@ class Api_model extends CI_Model
 					$result[$i]['commission'] =  $discounts[0]['commission']; 
 					$result[$i]['penalty'] =  $discounts[0]['penalty']; 
 					$sql1 ="SELECT *,a.description FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
-					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
+					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1 order by a.`menu`";
 					//echo $sql1; exit;
                       
 					$query1 = $this->db->query($sql1);
@@ -1014,62 +1014,18 @@ class Api_model extends CI_Model
 	  
 	   public function userOrderEmail($data){
 		  
-		 // $sql=$this->db->query("select b.order_id,b.cost from orders a,order_items b where customer_id='".$data['customer_id']."' and a.id=b.order_id  "); 
-         //print_r($sql);exit;
-         $sql = $this->db->query("select a.*,b.*,c.*,d.*,e.order_type,f.email from order_items a, restaurant_menu b,restaurant c,orders d,order_type e,customers f  where a.menu_id=b.menu_id and c.restaurant_id=d.restaurant_id and d.customer_id=f.id and a.order_id=d.id and d.order_type=e.ordertype_id and customer_id='".$data['customer_id']."'");
-		 
-
-		 if($sql){
+		 $sql=$this->db->query("select order_id from order_items  "); 
+		 if($sql->num_rows()>0){
+			$data = $sql->result_array();
 			
-       
-		if($sql->num_rows()>0){
-               
-				foreach($sql->result_array() as $row){ 
-					$user_data['order_id'] = $row['order_id'];
-					$user_data['cost'] = $row['cost'];
-					$user_data['contents'] = $row['contents'];
-					$user_data['email'] = $row['email'];
-					//echo $user_data[$i]['firstname'];exit;
-					
-				
-				}
-				
-
-			}
-		
-		$message="<h3>Customer bill</h3>
-	    
-		<h6>Order id: ".$user_data['order_id']."</h6>
-		<h6>Custmization: ".$user_data['contents']."</h6>
-		<h6>Cost: ".$user_data['cost']."</h6>
-        ";
-
-			$config = Array(
-				'protocol' => 'smtp',
-				'smtp_host' => 'ssl://smtp.gmail.com',
-				'smtp_port' => 465,
-				'smtp_user' => 'suggest.eatsapp@gmail.com',
-				'smtp_pass' => 'devang123',
-				'mailtype'  => 'html', 
-				'charset'   => 'iso-8859-1',
-				'crlf' => "\r\n",
-				'newline' => "\r\n"
-			);
-
+			$result['data']['order_id'] =['order_id'];
+		//	$result['cost'] = $data[0]['langitude'];
 			
-			$this->load->library('email',$config);
-			$this->email->from('order@eatsapp.in', 'EatsApp');
-			$this->email->to($user_data['email']);
-			$this->email->cc('gkamatagi@gmail.com');
-			//$this->email->bcc('lvijetha90@gmail.com');
-
-			$this->email->subject('Order Details From Grazzy');
-			$this->email->message($message);
-			$this->email->send(); 
-			return true;
 		}else{
-			return false;
-		}	
+				$result['order_id'] = 0;
+				
+		}
+			return $result;
 		  
 		  
 		  
@@ -1077,6 +1033,7 @@ class Api_model extends CI_Model
 		  
 	  
 	   }
+
 
 	   public function delete_customer($data){
 	   
