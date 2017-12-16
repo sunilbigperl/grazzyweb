@@ -49,19 +49,11 @@ Class Menu_model extends CI_Model
 	function InsertCustomisation($menus,$id){
        
 		foreach($menus as $men){
-			//foreach($men as $menu){
-				//$categories = explode(":", $menu['category_id']);
-//print_r($men);exit;
-				//print_r($men);exit;
-			// $sql = "select * from `restaurant_menu` where menu_id ='".$id."'";
-			// print_r($sql);exit;
-			// $sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `size`, `itemPreparation_time`, `enabled`
-			// 	) VALUES ('".$id."','".$menu['code']."','".$menu['menu']."','".$menu['description']."','".$menu['price']."',
-			// 	'".$menu['type']."','".$menu['size']."','".$menu['itemPreparation_time']."','".$menu['enabled']."')");
+			
 				$menu_category = $this->db->insert_id();
-				//print_r($menu_category);exit;
+				
 				$values=$men;
-				//print_r($values);exit;
+				
                 $array1=array();
 				
 
@@ -73,50 +65,22 @@ Class Menu_model extends CI_Model
 				$data1[0]['price']=$men[$i+1]['price'];
 
 
-				//$array1=array();
+				
 				$array1[$i]['type']=$men[$i+1]['type'];
 				$array1[$i]['name']=$men[$i+1]['name'];
 				$array1[$i]['values']=$data1;
 
-				// $array2=array($array1);
-//print_r($array2);exit;
+				
 
 				}
 				$array2=array($array1);
-				// $data1=array();
-				// $data1[0]=$data1['name1'];
-				// $data1['weight']='small';
-				// $data1['price']='120';
-//print_r($array2);exit;
-				// $data1=array();
-				// $data1['name']='vegpizza';
-				// $data1['weight']='small';
-				// $data1['price']='120';
 				
-				// $data[1]['type']='checklist';
-				// $data[1]['name']='size';
-    //             $data[1]['values']=array($data1);
-    //             print_r($data);exit;
-				//$data=$menu['customisation'];
-				//print_r($menu);exit;
-				// $sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `size`, `itemPreparation_time`, `enabled`
-				// ) VALUES ('".$id."','".$menu['code']."','".$menu['menu']."','".$menu['description']."','".$menu['price']."',
-				// '".$menu['type']."','".$menu['size']."','".$menu['itemPreparation_time']."','".$menu['enabled']."')");
-
-				// $sql =$this->db->query("INSERT INTO `restaurant_menu`(`customisation`,`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `size`, `itemPreparation_time`, `enabled`
-				//  ) VALUES ('".serialize($menu['customisation'])."','".$id."','".$menu['code']."','".$menu['menu']."','".$menu['description']."','".$menu['price']."',
-				//  '".$menu['type']."','".$menu['size']."','".$menu['itemPreparation_time']."','".$menu['enabled']."')");
                  
       $sql=$this->db->query("update `restaurant_menu` set `customisation`= '".serialize($array2[0])."'  where `menu_id`='".$id."' ");
 
-      //print_r($sql);exit;
+      
 
-
-				// $sql =$this->db->query("INSERT INTO `restaurant_menu`(`customisation`
-				//  ) VALUES ('".serialize($array2[0])."','".$id."')");
-				 // print_r("INSERT INTO `restaurant_menu`(`customisation`
-				 //  ) VALUES ('".serialize($array2[0])."')");exit;
-				$menu_category = $this->db->insert_id();
+                $menu_category = $this->db->insert_id();
 				if(count($categories) > 0){
 					foreach($categories as $cat){
 						$sql =$this->db->query("INSERT INTO `menu_categories`(category_id,menu_category) VALUES ('".$cat."','".$menu_category."')");
