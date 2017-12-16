@@ -49,7 +49,8 @@ var oTable = $('#table-pagination').DataTable( {
 			<th data-field="time">Item Preparation Time</th>
 			<th>Enabled</th>
 			<th>Category</th>
-			<th>Action</th>
+			<th style="width:300px">Action</th>
+			<th style="width:400px">Import Customization</th>
 		</tr>
 	</thead>
 	
@@ -118,6 +119,17 @@ var oTable = $('#table-pagination').DataTable( {
 						<a class="btn btn-success btn-xs" href="<?php echo site_url($this->config->item('admin_folder').'/menus/MenuStatusChange/'.$menu->menu_id.'/'.$res_id.''); ?>" >Activate</a>
 					<?php } ?>
 				</td>
+				<td
+
+
+			  </td>
+			  <form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/menus/ImportCustomisation/'.$menu->menu_id.'/'.$res_id.''); ?>" method="post" enctype="multipart/form-data">
+		        <div class="form-group">
+				<input type="file" name="menufile" style="display:inline;">
+				<input type="submit" name="submit" value="Upload" class="btn btn-xs btn-primary">
+		   </div>
+	</form>
+
 			</tr>
 			<?php
 			

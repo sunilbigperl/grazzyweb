@@ -17,7 +17,11 @@
 
 </div>
 <a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/getrestaurantlist');?>" style="margin-top:20px"><i class="icon-download"></i>Export Restaurant</a>
+
+
 <?php } ?>
+
+
 
 <table class="table table-striped table-bordered" data-toggle="table"  data-cache="false"   <?php if($this->auth->check_access('Admin')) { ?>  data-search="true" data-pagination="true" <?php } ?> id="table-pagination" data-sort-order="desc">
 	<thead>
@@ -80,8 +84,8 @@
 					<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/menus/ImportMenu/'.$restaurant->restaurant_id); ?>" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<div class="form-group">
-								<input type="file" name="menufile" >
-								<input type="submit" name="submit" value="Upload" class="btn btn-xs btn-default">
+								<input type="file" name="menufile" style="display:inline;">
+								<input type="submit" name="submit" value="Upload" class="btn btn-xs btn-primary">
 							</div>
 						</div>
 					</form>
