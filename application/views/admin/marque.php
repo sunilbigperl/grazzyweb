@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="refresh" content="30">
-    </head>
-
 <?php if($this->auth->check_access('Restaurant manager')) : ?>
 <div  style="margin-top:40px;border:1px solid red;text-align:center;overflow-y:scroll;">
 <?php $messages = $this->Restaurant_model->GetMessages(); ?>
@@ -15,5 +8,11 @@
 <?php } } ?>
 </MARQUEE>
 </div>
+<script>
+       setTimeout(function(){
+           location.reload();
+           
+       },5000); 
+    </script>
+
 <?php endif; ?>
-</html>
