@@ -33,7 +33,7 @@ var oTable = $('#table-pagination').DataTable( {
 <div class="btn-group pull-left" style="margin-bottom:20px;">
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/form/0/'.$res_id); ?>"><i class="icon-plus-sign"></i> Add New Menu Item</a>
   	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant'); ?>"><i class="icon-plus-sign"></i> Back</a> 
-
+    <a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/getmenulist');?>" ><i class="icon-download"></i>Export Menu</a>
 	</div>
 
 <table class="table table-striped table-bordered"  id="table-pagination" >

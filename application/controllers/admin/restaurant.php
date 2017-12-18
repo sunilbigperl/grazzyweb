@@ -529,8 +529,10 @@ class Restaurant extends Admin_Controller {
     $objWriter->save('php://output');
     //exit();
 
-	$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list',$data,true);
+	//$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list',$data,true);
 	}
+
+	
 
 	public function getmenulist()
 	{
@@ -540,7 +542,7 @@ class Restaurant extends Admin_Controller {
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('Customization'); //set title in excel sheet
+    $heading=array('Restaurant','Code','Menu','Description','Price','Type','itemPreparation_time','Enabled','Type','Name','Name','Weight','Price'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
     
@@ -557,51 +559,67 @@ class Restaurant extends Admin_Controller {
     }
 
 
-			
-		
-    $export_excel = $this->db->query("select customisation from restaurant_menu")->result_array();
-    // print_r( $export_excel[69]);exit;
+    $export_excel = $this->db->query("select * from restaurant_menu")->result_array();
 
     $rowCount = 2; // set the starting row from which the data should be printed
     foreach($export_excel as $excel)
     {  
 
+    	
+    	if($excel['customisation'] != "" && strlen($excel['customisation']) > 5){
+								$cust = unserialize($excel['customisation']);
 
-     $menu = unserialize($excel['customisation']);
+								$data= array();
+								$l=0;
+								foreach($cust as $str){
+									$data[$l]['type'] = $str['type'];
+									$data[$l]['name'] = $str['name'];
+									if(isset($str['values']) && count($str['values']) > 0){
+										$m=0;
+										foreach($str['values'] as $value){
+											$data[$l]['values'][$m]['name'] = $value['name'];
+											$data[$l]['values'][$m]['weight'] = $value['weight'];
+											$data[$l]['values'][$m]['price'] = $value['price'];
+										$m++;
+										}		
+									}
+								$l++;
+								}
+							}else{
+								$data= false;
+							}
 
-     // print_r( $menu);exit;
-     $menu[0]['type']= $menu[0]['type'];
-//print_r($menu[0]['type']);exit;
-     // $days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
-	 //$days1[]=$days;
-    
+
  
 	
-
-        $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount,$menu[0]['type']); 
-        // $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['restaurant_address']); 
-        // $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['restaurant_phone']); 
-        // $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['restaurant_mobile']);
-        //  $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['restaurantmanager_mobile']);
-        //  $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['restaurant_email']);
-        // $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['restaurant_branch']);
-        // $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$excel['enabled']); 
+         $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount,$excel['restaurant_id']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount,$excel['code']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount,$excel['menu']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount,$excel['description']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount,$excel['price']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount,$excel['type']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['itemPreparation_time']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$excel['enabled']); 
+         $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$str['type']); 
+         $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount, $str['name']); 
+         $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, $value['name']); 
+         $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, $value['weight']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $value['price']);
          
         
-        
-    $rowCount++; 
+        $rowCount++; 
+
     } 
 
     // Instantiate a Writer 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
 
     header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename="restaurant.csv"');
+    header('Content-Disposition: attachment;filename="menu.csv"');
     header('Cache-Control: max-age=0');
 
     $objWriter->save('php://output');
-    //exit();
-
-	//$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list',true);
+    //$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list',true);
 	}
+
 }
