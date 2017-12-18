@@ -17,7 +17,7 @@
 
 </div>
 <a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/getrestaurantlist');?>" style="margin-top:20px"><i class="icon-download"></i>Export Restaurant</a>
-
+<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/getmenulist');?>" ><i class="icon-download"></i>Export Menu</a>
 
 <?php } ?>
 

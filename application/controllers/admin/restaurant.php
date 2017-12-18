@@ -559,7 +559,13 @@ class Restaurant extends Admin_Controller {
     }
 
 
+			
+		
     $export_excel = $this->db->query("select * from restaurant_menu")->result_array();
+
+
+
+// print_r( $export_excel);exit;
 
     $rowCount = 2; // set the starting row from which the data should be printed
     foreach($export_excel as $excel)
@@ -607,6 +613,13 @@ class Restaurant extends Admin_Controller {
          $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $value['price']);
          
         
+        
+        
+        
+         
+        
+       // }
+          
         $rowCount++; 
 
     } 
@@ -615,11 +628,16 @@ class Restaurant extends Admin_Controller {
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
 
     header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename="menu.csv"');
+    header('Content-Disposition: attachment;filename="restaurant.csv"');
     header('Cache-Control: max-age=0');
 
     $objWriter->save('php://output');
-    //$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list',true);
+    //exit();
+
+	
+
+	//$this->load->view($this->config->item('admin_folder').'/customer_subscriber_list',true);
 	}
+
 
 }
