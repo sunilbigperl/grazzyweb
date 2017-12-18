@@ -8,4 +8,10 @@
 <?php } } ?>
 </MARQUEE>
 </div>
+<script>
+       setTimeout(function(){
+           location.reload();
+           
+       },5000); 
+    </script>
 <?php endif; ?>
