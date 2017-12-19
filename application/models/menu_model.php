@@ -60,10 +60,17 @@ Class Menu_model extends CI_Model
 				for($i=0;$i<count($men);$i++)
 				{
 					$data1=array();
-					$data1[0]['name']=$men[$i+1]['name1'];
-				$data1[0]['weight']=$men[$i+1]['weight'];
-				$data1[0]['price']=$men[$i+1]['price'];
+				// $data1[0]['name']=$men[$i+1]['name1'];
+				// $data1[0]['weight']=$men[$i+1]['weight'];
+				// $data1[0]['price']=$men[$i+1]['price'];
+				
+               for($j=0;$j<count($men);$j++)
+				{
+					$data1[$j]['name']=$men[$j+1]['name1'];
+				$data1[$j]['weight']=$men[$j+1]['weight'];
+				$data1[$j]['price']=$men[$j+1]['price'];
 
+                }
 
 				
 				$array1[$i]['type']=$men[$i+1]['type'];
