@@ -562,7 +562,7 @@ class Restaurant extends Admin_Controller {
 
 			
 		
-    $export_excel = $this->db->query("select * from restaurant_menu where restaurant_id=".$res_id." ")->result_array();
+    $export_excel = $this->db->query("select * from restaurant_menu where restaurant_id=".$res_id." and `delete` = 0 order by menu_id DESC")->result_array();
    
 
 
