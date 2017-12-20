@@ -534,15 +534,16 @@ class Restaurant extends Admin_Controller {
 
 	
 
-	public function getmenulist()
+	public function getmenulist($res_id)
 	{
+		//print_r($res_id);exit;
 		$this->load->library('excel');
     //Create a new Object
     $objPHPExcel = new PHPExcel();
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('Restaurant','Code','Menu','Description','Price','Type','itemPreparation_time','Enabled','Type','Name','Name','Weight','Price'); //set title in excel sheet
+    $heading=array('Code','Menu','Description','Price','Type','itemPreparation_time','Enabled','Type','Name','Name','Weight','Price'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
     
@@ -561,7 +562,8 @@ class Restaurant extends Admin_Controller {
 
 			
 		
-    $export_excel = $this->db->query("select * from restaurant_menu")->result_array();
+    $export_excel = $this->db->query("select * from restaurant_menu where restaurant_id=".$res_id." ")->result_array();
+   
 
 
 
@@ -572,7 +574,7 @@ class Restaurant extends Admin_Controller {
     {  
 
     	
-    	if($excel['customisation'] != "" && strlen($excel['customisation']) > 5){
+    	if($excel['customisation'] != "" && strlen($excel['customisation']) > 5 ){
 								$cust = unserialize($excel['customisation']);
 
 								$data= array();
@@ -582,14 +584,33 @@ class Restaurant extends Admin_Controller {
 									$data[$l]['name'] = $str['name'];
 									if(isset($str['values']) && count($str['values']) > 0){
 										$m=0;
+
 										foreach($str['values'] as $value){
+											
+											
 											$data[$l]['values'][$m]['name'] = $value['name'];
 											$data[$l]['values'][$m]['weight'] = $value['weight'];
 											$data[$l]['values'][$m]['price'] = $value['price'];
 										$m++;
-										}		
+        
+         $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount,$excel['code']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount,$excel['menu']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount,$excel['description']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount,$excel['price']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount,$excel['type']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount,$excel['itemPreparation_time']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['enabled']); 
+         $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$str['type']); 
+         $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount, $str['name']); 
+         $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount, $value['name']); 
+         $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, $value['weight']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, $value['price']);
+         $rowCount++;
+										}	
+
 									}
 								$l++;
+
 								}
 							}else{
 								$data= false;
@@ -598,19 +619,19 @@ class Restaurant extends Admin_Controller {
 
  
 	
-         $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount,$excel['restaurant_id']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount,$excel['code']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount,$excel['menu']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount,$excel['description']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount,$excel['price']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount,$excel['type']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['itemPreparation_time']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$excel['enabled']); 
-         $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$str['type']); 
-         $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount, $str['name']); 
-         $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, $value['name']); 
-         $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, $value['weight']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $value['price']);
+         // $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount,$excel['restaurant_id']);
+         // $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount,$excel['code']);
+         // $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount,$excel['menu']);
+         // $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount,$excel['description']);
+         // $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount,$excel['price']);
+         // $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount,$excel['type']);
+         // $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['itemPreparation_time']);
+         // $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$excel['enabled']); 
+         // $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$str['type']); 
+         // $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount, $str['name']); 
+         // $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, $value['name']); 
+         // $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, $value['weight']);
+         // $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $value['price']);
          
         
         
@@ -620,7 +641,7 @@ class Restaurant extends Admin_Controller {
         
        // }
           
-        $rowCount++; 
+        // $rowCount++; 
 
     } 
 
