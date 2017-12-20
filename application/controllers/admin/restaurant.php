@@ -597,7 +597,7 @@ class Restaurant extends Admin_Controller {
          $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount,$excel['menu']);
          $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount,$excel['description']);
          $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount,$excel['price']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount,$excel['type']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount,$excel['type']);
          $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount,$excel['itemPreparation_time']);
          $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['enabled']); 
          $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$str['type']); 
