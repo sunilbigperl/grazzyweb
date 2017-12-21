@@ -242,6 +242,26 @@ class Orders extends Admin_Controller {
 		
 		$this->view($this->config->item('admin_folder').'/previousordersrestbill1',$data);
 	}
+
+	function GetPreviousOrdersbill($id){
+		$this->load->model('Restaurant_model');
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
+
+		}else{
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
+
+		}
+		
+		
+		$this->view($this->config->item('admin_folder').'/restpreviousordersbill',$data);
+	}
 	
 	function restbill($id,$type){
 		$fromdate=$this->input->post('fromdate');
@@ -766,6 +786,199 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
           
          $rname= $restaurant->restaurant_name;
 	 	 $filename=$rname.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).'.xls'; //save our workbook as this file name
+
+    // Instantiate a Writer 
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
+
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="'.$filename.'" ');
+    header('Cache-Control: max-age=0');
+
+    $objWriter->save('php://output');
+    //exit();
+
+	$this->load->view($this->config->item('admin_folder').'/restbill',$data,true);
+		
+		
+	}
+
+
+	function restexcel($id)
+	{
+
+		$this->load->model('Restaurant_model');
+		if($this->input->post('action') == "Go"){
+			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
+			$data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			// $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
+		}elseif($this->input->post('action') == "PreviousMonth"){
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
+			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
+
+		}else{
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+
+		}
+		
+		 $restaurant       = $this->Restaurant_model->get_restaurant($id);
+		 $orders = $this->Restaurant_model->get_restaurantorders($id);
+	     $corders = $this->Restaurant_model->get_restaurantorderscancel($id);
+		
+		
+	$this->load->library('excel');
+    //Create a new Object
+    $objPHPExcel = new PHPExcel();
+    // Set the active Excel worksheet to sheet 0
+    $objPHPExcel->setActiveSheetIndex(0); 
+
+    $heading=array('Ordered date','Order number','Order value(Rs)','Discount(%)','Discount(Rs)','Net Order Value','GST on Net Order Value','Net Order Value fulfilled','GST on Net Order Value fulfilled','Commission','Penalty','Reimbursement of delivery charges','Net amount','Keep amount for eatsapp','For Restaurant','Status','Passcode'); //set title in excel sheet
+    $rowNumberH = 1; //set in which row title is to be printed
+    $colH = 'A'; //set in which column title is to be printed
+   
+    $objPHPExcel->getActiveSheet()->getStyle($rowNumberH)->getFont()->setBold(true);
+    
+	for($col = ord('A'); $col <= ord('U'); $col++){ //set column dimension 
+		 $objPHPExcel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
+         $objPHPExcel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
+	}
+    foreach($heading as $h){ 
+
+        $objPHPExcel->getActiveSheet()->setCellValue($colH.$rowNumberH,$h);
+        $colH++;    
+    }
+
+
+	
+  $userdata = $this->session->userdata('admin');
+  $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id  
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager='".$userdata['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on < '".$data['todate']."' order by ordered_on desc")->result_array();
+
+
+		
+	$rowCount = 2; // set the starting row from which the data should be printed
+    foreach($export_excel as $excel)
+    {  
+    	
+		
+        $orders1 = $this->Order_model->get_previousorders1($excel['delivery_partner']);
+    
+        $netordervalue=$excel['netordervalue'];
+        $gstonnetordervalue=$excel['tax'];
+
+
+         if($excel['delivery_partner_status'] == "Rejected"){
+						$netordervalue1 = 0;
+			}elseif($excel['restaurant_manager_status'] == "Accepted"){ $netordervalue1=$netordervalue ; }else{ $netordervalue1 = "0"; }
+
+
+        if($excel['delivery_partner_status'] == "Rejected"){
+			$gstonnetordervalue1 = 0;
+		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $gstonnetordervalue1=$gstonnetordervalue; }else{ $gstonnetordervalue1 = "0"; }
+					
+					
+		if($excel['delivery_partner_status'] == "Rejected"){
+						$commission = 0;
+		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $commission = 
+						$netordervalue*($excel['commission']/100); }else{ $commission = "0"; }
+
+
+	    if($excel['delivery_partner_status'] == "Rejected"){
+						$penalty = 0;
+					}elseif($excel['restaurant_manager_status'] == "Accepted"){ $penalty="0"; }else{ $penalty = ($excel['penalty']);  }
+					
+	   
+	    if($excel['delivery_partner_status'] == "Rejected" ){
+						$reimb =  0;
+					}elseif($excel['restaurant_manager_status'] == "Rejected" ){
+						$reimb = 0;
+					}else{
+						
+						if($excel['order_type']!="I'll pickup")
+						{
+							$reimb = $excel['reimb'];
+							
+						}
+						else{
+						    $reimb = 0;
+						} 
+					}
+					
+
+	   if($excel['delivery_partner_status'] == "Rejected"){
+						$netamount = 0;
+		}else{
+				$netamount = $commission + $penalty + $reimb; ; 
+			}
+
+
+	   if($excel['delivery_partner_status'] == "Rejected"){
+						$keepamt = 0;
+		}else{
+				$keepamt =  $netamount;
+			}
+
+
+		if($excel['delivery_partner_status'] == "Rejected"){
+						$givetorest=0;
+					}elseif($excel['restaurant_manager_status'] == "Accepted"){
+						//echo $order->total_cost - $keepamt;
+						$givetorest=$netordervalue+$gstonnetordervalue-$keepamt;
+					}else{
+						$givetorest="-".$keepamt;
+					}	
+
+
+				if($excel['restaurant_manager_status'] == "0"){
+						$status="Not acted yet";
+					 }elseif($excel['delivery_partner_status'] == "Rejected"){
+						// echo "Delivery manager rejected";
+						$username=$orders1[0]->firstname;
+						$status= "Rejected by $username"; 
+				 	    //echo "Rejected by $username";
+					}elseif($excel['delivery_partner_status'] == "Accepted"){
+						// echo "Delivery manager Accepted";
+						 //echo "$order->status";
+						$status=$excel['status'];
+					}elseif($excel['restaurant_manager_status'] == "Accepted"){
+						$status="Restaurant manager accepted";
+						//echo "Restaurant manager accepted ";
+					}else{
+						$restname=$excel['restaurant_name'];
+						$status="Rejected by $restname";
+						//echo "Rejected by $order->restaurant_name ";
+					} 						
+					
+
+
+
+		$objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['ordered_on']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['order_number']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['total_amount']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount,$excel['discount1']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount,$excel['discount2']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount,$netordervalue);
+        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$gstonnetordervalue); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$netordervalue1);
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$gstonnetordervalue1); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount, $commission); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, $penalty);
+        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$reimb); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount,$netamount); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount,$keepamt);
+        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$givetorest); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$status);
+        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$excel['passcode']);
+         
+        
+        
+        
+ $rowCount++; 
+    } 
+        
+          
+         $rname= $restaurant->restaurant_name;
+	 	 $filename=date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).'.xls'; //save our workbook as this file name
 
     // Instantiate a Writer 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
