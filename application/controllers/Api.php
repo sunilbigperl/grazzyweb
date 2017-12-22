@@ -773,15 +773,16 @@ if (isset($result)){
     /*api number 23*/
     public function orderEmail_post(){
         
-        $data=array('customer_id'=>$this->post('user_id'));
+        $data=array('customer_id'=>$this->post('user_id'),'id'=>$this->input->post('order_ids'));
         $result=$this->api_model->userOrderEmail($data);
-        
+        //print_r( $result);exit;
         if(isset($result)){
             $message=[
-            'Status'=>'Success'
-        //  'data'=>$result['data']
+            //'Status'=>'Success',
+          'data'=>$result
             
             ]; 
+            //print_r($message);exit;
             $this->set_response($message, REST_Controller::HTTP_OK); 
             
             $this->load->library('email');
@@ -804,8 +805,8 @@ if (isset($result)){
         //$this->email->bcc('them@their-example.com');
 
         $this->email->subject('Order Details From Grazzy ');
-        $this->email->message('Order id is '.$message.' ');
-
+        $this->email->message($message);
+        //$this->email->message($message);
         $this->email->send();
         }else{
             $message=[

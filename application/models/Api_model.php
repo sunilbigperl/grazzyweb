@@ -1014,18 +1014,41 @@ class Api_model extends CI_Model
 	  
 	   public function userOrderEmail($data){
 		  
-		 $sql=$this->db->query("select order_id from order_items  "); 
+		 $sql=$this->db->query("select * from order_items where order_id=".$data['id']." "); 
+		 //echo "select order_id from order_items where order_id=".$data['id']." ";exit;
 		 if($sql->num_rows()>0){
 			$data = $sql->result_array();
+			$i=0;
+				foreach($data as $row){ 
+					$result[$i]['contents'] = $row['contents'];
+					$result[$i]['cost'] = $row['cost'];
+
+				$i++;
+
+
+				}
+				return $result;
+				//print_r($result[$i]['contents']);exit;
+			// $result['contents'] =$data[0]['contents'];
 			
-			$result['data']['order_id'] =['order_id'];
+			// print_r($result['contents']);exit;
+			//print_r($data );exit;
+			//echo "hello";
+			//$res = $query1->result_array();
+			//$result[0]['cost'] = $data['cost'];
+			//print_r($result['contents']);exit;
+					//$result['id'] = $data['id'];
+			//print_r($result['order_id']);exit;
+			//$result['data']['order_ids'] =['order_id'];
+			
+			//print_r($result['order_id']);exit;
 		//	$result['cost'] = $data[0]['langitude'];
 			
 		}else{
 				$result['order_id'] = 0;
 				
 		}
-			return $result;
+			//return $result;
 		  
 		  
 		  
