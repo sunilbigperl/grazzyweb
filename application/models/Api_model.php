@@ -1014,48 +1014,63 @@ class Api_model extends CI_Model
 	  
 	   public function userOrderEmail($data){
 		  
-		 $sql=$this->db->query("select * from order_items where order_id=".$data['id']." "); 
-		 //echo "select order_id from order_items where order_id=".$data['id']." ";exit;
+		 // $sql=$this->db->query("select b.order_id,b.cost from orders a,order_items b where customer_id='".$data['customer_id']."' and a.id=b.order_id  "); 
+         //print_r($sql);exit;
+	   	$sql=$this->db->query("select * from order_items where order_id=".$data['id']." "); 
+         // $sql = $this->db->query("select a.*,b.*,c.*,d.*,e.order_type,f.email from order_items a, restaurant_menu b,restaurant c,orders d,order_type e,customers f  where a.menu_id=b.menu_id and c.restaurant_id=d.restaurant_id and d.customer_id=f.id and a.order_id=d.id and d.order_type=e.ordertype_id and customer_id='".$data['customer_id']."'");
+		 
+
+		 if($sql){
+			
+       
 		 if($sql->num_rows()>0){
 			$data = $sql->result_array();
 			$i=0;
 				foreach($data as $row){ 
 					$result[$i]['contents'] = $row['contents'];
 					$result[$i]['cost'] = $row['cost'];
-
+//print_r($result[$i]['contents']);exit;
 				$i++;
-
+               
 
 				}
-				return $result;
-				//print_r($result[$i]['contents']);exit;
-			// $result['contents'] =$data[0]['contents'];
+
+		
+		$message="<h3>Customer bill</h3>
+	    
+		<h6>Order id: ".$result[$i]['contents']."</h6>
+		<h6>Custmization: ".$result[$i]['cost']."</h6>
+		<h6>Cost: ".$result[$i]['cost']."</h6>
+        ";
+
+			$config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.gmail.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'suggest.eatsapp@gmail.com',
+				'smtp_pass' => 'devang123',
+				'mailtype'  => 'html', 
+				'charset'   => 'iso-8859-1',
+				'crlf' => "\r\n",
+				'newline' => "\r\n"
+			);
+
 			
-			// print_r($result['contents']);exit;
-			//print_r($data );exit;
-			//echo "hello";
-			//$res = $query1->result_array();
-			//$result[0]['cost'] = $data['cost'];
-			//print_r($result['contents']);exit;
-					//$result['id'] = $data['id'];
-			//print_r($result['order_id']);exit;
-			//$result['data']['order_ids'] =['order_id'];
-			
-			//print_r($result['order_id']);exit;
-		//	$result['cost'] = $data[0]['langitude'];
-			
+			$this->load->library('email',$config);
+			$this->email->from('order@eatsapp.in', 'EatsApp');
+			//$this->email->to($user_data['email']);
+			$this->email->to('gkamatagi@gmail.com');
+			//$this->email->bcc('lvijetha90@gmail.com');
+
+			$this->email->subject('Order Details From Grazzy');
+			$this->email->message($message);
+			$this->email->send(); 
+			return true;
 		}else{
-				$result['order_id'] = 0;
-				
+			return false;
 		}
-			//return $result;
-		  
-		  
-		  
-		  
-		  
-	  
-	   }
+	}
+}
 
 
 

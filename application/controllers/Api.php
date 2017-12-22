@@ -773,41 +773,46 @@ if (isset($result)){
     /*api number 23*/
     public function orderEmail_post(){
         
-        $data=array('customer_id'=>$this->post('user_id'),'id'=>$this->input->post('order_ids'));
+       $data=array('customer_id'=>$this->post('user_id'),'id'=>$this->input->post('order_ids'));
         $result=$this->api_model->userOrderEmail($data);
-        //print_r( $result);exit;
+
+//print_r($result);exit;
+        // $message="
+        //  <h6>Order_id: ".$data['order_id']."</h6>
+        
+        // <h6>cost: ".$data['cost']."</h6>";
+        //print_r($result);exit;
         if(isset($result)){
             $message=[
-            //'Status'=>'Success',
-          'data'=>$result
+            'Status'=>'Success',
+            //'data'=>$result
             
             ]; 
-            //print_r($message);exit;
             $this->set_response($message, REST_Controller::HTTP_OK); 
             
-            $this->load->library('email');
-            //$msg=$result;
-            $config = Array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'suggest.eatsapp@gmail.com',
-            'smtp_pass' => 'devang123',
-            'mailtype'  => 'html', 
-            'charset'   => 'iso-8859-1',
-            'crlf' => "\r\n",
-            'newline' => "\r\n"
-        );
-         $this->email->initialize($config);
-        $this->email->from('order@eatsapp.in', 'Grazzy');
-        $this->email->to('gkamatagi@gmail.com');
-        //$this->email->cc('laxman.bigperl@gmail.com');
-        //$this->email->bcc('them@their-example.com');
+        //     $this->load->library('email');
+        //     //$msg=$result;
+        //     $config = Array(
+        //     'protocol' => 'smtp',
+        //     'smtp_host' => 'ssl://smtp.googlemail.com',
+        //     'smtp_port' => 465,
+        //     'smtp_user' => 'suggest.eatsapp@gmail.com',
+        //     'smtp_pass' => 'devang123',
+        //     'mailtype'  => 'html', 
+        //     'charset'   => 'iso-8859-1',
+        //     'crlf' => "\r\n",
+        //     'newline' => "\r\n"
+        // );
+        //  $this->email->initialize($config);
+        // $this->email->from('order@eatsapp.in', 'Grazzy');
+        // $this->email->to('gkamatagi@gmail.com');
+        // //$this->email->cc('laxman.bigperl@gmail.com');
+        // //$this->email->bcc('them@their-example.com');
 
-        $this->email->subject('Order Details From Grazzy ');
-        $this->email->message($message);
-        //$this->email->message($message);
-        $this->email->send();
+        // $this->email->subject('Order Details From Grazzy ');
+        // $this->email->message($message);
+
+        // $this->email->send();
         }else{
             $message=[
             'Status'=>'Error'
@@ -816,6 +821,7 @@ if (isset($result)){
         }   
         
     }
+
 
 
 
