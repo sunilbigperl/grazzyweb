@@ -1038,6 +1038,7 @@ class Api_model extends CI_Model
 
 
 
+
 	   public function delete_customer($data){
 	   
 	   $sql=$this->db->query("delete from customers_address_bank where id='".$data['id']."'");
