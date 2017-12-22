@@ -1014,63 +1014,26 @@ class Api_model extends CI_Model
 	  
 	   public function userOrderEmail($data){
 		  
-		 // $sql=$this->db->query("select b.order_id,b.cost from orders a,order_items b where customer_id='".$data['customer_id']."' and a.id=b.order_id  "); 
-         //print_r($sql);exit;
-	   	$sql=$this->db->query("select * from order_items where order_id=".$data['id']." "); 
-         // $sql = $this->db->query("select a.*,b.*,c.*,d.*,e.order_type,f.email from order_items a, restaurant_menu b,restaurant c,orders d,order_type e,customers f  where a.menu_id=b.menu_id and c.restaurant_id=d.restaurant_id and d.customer_id=f.id and a.order_id=d.id and d.order_type=e.ordertype_id and customer_id='".$data['customer_id']."'");
-		 
-
-		 if($sql){
-			
-       
+		 $sql=$this->db->query("select order_id from order_items  "); 
 		 if($sql->num_rows()>0){
 			$data = $sql->result_array();
-			$i=0;
-				foreach($data as $row){ 
-					$result[$i]['contents'] = $row['contents'];
-					$result[$i]['cost'] = $row['cost'];
-//print_r($result[$i]['contents']);exit;
-				$i++;
-               
-
-				}
-
-		
-		$message="<h3>Customer bill</h3>
-	    
-		<h6>Order id: ".$result[$i]['contents']."</h6>
-		<h6>Custmization: ".$result[$i]['cost']."</h6>
-		<h6>Cost: ".$result[$i]['cost']."</h6>
-        ";
-
-			$config = Array(
-				'protocol' => 'smtp',
-				'smtp_host' => 'ssl://smtp.gmail.com',
-				'smtp_port' => 465,
-				'smtp_user' => 'suggest.eatsapp@gmail.com',
-				'smtp_pass' => 'devang123',
-				'mailtype'  => 'html', 
-				'charset'   => 'iso-8859-1',
-				'crlf' => "\r\n",
-				'newline' => "\r\n"
-			);
-
 			
-			$this->load->library('email',$config);
-			$this->email->from('order@eatsapp.in', 'EatsApp');
-			//$this->email->to($user_data['email']);
-			$this->email->to('gkamatagi@gmail.com');
-			//$this->email->bcc('lvijetha90@gmail.com');
-
-			$this->email->subject('Order Details From Grazzy');
-			$this->email->message($message);
-			$this->email->send(); 
-			return true;
+			$result['data']['order_id'] =['order_id'];
+		//	$result['cost'] = $data[0]['langitude'];
+			
 		}else{
-			return false;
+				$result['order_id'] = 0;
+				
 		}
-	}
-}
+			return $result;
+		  
+		  
+		  
+		  
+		  
+	  
+	   }
+
 
 
 
