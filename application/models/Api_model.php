@@ -380,7 +380,7 @@ class Api_model extends CI_Model
 			$i=0;
 			foreach($query->result_array() as $row){ 
 				$result[$i]['order_id'] = $row['id'];
-				$sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
+				$sql1 = "select restaurant_name,restaurant_phone from restaurant where restaurant_id='".$row['restaurant_id']."'";
 
 				$query1 = $this->db->query($sql1);
 
@@ -388,8 +388,10 @@ class Api_model extends CI_Model
 
 					$res = $query1->result_array();
 					$result[$i]['restaurant_name'] = $res[0]['restaurant_name'];
+					$result[$i]['restaurant_phone'] = $res[0]['restaurant_phone'];
 				}else{
 					$result[$i]['restaurant_name'] = "";
+					$result[$i]['restaurant_phone'] = "";
 				}
                 
 				$result[$i]['order_type'] = $row['order_type'];
@@ -443,7 +445,9 @@ class Api_model extends CI_Model
 						$result[$i]['name'] = 0;
 						$result[$i]['phone'] = 0;
 
+
 					}
+                    
 
 				}else{
 					$result[$i]['name'] = 0;
