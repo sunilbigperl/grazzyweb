@@ -214,7 +214,7 @@
 		</div>
 	</div>
 </form>
-<?php $this->load->view('admin/delpartnermarque'); ?>
+<!-- <?php $this->load->view('admin/delpartnermarque'); ?> -->
 <script type="text/javascript">
 $('form').submit(function() {
 	$('.btn').attr('disabled', true).addClass('disabled');

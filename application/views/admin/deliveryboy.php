@@ -75,4 +75,4 @@ function areyousure()
 	}
 </script>  
 
-<?php $this->load->view('admin/delpartnermarque'); ?>
+<!-- <?php $this->load->view('admin/delpartnermarque'); ?> -->

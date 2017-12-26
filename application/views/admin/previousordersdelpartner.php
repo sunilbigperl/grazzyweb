@@ -399,4 +399,4 @@ if (datefield.type!="date"){ //if browser doesn't support input type="date", ini
     })
 }
 </script>
-<?php $this->load->view('admin/delpartnermarque'); ?>
+<!-- <?php $this->load->view('admin/delpartnermarque'); ?> -->
