@@ -65,6 +65,7 @@
 		<tr>
            
 			<!-- <th data-field="id">Order id</th> -->
+			<th>Order type</th>
 			<th data-field="date">Ordered date</th>
 			<th data-field="name">Order number</th>
 			<th>Customer Name</th>
@@ -126,6 +127,7 @@
 				?>
 			<tr class="gc_row">
 				<!-- <td><?=$i;?></td> -->
+				<td><?=$order->order_type;?></td>
 				<td><?=$order->ordered_on;?></td>
 				<td>
 					<a href="#" data-toggle="modal" style="color: #2f2fd0;text-decoration:underline;"  data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails1');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?></a>
