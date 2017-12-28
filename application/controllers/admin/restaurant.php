@@ -649,7 +649,7 @@ class Restaurant extends Admin_Controller {
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
 
     header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename="restaurant.csv"');
+    header('Content-Disposition: attachment;filename="menu.csv"');
     header('Cache-Control: max-age=0');
 
     $objWriter->save('php://output');

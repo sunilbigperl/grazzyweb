@@ -51,6 +51,7 @@ var oTable = $('#table-pagination').DataTable( {
 			<th>Category</th>
 			<th style="width:300px">Action</th>
 			<th style="width:400px">Import Customization</th>
+			
 		</tr>
 	</thead>
 	
