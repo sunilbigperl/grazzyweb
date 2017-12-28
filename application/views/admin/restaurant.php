@@ -31,7 +31,7 @@
 			<th data-field="price">Contact Details</th>
 			<th>Action</th>
 			<?php if($this->auth->check_access('Admin')) {?>
-			<th>Import menus<br/><a href="../../restaurant_menu.csv">(Download the Menu format)</a></th>
+			<th>Import menus<br/><a href="../../restaurant_menu.csv">(Download the Menu format)</a><br/><a href="../../menu_customization.csv">(Download the Menu Customization format)</a></th>
 			<th>Reviews</th>
 			<?php } ?>
 		</tr>
