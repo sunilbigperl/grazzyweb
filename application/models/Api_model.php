@@ -1016,20 +1016,95 @@ class Api_model extends CI_Model
 			return $result;
 	  }
 	  
-	   public function userOrderEmail($data){
+	 //   public function userOrderEmail($data){
 		  
-		 $sql=$this->db->query("select order_id from order_items  "); 
-		 if($sql->num_rows()>0){
-			$data = $sql->result_array();
+		//  $sql=$this->db->query("select order_id from order_items  "); 
+		//  if($sql->num_rows()>0){
+		// 	$data = $sql->result_array();
 			
-			$result['data']['order_id'] =['order_id'];
-		//	$result['cost'] = $data[0]['langitude'];
+		// 	$result['data']['order_id'] =['order_id'];
+		// //	$result['cost'] = $data[0]['langitude'];
 			
-		}else{
-				$result['order_id'] = 0;
+		// }else{
+		// 		$result['order_id'] = 0;
 				
-		}
-			return $result;
+		// }
+		// 	return $result;
+		  
+		  
+		  
+		  
+		  
+	  
+	 //   }
+
+
+	  public function userOrderEmail($data){
+		  
+		
+         $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."'");
+		 
+
+		 if($sql){
+			
+       
+		if($sql->num_rows()>0){
+               
+				foreach($sql->result_array() as $row){ 
+					//print_r($sql->result_array());exit;
+					$user_data['email'] = $row['email'];
+					$user_data['order_id'] = $row['order_id'];
+					$user_data['total_amount'] = $row['total_amount'];
+					$user_data['discount1'] = $row['discount1'];
+					$user_data['discount2'] = $row['discount2'];
+					$user_data['netordervalue'] = $row['netordervalue'];
+					$user_data['gstonfood'] = $row['gstonfood'];
+					
+					
+					
+
+					//print_r($user_data['order_id']);
+					//echo $user_data[$i]['firstname'];exit;
+					
+				
+				}
+				
+
+			}
+		
+		$message="<h3>Customer bill</h3>
+	    
+		<h6>Order id: ".$user_data['order_id']."</h6>
+		<h6>Custmization: ".$user_data['contents']."</h6>
+		<h6>Cost: ".$user_data['cost']."</h6>
+        ";
+
+			$config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.gmail.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'suggest.eatsapp@gmail.com',
+				'smtp_pass' => 'devang123',
+				'mailtype'  => 'html', 
+				'charset'   => 'iso-8859-1',
+				'crlf' => "\r\n",
+				'newline' => "\r\n"
+			);
+
+			
+			$this->load->library('email',$config);
+			$this->email->from('order@eatsapp.in', 'EatsApp');
+			$this->email->to($user_data['email']);
+			$this->email->to('gkamatagi@gmail.com');
+			//$this->email->bcc('lvijetha90@gmail.com');
+
+			$this->email->subject('Order Details From Grazzy');
+			$this->email->message($message);
+			$this->email->send(); 
+			return true;
+		}else{
+			return false;
+		}	
 		  
 		  
 		  
@@ -1037,6 +1112,7 @@ class Api_model extends CI_Model
 		  
 	  
 	   }
+
 
 
 
