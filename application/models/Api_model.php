@@ -1054,6 +1054,7 @@ class Api_model extends CI_Model
 					//print_r($sql->result_array());exit;
 					$user_data['email'] = $row['email'];
 					$user_data['order_id'] = $row['order_id'];
+					$user_data['contents'] = $row['contents'];
 					$user_data['total_amount'] = $row['total_amount'];
 					$user_data['discount1'] = $row['discount1'];
 					$user_data['discount2'] = $row['discount2'];
@@ -1076,7 +1077,11 @@ class Api_model extends CI_Model
 	    
 		<h6>Order id: ".$user_data['order_id']."</h6>
 		<h6>Custmization: ".$user_data['contents']."</h6>
-		<h6>Cost: ".$user_data['cost']."</h6>
+		<h6>Total Amount: ".$user_data['total_amount']."</h6>
+		<h6>Discount: ".$user_data['discount1']."</h6>
+		<h6>Discount: ".$user_data['discount2']."</h6>
+		<h6>Net Order Value: ".$user_data['netordervalue']."</h6>
+		<h6>GST On Food: ".$user_data['gstonfood']."</h6>
         ";
 
 			$config = Array(
