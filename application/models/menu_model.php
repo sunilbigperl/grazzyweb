@@ -31,11 +31,11 @@ Class Menu_model extends CI_Model
 	function InsertMenus($menus,$id){
 		foreach($menus as $men){
 			foreach($men as $menu){
-				$categories = explode(":", $menu['category_id']);
+				$categories = explode(":", $menu['Category']);
 				
-				$sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `size`, `itemPreparation_time`, `enabled`
-				) VALUES ('".$id."','".$menu['code']."','".$menu['menu']."','".$menu['description']."','".$menu['price']."',
-				'".$menu['type']."','".$menu['size']."','".$menu['itemPreparation_time']."','".$menu['enabled']."')");
+				$sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `itemPreparation_time`, `enabled`
+				) VALUES ('".$id."','".$menu['Code']."','".$menu['Menu']."','".$menu['Description']."','".$menu['Price']."',
+				'".$menu['Type']."','".$menu['Item Preparation Time']."','".$menu['Enabled']."')");
 				$menu_category = $this->db->insert_id();
 				if(count($categories) > 0){
 					foreach($categories as $cat){
