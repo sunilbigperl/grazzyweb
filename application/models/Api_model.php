@@ -550,7 +550,14 @@ class Api_model extends CI_Model
 		}
 	}
 	public function changeorderstatus($data){
-		$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."' where id='".$data['id']."'";
+		$date = date("Y-m-d H:i:s");
+		if($data['status']=='Picked Up')
+		{
+		$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualpick_time='".$date."' where id='".$data['id']."'";
+        }
+        else{
+        	$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualdelivery_time='".$date."' where id='".$data['id']."'";
+        }
 		$query = $this->db->query($sql);
 		if($query){
 			return "success";
@@ -1016,96 +1023,156 @@ class Api_model extends CI_Model
 			return $result;
 	  }
 	  
-	   public function userOrderEmail($data){
+	 //   public function userOrderEmail($data){
 		  
-		 $sql=$this->db->query("select order_id from order_items  "); 
-		 if($sql->num_rows()>0){
-			$data = $sql->result_array();
+		//  $sql=$this->db->query("select order_id from order_items  "); 
+		//  if($sql->num_rows()>0){
+		// 	$data = $sql->result_array();
 			
-			$result['data']['order_id'] =['order_id'];
-		//	$result['cost'] = $data[0]['langitude'];
+		// 	$result['data']['order_id'] =['order_id'];
+		// //	$result['cost'] = $data[0]['langitude'];
 			
-		}else{
-				$result['order_id'] = 0;
+		// }else{
+		// 		$result['order_id'] = 0;
 				
-		}
-			return $result;
+		// }
+		// 	return $result;
 		  
 		  
 		  
 		  
 		  
 	  
-	   }
+	 //   }
 
-
+	 
 	 //  public function userOrderEmail($data){
 		  
+		//  $sql=$this->db->query("select * from order_items where order_id=".$data['id']." "); 
+		//  //echo "select order_id from order_items where order_id=".$data['id']." ";exit;
+		//  if($sql->num_rows()>0){
+		// 	$data = $sql->result_array();
+		// 	$i=0;
+		// 		foreach($data as $row){ 
+		// 			$result[$i]['contents'] = $row['contents'];
+		// 			$result[$i]['cost'] = $row['cost'];
+
+		// 		$i++;
+
+
+		// 		}
+		// 		return $result;
+		// 		//print_r($result[$i]['contents']);exit;
+		// 	// $result['contents'] =$data[0]['contents'];
+			
+		// 	// print_r($result['contents']);exit;
+		// 	//print_r($data );exit;
+		// 	//echo "hello";
+		// 	//$res = $query1->result_array();
+		// 	//$result[0]['cost'] = $data['cost'];
+		// 	//print_r($result['contents']);exit;
+		// 			//$result['id'] = $data['id'];
+		// 	//print_r($result['order_id']);exit;
+		// 	//$result['data']['order_ids'] =['order_id'];
+			
+		// 	//print_r($result['order_id']);exit;
+		// //	$result['cost'] = $data[0]['langitude'];
+			
+		// }else{
+		// 		$result['order_id'] = 0;
+				
+		// }
+		// 	//return $result;
+		  
+		  
+		  
+		  
+		  
+	  
+	 //   }
+
+
+
+	  public function userOrderEmail($data){
+		  
 		
-  //        $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."'");
+         $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."'");
 		 
 
-		//  if($sql){
+		 // if($sql){
 			
        
-		// if($sql->num_rows()>0){
-               
-		// 		foreach($sql->result_array() as $row){ 
-		// 			//print_r($sql->result_array());exit;
-		// 			$user_data['email'] = $row['email'];
-		// 			$user_data['order_id'] = $row['order_id'];
-		// 			$user_data['contents'] = $row['contents'];
-		// 			$user_data['total_amount'] = $row['total_amount'];
-		// 			$user_data['discount1'] = $row['discount1'];
-		// 			$user_data['discount2'] = $row['discount2'];
-		// 			$user_data['netordervalue'] = $row['netordervalue'];
-		// 			$user_data['gstonfood'] = $row['gstonfood'];
-					
-					
-					
-
-		// 			//print_r($user_data['order_id']);
-		// 			//echo $user_data[$i]['firstname'];exit;
-					
+		if($sql->num_rows()>0){
+			$data = $sql->result_array();
+			$i=0;
+				foreach($data as $row){ 
+					$result[$i]['order_id'] = $row['order_id'];
+					$result[$i]['contents'] = $row['contents'];
+					$result[$i]['total_amount'] = $row['total_amount'];
+					$result[$i]['discount1'] = $row['discount1'];
+					$result[$i]['discount2'] = $row['discount2'];
+					$result[$i]['netordervalue'] = $row['netordervalue'];
+					$result[$i]['gstonfood'] = $row['gstonfood'];
+                       $result[$i]['email'] = $row['email'];
 				
-		// 		}
-				
-
-		// 	}
-		
-		// $message="<h3>Customer bill</h3>
+            $message="<h3>Customer bill</h3>
 	    
-		// <h6>Order id: ".$user_data['order_id']."</h6>
-		// <h6>Custmization: ".$user_data['contents']."</h6>
-		// <h6>Total Amount: ".$user_data['total_amount']."</h6>
-		// <h6>Discount: ".$user_data['discount1']."</h6>
-		// <h6>Discount: ".$user_data['discount2']."</h6>
-		// <h6>Net Order Value: ".$user_data['netordervalue']."</h6>
-		// <h6>GST On Food: ".$user_data['gstonfood']."</h6>
-  //       ";
+		<h6>Order id: ".$result[$i]['order_id']."</h6>
+		<h6>Custmization: ".$result[$i]['contents']."</h6>
+		<h6>Total Amount: ".$result[$i]['total_amount']."</h6>
+		<h6>Discount: ".$result[$i]['discount1']."</h6>
+		<h6>Discount: ".$result[$i]['discount2']."</h6>
+		<h6>Net Order Value: ".$result[$i]['netordervalue']."</h6>
+		<h6>GST On Food: ".$result[$i]['gstonfood']."</h6>
+        ";
 
-		// 	$config = Array(
-		// 		'protocol' => 'smtp',
-		// 		'smtp_host' => 'ssl://smtp.gmail.com',
-		// 		'smtp_port' => 465,
-		// 		'smtp_user' => 'suggest.eatsapp@gmail.com',
-		// 		'smtp_pass' => 'devang123',
-		// 		'mailtype'  => 'html', 
-		// 		'charset'   => 'iso-8859-1',
-		// 		'crlf' => "\r\n",
-		// 		'newline' => "\r\n"
-		// 	);
+			$config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.gmail.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'suggest.eatsapp@gmail.com',
+				'smtp_pass' => 'devang123',
+				'mailtype'  => 'html', 
+				'charset'   => 'iso-8859-1',
+				'crlf' => "\r\n",
+				'newline' => "\r\n"
+			);
 
 			
-		// 	$this->load->library('email',$config);
-		// 	$this->email->from('order@eatsapp.in', 'EatsApp');
-		// 	$this->email->to($user_data['email']);
-		// 	$this->email->cc('gkamatagi@gmail.com');
-		// 	//$this->email->bcc('lvijetha90@gmail.com');
+			$this->load->library('email',$config);
+			$this->email->from('order@eatsapp.in', 'EatsApp');
+			$this->email->to($result[$i]['email']);
+			$this->email->cc('gkamatagi@gmail.com');
+			//$this->email->bcc('lvijetha90@gmail.com');
 
-		// 	$this->email->subject('Order Details From Grazzy');
-		// 	$this->email->message($message);
-		// 	$this->email->send(); 
+			$this->email->subject('Order Details From Grazzy');
+			$this->email->message($message);
+			$this->email->send(); 
+$i++;
+				}
+				return $result;
+				//print_r($result[$i]['contents']);exit;
+			// $result['contents'] =$data[0]['contents'];
+			
+			// print_r($result['contents']);exit;
+			//print_r($data );exit;
+			//echo "hello";
+			//$res = $query1->result_array();
+			//$result[0]['cost'] = $data['cost'];
+			//print_r($result['contents']);exit;
+					//$result['id'] = $data['id'];
+			//print_r($result['order_id']);exit;
+			//$result['data']['order_ids'] =['order_id'];
+			
+			//print_r($result['order_id']);exit;
+		//	$result['cost'] = $data[0]['langitude'];
+			
+		}else{
+				$result['order_id'] = 0;
+				
+		}
+		
+		
 		// 	return true;
 		// }else{
 		// 	return false;
@@ -1116,7 +1183,7 @@ class Api_model extends CI_Model
 		  
 		  
 	  
-	 //   }
+	   }
 
 
 
