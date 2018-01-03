@@ -1280,6 +1280,10 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
           $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate1'])).".xls";
 	 	 
           }
+          if(!isset($url)){ 
+          $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate1'])).".xls";
+	 	 
+          }
     // Instantiate a Writer 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
 
