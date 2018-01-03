@@ -1272,12 +1272,14 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
          $rowCount++; 
     } 
         
-          
-         //$filename = $Deliveryboy->firstname;
-         // $fnamee = $filename.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".xls";
-     $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate1'])).".xls";
+         if($this->auth->check_access('Admin') && isset($url)){ 
+         $filename = $Deliveryboy->firstname;
+         $fnamee = $filename.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".xls";
+         }
+        if($this->auth->check_access('Admin') && !isset($url)){ 
+          $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate1'])).".xls";
 	 	 
-
+          }
     // Instantiate a Writer 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,'Excel5');
 
