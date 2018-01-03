@@ -1102,8 +1102,8 @@ class Api_model extends CI_Model
 			
 			$this->load->library('email',$config);
 			$this->email->from('order@eatsapp.in', 'EatsApp');
-			$this->email->to($result[0]['email']);
-			$this->email->cc('gkamatagi@gmail.com');
+			//$this->email->to($result[0]['email']);
+			$this->email->to('gkamatagi@gmail.com');
 			//$this->email->bcc('lvijetha90@gmail.com');
 
 			$this->email->subject('Order Details From Grazzy');
