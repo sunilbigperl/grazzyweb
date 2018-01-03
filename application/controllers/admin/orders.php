@@ -1038,7 +1038,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
    
     $objPHPExcel->getActiveSheet()->getStyle($rowNumberH)->getFont()->setBold(true);
     
-	for($col = ord('A'); $col <= ord('L'); $col++){ //set column dimension 
+	for($col = ord('A'); $col <= ord('Z'); $col++){ //set column dimension 
 		 $objPHPExcel->getActiveSheet()->getColumnDimension(chr($col))->setAutoSize(true);
          $objPHPExcel->getActiveSheet()->getStyle(chr($col))->getFont()->setSize(12);
 	}
@@ -1046,21 +1046,21 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 
         $objPHPExcel->getActiveSheet()->setCellValue($colH.$rowNumberH,$h);
         if($this->auth->check_access('Admin') && !isset($url)){ 
-         $objPHPExcel->getActiveSheet()->setCellValue('N'.$rowNumberH,'Order value(Rs)');
-         $objPHPExcel->getActiveSheet()->setCellValue('O'.$rowNumberH,'Convience charge');
-         $objPHPExcel->getActiveSheet()->setCellValue('P'.$rowNumberH,'Discount(%)');
-         $objPHPExcel->getActiveSheet()->setCellValue('Q'.$rowNumberH,'Discount(Rs)');
-         $objPHPExcel->getActiveSheet()->setCellValue('R'.$rowNumberH,'Net Order Value');
-         $objPHPExcel->getActiveSheet()->setCellValue('S'.$rowNumberH,'GST on Net Order Value ');
-         $objPHPExcel->getActiveSheet()->setCellValue('T'.$rowNumberH,'Net Order Value fulfilled');
-         $objPHPExcel->getActiveSheet()->setCellValue('U'.$rowNumberH,'GST on Net Order Value fulfilled');
-         $objPHPExcel->getActiveSheet()->setCellValue('V'.$rowNumberH,'Commission');
-         $objPHPExcel->getActiveSheet()->setCellValue('W'.$rowNumberH,'Penalty');
-         $objPHPExcel->getActiveSheet()->setCellValue('X'.$rowNumberH,'Reimbursement of delivery charges');
-         $objPHPExcel->getActiveSheet()->setCellValue('Y'.$rowNumberH,'Net amount');
-         $objPHPExcel->getActiveSheet()->setCellValue('Z'.$rowNumberH,'Keep amount for eatsapp');
-         $objPHPExcel->getActiveSheet()->setCellValue('AA'.$rowNumberH,'Give to Restaurant');
-         $objPHPExcel->getActiveSheet()->setCellValue('AB'.$rowNumberH,'Give to Customer');
+         $objPHPExcel->getActiveSheet()->setCellValue('O'.$rowNumberH,'Order value(Rs)');
+         $objPHPExcel->getActiveSheet()->setCellValue('P'.$rowNumberH,'Convience charge');
+         $objPHPExcel->getActiveSheet()->setCellValue('Q'.$rowNumberH,'Discount(%)');
+         $objPHPExcel->getActiveSheet()->setCellValue('R'.$rowNumberH,'Discount(Rs)');
+         $objPHPExcel->getActiveSheet()->setCellValue('S'.$rowNumberH,'Net Order Value');
+         $objPHPExcel->getActiveSheet()->setCellValue('T'.$rowNumberH,'GST on Net Order Value ');
+         $objPHPExcel->getActiveSheet()->setCellValue('U'.$rowNumberH,'Net Order Value fulfilled');
+         $objPHPExcel->getActiveSheet()->setCellValue('V'.$rowNumberH,'GST on Net Order Value fulfilled');
+         $objPHPExcel->getActiveSheet()->setCellValue('W'.$rowNumberH,'Commission');
+         $objPHPExcel->getActiveSheet()->setCellValue('X'.$rowNumberH,'Penalty');
+         $objPHPExcel->getActiveSheet()->setCellValue('Y'.$rowNumberH,'Reimbursement of delivery charges');
+         $objPHPExcel->getActiveSheet()->setCellValue('Z'.$rowNumberH,'Net amount');
+         $objPHPExcel->getActiveSheet()->setCellValue('AA'.$rowNumberH,'Keep amount for eatsapp');
+         $objPHPExcel->getActiveSheet()->setCellValue('AB'.$rowNumberH,'Give to Restaurant');
+         $objPHPExcel->getActiveSheet()->setCellValue('AC'.$rowNumberH,'Give to Customer');
 
       }
 
