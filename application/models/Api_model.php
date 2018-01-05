@@ -557,12 +557,10 @@ class Api_model extends CI_Model
 		{
 		$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualpickup_time='".$date."' where id='".$data['id']."'";
         }
-        else if($data['status']=='Shipped') {
+        else{
         	$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualdelivery_time='".$date."' where id='".$data['id']."'";
         }
-        else{
-        	
-        }
+
 		$query = $this->db->query($sql);
 		if($query){
 			return "success";
