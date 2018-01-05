@@ -1890,8 +1890,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 				  </div>
 				  <div class='modal-body' class='form-horizontal'>
 					<div class='form-group'>
-						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=":</strong>".$name."</label></br>
-						<label><strong>Mobile No:</strong>".$phone."</label></br>
+						<label><strong>"; if($data['ordertype_id'] == 3){ $html.="Customer name";}else{$html.="Delivery boy";} $html.=": </strong>".$name."</label></br>
+						<label><strong>Mobile No: </strong>".$phone."</label></br>
 						
 						
 
