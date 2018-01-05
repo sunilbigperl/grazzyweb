@@ -1898,11 +1898,11 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 					</div>
 					<table class='table table-bordered'>
 					<thead>
-						<tr><th>RestName</th><th>Order Type</th><th>Scheduled Pickup Time</th><th>Scheduled Delivery Time</th><tr>
+						<tr><th>RestName</th><th>Order Type</th><th>Scheduled Pickup Time</th><th>Scheduled Delivery Time</th><th>Actual Pickup Time</th><th>Actual Delivery Time</th><tr>
 					</thead>
 					<tbody>";
 			foreach($menus as $menu){
-					$html.="<tr><td>".$menu->restaurant_name."</td><td>".$menu->order_type."</td><td>".$menu->keep_ready."</td><td>".$menu->delivered_on."</td></td>";
+					$html.="<tr><td>".$menu->restaurant_name."</td><td>".$menu->order_type."</td><td>".$menu->keep_ready."</td><td>".$menu->delivered_on."</td><td>".$menu->actualpickup_time."</td><td>".$menu->actualdelivery_time."</td></td>";
 
 			}
 			$html.="</tbody>
