@@ -550,12 +550,14 @@ class Api_model extends CI_Model
 		}
 	}
 	public function changeorderstatus($data){
-		$date = date("Y-m-d H:i:s");
+		date_default_timezone_set('Asia/Calcutta');
+		 	$date = date('Y-m-d h:i:s',time());
+		
 		if($data['status']=='Picked Up')
 		{
-		$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualpick_time='".$date."' where id='".$data['id']."'";
+		$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualpickup_time='".$date."' where id='".$data['id']."'";
         }
-        else{
+        else {
         	$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualdelivery_time='".$date."' where id='".$data['id']."'";
         }
 		$query = $this->db->query($sql);
@@ -563,6 +565,7 @@ class Api_model extends CI_Model
 			return "success";
 		}
 	}
+
 	public function getMenus($id){
 		$date = date('Y-m-d H:i:s');
 		
