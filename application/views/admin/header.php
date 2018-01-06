@@ -372,7 +372,7 @@
 				success:function(data){
 					console.log(data);
 					if(data != ""){
-						playSound('http://app.eatsapp.in/smsalert5_7xL1bIAv',data);
+						playSound('https://app.eatsapp.in/smsalert5_7xL1bIAv',data);
 					}
 				}
 			});
