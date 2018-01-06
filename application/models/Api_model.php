@@ -551,7 +551,7 @@ class Api_model extends CI_Model
 	}
 	public function changeorderstatus($data){
 		date_default_timezone_set('Asia/Calcutta');
-		 	$date = date('Y-m-d h:i:s',time());
+		 	$date = date('Y-m-d H:i:s',time());
 		
 		if($data['status']=='Picked Up')
 		{
