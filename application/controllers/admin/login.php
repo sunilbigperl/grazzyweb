@@ -42,13 +42,15 @@ class Login extends Base_Controller {
 					if($this->auth->check_access('Restaurant manager')){
 						
 						$date = date('Y-m-d');
-						$sql = $this->db->query("select * from admin where  username='".$username."'");
+						// $sql = $this->db->query("select * from admin where  username='".$username."'");
+						$sql = $this->db->query("select * from admin a,restaurant b where  a.username='".$username."' and  b.restaurant_manager=a.id and b.enabled=1  ");
 						//print_r("select * from admin where NextRenewalDate > '".$date."' and username='".$username."'"); exit;
 						if($sql->num_rows() > 0){
 							$redirect = $this->config->item('admin_folder').'/orders/dashboard';
 						}else{
 							$this->auth->logout();
-							$this->session->set_flashdata('error', 'Your renewal date expired');
+							//$this->session->set_flashdata('error', 'Your renewal date expired');
+							$this->session->set_flashdata('error', 'Restaurant is deactivated');
 							redirect($this->config->item('admin_folder').'/login');
 						}
 						

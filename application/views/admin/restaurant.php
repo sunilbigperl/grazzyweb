@@ -67,7 +67,7 @@
 				
 									<?php } ?>
 					<a class="btn btn-xs btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Menu</a></br>
-				<?php if($this->auth->check_access('Admin')) {?>
+				
 					<?php if($restaurant->enabled == 1){ ?> 
 						<a class="btn btn-xs btn-danger" style="color: white;" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a></br>
 
@@ -75,7 +75,7 @@
 						
 						<a class="btn btn-xs btn-success" style="color:white;" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id."/1"); ?>" >Activate</a>
 					<?php } ?>
-                     <?php } ?>
+                    
 					</span>
 				</td>
 				<?php if($this->auth->check_access('Admin')) {?>
