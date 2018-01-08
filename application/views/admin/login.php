@@ -61,15 +61,15 @@
 		
 		<?php if (!empty($message)): ?>
 			<div class="alert alert-success">
-				<!-- <a class="close" data-dismiss="alert">×</a> -->
+				<a class="close" data-dismiss="alert">×</a>
 				<a class="close" data-dismiss="alert"></a>
 				<?php echo $message; ?>
 			</div>
 		<?php endif; ?>
 
 		<?php if (!empty($error)): ?>
-			<div class="alert alert-error">
-				<!-- <a class="close" data-dismiss="alert">×</a> -->
+			<div class="alert alert-error" style=padding-top:2% >
+				<a class="close" data-dismiss="alert">×</a>
 				<a class="close" data-dismiss="alert"></a>
 				<?php echo $error; ?>
 			</div>
@@ -85,7 +85,7 @@
 			</div>
 		<?php endif; ?> -->
             <?php echo form_open($this->config->item('admin_folder').'/login') ?>
-              <img src="<?php echo base_url('uploads/images/logo1.png');?>" height="150" width="150" alt="logo">
+              <img src="<?php echo base_url('uploads/images/logo1.png');?>" height="150" width="150"  alt="logo">
               <div>
               <!--    <label for="username"><?php echo lang('username');?></label> -->
 				  <input id="form-control1" type="text" name="username" placeholder="Username" class="form-control" autocomplete="off">

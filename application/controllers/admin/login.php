@@ -50,7 +50,7 @@ class Login extends Base_Controller {
 						}else{
 							$this->auth->logout();
 							//$this->session->set_flashdata('error', 'Your renewal date expired');
-							$this->session->set_flashdata('error', 'Restaurant is deactivated');
+							$this->session->set_flashdata('error','It appears that your access to the Portal has been restricted by the Administrator. Please write to contact@eatsapp.in or contact on +919820076457');
 							redirect($this->config->item('admin_folder').'/login');
 						}
 						
@@ -70,7 +70,7 @@ class Login extends Base_Controller {
 						}else{
 							$this->auth->logout();
 							// $this->session->set_flashdata('error', 'Your renewal date expired');
-							$this->session->set_flashdata('error', 'deliverypartner is deactivated');
+							$this->session->set_flashdata('error', 'It appears that your access to the Portal has been restricted by the Administrator. Please write to contact@eatsapp.in or contact on +919820076457');
 							redirect($this->config->item('admin_folder').'/login');
 						}
 						
