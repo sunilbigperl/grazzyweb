@@ -60,13 +60,17 @@ class Login extends Base_Controller {
 						
 						$date = date('Y-m-d');
 						
-						$sql = $this->db->query("select * from admin where NextRenewalDate > '".$date."' and username='".$username."' ");
+						// $sql = $this->db->query("select * from admin where NextRenewalDate > '".$date."' and username='".$username."' ");
+
+						$sql = $this->db->query("select * from admin where username='".$username."' and enabled=1 ");
+
 						
 						if($sql->num_rows() > 0){
 							$redirect = $this->config->item('admin_folder').'/orders/delpartnerorders';
 						}else{
 							$this->auth->logout();
-							$this->session->set_flashdata('error', 'Your renewal date expired');
+							// $this->session->set_flashdata('error', 'Your renewal date expired');
+							$this->session->set_flashdata('error', 'deliverypartner is deactivated');
 							redirect($this->config->item('admin_folder').'/login');
 						}
 						
