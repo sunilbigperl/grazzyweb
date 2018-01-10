@@ -463,7 +463,7 @@ class Api_model extends CI_Model
 		}
 	}
 	public function orderlist($id){
-		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status='Shipped'  order by a.ordered_on desc";
+		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status IN ('Delivered', 'Shipped')  order by a.ordered_on desc";
 		$query = $this->db->query($sql);
 		if($query->num_rows()>0){
 			$result = array();
