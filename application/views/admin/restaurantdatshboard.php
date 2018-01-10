@@ -29,6 +29,9 @@ echo "" . date("jS F Y") . "<br>";
 			<th>Keep Ready By</th>
 			<!--<th>Delivery Status</th>-->
 			<th>Action</th>
+			
+			<th></th>
+		
 			<th>Passcode</th>
 		</tr>
 	</thead>
@@ -91,21 +94,46 @@ echo "" . date("jS F Y") . "<br>";
 				<?php if($order->restaurant_manager_status == "0"){ ?>
 					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-success btn-xs">Accept</a>
 					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
+
+
 				<?php }else{
 					//echo $order->restaurant_manager_status;
 					// if($order->status == "Assigned"){ echo "Order Confirmed";}
 					// if($order->status == "Rejected"){ echo "Order Cancelled";}
 					// if($order->status == "Order Placed") { echo "Wait for confirmation"; }
 					
-
+                      if($order->ordertype_id!= 3){ 
 						if($order->status == "Assigned"){ echo "Order Confirmed";}
 						
-						elseif($order->status == "Order Placed") { echo "Wait for confirmation"; }
+						elseif($order->status == "Order Placed") { echo "Wait for confirmation";
+
+                            
+
+
+						 }
 						else{
 							echo $order->status;
 						}
+					}
+					else{
+						if($order->status == "Order Placed") { echo "order Confirmed";
+
+                            
+
+
+						 }
+						if($order->status == "Delivered"){ echo "Picked Up";}
+					}
 				} ?>
 				</td>
+				<td>
+                
+				<?php if($order->restaurant_manager_status == "Accepted" && $order->ordertype_id== 3){  ?>
+				<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/2/'.$order->id.'');?>" class="btn btn-danger btn-xs">Delivered</a>
+				<?php }?> 
+
+				</td> 
+				
 				<td><?=$order->passcode;?></td>
 			</tr>
 			<?php
