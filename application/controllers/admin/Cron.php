@@ -16,22 +16,24 @@ class Cron extends Admin_Controller
 			$result =  $sql->result_array();
 			foreach($result as $res){
 				if($res['DeactivatedDate'] >= $date){
-					$this->db->query("update customers set DeactivatedDate= "" and active = 1 where id='".$res['id']."'");
+					$this->db->query("update customers set DeactivatedDate= '".$res['DeactivatedDate']."' and active = 1 where id='".$res['id']."'");
 				}
 			}
 		}
 	}
 	
 	public function RestCron(){
+		date_default_timezone_set('Asia/Calcutta');
 		$date = date('Y-m-d H:i:s');
 		$currentDate = strtotime($date);
 		$futureDate = $currentDate+(60*5);
 		$formatDate = date("Y-m-d H:i:s", $futureDate);
+		
 		$sql = $this->db->query("select * from orders a, restaurant b where a.restaurant_id = b.restaurant_id and restaurant_manager_status = 0 and ordered_on < '".$formatDate."'");
 		if($sql->num_rows() > 0){
 			$result =  $sql->result_array();
 			foreach($result as $row){
-				$this->db->query("update orders set status='order cancelled' and where id='".$row['id']."'");
+				$this->db->query("update orders set status='order cancelled' where id='".$row['id']."'");
 				$restaurant_phone = $row['restaurant_phone'];
 				$message = "<h4>Your order with order number ".$row['order_number']." is pending</h4>
 				<h4>Please accept the order to avoid the penalty</h4>";
@@ -57,6 +59,7 @@ class Cron extends Admin_Controller
 		}
 	}
 	public function DelpartnerCron(){
+		date_default_timezone_set('Asia/Calcutta');
 		$date = date('Y-m-d H:i:s');
 		$currentDate = strtotime($date);
 		$futureDate = $currentDate+(60*5);
