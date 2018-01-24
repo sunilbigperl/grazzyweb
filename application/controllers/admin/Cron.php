@@ -92,5 +92,49 @@ class Cron extends Admin_Controller
 			}
 		}
 	}
+
+
+	public function Restsms(){
+		date_default_timezone_set('Asia/Calcutta');
+		$date = date('Y-m-d H:i:s');
+		//print_r($date);exit;
+		$currentDate = strtotime($date);
+		$futureDate = $currentDate+(60*2);
+		$formatDate = date("Y-m-d H:i:s", $futureDate);
+		//print_r($formatDate);exit;
+		//print_r($formatDate);exit;
+		
+		$sql = $this->db->query("select * from orders a, restaurant b where a.restaurant_id = b.restaurant_id and restaurant_manager_status = 0 and ordered_on < '".$formatDate."'");
+		
+		if($sql->num_rows() > 0){
+			$result =  $sql->result_array();
+			foreach($result as $row){
+				$this->db->query("update orders set status='order accept' where id='".$row['id']."'");
+				//echo "update orders set status='order accept' where id='".$row['id']."'";exit;
+                $restaurant_phone = $row['restaurant_phone'];
+                //print_r($restaurant_phone);exit;
+				
+				$url =file("http://193.105.74.159/api/v3/sendsms/plain?user=wolotech&password=FBXM0Fv4&&sender=EATSAP&SMSText=We+regret+to+inform+you+that+the+Food+Outlet+you+selected+is+unable+to+accept+your+order+.+Please+order+from+some+other+Food+Outlet+.+We+will+refund+your+payment+within+5+working+days&type=longsms&GSM=91".$restaurant_phone." ");
+			}
+		
+	}
 	
+}
+
+public function Delpartnersms(){
+		date_default_timezone_set('Asia/Calcutta');
+		$date = date('Y-m-d H:i:s');
+		$currentDate = strtotime($date);
+		$futureDate = $currentDate+(60*2);
+		$formatDate = date("Y-m-d H:i:s", $futureDate);
+		$sql = $this->db->query("select * from orders a, admin b where a.delivery_partner = b.id and delivery_partner_status = 0 and ordered_on < '".$formatDate."'");
+		if($sql->num_rows() > 0){
+			$result =  $sql->result_array();
+			foreach($result as $row){
+			$partner_phone = $row['phone'];
+			$url =file("http://193.105.74.159/api/v3/sendsms/plain?user=wolotech&password=FBXM0Fv4&&sender=EATSAP&SMSText=We+regret+to+inform+you+that+the+Food+Outlet+you+selected+is+unable+to+accept+your+order+.+Please+order+from+some+other+Food+Outlet+.+We+will+refund+your+payment+within+5+working+days&type=longsms&GSM=91".$partner_phone." ");
+			
+			}
+		}
+	}
 }

@@ -31,6 +31,7 @@ Class Menu_model extends CI_Model
 	function InsertMenus($menus,$id){
 		foreach($menus as $men){
 			foreach($men as $menu){
+				print_r($menu);exit;
 				$categories = explode(":", $menu['Category']);
 				
 				$sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `itemPreparation_time`, `enabled`
@@ -66,7 +67,7 @@ Class Menu_model extends CI_Model
 				
                for($j=0;$j<count($men);$j++)
 				{
-					$data1[$j]['name']=$men[$j+1]['name1'];
+				$data1[$j]['name']=$men[$j+1]['name1'];
 				$data1[$j]['weight']=$men[$j+1]['weight'];
 				$data1[$j]['price']=$men[$j+1]['price'];
 
@@ -75,6 +76,13 @@ Class Menu_model extends CI_Model
 				
 				$array1[$i]['type']=$men[$i+1]['type'];
 				$array1[$i]['name']=$men[$i+1]['name'];
+				// $k=0;
+				// //print_r($men[$i+4]['name']);exit;
+				//  if($array1[$i]['name']==$men[$i+$k]['name'])
+				//  {
+    //                   $array1[$i]['name']=$men[$i+1]['name'];
+				//  }
+				//  $k++;
 				$array1[$i]['values']=$data1;
 
 				
@@ -96,6 +104,28 @@ Class Menu_model extends CI_Model
 			//}
 		}
 	}
+
+
+
+
+// function InsertCustomisation1($menus,$id,$res_id){
+// 		foreach($menus as $men){
+// 			foreach($men as $menu){
+// 				//print_r($menu);exit;
+// 				//$categories = explode(":", $menu['Category']);
+				
+// 				$sql =$this->db->query("INSERT INTO `customization`(`menus_id`,`restaurant_id`, `type`, `name`, `name1`, `weight`, `price`
+// 				) VALUES ('".$id."','".$res_id."','".$menu['type']."','".$menu['name']."','".$menu['name1']."','".$menu['weight']."',
+// 				'".$menu['price']."')");
+// 				//$menu_category = $this->db->insert_id();
+// 				// if(count($categories) > 0){
+// 				// 	foreach($categories as $cat){
+// 				// 		$sql =$this->db->query("INSERT INTO `menu_categories`(category_id,menu_category) VALUES ('".$cat."','".$menu_category."')");
+// 				// 	}
+// 				// }
+// 			}
+// 		}
+// 	}
 
 	function save($menu, $categories=false)
 	{

@@ -68,7 +68,9 @@ Class order_model extends CI_Model
 		$date = date("Y-m-d 00:00:00");
 		
 		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`restaurant_id` = b.restaurant_id 
-		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.restaurant_manager_status = 'Accepted' and a.status!='Shipped' and a.status!='Rejected' and a.order_type != 3 and a.ordered_on >= '".$date."' and a.delivery_partner != '123' order by a.ordered_on desc");
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.restaurant_manager_status = 'Accepted' and a.status!='Shipped' and a.status!='Rejected' and a.order_type != 3 and a.ordered_on >= '".$date."' and a.delivery_partner != '123'  and a.delivery_partner=".$userdata['id']." order by a.ordered_on desc");
+		// echo "SELECT a.*,d.order_type,d.ordertype_id,b.* FROM `orders` a, restaurant b, order_type d, admin c WHERE a.`restaurant_id` = b.restaurant_id 
+		// and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.restaurant_manager_status = 'Accepted' and a.status!='Shipped' and a.status!='Rejected' and a.order_type != 3 and a.ordered_on >= '".$date."' and a.delivery_partner != '123'  and a.delivery_partner=".$userdata['id']." order by a.ordered_on desc";exit;
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();
 		}else{

@@ -19,6 +19,7 @@ class Menus extends Admin_Controller {
 	function index($res_id){
 		$data['res_id'] = $res_id;
 		$data['menus'] = $this->Menu_model->GetMenus($res_id);
+		//print_r($data['menus']);exit;
 		$this->view($this->config->item('admin_folder').'/menu', $data);
 	}
 	
@@ -59,6 +60,7 @@ class Menus extends Admin_Controller {
 			$menus       = $this->Menu_model->GetMenu($menu_id);
 			//$data['product_options']	= $this->Option_model->get_product_options($menu_id);
 			$data['product_options'] = unserialize($menus->customisation);
+			//print_r(unserialize($menus->customisation));exit;
             //if the category does not exist, redirect them to the category list with an error
             if (!$menus)
             {
@@ -301,6 +303,33 @@ class Menus extends Admin_Controller {
 			}
 		
 	}
+
+
+	// function ImportCustomisation2($id,$res_id)
+	// {
+	// 	//print_r($id);exit;
+	// 		$target_file =  basename($_FILES["menufile"]["name"]);
+	// 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+	// 		$uploadOk = 0;
+	// 		if($imageFileType == "csv"){
+	// 			$uploadOk = 1;
+	// 		}
+	// 		if ($uploadOk == 1) {
+				
+	// 			if (move_uploaded_file($_FILES["menufile"]["tmp_name"], "uploads/" . basename($_FILES["menufile"]["name"]))) {
+	// 					$this->load->library('csvreader');
+	// 					$result =   $this->csvreader->parse_file("uploads/".$_FILES["menufile"]["name"]); //path to csv file
+	// 					//print_r($result); exit;
+	// 					$data['menus'] =  $result;
+	// 					$this->Menu_model->InsertCustomisation1($data,$id,$res_id);
+	// 					unlink("uploads/".$_FILES["menufile"]["name"]); 
+	// 					redirect('admin/menus/index/'.$res_id, 'refresh');
+						
+	// 			}
+			
+	// 		}
+		
+	// }
 
 
 	

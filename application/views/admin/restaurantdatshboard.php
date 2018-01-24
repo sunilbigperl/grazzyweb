@@ -127,12 +127,19 @@ echo "" . date("jS F Y") . "<br>";
 				} ?>
 				</td>
 				<td>
+				<?php if($order->restaurant_manager_status == "Accepted" && $order->ordertype_id== 3){ ?>
+					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/2/'.$order->id.'');?>" class="btn btn-danger btn-xs">Delivered</a>
+
+
+				<?php } ?>
+				</td>
+				<!-- <td>
                 
 				<?php if($order->restaurant_manager_status == "Accepted" && $order->ordertype_id== 3){  ?>
 				<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/2/'.$order->id.'');?>" class="btn btn-danger btn-xs">Delivered</a>
 				<?php }?> 
 
-				</td> 
+				</td>  -->
 				
 				<td><?=$order->passcode;?></td>
 			</tr>

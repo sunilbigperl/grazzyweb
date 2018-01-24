@@ -1,2 +1,2 @@
-menu_id,code,menu,description,price,image,type,size,itemPreparation_time,enabled,category_id
-13,12345,menutest,testing purpose,1234,,non veg, Small,20,1,2:3:5
+Code,Menu,Description,Price,Type,Item Preparation Time,Enabled,Category
+4,clubsandwich,veg,120,veg,15,1,FRUITYLICIOUS
