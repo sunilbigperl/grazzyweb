@@ -12,7 +12,7 @@ $month = substr($result[9],4,2);
 $day = substr($result[9],6,2);
 if($result[0]=='000') {
 	 
-	$con = mysqli_connect("localhost","c1appeatsapp","admin@123","c1appeatsappdb");
+	$con = mysqli_connect("localhost","root","root","eatsappdb");
 	if(!$con){ die('could not connect'.mysqli_errno());}
 	mysqli_query($con,"update orders set status='Order Placed' where id='".$result[4]."'");
 	?>

@@ -13,7 +13,7 @@ $checksumSeed = "tSLfi8BMxohvWJTCfwd1cZuARH78myF21JAdgdNhvixbj7o6+uIA38WFm7VHQ0a
 
 //Clientid|Amount|Extref|Channel|MerchantId|Token|Return Url|Txn TimeStamp|TxnType
 	
-$data = "10000002|".$amount."|".$order_id."|WEB|100001000014146||https://app.eatsapp.in/jio_test/response.php|".$timestamp."|PURCHASE";
+$data = "10000002|".$amount."|".$order_id."|WEB|100001000014146||http://eatsapp.in/login/jio_test/response.php|".$timestamp."|PURCHASE";
 
 	
 $checksum = hash_hmac('SHA256',$data, $checksumSeed);
@@ -23,7 +23,7 @@ $checksum = hash_hmac('SHA256',$data, $checksumSeed);
 	
 	//echo $checksum;
 	
-	$url = "https://app.eatsapp.in/jio_test/response.php";
+	$url = "http://eatsapp.in/login/jio_test/response.php";
 ?>
 
 
