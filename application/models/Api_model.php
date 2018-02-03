@@ -581,7 +581,7 @@ class Api_model extends CI_Model
 		$discounts =  $sql_discount->result_array();
 		
 		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
-		a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1 order by c.`id`";
+		a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1 ORDER BY ANY_VALUE(c.`id`)";
 
 		// $sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
 		// a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1 order by c.`name`";
