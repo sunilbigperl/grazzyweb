@@ -31,7 +31,7 @@ Class Menu_model extends CI_Model
 	function InsertMenus($menus,$id){
 		foreach($menus as $men){
 			foreach($men as $menu){
-				print_r($menu);exit;
+				//print_r($menu);exit;
 				$categories = explode(":", $menu['Category']);
 				
 				$sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `itemPreparation_time`, `enabled`
@@ -40,6 +40,7 @@ Class Menu_model extends CI_Model
 				$menu_category = $this->db->insert_id();
 				if(count($categories) > 0){
 					foreach($categories as $cat){
+						//print_r($cat);exit;
 						$sql =$this->db->query("INSERT INTO `menu_categories`(category_id,menu_category) VALUES ('".$cat."','".$menu_category."')");
 					}
 				}

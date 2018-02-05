@@ -15,6 +15,7 @@ function areyousure()
 		 data-search="true" id="table-pagination" data-sort-order="desc">		 
     <thead>
 		<tr>
+		    <th>Category_id</th>
 			<th data-field="name"><?php echo lang('name')?></th>
 			<th><?php echo lang('enabled');?></th>
 			<th>Action</th>
@@ -28,7 +29,7 @@ function areyousure()
 			
 			foreach ($cats[$parent_id] as $cat):?>
 			<tr>
-				
+				<td><?php echo  $sub.$cat->id; ?></td>
 				<td><?php echo  $sub.$cat->name; ?></td>
 				<td><?php echo ($cat->enabled == '1') ? lang('enabled') : lang('disabled'); ?> </td>
 				<td>
