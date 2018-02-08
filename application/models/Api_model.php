@@ -577,7 +577,7 @@ class Api_model extends CI_Model
 			start_date desc limit 1 ");
 		$servicetax =  $sql3->result_array();
 		
-		$sql_discount = $this->db->query("SELECT `discount1` , `discount2`,`reimb`,`commission`,`penalty` FROM `restaurant` WHERE `restaurant_id` = '".$id."'");
+		$sql_discount = $this->db->query("SELECT `discount1` , `discount2`,`reimb`,`commission`,`penalty`,`totime` FROM `restaurant` WHERE `restaurant_id` = '".$id."'");
 		$discounts =  $sql_discount->result_array();
 		
 		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
@@ -602,7 +602,8 @@ class Api_model extends CI_Model
 					$result[$i]['discount2'] =  $discounts[0]['discount2']; 
 					$result[$i]['reimb'] =  $discounts[0]['reimb']; 
 					$result[$i]['commission'] =  $discounts[0]['commission']; 
-					$result[$i]['penalty'] =  $discounts[0]['penalty']; 
+					$result[$i]['penalty'] =  $discounts[0]['penalty'];
+					$result[$i]['totime'] =  $discounts[0]['totime']; 
 					$sql1 ="SELECT *,a.description FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
 					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
 					//echo $sql1; exit;
