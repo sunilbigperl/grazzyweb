@@ -1,0 +1,4 @@
+type,name,name1,weight,price
+checklist,size,veg,small,20
+checklist,vegpizza,veg,small,40
+checklist,toppings,veg,small,40
