@@ -600,7 +600,7 @@ class Api_model extends CI_Model
 					$result[$i]['minordervalue'] =  $servicetax[0]['minordervalue'];
 					$result[$i]['discount1'] =  $discounts[0]['discount1'];
 					$result[$i]['discount2'] =  $discounts[0]['discount2']; 
-					$result[$i]['reimb'] =  $discounts[0]['reimb']; 
+					$result[$i]['reimb'] = $discounts[0]['reimb']?$discounts[0]['reimb']:0; 
 					$result[$i]['commission'] =  $discounts[0]['commission']; 
 					$result[$i]['penalty'] =  $discounts[0]['penalty'];
 					$result[$i]['totime'] =  $discounts[0]['totime']; 
@@ -662,8 +662,9 @@ class Api_model extends CI_Model
 					}
 					$i++;
 				}
-			
+			    
 			}
+
 		}
 		//print_r($result); exit;
 		return $result;
@@ -1057,7 +1058,7 @@ class Api_model extends CI_Model
 		  
 		
          $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."'");
-		 
+		 //echo "select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."' ";
 
 		 if($sql){
 			
@@ -1108,7 +1109,7 @@ class Api_model extends CI_Model
 
 			
 			$this->load->library('email',$config);
-			$this->email->from('order@eatsapp.in', 'EatsApp');
+			$this->email->from('gkamatagi@gmail.com', 'EatsApp');
 			//$this->email->to($result[0]['email']);
 			$this->email->to('gkamatagi@gmail.com');
 			//$this->email->bcc('lvijetha90@gmail.com');
