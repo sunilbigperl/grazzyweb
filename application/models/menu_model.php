@@ -32,8 +32,8 @@ Class Menu_model extends CI_Model
 		foreach($menus as $men){
 			foreach($men as $menu){
 				//print_r($menu);exit;
-				$categories = explode(":", $menu['Category']);
-				
+				$categories = explode(",", $menu['Category']);
+	
 				$sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `itemPreparation_time`, `enabled`
 				) VALUES ('".$id."','".$menu['Code']."','".$menu['Menu']."','".$menu['Description']."','".$menu['Price']."',
 				'".$menu['Type']."','".$menu['Item Preparation Time']."','".$menu['Enabled']."')");
@@ -47,6 +47,65 @@ Class Menu_model extends CI_Model
 			}
 		}
 	}
+
+	// function InsertCustomisation($menus,$id){
+       
+	// 	foreach($menus as $men){
+			
+	// 			$menu_category = $this->db->insert_id();
+				
+	// 			$values=$men;
+				
+ //                $array1=array();
+				
+
+	// 			for($i=0;$i<count($men);$i++)
+	// 			{
+	// 				$data1=array();
+	// 			// $data1[0]['name']=$men[$i+1]['name1'];
+	// 			// $data1[0]['weight']=$men[$i+1]['weight'];
+	// 			// $data1[0]['price']=$men[$i+1]['price'];
+				
+ //               for($j=0;$j<count($men);$j++)
+	// 			{
+	// 			$data1[$j]['name']=$men[$j+1]['name1'];
+	// 			$data1[$j]['weight']=$men[$j+1]['weight'];
+	// 			$data1[$j]['price']=$men[$j+1]['price'];
+
+ //                }
+
+				
+	// 			$array1[$i]['type']=$men[$i+1]['type'];
+	// 			$array1[$i]['name']=$men[$i+1]['name'];
+	// 			// $k=0;
+	// 			// //print_r($men[$i+4]['name']);exit;
+	// 			//  if($array1[$i]['name']==$men[$i+$k]['name'])
+	// 			//  {
+ //    //                   $array1[$i]['name']=$men[$i+1]['name'];
+	// 			//  }
+	// 			//  $k++;
+	// 			$array1[$i]['values']=$data1;
+
+				
+
+	// 			}
+	// 			$array2=array($array1);
+				
+                 
+ //      $sql=$this->db->query("update `restaurant_menu` set `customisation`= '".serialize($array2[0])."'  where `menu_id`='".$id."' ");
+
+      
+
+ //                $menu_category = $this->db->insert_id();
+	// 			if(count($categories) > 0){
+	// 				foreach($categories as $cat){
+	// 					$sql =$this->db->query("INSERT INTO `menu_categories`(category_id,menu_category) VALUES ('".$cat."','".$menu_category."')");
+	// 				}
+	// 			}
+	// 		//}
+	// 	}
+	// }
+
 
 	function InsertCustomisation($menus,$id){
        
@@ -66,29 +125,57 @@ Class Menu_model extends CI_Model
 				// $data1[0]['weight']=$men[$i+1]['weight'];
 				// $data1[0]['price']=$men[$i+1]['price'];
 				
-               for($j=0;$j<count($men);$j++)
-				{
-				$data1[$j]['name']=$men[$j+1]['name1'];
-				$data1[$j]['weight']=$men[$j+1]['weight'];
-				$data1[$j]['price']=$men[$j+1]['price'];
+    //           for($j=0;$j<=$i;$j++)
+				// {
+				$data1[$i]['name']=$men[$i+1]['name1'];
+				$data1[$i]['weight']=$men[$i+1]['weight'];
+				$data1[$i]['price']=$men[$i+1]['price'];
 
-                }
+				$data1[$i+1]['name']=$men[$i+1]['name2'];
+				$data1[$i+1]['weight']=$men[$i+1]['weight1'];
+				$data1[$i+1]['price']=$men[$i+1]['price1'];
+
+				$data1[$i+2]['name']=$men[$i+1]['name3'];
+				$data1[$i+2]['weight']=$men[$i+1]['weight2'];
+				$data1[$i+2]['price']=$men[$i+1]['price2'];
+
+
+				$data1[$i+3]['name']=$men[$i+1]['name4'];
+				$data1[$i+3]['weight']=$men[$i+1]['weight3'];
+				$data1[$i+3]['price']=$men[$i+1]['price3'];
+
+				$data1[$i+4]['name']=$men[$i+1]['name5'];
+				$data1[$i+4]['weight']=$men[$i+1]['weight4'];
+				$data1[$i+4]['price']=$men[$i+1]['price4'];
+
+				$data1[$i+5]['name']=$men[$i+1]['name6'];
+				$data1[$i+5]['weight']=$men[$i+1]['weight5'];
+				$data1[$i+5]['price']=$men[$i+1]['price5'];
+
+				$data1[$i+6]['name']=$men[$i+1]['name7'];
+				$data1[$i+6]['weight']=$men[$i+1]['weight6'];
+				$data1[$i+6]['price']=$men[$i+1]['price6'];
+
+
+				$data1[$i+7]['name']=$men[$i+1]['name8'];
+				$data1[$i+7]['weight']=$men[$i+1]['weight7'];
+				$data1[$i+7]['price']=$men[$i+1]['price7'];
+
+
+				$data1[$i+8]['name']=$men[$i+1]['name9'];
+				$data1[$i+8]['weight']=$men[$i+1]['weight8'];
+				$data1[$i+8]['price']=$men[$i+1]['price8'];
+
+				
+               // }
 
 				
 				$array1[$i]['type']=$men[$i+1]['type'];
 				$array1[$i]['name']=$men[$i+1]['name'];
-				// $k=0;
-				// //print_r($men[$i+4]['name']);exit;
-				//  if($array1[$i]['name']==$men[$i+$k]['name'])
-				//  {
-    //                   $array1[$i]['name']=$men[$i+1]['name'];
-				//  }
-				//  $k++;
 				$array1[$i]['values']=$data1;
-
 				
-
-				}
+				
+}
 				$array2=array($array1);
 				
                  
@@ -96,13 +183,9 @@ Class Menu_model extends CI_Model
 
       
 
-                $menu_category = $this->db->insert_id();
-				if(count($categories) > 0){
-					foreach($categories as $cat){
-						$sql =$this->db->query("INSERT INTO `menu_categories`(category_id,menu_category) VALUES ('".$cat."','".$menu_category."')");
-					}
-				}
-			//}
+                
+				
+			
 		}
 	}
 
