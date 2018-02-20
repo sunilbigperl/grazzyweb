@@ -1,4 +1,3 @@
-type,name,name1,weight,price
-checklist,size,veg,small,20
-checklist,vegpizza,veg,small,40
-checklist,toppings,veg,small,40
+type,name,name1,weight,price,name2,weight1,price1,name3,weight2,price2,name4,weight3,price3,name5,weight4,price4,name6,weight5,price5,name7,weight6,price6,name8,weight7,price7,name9,weight8,price8
+checklist,size,7inches,small,100,10inches,Medium,120,12inches,Large,130,14inches,Medium,160,16inches,Small,50,18inches,Medium,80,20inches,Large,100,22inches,Small,120,24inches,Medium,140
+checklist,Toppings,Broccoli,small,20,Olives,Small,40,pineapple,Small,40,Broccoli,Medium,120,Olives,Medium,40,pineapples,Medium,60,Broccoli,Large,20,Olives,Large,130,pineapples,large,170
