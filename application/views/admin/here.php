@@ -74,7 +74,7 @@ oTable.column( 1 ).visible( false );
 				<input type="submit" name="submit" value="Upload" class="btn btn-xs btn-primary">
 		</div>
 	</form>
-	<!-- <a href="../../UseThisFileToImportPitstops.csv" style="text-decoration:underline">(Download the delivery point import format)</a> -->
+	<a href="../../Here.csv" style="text-decoration:underline">(Download the Here location format)</a>
 </div>
 <!-- <a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/get_pitstop_list');?>"><i class="icon-download"></i>Export Connected Delivery Point</a> -->
 
