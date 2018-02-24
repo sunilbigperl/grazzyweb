@@ -44,4 +44,5 @@
 				<input type="submit" name="submit" value="Upload Passcode" class="btn btn-xs btn-primary">
 		</div>
 	</form>
+	<a href="../../../Passcode.csv" style="text-decoration:underline">(Download the passcode format)</a>
 	</div>
