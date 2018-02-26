@@ -147,7 +147,8 @@ class Message_model extends CI_Model
 			} 
 		}
 		$sql = "insert into restaurant_messages (restaurant_id,rest_name, message, date) 
-		values('".$rest_name[0]."','".mysqli_real_escape_string ($rest_name[1])."','".$data['message']."','".$date."')";	
+		values('".$rest_name[0]."','".$this->db->escape_str($rest_name[1])."',
+		'".$this->db->escape_str($data['message'])."','".$date."')";	
 		$query = $this->db->query($sql);
 		if($this->db->insert_id()){
 			return $this->db->insert_id();
