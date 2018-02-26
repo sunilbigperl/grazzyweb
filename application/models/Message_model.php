@@ -174,7 +174,7 @@ class Message_model extends CI_Model
 	public function insert_notifications($data){
 		$date = date('Y-m-d H:i:s');
 		$sql = "insert into notification_message (message, date) 
-		values('".$data['message']."','".$date."')";	
+		values('".$this->db->escape_str($data['message'])."','".$date."')";	
 		$query = $this->db->query($sql);
 		if($this->db->insert_id()){
 				$id = $this->db->insert_id();
@@ -307,7 +307,7 @@ class Message_model extends CI_Model
 			} 
 		}
 		$sql = "insert into delpartner_messages (delpartner_id, message, date) 
-		values('".$data['delpartner_id']."','".$data['message']."','".$date."')";	
+		values('".$data['delpartner_id']."','".$this->db->escape_str($data['message'])."','".$date."')";	
 		$query = $this->db->query($sql);
 		if($this->db->insert_id()){
 			return $this->db->insert_id();
