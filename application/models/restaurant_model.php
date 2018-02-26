@@ -33,7 +33,7 @@ Class Restaurant_model extends CI_Model
                   $last_id = $this->db->insert_id();
 
 				$sql =$this->db->query("INSERT INTO `restaurant`(`restaurant_name`,`restaurant_address`,`restaurant_phone`,`restaurant_mobile`,`restaurantmanager_mobile`,`restaurant_email`,`image`,`restaurant_latitude`,`restaurant_langitude`,`restaurant_branch`,`restaurant_manager`,`preparation_time`,`enabled`,`fromtime`,`totime`,`commission`,`penalty`,`reimb`,`GST`,`discount1`,`discount2`,`comment`) 
-				VALUES ('".$restaurant['Restaurant name']."','".$restaurant['Restaurant address']."','".$restaurant['Restaurant phone']."','".$restaurant['Restaurant mobile']."','".$restaurant['Restaurant Manager Mobile No']."','".$restaurant['Restaurant email']."','".$restaurant['Image']."','".$restaurant['Restaurant latitude']."','".$restaurant['Restaurant longitude']."','".$restaurant['City']."','".$last_id."','".$restaurant['Cutoff Preparation time(In mins)']."','".$restaurant['Enabled']."','".$restaurant['From time']."','".$restaurant['To time']."','".$restaurant['Commission(%)']."','".$restaurant['Penalty(Rs)']."','".$restaurant['Reimbursement of delivery charges(Rs)']."','".$restaurant['GSTIN']."','".$restaurant['Discount1']."','".$restaurant['Discount2']."','".$restaurant['Comment']."')");
+				VALUES ('".$restaurant['Restaurant name']."','".$restaurant['Restaurant address']."','".$restaurant['Restaurant phone']."','".$restaurant['Restaurant mobile']."','".$restaurant['Restaurant Manager Mobile No']."','".$restaurant['Restaurant email']."','".$restaurant['Image']."','".$restaurant['Restaurant latitude']."','".$restaurant['Restaurant longitude']."','".$restaurant['City']."','".$last_id."','".$restaurant['Cutoff Preparation time(In mins)']."','".$restaurant['Enabled']."','".$restaurant['From time']."','".$restaurant['To time']."','".$restaurant['Commission(%)']."','".$restaurant['Penalty(Rs)']."','".$restaurant['Reimbursement of delivery charges(Rs)']."','".$restaurant['GSTIN']."','".$restaurant['Discount1']."','".$restaurant['Discount2']."','".$restaurant['Comments']."')");
 				
 				
 			}
@@ -252,4 +252,18 @@ Class Restaurant_model extends CI_Model
        $class=$this->db->get('pitstopcity');
        return $class->result_array();
     }
+
+
+    function getrestaurantlist(){
+ 
+    $response = array();
+ 
+    // Select record
+    $q =$this->db->query("select a.*,b.firstname,b.username,b.password,b.NextRenewalDate from restaurant a,admin b where a.restaurant_manager=b.id ");
+    //$q = $this->db->get('users');
+    $response = $q->result_array();
+ 
+    return $response;
+  }
+
 }
