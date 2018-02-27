@@ -24,7 +24,7 @@ echo "" . date("jS F Y") . "<br>";
 		<tr>
 			<!-- <th data-field="id">Order id</th> -->
 			<th data-field="name">Order Number</th>
-			<th data-field="price">Cost (Rs)</th>
+			<!-- <th data-field="price">Cost (Rs)</th> -->
 			<th data-field="date">Ordered On</th>
 			<th data-field="type">Order Type</th>
 			<th>Keep Ready By</th>
@@ -60,7 +60,7 @@ echo "" . date("jS F Y") . "<br>";
 				     <?php $cost=$order->total_amount-$order->discount1-$order->discount2+$order->tax;?>
 				     
 					<!-- <?=$order->total_amount; ?> -->
-					<?=$cost; ?>
+					<!-- <?=$cost; ?> -->
 				</td>
 				<td>
 					<?=$order->ordered_on; ?>
