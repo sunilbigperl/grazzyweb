@@ -67,7 +67,7 @@ oTable.column( 1 ).visible( false );
 	<a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/here/form'); ?>"><i class="icon-plus-sign"></i> Add new Here Location</a>
 </div>
 <br/>
-<div style="display:block;clear:both;margin-bottom:40px;">
+<!-- <div style="display:block;clear:both;margin-bottom:40px;">
 	<form class="form-inline" action="<?php echo site_url($this->config->item('admin_folder').'/here/ImportHere'); ?>" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 				<input type="file" name="restaurantfile" style="display:inline;">
@@ -75,7 +75,7 @@ oTable.column( 1 ).visible( false );
 		</div>
 	</form>
 	<a href="../../Here.csv" style="text-decoration:underline">(Download the Here location format)</a>
-</div>
+</div> -->
 <!-- <a class="btn btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/pitstop/get_pitstop_list');?>"><i class="icon-download"></i>Export Connected Delivery Point</a> -->
 
 
