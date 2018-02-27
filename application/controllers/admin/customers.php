@@ -825,5 +825,11 @@ function addcity(){
 			}
 		
 	}
+
+
+	function PasscodeDelete(){
+		$sql = $this->db->query('delete from passcode');
+		redirect('admin/customers/charges', 'refresh');
+	}
 	
 }

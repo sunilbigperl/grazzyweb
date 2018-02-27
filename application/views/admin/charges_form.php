@@ -44,5 +44,8 @@
 				<input type="submit" name="submit" value="Upload Passcode" class="btn btn-xs btn-primary">
 		</div>
 	</form>
-	<a href="../../../Passcode.csv" style="text-decoration:underline">(Download the passcode format)</a>
+	<a href="../../../Passcode.csv" style="text-decoration:underline">(Download the passcode format)</a><br><br>
+
+     <a class="btn btn-danger btn-xs" onclick="var result = confirm('Are you sure you want to delete?'); if(result) { location.href='<?php echo site_url($this->config->item('admin_folder').'/customers/PasscodeDelete'); ?>'; }">Delete passcode</a></br>
+	
 	</div>
