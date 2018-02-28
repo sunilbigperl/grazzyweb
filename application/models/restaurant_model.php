@@ -72,8 +72,10 @@ Class Restaurant_model extends CI_Model
 		$today =  date('Y-m-d H:i:s');
 		$userdata = $this->session->userdata('admin');
 		
-		$sql = $this->db->query("select * from delpartner_messages where delpartner_id='".$userdata['id']."' 
-		order by date desc limit 1");
+		// $sql = $this->db->query("select * from delpartner_messages where delpartner_id='".$userdata['id']."' 
+		// order by date desc limit 1");
+
+		$sql = $this->db->query("select * from delpartner_messages order by date desc limit 1");
 		if($sql->num_rows() > 0){  
 			$result	= $sql->result_array();
 		}else{
