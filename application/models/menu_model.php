@@ -35,7 +35,7 @@ Class Menu_model extends CI_Model
 				$categories = explode(",", $menu['Category']);
 	
 				$sql =$this->db->query("INSERT INTO `restaurant_menu`(`restaurant_id`, `code`, `menu`, `description`, `price`, `type`, `itemPreparation_time`, `enabled`
-				) VALUES ('".$id."','".$menu['Code']."','".$menu['Menu']."','".$menu['Description']."','".$menu['Price']."',
+				) VALUES ('".$id."','".$menu['Code']."','".$menu['Menu']."','".$this->db->escape_str($menu['Description'])."','".$menu['Price']."',
 				'".$menu['Type']."','".$menu['Item Preparation Time']."','".$menu['Enabled']."')");
 				$menu_category = $this->db->insert_id();
 				if(count($categories) > 0){
