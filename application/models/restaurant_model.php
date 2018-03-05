@@ -28,8 +28,8 @@ Class Restaurant_model extends CI_Model
 		foreach($restaurants as $men){
 			foreach($men as $restaurant){
 
-				$sql1 =$this->db->query("INSERT INTO `admin`(`firstname`,`username`,`NextRenewalDate`) 
-				VALUES ('".$restaurant['Restaurant manager name']."','".$restaurant['Manager user name']."','".$restaurant['Next Renewal Date']."')");
+				$sql1 =$this->db->query("INSERT INTO `admin`(`firstname`,`username`,`NextRenewalDate`,`access`) 
+				VALUES ('".$restaurant['Restaurant manager name']."','".$restaurant['Manager user name']."','".$restaurant['Next Renewal Date']."','Restaurant manager')");
                   $last_id = $this->db->insert_id();
 
 				$sql =$this->db->query("INSERT INTO `restaurant`(`restaurant_name`,`restaurant_address`,`restaurant_phone`,`restaurant_mobile`,`restaurantmanager_mobile`,`restaurant_email`,`image`,`restaurant_latitude`,`restaurant_langitude`,`restaurant_branch`,`restaurant_manager`,`preparation_time`,`enabled`,`fromtime`,`totime`,`commission`,`penalty`,`reimb`,`GST`,`discount1`,`discount2`,`comment`) 
