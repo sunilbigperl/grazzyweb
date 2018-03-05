@@ -234,7 +234,15 @@
 					}elseif($order->delivery_partner_status == "Accepted"){
 						echo "$order->status ";
 					}elseif($order->restaurant_manager_status == "Accepted"){
+						// echo "Restaurant manager accepted";
+						if($order->order_type!="I'll pickup")
+						{
 						echo "Restaurant manager accepted";
+					    }
+					    else{
+					    	echo "Delivered";
+					    }
+
 					}else{
 						echo "Rejected by $order->restaurant_name";
 					} ?>
