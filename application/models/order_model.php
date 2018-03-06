@@ -332,12 +332,15 @@ Class order_model extends CI_Model
 	}
 	
 	function ChangeRestMangerStatus($status,$id){
+		date_default_timezone_set('Asia/Calcutta');
+		 	$date = date('Y-m-d H:i:s',time());
 		if($status == "1"){ 
 			$data = "Accepted"; 
 			$sql = $this->db->query('update orders set restaurant_manager_status="'.$data.'" where id="'.$id.'"');
 		}else if($status == "2"){ 
 			$data = "Delivered"; 
-			$sql = $this->db->query('update orders set status="'.$data.'" where id="'.$id.'"');
+			$sql = $this->db->query('update orders set status="'.$data.'",actualdelivery_time=
+				"'.$date.'",actualpickup_time="'.$date.'" where id="'.$id.'"');
 		}
 		else{ 
 			$data = "Rejected"; 
