@@ -154,10 +154,11 @@ class Api extends REST_Controller {
         }
         
     }
-    public function HereList_get($id = null)
+    public function HereList_get($id = null,$city='')
     {
+        $city = $this->get('city');
         $id = isset($id) ? $id : "";
-        $users = $this->api_model->getHereList();
+        $users = $this->api_model->getHereList($city);
     
 
         if ($id == NULL)
@@ -262,8 +263,10 @@ class Api extends REST_Controller {
         }
     }
     
-    public function menus_get($id){
-        $menus =  $this->api_model->getMenus($id);
+    public function menus_get($id,$order_type=-1){
+// echo $order_type;exit;
+
+        $menus =  $this->api_model->getMenus($id,$order_type);
         
         if ($id <= 0)
         {

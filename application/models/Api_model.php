@@ -110,8 +110,9 @@ class Api_model extends CI_Model
 		
 	}
 	
-	public function getHereList(){
-		$threadmsg = $this->db->query("select * from here order by name asc");
+	public function getHereList($city){
+		 $threadmsg = $this->db->query("select * from here WHERE `city` LIKE '".$city."' order by name asc");
+		//$threadmsg = $this->db->query("select * from here order by name asc");
 		// $threadmsg = $this->db->query("select * from here WHERE `city` LIKE 'bangalore' order by name asc");
 
 			if($threadmsg->num_rows()>0){
@@ -569,7 +570,7 @@ class Api_model extends CI_Model
 			return "success";
 		}
 	}
-	public function getMenus($id){
+	public function getMenus($id,$order_type){
 		$date = date('Y-m-d H:i:s');
 		
 		// $sql3 = $this->db->query("select servicetax,delivery_charge from restaurant where restaurant_id='".$id."'");
@@ -604,10 +605,15 @@ class Api_model extends CI_Model
 					$result[$i]['commission'] =  $discounts[0]['commission']; 
 					$result[$i]['penalty'] =  $discounts[0]['penalty'];
 					$result[$i]['totime'] =  $discounts[0]['totime']; 
-					$sql1 ="SELECT *,a.description FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
+					if($order_type==0)
+					{
+					$sql1 ="SELECT *,a.description FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' and a.itemPreparation_time <15
 					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
-					//echo $sql1; exit;
-                      
+					echo $sql1; exit;
+                     }else{
+                     	$sql1 ="SELECT *,a.description FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' 
+					and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1";
+                     } 
 					$query1 = $this->db->query($sql1);
 				 
 					if($query1->num_rows()>0){
