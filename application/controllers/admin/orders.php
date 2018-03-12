@@ -1413,6 +1413,11 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 
 		}
 
+				
+   
+      $t1=date("h:i:s", strtotime($data['delivered_on'])) . "\n";
+                 
+
 		$html.="<div class='modal-header'>
 					<button type='button' class='close' data-dismiss='modal'>&times;</button>
 					<h4 class='modal-title'>Order Number: ".$data['order_number']."</h4>
@@ -1448,10 +1453,13 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 						<th>Passcode:</th><td>".$data['passcode']."</td>
             </tr>
              <tr>
-						<th>Scheduled Pickup Time:</th><td>".$data['delivered_on']."</td>
+             
+
+						<th>Scheduled Pickup Time:</th><td>".date("h:i:s", 
+							strtotime($t1-$data['preparation_time minutes'] ))."</td>
             </tr>
             <tr>
-						<th>Scheduled Delivery Time:</th><td>".$data['keep_ready']."</td>
+						<th>Scheduled Delivery Time:</th><td>".$data['delivered_on']."</td>
             </tr>
 
             </table>
