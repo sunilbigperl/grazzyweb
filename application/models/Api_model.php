@@ -111,7 +111,7 @@ class Api_model extends CI_Model
 	}
 	
 	public function getHereList($city){
-		 $threadmsg = $this->db->query("select * from here WHERE `city` LIKE '".$city."' order by name asc");
+		 $threadmsg = $this->db->query("select * from here WHERE `city` LIKE '".$city."' and enabled=1 order by name asc");
 		//$threadmsg = $this->db->query("select * from here order by name asc");
 		// $threadmsg = $this->db->query("select * from here WHERE `city` LIKE 'bangalore' order by name asc");
 
