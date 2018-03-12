@@ -1448,10 +1448,10 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 						<th>Passcode:</th><td>".$data['passcode']."</td>
             </tr>
              <tr>
-						<th>Scheduled Pickup Time:</th><td>".$data['keep_ready']."</td>
+						<th>Scheduled Pickup Time:</th><td>".$data['delivered_on']."</td>
             </tr>
             <tr>
-						<th>Scheduled Delivery Time:</th><td>".$data['delivered_on']."</td>
+						<th>Scheduled Delivery Time:</th><td>".$data['keep_ready']."</td>
             </tr>
 
             </table>
