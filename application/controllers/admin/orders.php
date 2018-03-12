@@ -1455,7 +1455,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
              <tr>
              
 
-						<th>Scheduled Pickup Time:</th><td>".date("h:i:s", strtotime($data['delivered_on']))."</td>
+						<th>Scheduled Pickup Time:</th><td>".date("h:i:s", strtotime($data['keep_ready']))."</td>
             </tr>
             <tr>
 						<th>Scheduled Delivery Time:</th><td>".$data['delivered_on']."</td>
