@@ -1415,8 +1415,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 
 				
    
-      $t1=date("h:i:s", strtotime($data['delivered_on'])) . "\n";
-                 
+      
+              
 
 		$html.="<div class='modal-header'>
 					<button type='button' class='close' data-dismiss='modal'>&times;</button>
@@ -1455,8 +1455,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
              <tr>
              
 
-						<th>Scheduled Pickup Time:</th><td>".date("h:i:s", 
-							strtotime($t1-$data['preparation_time minutes'] ))."</td>
+						<th>Scheduled Pickup Time:</th><td>".date("h:i:s", strtotime($data['delivered_on']))."</td>
             </tr>
             <tr>
 						<th>Scheduled Delivery Time:</th><td>".$data['delivered_on']."</td>
