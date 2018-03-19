@@ -71,7 +71,7 @@ echo "" . date("jS F Y") . "<br>";
 				</td>
 				<?php
 				
-    $t1=date("h:i:s", strtotime("$order->keep_ready")) . "\n";
+    $t1=date("H:i:s", strtotime("$order->keep_ready")) . "\n";
 //     $t2=date("h:i:s", strtotime("$t1-$order->preparation_time minutes"));             
 
 // echo $t1;
@@ -79,7 +79,7 @@ echo "" . date("jS F Y") . "<br>";
       
                  
 ?>
-				<td><?php echo date("h:i:s", strtotime("$t1-$order->preparation_time minutes"));?></td> 
+				<td><?php echo date("H:i:s", strtotime("$t1-$order->preparation_time minutes"));?></td> 
 				 
 				
 				<!--<td> 
