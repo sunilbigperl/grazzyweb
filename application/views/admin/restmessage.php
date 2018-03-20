@@ -203,7 +203,7 @@ a:hover {
 					<?=date('d-m-Y',strtotime($message['date'])); ?>
 				</td>
 				<td>
-					<?=date('h:i:s',strtotime($message['date'])); ?>
+					<?=date('H:i:s',strtotime($message['date'])); ?>
 				</td>
 				<!-- <td>
 					<?=isset($message['restaurant_name']) ? $message['restaurant_name'] : 'ALL';?>

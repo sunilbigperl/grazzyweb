@@ -47,7 +47,7 @@ if($this->auth->check_access('Admin') && !isset($url)){ ?>
 					<?=date('d-m-Y',strtotime($message['date'])); ?>
 				</td>
 				<td class="col-md-1">
-					<?=date('h:i:s',strtotime($message['date'])); ?>
+					<?=date('H:i:s',strtotime($message['date'])); ?>
 				</td>
 				<!-- <td>
 					<?=isset($message['username']) ? $message['username'] : '';?>
