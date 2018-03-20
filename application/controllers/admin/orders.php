@@ -1414,7 +1414,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		}
 
 				
-    $t1=date("h:i:s", strtotime($data['keep_ready'])) . "\n";
+    $t1=date("H:i:s", strtotime($data['keep_ready'])) . "\n";
     $t2=$data['preparation_time'];
    
 		$html.="<div class='modal-header'>
