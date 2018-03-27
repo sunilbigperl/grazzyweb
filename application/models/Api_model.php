@@ -1061,10 +1061,16 @@ class Api_model extends CI_Model
 
 	 
 	 public function userOrderEmail($data){
-		  
+      
+		$data1=str_replace('["','',$data['id']);
+		$data2=str_replace('"]','',$data1);
+		$data3=str_replace('","',',',$data2);
+        $str=explode(',',$data3);
+        $str1=sizeof($str);
+         //print_r($str1);exit;
 		
-         $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."'");
-		 //echo "select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."' ";
+          $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."'");
+		 //echo "select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."' ";exit;
 
 		 if($sql){
 			
