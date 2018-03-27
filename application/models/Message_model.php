@@ -99,51 +99,76 @@ class Message_model extends CI_Model
 			 $sqlrest = $this->db->query("select restaurant_email from restaurant");
 			if($sqlrest->num_rows() > 0){
 				foreach($sqlrest->result_array() as $row){ 
-					$message="<h3>New message from Eatsapp</h3>
-					<h6>".$data['message']."</h6>";
+			    $logo1=base_url('uploads/images/3.png');
+			    $logo2=base_url('uploads/images/logo2.jpg');
+				$image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
+				$image2="<img src='".$logo2."' height='30' width='30'  alt='logo'>";
+				$message="<h3>New message from eatsapp</h3>
+					<h6>".$data['message']."</h6>
+					".$image1." <br>
+				
+					
+					<p>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021</p>
+					<p>The information in this e-mail (which includes any files transmitted with it) is confidential and may be legally privileged. It is intended solely for the addressee and is meant for their exclusive use. Email and its attachments may contain legally privileged and confidential information belonging to EATSAPP FOODS LLP. Access to this e-mail by anyone else is unauthorised. If you are not the intended recipient, any disclosure, copying, printing, reading, forwarding, distribution is strictly prohibited and may constitute unlawful act and attract legal action, civil and/or criminal. If you have received this message in error, you should destroy this message and may please notify the sender by email.</p>
+					<p style=color:green;><u>".$image2." Save a tree. Don't print this e-mail unless it's really necessary.</u></p>";
 						  $config = Array(
 							'protocol' => 'smtp',
-							'smtp_host' => 'ssl://smtp.gmail.com',
+							'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
 							'smtp_port' => 465,
-							'smtp_user' => 'suggest.eatsapp@gmail.com',
-							'smtp_pass' => 'devang123',
+							'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
+							'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
 							'mailtype'  => 'html', 
 							'charset'   => 'iso-8859-1',
 							'crlf' => "\r\n",
 							'newline' => "\r\n"
 						);
 						$this->load->library('email',$config);
-						$this->email->from('message@eatsapp.in', 'EatsApp');
-						$this->email->to($row['restaurant_email']);
-						$this->email->bcc('lvijetha90@gmail.com');
-						$this->email->subject('EatsApp: New message');
+						$this->email->from('messages@eatsapp.in', 'eatsapp');
+						//$this->email->to($row['restaurant_email']);
+						$this->email->to('messages@eatsapp.in');
+						//$this->email->bcc('restaurantmessages@gmail.com');
+						$this->email->subject('eatsapp: New message');
 						$this->email->message($message);
 						$this->email->send();
+						//print($this->email->print_debugger());exit;
 				}
 			} 
 		}else{
 			 $sqlrest = $this->db->query("select restaurant_email from restaurant where restaurant_id=".$rest_name[0]."");
 			if($sqlrest->num_rows() > 0){
 				$row = $sqlrest->result_array();
-				$message="<h3>New message from Eatsapp</h3>
-					<h6>".$data['message']."</h6>";
+				$logo1=base_url('uploads/images/3.png');
+			    $logo2=base_url('uploads/images/logo2.jpg');
+				$image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
+				$image2="<img src='".$logo2."' height='30' width='30'  alt='logo'>";
+				$message="<h3>New message from eatsapp</h3>
+					<h6>".$data['message']."</h6>
+					".$image1." <br>
+				
+					
+					<p>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021</p>
+					<p>The information in this e-mail (which includes any files transmitted with it) is confidential and may be legally privileged. It is intended solely for the addressee and is meant for their exclusive use. Email and its attachments may contain legally privileged and confidential information belonging to EATSAPP FOODS LLP. Access to this e-mail by anyone else is unauthorised. If you are not the intended recipient, any disclosure, copying, printing, reading, forwarding, distribution is strictly prohibited and may constitute unlawful act and attract legal action, civil and/or criminal. If you have received this message in error, you should destroy this message and may please notify the sender by email.</p>
+					<p style=color:green;><u>".$image2." Save a tree. Don't print this e-mail unless it's really necessary.</u></p>";
 						   $config = Array(
 							'protocol' => 'smtp',
-							'smtp_host' => 'ssl://smtp.gmail.com',
+							'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
 							'smtp_port' => 465,
-							'smtp_user' => 'suggest.eatsapp@gmail.com',
-							'smtp_pass' => 'devang123',
+							'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
+							'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
 							'mailtype'  => 'html', 
 							'charset'   => 'iso-8859-1',
 							'crlf' => "\r\n",
 							'newline' => "\r\n"
 						);
 						$this->load->library('email',$config);
-						$this->email->from('message@eatsapp.in', 'EatsApp');
-						$this->email->to($row[0]['restaurant_email']);
-						$this->email->subject('EatsApp: New message');
+						$this->email->from('messages@eatsapp.in', 'eatsapp');
+						//$this->email->to($row[0]['restaurant_email']);
+						$this->email->to('messages@eatsapp.in');
+						//$this->email->bcc('restaurantmessages@gmail.com');
+						$this->email->subject('eatsapp: New message');
 						$this->email->message($message);
 						$this->email->send();
+						//print($this->email->print_debugger());exit;
 			} 
 		}
 		$sql = "insert into restaurant_messages (restaurant_id,rest_name, message, date) 
@@ -256,26 +281,38 @@ class Message_model extends CI_Model
 			$sqlrest = $this->db->query("select email from admin where access='Deliver manager'");
 			if($sqlrest->num_rows() > 0){
 				foreach($sqlrest->result_array() as $row){ 
-					$message="<h3>New message from Eatsapp</h3>
-					<h6>".$data['message']."</h6>";
+				$logo1=base_url('uploads/images/3.png');
+			    $logo2=base_url('uploads/images/logo2.jpg');
+				$image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
+				$image2="<img src='".$logo2."' height='30' width='30'  alt='logo'>";
+				$message="<h3>New message from eatsapp</h3>
+					<h6>".$data['message']."</h6>
+					".$image1." <br>
+				
+					
+					<p>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021</p>
+					<p>The information in this e-mail (which includes any files transmitted with it) is confidential and may be legally privileged. It is intended solely for the addressee and is meant for their exclusive use. Email and its attachments may contain legally privileged and confidential information belonging to EATSAPP FOODS LLP. Access to this e-mail by anyone else is unauthorised. If you are not the intended recipient, any disclosure, copying, printing, reading, forwarding, distribution is strictly prohibited and may constitute unlawful act and attract legal action, civil and/or criminal. If you have received this message in error, you should destroy this message and may please notify the sender by email.</p>
+					<p style=color:green;><u>".$image2." Save a tree. Don't print this e-mail unless it's really necessary.</u></p>";
 						  $config = Array(
 							'protocol' => 'smtp',
-							'smtp_host' => 'ssl://smtp.gmail.com',
+							'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
 							'smtp_port' => 465,
-							'smtp_user' => 'suggest.eatsapp@gmail.com',
-							'smtp_pass' => 'devang123',
+							'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
+							'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
 							'mailtype'  => 'html', 
 							'charset'   => 'iso-8859-1',
 							'crlf' => "\r\n",
 							'newline' => "\r\n"
 						);
 						$this->load->library('email',$config);
-						$this->email->from('message@eatsapp.in', 'EatsApp');
-						$this->email->to($row['email']);
-						$this->email->bcc('lvijetha90@gmail.com');
-						$this->email->subject('EatsApp: New message');
+						$this->email->from('messages@eatsapp.in', 'eatsapp');
+						//$this->email->to($row['email']);
+						$this->email->to('messages@eatsapp.in');
+						//$this->email->bcc('dbosmessages@gmail.com');
+						$this->email->subject('eatsapp: New message');
 						$this->email->message($message);
 						$this->email->send();
+						//print($this->email->print_debugger());exit;
 				}
 			} 
 		}else{
@@ -284,26 +321,38 @@ class Message_model extends CI_Model
 			if($sqlrest->num_rows() > 0){
 				$row = $sqlrest->result_array();
 				
-				$message="<h3>New message from Eatsapp</h3>
-					<h6>".$data['message']."</h6>";
+				$logo1=base_url('uploads/images/3.png');
+			    $logo2=base_url('uploads/images/logo2.jpg');
+				$image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
+				$image2="<img src='".$logo2."' height='30' width='30'  alt='logo'>";
+				$message="<h3>New message from eatsapp</h3>
+					<h6>".$data['message']."</h6>
+					".$image1." <br>
+				
+					
+					<p>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021</p>
+					<p>The information in this e-mail (which includes any files transmitted with it) is confidential and may be legally privileged. It is intended solely for the addressee and is meant for their exclusive use. Email and its attachments may contain legally privileged and confidential information belonging to EATSAPP FOODS LLP. Access to this e-mail by anyone else is unauthorised. If you are not the intended recipient, any disclosure, copying, printing, reading, forwarding, distribution is strictly prohibited and may constitute unlawful act and attract legal action, civil and/or criminal. If you have received this message in error, you should destroy this message and may please notify the sender by email.</p>
+					<p style=color:green;><u>".$image2." Save a tree. Don't print this e-mail unless it's really necessary.</u></p>";
 						   $config = Array(
 							'protocol' => 'smtp',
-							'smtp_host' => 'ssl://smtp.gmail.com',
+							'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
 							'smtp_port' => 465,
-							'smtp_user' => 'suggest.eatsapp@gmail.com',
-							'smtp_pass' => 'devang123',
+							'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
+							'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
 							'mailtype'  => 'html', 
 							'charset'   => 'iso-8859-1',
 							'crlf' => "\r\n",
 							'newline' => "\r\n"
 						);
 						$this->load->library('email',$config);
-						$this->email->from('message@eatsapp.in', 'EatsApp');
-						$this->email->to($row[0]['email']);
-						$this->email->bcc('lvijetha90@gmail.com');
-						$this->email->subject('EatsApp: New message');
+						$this->email->from('messages@eatsapp.in', 'eatsapp');
+						//$this->email->to($row[0]['email']);
+						$this->email->to('messages@eatsapp.in');
+						//$this->email->bcc('dbosmessages@gmail.com');
+						$this->email->subject('eatsapp: New message');
 						$this->email->message($message);
 						 $this->email->send();
+						 //print($this->email->print_debugger());exit;
 			} 
 		}
 		$sql = "insert into delpartner_messages (delpartner_id, message, date) 
