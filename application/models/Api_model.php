@@ -1065,11 +1065,12 @@ class Api_model extends CI_Model
 		$data1=str_replace('["','',$data['id']);
 		$data2=str_replace('"]','',$data1);
 		$data3=str_replace('","',',',$data2);
-        $str=explode(',',$data3);
-        $str1=sizeof($str);
+        $arr=explode(',',$data3);
+        $arr1=sizeof($arr);
          //print_r($str1);exit;
-		
-          $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."'");
+		if($arr1==1)
+		{
+          $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$arr[0]."'");
 		 //echo "select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."' ";exit;
 
 		 if($sql){
@@ -1109,10 +1110,10 @@ class Api_model extends CI_Model
 
 			$config = Array(
 				'protocol' => 'smtp',
-				'smtp_host' => 'ssl://smtp.gmail.com',
+				'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'suggest.eatsapp@gmail.com',
-				'smtp_pass' => 'devang123',
+				'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
+				'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
 				'crlf' => "\r\n",
@@ -1121,22 +1122,22 @@ class Api_model extends CI_Model
 
 			
 			$this->load->library('email',$config);
-			$this->email->from('gkamatagi@gmail.com', 'EatsApp');
+			$this->email->from('billing@eatsapp.in', 'EatsApp');
 			//$this->email->to($result[0]['email']);
-			$this->email->to('gkamatagi@gmail.com');
+			//$this->email->to('gkamatagi@gmail.com');
 			//$this->email->bcc('lvijetha90@gmail.com');
+			$this->email->to('billing@eatsapp.in');
 
 			$this->email->subject('Order Details From Grazzy');
 			$this->email->message($message);
 			$this->email->send(); 
+			//print($this->email->print_debugger());exit;
 			return true;
 		   }else{
 			return false;
 		    }	
-		  
+		}
 		 }
-
-
 
 
 
