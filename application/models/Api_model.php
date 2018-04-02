@@ -936,14 +936,24 @@ class Api_model extends CI_Model
 		$sql =$this->db->query("insert into  feedback (customer_id,user_feedback) values('".$data['customer_id']."','".$data['user_feedback']."')");
 		if($sql){
 			$result[0] = true;
-			$sql1 = $this->db->query("SELECT `email` FROM `customers` where id=
+			$sql1 = $this->db->query("SELECT * FROM `customers` where id=
 				".$data['customer_id']." ");
 			if($sql1->num_rows() > 0){
 				foreach($sql1->result_array() as $row){ 
+					// print_r($row['firstname']);exit;
 					$logo1='http://eatsapp.in/login/uploads/images/3.png';
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 				   
-					$message=" ".$image1." ";
+					$message=" <center>".$image1." 
+					         <p>Dear ".$row['firstname'].",</p>
+							 <p>Thank you for giving your Valuable Feedback. Each feedback means a lot to us and helps us serve you better.</p>
+							 <p><b>Your Feedback:</b> ".$data['user_feedback']."</p>
+							 
+							 
+							 <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p>
+                             </center>
+					          ";
+
 					
 						  $config = Array(
 							'protocol' => 'smtp',
