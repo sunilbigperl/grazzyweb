@@ -564,34 +564,7 @@ class Api_model extends CI_Model
 		else{
         	$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."' where id='".$data['id']."'";
 
-        	 $sql1 = $this->db->query("SELECT a.`email` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
-			if($sql1->num_rows() > 0){
-				foreach($sql1->result_array() as $row){ 
-					
-					$message="<h3>New message from Eatsapp</h3>
-					<h5>Thanks for Placing Order on eatsapp…</h5>";
-					
-						  $config = Array(
-							'protocol' => 'smtp',
-							'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
-							'smtp_port' => 465,
-							'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
-							'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
-							'mailtype'  => 'html', 
-							'charset'   => 'iso-8859-1',
-							'crlf' => "\r\n",
-							'newline' => "\r\n"
-						);
-						$this->load->library('email',$config);
-						$this->email->from('messages@eatsapp.in', 'EatsApp');
-						//$this->email->to($row['email']);
-						$this->email->to('messages@eatsapp.in');
-						//$this->email->cc('gkamatagi@gmail.com');
-						$this->email->subject('EatsApp: New message');
-						$this->email->message($message);
-						$this->email->send();
-						
-				}
+        	
         }
 		
 		$query = $this->db->query($sql);
