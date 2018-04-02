@@ -936,6 +936,37 @@ class Api_model extends CI_Model
 		$sql =$this->db->query("insert into  feedback (customer_id,user_feedback) values('".$data['customer_id']."','".$data['user_feedback']."')");
 		if($sql){
 			$result[0] = true;
+			$sql1 = $this->db->query("SELECT `email` FROM `customers` where id=
+				".$data['customer_id']." ");
+			if($sql1->num_rows() > 0){
+				foreach($sql1->result_array() as $row){ 
+					$logo1=base_url('uploads/images/3.png');
+			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
+				   
+					$message=" ".$image1." ";
+					
+						  $config = Array(
+							'protocol' => 'smtp',
+							'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
+							'smtp_port' => 465,
+							'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
+							'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
+							'mailtype'  => 'html', 
+							'charset'   => 'iso-8859-1',
+							'crlf' => "\r\n",
+							'newline' => "\r\n"
+						);
+						$this->load->library('email',$config);
+						$this->email->from('messages@eatsapp.in', 'eatsapp');
+						//$this->email->to($row['email']);
+						$this->email->to('messages@eatsapp.in');
+						//$this->email->bcc('eatsapp_customer_feedback@gmail.com ');
+						$this->email->subject('eatsapp: Thanks for your Valuable Feedback…');
+						$this->email->message($message);
+						$this->email->send();
+						
+				}
+			} 
 		}else{
 			$result[0] = false;
 		}
