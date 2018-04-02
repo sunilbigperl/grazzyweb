@@ -940,7 +940,7 @@ class Api_model extends CI_Model
 				".$data['customer_id']." ");
 			if($sql1->num_rows() > 0){
 				foreach($sql1->result_array() as $row){ 
-					$logo1=base_url('uploads/images/3.png');
+					$logo1='http://eatsapp.in/login/uploads/images/3.png';
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 				   
 					$message=" ".$image1." ";
