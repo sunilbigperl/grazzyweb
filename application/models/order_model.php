@@ -365,7 +365,7 @@ Class order_model extends CI_Model
     
 
 	       }
-            $query2 = $this->db->query("SELECT a.*,b.order_number FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
+            $query2 = $this->db->query("SELECT * FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
 			if($query2->num_rows() > 0){
 				foreach($query2->result_array() as $row){ 
 					$logo1='http://eatsapp.in/login/uploads/images/3.png';
@@ -441,7 +441,7 @@ Class order_model extends CI_Model
 		$url =file("http://193.105.74.159/api/v3/sendsms/plain?user=wolotech&password=FBXM0Fv4&&sender=EATSAP&SMSText=We+regret+to+inform+you+that+your+order+was+not+accepted+.+We+will+refund+your+payment+within+5+working+days&type=longsms&GSM=91".$registatoin_ids[0]." ");
 	}
 
-	$query2 = $this->db->query("SELECT a.*,b.order_number FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
+	$query2 = $this->db->query("SELECT * FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
 			if($query2->num_rows() > 0){
 				foreach($query2->result_array() as $row){ 
 					
