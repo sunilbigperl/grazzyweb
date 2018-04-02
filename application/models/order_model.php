@@ -441,38 +441,31 @@ Class order_model extends CI_Model
 		$url =file("http://193.105.74.159/api/v3/sendsms/plain?user=wolotech&password=FBXM0Fv4&&sender=EATSAP&SMSText=We+regret+to+inform+you+that+your+order+was+not+accepted+.+We+will+refund+your+payment+within+5+working+days&type=longsms&GSM=91".$registatoin_ids[0]." ");
 	}
 
-	$query2 = $this->db->query("SELECT a.*,b.order_number FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
+	$query2 = $this->db->query("SELECT a.`email` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
 			if($query2->num_rows() > 0){
 				foreach($query2->result_array() as $row){ 
 					
-					$message=" <center>".$image1." 
-					         <p>Dear ".$row['firstname'].",</p>
-							 <p>Thank you for placing the order with us. We regret to inform you that the order has been cancelled. We will refund the amount at earliest.</p>
-							 <p><b>Order No:</b> ".$row['order_number']."</p>
-							 
-							 <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p>
-                             </center>
-					          ";
+					$message="<h3>New message from Eatsapp</h3>
+					        <h5>We regreat to inform you that your order was not accepted. We will refund your payment within 5 working days</h5>";
 					// <h6>".$data['message']."</h6>";
 						  $config = Array(
 							'protocol' => 'smtp',
-							'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
+							'smtp_host' => 'ssl://smtp.gmail.com',
 							'smtp_port' => 465,
-							'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
-							'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
+							'smtp_user' => 'suggest.eatsapp@gmail.com',
+							'smtp_pass' => 'devang123',
 							'mailtype'  => 'html', 
 							'charset'   => 'iso-8859-1',
 							'crlf' => "\r\n",
 							'newline' => "\r\n"
 						);
 						$this->load->library('email',$config);
-						$this->email->from('orders@eatsapp.in', 'eatsapp');
-						//$this->email->to($row['email']);
-						$this->email->to('orders@eatsapp.in');
-						//$this->email->bcc('eatsapp_customer_messages@gmail.com ');
-						$this->email->subject('eatsapp: Thanks for Placing Order on eatsapp');
+						$this->email->from('orders@eatsapp.in', 'EatsApp');
+						$this->email->to($row['email']);
+						//$this->email->cc('gkamatagi@gmail.com');
+						$this->email->subject('EatsApp: New message');
 						$this->email->message($message);
-						$this->email->send()
+						$this->email->send();
 						
 				}
 			}
