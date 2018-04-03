@@ -1163,8 +1163,12 @@ class Api_model extends CI_Model
        
 		if($sql->num_rows()>0){
 			$data = $sql->result_array();
+			//print_r($sql->result_array());exit;
 			$i=0;
 				foreach($data as $row){ 
+				    $logo1='http://eatsapp.in/login/uploads/images/3.png';
+			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
+					
 					$result[0]['order_id'] = $row['order_id'];
 					$result[0]['contents'] = $row['contents'];
 					$result[0]['total_amount'] = $row['total_amount'];
@@ -1173,9 +1177,14 @@ class Api_model extends CI_Model
 					$result[0]['netordervalue'] = $row['netordervalue'];
 					$result[0]['gstonfood'] = $row['gstonfood'];
                        $result[0]['email'] = $row['email'];
-                       $i++;
-                     //print_r($result[0]['contents']);exit;  
+                       
+                    //$i++;
+					//print_r($result[0]['contents']);exit;
 				}
+				//print_r($result)
+
+				 
+				 
 
 		}
 		else{
@@ -1185,13 +1194,25 @@ class Api_model extends CI_Model
          $message="<h3>Customer bill</h3>
 	    
 		<h6>Order id: ".$result[0]['order_id']."</h6>
+		
 		<h6>Custmization: ".$result[0]['contents']."</h6>
+		
 		<h6>Total Amount: ".$result[0]['total_amount']."</h6>
 		<h6>Discount: ".$result[0]['discount1']."</h6>
 		<h6>Discount: ".$result[0]['discount2']."</h6>
 		<h6>Net Order Value: ".$result[0]['netordervalue']."</h6>
 		<h6>GST On Food: ".$result[0]['gstonfood']."</h6>
         ";
+		
+		$message1=" <center>".$image1." 
+					         <p>Dear ".$row['firstname'].",</p>
+							 <p>Thank you for using eatsapp.</p>
+							 <p>The Bill(s) are attached herewith.</p>
+							 <p><b>Looking forward to serve you soon again.</b></p>
+							 <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p>
+                             </center>
+							 <p><b>Attachments:</b> </p>
+					          ";
 
 			$config = Array(
 				'protocol' => 'smtp',
@@ -1207,14 +1228,18 @@ class Api_model extends CI_Model
 
 			
 			$this->load->library('email',$config);
-			$this->email->from('billing@eatsapp.in', 'EatsApp');
+			$this->email->from('billing@eatsapp.in', 'eatsapp');
 			//$this->email->to($result[0]['email']);
-			//$this->email->to('gkamatagi@gmail.com');
-			//$this->email->bcc('lvijetha90@gmail.com');
+			//$this->email->bcc('eatsapp_customer_bills@gmail.com ');
 			$this->email->to('billing@eatsapp.in');
-
-			$this->email->subject('Order Details From Grazzy');
-			$this->email->message($message);
+            $this->email->subject('Your Requested Bill(s)');
+			$filename  = "orderbill.pdf";
+            $this->load->library('m_pdf');
+            $this->m_pdf->pdf->WriteHTML($message);
+		    $this->m_pdf->pdf->Output($filename, "F");
+		    $this->email->attach($filename);
+			$this->email->message($message1);
+			
 			$this->email->send(); 
 			//print($this->email->print_debugger());exit;
 			return true;
