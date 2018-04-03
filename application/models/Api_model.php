@@ -752,7 +752,7 @@ class Api_model extends CI_Model
 		
 		if($sql){
         
-		$sql1 =$this->db->query("select firstname,phone from customers where id='".$data['customer']."' ");
+		$sql1 =$this->db->query("select firstname,phone,email from customers where id='".$data['customer']."' ");
 			// echo "select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' ";exit;
          $i=0;
 		if($sql1->num_rows()>0){
@@ -780,7 +780,7 @@ class Api_model extends CI_Model
         ".$image1." 
         <p>Dear ".$user_data['firstname'].",</p>
         <p>Thank you for suggesting a New Restaurant. We'll get in touch with them. Your suggestions help us serve you better.</p>
-        <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></p>
+        <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p>
         ";
 
 			$config = Array(
@@ -797,8 +797,9 @@ class Api_model extends CI_Model
 			$this->load->library('email',$config);
 			$this->email->from('messages@eatsapp.in', 'eatsapp');
 			$this->email->to('messages@eatsapp.in');
-			//$this->email->bcc('lvijetha90@gmail.com');
-            $this->email->subject('eatsapp: Restaurant suggestion');
+			//$this->email->to($user_data['email']);
+			//$this->email->bcc('eatsapp_customer_suggest@gmail.com');
+            $this->email->subject('eatsapp: Thanks for your Valuable suggestion');
 			$this->email->message($message);
 			$this->email->send(); 
 			return true;
@@ -818,7 +819,7 @@ class Api_model extends CI_Model
 		
 		
 		if($sql){
-			$sql1 =$this->db->query("select firstname,phone from customers where id='".$data['customer']."' ");
+			$sql1 =$this->db->query("select firstname,phone,email from customers where id='".$data['customer']."' ");
 			// echo "select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' ";exit;
          $i=0;
 		if($sql1->num_rows()>0){
@@ -843,7 +844,7 @@ class Api_model extends CI_Model
 			<h6>Customer id: ".$data['customer']."</h6>
 			".$image1." 
             <p>Dear ".$user_data['firstname'].",</p>
-            <p>Thank you for suggesting a New Delivery Point. We'll check the feasibility of incorporating this Delivery Point. Your suggestions help us serve you better.</p>
+            <p>Thank you for suggesting a New Delivery Point. We'll review the sae.Your suggestions help us serve you better.</p>
             <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p>";
              
 
@@ -862,9 +863,9 @@ class Api_model extends CI_Model
 			$this->load->library('email',$config);
 			$this->email->from('messages@eatsapp.in', 'eatsapp');
 			$this->email->to('messages@eatsapp.in');
-				
-			//$this->email->bcc('lvijetha90@gmail.com');
-			$this->email->subject('Eatsapp: Delivery Point suggestion');
+			//$this->email->to($user_data['email']);
+			//$this->email->bcc('eatsapp_customer_suggest@gmail.com ');
+			$this->email->subject('eatsapp: Thanks for your Valuable suggestion');
 			$this->email->message($message);
 			$this->email->send(); 
 			return true; 
