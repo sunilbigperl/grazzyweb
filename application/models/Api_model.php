@@ -756,7 +756,8 @@ class Api_model extends CI_Model
 			// echo "select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' ";exit;
          $i=0;
 		if($sql1->num_rows()>0){
-               
+                $logo1='http://eatsapp.in/login/uploads/images/3.png';
+			    $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 				foreach($sql1->result_array() as $row){ 
 					$user_data['firstname'] = $row['firstname'];
 					$user_data['phone'] = $row['phone'];
@@ -775,26 +776,29 @@ class Api_model extends CI_Model
 		<h6>Restaurant Email: ".$data['restaurant_email']."</h6>
 		<h6>CustomerName: ".$user_data['firstname']."</h6>
 		<h6>Customer Mobile: ".$user_data['phone']."</h6>
-        <h6>Customer id: ".$data['customer']."</h6>";
+        <h6>Customer id: ".$data['customer']."</h6>
+        ".$image1." 
+        <p>Dear ".$user_data['firstname'].",</p>
+        <p>Thank you for suggesting a New Restaurant. We'll get in touch with them. Your suggestions help us serve you better.</p>
+        <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></p>
+        ";
 
 			$config = Array(
 				'protocol' => 'smtp',
-				'smtp_host' => 'ssl://smtp.gmail.com',
+				'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'suggest.eatsapp@gmail.com',
-				'smtp_pass' => 'devang123',
+				'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
+				'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
 				'crlf' => "\r\n",
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('suggest@eatsapp.in', 'EatsApp');
-			$this->email->to('suggest.eatsapp@gmail.com');
-			$this->email->cc('gkamatagi@gmail.com');
+			$this->email->from('messages@eatsapp.in', 'eatsapp');
+			$this->email->to('messages@eatsapp.in');
 			//$this->email->bcc('lvijetha90@gmail.com');
-
-			$this->email->subject('EatsApp: Restaurant suggestion');
+            $this->email->subject('eatsapp: Restaurant suggestion');
 			$this->email->message($message);
 			$this->email->send(); 
 			return true;
@@ -818,7 +822,8 @@ class Api_model extends CI_Model
 			// echo "select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' ";exit;
          $i=0;
 		if($sql1->num_rows()>0){
-               
+                $logo1='http://eatsapp.in/login/uploads/images/3.png';
+			    $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 				foreach($sql1->result_array() as $row){ 
 					$user_data['firstname'] = $row['firstname'];
 					$user_data['phone'] = $row['phone'];
@@ -835,27 +840,31 @@ class Api_model extends CI_Model
 			<h6>Delivery Point longitude: ".$data['restaurant_langitude']."</h6>
 			<h6>CustomerName: ".$user_data['firstname']."</h6>
 		    <h6>Customer Mobile: ".$user_data['phone']."</h6>
-			<h6>Customer id: ".$data['customer']."</h6>";
+			<h6>Customer id: ".$data['customer']."</h6>
+			".$image1." 
+            <p>Dear ".$user_data['firstname'].",</p>
+            <p>Thank you for suggesting a New Delivery Point. We'll check the feasibility of incorporating this Delivery Point. Your suggestions help us serve you better.</p>
+            <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p>";
              
 
 
 			   $config = Array(
 				'protocol' => 'smtp',
-				'smtp_host' => 'ssl://smtp.gmail.com',
+				'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'suggest.eatsapp@gmail.com',
-				'smtp_pass' => 'devang123',
+				'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
+				'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
 				'crlf' => "\r\n",
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('suggest@eatsapp.in', 'EatsApp');
-			$this->email->to('suggest.eatsapp@gmail.com');
-				$this->email->cc('gkamatagi@gmail.com');
+			$this->email->from('messages@eatsapp.in', 'eatsapp');
+			$this->email->to('messages@eatsapp.in');
+				
 			//$this->email->bcc('lvijetha90@gmail.com');
-			$this->email->subject('EatsApp: Delivery Point suggestion');
+			$this->email->subject('Eatsapp: Delivery Point suggestion');
 			$this->email->message($message);
 			$this->email->send(); 
 			return true; 
