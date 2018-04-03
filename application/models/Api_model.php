@@ -795,8 +795,8 @@ class Api_model extends CI_Model
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('messages@eatsapp.in', 'eatsapp');
-			$this->email->to('messages@eatsapp.in');
+			$this->email->from('feedback@eatsapp.in', 'eatsapp');
+			$this->email->to('feedback@eatsapp.in');
 			//$this->email->to($user_data['email']);
 			//$this->email->bcc('eatsapp_customer_suggest@gmail.com');
             $this->email->subject('eatsapp: Thanks for your Valuable suggestion');
@@ -861,8 +861,8 @@ class Api_model extends CI_Model
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('messages@eatsapp.in', 'eatsapp');
-			$this->email->to('messages@eatsapp.in');
+			$this->email->from('feedback@eatsapp.in', 'eatsapp');
+			$this->email->to('feedback@eatsapp.in');
 			//$this->email->to($user_data['email']);
 			//$this->email->bcc('eatsapp_customer_suggest@gmail.com ');
 			$this->email->subject('eatsapp: Thanks for your Valuable suggestion');
