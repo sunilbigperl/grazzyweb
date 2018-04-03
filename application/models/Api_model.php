@@ -564,6 +564,48 @@ class Api_model extends CI_Model
 		else{
         	$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."' where id='".$data['id']."'";
 
+           $sql1 = $this->db->query("SELECT * FROM `customers` a,orders b,restaurant c where b.id=".$data['id']." and b.customer_id=a.id and b.restaurant_id=c.restaurant_id ");
+			if($sql1->num_rows() > 0){
+				foreach($sql1->result_array() as $row){ 
+					// print_r($row['firstname']);exit;
+					$logo1='http://eatsapp.in/login/uploads/images/3.png';
+			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
+				   
+					$message=" <center>".$image1." 
+					         <p>Dear ".$row['firstname'].",</p>
+							 <p>Thank you for placing the order with us. We will be delivering you order soon.</p>
+							 <p>You can track the order <b>Live</b> on the App.</p>
+							 <p><b>Order No: </b>".$row['order_number']."</p>
+							  <p><b>Restaurant: </b>".$row['restaurant_name']."</p>
+							 <p><b>Delivery Address:</b> ".$row['delivery_location']."</p>
+							 <p>Looking forward to serve you soon again.</p>
+							 <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p>
+                             </center>
+					          ";
+
+					
+						  $config = Array(
+							'protocol' => 'smtp',
+							'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
+							'smtp_port' => 465,
+							'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
+							'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
+							'mailtype'  => 'html', 
+							'charset'   => 'iso-8859-1',
+							'crlf' => "\r\n",
+							'newline' => "\r\n"
+						);
+						$this->load->library('email',$config);
+						$this->email->from('orders@eatsapp.in', 'eatsapp');
+						//$this->email->to($row['email']);
+						$this->email->to('orders@eatsapp.in');
+						//$this->email->bcc('eatsapp_customer_messages@gmail.com  ');
+						$this->email->subject('eatsapp: Thanks for Placing Order on eatsapp');
+						$this->email->message($message);
+						$this->email->send();
+						
+				}
+			} 
         	
         }
 		
