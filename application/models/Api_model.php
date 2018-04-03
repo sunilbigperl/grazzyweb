@@ -769,18 +769,18 @@ class Api_model extends CI_Model
 
 			}
 		
-		$message="<h3>New restaurant suggestion</h3>
+		/*<h3>New restaurant suggestion</h3>
 	     <h6>Restaurant_name: ".$data['restaurant_name']."</h6>
 		<h6>Restaurant phone: ".$data['restaurant_phone']."</h6>
 		<h6>Restaurant address: ".$data['restaurant_address']."</h6>
 		<h6>Restaurant Email: ".$data['restaurant_email']."</h6>
 		<h6>CustomerName: ".$user_data['firstname']."</h6>
 		<h6>Customer Mobile: ".$user_data['phone']."</h6>
-        <h6>Customer id: ".$data['customer']."</h6>
-        ".$image1." 
+        <h6>Customer id: ".$data['customer']."</h6>*/
+        $message=" <center>".$image1." 
         <p>Dear ".$user_data['firstname'].",</p>
         <p>Thank you for suggesting a New Restaurant. We'll get in touch with them. Your suggestions help us serve you better.</p>
-        <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p>
+        <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>
         ";
 
 			$config = Array(
@@ -835,17 +835,17 @@ class Api_model extends CI_Model
 				
 
 			}
-			$message="<h3>New Delivery Point suggestion</h3>
+			/*<h3>New Delivery Point suggestion</h3>
 			<h6>Delivery Point address: ".$data['restaurant_address']."</h6>
 			<h6>Delivery Point latitude: ".$data['restaurant_latitude']."</h6>
 			<h6>Delivery Point longitude: ".$data['restaurant_langitude']."</h6>
 			<h6>CustomerName: ".$user_data['firstname']."</h6>
 		    <h6>Customer Mobile: ".$user_data['phone']."</h6>
-			<h6>Customer id: ".$data['customer']."</h6>
-			".$image1." 
+			<h6>Customer id: ".$data['customer']."</h6>*/
+			$message="<center>".$image1." 
             <p>Dear ".$user_data['firstname'].",</p>
-            <p>Thank you for suggesting a New Delivery Point. We'll review the sae.Your suggestions help us serve you better.</p>
-            <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p>";
+            <p>Thank you for suggesting a New Delivery Point. We'll review the same.Your suggestions help us serve you better.</p>
+            <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>";
              
 
 
