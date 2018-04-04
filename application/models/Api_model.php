@@ -1162,16 +1162,14 @@ class Api_model extends CI_Model
 		$data3=str_replace('","',',',$data2);
         $arr=explode(',',$data3);
         $arr1=sizeof($arr);
-         //print_r($str1);exit;
-		if($arr1==1)
+		$arr2=implode(",",$arr);
+        if($arr1==1)
 		{
-          $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$arr[0]."'");
+          $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$arr[0]."' ");
 		 //echo "select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."' ";exit;
 
-		 if($sql){
-			
-       
-		if($sql->num_rows()>0){
+		
+		    if($sql->num_rows()>0){
 			$data = $sql->result_array();
 			//print_r($sql->result_array());exit;
 			$i=0;
@@ -1179,40 +1177,36 @@ class Api_model extends CI_Model
 				    $logo1='http://eatsapp.in/login/uploads/images/3.png';
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 					
-					$result[0]['order_id'] = $row['order_id'];
-					$result[0]['contents'] = $row['contents'];
-					$result[0]['total_amount'] = $row['total_amount'];
-					$result[0]['discount1'] = $row['discount1'];
-					$result[0]['discount2'] = $row['discount2'];
-					$result[0]['netordervalue'] = $row['netordervalue'];
-					$result[0]['gstonfood'] = $row['gstonfood'];
-                       $result[0]['email'] = $row['email'];
-                       
-                    //$i++;
-					//print_r($result[0]['contents']);exit;
+					$result[$i]['order_id'] = $row['order_id'];
+					//$result[$i]['contents'] = $row['contents'];
+					$result[$i]['total_amount'] = $row['total_amount'];
+					$result[$i]['discount1'] = $row['discount1'];
+					$result[$i]['discount2'] = $row['discount2'];
+					$result[$i]['netordervalue'] = $row['netordervalue'];
+					$result[$i]['gstonfood'] = $row['gstonfood'];
+                       $result[$i]['email'] = $row['email'];
+					$sql1 = $this->db->query("select contents from order_items where order_id='".$row['order_id']."'");
+					
+					$data1 = $sql1->result_array();
+			
+				foreach($data1 as $row){ 
+				$result[$i]['contents'] = $result[$i]['contents'].", ".$row['contents'];
+
 				}
-				//print_r($result)
-
-				 
-				 
-
-		}
-		else{
-				$result['order_id'] = 0;
 				
-		         }
          $message="<h3>Customer bill</h3>
 	    
-		<h6>Order id: ".$result[0]['order_id']."</h6>
+		<h6>Order id: ".$result[$i]['order_id']."</h6>
 		
-		<h6>Custmization: ".$result[0]['contents']."</h6>
+		<h6>Custmization: ".$result[$i]['contents']."</h6>
 		
-		<h6>Total Amount: ".$result[0]['total_amount']."</h6>
-		<h6>Discount: ".$result[0]['discount1']."</h6>
-		<h6>Discount: ".$result[0]['discount2']."</h6>
-		<h6>Net Order Value: ".$result[0]['netordervalue']."</h6>
-		<h6>GST On Food: ".$result[0]['gstonfood']."</h6>
+		<h6>Total Amount: ".$result[$i]['total_amount']."</h6>
+		<h6>Discount: ".$result[$i]['discount1']."</h6>
+		<h6>Discount: ".$result[$i]['discount2']."</h6>
+		<h6>Net Order Value: ".$result[$i]['netordervalue']."</h6>
+		<h6>GST On Food: ".$result[$i]['gstonfood']."</h6>
         ";
+		 $i++;
 		
 		$message1=" <center>".$image1." 
 					         <p>Dear ".$row['firstname'].",</p>
@@ -1249,13 +1243,83 @@ class Api_model extends CI_Model
 		    $this->m_pdf->pdf->Output($filename, "F");
 		    $this->email->attach($filename);
 			$this->email->message($message1);
+			$this->email->send(); 
+		    //print($this->email->print_debugger());exit;
+			return true;
+		  
 			
+		}
+	 }
+		}else{
+			 $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id IN ($arr2)");
+			 
+			if($sql->num_rows()>0){
+			$data = $sql->result_array();
+			//print_r($sql->result_array());exit;
+			 $message='';
+			 $message = "<h3>Customer bill</h3>";
+				foreach($data as $row){ 
+				    $logo1='http://eatsapp.in/login/uploads/images/3.png';
+			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
+					$string_version = implode('-->', $row);
+					$message .="
+	    <h6>Order id: ".$row['order_id']."</h6>
+		<h6>Customization: ".$row['contents']."</h6>
+		<h6>Total Amount: ".$row['total_amount']."</h6>
+		<h6>Discount: ".$row['discount1']."</h6>
+		<h6>Discount: ".$row['discount2']."</h6>
+		<h6>Net Order Value: ".$row['netordervalue']."</h6>
+		<h6>GST On Food: ".$row['gstonfood']."</h6><br>
+		";
+		}
+					
+	     //$sql1 = $this->db->query("select contents from order_items where order_id='".$row['order_id']."'");
+		 //$data1 = $sql1->result_array();
+		 //foreach($data1 as $row){ 
+		 //$result[$i]['contents'] = $result[$i]['contents'].", ".$row['contents'];
+         //	}
+				
+				 
+		$message1=" <center>".$image1." 
+					         <p>Dear ".$row['firstname'].",</p>
+							 <p>Thank you for using eatsapp.</p>
+							 <p>The Bill(s) are attached herewith.</p>
+							 <p><b>Looking forward to serve you soon again.</b></p>
+							 <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p>
+                             </center>
+							 <p><b>Attachments:</b> </p>
+					          ";
+
+			$config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
+				'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
+				'mailtype'  => 'html', 
+				'charset'   => 'iso-8859-1',
+				'crlf' => "\r\n",
+				'newline' => "\r\n"
+			);
+
+			
+			$this->load->library('email',$config);
+			$this->email->from('billing@eatsapp.in', 'eatsapp');
+			//$this->email->to($row['email']);
+			//$this->email->bcc('eatsapp_customer_bills@gmail.com ');
+			$this->email->to('billing@eatsapp.in');
+            $this->email->subject('Your Requested Bill(s)');
+			$filename  = "orderbill.pdf";
+            $this->load->library('m_pdf');
+            $this->m_pdf->pdf->WriteHTML($message);
+		    $this->m_pdf->pdf->Output($filename, "F");
+		    $this->email->attach($filename);
+			$this->email->message($message1);
 			$this->email->send(); 
 			//print($this->email->print_debugger());exit;
 			return true;
-		   }else{
-			return false;
-		    }	
+		  
+			 }
 		}
 		 }
 
