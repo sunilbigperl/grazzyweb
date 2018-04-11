@@ -61,7 +61,7 @@
 		
 		<?php if (!empty($message)): ?>
 			<div class="alert alert-success">
-				<a class="close" data-dismiss="alert">×</a>
+				<a class="close" data-dismiss="alert"></a>
 				<a class="close" data-dismiss="alert"></a>
 				<?php echo $message; ?>
 			</div>
@@ -69,7 +69,7 @@
 
 		<?php if (!empty($error)): ?>
 			<div class="alert alert-error" style=padding-top:2% >
-				<a class="close" data-dismiss="alert">×</a>
+				<a class="close" data-dismiss="alert"></a>
 				<a class="close" data-dismiss="alert"></a>
 				<?php echo $error; ?>
 			</div>
