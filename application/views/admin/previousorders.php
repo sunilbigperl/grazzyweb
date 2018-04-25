@@ -243,7 +243,10 @@
 					    	echo "Delivered";
 					    }
 
-					}else{
+					}elseif($order->status=='order cancelled'){
+						echo "Rejected by $order->restaurant_name";
+					}
+					else{
 						echo "Rejected by $order->restaurant_name";
 					} ?>
 
