@@ -338,9 +338,13 @@
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						echo "$order->status ";
 					}
-					else{
+					else if($order->restaurant_manager_status == "Rejected"){
 						echo "Rejected by $order->restaurant_name";
-					} ?>  
+					}
+					else if($order->status == "order cancelled"){
+						echo "Rejected by $order->restaurant_name";
+					}
+					?>  
                     
 
 				</td>
