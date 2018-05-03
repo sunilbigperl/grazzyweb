@@ -845,7 +845,7 @@ class Api_model extends CI_Model
 			$message="<center>".$image1." 
             <p style=font-family:Verdana;>Dear ".$user_data['firstname'].",</p>
             <p style=font-family:Verdana;>Thank you for suggesting a New Delivery Point. We'll review the same.Your suggestions help us serve you better.</p>
-            <p style=color:#bdbdbf;font-family:Verdana;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>";
+            <p style=color:#bdbdbf;font-family:Verdana;><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>";
              
 
 
