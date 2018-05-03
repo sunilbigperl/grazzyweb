@@ -778,27 +778,26 @@ class Api_model extends CI_Model
 		<h6>Customer Mobile: ".$user_data['phone']."</h6>
         <h6>Customer id: ".$data['customer']."</h6>*/
         $message=" <center>".$image1." 
-        <p>Dear ".$user_data['firstname'].",</p>
-        <p>Thank you for suggesting a New Restaurant. We'll get in touch with them. Your suggestions help us serve you better.</p>
-        <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>
+        <p style=font-family:Verdana;>Dear ".$user_data['firstname'].",</p>
+        <p style=font-family:Verdana;>Thank you for suggesting a New Restaurant. We'll get in touch with them. Your suggestions help us serve you better.</p>
+        <p style=color:#bdbdbf;font-family:Verdana;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>
         ";
 
 			$config = Array(
 				'protocol' => 'smtp',
-				'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
+				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
-				'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
+				'smtp_user' => 'feedback@eatsapp.in',
+				'smtp_pass' => 'DEVANG123d',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
 				'crlf' => "\r\n",
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('messages@eatsapp.in', 'eatsapp');
-			$this->email->to('messages@eatsapp.in');
-			//$this->email->to($user_data['email']);
-			//$this->email->bcc('eatsapp_customer_suggest@gmail.com');
+			$this->email->from('feedback@eatsapp.in', 'eatsapp');
+			$this->email->to($user_data['email']);
+			$this->email->bcc('eatsapp.customer.feedback@gmail.com');
             $this->email->subject('eatsapp: Thanks for your Valuable suggestion');
 			$this->email->message($message);
 			$this->email->send(); 
@@ -843,9 +842,9 @@ class Api_model extends CI_Model
 		    <h6>Customer Mobile: ".$user_data['phone']."</h6>
 			<h6>Customer id: ".$data['customer']."</h6>*/
 			$message="<center>".$image1." 
-            <p>Dear ".$user_data['firstname'].",</p>
-            <p>Thank you for suggesting a New Delivery Point. We'll review the same.Your suggestions help us serve you better.</p>
-            <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>";
+            <p style=font-family:Verdana;>Dear ".$user_data['firstname'].",</p>
+            <p style=font-family:Verdana;>Thank you for suggesting a New Delivery Point. We'll review the same.Your suggestions help us serve you better.</p>
+            <p style=color:#bdbdbf;font-family:Verdana;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>";
              
 
 
@@ -853,18 +852,17 @@ class Api_model extends CI_Model
 				'protocol' => 'smtp',
 				'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
-				'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
+				'smtp_user' => 'feedback@eatsapp.in',
+				'smtp_pass' => 'DEVANG123d',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
 				'crlf' => "\r\n",
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('messages@eatsapp.in', 'eatsapp');
-			$this->email->to('messages@eatsapp.in');
-			//$this->email->to($user_data['email']);
-			//$this->email->bcc('eatsapp_customer_suggest@gmail.com ');
+			$this->email->from('feedback@eatsapp.in', 'eatsapp');
+			$this->email->to($user_data['email']);
+			$this->email->bcc('eatsapp.customer.feedback@gmail.com');
 			$this->email->subject('eatsapp: Thanks for your Valuable suggestion');
 			$this->email->message($message);
 			$this->email->send(); 
