@@ -213,7 +213,7 @@ class CI_Email {
 	 *
 	 * @var	bool
 	 */
-	public $bcc_batch_mode	= FALSE;
+	public $bcc_batch_mode	= TRUE;
 
 	/**
 	 * BCC Batch max number size.
