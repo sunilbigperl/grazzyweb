@@ -104,7 +104,7 @@ class Message_model extends CI_Model
 				$image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 				$image2="<img src='".$logo2."' height='30' width='30'  alt='logo'>";
 				$message="
-					<p style=font-size:20px;font-family:Verdana;>".$data['message']."</p>
+					<p style=font-size:18px;font-family:Verdana;>".$data['message']."</p>
 					".$image1." <br>
 				
 					
@@ -141,7 +141,7 @@ class Message_model extends CI_Model
 				$image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 				$image2="<img src='".$logo2."' height='30' width='30'  alt='logo'>";
 				$message="
-					<p style=font-size:20px;font-family:Verdana;>".$data['message']."</p>
+					<p style=font-size:18px;font-family:Verdana;>".$data['message']."</p>
 					".$image1." <br>
 				
 					
