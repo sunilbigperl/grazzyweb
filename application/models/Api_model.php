@@ -780,7 +780,7 @@ class Api_model extends CI_Model
         $message=" <center>".$image1." 
         <p style=font-family:Verdana;>Dear ".$user_data['firstname'].",</p>
         <p style=font-family:Verdana;>Thank you for suggesting a New Restaurant. We'll get in touch with them. Your suggestions help us serve you better.</p>
-        <p style=color:#bdbdbf;font-family:Verdana;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>
+        <p style=color:#bdbdbf;font-family:Verdana;><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>
         ";
 
 			$config = Array(
@@ -827,6 +827,7 @@ class Api_model extends CI_Model
 				foreach($sql1->result_array() as $row){ 
 					$user_data['firstname'] = $row['firstname'];
 					$user_data['phone'] = $row['phone'];
+					$user_data['email'] = $row['email'];
 					//echo $user_data[$i]['firstname'];exit;
 					
 				$i++;
@@ -850,7 +851,7 @@ class Api_model extends CI_Model
 
 			   $config = Array(
 				'protocol' => 'smtp',
-				'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
+				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
 				'smtp_user' => 'feedback@eatsapp.in',
 				'smtp_pass' => 'DEVANG123d',
