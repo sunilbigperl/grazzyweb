@@ -888,7 +888,7 @@ class Api_model extends CI_Model
 			$this->email->to($user_data['email']);
 			$this->email->bcc('eatsapp.customer.feedback@gmail.com');
 			$this->email->subject('eatsapp:Thanks for your Valuable Feedback…');
-			$this->email->message($message);
+			$this->email->message($message1);
 			$this->email->send(); 
 			return true; 
 		}
