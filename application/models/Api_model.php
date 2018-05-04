@@ -836,14 +836,15 @@ class Api_model extends CI_Model
 				
 
 			}
-			/*<h3>New Delivery Point suggestion</h3>
+			$message="<h3>New Delivery Point suggestion</h3>
 			<h6>Delivery Point address: ".$data['restaurant_address']."</h6>
 			<h6>Delivery Point latitude: ".$data['restaurant_latitude']."</h6>
 			<h6>Delivery Point longitude: ".$data['restaurant_langitude']."</h6>
 			<h6>CustomerName: ".$user_data['firstname']."</h6>
 		    <h6>Customer Mobile: ".$user_data['phone']."</h6>
-			<h6>Customer id: ".$data['customer']."</h6>*/
-			$message="<center>".$image1." 
+			<h6>Customer id: ".$data['customer']."</h6>";
+
+			$message1="<center>".$image1."
             <p style=font-family:Verdana;>Dear ".$user_data['firstname'].",</p>
             <p style=font-family:Verdana;>Thank you for suggesting a New Delivery Point. We'll review the same.Your suggestions help us serve you better.</p>
             <p style=color:#bdbdbf;font-family:Verdana;><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>";
@@ -851,6 +852,27 @@ class Api_model extends CI_Model
 
 
 			   $config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.gmail.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'suggest.eatsapp@gmail.com',
+				'smtp_pass' => 'DEVANG123d',
+				'mailtype'  => 'html', 
+				'charset'   => 'iso-8859-1',
+				'crlf' => "\r\n",
+				'newline' => "\r\n"
+			);
+			$this->load->library('email',$config);
+			$this->email->from('suggest.eatsapp@gmail.com', 'eatsapp');
+			//$this->email->to($user_data['email']);
+			$this->email->to('suggest.eatsapp@gmail.com');
+			//$this->email->bcc('eatsapp.customer.feedback@gmail.com');
+			$this->email->subject('eatsapp:Pitstop suggestion');
+			$this->email->message($message);
+			$this->email->send(); 
+			return true; 
+
+			$config = Array(
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
@@ -865,7 +887,7 @@ class Api_model extends CI_Model
 			$this->email->from('feedback@eatsapp.in', 'eatsapp');
 			$this->email->to($user_data['email']);
 			$this->email->bcc('eatsapp.customer.feedback@gmail.com');
-			$this->email->subject('eatsapp: Thanks for your Valuable suggestion');
+			$this->email->subject('eatsapp:Thanks for your Valuable Feedback…');
 			$this->email->message($message);
 			$this->email->send(); 
 			return true; 
