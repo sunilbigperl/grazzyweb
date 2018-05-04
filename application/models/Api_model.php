@@ -1053,21 +1053,21 @@ class Api_model extends CI_Model
 					
 						  $config = Array(
 							'protocol' => 'smtp',
-							'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
+							'smtp_host' => 'ssl://smtp.gmail.com',
 							'smtp_port' => 465,
-							'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
-							'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
+							'smtp_user' => 'feedback@eatsapp.in',
+							'smtp_pass' => 'DEVANG123d',
 							'mailtype'  => 'html', 
 							'charset'   => 'iso-8859-1',
 							'crlf' => "\r\n",
 							'newline' => "\r\n"
 						);
 						$this->load->library('email',$config);
-						$this->email->from('messages@eatsapp.in', 'eatsapp');
-						//$this->email->to($row['email']);
+						$this->email->from('feedback@eatsapp.in', 'eatsapp');
+						$this->email->to($row['email']);
 						$this->email->to('messages@eatsapp.in');
-						//$this->email->bcc('eatsapp_customer_feedback@gmail.com ');
-						$this->email->subject('eatsapp: Thanks for your Valuable Feedback…');
+						$this->email->bcc('eatsapp.customer.feedback@gmail.com');
+						$this->email->subject('eatsapp: Thanks for your Valuable Feedback');
 						$this->email->message($message);
 						$this->email->send();
 						
