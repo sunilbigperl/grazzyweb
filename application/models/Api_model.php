@@ -761,6 +761,7 @@ class Api_model extends CI_Model
 				foreach($sql1->result_array() as $row){ 
 					$user_data['firstname'] = $row['firstname'];
 					$user_data['phone'] = $row['phone'];
+					$user_data['email'] = $row['email'];
 					//echo $user_data[$i]['firstname'];exit;
 					
 				$i++;
