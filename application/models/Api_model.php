@@ -889,7 +889,7 @@ class Api_model extends CI_Model
 			//$this->email->to($user_data['email']);
 			$this->email->to('suggest.eatsapp@gmail.com');
 			//$this->email->bcc('eatsapp.customer.feedback@gmail.com');
-			$this->email->subject('eatsapp:Pitstop suggestion');
+			$this->email->subject('eatsapp:Delivery Point suggestion');
 			$this->email->message($message);
 			$this->email->send(); 
 			//return true; 
@@ -1122,7 +1122,7 @@ class Api_model extends CI_Model
 		}else{
 			$result[0] = false;
 		}
-		
+
 		return $result;
 	  }
 	  
