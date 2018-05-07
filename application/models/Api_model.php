@@ -797,7 +797,7 @@ class Api_model extends CI_Model
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('suggest.eatsapp@gmail.com', 'eatsapp');
+			$this->email->from('feedback@eatsapp.in', 'eatsapp');
 			//$this->email->to($user_data['email']);
 			$this->email->to('suggest.eatsapp@gmail.com');
 			//$this->email->bcc('eatsapp.customer.feedback@gmail.com');
