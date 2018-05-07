@@ -1209,7 +1209,7 @@ class Api_model extends CI_Model
 		$arr2=implode(",",$arr);
         if($arr1==1)
 		{
-          $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$arr[0]."' ");
+          $sql = $this->db->query("select * from order_items a,orders b,customers c,restaurant d where b.restaurant_id=d.restaurant_id and b.customer_id=c.id and a.order_id=b.id and order_id='".$arr[0]."' ");
 		 //echo "select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."' ";exit;
 
 		
@@ -1228,27 +1228,72 @@ class Api_model extends CI_Model
 					$result[$i]['discount2'] = $row['discount2'];
 					$result[$i]['netordervalue'] = $row['netordervalue'];
 					$result[$i]['gstonfood'] = $row['gstonfood'];
-                       $result[$i]['email'] = $row['email'];
-					$sql1 = $this->db->query("select contents from order_items where order_id='".$row['order_id']."'");
+					$result[$i]['ordered_on'] = $row['ordered_on'];
+					$result[$i]['delivery_location'] = $row['delivery_location'];
+                    $result[$i]['email'] = $row['email'];
+					$result[$i]['restaurant_name'] = $row['restaurant_name'];
+					$result[$i]['firstname'] = $row['firstname'];
+					$sql1 = $this->db->query("select contents,cost from order_items where order_id='".$row['order_id']."'");
 					
 					$data1 = $sql1->result_array();
 			
-				foreach($data1 as $row){ 
-				$result[$i]['contents'] = $result[$i]['contents'].", ".$row['contents'];
+				foreach($data1 as $row1){ 
+				
+				$result[$i]['contents'] = $result[$i]['contents']."<br>".$row1['contents'];
+				$result[$i]['cost'] = $result[$i]['cost']."<br>".$row1['cost'];
+				
+				
+				
+				
 
 				}
 				
-         $message="<h3>Customer bill</h3>
-	    
-		<h6>Order id: ".$result[$i]['order_id']."</h6>
+         $message="<center>".$image1."  </center>
+		  <p style=text-align:center;>Dear ".$result[$i]['firstname'].",</p>
+		  <p style=text-align:center;>Thank you for placing the order with eatsapp</p>
+		  <p style=text-align:center;>Order No: ".$result[$i]['order_id']."</p>
+		  <p style=text-align:center;>Ordered Placed at: ".$result[$i]['ordered_on']."</p>
+		  <p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>
+		  <p style=text-align:center;>Restaurant:".$result[$i]['restaurant_name']."</p>
+		  
 		
-		<h6>Custmization: ".$result[$i]['contents']."</h6>
 		
-		<h6>Total Amount: ".$result[$i]['total_amount']."</h6>
-		<h6>Discount: ".$result[$i]['discount1']."</h6>
-		<h6>Discount: ".$result[$i]['discount2']."</h6>
-		<h6>Net Order Value: ".$result[$i]['netordervalue']."</h6>
-		<h6>GST On Food: ".$result[$i]['gstonfood']."</h6>
+		
+<table>
+  <tr>
+    <th>Item Name</th>
+    <th>Price (INR)</th>
+   </tr>
+  <tr>
+    <td>".$result[$i]['contents']."</td>
+    <td>".$result[$i]['cost']."</td>
+   </tr>
+  <tr>
+    <td>Total</td>
+    <td>".$result[$i]['total_amount']."</td>
+  </tr>
+  <tr>
+    <td>Discount</td>
+    <td>".$result[$i]['discount1']."</td>
+  </tr>
+  <tr>
+    <td>Discount</td>
+    <td>".$result[$i]['discount2']."</td>
+  </tr>
+  <tr>
+    <td>Net Order Value</td>
+    <td>".$result[$i]['netordervalue']."</td>
+  </tr>
+  <tr>
+    <td>GST on Food</td>
+    <td>".$result[$i]['gstonfood']."</td>
+  </tr>
+  
+  
+</table>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>	   
+<hr>
+<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
         ";
 		 $i++;
 		
@@ -1264,10 +1309,10 @@ class Api_model extends CI_Model
 
 			$config = Array(
 				'protocol' => 'smtp',
-				'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
+				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
-				'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
+				'smtp_user' => 'billing@eatsapp.in',
+				'smtp_pass' => 'DEVANG123d',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
 				'crlf' => "\r\n",
@@ -1277,9 +1322,9 @@ class Api_model extends CI_Model
 			
 			$this->load->library('email',$config);
 			$this->email->from('billing@eatsapp.in', 'eatsapp');
-			//$this->email->to($result[0]['email']);
-			//$this->email->bcc('eatsapp_customer_bills@gmail.com ');
-			$this->email->to('billing@eatsapp.in');
+			$this->email->to($result[0]['email']);
+			//$this->email->bcc('eatsapp.customer.billing@gmail.com');
+			//$this->email->to('billing@eatsapp.in');
             $this->email->subject('Your Requested Bill(s)');
 			$filename  = "orderbill.pdf";
             $this->load->library('m_pdf');
@@ -1295,25 +1340,80 @@ class Api_model extends CI_Model
 		}
 	 }
 		}else{
-			 $sql = $this->db->query("select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id IN ($arr2)");
+			 $sql = $this->db->query("select * from order_items a,orders b,customers c,restaurant d where b.restaurant_id=d.restaurant_id and b.customer_id=c.id and a.order_id=b.id and order_id IN ($arr2)");
 			 
 			if($sql->num_rows()>0){
 			$data = $sql->result_array();
+			$i=0;
 			//print_r($sql->result_array());exit;
 			 $message='';
-			 $message = "<h3>Customer bill</h3>";
+			
 				foreach($data as $row){ 
 				    $logo1='http://eatsapp.in/login/uploads/images/3.png';
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
+					$result[$i]['order_id'] = $row['order_id'];
+					$result[$i]['contents'] = $row['contents'];
+					$result[$i]['cost'] = $row['cost'];
+					$result[$i]['total_amount'] = $row['total_amount'];
+					$result[$i]['discount1'] = $row['discount1'];
+					$result[$i]['discount2'] = $row['discount2'];
+					$result[$i]['netordervalue'] = $row['netordervalue'];
+					$result[$i]['gstonfood'] = $row['gstonfood'];
+					$result[$i]['ordered_on'] = $row['ordered_on'];
+					$result[$i]['delivery_location'] = $row['delivery_location'];
+                    $result[$i]['email'] = $row['email'];
+					$result[$i]['restaurant_name'] = $row['restaurant_name'];
+					$result[$i]['firstname'] = $row['firstname'];
+
 					$string_version = implode('-->', $row);
-					$message .="
-	    <h6>Order id: ".$row['order_id']."</h6>
-		<h6>Customization: ".$row['contents']."</h6>
-		<h6>Total Amount: ".$row['total_amount']."</h6>
-		<h6>Discount: ".$row['discount1']."</h6>
-		<h6>Discount: ".$row['discount2']."</h6>
-		<h6>Net Order Value: ".$row['netordervalue']."</h6>
-		<h6>GST On Food: ".$row['gstonfood']."</h6><br>
+					$message .="<center>".$image1."  </center>
+		  <p style=text-align:center;>Dear ".$result[$i]['firstname'].",</p>
+		  <p style=text-align:center;>Thank you for placing the order with eatsapp</p>
+		  <p style=text-align:center;>Order No: ".$result[$i]['order_id']."</p>
+		  <p style=text-align:center;>Ordered Placed at: ".$result[$i]['ordered_on']."</p>
+		  <p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>
+		  <p style=text-align:center;>Restaurant:".$result[$i]['restaurant_name']."</p>
+	   
+		
+		<table>
+  <tr>
+    <th>Item Name</th>
+    <th>Price (INR)</th>
+   </tr>
+  <tr>
+    <td>Order No</td>
+    <td>".$result[$i]['order_id']."</td>
+  </tr>
+  <tr>
+    <td>".$result[$i]['contents']."</td>
+    <td>".$result[$i]['cost']."</td>
+  </tr>
+  <tr>
+    <td>Total</td>
+    <td>".$result[$i]['total_amount']."</td>
+  </tr>
+  <tr>
+    <td>Discount</td>
+    <td>".$result[$i]['discount1']."</td>
+  </tr>
+  <tr>
+    <td>Discount</td>
+    <td>".$result[$i]['discount2']."</td>
+  </tr>
+  <tr>
+    <td>Net Order Value</td>
+    <td>".$result[$i]['netordervalue']."</td>
+  </tr>
+  <tr>
+    <td>GST on Food</td>
+    <td>".$result[$i]['gstonfood']."</td>
+  </tr>
+  
+  
+</table>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>	   
+<hr>
+<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
 		";
 		}
 					
@@ -1336,10 +1436,10 @@ class Api_model extends CI_Model
 
 			$config = Array(
 				'protocol' => 'smtp',
-				'smtp_host' => 'tls://email-smtp.us-west-2.amazonaws.com',
+				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'AKIAIGFLUVHL7VFKJPKQ',
-				'smtp_pass' => 'AtYcFS7RiYGIRsiRH2Mo6a1MHYNB/mvXseJgj6KI4FcR',
+				'smtp_user' => 'billing@eatsapp.in',
+				'smtp_pass' => 'DEVANG123d',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
 				'crlf' => "\r\n",
@@ -1349,9 +1449,9 @@ class Api_model extends CI_Model
 			
 			$this->load->library('email',$config);
 			$this->email->from('billing@eatsapp.in', 'eatsapp');
-			//$this->email->to($row['email']);
+			$this->email->to($row['email']);
 			//$this->email->bcc('eatsapp_customer_bills@gmail.com ');
-			$this->email->to('billing@eatsapp.in');
+			//$this->email->to('billing@eatsapp.in');
             $this->email->subject('Your Requested Bill(s)');
 			$filename  = "orderbill.pdf";
             $this->load->library('m_pdf');
@@ -1365,7 +1465,8 @@ class Api_model extends CI_Model
 		  
 			 }
 		}
-		 }
+	 }
+
 
 
 
