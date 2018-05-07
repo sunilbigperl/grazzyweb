@@ -789,7 +789,7 @@ class Api_model extends CI_Model
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'suggest.eatsapp@gmail.com',
+				'smtp_user' => 'feedback@eatsapp.in',
 				'smtp_pass' => 'DEVANG123d',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
@@ -877,7 +877,7 @@ class Api_model extends CI_Model
 				'protocol' => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
 				'smtp_port' => 465,
-				'smtp_user' => 'suggest.eatsapp@gmail.com',
+				'smtp_user' => 'feedback@eatsapp.in',
 				'smtp_pass' => 'DEVANG123d',
 				'mailtype'  => 'html', 
 				'charset'   => 'iso-8859-1',
@@ -885,7 +885,7 @@ class Api_model extends CI_Model
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('suggest.eatsapp@gmail.com', 'eatsapp');
+			$this->email->from('feedback@eatsapp.in', 'eatsapp');
 			//$this->email->to($user_data['email']);
 			$this->email->to('suggest.eatsapp@gmail.com');
 			//$this->email->bcc('eatsapp.customer.feedback@gmail.com');
@@ -909,7 +909,7 @@ class Api_model extends CI_Model
 			$this->email->from('feedback@eatsapp.in', 'eatsapp');
 			$this->email->to($user_data['email']);
 			$this->email->bcc('eatsapp.customer.feedback@gmail.com');
-			$this->email->subject('eatsapp:Thanks for your Valuable Feedback');
+			$this->email->subject('eatsapp:Thanks for your Valuable suggestion');
 			$this->email->message($message1);
 			$this->email->send(); 
 			return true; 
@@ -1122,6 +1122,7 @@ class Api_model extends CI_Model
 		}else{
 			$result[0] = false;
 		}
+		
 		return $result;
 	  }
 	  
