@@ -179,7 +179,7 @@ Class Menu_model extends CI_Model
 				$array2=array($array1);
 				
                  
-      $sql=$this->db->query("update `restaurant_menu` set `customisation`= '".serialize($array2[0])."'  where `menu_id`='".$id."' ");
+      $sql=$this->db->query("update `restaurant_menu` set `customisation`= '".$this->db->escape_str(serialize($array2[0]))."'  where `menu_id`='".$id."' ");
 
       
 
