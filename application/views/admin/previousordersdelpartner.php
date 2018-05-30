@@ -266,7 +266,11 @@
 					}elseif($order->delivery_partner_status== "Rejected"){
 						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1;
 						echo $givetocust;
-					}else{
+					}elseif($order->status=='order cancelled'){
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1;
+				      echo $givetocust;
+					}
+					else{
 						echo  0;
 					}?></td>
 				<?php } ?>
