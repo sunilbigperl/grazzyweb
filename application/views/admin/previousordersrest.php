@@ -200,16 +200,22 @@
 					}elseif($order->delivery_partner_status== "Rejected"){
 						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge;
 						echo $givetocust;
-					}else{
+					}elseif($order->status=='order cancelled'){
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge;
+				      echo $givetocust;
+					}
+					else{
 						echo  0;
 					}?></td>
 
 
 			
 				<td>
-
-                 <?php if($order->restaurant_manager_status == "0"){ ?>
-						Not acted yet
+                   <!--  $order->restaurant_manager_status == "0" -->
+                 <?php if($order->status=='order cancelled'){ 
+                 	echo "Rejected by $order->restaurant_name ";
+                 	?>
+						<!-- Not acted yet -->
 					<?php }elseif($order->delivery_partner_status == "Rejected"){
 						// echo "Delivery manager rejected";
 						$username=$orders1[0]->firstname;
