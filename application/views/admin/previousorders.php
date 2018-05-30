@@ -225,9 +225,9 @@
  
 
                    <td>
-					<?php if($order->restaurant_manager_status == "0"){ ?>
-						Not acted yet
-					<?php }elseif($order->delivery_partner_status == "Rejected"){
+					<!-- <?php if($order->restaurant_manager_status == "0"){ ?>
+						Not acted yet -->
+					<?php if($order->delivery_partner_status == "Rejected"){
 						// echo "Delivery manager rejected";
 						$username=$orders1[0]->firstname;
 				 	echo "Rejected by $username";
