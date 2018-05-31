@@ -143,7 +143,7 @@ class Orders extends Admin_Controller {
 
 		}else{
 			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
-			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'.' +1 day'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
 
 		}
 		$data['id'] = $id;
