@@ -226,7 +226,8 @@
 
                    <td>
 					<?php if($order->status=='order cancelled'){
-						 echo "Rejected by $order->restaurant_name";
+						$username=$orders1[0]->firstname;
+				 	echo "Rejected by $username";
 					 ?>
 					 <!-- Not acted yet -->
 					<?php }elseif($order->delivery_partner_status == "Rejected"){
