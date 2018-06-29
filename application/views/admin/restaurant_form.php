@@ -72,16 +72,31 @@
 				<label for="restaurant_address">City</label>
 				<select name="restaurant_branch" class="form-control" required>
 
-					<!-- <option value="">Select city</option> -->
+					<option value="">Select city</option>
 
 					<?php foreach($getcity as $class):?>
-						
+					
                      <option value="<?php echo $class['city'];?>" <?php if($class['city']==$restaurant_branch){echo "selected";}?>><?php echo $class['city'];?> 
                      </option>
                       <?php endforeach;?> 
                       </select>
                     
 			     </div>  
+
+			     <div class="form-group">
+				  <label for="restaurant_address">Select Deliverypartner</label>
+				  <select name="del_partner" class="form-control" required>
+
+					<option value="">Select delpartner</option>
+
+					<?php foreach($delpartner as $delpartners):?>
+						
+                     <option value="<?php echo $delpartners['id'];?>" <?php if($delpartners['id']==$del_partner){echo "selected";}?>><?php echo $delpartners['username'];?> 
+                     </option>
+                      <?php endforeach;?> 
+                      </select>
+                    
+			     </div>
 
 
 

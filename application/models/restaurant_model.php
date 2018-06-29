@@ -255,6 +255,19 @@ Class Restaurant_model extends CI_Model
        return $class->result_array();
     }
 
+    function get_deliverypartner(){
+		$userdata = $this->session->userdata('admin');
+		$sql = $this->db->query("select * from admin where access='Deliver manager'" );
+		// echo "select * from admin where access='Deliver manager' ";exit;
+		// print_r($sql);
+		if($sql->num_rows() > 0){
+			$result	= $sql->result_array();
+		}else{
+			$result = 0;
+		}
+		return $result;
+	}
+
 
     function getrestaurantlist(){
  
