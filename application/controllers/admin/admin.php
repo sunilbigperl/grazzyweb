@@ -231,6 +231,77 @@ class Admin extends Admin_Controller
         }
     }
 
+    function addvocher($id = false)
+    {
+        
+        $this->id  = $id;
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $data['orders'] = $this->Customer_model->get_vocher();
+        //print_r($data['orders']);exit;
+        //$data['page_title']     = lang('category_form');
+        
+        //default values are empty if the customer is new
+		
+        $data['id']                    = '';
+        $data['coupon_code']           = '';
+        $data['used']                  = '';
+        $data['cost']                  = '';
+
+        
+       
+        
+        if ($id)
+        {   
+		
+            $coupon    = $this->Customer_model->addcoupon($id);
+
+            //if the category does not exist, redirect them to the category list with an error
+            if (!$coupon)
+            {
+                //$this->session->set_flashdata('error', lang('error_not_found'));
+                redirect($this->config->item('admin_folder').'/addvocher');
+            }
+            
+            
+			
+            $data['id']             = $coupon->id;
+            $data['coupon_code']    = $coupon->coupon_code;
+            $data['used']           = $coupon->used;
+            $data['cost']           = $coupon->cost;
+            
+			
+            
+        }
+        
+        $this->form_validation->set_rules('coupon_code', 'coupon_code', 'required|is_unique[coupons.coupon_code]');
+        
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->view($this->config->item('admin_folder').'/vocher_form', $data);
+        }
+        else
+        {
+            
+            
+            $save['id']             = $id;
+			$save['coupon_code']    = $this->input->post('coupon_code');
+            $save['used']           = $this->input->post('used');
+            $save['cost']           = $this->input->post('cost');
+           
+		
+			
+			
+            $coupon_id    = $this->Customer_model->savecoupon($save);
+       
+            $this->session->set_flashdata('message', 'Vocher saved');
+            
+            //go back to the category list
+            redirect($this->config->item('admin_folder').'/admin/addvocher');
+        }
+    }
+
     function deletecity($id)
     {
         
@@ -243,6 +314,25 @@ class Admin extends Admin_Controller
             
             $this->session->set_flashdata('message', "The Cityname has been deleted.");
             redirect($this->config->item('admin_folder').'/admin/addcity');
+        }
+        else
+        {
+            $this->session->set_flashdata('error', lang('error_not_found'));
+        }
+    }
+
+    function deletecoupon($id)
+    {
+        
+        $coupon   = $this->Customer_model->get_vocher($id);
+        //if the category does not exist, redirect them to the customer list with an error
+        if ($coupon)
+        {
+            
+            $this->Customer_model->deletecoupon($id);
+            
+            $this->session->set_flashdata('message', "The Vocher has been deleted.");
+            redirect($this->config->item('admin_folder').'/admin/addvocher');
         }
         else
         {

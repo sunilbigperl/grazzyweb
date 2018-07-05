@@ -590,6 +590,18 @@ Class Customer_model extends CI_Model
         return $result;
     }
 
+    function addcoupon($id)
+    {
+        
+        $result = $this->db->get_where('coupons', array('id'=>$id))->row();
+        if(!$result)
+        {
+            return false;
+        }
+        
+        return $result;
+    }
+
 
     function savecity($pitstop)
     {
@@ -610,9 +622,39 @@ Class Customer_model extends CI_Model
         
     }
 
+     function savecoupon($coupon)
+    {
+        
+        if ($coupon['id'])
+        {
+            $this->db->where('id', $coupon['id']);
+            $this->db->update('coupons', $coupon);
+            
+            $id= $coupon['id'];
+        }
+        else
+        {
+            $this->db->insert('coupons', $coupon);
+            $id = $this->db->insert_id();
+        }
+        
+        
+    }
+
 
     function get_city(){
         $sql=$this->db->query("select * from pitstopcity");
+           
+        if($sql->num_rows() > 0){
+            $result = $sql->result();
+        }else{
+            $result = 0;
+        }
+        return $result;
+    }
+
+     function get_vocher(){
+        $sql=$this->db->query("select * from coupons");
            
         if($sql->num_rows() > 0){
             $result = $sql->result();
@@ -627,6 +669,13 @@ Class Customer_model extends CI_Model
     {
         $this->db->where('Id', $id);
         $this->db->delete('pitstopcity'); 
+        
+    }
+
+    function deletecoupon($id)
+    {
+        $this->db->where('Id', $id);
+        $this->db->delete('coupons'); 
         
     }
 
