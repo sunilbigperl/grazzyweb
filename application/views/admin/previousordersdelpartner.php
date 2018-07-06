@@ -346,8 +346,9 @@
 						echo "Rejected by $order->restaurant_name";
 					}
 					else if($order->status == "order cancelled"){
-						$username=$orders1[0]->firstname;
-						echo "Rejected by $order->$username";
+						// $username=$orders1[0]->firstname;
+						// echo "Rejected by $order->$username";
+						echo "Rejected by $order->restaurant_name";
 					}else{
 						echo "Not acted yet";
 						//echo "$order->status ";
