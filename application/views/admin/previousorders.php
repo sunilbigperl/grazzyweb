@@ -225,15 +225,12 @@
                        <!-- $order->restaurant_manager_status == "0" -->
 
                    <td>
-					<?php if($order->restaurant_manager_status == "0"){
-						echo "Not acted yet" ;
-					 ?>
-					 <!-- Not acted yet -->
-					<?php }elseif($order->delivery_partner_status == "Rejected"){
-						// echo "Delivery manager rejected";
+					<?php if($order->delivery_partner_status == "Rejected"){
 						$username=$orders1[0]->firstname;
 				 	echo "Rejected by $username";
-					}elseif($order->delivery_partner_status == "Accepted"){
+					 ?>
+					 <!-- Not acted yet -->
+					<?php }elseif($order->delivery_partner_status == "Accepted"){
 						echo "$order->status ";
 					}else if($order->restaurant_manager_status == "Accepted" && $order->status == "order cancelled" ){
 						$username=$orders1[0]->firstname;
