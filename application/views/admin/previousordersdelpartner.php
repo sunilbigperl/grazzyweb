@@ -339,6 +339,9 @@
 				 	echo "Rejected by $username";
 					}elseif($order->delivery_partner_status == "Accepted"){
 						echo " $order->status";
+					}else if($order->restaurant_manager_status == "Accepted" && $order->status == "order cancelled" ){
+						$username=$orders1[0]->firstname;
+				 	    echo "Rejected by $username";
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						echo "$order->status ";
 					}

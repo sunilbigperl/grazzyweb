@@ -212,8 +212,8 @@
 			
 				<td>
                    <!--  $order->restaurant_manager_status == "0" -->
-                 <?php if($order->status=='order cancelled'){ 
-                 	echo "Rejected by $order->restaurant_name ";
+                 <?php if( $order->restaurant_manager_status == "0"){ 
+                 	echo "Not acted yet" ;
                  	?>
 						<!-- Not acted yet -->
 					<?php }elseif($order->delivery_partner_status == "Rejected"){
@@ -223,9 +223,16 @@
 					}elseif($order->delivery_partner_status == "Accepted"){
 						// echo "Delivery manager Accepted";
 						 echo "$order->status";
+					}else if($order->restaurant_manager_status == "Accepted" && $order->status == "order cancelled" ){
+						$username=$orders1[0]->firstname;
+				 	    echo "Rejected by $username";
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						echo "Restaurant manager accepted ";
-					}else{
+					}else if($order->status == "order cancelled"){
+						
+						echo "Rejected by $order->restaurant_name";
+					}
+					else{
 						echo "Rejected by $order->restaurant_name ";
 					} ?>
 
