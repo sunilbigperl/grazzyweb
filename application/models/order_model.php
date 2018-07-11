@@ -343,7 +343,7 @@ Class order_model extends CI_Model
 		}else if($status == "2"){ 
 			$data = "Delivered"; 
 			$sql = $this->db->query('update orders set status="'.$data.'",actualdelivery_time=
-				"'.$date.'",actualpickup_time="'.$date.'" where id="'.$id.'"');
+				"'.$date.'",actualpickup_time="'.$date.'",keep_ready="'.$date.'",delivered_on="'.$date.'" where id="'.$id.'"');
 		}
 		else{ 
 			$data = "Rejected"; 
