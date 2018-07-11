@@ -300,7 +300,7 @@
 				</td>
 				
 				<td>
-					<?php if($order->delivery_partner_status == "Accepted"){
+					<?php if($order->delivery_partner_status == "Accepted" || $order->restaurant_manager_status == "Accepted"){
 						echo "0";
 					}else{
 						echo $order->penalty;
