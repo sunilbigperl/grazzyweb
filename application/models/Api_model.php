@@ -1210,7 +1210,7 @@ class Api_model extends CI_Model
 		$arr2=implode(",",$arr);
         if($arr1==1)
 		{
-          $sql = $this->db->query("select * from order_items a,orders b,customers c,restaurant d where b.restaurant_id=d.restaurant_id and b.customer_id=c.id and a.order_id=b.id and order_id='".$arr[0]."' ");
+          $sql = $this->db->query("select a.*,b.*,c.*,d.restaurant_name from order_items a,orders b,customers c,restaurant d where b.restaurant_id=d.restaurant_id and b.customer_id=c.id and a.order_id=b.id and order_id='".$arr[0]."' ");
 		 //echo "select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."' ";exit;
 
 		
