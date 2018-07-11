@@ -174,10 +174,16 @@
 				   <?php echo $order->total_amount; ?>
 				</td>
 
-				<td>
-					<?=$deliverycharge1; ?>
+				 <td>
+					<!-- <?=$deliverycharge1; ?> -->
+					 <?php if($order->order_type !="I'll pickup"){ ?>
+						<?=$deliverycharge1; ?>
+					<?php }else{
+						
+						echo 0;
+					} ?>
 				</td>
-
+ 
 				<td>
                     
 					<?=$order->discount1; ?>
@@ -308,7 +314,7 @@
 					?>
 				</td>
 				
-				<td> <?php if($order->delivery_partner_status == "Accepted"){
+				<td> <?php if($order->delivery_partner_status == "Accepted" || $order->restaurant_manager_status == "Accepted"){
 						$netamount = $deliverycharge['rate'];
 					}else{
 						
