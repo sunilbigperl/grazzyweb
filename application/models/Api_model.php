@@ -1267,10 +1267,17 @@ class Api_model extends CI_Model
 		  <p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>
 		  <p style=text-align:center;>Restaurant:".$result[$i]['restaurant_name']."</p>
 		  
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+	
+}
+
+</style>			
 		
 		
-		
-<table>
+<table align=center>
   <tr>
     <th>Item Name</th>
     <th>Price (INR)</th>
@@ -1299,7 +1306,7 @@ class Api_model extends CI_Model
     <td>GST on Food</td>
     <td>".$result[$i]['gstonfood']."</td>
   </tr>
-  <hr>
+  
    <tr>
     <td>Total</td>
     <td>".$result[$i]['total_cost']."</td>
