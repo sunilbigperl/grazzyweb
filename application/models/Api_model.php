@@ -988,13 +988,21 @@ class Api_model extends CI_Model
 	
 	public function validateCoupon($data){
 		
-		$sql=$this->db->query("select * from coupons where coupon_code='".$data['coupon_code']."' and used =0");
+		$sql=$this->db->query("select * from coupons where coupon_code='".$data['coupon_code']."' and used!=0");
        
 		if($sql->num_rows()>0){
 			$data = $sql->result_array();
 			
 			$result['id'] = $data[0]['id'];
 			$result['cost'] = $data[0]['cost'];
+			$result['used'] = $data[0]['used'];
+			//print_r($result['used']);exit;
+			if($result['used']>0){
+				//print_r($result['used']-1);exit;
+				$data1=$result['used']-1;
+				
+			 $sql1=$this->db->query("update coupons set used='".$data1."' where id='".$result['id']."' ");
+			}
 			
 		}else{
 				$result['id'] = 0;
