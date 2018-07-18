@@ -68,20 +68,48 @@ Class Restaurant_model extends CI_Model
 		return $result;
 	}
 	function GetdelpatnerMessages(){
+		// $yes = date('Y-m-d H:i:s',strtotime("-1 days"));
+		// $today =  date('Y-m-d H:i:s');
+		// $userdata = $this->session->userdata('admin');
+		
+		// // $sql = $this->db->query("select * from delpartner_messages where delpartner_id='".$userdata['id']."' 
+		// // order by date desc limit 1");
+
+		// $sql = $this->db->query("select * from delpartner_messages order by date desc limit 1");
+		// if($sql->num_rows() > 0){  
+		// 	$result	= $sql->result_array();
+		// }else{
+			
+		// 	$result = 0;
+			
+		// }
+		
+		// return $result;
+
 		$yes = date('Y-m-d H:i:s',strtotime("-1 days"));
 		$today =  date('Y-m-d H:i:s');
 		$userdata = $this->session->userdata('admin');
-		
-		// $sql = $this->db->query("select * from delpartner_messages where delpartner_id='".$userdata['id']."' 
-		// order by date desc limit 1");
-
-		$sql = $this->db->query("select * from delpartner_messages order by date desc limit 1");
-		if($sql->num_rows() > 0){  
-			$result	= $sql->result_array();
+		//print_r($userdata);exit;
+		// $sql = $this->db->query("select * from delpartner_messages a, admin b where a.delpartner_id = b.id and b.id='".$userdata['id']."' order by date desc limit 1");
+		$sql = $this->db->query("select * from delpartner_messages a, admin b where a.delpartner_id = b.id and b.id='".$userdata['id']."' 
+		or a.delpartner_id=0 
+		order by date desc limit 1");
+		$sql1 = $this->db->query("select * from delpartner_messages  where delpartner_id=".rand()." order by date desc limit 1" );
+		if($sql1->num_rows() > 0){  
+			if($sql->num_rows() > 0){
+				$da1 = $sql->result_array();
+				$da2 = $sql1->result_array();
+				$result['data'] = array_merge($da1,$da2);
+			}else{
+				$result['data'] = $sql1->result_array();
+			}
+			
 		}else{
-			
-			$result = 0;
-			
+			if($sql->num_rows() > 0){
+				$result['data']	= $sql->result_array();
+			}else{
+				$result = 0;
+			}
 		}
 		
 		return $result;
