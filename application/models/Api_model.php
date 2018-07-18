@@ -1262,7 +1262,7 @@ class Api_model extends CI_Model
          $message="<p style=text-align:center;>".$image1."  </p>
 		  <p style=text-align:center;>Dear ".$result[$i]['firstname'].",</p>
 		  <p style=text-align:center;>Thank you for placing the order with eatsapp</p>
-		  <p style=text-align:center;>Order No: ".$result[$i]['order_id']."</p>
+		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
 		  <p style=text-align:center;>Ordered Placed at: ".$result[$i]['ordered_on']."</p>
 		  <p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>
 		  <p style=text-align:center;>Restaurant:".$result[$i]['restaurant_name']."</p>
