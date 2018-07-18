@@ -1232,6 +1232,7 @@ class Api_model extends CI_Model
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo' >";
 					
 					$result[$i]['order_id'] = $row['order_id'];
+					$result[$i]['order_number'] = $row['order_number'];
 					//$result[$i]['contents'] = $row['contents'];
 					$result[$i]['total_amount'] = $row['total_amount'];
 					$result[$i]['discount1'] = $row['discount1'];
