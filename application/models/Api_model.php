@@ -3,10 +3,11 @@ class Api_model extends CI_Model
 {
 	
 	public function customercheck($data){
+		$date = date("Y-m-d H:i:s");
 		$sql = "select * from customers where  phone ='".$data['phone']."' and active = 1";
 		$query = $this->db->query($sql);
 		if($query->num_rows() == 0){
-			$sql = "insert into customers (phone, did, active) values('".$data['phone']."','".$data['did']."', 1)";	
+			$sql = "insert into customers (phone, did,createdAt,active) values('".$data['phone']."','".$data['did']."','".$date."', 1)";	
 			$query = $this->db->query($sql);
 			$result['id'] = $this->db->insert_id();
 			$result['email'] = "";
@@ -1209,7 +1210,7 @@ class Api_model extends CI_Model
 
 	 
 	 public function userOrderEmail($data){
-      
+        $date = date("Ym-d");
 		$data1=str_replace('["','',$data['id']);
 		$data2=str_replace('"]','',$data1);
 		$data3=str_replace('","',',',$data2);
