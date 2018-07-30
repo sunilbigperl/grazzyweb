@@ -374,6 +374,8 @@ class Api_model extends CI_Model
 	}
 	
 	public function orderlistnotshipped($id){
+		$date = date("Y-m-d H:i:s");
+		print_r($date);exit;
 		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status!='Shipped' and a.status!='payment pending' order by a.ordered_on desc";
 		
 		$query = $this->db->query($sql);
@@ -1405,40 +1407,98 @@ table, th, td {
 		}
 	 }
 		}else{
-			 $sql = $this->db->query("select * from order_items a,orders b,customers c,restaurant d where b.restaurant_id=d.restaurant_id and b.customer_id=c.id and a.order_id=b.id and order_id IN ($arr2)");
+			 // $sql = $this->db->query("select * from order_items a,orders b,customers c,restaurant d where b.restaurant_id=d.restaurant_id and b.customer_id=c.id and a.order_id=b.id and order_id IN ($arr2)");
+			// $sql = "SELECT * FROM `orders`a WHERE a.id IN ($arr2) ";
+		$sql = "SELECT * FROM `orders` WHERE  id IN ($arr2) ";
+		$sql3 = $this->db->query("select servicetax,deliverycharge,minordervalue from charges order by start_date desc limit 1 ");
+		 $servicetax =  $sql3->result_array();
+		
+		$query = $this->db->query($sql);
 			 
-			if($sql->num_rows()>0){
-			$data = $sql->result_array();
+			if($query->num_rows()>0){
+			$result = array();
 			$i=0;
-			//print_r($sql->result_array());exit;
 			 $message='';
-			
-				foreach($data as $row){ 
-				    $logo1='http://eatsapp.in/login/uploads/images/3.png';
-			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
-					$result[$i]['order_id'] = $row['order_id'];
-					$result[$i]['contents'] = $row['contents'];
-					$result[$i]['cost'] = $row['cost'];
-					$result[$i]['total_amount'] = $row['total_amount'];
-					$result[$i]['discount1'] = $row['discount1'];
-					$result[$i]['discount2'] = $row['discount2'];
-					$result[$i]['netordervalue'] = $row['netordervalue'];
-					$result[$i]['gstonfood'] = $row['gstonfood'];
-					$result[$i]['ordered_on'] = $row['ordered_on'];
-					$result[$i]['delivery_location'] = $row['delivery_location'];
-					$result[$i]['total_cost'] = $row['total_cost'];
-                    $result[$i]['email'] = $row['email'];
-					$result[$i]['restaurant_name'] = $row['restaurant_name'];
-					$result[$i]['firstname'] = $row['firstname'];
+			 foreach($query->result_array() as $row){ 
+				$result[$i]['order_id'] = $row['id'];
+				$sql1 = "select restaurant_name,restaurant_phone,GST from restaurant where restaurant_id='".$row['restaurant_id']."'";
 
-					$string_version = implode('-->', $row);
-					$message .="<p style=text-align:center;>".$image1."  </p>
+				$query1 = $this->db->query($sql1);
+
+				if($query1->num_rows()>0){
+
+					$res = $query1->result_array();
+					$result[$i]['restaurant_name'] = $res[0]['restaurant_name'];
+					$result[$i]['restaurant_phone'] = $res[0]['restaurant_phone'];
+					$result[$i]['GST'] = $res[0]['GST'];
+				}else{
+					$result[$i]['restaurant_name'] = "";
+					$result[$i]['restaurant_phone'] = "";
+					$result[$i]['GST'] = "";
+				}
+
+				$sql1 = "select firstname,email from customers where id='".$row['customer_id']."'";
+
+				$query1 = $this->db->query($sql1);
+
+				if($query1->num_rows()>0){
+
+					$res = $query1->result_array();
+					$result[$i]['firstname'] = $res[0]['firstname'];
+					$result[$i]['email'] = $res[0]['email'];
+				}else{
+					$result[$i]['firstname'] = "";
+					$result[$i]['email'] = "";
+				}
+			//print_r($query->result_array());exit;
+			//foreach($query->result_array() as $row){ 
+				$logo1='http://eatsapp.in/login/uploads/images/3.png';
+			    $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
+			    $result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
+			    $result[$i]['delivery_charge'] =  $servicetax[0]['deliverycharge'];
+			    $result[$i]['order_number'] = $row['order_number'];
+                $result[$i]['total_amount'] = $row['total_amount'];
+				$result[$i]['discount1'] = $row['discount1'];
+				$result[$i]['discount2'] = $row['discount2'];
+				$result[$i]['netordervalue'] = $row['netordervalue'];
+				$result[$i]['gstonfood'] = $row['gstonfood'];
+				$result[$i]['ordered_on'] = $row['ordered_on'];
+				$result[$i]['delivery_location'] = $row['delivery_location'];
+				$result[$i]['total_cost'] = $row['total_cost'];
+	            $deliverycharge=$result[$i]['delivery_charge']/(($result[$i]['servicetax']/100)+1);
+				$servicetax=$result[$i]['delivery_charge']-$deliverycharge;
+
+				
+				// $sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and a.`delete`=0";
+
+				$sql2 = "select contents,cost from order_items  where order_id='".$row['id']."' ";
+				$query2 = $this->db->query($sql2);
+				
+				if($query2->num_rows()>0){
+					$j=0;
+					foreach($query2->result_array() as $row1){
+						$result[$i]['items'][]=$row1['contents'];
+						$result[$i]['cost'][]=$row1['cost'];
+					$j++;
+					}
+
+				}
+				
+				if(isset($result[$i]['items'])){	
+					$result[$i]['items']= implode("<br>",$result[$i]['items']);
+				}
+				if(isset($result[$i]['cost'])){	
+					$result[$i]['cost']= implode("<br>",$result[$i]['cost']);
+				}
+
+				$message .="<p style=text-align:center;>".$image1."  </p>
 		  <p style=text-align:center;>Dear ".$result[$i]['firstname'].",</p>
 		  <p style=text-align:center;>Thank you for placing the order with eatsapp</p>
-		  <p style=text-align:center;>Order No: ".$result[$i]['order_id']."</p>
+		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
 		  <p style=text-align:center;>Ordered Placed at: ".$result[$i]['ordered_on']."</p>
 		  <p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>
 		  <p style=text-align:center;>Restaurant:".$result[$i]['restaurant_name']."</p>
+
 <style>
 table, th, td {
     border: 1px solid black;
@@ -1447,9 +1507,8 @@ table, th, td {
 }
 
 
-</style>	   
-		
-		<table align=center>
+</style>		 
+<table align=center>
   <tr>
     <th>Item Name</th>
     <th>Price (INR)</th>
@@ -1459,8 +1518,9 @@ table, th, td {
     <td>".$result[$i]['order_id']."</td>
   </tr>
   <tr>
-    <td>".$result[$i]['contents']."</td>
-    <td>".$result[$i]['cost']."</td>
+    <td>".$result[$i]['items']."</td>
+     <td>".$result[$i]['cost']."</td>
+   
   </tr>
   <tr>
     <td>Total</td>
@@ -1489,22 +1549,26 @@ table, th, td {
   </tr>
   
   
-</table>
+</table>	   
+		
+		
+  
+  
+
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>	   
 <hr>
 <p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
+		
 		";
-		}
-					
-	     //$sql1 = $this->db->query("select contents from order_items where order_id='".$row['order_id']."'");
-		 //$data1 = $sql1->result_array();
-		 //foreach($data1 as $row){ 
-		 //$result[$i]['contents'] = $result[$i]['contents'].", ".$row['contents'];
-         //	}
+
 				
-				 
-		$message1=" <center>".$image1." 
-					         <p>Dear ".$row['firstname'].",</p>
+				
+			$i++;
+			
+			}
+			
+			$message1=" <center>".$image1." 
+					        
 							 <p>Thank you for using eatsapp.</p>
 							 <p>The Bill(s) are attached herewith.</p>
 							 <p><b>Looking forward to serve you soon again.</b></p>
@@ -1528,7 +1592,7 @@ table, th, td {
 			
 			$this->load->library('email',$config);
 			$this->email->from('billing@eatsapp.in', 'eatsapp');
-			$this->email->to($row['email']);
+			$this->email->to($res[0]['email']);
 			$this->email->bcc('eatsapp.customer.billing@gmail.com');
 			$this->email->subject('Your Requested Bill(s)');
 			$filename  = "orderbill.pdf";
@@ -1540,8 +1604,10 @@ table, th, td {
 			$this->email->send(); 
 			//print($this->email->print_debugger());exit;
 			return true;
-		  
-			 }
+
+			//return $result;
+			//print_r($result);exit;
+		}
 		}
 	 }
 
