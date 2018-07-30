@@ -374,8 +374,8 @@ class Api_model extends CI_Model
 	}
 	
 	public function orderlistnotshipped($id){
-		$date = date("Y-m-d H:i:s");
-		print_r($date);exit;
+		// $date = date("Y-m-d H:i:s");
+		// print_r($date);exit;
 		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status!='Shipped' and a.status!='payment pending' order by a.ordered_on desc";
 		
 		$query = $this->db->query($sql);
