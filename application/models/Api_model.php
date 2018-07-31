@@ -1217,8 +1217,9 @@ class Api_model extends CI_Model
 		$data2=str_replace('"]','',$data1);
 		$data3=str_replace('","',',',$data2);
         $arr=explode(',',$data3);
-        $arr1=sizeof($arr);
-		$arr2=implode(",",$arr);
+		$arr1=sizeof($arr);
+		//$arr2=implode(",",$arr);
+		
         if($arr1==1)
 		{
           $sql = $this->db->query("select a.*,b.*,c.*,d.restaurant_name,d.GST from order_items a,orders b,customers c,restaurant d where b.restaurant_id=d.restaurant_id and b.customer_id=c.id and a.order_id=b.id and b.id='".$arr[0]."' ");
@@ -1407,9 +1408,17 @@ table, th, td {
 		}
 	 }
 		}else{
+			
+			//$arr3=implode(",",$arr);
+			//print_r($data['id']);exit;
+			$str1=str_replace(']','',$data['id']);
+			$order_ids=str_replace('[','',$str1);
+			//print_r($order_ids);exit;
 			 // $sql = $this->db->query("select * from order_items a,orders b,customers c,restaurant d where b.restaurant_id=d.restaurant_id and b.customer_id=c.id and a.order_id=b.id and order_id IN ($arr2)");
 			// $sql = "SELECT * FROM `orders`a WHERE a.id IN ($arr2) ";
-		$sql = "SELECT * FROM `orders` WHERE  id IN ($arr2) ";
+		$sql = "SELECT * FROM `orders` WHERE  id IN ($order_ids) ";
+		//$sql = "SELECT * FROM `orders` WHERE  id IN (".implode(',', $ids).") ";
+		//echo "SELECT * FROM `orders` WHERE  id IN (1, 4, 6, 7) ";exit;
 		$sql3 = $this->db->query("select servicetax,deliverycharge,minordervalue from charges order by start_date desc limit 1 ");
 		 $servicetax =  $sql3->result_array();
 		
