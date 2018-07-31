@@ -374,7 +374,8 @@ class Api_model extends CI_Model
 	}
 	
 	public function orderlistnotshipped($id){
-		// $date = date("Y-m-d H:i:s");
+		$date = date("Y-m-d H:i:s");
+		$currentdate=strtotime($date);
 		// print_r($date);exit;
 		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status!='Shipped' and a.status!='payment pending' order by a.ordered_on desc";
 		
@@ -383,9 +384,15 @@ class Api_model extends CI_Model
 			$result = array();
 			$i=0;
 			foreach($query->result_array() as $row){ 
-				$result[$i]['order_id'] = $row['id'];
-				$sql1 = "select restaurant_name,restaurant_phone from restaurant where restaurant_id='".$row['restaurant_id']."'";
+				//$result[$i]['order_id'] = $row['id'];
+				$orderdate = strtotime($row['ordered_on']);
+				$res=$currentdate-$orderdate;
+				
+                 if($res>24*60*60 && ($row['status']=='order cancelled' || $row['status']=='Rejected'))
+                {
 
+                }else{
+                $sql1 = "select restaurant_name,restaurant_phone from restaurant where restaurant_id='".$row['restaurant_id']."'";
 				$query1 = $this->db->query($sql1);
 
 				if($query1->num_rows()>0){
@@ -397,7 +404,8 @@ class Api_model extends CI_Model
 					$result[$i]['restaurant_name'] = "";
 					$result[$i]['restaurant_phone'] = "";
 				}
-                
+				$result[$i]['order_id'] = $row['id'];
+                $result[$i]['ordered_on'] = $row['ordered_on'];
 				$result[$i]['order_type'] = $row['order_type'];
 				$result[$i]['delivered_by'] = $row['delivered_by'];
 				$result[$i]['passcode'] = $row['passcode'];
@@ -460,6 +468,7 @@ class Api_model extends CI_Model
 				}
 
 			$i++;
+			}
 			}
 			return $result;
 		}else{
