@@ -81,14 +81,94 @@ Class order_model extends CI_Model
 	
 	function AssignDeliveryBoy($data){
 		$userdata = $this->session->userdata('admin');
+		$sql1=$this->db->query("SELECT * FROM orders a,delivery_boy b where a.id='".$data['id']."' and a.delivered_by=b.id ");
+		//print_r($sql1->num_rows());exit;
+		if($sql1->num_rows()==0){
+		
 		$sql = $this->db->query("update orders set delivery_partner ='".$userdata['id']."',delivery_partner_status='Accepted' , delivered_by='".$data['delBoy']."', status='Assigned' where id='".$data['id']."'");
-		if($sql){ 
+		
+            if($sql){ 
 			$query = $this->db->query("SELECT `did` FROM `delivery_boy` WHERE `id` = '".$data['delBoy']."'");	
 			if($query->num_rows() > 0){					
 				$result	= $query->result_array();
 				
 				$did=$result[0]['did'];
 				$registatoin_ids = array($did);
+				$message = array("type" => "order_updated");    
+				$url = 'https://android.googleapis.com/gcm/send';
+
+
+
+				$fields = array(
+
+				'registration_ids' => $registatoin_ids,
+
+				'data' => $message,
+
+				);
+
+
+
+				$headers = array(
+
+					'Authorization: key=AIzaSyCB4r56wVzKQdte4Rw8QUwoK9k7AMP0fr4',
+
+					'Content-Type: application/json'
+
+				);
+
+			
+				$ch = curl_init();
+
+
+
+				// Set the url, number of POST vars, POST data
+
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_POST, true);
+
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+				curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+
+
+				$result = curl_exec($ch);
+
+				if ($result === FALSE) {
+
+					die('Curl failed: ' . curl_error($ch));
+
+				}
+
+
+				curl_close($ch);
+
+		}
+		return true;
+
+		}
+	}else
+	{
+		
+        $sql = $this->db->query("update orders set delivery_partner ='".$userdata['id']."',delivery_partner_status='Accepted' , delivered_by='".$data['delBoy']."', status='Assigned' where id='".$data['id']."'");
+		
+
+
+		if($sql){ 
+			$query = $this->db->query("SELECT `did` FROM `delivery_boy` WHERE `id` = '".$data['delBoy']."'");	
+			if($query->num_rows() > 0){					
+				$result	= $query->result_array();
+				$result1= $sql1->result_array();
+				//print_r($result);exit;
+				$did=$result[0]['did'];
+				$did1=$result1[0]['did'];
+				//$did=$result[0]['did'];
+				$registatoin_ids = array($did,$did1);
+				//print_r($registatoin_ids);exit;
+
 				$message = array("type" => "order_assigned");    
 				$url = 'https://android.googleapis.com/gcm/send';
 
@@ -145,6 +225,9 @@ Class order_model extends CI_Model
 		return true;
 
 		}
+
+		
+	}
 	}
 	
 	function get_deliveryboys(){
