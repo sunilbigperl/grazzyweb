@@ -1236,10 +1236,11 @@ class Api_model extends CI_Model
 		
         if($arr1==1)
 		{
-          $sql = $this->db->query("select a.*,b.*,c.*,d.restaurant_name,d.GST,d.restaurant_address  from order_items a,orders b,customers c,restaurant d where b.restaurant_id=d.restaurant_id and b.customer_id=c.id and a.order_id=b.id and b.id='".$arr[0]."' ");
+         $sql = $this->db->query("select a.*,b.*,c.*,d.restaurant_name,d.GST,d.restaurant_address  from order_items a,orders b,customers c,restaurant d where b.restaurant_id=d.restaurant_id and b.customer_id=c.id and a.order_id=b.id and b.id='".$arr[0]."' ");
 		 //echo "select * from order_items a,orders b,customers c where b.customer_id=c.id and a.order_id=b.id and order_id='".$data['id']."' ";exit;
 		 $sql3 = $this->db->query("select servicetax,deliverycharge from charges order by start_date desc limit 1 ");
 		 $servicetax =  $sql3->result_array();
+		  $message="";
          if($sql->num_rows()>0){
 			
 			$data = $sql->result_array();
@@ -1251,8 +1252,10 @@ class Api_model extends CI_Model
 					//$result[$i]['id'] = $row['id'];
 					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
 					$result[$i]['delivery_charge'] =  $servicetax[0]['deliverycharge'];
+					$result[$i]['order_type'] = $row['order_type'];
 					$result[$i]['order_id'] = $row['order_id'];
 					$result[$i]['order_number'] = $row['order_number'];
+					$result[$i]['shipping'] = $row['shipping'];
 					//$result[$i]['contents'] = $row['contents'];
 					//$result[$i]['cost'] = $row['cost'];
 					$result[$i]['total_amount'] = $row['total_amount'];
@@ -1292,7 +1295,7 @@ class Api_model extends CI_Model
 				}
 
 				
-         $message="<p style=text-align:center;>".$image1."  </p>
+         $message.="<p style=text-align:center;>".$image1."  </p>
 		  <p style=text-align:center;>Dear ".$result[$i]['firstname'].",</p>
 		  <p style=text-align:center;>Thank you for placing the order with eatsapp</p>
 		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
@@ -1341,6 +1344,10 @@ table, th, td {
     <td>GST on Food</td>
     <td>".$result[$i]['gstonfood']."</td>
   </tr>
+  <tr>
+    <td>Convenience Charge</td>
+    <td>".$result[$i]['shipping']."</td>
+  </tr>
   
    <tr>
     <td>Total</td>
@@ -1353,7 +1360,14 @@ table, th, td {
 <br><br><br><br><br><br><br><br><br><br><br><br>	   
 <hr>
 <p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
-          <p style=text-align:center;>".$image1."  </p>
+
+         
+		";
+		if($result[$i]['order_type']==3)
+		{
+
+		}else{
+			$message.="<p style=text-align:center;>".$image1."  </p>
 		  <p style=text-align:center;>EATSAPP FOODS LLP.</p>
 		  <p style=text-align:center;>152, Mittal Court (B), Nariman Point, Mumbai 400021</p>
 		  <p style=text-align:center;>GST. No: ".$result[$i]['GST']."</p><br><br><br>
@@ -1387,8 +1401,9 @@ table, th, td {
 	<br><br><br><br><br><br><br><br><br><br><br>
 <p style=text-align:right;font-size:10px>Since this is a Computer Generated Invoice Signature is NOT REQUIRED</p>	
 <hr>
-<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>	
-		";
+<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>	";
+		}
+	
 		 $i++;
 		
 		$message1=" <center>".$image1." 
@@ -1491,6 +1506,7 @@ table, th, td {
 			    $result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
 			    $result[$i]['delivery_charge'] =  $servicetax[0]['deliverycharge'];
 			    $result[$i]['order_number'] = $row['order_number'];
+				$result[$i]['shipping'] = $row['shipping'];
                 $result[$i]['total_amount'] = $row['total_amount'];
 				$result[$i]['discount1'] = $row['discount1'];
 				$result[$i]['discount2'] = $row['discount2'];
@@ -1549,7 +1565,7 @@ table, th, td {
    </tr>
   <tr>
     <td>Order No</td>
-    <td>".$result[$i]['order_id']."</td>
+    <td>".$result[$i]['order_number']."</td>
   </tr>
   <tr>
     <td>".$result[$i]['items']."</td>
@@ -1576,7 +1592,11 @@ table, th, td {
     <td>GST on Food</td>
     <td>".$result[$i]['gstonfood']."</td>
   </tr>
-  <hr>
+   <tr>
+    <td>Convenience Charge</td>
+    <td>".$result[$i]['shipping']."</td>
+  </tr>
+ 
   <tr>
     <td>Total</td>
     <td>".$result[$i]['total_cost']."</td>
