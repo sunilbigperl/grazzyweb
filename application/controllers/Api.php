@@ -1009,8 +1009,8 @@ public function orderEmail_post(){
         
     }
     
-    public function GetNotifications_get(){
-        $notifications = $this->api_model->getnotifications();
+    public function GetNotifications_get($user_id){
+        $notifications = $this->api_model->getnotifications($user_id);
     
         if (!empty($notifications))
         {

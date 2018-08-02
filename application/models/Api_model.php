@@ -1023,15 +1023,20 @@ class Api_model extends CI_Model
 			return $result;
 		
 	}
-	public function getnotifications(){
-		$sql=$this->db->query("select * from notification_message order by date desc");
-       
+	public function getnotifications($user_id){
+		$query=$this->db->query("select * from customers where id='".$user_id."' ");
+		
+        $res = $query->result_array();
+			
+		$sql=$this->db->query("select * from notification_message where date>='".$res[0]['createdAt']."'order by date desc");
+      
 		if($sql->num_rows()>0){
 			$result = $sql->result_array();
 		}else{
 				$result = '';
 				
 		}
+
 			return $result;
 	}
 	
