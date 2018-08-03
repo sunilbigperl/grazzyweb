@@ -1256,8 +1256,6 @@ class Api_model extends CI_Model
 					$result[$i]['order_id'] = $row['order_id'];
 					$result[$i]['order_number'] = $row['order_number'];
 					$result[$i]['shipping'] = $row['shipping'];
-					//$result[$i]['contents'] = $row['contents'];
-					//$result[$i]['cost'] = $row['cost'];
 					$result[$i]['total_amount'] = $row['total_amount'];
 					$result[$i]['discount1'] = $row['discount1'];
 					$result[$i]['discount2'] = $row['discount2'];
@@ -1363,46 +1361,7 @@ table, th, td {
 
          
 		";
-		if($result[$i]['order_type']==3)
-		{
-
-		}else{
-			$message.="<p style=text-align:center;>".$image1."  </p>
-		  <p style=text-align:center;>EATSAPP FOODS LLP.</p>
-		  <p style=text-align:center;>152, Mittal Court (B), Nariman Point, Mumbai 400021</p>
-		  <p style=text-align:center;>GST. No: ".$result[$i]['GST']."</p><br><br><br>
-		  <h4 style=text-align:center;>Invoice for eatsapp Charges</h4>
-		  <p><b>Customer name:</b> ".$result[$i]['firstname']."</p>
-		  <p><b>INVOICE NO:</b> ".$date.$result[$i]['order_id']."</p>
-		  <p><b>ORDER NO:</b>".$result[$i]['order_number']."</p>
-		  <p><b>PICKUP ADDRESS:</b>". $result[$i]['restaurant_address']."</p>
-		  <p><b>DELIVERY ADDRESS:</b>".$result[$i]['delivery_location']."</p>
-		  
-		  
-<table align=center>
-  <tr>
-    <th>Charges Breakup</th>
-    <th>Price (INR)</th>
-   </tr>
-  <tr>
-    <td>Delivery Fee</td>
-    <td>".round($deliverycharge,2)."</td>
-   </tr>
-   <tr>
-    <td>GST</td>
-    <td>".round($servicetax,2)."</td>
-   </tr>
-  <tr>
-    <td>Total</td>
-    <td>".$result[$i]['delivery_charge']."</td>
-  </tr>
-</table>	     
 		
-	<br><br><br><br><br><br><br><br><br><br><br>
-<p style=text-align:right;font-size:10px>Since this is a Computer Generated Invoice Signature is NOT REQUIRED</p>	
-<hr>
-<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>	";
-		}
 	
 		 $i++;
 		
