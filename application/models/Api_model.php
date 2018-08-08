@@ -483,6 +483,7 @@ class Api_model extends CI_Model
 			$i=0;
 			foreach($query->result_array() as $row){ 
 				$result[$i]['order_number'] = $row['id'];
+				$result[$i]['total_cost'] = $row['total_cost'];
 				$sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
 				$query1 = $this->db->query($sql1);
 				if($query1->num_rows()>0){
