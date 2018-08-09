@@ -1445,18 +1445,38 @@ table, th, td {
 					$result[$i]['total_amount'] = $row['total_amount'];
 					$result[$i]['discount1'] = $row['discount1'];
 					$result[$i]['discount2'] = $row['discount2'];
-					$result[$i]['netordervalue'] = $row['netordervalue'];
 					$result[$i]['gstonfood'] = $row['gstonfood'];
+					if($row['discount1']==0){
+						$discount1= "";
+					}else{
+						
+						$discount1= "<tr><td>Discount</td><td>".$result[$i]['discount1']."</td></tr>";
+					}
+					if($row['discount2']==0){
+						$discount2= "";
+					}else{
+						
+						$discount2= "<tr><td>Discount</td><td>".$result[$i]['discount2']."</td></tr>";
+					}
+					if($row['gstonfood']==0){
+						$gst= "";
+					}else{
+						
+						$gst= "<tr><td>Discount</td><td>".$result[$i]['gstonfood']."</td></tr>";
+					}
+					
+					
+					$result[$i]['netordervalue'] = $row['netordervalue'];
 					$result[$i]['ordered_on'] = $row['ordered_on'];
 					$result[$i]['delivery_location'] = $row['delivery_location'];
 					$result[$i]['total_cost'] = $row['total_cost'];
                     $result[$i]['email'] = $row['email'];
 					$result[$i]['restaurant_name'] = $row['restaurant_name'];
 					$result[$i]['restaurant_address'] = $row['restaurant_address'];
-					$result[$i]['GST'] = $row['GST'];
 					$result[$i]['firstname'] = $row['firstname'];
 					$deliverycharge=$result[$i]['delivery_charge']/(($result[$i]['servicetax']/100)+1);
 					$servicetax=$result[$i]['delivery_charge']-$deliverycharge;
+					
 					
 					$sql1 = "select contents,cost from order_items  where order_id='".$row['order_id']."' ";
 				$data1 = $this->db->query($sql1);
@@ -1494,6 +1514,13 @@ table, th, td {
     border-collapse: collapse;
 	
 }
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+}
 
 
 </style>			
@@ -1512,22 +1539,16 @@ table, th, td {
     <td>Total</td>
     <td>".$result[$i]['total_amount']."</td>
   </tr>
-  <tr>
-    <td>Discount</td>
-    <td>".$result[$i]['discount1']."</td>
-  </tr>
-  <tr>
-    <td>Discount</td>
-    <td>".$result[$i]['discount2']."</td>
-  </tr>
+ 
+	".$discount1."  
+  
+    ".$discount2." 
+	
   <tr>
     <td>Net Order Value</td>
     <td>".$result[$i]['netordervalue']."</td>
   </tr>
-  <tr>
-    <td>GST on Food</td>
-    <td>".$result[$i]['gstonfood']."</td>
-  </tr>
+  ".$gst."
   <tr>
     <td>Convenience Charge</td>
     <td>".$result[$i]['shipping']."</td>
@@ -1541,10 +1562,11 @@ table, th, td {
   
 </table>
 
-<br><br><br><br><br><br><br><br><br><br><br><br>	   
+<br><br><br><br><br><br><br><br><br><br><br><br>	
+<div class=footer>   
 <hr>
 <p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
-
+</div>
          
 		";
 		
@@ -1579,7 +1601,9 @@ table, th, td {
 			$this->email->to($result[0]['email']);
 			$this->email->bcc('eatsapp.customer.billing@gmail.com');
 			$this->email->subject('Your Requested Bill(s)');
-			$filename  = "orderbill.pdf";
+			//$filename  = "orderbill.pdf";
+			$filename1  = $row['order_number'];
+			$filename  = "$filename1.pdf";
             $this->load->library('m_pdf');
             $this->m_pdf->pdf->WriteHTML($message);
 		    $this->m_pdf->pdf->Output($filename, "F");
@@ -1624,11 +1648,11 @@ table, th, td {
 					$res = $query1->result_array();
 					$result[$i]['restaurant_name'] = $res[0]['restaurant_name'];
 					$result[$i]['restaurant_phone'] = $res[0]['restaurant_phone'];
-					$result[$i]['GST'] = $res[0]['GST'];
+					//$result[$i]['GST'] = $res[0]['GST'];
 				}else{
 					$result[$i]['restaurant_name'] = "";
 					$result[$i]['restaurant_phone'] = "";
-					$result[$i]['GST'] = "";
+					//$result[$i]['GST'] = "";
 				}
 
 				$sql1 = "select firstname,email from customers where id='".$row['customer_id']."'";
@@ -1655,8 +1679,27 @@ table, th, td {
                 $result[$i]['total_amount'] = $row['total_amount'];
 				$result[$i]['discount1'] = $row['discount1'];
 				$result[$i]['discount2'] = $row['discount2'];
-				$result[$i]['netordervalue'] = $row['netordervalue'];
 				$result[$i]['gstonfood'] = $row['gstonfood'];
+				if($row['discount1']==0){
+						$discount1= "";
+					}else{
+						
+						$discount1= "<tr><td>Discount</td><td>".$result[$i]['discount1']."</td></tr>";
+					}
+					if($row['discount2']==0){
+						$discount2= "";
+					}else{
+						
+						$discount2= "<tr><td>Discount</td><td>".$result[$i]['discount2']."</td></tr>";
+					}
+					if($row['gstonfood']==0){
+						$gst= "";
+					}else{
+						
+						$gst= "<tr><td>Discount</td><td>".$result[$i]['gstonfood']."</td></tr>";
+					}
+					
+				$result[$i]['netordervalue'] = $row['netordervalue'];
 				$result[$i]['ordered_on'] = $row['ordered_on'];
 				$result[$i]['delivery_location'] = $row['delivery_location'];
 				$result[$i]['total_cost'] = $row['total_cost'];
@@ -1700,6 +1743,13 @@ table, th, td {
     border-collapse: collapse;
 	
 }
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+}
 
 
 </style>		 
@@ -1721,22 +1771,16 @@ table, th, td {
     <td>Total</td>
     <td>".$result[$i]['total_amount']."</td>
   </tr>
-  <tr>
-    <td>Discount</td>
-    <td>".$result[$i]['discount1']."</td>
-  </tr>
-  <tr>
-    <td>Discount</td>
-    <td>".$result[$i]['discount2']."</td>
-  </tr>
+   
+	".$discount1."  
+  
+    ".$discount2." 
+ 
   <tr>
     <td>Net Order Value</td>
     <td>".$result[$i]['netordervalue']."</td>
   </tr>
-  <tr>
-    <td>GST on Food</td>
-    <td>".$result[$i]['gstonfood']."</td>
-  </tr>
+  ".$gst."
    <tr>
     <td>Convenience Charge</td>
     <td>".$result[$i]['shipping']."</td>
@@ -1754,10 +1798,11 @@ table, th, td {
   
   
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>	   
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class=footer>	   
 <hr>
 <p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
-		
+</div>		
 		";
 
 				
