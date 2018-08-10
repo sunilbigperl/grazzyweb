@@ -1231,7 +1231,9 @@ table, th, td {
 			$this->email->to($res2[0]['email']);
 			$this->email->bcc('eatsapp.customer.billing@gmail.com');
 			$this->email->subject('Your Requested Bill(s)');
-			$filename  = "orderbill.pdf";
+			//$filename  = "orderbill.pdf";
+			$filename1  = $row['order_number'];
+			$filename  = "$filename1.pdf";
             $this->load->library('m_pdf');
             $this->m_pdf->pdf->WriteHTML($message);
 		    $this->m_pdf->pdf->Output($filename, "F");
