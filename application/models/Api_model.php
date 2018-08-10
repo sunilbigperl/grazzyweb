@@ -485,7 +485,7 @@ class Api_model extends CI_Model
 			$i=0;
 			foreach($query->result_array() as $row){ 
 				$result[$i]['order_number'] = $row['id'];
-				//$result[$i]['total_cost'] = $row['total_cost'];
+				$result[$i]['total_cost'] = $row['total_cost'];
 				$sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
 				$query1 = $this->db->query($sql1);
 				if($query1->num_rows()>0){
@@ -504,8 +504,8 @@ class Api_model extends CI_Model
 						$result[$i]['items'][$j]['menu_id'] = $row1['menu_id'];
 						$result[$i]['items'][$j]['menu'] = $row1['menu'];
 						$result[$i]['items'][$j]['quantity'] = $row1['quantity'];
-						//$result[$i]['items'][$j]['cost'] = $row1['cost'];
-						$result[$i]['items'][$j]['cost'] = $row['total_cost'];
+						$result[$i]['items'][$j]['cost'] = $row1['cost'];
+						//$result[$i]['items'][$j]['cost'] = $row['total_cost'];
 					$j++;
 					}
 				}
