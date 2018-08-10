@@ -483,7 +483,7 @@ class Api_model extends CI_Model
 			$i=0;
 			foreach($query->result_array() as $row){ 
 				$result[$i]['order_number'] = $row['id'];
-				$result[$i]['total_cost'] = $row['total_cost'];
+				//$result[$i]['total_cost'] = $row['total_cost'];
 				$sql1 = "select restaurant_name from restaurant where restaurant_id='".$row['restaurant_id']."'";
 				$query1 = $this->db->query($sql1);
 				if($query1->num_rows()>0){
@@ -502,7 +502,8 @@ class Api_model extends CI_Model
 						$result[$i]['items'][$j]['menu_id'] = $row1['menu_id'];
 						$result[$i]['items'][$j]['menu'] = $row1['menu'];
 						$result[$i]['items'][$j]['quantity'] = $row1['quantity'];
-						$result[$i]['items'][$j]['cost'] = $row1['cost'];
+						//$result[$i]['items'][$j]['cost'] = $row1['cost'];
+						$result[$i]['items'][$j]['cost'] = $row['total_cost'];
 					$j++;
 					}
 				}
@@ -1089,8 +1090,27 @@ class Api_model extends CI_Model
 					$result[$i]['total_amount'] = $row['total_amount'];
 					$result[$i]['discount1'] = $row['discount1'];
 					$result[$i]['discount2'] = $row['discount2'];
-					$result[$i]['netordervalue'] = $row['netordervalue'];
 					$result[$i]['gstonfood'] = $row['gstonfood'];
+					if($row['discount1']==0){
+						$discount1= "";
+					}else{
+						
+						$discount1= "<tr><td>Discount</td><td>".$result[$i]['discount1']."</td></tr>";
+					}
+					if($row['discount2']==0){
+						$discount2= "";
+					}else{
+						
+						$discount2= "<tr><td>Discount</td><td>".$result[$i]['discount2']."</td></tr>";
+					}
+					if($row['gstonfood']==0){
+						$gst= "";
+					}else{
+						
+						$gst= "<tr><td>GST</td><td>".$result[$i]['gstonfood']."</td></tr>";
+					}
+					$result[$i]['netordervalue'] = $row['netordervalue'];
+					
 					$result[$i]['ordered_on'] = $row['ordered_on'];
 					$result[$i]['delivery_location'] = $row['delivery_location'];
 					$result[$i]['total_cost'] = $row['total_cost'];
@@ -1152,22 +1172,14 @@ table, th, td {
     <td>Total</td>
     <td>".$result[$i]['total_amount']."</td>
   </tr>
-  <tr>
-    <td>Discount</td>
-    <td>".$result[$i]['discount1']."</td>
-  </tr>
-  <tr>
-    <td>Discount</td>
-    <td>".$result[$i]['discount2']."</td>
-  </tr>
+  ".$discount1."  
+  
+   ".$discount2."
   <tr>
     <td>Net Order Value</td>
     <td>".$result[$i]['netordervalue']."</td>
   </tr>
-  <tr>
-    <td>GST on Food</td>
-    <td>".$result[$i]['gstonfood']."</td>
-  </tr>
+  ".$gst."  
   <tr>
     <td>Convenience Charge</td>
     <td>".$result[$i]['shipping']."</td>
@@ -1462,7 +1474,7 @@ table, th, td {
 						$gst= "";
 					}else{
 						
-						$gst= "<tr><td>Discount</td><td>".$result[$i]['gstonfood']."</td></tr>";
+						$gst= "<tr><td>GST</td><td>".$result[$i]['gstonfood']."</td></tr>";
 					}
 					
 					
@@ -1696,7 +1708,7 @@ table, th, td {
 						$gst= "";
 					}else{
 						
-						$gst= "<tr><td>Discount</td><td>".$result[$i]['gstonfood']."</td></tr>";
+						$gst= "<tr><td>GST</td><td>".$result[$i]['gstonfood']."</td></tr>";
 					}
 					
 				$result[$i]['netordervalue'] = $row['netordervalue'];
