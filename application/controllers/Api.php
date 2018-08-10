@@ -533,7 +533,7 @@ class Api extends REST_Controller {
         $field_data=array('address1'=>$this->post('address1'),'address2'=>$this->post('address2'),'city_state'=>$this->post('city_state'),
                'location0'=>$this->post('location0'),'location1'=>$this->post('location1'),'location2'=>$this->post('location2'),
                'zip'=>$this->post('zip'));
-        $data=array('id'=>$this->post('id'),'Entry_name'=>$this->post('company'),'customer_id'=>$this->post('customer_id'),'latitude'=>$this->post('latitude'),'langitude'=>$this->post('langitude'),
+        $data=array('id'=>$this->post('id'),'Entry_name'=>$this->post('company'),'customer_id'=>$this->post('customer_id'),'latitude'=>$this->post('lat'),'langitude'=>$this->post('lng'),
             'field_data'=>$field_data);  
         
         
