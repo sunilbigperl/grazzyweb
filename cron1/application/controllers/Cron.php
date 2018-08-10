@@ -182,6 +182,47 @@ public function RestCron(){
     }
   }
 
+  public function RestSms(){
+	
+   date_default_timezone_set('Asia/Calcutta');
+    $date = date('Y-m-d H:i:s');
+    $currentDate = strtotime($date);
+    $futureDate = $currentDate-(60*2);
+    $formatDate = date("Y-m-d H:i:s", $futureDate);
+    
+    $sql = $this->db->query("select * from orders a, restaurant b where a.restaurant_id = b.restaurant_id and a.restaurant_manager_status = 0 and a.delivery_partner=0 and a.status='Order Placed' and  ordered_on <='".$formatDate."'");
+    //print_r($sql->num_rows());exit;
+	if($sql->num_rows() > 0){
+      $result =  $sql->result_array();
+	  //print_r($result);exit;
+      foreach($result as $row){
+      
+		$query1 = $this->db->query("SELECT a.`phone` FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$row['id']." ");
+	     
+	
+	         if($query1->num_rows() > 0){
+		      $res= $query1->result_array();
+		
+		      foreach($res as $result){
+			   $registatoin_ids[0]=$result['phone'];
+			
+			    //print_r($registatoin_ids[0]);exit;
+		     }
+
+		    
+		     $url =file("http://voiceapi.kapsystem.com/Campaignapi.asmx/setcampaign?&username=wolotech&password=kap@user!123&camp_name=test&destination=7022633206&start_date=2018-08-10&end_date=2018-08-10&start_time=12:27&end_time=17:45&script_id=1123004&retry=0&interval=1&phonebook_id=0");
+		     
+    
+
+	       }
+		   
+	 }
+    }
+		     
+    
+
+	       }
+
 
     
 

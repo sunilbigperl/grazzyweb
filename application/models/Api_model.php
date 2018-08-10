@@ -1156,6 +1156,13 @@ table, th, td {
     border-collapse: collapse;
 	
 }
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+}
 
 
 </style>			
@@ -1195,10 +1202,11 @@ table, th, td {
   
 </table>
 
-<br><br><br><br><br><br><br><br><br><br><br><br>	   
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<div class=footer>	   
 <hr>
 <p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
-
+</div>
          
 		";
 		
