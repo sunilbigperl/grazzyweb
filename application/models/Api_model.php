@@ -267,6 +267,8 @@ class Api_model extends CI_Model
                 $addr[$i] = unserialize($add['field_data']);
 				$addr[$i]['id'] = $add['id'];
 				$addr[$i]['company'] = $add['Entry_name'];
+				$addr[$i]['latitude'] = $add['latitude'];
+				$addr[$i]['langitude'] = $add['langitude'];
 			$i++;
             }
 			return $addr;
