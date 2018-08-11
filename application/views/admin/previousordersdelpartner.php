@@ -226,7 +226,7 @@
 
 				<td>
 				<!-- (($order->total_cost * $order->penalty)/100) -->
-					<?php  if($order->delivery_partner_status == "Rejected"){
+					<?php  if($order->delivery_partner_status == "Rejected" || $order->status == "Order Placed"){
 						$penalty = 0;
 					}elseif($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{ $penalty = ($order->penalty);  }
 					echo $penalty;
@@ -306,7 +306,7 @@
 				</td>
 				
 				<td>
-					<?php if($order->delivery_partner_status == "Accepted" || $order->restaurant_manager_status == "Accepted"){
+					<?php if($order->delivery_partner_status == "Accepted" || $order->restaurant_manager_status == "Accepted" || $order->status == "Order Placed"){
 						echo "0";
 					}else{
 						echo $order->penalty;
@@ -314,7 +314,7 @@
 					?>
 				</td>
 				
-				<td> <?php if($order->delivery_partner_status == "Accepted" || $order->restaurant_manager_status == "Accepted"){
+				<td> <?php if($order->delivery_partner_status == "Accepted" || $order->restaurant_manager_status == "Accepted" || $order->status == "Order Placed"){
 						$netamount = $deliverycharge['rate'];
 					}else{
 						
