@@ -1050,6 +1050,8 @@ class Api_model extends CI_Model
 		if($sql->num_rows()>0){
 			$res = $sql->result_array();
 			//$result = $res[0]['status'];
+			if($res[0]['status']!='Payment pending')
+			{
 			$i=0;
 				foreach($res as $row){ 
 				$sql1 = "select restaurant_name,restaurant_phone,GST from restaurant where restaurant_id='".$row['restaurant_id']."'";
@@ -1254,6 +1256,7 @@ table, th, td {
 			//return true;
 		  
 			
+		}
 		}
 		$result = $res[0]['status'];	
 		}else{
