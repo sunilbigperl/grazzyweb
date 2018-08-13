@@ -146,7 +146,7 @@
 
 				<td>
 				<!-- (($order->total_cost * $order->penalty)/100) -->
-					<?php  if($order->delivery_partner_status == "Rejected" || $order->status == "Order Placed"){
+					<?php  if($order->delivery_partner_status == "Accepted" || $order->status == "Order Placed"){
 						$penalty = 0;
 					}elseif($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{ $penalty = ($order->penalty);  }
 					echo $penalty;
