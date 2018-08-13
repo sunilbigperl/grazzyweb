@@ -144,11 +144,22 @@
 				</td> 
 
 
-				<td>
-				<!-- (($order->total_cost * $order->penalty)/100) -->
+				<!-- <td>
+				
 					<?php  if($order->delivery_partner_status == "Accepted" || $order->status == "Order Placed"){
 						$penalty = 0;
 					}elseif($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{ $penalty = ($order->penalty);  }
+					echo $penalty;
+					?>
+				</td> -->
+				<td>
+					 <?php if($order->delivery_partner_status == "Rejected" || $order->status=='order cancelled'){
+						$penalty = ($order->penalty);
+					}elseif($order->restaurant_manager_status == "Rejected"){
+						$penalty = ($order->penalty);
+					}else{
+						$penalty = 0; 
+					}
 					echo $penalty;
 					?>
 				</td>
