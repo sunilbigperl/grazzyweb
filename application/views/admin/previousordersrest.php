@@ -146,7 +146,7 @@
 
 				<td>
 				<!-- (($order->total_cost * $order->penalty)/100) -->
-					<?php  if($order->delivery_partner_status == "Rejected"){
+					<?php  if($order->delivery_partner_status == "Rejected" || $order->status == "Order Placed"){
 						$penalty = 0;
 					}elseif($order->restaurant_manager_status == "Accepted"){ $penalty="0"; }else{ $penalty = ($order->penalty);  }
 					echo $penalty;
@@ -224,13 +224,16 @@
 						$username=$orders1[0]->firstname;
 				 	    echo "Rejected by $username";
 					}elseif($order->restaurant_manager_status == "Accepted"){
-						echo "Restaurant manager accepted ";
-					}else if($order->status == "order cancelled"){
+						echo "$order->status ";
+					}else if($order->restaurant_manager_status == "Rejected"){
+						echo "Rejected by $order->restaurant_name";
+					}
+					else if($order->status == "order cancelled"){
 						
 						echo "Rejected by $order->restaurant_name";
 					}
 					else{
-						echo "Rejected by $order->restaurant_name ";
+						echo "Not acted yet";
 					} ?>
 
 				</td>

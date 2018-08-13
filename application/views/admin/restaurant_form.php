@@ -36,7 +36,7 @@
 					?>
 				</div>
 				<div class="form-group">
-					<label for="restaurant_address">Restaurant phone</label>
+					<label for="restaurant_address">Restaurant phone for orders</label>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1">+91</span>
 						

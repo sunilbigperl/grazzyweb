@@ -3,7 +3,7 @@
 
 	<div class="row">
 		<div class="form-group">
-			<label>GST</label>
+			<label>GST(%)</label>
 			<?php
 			$data	= array('name'=>'servicetax', 'value'=>set_value('servicetax', $servicetax), 'class'=>'form-control');
 			echo form_input($data); ?>
