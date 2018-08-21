@@ -152,9 +152,10 @@ class Api_model extends CI_Model
 
 			if($threadmsg->num_rows()>0){
 				$result = array();
+
 				$i=0;
 				foreach($threadmsg->result_array() as $row){ 
-					
+					$result[] = $row;
 					$days = unserialize($row['days']);
 					
 					$days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );

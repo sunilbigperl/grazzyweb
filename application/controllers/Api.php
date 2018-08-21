@@ -116,7 +116,9 @@ class Api extends REST_Controller {
             'latitude' => $this->input->post('latitude'),
             'langitude' => $this->input->post('langitude')
         ];
+
         $SearchRest =  $this->api_model->SearchRest($data);
+       
         
         if($SearchRest){
             $this->set_response($SearchRest, REST_Controller::HTTP_OK); // CREATED (201) being the HTTP response code

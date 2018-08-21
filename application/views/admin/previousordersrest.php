@@ -58,7 +58,7 @@
 			<th>Give to Restaurant</th>
 			<th>Give to Customer</th>
 			<th>Status</th>
-			<th>Del partner remarks</th>
+			<!-- <th>Del partner remarks</th> -->
 			<th>Passcode</th>
 		</tr>
 	</thead>
@@ -153,7 +153,7 @@
 					?>
 				</td> -->
 				<td>
-					 <?php if($order->delivery_partner_status == "Rejected" || $order->status=='order cancelled'){
+					  <?php if($order->status=='order cancelled'&& $order->restaurant_manager_status == "0"){
 						$penalty = ($order->penalty);
 					}elseif($order->restaurant_manager_status == "Rejected"){
 						$penalty = ($order->penalty);
@@ -164,7 +164,7 @@
 					?>
 				</td>
 				<td>
-					 <?php if($order->delivery_partner_status == "Rejected"){
+					 <?php if($order->status=='order cancelled'){
 						$reimb =  0;
 					}elseif($order->restaurant_manager_status == "Rejected"){
 						$reimb = 0;
@@ -248,10 +248,10 @@
 					} ?>
 
 				</td>
-				<td> 
+				<!-- <td> 
 					<?php $remarks = $this->Order_model->get_delpartnerremarks($order);
 					echo isset($remarks[0]->comments) ? $remarks[0]->comments : "No comments" ; ?>
-				</td>
+				</td> -->
 				<td>
 					<?=$order->passcode; ?>
 				</td>
