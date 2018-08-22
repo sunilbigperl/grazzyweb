@@ -164,7 +164,8 @@
 					?>
 				</td>
 				<td>
-					 <?php if($order->status=='order cancelled'){
+					<?php if($order->status=='order cancelled'&& $order->restaurant_manager_status == "0" || 
+						$order->delivery_partner_status == "Rejected"){
 						$reimb =  0;
 					}elseif($order->restaurant_manager_status == "Rejected"){
 						$reimb = 0;
