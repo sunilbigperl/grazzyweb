@@ -128,7 +128,7 @@
 				</td>
 
 				<td>
-					<?php  if($order->delivery_partner_status == "Rejected"){
+					<?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'){
 						$netordervalue1 = 0;
 					}elseif($order->restaurant_manager_status == "Accepted"){ $netordervalue1=$netordervalue ; }else{ $netordervalue1 = "0"; }
 					echo $netordervalue1;
@@ -136,7 +136,7 @@
 				</td>
 
 				<td>
-					<?php  if($order->delivery_partner_status == "Rejected"){
+					<?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'){
 						$gstonnetordervalue1 = 0;
 					}elseif($order->restaurant_manager_status == "Accepted"){ $gstonnetordervalue1=$gstonnetordervalue; }else{ $gstonnetordervalue1 = "0"; }
 					echo $gstonnetordervalue1;
@@ -144,7 +144,7 @@
 				</td>
 				
 				<td>
-					<?php  if($order->delivery_partner_status == "Rejected"){
+					<?php  if($order->delivery_partner_status == "Rejected" || $order->status=='order cancelled'){
 						$commission = 0;
 					}elseif($order->restaurant_manager_status == "Accepted"){ $commission = 
 						$netordervalue*($order->commission/100); }else{ $commission = "0"; }
@@ -172,7 +172,7 @@
 					echo $penalty;
 					?>
 				</td>
-				
+
 				<td>
 					 <?php if($order->status=='order cancelled'&& $order->restaurant_manager_status == "0" || $order->delivery_partner_status == "Rejected" ){
 						$reimb =  0;
@@ -209,14 +209,14 @@
 					}
 					echo $servicetax1;?>
 				</td> -->
-				<td><?php  if($order->delivery_partner_status == "Rejected"){
+				<td><?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'){
 						$keepamt = 0;
 					}else{
 						$keepamt =  $netamount;
 					}
 					echo $keepamt; ?></td>
 
-				<td><?php if($order->delivery_partner_status == "Rejected"){
+				<td><?php if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'){
 						echo  0;
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						//echo $order->total_cost - $keepamt;
