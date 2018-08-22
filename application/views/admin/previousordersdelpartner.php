@@ -85,9 +85,9 @@
 			<th>GST on Net Order Value </th>
 			<th>Net Order Value fulfilled</th>
 			<th>GST on Net Order Value fulfilled</th>
-			<th data-field="Commission">Commission</th>
-			<th data-field="Penalty">Penalty</th>
-			<th data-field="Reimb">Reimbursement of delivery charges</th>
+			<th>Commission</th>
+			<th>Penalty</th>
+			<th>Reimbursement of delivery charges</th>
 			<th>Net amount</th>
 			<!-- <th>GST</th> -->
 			<th>Keep amount for eatsapp</th>
@@ -234,7 +234,7 @@
 				</td> -->
 
 				<td>
-					 <?php if($order->delivery_partner_status == "Rejected" || $order->status=='order cancelled'){
+					<?php if($order->status=='order cancelled'&& $order->restaurant_manager_status == "0"){
 						$penalty = ($order->penalty);
 					}elseif($order->restaurant_manager_status == "Rejected"){
 						$penalty = ($order->penalty);
@@ -246,7 +246,7 @@
 				</td>
 				
 				<td>
-					 <?php if($order->delivery_partner_status == "Rejected"){
+					<?php if($order->status=='order cancelled' || $order->delivery_partner_status == "Rejected"){
 						$reimb =  0;
 					}elseif($order->restaurant_manager_status == "Rejected"){
 						$reimb = 0;
@@ -328,9 +328,9 @@
 				</td> -->
 
 				<td>
-					 <?php if($order->delivery_partner_status == "Rejected" || $order->restaurant_manager_status == 
-					 	"Rejected" || $order->status=='order cancelled'){
-						$penalty = ($order->penalty);
+					<?php if($order->delivery_partner_status == "Rejected" ||  
+						$order->status=='order cancelled'&&$order->restaurant_manager_status == "Accepted"){
+						$penalty = ($order->del_partner_penalty);
 					}else{
 						$penalty = 0; 
 					}

@@ -155,19 +155,19 @@ class Api_model extends CI_Model
 
 				$i=0;
 				foreach($threadmsg->result_array() as $row){ 
-					$result[] = $row;
+					//$result[] = $row;
 					$days = unserialize($row['days']);
 					
 					$days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
 					$day =  $days1[date("N")];
 					
 					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && $row['totime'] >= $time)){
-					
-						$result[$i]['restaurant_id'] = $row['restaurant_id'];
-						$result[$i]['restaurant_name'] = $row['restaurant_name'];
-						$result[$i]['restaurant_latitude'] = $row['restaurant_latitude'];
-						$result[$i]['restaurant_langitude'] = $row['restaurant_langitude'];
-						$result[$i]['image'] = $row['image'];
+					    $result[] = $row;
+						// $result[$i]['restaurant_id'] = $row['restaurant_id'];
+						// $result[$i]['restaurant_name'] = $row['restaurant_name'];
+						// $result[$i]['restaurant_latitude'] = $row['restaurant_latitude'];
+						// $result[$i]['restaurant_langitude'] = $row['restaurant_langitude'];
+						// $result[$i]['image'] = $row['image'];
 					}
 				$i++;
 				}
@@ -642,6 +642,11 @@ class Api_model extends CI_Model
 		
 		$sql_discount = $this->db->query("SELECT `discount1` , `discount2`,`reimb`,`commission`,`penalty`,`totime` FROM `restaurant` WHERE `restaurant_id` = '".$id."'");
 		$discounts =  $sql_discount->result_array();
+
+		$sql_penalty = $this->db->query("SELECT a.penalty FROM admin a,orders b WHERE  b.delivery_partner=a.id 
+			and b.restaurant_id = '".$id."'");
+		$penalty = $sql_penalty->result_array();
+		
 		
 		$sql ="SELECT DISTINCT b.category_id,  c.parent_id, c.name FROM `restaurant_menu` a, menu_categories b, categories c where 
 		a.restaurant_id = '".$id."' and a.menu_id = b.menu_category and b.category_id = c.id and a.`delete`=0 and a.`enabled`=1 ORDER BY ANY_VALUE(c.`id`)";
@@ -666,7 +671,8 @@ class Api_model extends CI_Model
 					$result[$i]['reimb'] = $discounts[0]['reimb']?$discounts[0]['reimb']:0; 
 					$result[$i]['commission'] =  $discounts[0]['commission']; 
 					$result[$i]['penalty'] =  $discounts[0]['penalty'];
-					$result[$i]['totime'] =  $discounts[0]['totime']; 
+					$result[$i]['totime'] =  $discounts[0]['totime'];
+					$result[$i]['del_partner penalty'] =  $penalty[0]['penalty']; 
 					if($order_type==0)
 					{
 					$sql1 ="SELECT *,a.description FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' and a.itemPreparation_time <=15
@@ -1332,9 +1338,9 @@ table, th, td {
 		$shipping_address =  isset($data['shipping_address']) ? $data['shipping_address'] :  '';
 		$delivered_on = isset($data['delivered_on']) ? $data['delivered_on'] : '';
 		$pitstop_id = isset($data['pitstop_id']) ? $data['pitstop_id'] : '';
-		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,discount1,discount2,reimb,commission,penalty,netordervalue,gstonfood,total_amount,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on,keep_ready,pitstop_id)
+		$sql="insert into orders (order_number,customer_id,restaurant_id,shipping,ordered_on,status,tax,coupon_discount,coupon_id,order_type,total_cost,discount1,discount2,reimb,commission,penalty,netordervalue,gstonfood,total_amount,shipping_lat,shipping_long,customer_image,delivery_location,delivered_on,keep_ready,pitstop_id,del_partner_penalty)
 		values ('".$order_number."','".$data['user_id']."','".$data['restaurant_id']."','".$data['shipping']."','".$date."','Payment pending','".$data['tax']."','".$data['coupon_discount']."','".$data['coupon_id']."',
-		'".$data['order_type']."','".$data['total_cost']."', '".$data['discount1']."','".$data['discount2']."','".$data['reimb']."','".$data['commission']."','".$data['penalty']."','".$data['net_order_value']."','".$data['tax']."','".$data['total_amount']."', '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$shipping_address."','".$delivered_on."','".$keep_ready."','".$pitstop_id."')";
+		'".$data['order_type']."','".$data['total_cost']."', '".$data['discount1']."','".$data['discount2']."','".$data['reimb']."','".$data['commission']."','".$data['penalty']."','".$data['net_order_value']."','".$data['tax']."','".$data['total_amount']."', '".$data['shipping_lat']."','".$data['shipping_long']."','".$image."','".$shipping_address."','".$delivered_on."','".$keep_ready."','".$pitstop_id."','".$data['del_partner_penalty']."')";
 		$this->db->query($sql);
 		$id = $this->db->insert_id();
 		if($id > 0){
