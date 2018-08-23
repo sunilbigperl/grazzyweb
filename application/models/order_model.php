@@ -778,7 +778,7 @@ Class order_model extends CI_Model
 		return $data;
 	}
 	
-	public function DelPartnerDeliveryCharge($distance){
+	public function DelPartnerDeliveryCharge($distance,$id){
 		$iddd = $this->uri->segment(4);
 		if(isset($iddd)){
 			$delpartnerid = $this->uri->segment(4);
@@ -791,7 +791,8 @@ Class order_model extends CI_Model
 		if($distance == 0){
 			$data['rate'] = 0;
 		}else{
-			$sql= $this->db->query("select * from delpartner_charges where fromKm <= '".$distance."' and toKm >= '".$distance."' and delpartner_id = '".$delpartnerid."' limit 1");
+			// $sql= $this->db->query("select * from delpartner_charges where fromKm <= '".$distance."' and toKm >= '".$distance."' and delpartner_id = '".$delpartnerid."' limit 1");
+			$sql= $this->db->query("select * from delpartner_charges a,orders b where a.fromKm <= '".$distance."' and a.toKm >= '".$distance."' and  b.delivery_partner=a.delpartner_id and b.id = '".$id."' limit 1");
 			if($sql->num_rows() > 0){
 				$res	= $sql->result_array();
 				$data['rate'] = $res[0]['rate'];

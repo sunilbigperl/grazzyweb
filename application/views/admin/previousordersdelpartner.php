@@ -120,7 +120,7 @@
 				$charges = $this->Order_model->GetChargesForOrder($order->ordered_on);
 				$servicetax = $charges['servicetax'];
 				$deliverycharge1 = $charges['deliverycharge'];
-				$deliverycharge = $this->Order_model->DelPartnerDeliveryCharge($order->distance);
+				$deliverycharge = $this->Order_model->DelPartnerDeliveryCharge($order->distance,$order->id);
 				$orders1 = $this->Order_model->get_previousorders1($order->delivery_partner);
 				$orders2 = $this->Order_model->get_deliveryboy($order->delivered_by);
 				// print_r($orders2[0]->name);exit;
