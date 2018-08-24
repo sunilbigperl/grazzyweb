@@ -340,11 +340,11 @@
 				<td>
 					<?php if($order->delivery_partner_status == "Rejected" ||  
 						$order->status=='order cancelled'&&$order->restaurant_manager_status == "Accepted"){
-						$penalty = ($order->del_partner_penalty);
+						$penalty1 = ($order->del_partner_penalty);
 					}else{
-						$penalty = 0; 
+						$penalty1 = 0; 
 					}
-					echo $penalty;
+					echo $penalty1;
 					?>
 				</td>
 				
@@ -352,7 +352,7 @@
 						$netamount = $deliverycharge['rate'];
 					}else{
 						
-						$netamount = $deliverycharge['rate'] - $order->del_partner_penalty;
+						$netamount = $deliverycharge['rate'] - $penalty1;
 						
 					} 
 					echo $netamount;
