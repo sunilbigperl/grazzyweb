@@ -350,10 +350,12 @@
 				</td>
 				
 				<td> <?php if($order->delivery_partner_status == "Accepted" || $order->status == "Order Placed"){
-						$netamount = $deliverycharge['rate'];
+						//$netamount = $deliverycharge['rate'];
+					$netamount = $order->delivery_charge;
 					}else{
 						
-						$netamount = $deliverycharge['rate'] - $penalty1;
+						// $netamount = $deliverycharge['rate'] - $penalty1;
+						$netamount =  $order->delivery_charge - $penalty1;
 						
 					} 
 					echo $netamount;
