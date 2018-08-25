@@ -312,7 +312,8 @@
 						$delivery  = 0;
 						
 					}else{
-						$delivery = $deliverycharge['rate']; 
+						//$delivery = $deliverycharge['rate']; 
+						$delivery = $order->delivery_charge; 
 					}
 					echo $delivery;
 					?>

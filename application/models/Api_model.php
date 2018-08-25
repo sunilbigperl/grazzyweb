@@ -571,10 +571,19 @@ class Api_model extends CI_Model
 	public function changeorderstatus($data){
 		date_default_timezone_set('Asia/Calcutta');
 		 	$date = date('Y-m-d H:i:s',time());
+
+		 $sql2= $this->db->query("select * from delpartner_charges a,orders b where a.fromKm <= '".$data['distance']."' and a.toKm >= '".$data['distance']."' and  b.delivery_partner=a.delpartner_id and b.id = '".$data['id']."' limit 1");
+			if($sql2->num_rows() > 0){
+				$res	= $sql2->result_array();
+				$data['rate'] = $res[0]['rate'];
+			}else{
+				$data['rate'] = 0;
+			}
 		
 		if($data['status']=='Picked Up')
 		{
-		$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualpickup_time='".$date."' where id='".$data['id']."'";
+		$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualpickup_time='".$date."',
+		delivery_charge='".$data['rate']."' where id='".$data['id']."'";
         }
         else if($data['status']=='Shipped'){
         	$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualdelivery_time='".$date."' where id='".$data['id']."'";
