@@ -583,7 +583,7 @@ class Api_model extends CI_Model
 		if($data['status']=='Picked Up')
 		{
 		$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualpickup_time='".$date."',
-		delivery_charge='".$data['rate']."' where id='".$data['id']."'";
+		delpartner_delivery_charge='".$data['rate']."' where id='".$data['id']."'";
         }
         else if($data['status']=='Shipped'){
         	$sql = "update orders set status='".$data['status']."', distance= '".$data['distance']."',actualdelivery_time='".$date."' where id='".$data['id']."'";
