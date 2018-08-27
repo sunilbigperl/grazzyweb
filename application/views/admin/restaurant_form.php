@@ -35,6 +35,10 @@
 					echo form_textarea($data);
 					?>
 				</div>
+				<div class="form-group">	
+					<label>Tags</label>
+					<input type="text" name="tags" value="<?=$tags?>" class="form-control">
+				</div>
 				<div class="form-group">
 					<label for="restaurant_address">Restaurant phone for orders</label>
 					<div class="input-group">

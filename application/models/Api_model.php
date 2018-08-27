@@ -139,8 +139,13 @@ class Api_model extends CI_Model
 			$time = date('H:i:s',time());
 			$where ='';
 			
+			// if(isset($data['area']) && $data['area'] != ""){
+			// 	$sql ="SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant   HAVING distance < 4 and restaurant_address like '%".$data['area']."%'
+			// 	and enabled=1 and `delete`=0";
+			// }
+
 			if(isset($data['area']) && $data['area'] != ""){
-				$sql ="SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant   HAVING distance < 4 and restaurant_address like '%".$data['area']."%'
+				$sql ="SELECT * FROM restaurant where tags like '%".$data['area']."%'
 				and enabled=1 and `delete`=0";
 			}
 			if(isset($data['name']) && $data['name'] != ""){

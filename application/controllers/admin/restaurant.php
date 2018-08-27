@@ -81,6 +81,7 @@ class Restaurant extends Admin_Controller {
 		$data['firstname']	= '';
 		$data['access']	 = '';
 		$data['NextRenewalDate'] = '';
+		$data['tags'] = '';
 		
         //create the photos array for later use
         $data['photos']     = array();
@@ -132,6 +133,7 @@ class Restaurant extends Admin_Controller {
 			$data['firstname']	= $admin->firstname;
 			$data['access']		= $admin->access;
 			$data['NextRenewalDate'] = $admin->NextRenewalDate;
+			$data['tags'] = $restaurant->tags;
 			
 			if(!$this->input->post('submit'))
 			{
@@ -292,6 +294,7 @@ class Restaurant extends Admin_Controller {
 			$save['comment'] 			   = $this->input->post('comment');
 			$save['days'] 				   = serialize($this->input->post('days'));
 			$save['delivery_charge'] = $this->input->post('delivery_charge');
+			$save['tags'] = $this->input->post('tags');
 			if($this->input->post('related_pitstops'))
 			{
 				$related_pitstops = $this->input->post('related_pitstops');
