@@ -7,12 +7,12 @@
 		
 		<fieldset style="padding:10px">
 			<div class="form-group">	
-					<label for="coupon_code">Coupon Name</label>
+					<label for="coupon_code">Vocher Name</label>
 					<input type="text" name="coupon_code" value="<?=$coupon_code?>" class="form-control" required>
 					
 			</div>
 			<div class="form-group">	
-					<label for="used">Number of used</label>
+					<label for="used">Number of times to be used</label>
 					<input type="text" name="used" value="<?=$used?>" class="form-control" required>
 					
 			</div>
@@ -40,8 +40,8 @@
 	<thead>
 		<tr>
 			
-			<th>Coupon Name</th>
-			<th>Number of used</th>
+			<th>Vocher Name</th>
+			<th>Number of vocher left</th>
 			<th>Cost</th>
 			<th>Actions</th>
 	   </tr>
