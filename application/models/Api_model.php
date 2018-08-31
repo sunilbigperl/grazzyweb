@@ -385,7 +385,7 @@ class Api_model extends CI_Model
 		$date = date("Y-m-d H:i:s");
 		$currentdate=strtotime($date);
 		// print_r($date);exit;
-		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status!='Shipped' and a.status!='payment pending' order by a.ordered_on desc";
+		$sql = "SELECT * FROM `orders`a WHERE a.`customer_id` = ".$id." and a.status!='Shipped' and a.status!='payment pending' and a.status!='Delivered' order by a.ordered_on desc";
 		
 		$query = $this->db->query($sql);
 		if($query->num_rows()>0){

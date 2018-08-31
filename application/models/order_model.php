@@ -83,9 +83,14 @@ Class order_model extends CI_Model
 		$userdata = $this->session->userdata('admin');
 		$sql1=$this->db->query("SELECT * FROM orders a,delivery_boy b where a.id='".$data['id']."' and a.delivered_by=b.id ");
 		//print_r($sql1->num_rows());exit;
+		$sql2=$this->db->query("SELECT * FROM delivery_boy  where id='".$data['delBoy']."' ");
+			$result1= $sql2->result_array();
+			$name=$result1[0]['name'];
 		if($sql1->num_rows()==0){
+			
 		
-		$sql = $this->db->query("update orders set delivery_partner ='".$userdata['id']."',delivery_partner_status='Accepted' , delivered_by='".$data['delBoy']."', status='Assigned' where id='".$data['id']."'");
+		$sql = $this->db->query("update orders set delivery_partner ='".$userdata['id']."',delivery_partner_status='Accepted' , delivered_by='".$data['delBoy']."',
+			delivered_name='".$name."', status='Assigned' where id='".$data['id']."'");
 		
             if($sql){ 
 			$query = $this->db->query("SELECT `did` FROM `delivery_boy` WHERE `id` = '".$data['delBoy']."'");	
@@ -153,7 +158,8 @@ Class order_model extends CI_Model
 	}else
 	{
 		
-        $sql = $this->db->query("update orders set delivery_partner ='".$userdata['id']."',delivery_partner_status='Accepted' , delivered_by='".$data['delBoy']."', status='Assigned' where id='".$data['id']."'");
+        $sql = $this->db->query("update orders set delivery_partner ='".$userdata['id']."',delivery_partner_status='Accepted' , delivered_by='".$data['delBoy']."',delivered_name=
+        	'".$name."', status='Assigned' where id='".$data['id']."'");
 		
 
 
@@ -279,7 +285,7 @@ Class order_model extends CI_Model
 				$delivery_partner = 0;
 			}
 			
-			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.*,e.firstname,e.phone FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id 
+			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.*,e.firstname,e.phone FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id and a.order_type!=3
 			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.delivery_partner = '".$delivery_partner."' and a.status IN ('Shipped','Rejected','order cancelled') and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on < '".$data['todate']."') order by ordered_on desc");
 			
 		}else{

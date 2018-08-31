@@ -141,13 +141,20 @@
 				</td>
 				
 				<td>
-				 <?php if($order->delivered_by == "0"){ ?>
+				<!--  <?php if($order->delivered_by == "0"){ ?>
 						No Deliveryboy
 					<?php }else{
 						// echo $order->delivered_by;
 						$beliveryboy=$orders2[0]->name;
 				 	    echo "$beliveryboy";
+					} ?> -->
+					<?php if($order->delivered_by == "0"){ ?>
+						No Deliveryboy
+					<?php }else{
+						
+				 	    echo $order->delivered_name;
 					} ?>
+					
 				
 				</td>
 				
