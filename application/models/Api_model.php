@@ -1323,8 +1323,10 @@ table, th, td {
 							'newline' => "\r\n"
 						);
 						$this->load->library('email',$config);
-						$this->email->from('feedback@eatsapp.in', 'eatsapp');
-						$this->email->to($row['email']);
+						// $this->email->from('feedback@eatsapp.in', 'eatsapp');
+						// $this->email->to($row['email']);
+						$this->email->from($row['email'], 'eatsapp');
+						$this->email->to('feedback@eatsapp.in');
 						//$this->email->to('messages@eatsapp.in');
 						$this->email->bcc('eatsapp.customer.feedback@gmail.com');
 						$this->email->subject('eatsapp: Thanks for your Valuable Feedback');
