@@ -50,7 +50,7 @@ public function RestCron(){
     $futureDate = $currentDate-(60*4);
     $formatDate = date("Y-m-d H:i:s", $futureDate);
     
-    $sql = $this->db->query("select * from orders a, restaurant b where a.restaurant_id = b.restaurant_id and a.restaurant_manager_status = 0 and a.status='Order Placed' and  ordered_on < '".$formatDate."'");
+    $sql = $this->db->query("select * from orders a, restaurant b where a.restaurant_id = b.restaurant_id and a.restaurant_manager_status = 0 and a.status='Order Placed' and  a.order_type!=3 and  ordered_on < '".$formatDate."'");
     if($sql->num_rows() > 0){
       $result =  $sql->result_array();
       foreach($result as $row){
@@ -120,7 +120,7 @@ public function RestCron(){
     $futureDate = $currentDate-(60*4);
     $formatDate = date("Y-m-d H:i:s", $futureDate);
     
-    $sql = $this->db->query("select * from orders a, restaurant b where a.restaurant_id = b.restaurant_id and a.restaurant_manager_status ='Accepted' and a.status='Order Placed' and  ordered_on < '".$formatDate."'");
+    $sql = $this->db->query("select * from orders a, restaurant b where a.restaurant_id = b.restaurant_id and a.restaurant_manager_status ='Accepted' and a.status='Order Placed' and a.order_type!=3 and  ordered_on < '".$formatDate."'");
     if($sql->num_rows() > 0){
       $result =  $sql->result_array();
       foreach($result as $row){
