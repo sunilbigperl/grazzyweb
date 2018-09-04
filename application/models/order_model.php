@@ -427,8 +427,8 @@ Class order_model extends CI_Model
 		 	$date = date('Y-m-d H:i:s',time());
 		if($status == "1"){ 
 			$data = "Accepted"; 
-			// $sql = $this->db->query('update orders set restaurant_manager_status="'.$data.'" where id="'.$id.'"');
-			$sql = $this->db->query('update orders a,restaurant b,admin c set a.restaurant_manager_status="'.$data.'",a.delivery_partner=b.del_partner where b.del_partner = c.id and a.id="'.$id.'"');
+			 $sql = $this->db->query('update orders set restaurant_manager_status="'.$data.'" where id="'.$id.'"');
+			//$sql = $this->db->query('update orders a,restaurant b,admin c set a.restaurant_manager_status="'.$data.'",a.delivery_partner=b.del_partner where b.del_partner = c.id and a.id="'.$id.'"');
 		}else if($status == "2"){ 
 			$data = "Delivered"; 
 			$sql = $this->db->query('update orders set status="'.$data.'",actualdelivery_time=
