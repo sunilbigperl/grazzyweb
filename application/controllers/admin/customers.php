@@ -693,12 +693,18 @@ class Customers extends Admin_Controller {
 				foreach($addresses as $address){ 
 					$f = $address['field_data'];
 					echo "<div>";
-					echo "<strong>Address".$i." :</strong> "; echo isset($f['address1']) ? $f['address1'] : "";
+					echo "<strong>Address".$i." :</strong> "; echo isset($address['Entry_name']) ? $address['Entry_name'] : "";
+                    echo $prefix = ', ';					
+					echo isset($f['address1']) ? $f['address1'] : "";
+					echo $prefix = ', ';	
 					echo isset($f['address2']) ? $f['address2'] : "";
-					echo isset($f['location0']) ? $f['location0'] : ""; 
-					echo isset($f['location1']) ? $f['location1'] : ""; 
-					echo isset($f['location2']) ? $f['location2'] : ""; 
+					echo $prefix = ', ';	
+					echo isset($f['location0']) ? $f['location0'] : "";
+                   	echo isset($f['location1']) ? $f['location1'] : ""; 
+					echo isset($f['location2']) ? $f['location2'] : "";
+                    echo $prefix = ', ';				
 					echo isset($f['city_state']) ? $f['city_state'] : "";
+					echo $prefix = ', ';	
 					echo isset($f['city']) ? $f['city'] : "";
 					echo isset($f['zip']) ? $f['zip'] : "";
 					echo "</div>";
