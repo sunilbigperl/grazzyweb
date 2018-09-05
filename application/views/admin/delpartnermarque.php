@@ -12,6 +12,6 @@
        setTimeout(function(){
            location.reload();
            
-       },40000); 
+       },33000); 
     </script>
 <?php endif; ?>

@@ -738,9 +738,9 @@ class Customers extends Admin_Controller {
 		// $date1 = date("Y-m-d H:i:s",strtotime($date." -1 minutes"));
 		if($this->auth->check_access('Restaurant manager')){ 
 			$date = date('Y-m-d H:i:s'); 
-			$date1 = date("Y-m-d H:i:s",strtotime($date." -1 minutes"));
+			$date1 = date("Y-m-d H:i:s",strtotime($date." -33 seconds"));
 			$sql = $this->db->query("select * from orders as a left join restaurant as b on a.restaurant_id = b.restaurant_id
-			where a.ordered_on >= '".$date1."' and a.status='Order Placed' and b.restaurant_manager='".$userdata['id']."'");
+			where a.ordered_on >= '".$date1."' and a.status='Order Placed' and a.restaurant_manager_status!='Accepted' and b.restaurant_manager='".$userdata['id']."'");
 			if($sql->num_rows() > 0){
 				$result =  $sql->result_array();
 				foreach($result as $res){
@@ -750,9 +750,9 @@ class Customers extends Admin_Controller {
 		}
 		elseif($this->auth->check_access('Deliver manager')){ 
 			$date = date('Y-m-d H:i:s'); 
-			$date1 = date("Y-m-d H:i:s",strtotime($date." -1 minutes"));
+			$date1 = date("Y-m-d H:i:s",strtotime($date." -1  minutes"));
 			$userdata = $this->session->userdata('admin');
-			$sql = $this->db->query("select * from orders where ordered_on >= '".$date1."' and delivery_partner='".$userdata['id']."'");
+			$sql = $this->db->query("select * from orders where  status='Order Placed' and ordered_on >= '".$date1."' and delivery_partner='".$userdata['id']."'");
 			if($sql->num_rows() > 0){
 				$result =  $sql->result_array();
 				foreach($result as $res){
