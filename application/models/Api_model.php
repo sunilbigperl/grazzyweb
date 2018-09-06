@@ -1826,10 +1826,7 @@ table, th, td {
     <th>Item Name</th>
     <th>Price (INR)</th>
    </tr>
-  <tr>
-    <td>Order No</td>
-    <td>".$result[$i]['order_number']."</td>
-  </tr>
+ 
   <tr>
     <td>".$result[$i]['items']."</td>
      <td>".$result[$i]['cost']."</td>
