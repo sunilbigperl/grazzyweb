@@ -1465,7 +1465,7 @@ table, th, td {
 	 //   }
 
 	 
-	 public function userOrderEmail($data){
+		public function userOrderEmail($data){
         $date = date("Ym-d");
 		$data1=str_replace('["','',$data['id']);
 		$data2=str_replace('"]','',$data1);
@@ -1783,7 +1783,35 @@ table, th, td {
 					$result[$i]['cost']= implode("<br>",$result[$i]['cost']);
 				}
 
-				$message .="<p style=text-align:center;>".$image1."  </p>
+				$message .="
+				
+				<style>
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+	
+}
+.footer {
+   position: absolute;
+ left:0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   margin-bottom:10px;
+   page-break-after: always;
+}
+.header{ page-break-after: always; }
+
+
+.content{
+	margin-bottom:49%;
+}
+
+
+</style>
+				
+			<div class=header>	<p style=text-align:center;>".$image1."  </p>
 		  <p style=text-align:center;>Dear ".$result[$i]['firstname'].",</p>
 		  <p style=text-align:center;>Thank you for placing the order with eatsapp</p>
 		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
@@ -1791,23 +1819,9 @@ table, th, td {
 		  <p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>
 		  <p style=text-align:center;>Restaurant:".$result[$i]['restaurant_name']."</p>
 
-<style>
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-	
-}
-.footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   text-align: center;
-}
 
-
-</style>		 
-<table align=center>
+		 
+<table align=center style=page-break-inside:avoid>
   <tr>
     <th>Item Name</th>
     <th>Price (INR)</th>
@@ -1848,15 +1862,16 @@ table, th, td {
   
 </table>	   
 		
-		
+	
   
   
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<div class=footer>	   
-<hr>
-<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
-</div>		
+</div>
+
+
+
+
+
 		";
 
 				
@@ -1895,6 +1910,13 @@ table, th, td {
 			$this->email->subject('Your Requested Bill(s)');
 			$filename  = "orderbill.pdf";
             $this->load->library('m_pdf');
+			//$this->m_pdf->pdf->autoPageBreak = false;
+ $this->m_pdf->pdf->setAutoBottomMargin = 'stretch';
+			 $this->m_pdf->pdf->SetHTMLFooter('
+<hr>
+<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
+
+');
             $this->m_pdf->pdf->WriteHTML($message);
 		    $this->m_pdf->pdf->Output($filename, "F");
 		    $this->email->attach($filename);
