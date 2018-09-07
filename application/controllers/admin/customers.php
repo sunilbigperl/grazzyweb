@@ -750,9 +750,9 @@ class Customers extends Admin_Controller {
 		}
 		elseif($this->auth->check_access('Deliver manager')){ 
 			$date = date('Y-m-d H:i:s'); 
-			$date1 = date("Y-m-d H:i:s",strtotime($date." -1  minutes"));
+			$date1 = date("Y-m-d H:i:s",strtotime($date." -33  seconds"));
 			$userdata = $this->session->userdata('admin');
-			$sql = $this->db->query("select * from orders where  status='Order Placed' and ordered_on >= '".$date1."' and delivery_partner='".$userdata['id']."'");
+			$sql = $this->db->query("select * from orders where order_type!=3 and status='Order Placed' and restaurant_manager_status='Accepted' and ordered_on >= '".$date1."' and delivery_partner='".$userdata['id']."'");
 			if($sql->num_rows() > 0){
 				$result =  $sql->result_array();
 				foreach($result as $res){
