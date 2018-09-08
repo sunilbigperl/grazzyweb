@@ -1107,7 +1107,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $deliverycharge2 = $charges['deliverycharge'];
 
     	$orders1 = $this->Order_model->get_previousorders1($excel['delivery_partner']);
-    	$deliverycharge = $this->Order_model->DelPartnerDeliveryCharge($excel['distance']);
+    	$deliverycharge = $this->Order_model->DelPartnerDeliveryCharge($excel['distance'],$excel['id']);
     	//$deliverycharge1=$deliverycharge['rate'];
 		$data['restaurant'] = $this->Restaurant_model->get_restaurant($excel['restaurant_id']);
 
