@@ -71,9 +71,9 @@ class Api_model extends CI_Model
 		$sql = "select id from delivery_boy where phone ='".$data['phone']."'";
 		$query = $this->db->query($sql);
 		if($query->num_rows() == 0){
-			$sql = "insert into delivery_boy (name, phone,did) values('".$data['firstname']."','".$data['phone']."','".$data['did']."')";	
-			$query = $this->db->query($sql);
-			$id = $this->db->insert_id();
+			// $sql = "insert into delivery_boy (name, phone,did) values('".$data['firstname']."','".$data['phone']."','".$data['did']."')";	
+			// $query = $this->db->query($sql);
+			// $id = $this->db->insert_id();
 			
 		}else{
 			$sql = $this->db->query("update delivery_boy set name='".$data['firstname']."', did='".$data['did']."' where phone='".$data['phone']."'");	
