@@ -663,50 +663,75 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $netordervalue=$excel['netordervalue']; 
         $gstonnetordervalue=$excel['tax'];
 
-	    if($excel['delivery_partner_status'] == "Rejected"){
+        if($excel['order_type'] !="I'll pickup"){ 
+			$Conviencecharge = $deliverycharge;
+					}else{
+						
+						$Conviencecharge= 0;
+		} 
+
+	   if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'){
 						$netordervalue1 = 0;
 			}elseif($excel['restaurant_manager_status'] == "Accepted"){ $netordervalue1=$netordervalue ; }else{ $netordervalue1 = "0"; }
 
 
-        if($excel['delivery_partner_status'] == "Rejected"){
+        if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'){
 			$gstonnetordervalue1 = 0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $gstonnetordervalue1=$gstonnetordervalue; }else{ $gstonnetordervalue1 = "0"; }
 					
-					
-		if($excel['delivery_partner_status'] == "Rejected"){
+		if($excel['delivery_partner_status'] == "Rejected" || $excel['status']=='order cancelled'){
 						$commission = 0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $commission = 
 						$netordervalue*($excel['commission']/100); }else{ $commission = "0"; }
 
 
-	    if($excel['delivery_partner_status'] == "Rejected"){
-						$penalty = 0;
-					}elseif($excel['restaurant_manager_status'] == "Accepted"){ $penalty="0"; }else{ $penalty = ($excel['penalty']);  }
+	    // if($excel['delivery_partner_status'] == "Rejected"){
+					// 	$penalty = 0;
+					// }elseif($excel['restaurant_manager_status'] == "Accepted"){ $penalty="0"; }else{ $penalty = ($excel['penalty']);  }
+
+		if($excel['status']=='order cancelled'&& $excel['restaurant_manager_status'] == "0"){
+			$penalty = ($excel['penalty']);
+			}elseif($excel['restaurant_manager_status'] == "Rejected"){
+				$penalty = ($excel['penalty']);
+				}else{
+				 $penalty = 0; 
+				}
 					
 					
-	   if($excel['delivery_partner_status'] == "Rejected"){
+	   if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled' ){
 						$reimb =  0;
-					}elseif($excel['restaurant_manager_status'] == "Rejected"){
+					}elseif($excel['restaurant_manager_status'] == "Rejected" ){
 						$reimb = 0;
 					}else{
-						$reimb = $excel['reimb']; 
-					}
+						
+						if($excel['order_type']!="I'll pickup")
+						{
+							$reimb = $excel['reimb'];
+							
+						}
+						else{
+						    $reimb = 0;
+						} 
+		}
 
-	   if($excel['delivery_partner_status'] == "Rejected"){
+	  if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$netamount = 0;
 		}else{
 				$netamount = $commission + $penalty + $reimb; ; 
 			}
 
 
-	   if($excel['delivery_partner_status'] == "Rejected"){
+	   if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$keepamt = 0;
 		}else{
 				$keepamt =  $netamount;
 			}
 
 
-		if($excel['delivery_partner_status'] == "Rejected"){
+		if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$givetorest=0;
 					}elseif($excel['restaurant_manager_status'] == "Accepted"){
 						//echo $order->total_cost - $keepamt;
@@ -716,36 +741,43 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 					}	
 
 
-		if($excel['restaurant_manager_status'] == "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue;
+		 if($excel['restaurant_manager_status'] == "Rejected"){
+					 $givetocust=$netordervalue+$gstonnetordervalue+$Conviencecharge;
 				      
 					}elseif($excel['delivery_partner_status']== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue;
+						$givetocust=$netordervalue+$gstonnetordervalue+$Conviencecharge;
 						
-					}else{
+					}elseif($excel['status']=='order cancelled'){
+						$givetocust=$netordervalue+$gstonnetordervalue+$Conviencecharge;
+				      
+					}
+					else{
 						$givetocust=0;
 					}				
 					
 					 
-				if($excel['restaurant_manager_status'] == "0"){
-						$status="Not acted yet";
-					 }elseif($excel['delivery_partner_status'] == "Rejected"){
-						// echo "Delivery manager rejected";
-						$username=$orders1[0]->firstname;
-						$status= "Rejected by $username"; 
-				 	    //echo "Rejected by $username";
-					}elseif($excel['delivery_partner_status'] == "Accepted"){
-						// echo "Delivery manager Accepted";
-						 //echo "$order->status";
+					 
+				 if( $excel['delivery_partner_status'] == "Rejected"){ 
+				      $username=$orders1[0]->firstname;
+						$status= "Rejected by $username";
+                 }elseif($excel['delivery_partner_status'] == "Accepted"){
 						$status=$excel['status'];
+				 }else if($excel['restaurant_manager_status'] == "Accepted" && $excel['status'] == "order cancelled" ){
+						 $username=$orders1[0]->firstname;
+						$status= "Rejected by $username";
 					}elseif($excel['restaurant_manager_status'] == "Accepted"){
-						$status="Restaurant manager accepted";
-						//echo "Restaurant manager accepted ";
-					}else{
+						$status=$excel['status'];
+					}else if($excel['restaurant_manager_status'] == "Rejected"){
 						$restname=$excel['restaurant_name'];
 						$status="Rejected by $restname";
-						//echo "Rejected by $order->restaurant_name ";
-					} 						
+					}
+					else if($excel['status'] == "order cancelled"){
+						$restname=$excel['restaurant_name'];
+						$status="Rejected by $restname";
+					}
+					else{
+						$status="Not acted yet";
+					}						
 					
 
 
@@ -755,7 +787,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['firstname']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['phone']);
         $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['total_amount']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,  $deliverycharge);
+        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,  $Conviencecharge);
         $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$excel['discount1']);
         $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$excel['discount2']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$netordervalue);
