@@ -111,8 +111,8 @@ class Orders extends Admin_Controller {
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 			$data['delpartner'] = $this->input->post('delpartner');
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
-			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 			$data['delpartner'] = $this->input->post('delpartner');
 		}
 		$sql = $this->db->query("select * from charges where id = 1");
@@ -840,16 +840,16 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
-			// $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			//$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+		 $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
-			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
-			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
 		
@@ -884,7 +884,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 	
   $userdata = $this->session->userdata('admin');
   $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id  
-		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager='".$userdata['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on < '".$data['todate']."' order by ordered_on desc")->result_array();
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager='".$userdata['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on < '".$data['todate']."' and a.status IN ('Delivered', 'Shipped','Rejected','order cancelled') order by ordered_on desc")->result_array();
 
 
 		
@@ -899,28 +899,32 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $gstonnetordervalue=$excel['tax'];
 
 
-         if($excel['delivery_partner_status'] == "Rejected"){
+        if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'){
 						$netordervalue1 = 0;
 			}elseif($excel['restaurant_manager_status'] == "Accepted"){ $netordervalue1=$netordervalue ; }else{ $netordervalue1 = "0"; }
 
 
-        if($excel['delivery_partner_status'] == "Rejected"){
+       if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'){
 			$gstonnetordervalue1 = 0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $gstonnetordervalue1=$gstonnetordervalue; }else{ $gstonnetordervalue1 = "0"; }
 					
 					
-		if($excel['delivery_partner_status'] == "Rejected"){
+		if($excel['delivery_partner_status'] == "Rejected" || $excel['status']=='order cancelled'){
 						$commission = 0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $commission = 
 						$netordervalue*($excel['commission']/100); }else{ $commission = "0"; }
 
 
-	    if($excel['delivery_partner_status'] == "Rejected"){
-						$penalty = 0;
-					}elseif($excel['restaurant_manager_status'] == "Accepted"){ $penalty="0"; }else{ $penalty = ($excel['penalty']);  }
+	    if($excel['status']=='order cancelled'&& $excel['restaurant_manager_status'] == "0"){
+						$penalty = ($excel['penalty']);
+					}elseif($excel['restaurant_manager_status'] == "Rejected"){
+						$penalty = ($excel['penalty']);
+					}else{
+						$penalty = 0; 
+					}
 					
 	   
-	    if($excel['delivery_partner_status'] == "Rejected" ){
+	     if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled' ){
 						$reimb =  0;
 					}elseif($excel['restaurant_manager_status'] == "Rejected" ){
 						$reimb = 0;
@@ -937,21 +941,24 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 					}
 					
 
-	   if($excel['delivery_partner_status'] == "Rejected"){
+	    if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$netamount = 0;
 		}else{
 				$netamount = $commission + $penalty + $reimb; ; 
 			}
 
 
-	   if($excel['delivery_partner_status'] == "Rejected"){
+	  if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$keepamt = 0;
 		}else{
 				$keepamt =  $netamount;
 			}
 
 
-		if($excel['delivery_partner_status'] == "Rejected"){
+		if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$givetorest=0;
 					}elseif($excel['restaurant_manager_status'] == "Accepted"){
 						//echo $order->total_cost - $keepamt;
@@ -961,25 +968,35 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 					}	
 
 
-				if($excel['restaurant_manager_status'] == "0"){
-						$status="Not acted yet";
-					 }elseif($excel['delivery_partner_status'] == "Rejected"){
-						// echo "Delivery manager rejected";
-						$username=$orders1[0]->firstname;
-						$status= "Rejected by $username"; 
-				 	    //echo "Rejected by $username";
-					}elseif($excel['delivery_partner_status'] == "Accepted"){
-						// echo "Delivery manager Accepted";
-						 //echo "$order->status";
+				if($excel['delivery_partner_status'] == "Rejected"){
+					$username=$orders1[0]->firstname;
+					$status= "Rejected by $username";
+					
+					 }elseif($excel['delivery_partner_status'] == "Accepted"){
 						$status=$excel['status'];
-					}elseif($excel['restaurant_manager_status'] == "Accepted"){
-						$status="Restaurant manager accepted";
-						//echo "Restaurant manager accepted ";
-					}else{
+					}else if($excel['restaurant_manager_status'] == "Accepted" &&$excel['status'] == "order cancelled" ){
+						$username=$orders1[0]->firstname;
+					$status= "Rejected by $username";
+					}else if($excel['status'] == "order cancelled"){
 						$restname=$excel['restaurant_name'];
 						$status="Rejected by $restname";
-						//echo "Rejected by $order->restaurant_name ";
-					} 						
+					}elseif($excel['restaurant_manager_status'] == "Accepted"){
+						// echo "Restaurant manager accepted";
+						if($excel['order_type']!="I'll pickup")
+						{
+						$status="Restaurant manager accepted";
+					    }
+					    else{
+					    	//echo "Delivered";
+							$status="Delivered";
+					    }
+
+					}
+					
+					else{
+						$restname=$excel['restaurant_name'];
+						$status="Rejected by $restname";
+					}					
 					
 
 
