@@ -280,7 +280,8 @@
 					 echo $netamount
 					?></td>
 
-					<td><?php  if($order->delivery_partner_status == "Rejected"){
+					<td><?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
+				 	$order->restaurant_manager_status == "Accepted"){
 						$keepamt = 0;
 					}else{
 						$keepamt =  $netamount;

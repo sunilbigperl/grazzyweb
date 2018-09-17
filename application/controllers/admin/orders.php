@@ -207,7 +207,8 @@ class Orders extends Admin_Controller {
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			//$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			$data['todate'] = $_SESSION['todated'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
@@ -1050,17 +1051,17 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		$this->load->model('Deliveryboy_model');
 		if($this->input->post('action') == "Go"){
 			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
-			$data['todate1'] = $_SESSION['todate1'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
+			//$data['todate1'] = $_SESSION['todate1'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
-			 $data['todate1'] = $_SESSION['todate1'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
+			// $data['todate1'] = $_SESSION['todate1'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
 			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
-			$data['todate1'] =  $_SESSION['todate1'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
+			//$data['todate1'] =  $_SESSION['todate1'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 
 		}
@@ -1127,8 +1128,10 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 				$delivery_partner = 0;
 			}
 			
-			$export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.*,e.firstname,e.phone,f.name FROM `orders` a, restaurant b, order_type d, admin c,customers e,delivery_boy f WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id and a.`delivered_by` = f.id
-			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.delivery_partner = '".$delivery_partner."' and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on < '".$data['todate']."') order by ordered_on desc")->result_array();
+			// $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.*,e.firstname,e.phone,f.name FROM `orders` a, restaurant b, order_type d, admin c,customers e,delivery_boy f WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id and a.`delivered_by` = f.id
+			// and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.delivery_partner = '".$delivery_partner."' and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on < '".$data['todate']."') order by ordered_on desc")->result_array();
+			$export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.*,e.firstname,e.phone FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id and a.order_type!=3
+			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and a.delivery_partner = '".$delivery_partner."' and a.status IN ('Shipped','Rejected','order cancelled') and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on < '".$data['todate']."') order by ordered_on desc")->result_array();
 			
 		}else{
 			
@@ -1140,7 +1143,11 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 				$where.=" and a.restaurant_id = '".$data['restaurant']."'";
 			}
 			
-			$export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone,f.name FROM `orders` a, restaurant b, order_type d, admin c,customers e,delivery_boy f WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id and a.`delivered_by` = f.id
+			// $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone,f.name FROM `orders` a, restaurant b, order_type d, admin c,customers e,delivery_boy f WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id and a.`delivered_by` = f.id
+			// and d.ordertype_id =a.order_type and b.restaurant_manager = c.id   and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on < '".$data['todate']."') ".$where."
+			//  order by ordered_on desc")->result_array();
+
+			 $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id and a.status!='Payment pending'
 			and d.ordertype_id =a.order_type and b.restaurant_manager = c.id   and (a.ordered_on >= '".$data['fromdate']."' and a.ordered_on < '".$data['todate']."') ".$where."
 			 order by ordered_on desc")->result_array();
 			
@@ -1161,6 +1168,13 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		$data['restaurant'] = $this->Restaurant_model->get_restaurant($excel['restaurant_id']);
 
 		$data['fromaddress'] = $data['restaurant']->restaurant_address;
+
+		if($excel['delivered_by'] == "0"){
+			$deliveryboy="No Deliveryboy";
+		}else{
+						
+			$deliveryboy=$excel['delivered_name'];
+		}
          if($excel['order_type'] == 1 && $excel['pitstop_id ']!= ""){
 					$pitstop = $this->Pitstop_model->get_pitstop($excel['pitstop_id']);
 					$data['toaddress'] = $pitstop->address;
@@ -1171,50 +1185,77 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         
         $netordervalue=$excel['netordervalue'];
 		$gstonnetordervalue=$excel['tax'];
+
+		if($excel['order_type'] !="I'll pickup"){
+						
+		$delcharge=$deliverycharge2;
+		}else{
+						
+			$delcharge=0;
+			} 
 		
-		if($excel['delivery_partner_status'] == "Rejected"){
+		if(if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'){){
 						$netordervalue1 = 0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $netordervalue1=$netordervalue ; }else{ $netordervalue1 = "0"; }
 
-		if($excel['delivery_partner_status'] == "Rejected"){
+		if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'){
 		 				$gstonnetordervalue1 = 0;
 		 }elseif($excel['restaurant_manager_status'] == "Accepted"){ $gstonnetordervalue1=$gstonnetordervalue; }else{ $gstonnetordervalue1 = "0"; }
 
          
-        if($excel['delivery_partner_status'] == "Rejected"){
+        if($excel['delivery_partner_status'] == "Rejected" || $excel['status']=='order cancelled'){
 						$commission = 0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $commission = 
 						$netordervalue*($excel['commission']/100); }else{ $commission = "0"; }
 
 		
-		if($excel['delivery_partner_status'] == "Rejected"){
-						$penalty = 0;
-		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $penalty="0"; }else{ $penalty = ($excel['penalty']);  }
+		// if($excel['delivery_partner_status'] == "Rejected"){
+		// 				$penalty = 0;
+		// }elseif($excel['restaurant_manager_status'] == "Accepted"){ $penalty="0"; }else{ $penalty = ($excel['penalty']);  }
+
+		if($excel['status']=='order cancelled'&& $excel['restaurant_manager_status'] == "0"){
+						$penalty = ($excel['penalty']);
+					}elseif($excel['restaurant_manager_status'] == "Rejected"){
+						$penalty = ($excel['penalty']);
+					}else{
+						$penalty = 0; 
+					}
 					
 		 
-		if($excel['delivery_partner_status'] == "Rejected"){
+		if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled' ){
 						$reimb =  0;
-		 }elseif($excel['restaurant_manager_status'] == "Rejected"){
+					}elseif($excel['restaurant_manager_status'] == "Rejected" ){
 						$reimb = 0;
-		}else{
-						$reimb = $excel['reimb']; 
-			}
+					}else{
+						
+						if($excel['order_type']!="I'll pickup")
+						{
+							$reimb = $excel['reimb'];
+							
+						}
+						else{
+						    $reimb = 0;
+						} 
+					}
 
 
-        if($excel['delivery_partner_status'] == "Rejected"){
+       if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$netamount = 0;
 			}else{
 					$netamount = $commission + $penalty + $reimb; ; 
 				}
 
-		 if($excel['delivery_partner_status'] == "Rejected"){
+		if($excel['delivery_partner_status'] == "Rejected" || $excel['status']=='order cancelled'&& 
+				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$keepamt = 0;
 					}else{
 						$keepamt =  $netamount;
 					}
 
 
-		if($excel['delivery_partner_status'] == "Rejected"){
+		if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$givetorest=0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){
 						
@@ -1226,61 +1267,91 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 			}		
 
 		if($excel['restaurant_manager_status']== "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2;
+					 $givetocust=$netordervalue+$gstonnetordervalue+$delcharge;
 				      
 					}elseif($excel['delivery_partner_status']== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2;
+						$givetocust=$netordervalue+$gstonnetordervalue+$delcharge;
 						
+					}elseif($excel['status']=='order cancelled'){
+						$givetocust=$netordervalue+$gstonnetordervalue+$delcharge;
+				      
 					}else{
 						$givetocust=0;
 						
 					}
 		
 
-		if($excel['delivery_partner_status'] == "Rejected"){
+		// if($excel['delivery_partner_status'] == "Rejected"){
+		// 				$delivery  =  0;
+						
+		// 			}elseif($excel['restaurant_manager_status'] == "Rejected"){
+		// 				$delivery  = 0;
+						
+		// 			}else{
+		// 				$delivery = $deliverycharge['rate']; 
+		// 			}
+
+		if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'){
 						$delivery  =  0;
 						
 					}elseif($excel['restaurant_manager_status'] == "Rejected"){
 						$delivery  = 0;
 						
 					}else{
-						$delivery = $deliverycharge['rate']; 
+						//$delivery = $deliverycharge['rate']; 
+						$delivery = $excel['delpartner_delivery_charge']; 
 					}
 					
 					
 
 	     $km=isset($excel['distance']) ?  $excel['distance'] : '';
 	
-	   if($excel['delivery_partner_status'] == "Accepted"){
-						$penalty1=0;
+	 //   if($excel['delivery_partner_status'] == "Accepted"){
+		// 				$penalty1=0;
+		// }else{
+		// 				$penalty1=$excel['penalty'];
+		// 	}
+
+	     if($excel['delivery_partner_status'] == "Rejected" ||  
+		   $excel['status']=='order cancelled'&&$excel['restaurant_manager_status'] == "Accepted"){
+			$penalty1 = ($excel['del_partner_penalty']);
 		}else{
-						$penalty1=$excel['penalty'];
+			$penalty1 = 0; 
 			}
 
 
-	   if($excel['delivery_partner_status'] == "Accepted"){
-						$netamount1 = $deliverycharge['rate'];
+	   if($excel['delivery_partner_status'] == "Accepted" || $excel['status'] == "Order Placed"){
+						//$netamount1 = $deliverycharge['rate'];
+						$netamount1 = $excel['delpartner_delivery_charge'];
 		}else{
 						
-						$netamount1 = $deliverycharge['rate'] - $excel['penalty'];
-			} 
+						$netamount1 = $excel['delpartner_delivery_charge'] - $excel['penalty'];
+			}
 
 	    if($excel['delivery_partner_status'] == "Rejected"){ 
-						
+						// echo "$order->status";
 				 	$username=$orders1[0]->firstname;
 				 	$status="Rejected by $username";
-				 	
-		}elseif($excel['delivery_partner_status'] == "Accepted"){
-				$status=$excel['status'];
-						
-		}elseif($excel['restaurant_manager_status'] == "Accepted"){
+					}elseif($excel['delivery_partner_status'] == "Accepted"){
 						$status=$excel['status'];
-						
-			}
-		else{
+					}else if($excel['restaurant_manager_status'] == "Accepted" &&$excel['status'] == "order cancelled" ){
+						$username=$orders1[0]->firstname;
+				 	$status="Rejected by $username";
+					}elseif($excel['restaurant_manager_status'] == "Accepted"){
+						$status=$excel['status'];
+					}
+					else if($excel['restaurant_manager_status'] == "Rejected"){
 						$restaurantname=$excel['restaurant_name'];
 						$status="Rejected by $restaurantname";
+					}
+					else if($excel['status'] == "order cancelled"){
 						
+						$restaurantname=$excel['restaurant_name'];
+						$status="Rejected by $restaurantname";
+					}else{
+						$status="Not acted yet";
+						//echo "Not acted yet";
+						//echo "$order->status ";
 					} 
 
 		
@@ -1290,7 +1361,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['order_number']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['firstname']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['phone']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['name']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $deliveryboy);
         $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $data['fromaddress']);
         $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, $data['toaddress']);
         $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$delivery);
@@ -1301,7 +1372,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount,$excel['passcode']);
          if($this->auth->check_access('Admin') && !isset($url)){ 
          $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$excel['total_amount']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$deliverycharge2);
+         $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$delcharge);
          $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$excel['discount1']);
          $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$excel['discount2']);
          $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$netordervalue);
