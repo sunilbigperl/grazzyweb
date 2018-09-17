@@ -1194,7 +1194,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 			$delcharge=0;
 			} 
 		
-		if(if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'){){
+		if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'){
 						$netordervalue1 = 0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){ $netordervalue1=$netordervalue ; }else{ $netordervalue1 = "0"; }
 
