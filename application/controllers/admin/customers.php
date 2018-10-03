@@ -308,7 +308,7 @@ class Customers extends Admin_Controller {
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('CustomerName','Email','Phoneno','Date of Birth','Gender','Active','Profile_image','Address1','Address2','Location','City_State','Prominent Location1','Promient Location2','Pincode'); //set title in excel sheet
+    $heading=array('CustomerName','Email','Phoneno','Date of Birth','Gender','Active','Profile_image','Address','Address1','Address2','Location','Prominent Location1','Promient Location2','City_State','Pincode'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
     
@@ -327,7 +327,7 @@ class Customers extends Admin_Controller {
 
 			
 		
-    $export_excel = $this->db->query("select a.*,b.field_data from customers a,customers_address_bank b where a.id=b.customer_id")->result_array();
+    $export_excel = $this->db->query("select a.*,b.field_data,b.Entry_name from customers a,customers_address_bank b where a.id=b.customer_id")->result_array();
 
 
 
@@ -355,13 +355,14 @@ class Customers extends Admin_Controller {
         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['gender']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['active']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $excel['profile_image']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$data[0]['address1']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$data[0]['address2']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$data[0]['location0']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$data[0]['city_state']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, $excel['Entry_name']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$data[0]['address1']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$data[0]['address2']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$data[0]['location0']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$data[0]['location1']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount,$data[0]['location2']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount,$data[0]['zip']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount,$data[0]['city_state']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$data[0]['zip']); 
           
         $rowCount++; 
     } 
