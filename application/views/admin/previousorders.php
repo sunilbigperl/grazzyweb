@@ -89,7 +89,9 @@
 			<tr class="gc_row">
 				<!-- <td><?=$i;?></td> -->
 				<td><?=$order->order_type;?> </td>
-				<td><?=$order->ordered_on;?> </td>
+				
+				<td><?=date("Y-m-d", strtotime($order->ordered_on));?> </td>
+				<!-- <td><?=$order->ordered_on;?> </td>  -->
 				<td>
 					<a href="#" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?> </a>
 					
