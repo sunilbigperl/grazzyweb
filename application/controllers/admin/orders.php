@@ -1667,7 +1667,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 				
 				$result = $this->Roadrunner_model->CheckServicability($data);
 				$roadrunner = json_decode($result);
-				if($roadrunner->status->code ==  200){
+				//if($roadrunner->status->code ==  200){
+					if($roadrunner['status'] ==  200){
 					$sql = $this->db->query("update orders set delivery_partner = '123', delivery_partner_status = 'Accepted' where id='".$id."'");
 					echo '<script>alert("Order assigned success. delivered by roadrunner.")</script>';
 				}
@@ -2028,7 +2029,11 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 					</thead>
 					<tbody>";
 			foreach($menus as $menu){
+					if($data['ordertype_id'] == 3){ 
+					$html.="<tr><td>".$menu->restaurant_name."</td><td>".$menu->order_type."</td><td>".$menu->keep_ready."</td><td>".$menu->keep_ready."</td><td>".$menu->actualpickup_time."</td><td>".$menu->actualdelivery_time."</td></td>";
+                }else{
 					$html.="<tr><td>".$menu->restaurant_name."</td><td>".$menu->order_type."</td><td>".$menu->keep_ready."</td><td>".$menu->delivered_on."</td><td>".$menu->actualpickup_time."</td><td>".$menu->actualdelivery_time."</td></td>";
+				}
 
 			}
 			$html.="</tbody>

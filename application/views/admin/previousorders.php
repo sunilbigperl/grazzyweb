@@ -45,7 +45,7 @@
 		<tr>
 			<!-- <th data-field="id">Order id</th> -->
 			<th>Order type</th>
-			<th data-field="date">Ordered date</th>
+			<th data-field="date">Delivered On</th>
 			<th data-field="name">Order number</th>
 			<!-- <th>Customer Name</th>
 			<th>Customer Mobileno</th> -->

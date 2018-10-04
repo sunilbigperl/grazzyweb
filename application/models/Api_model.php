@@ -1137,7 +1137,7 @@ class Api_model extends CI_Model
 					}
 					$result[$i]['netordervalue'] = $row['netordervalue'];
 					
-					$result[$i]['ordered_on'] = $row['ordered_on'];
+					$result[$i]['ordered_on'] = date("d-m-Y", strtotime($row['ordered_on']));
 					$result[$i]['delivery_location'] = $row['delivery_location'];
 					$result[$i]['total_cost'] = $row['total_cost'];
                    
@@ -1521,7 +1521,7 @@ table, th, td {
 					
 					
 					$result[$i]['netordervalue'] = $row['netordervalue'];
-					$result[$i]['ordered_on'] = $row['ordered_on'];
+					$result[$i]['ordered_on'] = date("d-m-Y", strtotime($row['ordered_on']));
 					$result[$i]['delivery_location'] = $row['delivery_location'];
 					$result[$i]['total_cost'] = $row['total_cost'];
                     $result[$i]['email'] = $row['email'];
@@ -1754,7 +1754,7 @@ table, th, td {
 					}
 					
 				$result[$i]['netordervalue'] = $row['netordervalue'];
-				$result[$i]['ordered_on'] = $row['ordered_on'];
+				$result[$i]['ordered_on'] = date("d-m-Y", strtotime($row['ordered_on']));
 				$result[$i]['delivery_location'] = $row['delivery_location'];
 				$result[$i]['total_cost'] = $row['total_cost'];
 	            $deliverycharge=$result[$i]['delivery_charge']/(($result[$i]['servicetax']/100)+1);
