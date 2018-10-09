@@ -1815,7 +1815,7 @@ table, th, td {
 		  <p style=text-align:center;>Dear ".$result[$i]['firstname'].",</p>
 		  <p style=text-align:center;>Thank you for placing the order with eatsapp</p>
 		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
-		  <p style=text-align:center;>Order Placed : ".$result[$i]['ordered_on']."</p>
+		  <p style=text-align:center;>Order Placed On : ".$result[$i]['ordered_on']."</p>
 		  <p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>
 		  <p style=text-align:center;>Restaurant:".$result[$i]['restaurant_name']."</p>
 
