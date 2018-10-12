@@ -1940,15 +1940,58 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
          }
 	}
 	
+	// public function SalesChart(){
+
+	// 	if($this->input->post('action') == "Go"){
+	// 		$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
+	// 		 $data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			
+	// 	}elseif($this->input->post('action') == "Previous Month"){
+	// 		//$data['fromdate'] = $_SESSION['fromdate'] = date('F',strtotime("-1 Months"));
+	// 		//echo $data['fromdate'];exit;
+	// 		//$data['todate'] = $_SESSION['todate'] = date('y:F:d',strtotime("-1 Months"));
+	// 		//echo date('y:F:d',strtotime("-1 Months"));exit;
+	// 		$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of last month'));
+	// 		$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
+
+
+	// 	}elseif($this->input->post('action') == "Three Months"){
+	// 		$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('-3 months',strtotime('first day of this month')));
+	// 		$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+
+
+	// 	}elseif($this->input->post('action') == "Six Months"){
+	// 		$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('-6 months',strtotime('first day of this month')));
+	// 		$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+
+
+	// 	}else{
+	// 		$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
+	// 		$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+	// 		//$data['fromdate'] = $_SESSION['fromdate'] = date('F',strtotime("now"));
+	// 		//echo $data['fromdate'];exit;
+	// 		  // echo "select date(c.ordered_on) AS day ,SUM(a.cost) AS daily_total from order_items a,restaurant_menu b,orders c,restaurant d,admin e where c.restaurant_id=b.restaurant_id and c.id=a.order_id and b.menu_id=a.menu_id and c.restaurant_id=d.restaurant_id and d.restaurant_manager = '".$userdata['id']."'  and c.ordered_on >= '".$_SESSION['fromdate']."' and c.ordered_on <= '".$_SESSION['todate']."'  GROUP BY date(ordered_on)";exit;
+
+			
+	// 	}
+
+ //        $this->view($this->config->item('admin_folder').'/saleschart',$data);
+ //       }  
+
+
 	public function SalesChart(){
 
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
-			 $data['todate'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
+			$data['fromdate1'] = $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
+			 $data['todate1'] = $_SESSION['todate'] = date("Y-m-d",strtotime($this->input->post('todate')));
 			
-		}elseif($this->input->post('action') == "Previous Month"){
-			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of last month'));
-			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of last month'));
+		}elseif($this->input->post('action') == "Two Months"){
+			//$data['fromdate'] = $_SESSION['fromdate'] = date('F',strtotime("-1 Months"));
+			//echo $data['fromdate'];exit;
+			//$data['todate'] = $_SESSION['todate'] = date('y:F:d',strtotime("-1 Months"));
+			//echo date('y:F:d',strtotime("-1 Months"));exit;
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('-2 months',strtotime('first day of this month')));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
 
 
 		}elseif($this->input->post('action') == "Three Months"){
@@ -1956,14 +1999,31 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
 
 
-		}elseif($this->input->post('action') == "Six Months"){
+		}elseif($this->input->post('action') == "four Months"){
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('-4 months',strtotime('first day of this month')));
+			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+
+
+		}
+		elseif($this->input->post('action') == "Six Months"){
 			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('-6 months',strtotime('first day of this month')));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
 
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
-			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+			//echo "test";exit;
+			$data['fromdate1']=$_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
+			$data['todate1']=$_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+			//$data['orders'] = $this->Order_model->getdata1();
+
+			//print_r($data['orders']);
+		// $this->view($this->config->item('admin_folder').'/restaurantdatshboard',$data);
+			// $userdata = $this->session->userdata('admin');
+			//  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
+			//  $_SESSION['todate'] = date('Y-m-d',strtotime('last day of this month'));
+			//  $data['formdate']=$this->db->query("select date(c.ordered_on) AS day ,SUM(a.cost) AS daily_total from order_items a,restaurant_menu b,orders c,restaurant d where c.restaurant_id=b.restaurant_id and c.id=a.order_id and b.menu_id=a.menu_id and c.delivery_partner_status='Accepted'  and c.restaurant_id=d.restaurant_id and d.restaurant_manager = '".$userdata['id']."'  and c.ordered_on >= '".$_SESSION['fromdate']."' and c.ordered_on <= '".$_SESSION['todate']."'  GROUP BY date(ordered_on)");
+			//$data['fromdate'] = $_SESSION['fromdate'] = date('F',strtotime("now"));
+			//echo $data['fromdate'];exit;
 			  // echo "select date(c.ordered_on) AS day ,SUM(a.cost) AS daily_total from order_items a,restaurant_menu b,orders c,restaurant d,admin e where c.restaurant_id=b.restaurant_id and c.id=a.order_id and b.menu_id=a.menu_id and c.restaurant_id=d.restaurant_id and d.restaurant_manager = '".$userdata['id']."'  and c.ordered_on >= '".$_SESSION['fromdate']."' and c.ordered_on <= '".$_SESSION['todate']."'  GROUP BY date(ordered_on)";exit;
 
 			
@@ -1974,8 +2034,16 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 
      public function data() 
         { 
-  
+          //if($this->input->post('action') == "Go"){
           echo json_encode($this->Order_model->getdata());
+           //}
+  
+        } 
+
+        public function data1() 
+        { 
+  
+          echo json_encode($this->Order_model->getdata1());
 
   
         } 
