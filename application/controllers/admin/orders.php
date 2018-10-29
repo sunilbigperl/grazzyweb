@@ -1666,12 +1666,15 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 			
 				
 				$result = $this->Roadrunner_model->CheckServicability($data);
+				//echo $result;exit;
 				$roadrunner = json_decode($result);
-				//if($roadrunner->status->code ==  200){
-					if($roadrunner['status'] ==  200){
-					$sql = $this->db->query("update orders set delivery_partner = '123', delivery_partner_status = 'Accepted' where id='".$id."'");
-					echo '<script>alert("Order assigned success. delivered by roadrunner.")</script>';
-				}
+			    //print_r($roadrunner);exit;
+				// if($roadrunner->status->code ==  200){
+				//  // if($roadrunner->message ==  200){
+				// 	// if($roadrunner['status'] ==  200){
+				// 	$sql = $this->db->query("update orders set delivery_partner = '123', delivery_partner_status = 'Accepted' where id='".$id."'");
+				// 	echo '<script>alert("Order assigned success. delivered by roadrunner.")</script>';
+				// }
 			}
 		}
  
