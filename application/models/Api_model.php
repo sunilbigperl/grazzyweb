@@ -1138,7 +1138,7 @@ class Api_model extends CI_Model
 					$result[$i]['netordervalue'] = $row['netordervalue'];
 					
 					$result[$i]['ordered_on'] = date("d-m-Y", strtotime($row['ordered_on']));
-					//$result[$i]['delivery_location'] = $row['delivery_location'];
+					$result[$i]['delivery_location'] = $row['delivery_location'];
 					if($row['order_type']!=3){
 						$delivery_location="<p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>";
 					
@@ -1529,7 +1529,7 @@ table, th, td {
 					
 					$result[$i]['netordervalue'] = $row['netordervalue'];
 					$result[$i]['ordered_on'] = date("d-m-Y", strtotime($row['ordered_on']));
-					//$result[$i]['delivery_location'] = $row['delivery_location'];
+					$result[$i]['delivery_location'] = $row['delivery_location'];
 					if($row['order_type']!=3){
 						$delivery_location="<p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>";
 					
@@ -1769,7 +1769,7 @@ table, th, td {
 					
 				$result[$i]['netordervalue'] = $row['netordervalue'];
 				$result[$i]['ordered_on'] = date("d-m-Y", strtotime($row['ordered_on']));
-				//$result[$i]['delivery_location'] = $row['delivery_location'];
+				$result[$i]['delivery_location'] = $row['delivery_location'];
 				if($row['order_type']!=3){
 						$delivery_location="<p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>";
 					
