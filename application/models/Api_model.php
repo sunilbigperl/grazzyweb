@@ -1138,7 +1138,14 @@ class Api_model extends CI_Model
 					$result[$i]['netordervalue'] = $row['netordervalue'];
 					
 					$result[$i]['ordered_on'] = date("d-m-Y", strtotime($row['ordered_on']));
-					$result[$i]['delivery_location'] = $row['delivery_location'];
+					//$result[$i]['delivery_location'] = $row['delivery_location'];
+					if($row['order_type']!=3){
+						$delivery_location="<p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>";
+					
+					}else{
+						
+							$delivery_location ="";
+					}
 					$result[$i]['total_cost'] = $row['total_cost'];
                    
 					
@@ -1169,7 +1176,7 @@ class Api_model extends CI_Model
 		  <p style=text-align:center;>Thank you for placing the order with eatsapp</p>
 		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
 		  <p style=text-align:center;>Order Placed On: ".$result[$i]['ordered_on']."</p>
-		  <p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>
+		  ".$delivery_location." 
 		  <p style=text-align:center;>Restaurant:".$result[$i]['restaurant_name']."</p>
 		
 		  
@@ -1522,7 +1529,14 @@ table, th, td {
 					
 					$result[$i]['netordervalue'] = $row['netordervalue'];
 					$result[$i]['ordered_on'] = date("d-m-Y", strtotime($row['ordered_on']));
-					$result[$i]['delivery_location'] = $row['delivery_location'];
+					//$result[$i]['delivery_location'] = $row['delivery_location'];
+					if($row['order_type']!=3){
+						$delivery_location="<p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>";
+					
+					}else{
+						
+							$delivery_location ="";
+					}
 					$result[$i]['total_cost'] = $row['total_cost'];
                     $result[$i]['email'] = $row['email'];
 					$result[$i]['restaurant_name'] = $row['restaurant_name'];
@@ -1558,7 +1572,7 @@ table, th, td {
 		  <p style=text-align:center;>Thank you for placing the order with eatsapp</p>
 		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
 		  <p style=text-align:center;>Order Placed On: ".$result[$i]['ordered_on']."</p>
-		  <p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>
+		  ".$delivery_location."  
 		  <p style=text-align:center;>Restaurant:".$result[$i]['restaurant_name']."</p>
 		  
 		  
@@ -1755,7 +1769,14 @@ table, th, td {
 					
 				$result[$i]['netordervalue'] = $row['netordervalue'];
 				$result[$i]['ordered_on'] = date("d-m-Y", strtotime($row['ordered_on']));
-				$result[$i]['delivery_location'] = $row['delivery_location'];
+				//$result[$i]['delivery_location'] = $row['delivery_location'];
+				if($row['order_type']!=3){
+						$delivery_location="<p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>";
+					
+					}else{
+						
+							$delivery_location ="";
+					}
 				$result[$i]['total_cost'] = $row['total_cost'];
 	            $deliverycharge=$result[$i]['delivery_charge']/(($result[$i]['servicetax']/100)+1);
 				$servicetax=$result[$i]['delivery_charge']-$deliverycharge;
@@ -1816,7 +1837,7 @@ table, th, td {
 		  <p style=text-align:center;>Thank you for placing the order with eatsapp</p>
 		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
 		  <p style=text-align:center;>Order Placed On : ".$result[$i]['ordered_on']."</p>
-		  <p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>
+		  ".$delivery_location."  
 		  <p style=text-align:center;>Restaurant:".$result[$i]['restaurant_name']."</p>
 
 
