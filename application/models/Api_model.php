@@ -758,12 +758,38 @@ class Api_model extends CI_Model
 		return $result;
 	}
 	
+	// public function pitstopsuser1($data){
+	// 	$sql = $this->db->query("select * from pitstops where enabled=1 and `delete`=0");
+	// 	if($sql->num_rows()>0){
+	// 		$data = $sql->result_array();
+	// 		$i=0;
+	// 		foreach($data as $pitstop){
+	// 			$result[$i] = $pitstop;
+	// 			$sql1=$this->db->query("select b.image from pitstop_restaurants a, restaurant b where a.pitstop_id='".$pitstop['pitstop_id']."' and a.restaurants_id=b.restaurant_id");
+	// 			if($sql1->num_rows()>0){
+	// 				$data1 = $sql1->result_array();
+	// 				foreach($data1 as $rest){
+	// 					$result[$i]['restaurants'][] = "uploads/images/thumbnails/".$rest['image'];
+	// 				}
+	// 			}
+	// 		$i++;
+	// 		}
+	// 	}else{
+	// 		$result =0;
+	// 	}
+	// 	print_r(json_encode($result)); exit;
+	// }
+
 	public function pitstopsuser1($data){
 		$sql = $this->db->query("select * from pitstops where enabled=1 and `delete`=0");
 		if($sql->num_rows()>0){
 			$data = $sql->result_array();
 			$i=0;
 			foreach($data as $pitstop){
+			 $sql2 = $this->db->query("select * from pitstop_restaurants where pitstop_id='".$pitstop['pitstop_id']."'");
+		  
+			  if($sql2->num_rows()>0){
+					
 				$result[$i] = $pitstop;
 				$sql1=$this->db->query("select b.image from pitstop_restaurants a, restaurant b where a.pitstop_id='".$pitstop['pitstop_id']."' and a.restaurants_id=b.restaurant_id");
 				if($sql1->num_rows()>0){
@@ -772,8 +798,12 @@ class Api_model extends CI_Model
 						$result[$i]['restaurants'][] = "uploads/images/thumbnails/".$rest['image'];
 					}
 				}
-			$i++;
+				$i++;
 			}
+
+				
+			}
+
 		}else{
 			$result =0;
 		}
