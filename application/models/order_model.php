@@ -122,7 +122,8 @@ Class order_model extends CI_Model
 
 				$headers = array(
 
-					'Authorization: key=AIzaSyCB4r56wVzKQdte4Rw8QUwoK9k7AMP0fr4',
+					// 'Authorization: key=AIzaSyCB4r56wVzKQdte4Rw8QUwoK9k7AMP0fr4',
+					'Authorization: key=AIzaSyDdeH0_2r-RJMpMn05pb-0qNF8rM1UlwAM',
 
 					'Content-Type: application/json'
 
@@ -198,7 +199,9 @@ Class order_model extends CI_Model
 
 				$headers = array(
 
-					'Authorization: key=AIzaSyCB4r56wVzKQdte4Rw8QUwoK9k7AMP0fr4',
+					// 'Authorization: key=AIzaSyCB4r56wVzKQdte4Rw8QUwoK9k7AMP0fr4',
+
+					'Authorization: key=AIzaSyDdeH0_2r-RJMpMn05pb-0qNF8rM1UlwAM',
 
 					'Content-Type: application/json'
 
