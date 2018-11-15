@@ -145,10 +145,10 @@ function drawColColors(array1) {
     
     <div class="form-group"><input type="submit" class="btn btn-primary" value="Go" name="action"></div>
 <div  style="margin-top:20px;">
-      <div class="form-group"><input type="submit" class="btn btn-primary" value="Six Months" name="action"></div>
+     <!--  <div class="form-group"><input type="submit" class="btn btn-primary" value="Six Months" name="action"></div>
       <div class="form-group"><input type="submit" class="btn btn-primary" value="four Months" name="action"></div>
       <div class="form-group"><input type="submit" class="btn btn-primary" value="Three Months" name="action"></div>
-      <div class="form-group"><input type="submit" class="btn btn-primary" value="Two Months" name="action"></div>
+      <div class="form-group"><input type="submit" class="btn btn-primary" value="Two Months" name="action"></div> -->
      <!--  <div class="form-group"><input type="submit" class="btn btn-primary" value="Three Months" name="action"></div> -->
      <!--  <div class="form-group"><input type="submit" class="btn btn-primary" value="Previous Month" name="action"></div> -->
       <div class="form-group"><input type="submit" class="btn btn-primary" value="Current Month" name="action"></div>
@@ -219,9 +219,9 @@ function drawColColors(array1) {
          
         },
         vAxis: {
-           titleFontSize:12,
+           titleFontSize:13,
 
-          title: 'Sales amount of items( in Rs)'
+          title: 'Sales amount of items (in Rs)'
         } 
       };
 
@@ -333,9 +333,9 @@ function drawColColors(array1) {
          
         },
         vAxis: {
-           titleFontSize:12,
+           titleFontSize:13,
 
-          title: 'Sales amount of items( in Rs)'
+          title: 'Sales amount of items (in Rs)'
         } 
       };
 

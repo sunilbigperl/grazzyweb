@@ -849,7 +849,7 @@ class Api_model extends CI_Model
 
         $message1=" <center>".$image1." 
         <p style=font-family:Verdana;>Dear ".$user_data['firstname'].",</p>
-        <p style=font-family:Verdana;>Thank you for suggesting a New Restaurant. We'll review the same.Your suggestions help us serve you better.</p>
+        <p style=font-family:Verdana;>Thank you for suggesting a New Restaurant. We'll review the same. Your suggestions help us serve you better.</p>
         <p style=color:#bdbdbf;font-family:Verdana;><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>
         ";
 
@@ -936,7 +936,7 @@ class Api_model extends CI_Model
 
 			$message1="<center>".$image1."
             <p style=font-family:Verdana;>Dear ".$user_data['firstname'].",</p>
-            <p style=font-family:Verdana;>Thank you for suggesting a New Delivery Point. We'll review the same.Your suggestions help us serve you better.</p>
+            <p style=font-family:Verdana;>Thank you for suggesting a New Delivery Point. We'll review the same. Your suggestions help us serve you better.</p>
             <p style=color:#bdbdbf;font-family:Verdana;><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p></center>";
              
 
