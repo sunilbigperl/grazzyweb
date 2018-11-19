@@ -764,8 +764,17 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
                  }elseif($excel['delivery_partner_status'] == "Accepted"){
 						$status=$excel['status'];
 				 }else if($excel['restaurant_manager_status'] == "Accepted" && $excel['status'] == "order cancelled" ){
-						 $username=$orders1[0]->firstname;
-						$status= "Rejected by $username";
+						//  $username=$orders1[0]->firstname;
+						// $status= "Rejected by $username";
+				 	if($excel['order_type']!="I'll pickup")
+						{
+						     $username=$orders1[0]->firstname;
+						     $status= "Rejected by $username";
+					    }
+					    else{
+					    	 $restname=$excel['restaurant_name'];
+						     $status="Rejected by $restname";
+					    }
 					}elseif($excel['restaurant_manager_status'] == "Accepted"){
 						$status=$excel['status'];
 					}else if($excel['restaurant_manager_status'] == "Rejected"){
@@ -976,8 +985,17 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 					 }elseif($excel['delivery_partner_status'] == "Accepted"){
 						$status=$excel['status'];
 					}else if($excel['restaurant_manager_status'] == "Accepted" &&$excel['status'] == "order cancelled" ){
-						$username=$orders1[0]->firstname;
-					$status= "Rejected by $username";
+						// $username=$orders1[0]->firstname;
+					 //    $status= "Rejected by $username";
+						if($excel['order_type']!="I'll pickup")
+						{
+						    $username=$orders1[0]->firstname;
+					        $status= "Rejected by $username";
+					    }
+					    else{
+					    	  $restname=$excel['restaurant_name'];
+						      $status="Rejected by $restname";
+					    }
 					}else if($excel['status'] == "order cancelled"){
 						$restname=$excel['restaurant_name'];
 						$status="Rejected by $restname";
@@ -1335,8 +1353,17 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 					}elseif($excel['delivery_partner_status'] == "Accepted"){
 						$status=$excel['status'];
 					}else if($excel['restaurant_manager_status'] == "Accepted" &&$excel['status'] == "order cancelled" ){
-						$username=$orders1[0]->firstname;
-				 	$status="Rejected by $username";
+						// $username=$orders1[0]->firstname;
+				 	// $status="Rejected by $username";
+						if($excel['order_type']!="I'll pickup")
+						{
+						    $username=$orders1[0]->firstname;
+					            $status= "Rejected by $username";
+					    }
+					    else{
+					    	 $restaurantname=$excel['restaurant_name'];
+						$status="Rejected by $restaurantname";
+					    }
 					}elseif($excel['restaurant_manager_status'] == "Accepted"){
 						$status=$excel['status'];
 					}
@@ -1397,11 +1424,11 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
          $fnamee = $filename.date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".xls";
          }
         if($this->auth->check_access('Admin') && !isset($url)){ 
-          $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate1'])).".xls";
+          $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".xls";
 	 	 
           }
           if(!isset($url)){ 
-          $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate1'])).".xls";
+          $fnamee = date('Y-m-d',strtotime($_SESSION['fromdate'])).date('Y-m-d',strtotime($_SESSION['todate'])).".xls";
 	 	 
           }
     // Instantiate a Writer 

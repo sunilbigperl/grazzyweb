@@ -250,8 +250,14 @@
 					<?php }elseif($order->delivery_partner_status == "Accepted"){
 						echo "$order->status ";
 					}else if($order->restaurant_manager_status == "Accepted" && $order->status == "order cancelled" ){
-						$username=$orders1[0]->firstname;
-				 	    echo "Rejected by $username";
+						if($order->order_type!="I'll pickup")
+						{
+						    $username=$orders1[0]->firstname;
+				 	        echo "Rejected by $username";
+					    }
+					    else{
+					    	  echo "Rejected by $order->restaurant_name";
+					    }
 					}else if($order->status == "order cancelled"){
 						
 						echo "Rejected by $order->restaurant_name";
