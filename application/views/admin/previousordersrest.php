@@ -102,8 +102,10 @@
 				<td>
 					<!-- <?=$deliverycharge; ?> -->
 
-					 <?php if($order->order_type !="I'll pickup"){ ?>
-						<?=$deliverycharge; ?>
+					 <?php if($order->order_type !="I'll pickup"){ 
+					 	$deliverycharge1 =$deliverycharge;
+					 	echo $deliverycharge1 ;?>?>
+						<!-- <?=$deliverycharge; ?> -->
 					<?php }else{
 						
 						echo 0;
@@ -124,7 +126,7 @@
 				</td>
 				<td>
 				   <?php $netordervalue=$order->netordervalue;?> 
-					<?=$netordervalue; ?>
+					<?=$netordervalue+$order->coupon_discount; ?>
 				</td>
 
 				<td>
@@ -217,7 +219,7 @@
 						$keepamt = 0;
 				 	
 					}else{
-						$keepamt =  $netamount;
+						$keepamt =  $netamount-$order->coupon_discount;
 					}
 					echo $keepamt; ?></td>
 				<td><?php if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
@@ -231,13 +233,13 @@
 					}						?></td>
 				
 				<td><?php if($order->restaurant_manager_status == "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge;
+					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1-$order->coupon_discount;
 				      echo $givetocust;
 					}elseif($order->delivery_partner_status== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge;
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1-$order->coupon_discount;
 						echo $givetocust;
 					}elseif($order->status=='order cancelled'){
-						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge;
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1-$order->coupon_discount;
 				      echo $givetocust;
 					}
 					else{
