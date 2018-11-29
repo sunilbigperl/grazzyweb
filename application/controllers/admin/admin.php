@@ -275,7 +275,7 @@ class Admin extends Admin_Controller
             
         }
         
-        $this->form_validation->set_rules('coupon_code', 'coupon_code', 'required|is_unique[coupons.coupon_code]');
+        $this->form_validation->set_rules('coupon_code', 'coupon_code', 'required');
         
         if ($this->form_validation->run() == FALSE)
         {
