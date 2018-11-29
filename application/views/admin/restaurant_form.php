@@ -289,9 +289,9 @@
 					?>
 				</div>
 				<div class="form-group">
-					<label for="penalty " >Reimbursement of delivery charges (Rs)</label>
+                    <label for="Reimb " >Reimbursement of delivery charges (Rs)</label>
 					<?php
-					$data	= array('name'=>'delivery_charge', 'value'=>set_value('delivery_charge', $delivery_charge), 'class'=>'form-control','readonly'=>'readonly');
+					$data	= array('name'=>'Reimb', 'value'=>set_value('Reimb', $Reimb), 'class'=>'form-control','readonly'=>'readonly');
 					echo form_input($data);
 					?>
 				</div>

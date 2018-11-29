@@ -221,7 +221,7 @@
 				<td>
 					<?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'){
 						$netordervalue1 = 0;
-					}elseif($order->restaurant_manager_status == "Accepted"){ $netordervalue1=$netordervalue ; }else{ $netordervalue1 = "0"; }
+					}elseif($order->restaurant_manager_status == "Accepted"){ $netordervalue1=$netordervalue+$order->coupon_discount ; }else{ $netordervalue1 = "0"; }
 					echo $netordervalue1;
 					?>
 				</td>
