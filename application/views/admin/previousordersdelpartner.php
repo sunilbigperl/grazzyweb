@@ -310,13 +310,13 @@
 					}						?></td>
 				
 				<td><?php if($order->restaurant_manager_status == "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2;
+					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2-$order->coupon_discount;
 				      echo $givetocust;
 					}elseif($order->delivery_partner_status== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2;
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2-$order->coupon_discount;
 						echo $givetocust;
 					}elseif($order->status=='order cancelled'){
-						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2;
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2-$order->coupon_discount;
 				      echo $givetocust;
 					}
 					else{
