@@ -211,7 +211,7 @@
 				</td>
 
 				<td>
-				   <?php $netordervalue=$order->netordervalue+$order->coupon_discount;?> 
+				   <?php $netordervalue=$order->netordervalue;?> 
 					<?=$netordervalue;?>
 				</td>
 				<td>
@@ -296,7 +296,7 @@
 				 	$order->restaurant_manager_status == "Accepted"){
 						$keepamt = 0;
 					}else{
-						$keepamt =  $netamount-$order->coupon_discount;
+						$keepamt =  $netamount;
 					}
 					echo $keepamt; ?></td>
 				<td><?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
@@ -310,13 +310,13 @@
 					}						?></td>
 				
 				<td><?php if($order->restaurant_manager_status == "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2-$order->coupon_discount;
+					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2+$order->coupon_discount;
 				      echo $givetocust;
 					}elseif($order->delivery_partner_status== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2-$order->coupon_discount;
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2+$order->coupon_discount;
 						echo $givetocust;
 					}elseif($order->status=='order cancelled'){
-						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2-$order->coupon_discount;
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2+$order->coupon_discount;
 				      echo $givetocust;
 					}
 					else{
