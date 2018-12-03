@@ -54,7 +54,7 @@ class Orders extends Admin_Controller {
     }
 
 	function previousorders(){
-		$data['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of this month'));
+		$data['fromdate'] =  date('Y-m-d',strtotime('first day of this month'));
 		$data['todate'] =  date('Y-m-d H:i:s',strtotime('last day of this month'));
 		$data['orders'] = $this->Order_model->get_previousorders($data);
 		//$data['orders'] = "";
@@ -63,21 +63,21 @@ class Orders extends Admin_Controller {
 	function previousordersdelpartner(){
 
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] = $_SESSION['fromdated'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['fromdate'] = $_SESSION['fromdated'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
 			// $data['todate'] = $_SESSION['todated'] = date("y-m-d H:i:s",strtotime($this->input->post('todate')));
 			$data['todate'] = $_SESSION['todated'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 			$delpartner_post = $this->input->post('delpartner');
 			$delpartner_get = $this->uri->segment(4);
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] = $_SESSION['fromdated'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['fromdate'] = $_SESSION['fromdated'] = date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] =  $_SESSION['todated'] =date('Y-m-d H:i:s',strtotime('last day of last month'));
 			$delpartner_post = $this->input->post('delpartner');
 			$delpartner_get = $this->uri->segment(4);
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
 		}else{
 
-			$data['fromdate'] =  $_SESSION['fromdated'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdated'] = date('Y-m-d',strtotime('first day of this month'));
 			$data['todate'] = $_SESSION['todated'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 			$delpartner_post = $this->input->post('delpartner');
 			$delpartner_get = $this->uri->segment(4);
@@ -102,16 +102,16 @@ class Orders extends Admin_Controller {
 	function GetPreviousOrders(){
 		
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
 			//$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 			$data['delpartner'] = $this->input->post('delpartner');
 		}elseif($this->input->post('action') == "Previous Month"){
-			$data['fromdate'] = $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['fromdate'] = $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 			$data['delpartner'] = $this->input->post('delpartner');
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 			$data['delpartner'] = $this->input->post('delpartner');
 		}
@@ -206,16 +206,16 @@ class Orders extends Admin_Controller {
 	function GetDelpartnerBill1(){
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
 			//$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 			$data['todate'] = $_SESSION['todated'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
@@ -1070,16 +1070,16 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 	{
 		$this->load->model('Deliveryboy_model');
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
 			//$data['todate1'] = $_SESSION['todate1'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
-			$data['todate'] = $_SESSION['todate'] = date('Y-m-d',strtotime($this->input->post('todate').' +1 day'));
+			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 			// $data['todate1'] = $_SESSION['todate1'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 			//$data['todate1'] =  $_SESSION['todate1'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
@@ -1204,7 +1204,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 				}
 
         
-        $netordervalue=$excel['netordervalue'];
+        $netordervalue=$excel['netordervalue']+$excel['coupon_discount'];
 		$gstonnetordervalue=$excel['tax'];
 
 		if($excel['order_type'] !="I'll pickup"){
@@ -1271,7 +1271,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$keepamt = 0;
 					}else{
-						$keepamt =  $netamount;
+						$keepamt =  $netamount+$delcharge-$excel['coupon_discount'];
 					}
 
 
@@ -1288,13 +1288,13 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 			}		
 
 		if($excel['restaurant_manager_status']== "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue+$delcharge;
+					 $givetocust=$netordervalue+$gstonnetordervalue+$delcharge-$excel['coupon_discount'];
 				      
 					}elseif($excel['delivery_partner_status']== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue+$delcharge;
+						$givetocust=$netordervalue+$gstonnetordervalue+$delcharge-$excel['coupon_discount'];
 						
 					}elseif($excel['status']=='order cancelled'){
-						$givetocust=$netordervalue+$gstonnetordervalue+$delcharge;
+						$givetocust=$netordervalue+$gstonnetordervalue+$delcharge-$excel['coupon_discount'];
 				      
 					}else{
 						$givetocust=0;
