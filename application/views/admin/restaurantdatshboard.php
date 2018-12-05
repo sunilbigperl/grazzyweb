@@ -81,7 +81,7 @@ echo "" . date("jS F Y") . "<br>";
 ?>
 				<!-- <td><?php echo date("H:i:s", strtotime("$t1-$order->preparation_time minutes"));?></td> 
 				 -->
-				 <td><?php echo date("H:i:s", strtotime("$t1-$order->preparation_time minutes"));?></td> 
+				 <td><?php echo date("H:i:s", strtotime("$order->keep_ready"));?></td> 
 				 
 				
 				<!--<td> 
