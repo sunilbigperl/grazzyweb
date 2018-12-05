@@ -193,7 +193,7 @@
 
 					<?php }else{
 						
-						echo 0;
+						echo $deliverycharge2= 0;
 					} 
 					?>
 				</td>

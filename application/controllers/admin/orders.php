@@ -1280,7 +1280,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 						$givetorest=0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){
 						
-						$givetorest=$netordervalue+$gstonnetordervalue-$keepamt;
+						$givetorest=$netordervalue+$gstonnetordervalue-$keepamt+$excel['coupon_discount']-$delcharge;
                        
 		}else{
 						$givetorest="-".$keepamt;
