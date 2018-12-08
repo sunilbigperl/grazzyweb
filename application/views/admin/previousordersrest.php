@@ -108,7 +108,7 @@
 						<!-- <?=$deliverycharge; ?> -->
 					<?php }else{
 						
-						echo 0;
+						echo $deliverycharge1=0;
 					} ?>
 				
 				</td>
@@ -125,7 +125,7 @@
 					<?=$order->coupon_discount; ?>
 				</td>
 				<td>
-				   <?php $netordervalue=$order->netordervalue;?> 
+				   <?php $netordervalue=$order->netordervalue+$order->coupon_discount;?> 
 					<?=$netordervalue; ?>
 				</td>
 
@@ -218,8 +218,12 @@
 				 	$order->restaurant_manager_status == "Accepted"){
 						$keepamt = 0;
 				 	
-					}else{
+					}elseif($order->restaurant_manager_status == "Rejected" || $order->status=='order cancelled' )
+					{
 						$keepamt =  $netamount;
+					}
+					else{
+						$keepamt =  $netamount+$deliverycharge1-$order->coupon_discount;
 					}
 					echo $keepamt; ?></td>
 				<td><?php if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
@@ -227,19 +231,19 @@
 						echo  0;
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						//echo $order->total_cost - $keepamt;
-						echo $netordervalue+$gstonnetordervalue-$keepamt;
+						echo $netordervalue+$gstonnetordervalue-$keepamt-$order->coupon_discount+$deliverycharge1;
 					}else{
 						echo  "-".$keepamt;
 					}						?></td>
 				
 				<td><?php if($order->restaurant_manager_status == "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1;
+					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1-$order->coupon_discount;
 				      echo $givetocust;
 					}elseif($order->delivery_partner_status== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1;
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1-$order->coupon_discount;
 						echo $givetocust;
 					}elseif($order->status=='order cancelled'){
-						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1;
+						$givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1-$order->coupon_discount;
 				      echo $givetocust;
 					}
 					else{

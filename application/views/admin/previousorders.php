@@ -125,7 +125,7 @@
 					<?=$order->coupon_discount; ?>
 				</td> -->
 				<td>
-				    <?php $netordervalue=$order->netordervalue;?> 
+				    <?php $netordervalue=$order->netordervalue+$order->coupon_discount;?> 
 					<?=$netordervalue; ?>
 				</td>
 

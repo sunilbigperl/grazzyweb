@@ -1270,7 +1270,11 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		if($excel['delivery_partner_status'] == "Rejected" || $excel['status']=='order cancelled'&& 
 				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$keepamt = 0;
-					}else{
+					}elseif($excel['restaurant_manager_status'] == "Rejected" || $excel['status']=='order cancelled' )
+					{
+						$keepamt =  $netamount;
+					}
+					else{
 						$keepamt =  $netamount+$delcharge-$excel['coupon_discount'];
 					}
 
@@ -1280,7 +1284,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 						$givetorest=0;
 		}elseif($excel['restaurant_manager_status'] == "Accepted"){
 						
-						$givetorest=$netordervalue+$gstonnetordervalue-$keepamt+$excel['coupon_discount']-$delcharge;
+						$givetorest=$netordervalue+$gstonnetordervalue-$keepamt-$excel['coupon_discount']+$delcharge;
                        
 		}else{
 						$givetorest="-".$keepamt;
