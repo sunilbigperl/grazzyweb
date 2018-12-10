@@ -42,7 +42,7 @@
 			<th>Customer name</th>
 			<th>Customer mobileno</th>
 			<th data-field="price">Order value(Rs)</th>
-			<th>Convience charge</th>
+			<!-- <th>Convience charge</th> -->
 			<th>Discount(%)</th>
 			<th>Discount(Rs)</th>
 			<th>Vocher Discount</th>
@@ -57,7 +57,7 @@
 			<!-- <th>GST</th> -->
 			<th>Keep amount for eatsapp</th>
 			<th>Give to Restaurant</th>
-			<th>Give to Customer</th>
+			<!-- <th>Give to Customer</th> -->
 			<th>Status</th>
 			<!-- <th>Del partner remarks</th> -->
 			<th>Passcode</th>
@@ -99,19 +99,19 @@
 				    <?=$order->total_amount; ?>
 				</td>
 				
-				<td>
-					<!-- <?=$deliverycharge; ?> -->
+				<!-- <td>
+					
 
 					 <?php if($order->order_type !="I'll pickup"){ 
 					 	$deliverycharge1 =$deliverycharge;
 					 	echo $deliverycharge1 ;?>
-						<!-- <?=$deliverycharge; ?> -->
+						
 					<?php }else{
 						
 						echo $deliverycharge1=0;
 					} ?>
 				
-				</td>
+				</td> -->
 				<td>
                     <!-- <?php $discount1=$ordervalue*($order->discount1/100);?> --> 
 					
@@ -218,12 +218,13 @@
 				 	$order->restaurant_manager_status == "Accepted"){
 						$keepamt = 0;
 				 	
-					}elseif($order->restaurant_manager_status == "Rejected" || $order->status=='order cancelled' )
-					{
-						$keepamt =  $netamount;
 					}
+					// elseif($order->restaurant_manager_status == "Rejected" || $order->status=='order cancelled' )
+					// {
+					// 	$keepamt =  $netamount;
+					// }
 					else{
-						$keepamt =  $netamount+$deliverycharge1-$order->coupon_discount;
+						$keepamt =  $netamount;
 					}
 					echo $keepamt; ?></td>
 				<td><?php if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
@@ -231,12 +232,12 @@
 						echo  0;
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						//echo $order->total_cost - $keepamt;
-						echo $netordervalue+$gstonnetordervalue-$keepamt-$order->coupon_discount+$deliverycharge1;
+						echo $netordervalue+$gstonnetordervalue-$keepamt;
 					}else{
 						echo  "-".$keepamt;
 					}						?></td>
 				
-				<td><?php if($order->restaurant_manager_status == "Rejected"){
+				<!-- <td><?php if($order->restaurant_manager_status == "Rejected"){
 					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge1-$order->coupon_discount;
 				      echo $givetocust;
 					}elseif($order->delivery_partner_status== "Rejected"){
@@ -248,7 +249,7 @@
 					}
 					else{
 						echo  0;
-					}?></td>
+					}?></td> -->
 
 
 			

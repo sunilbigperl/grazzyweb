@@ -1144,8 +1144,10 @@ class Api_model extends CI_Model
 					$result[$i]['order_number'] = $row['order_number'];
 					$result[$i]['shipping'] = $row['shipping'];
 					$result[$i]['total_amount'] = $row['total_amount'];
+					$result[$i]['coupon_discount'] = $row['coupon_discount'];
 					$result[$i]['discount1'] = $row['discount1'];
 					$result[$i]['discount2'] = $row['discount2'];
+
 					$result[$i]['gstonfood'] = $row['gstonfood'];
 					if($row['discount1']==0){
 						$discount1= "";
@@ -1166,6 +1168,7 @@ class Api_model extends CI_Model
 						$gst= "<tr><td>GST</td><td>".$result[$i]['gstonfood']."</td></tr>";
 					}
 					$result[$i]['netordervalue'] = $row['netordervalue'];
+					$netordervalue=$result[$i]['netordervalue']+$result[$i]['coupon_discount'];
 					
 					$result[$i]['ordered_on'] = date("d-m-Y", strtotime($row['ordered_on']));
 					$result[$i]['delivery_location'] = $row['delivery_location'];
@@ -1245,9 +1248,14 @@ table, th, td {
   ".$discount1."  
   
    ".$discount2."
+
+   <tr>
+    <td>Vocher Discount</td>
+    <td>".$result[$i]['coupon_discount']."</td>
+  </tr>
   <tr>
     <td>Net Order Value</td>
-    <td>".$result[$i]['netordervalue']."</td>
+    <td>".$netordervalue."</td>
   </tr>
   ".$gst."  
   <tr>
@@ -1534,6 +1542,7 @@ table, th, td {
 					$result[$i]['order_number'] = $row['order_number'];
 					$result[$i]['shipping'] = $row['shipping'];
 					$result[$i]['total_amount'] = $row['total_amount'];
+					$result[$i]['coupon_discount'] = $row['coupon_discount'];
 					$result[$i]['discount1'] = $row['discount1'];
 					$result[$i]['discount2'] = $row['discount2'];
 					$result[$i]['gstonfood'] = $row['gstonfood'];
@@ -1574,6 +1583,7 @@ table, th, td {
 					$result[$i]['firstname'] = $row['firstname'];
 					$deliverycharge=$result[$i]['delivery_charge']/(($result[$i]['servicetax']/100)+1);
 					$servicetax=$result[$i]['delivery_charge']-$deliverycharge;
+					$netordervalue=$result[$i]['netordervalue']+$result[$i]['coupon_discount'];
 					
 					
 					$sql1 = "select contents,cost from order_items  where order_id='".$row['order_id']."' ";
@@ -1641,10 +1651,13 @@ table, th, td {
 	".$discount1."  
   
     ".$discount2." 
-	
+  <tr>
+    <td>Vocher Discount</td>
+    <td>".$result[$i]['coupon_discount']."</td>
+  </tr>
   <tr>
     <td>Net Order Value</td>
-    <td>".$result[$i]['netordervalue']."</td>
+    <td>".$netordervalue."</td>
   </tr>
   ".$gst."
   <tr>
@@ -1775,6 +1788,7 @@ table, th, td {
 			    $result[$i]['order_number'] = $row['order_number'];
 				$result[$i]['shipping'] = $row['shipping'];
                 $result[$i]['total_amount'] = $row['total_amount'];
+                $result[$i]['coupon_discount'] = $row['coupon_discount'];
 				$result[$i]['discount1'] = $row['discount1'];
 				$result[$i]['discount2'] = $row['discount2'];
 				$result[$i]['gstonfood'] = $row['gstonfood'];
@@ -1810,6 +1824,7 @@ table, th, td {
 				$result[$i]['total_cost'] = $row['total_cost'];
 	            $deliverycharge=$result[$i]['delivery_charge']/(($result[$i]['servicetax']/100)+1);
 				$servicetax=$result[$i]['delivery_charge']-$deliverycharge;
+				$netordervalue=$result[$i]['netordervalue']+$result[$i]['coupon_discount'];
 
 				
 				// $sql2 = "select a.menu,b.* from restaurant_menu a, order_items b where b.order_id='".$row['id']."' and a.menu_id=b.menu_id and a.`delete`=0";
@@ -1891,10 +1906,15 @@ table, th, td {
 	".$discount1."  
   
     ".$discount2." 
+
+    <tr>
+    <td>Vocher Discount</td>
+    <td>".$result[$i]['coupon_discount']."</td>
+  </tr>
  
   <tr>
     <td>Net Order Value</td>
-    <td>".$result[$i]['netordervalue']."</td>
+    <td>".$netordervalue."</td>
   </tr>
   ".$gst."
    <tr>
