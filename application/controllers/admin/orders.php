@@ -133,16 +133,16 @@ class Orders extends Admin_Controller {
 	function GetRestPreviousOrders($id){
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
 			// $data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
@@ -227,15 +227,15 @@ class Orders extends Admin_Controller {
 	function GetRestPreviousOrdersbill1($id){
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
 			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
@@ -247,15 +247,15 @@ class Orders extends Admin_Controller {
 	function GetPreviousOrdersbill($id){
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['fromdate'] = $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
 			$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['fromdate'] = $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
@@ -604,15 +604,15 @@ function excel($id)
 
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
 			//$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 			$data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
 			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
@@ -647,7 +647,7 @@ function excel($id)
 
 	
 
-$export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone FROM `orders` a,restaurant b, order_type d,admin c,customers e WHERE a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_id='".$id."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."' order by ordered_on desc  ")->result_array();
+$export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone FROM `orders` a,restaurant b, order_type d,admin c,customers e WHERE a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_id='".$id."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."' and a.status IN ('Delivered', 'Shipped','Rejected','order cancelled') order by ordered_on desc  ")->result_array();
 
 
 
@@ -661,7 +661,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         
         $orders1 = $this->Order_model->get_previousorders1($excel['delivery_partner']);
     
-        $netordervalue=$excel['netordervalue']; 
+        $netordervalue=$excel['netordervalue']+$excel['coupon_discount']; 
         $gstonnetordervalue=$excel['tax'];
 
         if($excel['order_type'] !="I'll pickup"){ 
@@ -726,8 +726,12 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 	   if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
 				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$keepamt = 0;
-		}else{
-				$keepamt =  $netamount;
+		}elseif($excel['restaurant_manager_status'] == "Rejected" || $excel['status']=='order cancelled' )
+					{
+						$keepamt =  $netamount;
+					}
+		else{
+				$keepamt =  $netamount+$Conviencecharge-$excel['coupon_discount'];
 			}
 
 
@@ -736,20 +740,20 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 						$givetorest=0;
 					}elseif($excel['restaurant_manager_status'] == "Accepted"){
 						//echo $order->total_cost - $keepamt;
-						$givetorest=$netordervalue+$gstonnetordervalue-$keepamt;
+						$givetorest=$netordervalue+$gstonnetordervalue-$keepamt-$excel['coupon_discount']+$Conviencecharge;
 					}else{
 						$givetorest="-".$keepamt;
 					}	
 
 
 		 if($excel['restaurant_manager_status'] == "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue+$Conviencecharge;
+					 $givetocust=$netordervalue+$gstonnetordervalue+$Conviencecharge-$excel['coupon_discount'];
 				      
 					}elseif($excel['delivery_partner_status']== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue+$Conviencecharge;
+						$givetocust=$netordervalue+$gstonnetordervalue+$Conviencecharge-$excel['coupon_discount'];
 						
 					}elseif($excel['status']=='order cancelled'){
-						$givetocust=$netordervalue+$gstonnetordervalue+$Conviencecharge;
+						$givetocust=$netordervalue+$gstonnetordervalue+$Conviencecharge-$excel['coupon_discount'];
 				      
 					}
 					else{
@@ -851,15 +855,15 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 
 		$this->load->model('Restaurant_model');
 		if($this->input->post('action') == "Go"){
-			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d H:i:s",strtotime($this->input->post('fromdate')));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date("Y-m-d",strtotime($this->input->post('fromdate')));
 			//$data['todate'] = $_SESSION['todate'] = date("Y-m-d H:i:s",strtotime($this->input->post('todate')));
 		 $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime($this->input->post('todate').' +1 day'));
 		}elseif($this->input->post('action') == "PreviousMonth"){
-			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d H:i:s',strtotime('first day of last month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] =  date('Y-m-d',strtotime('first day of last month'));
 			 $data['todate'] = $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of last month'));
 
 		}else{
-			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d H:i:s',strtotime('first day of this month'));
+			$data['fromdate'] =  $_SESSION['fromdate'] = date('Y-m-d',strtotime('first day of this month'));
 			$data['todate'] =  $_SESSION['todate'] = date('Y-m-d H:i:s',strtotime('last day of this month'));
 
 		}
@@ -906,7 +910,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		
         $orders1 = $this->Order_model->get_previousorders1($excel['delivery_partner']);
     
-        $netordervalue=$excel['netordervalue'];
+        $netordervalue=$excel['netordervalue']+$excel['coupon_discount'];
         $gstonnetordervalue=$excel['tax'];
 
 
