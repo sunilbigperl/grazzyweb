@@ -45,7 +45,7 @@
 			<!-- <th>Convience charge</th> -->
 			<th>Discount(%)</th>
 			<th>Discount(Rs)</th>
-			<th>Vocher Discount</th>
+			<!-- <th>Vocher Discount</th> -->
 			<th>Net Order Value</th>
 			<th>GST on Net Order Value </th>
 			<th>Net Order Value fulfilled</th>
@@ -121,9 +121,9 @@
 					<?=$order->discount2; ?>
 				</td>
 
-				<td>
+				<!-- <td>
 					<?=$order->coupon_discount; ?>
-				</td>
+				</td> -->
 				<td>
 				   <?php $netordervalue=$order->netordervalue+$order->coupon_discount;?> 
 					<?=$netordervalue; ?>
