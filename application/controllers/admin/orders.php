@@ -628,7 +628,7 @@ function excel($id)
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('Order_type','Ordered date','Order number','Customer name','Customer mobileno','Order value(Rs)','Discount(%)','Discount(Rs)','Vocher Discount','Net Order Value','GST on Net Order Value','Net Order Value fulfilled','GST on Net Order Value fulfilled','Commission','Penalty','Reimbursement of delivery charges','Net amount','Keep amount for eatsapp','Give to Restaurant','Status','Passcode'); //set title in excel sheet
+    $heading=array('Order_type','Ordered date','Order number','Customer name','Customer mobileno','Order value(Rs)','Discount(%)','Discount(Rs)','Net Order Value','GST on Net Order Value','Net Order Value fulfilled','GST on Net Order Value fulfilled','Commission','Penalty','Reimbursement of delivery charges','Net amount','Keep amount for eatsapp','Give to Restaurant','Status','Passcode'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
    
@@ -805,7 +805,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         // $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,  $Conviencecharge);
         $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['discount1']);
         $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$excel['discount2']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$excel['coupon_discount']); 
+        // $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$excel['coupon_discount']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$netordervalue);
         $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$gstonnetordervalue); 
         $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$netordervalue1);
