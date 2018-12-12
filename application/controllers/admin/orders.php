@@ -1122,7 +1122,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $objPHPExcel->getActiveSheet()->setCellValue($colH.$rowNumberH,$h);
         if($this->auth->check_access('Admin') && !isset($url)){ 
          $objPHPExcel->getActiveSheet()->setCellValue('O'.$rowNumberH,'Order value(Rs)');
-         $objPHPExcel->getActiveSheet()->setCellValue('P'.$rowNumberH,'Convience charge');
+         $objPHPExcel->getActiveSheet()->setCellValue('P'.$rowNumberH,'Convenience Charge');
          $objPHPExcel->getActiveSheet()->setCellValue('Q'.$rowNumberH,'Discount(%)');
          $objPHPExcel->getActiveSheet()->setCellValue('R'.$rowNumberH,'Discount(Rs)');
          $objPHPExcel->getActiveSheet()->setCellValue('S'.$rowNumberH,'Vocher Discount');
@@ -1355,7 +1355,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 						$netamount1 = $excel['delpartner_delivery_charge'];
 		}else{
 						
-						$netamount1 = $excel['delpartner_delivery_charge'] - $excel['penalty'];
+						$netamount1 = $excel['delpartner_delivery_charge'] -$penalty1;
 			}
 
 	    if($excel['delivery_partner_status'] == "Rejected"){ 
