@@ -806,19 +806,19 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['discount1']);
         $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$excel['discount2']); 
         // $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$excel['coupon_discount']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$netordervalue);
-        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$gstonnetordervalue); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$netordervalue1);
-        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount,$gstonnetordervalue1); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount, $commission); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount, $penalty);
-        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$reimb); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$netamount); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$keepamt);
-        $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$givetorest); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$netordervalue);
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$gstonnetordervalue); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$netordervalue1);
+        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$gstonnetordervalue1); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $commission); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount, $penalty);
+        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$reimb); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$netamount); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$keepamt);
+        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$givetorest); 
         //$objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$givetocust);
-        $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount,$status);
-        $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$excel['passcode']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$status);
+        $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount,$excel['passcode']);
          
         
         
