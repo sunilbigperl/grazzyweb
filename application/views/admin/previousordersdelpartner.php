@@ -78,7 +78,7 @@
             <?php if($this->auth->check_access('Admin')&& !isset($url) ){ ?>
 		    <th>Order value(Rs)</th>
 		   
-			<th>Convience charge</th>
+			<th>Convenience Charge</th>
 			<th>Discount(%)</th>
 			<th>Discount(Rs)</th>
 			<th>Vocher Discount</th>
