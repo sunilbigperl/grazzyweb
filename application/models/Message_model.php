@@ -476,7 +476,7 @@ class Message_model extends CI_Model
 	}
 	
 	public function get_delpartners(){
-		$query = $this->db->query("select id, username from admin where access= 'Deliver manager'");
+		$query = $this->db->query("select id, username from admin where access= 'Deliver manager' order by username ASC");
 		if($query->num_rows() > 0){
 			$result = array();
 			$i=0;
@@ -490,7 +490,7 @@ class Message_model extends CI_Model
 		}
 	}
 		public function get_restaurants1(){
-		$query = $this->db->query("select restaurant_id,restaurant_name from restaurant");
+		$query = $this->db->query("select restaurant_id,restaurant_name from restaurant order by restaurant_name ASC");
 		if($query->num_rows() > 0){
 			$result = array();
 			$i=0;

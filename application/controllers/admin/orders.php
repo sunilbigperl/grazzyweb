@@ -69,12 +69,18 @@ class Orders extends Admin_Controller {
 			$delpartner_post = $this->input->post('delpartner');
 			$delpartner_get = $this->uri->segment(4);
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
+			$restaurant_post = $this->input->post('restaurant');
+			$restaurant_get = $this->uri->segment(4);
+			$data['restaurant'] = isset($restaurant_get) ? $restaurant_get : $restaurant_post;
 		}elseif($this->input->post('action') == "PreviousMonth"){
 			$data['fromdate'] = $_SESSION['fromdated'] = date('Y-m-d',strtotime('first day of last month'));
 			$data['todate'] =  $_SESSION['todated'] =date('Y-m-d H:i:s',strtotime('last day of last month'));
 			$delpartner_post = $this->input->post('delpartner');
 			$delpartner_get = $this->uri->segment(4);
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
+			$restaurant_post = $this->input->post('restaurant');
+			$restaurant_get = $this->uri->segment(4);
+			$data['restaurant'] = isset($restaurant_get) ? $restaurant_get : $restaurant_post;
 		}else{
 
 			$data['fromdate'] =  $_SESSION['fromdated'] = date('Y-m-d',strtotime('first day of this month'));
@@ -82,6 +88,9 @@ class Orders extends Admin_Controller {
 			$delpartner_post = $this->input->post('delpartner');
 			$delpartner_get = $this->uri->segment(4);
 			$data['delpartner'] = isset($delpartner_get) ? $delpartner_get : $delpartner_post;
+			$restaurant_post = $this->input->post('restaurant');
+			$restaurant_get = $this->uri->segment(4);
+			$data['restaurant'] = isset($restaurant_get) ? $restaurant_get : $restaurant_post;
 		}
 		
 		//$sql = $this->db->query("select * from delpartner_charges where id = 1");
