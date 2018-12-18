@@ -69,6 +69,8 @@ public function RestCron(){
 
 		    
 		     //$url =file("http://193.105.74.159/api/v3/sendsms/plain?user=wolotech&password=FBXM0Fv4&&sender=EATSAP&SMSText=We+regret+to+inform+you+that+the+Food+Outlet+you+selected+is+unable+to+accept+your+order+.+Please+order+from+some+other+Food+Outlet+.+We+will+refund+your+payment+within+5+working+days&type=longsms&GSM=91".$registatoin_ids[0]." ");
+
+		     //$url =file("http://193.105.74.159/api/v3/sendsms/plain?user=wolotech&password=FBXM0Fv4&&sender=EATSAP&SMSText=We+regret+to+inform+that+the+Outlet+you+selected+is+unable+to+accept+your+order+.+Please+order+from+another+Outlet+.+We+will+refund+your+payment+at+earliest+.&type=longsms&GSM=91".$registatoin_ids[0]." ");
 		     
     
 
@@ -139,6 +141,8 @@ public function RestCron(){
 
 		    
 		     //$url =file("http://193.105.74.159/api/v3/sendsms/plain?user=wolotech&password=FBXM0Fv4&&sender=EATSAP&SMSText=We+regret+to+inform+you+that+your+order+was+not+accepted+.+We+We+will+refund+your+payment+within+5+working+days&type=longsms&GSM=91".$registatoin_ids[0]." ");
+
+		     //$url =file("http://193.105.74.159/api/v3/sendsms/plain?user=wolotech&password=FBXM0Fv4&&sender=EATSAP&SMSText=We+regret+to+inform+you+that+your+order+was+not+accepted+.+We+will+refund+your+payment+at+earliest+.&type=longsms&GSM=91".$registatoin_ids[0]." ");
 		     
     
 
