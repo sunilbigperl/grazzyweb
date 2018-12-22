@@ -1116,7 +1116,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('Order_type','Ordered date','Order number','Customer Name','Customer Mobile','Delivery Boy Name','Pickup Location','Delivery Location','Delivery Charge','KM','Penalty','Total Amount','Status','Passcode'); //set title in excel sheet
+    $heading=array('Order_type','Delivered On','Order number','Customer Name','Customer Mobile','Delivery Boy Name','Pickup Location','Delivery Location','Delivery Charge','KM','Penalty','Total Amount','Status','Passcode'); //set title in excel sheet
     
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
@@ -1194,7 +1194,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
     $rowCount = 2; // set the starting row from which the data should be printed
     foreach($export_excel as $excel)
     {  
-        
+        $Delivered=date("Y-m-d", strtotime($excel['ordered_on']));
         $charges = $this->Order_model->GetChargesForOrder($excel['ordered_on']);
         $deliverycharge2 = $charges['deliverycharge'];
 
@@ -1406,7 +1406,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 		
 
 		$objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['order_type']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['ordered_on']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $Delivered); 
         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['order_number']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['firstname']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['phone']);
