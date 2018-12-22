@@ -889,7 +889,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('Order_type','Ordered date','Order number','Order value(Rs)','Discount(%)','Discount(Rs)','Net Order Value','GST on Net Order Value','Net Order Value fulfilled','GST on Net Order Value fulfilled','Commission','Penalty','Reimbursement of delivery charges','Net amount','Keep amount for eatsapp','For Restaurant','Status','Passcode'); //set title in excel sheet
+    $heading=array('Order_type','Delivered On','Order number','Order value(Rs)','Discount(%)','Discount(Rs)','Net Order Value','GST on Net Order Value','Net Order Value fulfilled','GST on Net Order Value fulfilled','Commission','Penalty','Reimbursement of delivery charges','Net amount','Keep amount for eatsapp','For Restaurant','Status','Passcode'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
    
@@ -919,6 +919,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
     	
 		
         $orders1 = $this->Order_model->get_previousorders1($excel['delivery_partner']);
+        $Delivered=date("Y-m-d", strtotime($excel['ordered_on']));
     
         $netordervalue=$excel['netordervalue']+$excel['coupon_discount'];
         $gstonnetordervalue=$excel['tax'];
@@ -1035,7 +1036,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 
 
         $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount,$excel['order_type']);
-		$objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['ordered_on']); 
+		$objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $Delivered); 
         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['order_number']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['total_amount']);
         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount,$excel['discount1']);
