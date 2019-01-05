@@ -7,13 +7,14 @@
 $result = explode('|', $_POST['response']);
 //echo '<pre>';
 //print_r($result);
+
 $year = substr($result[9],0,4);
 $month = substr($result[9],4,2);
 $day = substr($result[9],6,2);
 if($result[0]=='000') {
 	 
-	$con = mysqli_connect("localhost","root","root","eatsappdb");
-	if(!$con){ die('could not connect'.mysqli_errno());}
+	$con = mysqli_connect("localhost","root","Bigperleats@123!","db_eatsapp");
+	if(!$con){ die('could not connect'.mysqli_error());}
 	mysqli_query($con,"update orders set status='Order Placed' where id='".$result[4]."'");
 	?>
 	<p>Ref No. : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $result[5];?></p>
