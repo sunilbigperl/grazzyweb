@@ -1213,7 +1213,7 @@ class Api_model extends CI_Model
 		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
 		  <p style=text-align:center;>Order Placed On: ".$result[$i]['ordered_on']."</p>
 		  ".$delivery_location." 
-		  <p style=text-align:center;>Restaurant: ".$result[$i]['restaurant_name']."</p>
+		  <p style=text-align:center;>Store: ".$result[$i]['restaurant_name']."</p>
 		
 		  
 		  
@@ -1616,7 +1616,7 @@ table, th, td {
 		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
 		  <p style=text-align:center;>Order Placed On: ".$result[$i]['ordered_on']."</p>
 		  ".$delivery_location."  
-		  <p style=text-align:center;>Restaurant: ".$result[$i]['restaurant_name']."</p>
+		  <p style=text-align:center;>Store: ".$result[$i]['restaurant_name']."</p>
 		  
 		  
 <style>
@@ -1886,7 +1886,7 @@ table, th, td {
 		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
 		  <p style=text-align:center;>Order Placed On : ".$result[$i]['ordered_on']."</p>
 		  ".$delivery_location."  
-		  <p style=text-align:center;>Restaurant: ".$result[$i]['restaurant_name']."</p>
+		  <p style=text-align:center;>Store: ".$result[$i]['restaurant_name']."</p>
 
 
 		 
