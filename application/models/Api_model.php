@@ -1277,7 +1277,7 @@ table, th, td {
 <br><br><br><br><br><br><br><br><br><br><br><br>
 <div class=footer>	   
 <hr>
-<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
+<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Store to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Store and Eatsapp disclaims any liability that may arise in this respect.</p>
 </div>
          
 		";
@@ -1679,7 +1679,7 @@ table, th, td {
 <br><br><br><br><br><br><br><br><br><br><br><br>	
 <div class=footer>   
 <hr>
-<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
+<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Store to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Store and Eatsapp disclaims any liability that may arise in this respect.</p>
 </div>
          
 		";
@@ -1985,7 +1985,7 @@ table, th, td {
  $this->m_pdf->pdf->setAutoBottomMargin = 'stretch';
 			 $this->m_pdf->pdf->SetHTMLFooter('
 <hr>
-<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Restaurant to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Restaurant and Eatsapp disclaims any liability that may arise in this respect.</p>
+<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Store to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Store and Eatsapp disclaims any liability that may arise in this respect.</p>
 
 ');
             $this->m_pdf->pdf->WriteHTML($message);
