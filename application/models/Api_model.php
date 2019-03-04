@@ -783,6 +783,11 @@ class Api_model extends CI_Model
 	// }
 
 	public function pitstopsuser1($data){
+		 $this->load->helper('file');
+		 $txtFileData = $data;
+        
+       
+	 
 		$sql = $this->db->query("select * from pitstops where enabled=1 and `delete`=0");
 		if($sql->num_rows()>0){
 			$data = $sql->result_array();
@@ -810,7 +815,23 @@ class Api_model extends CI_Model
 		}else{
 			$result =0;
 		}
+
+       
+      
+	  $txtFileData = json_encode($txtFileData) ."\n \n".json_encode($result);
+         
+	  if ( ! write_file('./text.php',  $txtFileData))
+       {
+            echo 'Unable to write the file';
+       }
+       else
+       {
+            echo 'File written!';
+      	
+       }
 		print_r(json_encode($result)); exit;
+
+		
 	}
 
 
