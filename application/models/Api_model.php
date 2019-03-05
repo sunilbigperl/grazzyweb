@@ -688,7 +688,8 @@ class Api_model extends CI_Model
 					$result[$i]['commission'] =  $discounts[0]['commission']; 
 					$result[$i]['penalty'] =  $discounts[0]['penalty'];
 					$result[$i]['totime'] =  $discounts[0]['totime'];
-					$result[$i]['del_partner penalty'] =  $penalty[0]['penalty']; 
+					//$result[$i]['del_partner penalty'] =  $penalty[0]['penalty']; 
+					$result[$i]['del_partner penalty'] =  isset($penalty[0]['penalty']) ? $penalty[0]['penalty'] :0;
 					if($order_type==0)
 					{
 					$sql1 ="SELECT *,a.description FROM `restaurant_menu` a, menu_categories b, categories c where a.restaurant_id = '".$id."' and b.category_id='".$menu['category_id']."' and a.itemPreparation_time <=15
