@@ -135,8 +135,11 @@ class Api_model extends CI_Model
 	
 	public function SearchRest($data){
 			$date = date("Y-m-d");
+
 			date_default_timezone_set('Asia/Calcutta');
 			$time = date('H:i:s',time());
+			//$time = date('Y-m-d H:i:s');
+		    //print_r($time);exit;
 			$where ='';
 			
 			// if(isset($data['area']) && $data['area'] != ""){
@@ -328,6 +331,7 @@ class Api_model extends CI_Model
 				}
 			$i++;
 			}
+
 		}
 	}
 	
@@ -827,7 +831,7 @@ class Api_model extends CI_Model
        }
        else
        {
-            echo 'File written!';
+            //echo 'File written!';
       	
        }
 		print_r(json_encode($result)); exit;
