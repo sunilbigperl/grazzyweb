@@ -138,8 +138,7 @@ class Api_model extends CI_Model
 
 			date_default_timezone_set('Asia/Calcutta');
 			$time = date('H:i:s',time());
-			//$time = date('Y-m-d H:i:s');
-		    //print_r($time);exit;
+			
 			$where ='';
 			
 			// if(isset($data['area']) && $data['area'] != ""){
@@ -169,7 +168,7 @@ class Api_model extends CI_Model
 					$days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
 					$day =  $days1[date("N")];
 					
-					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && $row['totime'] >= $time)){
+					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && ($row['totime']+86400) >= $time)){
 					    $result[] = $row;
 						// $result[$i]['restaurant_id'] = $row['restaurant_id'];
 						// $result[$i]['restaurant_name'] = $row['restaurant_name'];
@@ -241,7 +240,7 @@ class Api_model extends CI_Model
 					$days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
 					$day =  $days1[date("N")];
 					
-					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && $row['totime'] >= $time)){
+					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && ($row['totime']+86400) >= $time)){
 					
 						$result[$i]['restaurant_id'] = $row['restaurant_id'];
 						$result[$i]['restaurant_name'] = $row['restaurant_name'];
@@ -356,7 +355,7 @@ class Api_model extends CI_Model
 					$days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
 					$day =  $days1[date("N")];
 					
-					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && $row['totime'] >= $time)){
+					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && ($row['totime']+86400) >= $time)){
 					
 						$result[] = $row;
 					}
@@ -827,7 +826,7 @@ class Api_model extends CI_Model
          
 	  if ( ! write_file('./text.php',  $txtFileData))
        {
-            echo 'Unable to write the file';
+           // echo 'Unable to write the file';
        }
        else
        {
