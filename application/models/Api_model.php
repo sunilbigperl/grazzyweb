@@ -147,11 +147,11 @@ class Api_model extends CI_Model
 			// }
 
 			if(isset($data['area']) && $data['area'] != ""){
-				$sql ="SELECT * FROM restaurant where tags like '%".$data['area']."%'
-				and enabled=1 and `delete`=0 and NextRenewalDate >= '".$date."' ";
+				$sql ="SELECT * FROM restaurant a,admin b where a.tags like '%".$data['area']."%'
+				and b.id = a.restaurant_manager and a.enabled=1 and a.`delete`=0 and b.NextRenewalDate >= '".$date."' ";
 			}
 			if(isset($data['name']) && $data['name'] != ""){
-				$sql="SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant   HAVING distance < 40 and enabled = 1 and  `restaurant_name` like  '%".$data['name']."%' and `delete`=0 and NextRenewalDate >= '".$date."' " ;
+				$sql="SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant a,admin b  HAVING distance < 40 and b.id = a.restaurant_manager and a.enabled = 1 and  a.`restaurant_name` like  '%".$data['name']."%' and a.`delete`=0 and b.NextRenewalDate >= '".$date."' " ;
 			
 			}
 			//echo $sql; exit;
