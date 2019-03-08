@@ -147,11 +147,19 @@ class Api_model extends CI_Model
 			// }
 
 			if(isset($data['area']) && $data['area'] != ""){
-				$sql ="SELECT * FROM restaurant a,admin b where a.tags like '%".$data['area']."%'
-				and b.id = a.restaurant_manager and a.enabled=1 and a.`delete`=0 and b.NextRenewalDate >= '".$date."' ";
+				//$sql ="SELECT * FROM restaurant  where tags like '%".$data['area']."%'
+				//and  enabled=1 and `delete`=0  ";
+				$sql="select a.* from restaurant a,admin b where b.id = a.restaurant_manager and 
+		        b.NextRenewalDate >= '".$date."' and a.tags like '%".$data['area']."%' and a.enabled=1 and a.`delete`=0";
 			}
 			if(isset($data['name']) && $data['name'] != ""){
-				$sql="SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant a,admin b  HAVING distance < 40 and b.id = a.restaurant_manager and a.enabled = 1 and  a.`restaurant_name` like  '%".$data['name']."%' and a.`delete`=0 and b.NextRenewalDate >= '".$date."' " ;
+				//$sql="SELECT *,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant  HAVING distance < 40 and enabled = 1 and  `restaurant_name` like  '%".$data['name']."%' and `delete`=0  " ;
+			
+			$sql="SELECT a.*,( 3959 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( restaurant_latitude ) ) * cos( radians( restaurant_langitude ) - radians('".$data['langitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( restaurant_latitude ) ) ) ) AS distance FROM restaurant a,admin b where b.id = a.restaurant_manager and b.NextRenewalDate >= '".$date."'   HAVING distance < 40 and enabled = 1 and  `restaurant_name` like  '%".$data['name']."%' and `delete`=0  " ;
+
+
+
+
 			
 			}
 			//echo $sql; exit;
@@ -168,7 +176,7 @@ class Api_model extends CI_Model
 					$days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
 					$day =  $days1[date("N")];
 					
-					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && ($row['totime']+86400) >= $time)){
+					if(in_array($day,$days)  && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && ($row['totime']+86400) >= $time)){
 					    $result[] = $row;
 						// $result[$i]['restaurant_id'] = $row['restaurant_id'];
 						// $result[$i]['restaurant_name'] = $row['restaurant_name'];
