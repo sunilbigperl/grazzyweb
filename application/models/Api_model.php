@@ -805,13 +805,13 @@ class Api_model extends CI_Model
 			$data = $sql->result_array();
 			$i=0;
 			foreach($data as $pitstop){
-			 $sql2 = $this->db->query("select * from pitstop_restaurants a,restaurant b where a.pitstop_id='".$pitstop['pitstop_id']."' and a.restaurants_id=b.restaurant_id");
+			 $sql2 = $this->db->query("select * from pitstop_restaurants a,restaurant b where a.pitstop_id='".$pitstop['pitstop_id']."' and a.restaurants_id=b.restaurant_id and b.enabled=1");
 			 //print_r($sql2->result_array());exit;
 		  
 			  if($sql2->num_rows()>0){
 					
 				$result[$i] = $pitstop;
-				$sql1=$this->db->query("select b.image from pitstop_restaurants a, restaurant b where a.pitstop_id='".$pitstop['pitstop_id']."' and a.restaurants_id=b.restaurant_id");
+				$sql1=$this->db->query("select b.image from pitstop_restaurants a, restaurant b where a.pitstop_id='".$pitstop['pitstop_id']."' and a.restaurants_id=b.restaurant_id and b.enabled=1");
 				if($sql1->num_rows()>0){
 					$data1 = $sql1->result_array();
 					foreach($data1 as $rest){
@@ -1189,13 +1189,13 @@ class Api_model extends CI_Model
 						$discount1= "";
 					}else{
 						
-						$discount1= "<tr><td>Discount</td><td>".$result[$i]['discount1']."</td></tr>";
+						$discount1= "<tr><td>Discount</td><td align=right>".$result[$i]['discount1']."</td></tr>";
 					}
 					if($row['discount2']==0){
 						$discount2= "";
 					}else{
 						
-						$discount2= "<tr><td>Discount</td><td>".$result[$i]['discount2']."</td></tr>";
+						$discount2= "<tr><td>Discount</td><td align=right>".$result[$i]['discount2']."</td></tr>";
 					}
 					if($row['gstonfood']==0){
 						$gst= "";
@@ -1275,11 +1275,11 @@ table, th, td {
    </tr>
   <tr>
     <td>".$result[$i]['items']."</td>
-    <td>".$result[$i]['cost']."</td>
+    <td align=right>".$result[$i]['cost']."</td>
    </tr>
   <tr>
     <td>Total</td>
-    <td>".$result[$i]['total_amount']."</td>
+    <td align=right>".$result[$i]['total_amount']."</td>
   </tr>
   ".$discount1."  
   
@@ -1287,21 +1287,21 @@ table, th, td {
 
    <tr>
     <td>Vocher Discount</td>
-    <td>".$result[$i]['coupon_discount']."</td>
+    <td align=right>".$result[$i]['coupon_discount']."</td>
   </tr>
   <tr>
     <td>Net Order Value</td>
-    <td>".$netordervalue."</td>
+    <td align=right>".$netordervalue."</td>
   </tr>
   ".$gst."  
   <tr>
     <td>Convenience Charge</td>
-    <td>".$result[$i]['shipping']."</td>
+    <td align=right>".$result[$i]['shipping']."</td>
   </tr>
   
    <tr>
     <td>Total</td>
-    <td>".$result[$i]['total_cost']."</td>
+    <td align=right>".$result[$i]['total_cost']."</td>
   </tr>
   
   
@@ -1586,13 +1586,13 @@ table, th, td {
 						$discount1= "";
 					}else{
 						
-						$discount1= "<tr><td>Discount</td><td>".$result[$i]['discount1']."</td></tr>";
+						$discount1= "<tr><td>Discount</td><td align=right>".$result[$i]['discount1']."</td></tr>";
 					}
 					if($row['discount2']==0){
 						$discount2= "";
 					}else{
 						
-						$discount2= "<tr><td>Discount</td><td>".$result[$i]['discount2']."</td></tr>";
+						$discount2= "<tr><td>Discount</td><td align=right>".$result[$i]['discount2']."</td></tr>";
 					}
 					if($row['gstonfood']==0){
 						$gst= "";
@@ -1677,11 +1677,11 @@ table, th, td {
    </tr>
   <tr>
     <td>".$result[$i]['items']."</td>
-    <td>".$result[$i]['cost']."</td>
+    <td align=right>".$result[$i]['cost']."</td>
    </tr>
   <tr>
     <td>Total</td>
-    <td>".$result[$i]['total_amount']."</td>
+    <td align=right>".$result[$i]['total_amount']."</td>
   </tr>
  
 	".$discount1."  
@@ -1689,21 +1689,21 @@ table, th, td {
     ".$discount2." 
   <tr>
     <td>Vocher Discount</td>
-    <td>".$result[$i]['coupon_discount']."</td>
+    <td align=right>".$result[$i]['coupon_discount']."</td>
   </tr>
   <tr>
     <td>Net Order Value</td>
-    <td>".$netordervalue."</td>
+    <td align=right>".$netordervalue."</td>
   </tr>
   ".$gst."
   <tr>
     <td>Convenience Charge</td>
-    <td>".$result[$i]['shipping']."</td>
+    <td align=right>".$result[$i]['shipping']."</td>
   </tr>
   
    <tr>
     <td>Total</td>
-    <td>".$result[$i]['total_cost']."</td>
+    <td align=right>".$result[$i]['total_cost']."</td>
   </tr>
   
   
@@ -1832,13 +1832,13 @@ table, th, td {
 						$discount1= "";
 					}else{
 						
-						$discount1= "<tr><td>Discount</td><td>".$result[$i]['discount1']."</td></tr>";
+						$discount1= "<tr><td>Discount</td><td align=right>".$result[$i]['discount1']."</td></tr>";
 					}
 					if($row['discount2']==0){
 						$discount2= "";
 					}else{
 						
-						$discount2= "<tr><td>Discount</td><td>".$result[$i]['discount2']."</td></tr>";
+						$discount2= "<tr><td>Discount</td><td align=right>".$result[$i]['discount2']."</td></tr>";
 					}
 					if($row['gstonfood']==0){
 						$gst= "";
@@ -1931,12 +1931,12 @@ table, th, td {
  
   <tr>
     <td>".$result[$i]['items']."</td>
-     <td>".$result[$i]['cost']."</td>
+     <td align=right>".$result[$i]['cost']."</td>
    
   </tr>
   <tr>
     <td>Total</td>
-    <td>".$result[$i]['total_amount']."</td>
+    <td align=right>".$result[$i]['total_amount']."</td>
   </tr>
    
 	".$discount1."  
@@ -1945,22 +1945,22 @@ table, th, td {
 
     <tr>
     <td>Vocher Discount</td>
-    <td>".$result[$i]['coupon_discount']."</td>
+    <td align=right>".$result[$i]['coupon_discount']."</td>
   </tr>
  
   <tr>
     <td>Net Order Value</td>
-    <td>".$netordervalue."</td>
+    <td align=right>".$netordervalue."</td>
   </tr>
   ".$gst."
    <tr>
     <td>Convenience Charge</td>
-    <td>".$result[$i]['shipping']."</td>
+    <td align=right>".$result[$i]['shipping']."</td>
   </tr>
  
   <tr>
     <td>Total</td>
-    <td>".$result[$i]['total_cost']."</td>
+    <td align=right>".$result[$i]['total_cost']."</td>
   </tr>
   
   
