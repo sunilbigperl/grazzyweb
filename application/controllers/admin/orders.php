@@ -22,7 +22,8 @@ class Orders extends Admin_Controller {
 
 	function dashboard(){
 		$data['orders'] = $this->Order_model->get_neworders();
-		 $this->view($this->config->item('admin_folder').'/restaurantdatshboard',$data);
+		$data['deliveryboys'] = $this->Order_model->get_deliveryboys();
+		$this->view($this->config->item('admin_folder').'/restaurantdatshboard',$data);
 	}
     function neworders()
     {
@@ -40,9 +41,11 @@ class Orders extends Admin_Controller {
 	function AssignDeliveryBoy($id){
 		$data['delBoy'] = $this->input->post('deliveryboy');
 		$data['id'] = $id;
-		$results = $this->Order_model->AssignDeliveryBoy($data);
+		//print_r($data['id']);exit;
+        $results = $this->Order_model->AssignDeliveryBoy($data);
 		if($results){
-			 redirect('admin/orders/delpartnerorders', 'refresh');
+			 // redirect('admin/orders/delpartnerorders', 'refresh');
+			 redirect('admin/orders/dashboard', 'refresh');
 		}
 
 	}
