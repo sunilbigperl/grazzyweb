@@ -28,12 +28,18 @@ echo "" . date("jS F Y") . "<br>";
 			<th data-field="date">Ordered On</th>
 			<th data-field="type">Order Type</th>
 			<th>Keep Ready By</th>
+			<th>DeliveryLocation</th>
 			<!--<th>Delivery Status</th>-->
 			<th>Action</th>
 			
 			<th></th>
-		
-			<th>Passcode</th>
+			<th>Assign Delivery Boy</th>
+			<th>Status</th>
+			<th>CustomerName</th>
+			<th>CustomerMobileNumber</th>
+			<th>PaymentMode</th>
+			<th>CollectAmount</th>
+		    <th>Passcode</th>
 		</tr>
 	</thead>
 	
@@ -93,6 +99,20 @@ echo "" . date("jS F Y") . "<br>";
 					<?php } } ?>
 				</td>-->
 				<!--<td><?php echo $order->status ? $order->status : ''; ?></td>-->
+				<?php 
+				$data['restaurant'] = $this->Restaurant_model->get_restaurant($order->restaurant_id);
+				
+				if($order->order_type == 1 && $order->pitstop_id != ""){
+					$pitstop = $this->Pitstop_model->get_pitstop($order->pitstop_id);
+					$data['toaddress'] = $pitstop->address;
+				}else{
+					$data['toaddress'] = $order->delivery_location;
+				}
+				?>
+				<td>
+				
+					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
+				</td>
 				<td>
 				<?php if($order->restaurant_manager_status == "0"){ ?>
 					<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-success btn-xs">Accept</a>
@@ -143,6 +163,58 @@ echo "" . date("jS F Y") . "<br>";
 				<?php }?> 
 
 				</td>  -->
+
+
+				<td> 
+					<form id="the-basics" method="post" action="AssignDeliveryBoy/<?=$order->id;?>">
+						<select type="text" name="deliveryboy" class="form-control typeahead" <?php if($order->delivered_by != 0 ||$order->status=='Rejected'){ }?>>
+							<option value="">select delivery boy</option>
+							<?php foreach($deliveryboys as $deliveryboy){ if($order->delivered_by == $deliveryboy->id ){ $select= "selected";}else{$select ="";}?>
+								<option value="<?=$deliveryboy->id?>" <?=$select?>><?=$deliveryboy->name;?></option>
+
+							<?php } ?>
+						</select>
+						<!-- <?php if($order->delivered_by == 0){ ?>
+						<input type="submit" value="Assign" name="assign" class="btn btn-primary">
+
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a> 
+						<?php } ?>  -->
+                        <?php if($order->status =='Rejected' ){ ?>
+
+                         <?php }else if($order->delivered_by == 0 || $order->status!='Rejected'){?>
+					     <input type="submit" value="Assign" name="assign" class="btn btn-primary btn-xs">
+
+			              <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs" >Reject</a>
+				 <?php }else{?>
+
+				<?php }?>
+
+
+
+
+
+
+						<!-- 
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a> -->
+					</form>
+					
+				</td>
+				<td>
+					<?=$order->status;?>
+				</td>
+				<td>
+					<?=$order->firstname;?>
+				</td>
+
+				<td>
+					<?=$order->phone;?>
+				</td>
+				<td>
+					COD
+				</td>
+				<td>
+					<?=$order->total_cost;?>
+				</td>
 				
 				<td><?=$order->passcode;?></td>
 			</tr>

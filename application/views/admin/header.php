@@ -150,6 +150,7 @@
 					   
 						 <li><a href="<?php echo $admin_url;?>orders/SalesChart"><i class="fa fa-home"></i> <?php echo lang('common_sales') ?> <span class=""></span></a>
 						 <li><a href="<?php echo $admin_url;?>message/restmessage"><i class="fa fa-comments"></i> Messages </a></li>
+						 <li><a href="<?php echo $admin_url;?>deliveryboy"><i class="fa fa-home"></i> Delivery Boys </a></li>
 
 						<ul class="nav child_menu">
 						

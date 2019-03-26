@@ -55,7 +55,7 @@ Class order_model extends CI_Model
 		// and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager='".$userdata['id']."' and a.ordered_on >='".$date."' order by a.ordered_on desc"; exit;
 		// $sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,b.preparation_time FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
 		// and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager='".$userdata['id']."' and a.status IN ('Order Placed', 'Assigned','Accepted','Picked Up')  and a.ordered_on >='".$date."' order by a.ordered_on desc");
-		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,b.preparation_time FROM `orders` a, restaurant b, order_type d, admin c WHERE  a.`restaurant_id` = b.restaurant_id 
+		$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,b.preparation_time FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id  and a.`customer_id` = e.id  
 		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager='".$userdata['id']."' and a.status IN ('Order Placed', 'Assigned','Accepted','Picked Up')  order by a.ordered_on desc");
 		if($sql->num_rows() > 0){
 			$result	= $sql->result();

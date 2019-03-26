@@ -35,7 +35,8 @@ Class Deliveryboy_model extends CI_Model
     {
 		$userdata = $this->session->userdata('admin');
 		$this->db->order_by('name', 'ASC');
-		$this->db->where('delivery_partner', $userdata['id']);
+		//$this->db->where('delivery_partner', $userdata['id']);
+		$this->db->where('restaurant_manager', $userdata['id']);
 		$this->db->where('enabled', 1);
         $result = $this->db->get('delivery_boy');
 		//echo $this->db->last_query(); exit;

@@ -7,7 +7,8 @@ class Deliveryboy extends Admin_Controller
 	{
 		parent::__construct();
 
-		$this->auth->check_access('Deliver manager', true);
+		$this->auth->check_access('Deliver manager', false);
+		$this->auth->check_access('Restaurant manager', true);
 		$this->load->model('Deliveryboy_model');
 		$this->load->model('Restaurant_model');
 		$this->lang->load('page');
@@ -35,7 +36,7 @@ class Deliveryboy extends Admin_Controller
 		$config['allowed_types']	= 'gif|jpg|png';
 		$config['max_size']			= $this->config->item('size_limit');
 		$config['encrypt_name']		= true;
-		 $config['width'] = 30;
+		$config['width'] = 30;
 		$config['height'] = 30;
 		$this->load->library('upload', $config);
 		
@@ -74,8 +75,8 @@ class Deliveryboy extends Admin_Controller
 			$data['phone']		= $page->phone;
 			$data['email']		= $page->email;
 			$data['image']		= $page->image;
-			$data['enabled']	=   $page->enabled;
-            $data['adharno']	=   $page->adharno;
+			$data['enabled']	= $page->enabled;
+            $data['adharno']	= $page->adharno;
 			
 		}
 		
@@ -138,7 +139,8 @@ class Deliveryboy extends Admin_Controller
 			$save['email']	= $this->input->post('email');
 			$save['enabled']        = $this->input->post('enabled');
 			$save['adharno']        = $this->input->post('adharno');
-			$save['delivery_partner'] = $userdata['id'];
+			// $save['delivery_partner'] = $userdata['id'];
+			$save['restaurant_manager'] = $userdata['id'];
 			//save the page
 			$page_id	= $this->Deliveryboy_model->save($save);
 			
