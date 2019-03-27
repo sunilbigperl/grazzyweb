@@ -165,7 +165,7 @@ Class order_model extends CI_Model
 	}else
 	{
 		
-        $sql = $this->db->query("update orders set restaurant_manager ='".$userdata['id'].", delivered_by='".$data['delBoy']."',delivered_name='".$name."', status='Assigned' where id='".$data['id']."'");
+        $sql = $this->db->query("update orders set restaurant_manager ='".$userdata['id']."', delivered_by='".$data['delBoy']."',delivered_name='".$name."', status='Assigned' where id='".$data['id']."'");
 		
 
 
