@@ -264,14 +264,14 @@ echo "" . date("jS F Y") . "<br>";
 					// if($order->status == "Order Placed") { echo "Wait for confirmation"; }
 					
                       if($order->ordertype_id!= 3){ 
-						if($order->status == "Assigned" && $order->restaurant_manager_status == "Accepted"){ echo "Accepted";}
+						if($order->status == "Assigned" ){ echo "Assigned";}
 						
-						elseif($order->status == "Assigned") { echo "Assigned";
+						//elseif($order->status == "Order Placed") { echo "Accpted";
 
                             
 
 
-						 }
+						 //}
 						else{
 							echo $order->status;
 						}
@@ -295,10 +295,24 @@ echo "" . date("jS F Y") . "<br>";
 					<?=$order->phone;?>
 				</td>
 				<td>
-					<?=$order->payment_mode;?>
+					<!-- <?=$order->payment_mode;?> -->
+					<?php if($order->payment_mode ==0) 
+					{ 
+						echo "Online";
+				    }else{
+                         echo "COD";
+					    }
+					?>
 				</td>
 				<td>
-					<?=$order->total_cost;?>
+					<!-- <?=$order->total_cost;?> -->
+					<?php if($order->payment_mode ==0) 
+					{ 
+						echo "0";
+				    }else{
+                         echo $order->total_cost;
+					    }
+					?>
 				</td>
 				
 				<td><?=$order->passcode;?></td>
