@@ -48,7 +48,7 @@
 			<th data-field="date">Delivered On</th>
 			<th data-field="name">Order number</th>
 			<th>Customer Name</th>
-			<th>Customer Mobileno</th>
+			<th>Customer Mobile</th>
 			<th>Delivery Boy</th>
 			<th>Delivery Location</th>
 			<th data-field="price">Order value (Rs)</th>
@@ -63,7 +63,7 @@
 			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
-			<th>PaymentMode</th>
+			<th>Payment Mode</th>
 			<th>Customer Payment</th>
 			<th>Eatsapp to Store</th>
 			<!-- <th>GST</th> -->
@@ -238,23 +238,42 @@
 				</td>
                  
                  <td>
-				<?php if($order->payment_mode ==0) 
+				<?php if($order->payment_mode ==1 && ($order->status=='order cancelled' || $order->status=='Rejected')) 
 					{ 
-						echo "0";
-				    }else{
-                         echo $order->total_cost;
-					    }
+					   $payment= 0;
+					   
+				    }else
+				    {
+				    	
+					   	 $payment=$order->total_cost;
+					}
+					echo $payment
 					?>
 				</td>
 				
-				 <td><?php if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
+				 <td>
+				 	<!-- <?php if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
 				 	$order->restaurant_manager_status == "Accepted"){
 						$netamount = 0;
 					}else{
 						$netamount = $commission + $penalty + $reimb; ; 
 					}
 					 echo $netamount
-					?></td>
+					?> -->
+
+
+					<?php if($order->payment_mode ==1) 
+					{ 
+					  $netamount = 0;
+					   
+				    }else
+				    {
+				    	$netamount = $netordervalue1-$commission - $penalty - $reimb; 
+					}
+					echo $netamount
+					?>
+						
+					</td>
 				
 				<!-- <td>
 					<?php  if($order->delivery_partner_status == "Rejected"){
@@ -264,15 +283,32 @@
 					}
 					echo $servicetax1;?>
 				</td> -->
-				<td><?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
+				<td>
+					<!-- <?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
 				 	$order->restaurant_manager_status == "Accepted"){
 						$keepamt = 0;
 					}else{
 						$keepamt =  $netamount;
 					}
-					echo $keepamt; ?></td>
+					echo $keepamt; ?> -->
 
-				<td><?php if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
+
+					<?php if($order->payment_mode ==1) 
+					{ 
+					  $keepamt = $payment-$netordervalue1+$commission + $penalty + $reimb;
+					   
+				    }else
+				    {
+				    	$keepamt = 0;
+				    	 
+					}
+					echo $keepamt
+					?>
+						
+					</td>
+
+				<td>
+					<!-- <?php if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
 				 	$order->restaurant_manager_status == "Accepted"){
 						echo  0;
 					}elseif($order->restaurant_manager_status == "Accepted"){
@@ -280,18 +316,14 @@
 						echo $netordervalue+$gstonnetordervalue-$keepamt;
 					}else{
 						echo  "-".$keepamt;
-					}						?></td>
+					}						?> -->
 
-					<!-- <td><?php if($order->restaurant_manager_status == "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue;
-				      echo $givetocust;
-					}elseif($order->delivery_partner_status== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue;
-						echo $givetocust;
-					}else{
-						echo  0;
-					}?></td> -->
-                       <!-- $order->restaurant_manager_status == "0" -->
+					<?=$netordervalue1-$commission - $penalty - $reimb; ?>
+						
+
+					</td>
+
+					
 
                    <td>
 					<?php if($order->delivery_partner_status == "Rejected"){

@@ -27,7 +27,7 @@
 	<thead>
 		<tr>
 			<!-- <th data-field="id">Sl.No</th> -->
-			<th data-field="name">Restaurant name</th>
+			<th data-field="name">Store name</th>
 			<th data-field="price">Contact Details</th>
 			<th>Action</th>
 			<?php if($this->auth->check_access('Admin')) {?>

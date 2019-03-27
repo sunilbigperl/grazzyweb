@@ -24,7 +24,7 @@
 		echo form_input($data);
 		?>
 	</div>
-	Upload Delivery Boy Image
+	<!-- Upload Delivery Boy Image
 	<div class="form-group">	
 		<label for="image"><?php echo lang('image');?> </label>
 		<div class="input-append">
@@ -36,7 +36,7 @@
 		<div style="text-align:center; padding:5px; border:1px solid #ddd;"><img src="<?php echo base_url('uploads/'.$image);?>" alt="current"/><br/><?php echo lang('current_file');?></div>
 		
 		<?php endif;?>
-	</div>	
+	</div>	 -->
 	<div class="form-group">	
 		<label for="enabled"><?php echo lang('enabled');?> </label>
         <?php echo form_dropdown('enabled', array('0' => lang('disabled'), '1' => lang('enabled')), set_value('enabled',$enabled),'class="form-control"'); ?>

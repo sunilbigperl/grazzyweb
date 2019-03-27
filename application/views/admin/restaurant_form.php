@@ -11,7 +11,7 @@
 		<li><a href="#attributes_tab" data-toggle="tab">Image</a></li>
 		<?php } ?> 
 		<li><a href="#location_tab" data-toggle="tab">Location</a></li>
-		<li><a href="#preparation_tab" data-toggle="tab">Restaurant Manager</a></li>
+		<li><a href="#preparation_tab" data-toggle="tab">Store Manager</a></li>
 		<li><a href="#charge_tab" data-toggle="tab">Charges</a></li>
 		<?php if($this->auth->check_access('Admin')) {?>
 		<li><a href="#pt_tab" data-toggle="tab">Preparation Time</a></li>
@@ -24,12 +24,12 @@
 		<div class="tab-pane active" id="description_tab">
 			<fieldset style="padding:10px;">
 				<div class="form-group">	
-					<label for="name">Restaurant name</label>
+					<label for="name">Store name</label>
 					<input type="text" name="restaurant_name" value="<?=$restaurant_name?>" class="form-control" required>
 					
 				</div>
 				<div class="form-group">	
-					<label for="restaurant_address">Restaurant address</label>
+					<label for="restaurant_address">Store address</label>
 					<?php
 					$data	= array('name'=>'restaurant_address', 'class'=>'', 'value'=>set_value('restaurant_address', $restaurant_address));
 					echo form_textarea($data);
@@ -40,7 +40,7 @@
 					<input type="text" name="tags" value="<?=$tags?>" class="form-control">
 				</div>
 				<div class="form-group">
-					<label for="restaurant_address">Restaurant phone for orders</label>
+					<label for="restaurant_address">Store phone for orders</label>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1">+91</span>
 						
@@ -49,7 +49,7 @@
 				</div>
 				
 				<div class="form-group">	
-					<label for="restaurant_address">Restaurant mobile</label>
+					<label for="restaurant_address">Store mobile</label>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1">+91</span>
 						
@@ -57,14 +57,14 @@
 					</div>
 				</div>
 				<div class="form-group">	
-					<label for="restaurantmanager_mobile">Restaurant Manager mobile number</label>
+					<label for="restaurantmanager_mobile">Store Manager mobile number</label>
 					<div class="input-group">
 						
 						<input type="number" name="restaurantmanager_mobile" value="<?=$restaurantmanager_mobile?>" class="form-control"  pattern="/(7|8|9)\d{9}/" required>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="restaurant_address">Restaurant email</label>
+					<label for="restaurant_address">Store email</label>
 					<?php
 					$data	= array('name'=>'restaurant_email', 'value'=>set_value('restaurant_email', $restaurant_email), 'class'=>'form-control');
 					echo form_input($data);
@@ -259,11 +259,11 @@
 	
 		<div class="tab-pane" id="location_tab">
 			<fieldset style="padding: 10px;">
-				<label for="restaurant_address">Restaurant latitude</label>
+				<label for="restaurant_address">Store latitude</label>
 				<input type="text" class="form-control" value="<?=$restaurant_latitude;?>" name="restaurant_latitude" id="lat">
 				
 				
-				<label for="restaurant_address">Restaurant longitude</label>
+				<label for="restaurant_address">Store longitude</label>
 				<input type="text" class="form-control" value="<?=$restaurant_langitude;?>" name="restaurant_langitude" id="lng">
 				
 				<!-- <div id="map_canvas" style="width:500px;height:500px;" class="col-sm-8"></div> -->	
@@ -374,7 +374,7 @@
 		<div class="tab-pane" id="preparation_tab">
 			<fieldset style="padding:10px;">
 				<div class="form-group">	
-					<label>Restaurant manager name</label>
+					<label>Store manager name</label>
 					<?php
 					$data	= array('name'=>'firstname', 'value'=>set_value('firstname', $firstname),'class'=>'form-control');
 					echo form_input($data);
