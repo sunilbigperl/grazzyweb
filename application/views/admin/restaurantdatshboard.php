@@ -35,10 +35,10 @@ echo "" . date("jS F Y") . "<br>";
 			<!-- <th></th> -->
 			<th>Assign Delivery Boy</th>
 			<th>Status</th>
-			<th>CustomerName</th>
-			<th>CustomerMobileNumber</th>
-			<th>PaymentMode</th>
-			<th>CollectAmount</th>
+			<th>Customer Name</th>
+			<th>Customer Mobile Number</th>
+			<th>Payment Mode</th>
+			<th>Collect Amount</th>
 		    <th>Passcode</th>
 		</tr>
 	</thead>
@@ -124,11 +124,13 @@ echo "" . date("jS F Y") . "<br>";
                  <?php }else{
 
 					 if($order->ordertype_id== 3){ ?>
-                      <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/2/'.$order->id.'');?>" class="btn btn-danger btn-xs">Delivered</a>
+                      <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/2/'.$order->id.'');?>" class="btn btn-success btn-xs">Delivered</a>
                 	  <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
                      
                      <?php }else{ ?>
-                	  <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-success btn-xs">Accept</a> 
+
+                     	 <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/3/'.$order->id.'');?>" class="btn btn-success btn-xs">Delivered</a>
+                	<!--   <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/1/'.$order->id.'');?>" class="btn btn-success btn-xs">Accept</a>  -->
                      <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
 
                 	<?php }?>
@@ -181,8 +183,38 @@ echo "" . date("jS F Y") . "<br>";
 
 
 				<td> 
-					<?php if($order->ordertype_id!= 3){?>
-					<form id="the-basics" method="post" action="AssignDeliveryBoy/<?=$order->id;?>">
+					<?php if($order->ordertype_id== 3 || $order->restaurant_manager_status == "0" ){?>
+
+                      <form id="the-basics" method="post" action="AssignDeliveryBoy/<?=$order->id;?>">
+						<select type="text" name="deliveryboy" disabled="disabled" class="form-control typeahead" <?php if($order->delivered_by != 0 ||$order->status=='Rejected' ){ }?>>
+							<option value="">select delivery boy</option>
+							<?php foreach($deliveryboys as $deliveryboy){ if($order->delivered_by == $deliveryboy->id ){ $select= "selected";}else{$select ="";}?>
+								<option value="<?=$deliveryboy->id?>" <?=$select?>><?=$deliveryboy->name;?></option>
+
+							<?php } ?>
+						</select>
+						<!-- <?php if($order->delivered_by == 0){ ?>
+						<input type="submit" value="Assign" name="assign" class="btn btn-primary">
+
+						<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a> 
+						<?php } ?>  -->
+                        <?php if($order->status =='Rejected' ){ ?>
+
+                         <?php }else if($order->delivered_by == 0 || $order->status!='Rejected'){?>
+					     <input type="submit" value="Assign" name="assign" disabled="disabled" class="btn btn-primary btn-xs">
+
+			             <!--  <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs" >Reject</a> -->
+			              <?php }else{?>
+
+				<?php }?>
+                  </form>
+
+
+
+					
+					 <?php }else{?>
+
+					 	<form id="the-basics" method="post" action="AssignDeliveryBoy/<?=$order->id;?>">
 						<select type="text" name="deliveryboy"  class="form-control typeahead" <?php if($order->delivered_by != 0 ||$order->status=='Rejected' ){ }?>>
 							<option value="">select delivery boy</option>
 							<?php foreach($deliveryboys as $deliveryboy){ if($order->delivered_by == $deliveryboy->id ){ $select= "selected";}else{$select ="";}?>
@@ -206,31 +238,6 @@ echo "" . date("jS F Y") . "<br>";
 				<?php }?>
 
                       </form>
-					 <?php }else{?>
-
-					 	<form id="the-basics" method="post" action="AssignDeliveryBoy/<?=$order->id;?>">
-						<select type="text" name="deliveryboy" disabled="disabled" class="form-control typeahead" <?php if($order->delivered_by != 0 ||$order->status=='Rejected' ){ }?>>
-							<option value="">select delivery boy</option>
-							<?php foreach($deliveryboys as $deliveryboy){ if($order->delivered_by == $deliveryboy->id ){ $select= "selected";}else{$select ="";}?>
-								<option value="<?=$deliveryboy->id?>" <?=$select?>><?=$deliveryboy->name;?></option>
-
-							<?php } ?>
-						</select>
-						<!-- <?php if($order->delivered_by == 0){ ?>
-						<input type="submit" value="Assign" name="assign" class="btn btn-primary">
-
-						<a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a> 
-						<?php } ?>  -->
-                        <?php if($order->status =='Rejected' ){ ?>
-
-                         <?php }else if($order->delivered_by == 0 || $order->status!='Rejected'){?>
-					     <input type="submit" value="Assign" name="assign" disabled="disabled" class="btn btn-primary btn-xs">
-
-			             <!--  <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeDelPartnerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs" >Reject</a> -->
-			              <?php }else{?>
-
-				<?php }?>
-
 				<?php }?>
 					
 				</td>
@@ -264,14 +271,17 @@ echo "" . date("jS F Y") . "<br>";
 					// if($order->status == "Order Placed") { echo "Wait for confirmation"; }
 					
                       if($order->ordertype_id!= 3){ 
-						if($order->status == "Assigned" ){ echo "Assigned";}
+						if($order->status == "Order Placed" ){ echo "Accepted";}
 						
-						//elseif($order->status == "Order Placed") { echo "Accpted";
+						elseif($order->status == "Assigned") { echo "Assigned";
 
-                            
+                         }
+                         elseif($order->status == "Accepted") { echo "Accepted by Delivery Boy";
 
+                         }
+                         elseif($order->status == "Delivered") { echo "Delivered";;
 
-						 //}
+                         }
 						else{
 							echo $order->status;
 						}
@@ -298,9 +308,9 @@ echo "" . date("jS F Y") . "<br>";
 					<!-- <?=$order->payment_mode;?> -->
 					<?php if($order->payment_mode ==0) 
 					{ 
-						echo "Online";
+						echo "Paid Online";
 				    }else{
-                         echo "COD";
+                         echo "Collect Cash";
 					    }
 					?>
 				</td>

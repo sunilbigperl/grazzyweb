@@ -47,24 +47,28 @@
 			<th>Order type</th>
 			<th data-field="date">Delivered On</th>
 			<th data-field="name">Order number</th>
-			<!-- <th>Customer Name</th>
-			<th>Customer Mobileno</th> -->
+			<th>Customer Name</th>
+			<th>Customer Mobileno</th>
+			<th>Delivery Boy</th>
+			<th>Delivery Location</th>
 			<th data-field="price">Order value (Rs)</th>
 			<!-- <th>Convience charge</th> -->
 			<th>Discount (%)</th>
 			<th>Discount (Rs)</th>
 			<!-- <th>Vocher Discount</th> -->
 			<th>Net Order Value</th>
-			<th>GST on Net Order Value </th>
+			<!-- <th>GST on Net Order Value </th> -->
 			<th>Net Order Value fulfilled</th>
-			<th>GST on Net Order Value fulfilled</th>
+			<!-- <th>GST on Net Order Value fulfilled</th> -->
 			<th data-field="Commission">Commission</th>
 			<th data-field="Penalty">Penalty</th>
 			<th data-field="Reimb">Reimbursement of delivery charges</th>
-			<th>Net amount</th>
+			<th>PaymentMode</th>
+			<th>Customer Payment</th>
+			<th>Eatsapp to Store</th>
 			<!-- <th>GST</th> -->
-			<th>Keep amount for eatsapp</th>
-			<th>For Restaurant</th>
+			<th>Store to Eatsapp</th>
+			<th>Store Earnings</th>
 			<!-- <th>Give to Customer</th> -->
 			<th>Status</th>
 			<!-- <th>Del partner remarks</th> -->
@@ -97,12 +101,34 @@
 					<a href="#" style="color: #2f2fd0;text-decoration:underline;" data-toggle="modal" data-target="#orderdetails" onclick="showdetails('<?php echo site_url($this->config->item('admin_folder').'/orders/getMenuDetails');?>',<?=htmlspecialchars(json_encode($order));?>);"><?=$order->order_number;?> </a>
 					
 				</td>
-				<!-- <td>
+				<td>
 					<?=$order->firstname; ?>
 				</td>
 				<td>
 					<?=$order->phone; ?>
-				</td> -->
+				</td>
+				<td>
+					<?php if($order->delivered_by == "0"){ ?>
+						No Deliveryboy
+					<?php }else{
+						
+				 	    echo $order->delivered_name;
+					} ?>
+				</td>
+				<?php 
+				$data['restaurant'] = $this->Restaurant_model->get_restaurant($order->restaurant_id);
+				
+				if($order->order_type == 1 && $order->pitstop_id != ""){
+					$pitstop = $this->Pitstop_model->get_pitstop($order->pitstop_id);
+					$data['toaddress'] = $pitstop->address;
+				}else{
+					$data['toaddress'] = $order->delivery_location;
+				}
+				?>
+				<td>
+				
+					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
+				</td>
 				<td>
 				<!-- <?php $ordervalue=$order->total_cost-$deliverycharge-$servicetax;?> -->
 				    <?=$order->total_amount; ?>
@@ -129,10 +155,10 @@
 					<?=$netordervalue; ?>
 				</td>
 
-				<td>
+				<!-- <td>
 				<?php $gstonnetordervalue=$order->tax;?> 
 				<?=$gstonnetordervalue; ?>
-				</td>
+				</td> -->
 
 				<td>
 					<?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'){
@@ -142,13 +168,13 @@
 					?>
 				</td>
 
-				<td>
+				<!-- <td>
 					<?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'){
 						$gstonnetordervalue1 = 0;
 					}elseif($order->restaurant_manager_status == "Accepted"){ $gstonnetordervalue1=$gstonnetordervalue; }else{ $gstonnetordervalue1 = "0"; }
 					echo $gstonnetordervalue1;
 					?>
-				</td>
+				</td> -->
 				
 				<td>
 					<?php  if($order->delivery_partner_status == "Rejected" || $order->status=='order cancelled'){
@@ -197,6 +223,27 @@
 						} 
 					}
 					echo $reimb;
+					?>
+				</td>
+
+				<td>
+					<!-- <?=$order->payment_mode;?> -->
+					<?php if($order->payment_mode ==0) 
+					{ 
+						echo "Paid Online";
+				    }else{
+                         echo "Collect Cash";
+					    }
+					?>
+				</td>
+                 
+                 <td>
+				<?php if($order->payment_mode ==0) 
+					{ 
+						echo "0";
+				    }else{
+                         echo $order->total_cost;
+					    }
 					?>
 				</td>
 				

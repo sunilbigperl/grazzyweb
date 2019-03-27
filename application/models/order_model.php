@@ -282,7 +282,7 @@ Class order_model extends CI_Model
 		$userdata = $this->session->userdata('admin');
 		if($this->auth->check_access('Restaurant manager')){
 		
-			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id  
+			$sql = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id  
 		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager='".$userdata['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."'  and a.status IN ('Delivered', 'Shipped','Rejected','order cancelled')  order by ordered_on desc");
 			
 		}elseif($this->auth->check_access('Deliver manager')){
@@ -445,6 +445,11 @@ Class order_model extends CI_Model
 			//$sql = $this->db->query('update orders a,restaurant b,admin c set a.restaurant_manager_status="'.$data.'",a.delivery_partner=b.del_partner where b.del_partner = c.id and a.id="'.$id.'"');
 		}else if($status == "2"){ 
 			$data = "Delivered"; 
+			$sql = $this->db->query('update orders set status="'.$data.'",actualdelivery_time=
+				"'.$date.'",actualpickup_time="'.$date.'" where id="'.$id.'"');
+		}
+		else if($status == "3"){ 
+			$data = "Shipped"; 
 			$sql = $this->db->query('update orders set status="'.$data.'",actualdelivery_time=
 				"'.$date.'",actualpickup_time="'.$date.'" where id="'.$id.'"');
 		}
