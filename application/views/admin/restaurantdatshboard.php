@@ -264,9 +264,9 @@ echo "" . date("jS F Y") . "<br>";
 					// if($order->status == "Order Placed") { echo "Wait for confirmation"; }
 					
                       if($order->ordertype_id!= 3){ 
-						if($order->status == "Assigned"){ echo "Assigned";}
+						if($order->status == "Assigned" && $order->restaurant_manager_status == "Accepted"){ echo "Accepted";}
 						
-						elseif($order->status == "Order Placed") { echo "Accepted";
+						elseif($order->status == "Assigned") { echo "Assigned";
 
                             
 

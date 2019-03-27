@@ -96,8 +96,7 @@ Class order_model extends CI_Model
 		if($sql1->num_rows()==0){
 			
 		
-		$sql = $this->db->query("update orders set delivery_partner ='".$userdata['id']."',delivery_partner_status='Accepted' , delivered_by='".$data['delBoy']."',
-			delivered_name='".$name."', status='Assigned' where id='".$data['id']."'");
+		$sql = $this->db->query("update orders set restaurant_manager ='".$userdata['id']."', delivered_by='".$data['delBoy']."',delivered_name='".$name."', status='Assigned' where id='".$data['id']."'");
 		
             if($sql){ 
 			$query = $this->db->query("SELECT `did` FROM `delivery_boy` WHERE `id` = '".$data['delBoy']."'");	
@@ -166,8 +165,7 @@ Class order_model extends CI_Model
 	}else
 	{
 		
-        $sql = $this->db->query("update orders set delivery_partner ='".$userdata['id']."',delivery_partner_status='Accepted' , delivered_by='".$data['delBoy']."',delivered_name=
-        	'".$name."', status='Assigned' where id='".$data['id']."'");
+        $sql = $this->db->query("update orders set restaurant_manager ='".$userdata['id'].", delivered_by='".$data['delBoy']."',delivered_name='".$name."', status='Assigned' where id='".$data['id']."'");
 		
 
 
