@@ -113,6 +113,7 @@ echo "" . date("jS F Y") . "<br>";
 				
 					<?php echo isset($data['toaddress']) ? $data['toaddress'] : ''; ?>
 				</td>
+
 				<td>
 				<?php if($order->restaurant_manager_status == "0"){ ?>
 
@@ -122,7 +123,7 @@ echo "" . date("jS F Y") . "<br>";
                   
                  <?php }else{
 
-					 if($order->ordertype_id== 3  ){ ?>
+					 if($order->ordertype_id== 3){ ?>
                       <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/2/'.$order->id.'');?>" class="btn btn-danger btn-xs">Delivered</a>
                 	  <a href="<?php echo site_url($this->config->item('admin_folder').'/orders/ChangeRestMangerStatus/0/'.$order->id.'');?>" class="btn btn-danger btn-xs">Reject</a>
                      
@@ -233,6 +234,7 @@ echo "" . date("jS F Y") . "<br>";
 				<?php }?>
 					
 				</td>
+
 				<td>
 					<!-- <?=$order->status;?> -->
 					<?php if($order->restaurant_manager_status == "0"){ echo $order->status ?>
@@ -262,9 +264,9 @@ echo "" . date("jS F Y") . "<br>";
 					// if($order->status == "Order Placed") { echo "Wait for confirmation"; }
 					
                       if($order->ordertype_id!= 3){ 
-						if($order->status == "Assigned"){ echo "Order Confirmed";}
+						if($order->status == "Assigned"){ echo "Assigned";}
 						
-						elseif($order->status == "Order Placed") { echo "Wait for confirmation";
+						elseif($order->status == "Order Placed") { echo "Accepted";
 
                             
 
@@ -275,7 +277,7 @@ echo "" . date("jS F Y") . "<br>";
 						}
 					}
 					else{
-						if($order->status == "Order Placed") { echo "order Confirmed";
+						if($order->status == "Order Placed") { echo "Accepted";
 
                             
 
