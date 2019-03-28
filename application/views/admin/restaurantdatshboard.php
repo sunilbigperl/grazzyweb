@@ -28,7 +28,7 @@ echo "" . date("jS F Y") . "<br>";
 			<th data-field="date">Ordered On</th>
 			<th data-field="type">Order Type</th>
 			<th>Keep Ready By</th>
-			<th>DeliveryLocation</th>
+			<th>Delivery Location</th>
 			<!--<th>Delivery Status</th>-->
 			<th>Action</th>
 			

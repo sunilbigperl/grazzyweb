@@ -90,48 +90,48 @@ class Deliveryboy extends Admin_Controller
 		}
 		else
 		{
-			$uploaded	= $this->upload->do_upload('image');
+			//$uploaded	= $this->upload->do_upload('image');
 		
 			$userdata = $this->session->userdata('admin');
 			$save = array();
-			if ($id)
-			{
+			// if ($id)
+			// {
 				
-				$save['id']	= $id;
+			// 	$save['id']	= $id;
 				
-				//delete the original file if another is uploaded
-				if($uploaded)
-				{
-					if($data['image'] != '')
-					{
+			// 	//delete the original file if another is uploaded
+			// 	if($uploaded)
+			// 	{
+			// 		if($data['image'] != '')
+			// 		{
 						
-						$file = 'uploads/'.$data['image'];
+			// 			$file = 'uploads/'.$data['image'];
 						
-						//delete the existing file if needed
-						if(file_exists($file))
-						{
-							unlink($file);
-						}
-					}
-				}
+			// 			//delete the existing file if needed
+			// 			if(file_exists($file))
+			// 			{
+			// 				unlink($file);
+			// 			}
+			// 		}
+			// 	}
 				
-			}
-			else
-			{ 
-				if(!$uploaded)
-				{
+			// }
+			// else
+			// { 
+			// 	if(!$uploaded)
+			// 	{
 					
-					$data['error']	= $this->upload->display_errors();
-					$this->view(config_item('admin_folder').'/deliveryboy_form', $data);
-					return; //end script here if there is an error
-				}
-			}
+			// 		$data['error']	= $this->upload->display_errors();
+			// 		$this->view(config_item('admin_folder').'/deliveryboy_form', $data);
+			// 		return; //end script here if there is an error
+			// 	}
+			// }
 			
-			if($uploaded)
-			{
-				$image			= $this->upload->data();
-				$save['image']	= $image['file_name'];
-			}
+			// if($uploaded)
+			// {
+			// 	$image			= $this->upload->data();
+			// 	$save['image']	= $image['file_name'];
+			// }
 			$save['id']			= $id;
 			$save['name']	= $this->input->post('name');
 			$save['address']		= $this->input->post('address');
