@@ -265,7 +265,7 @@
 					<?php if($order->payment_mode ==1) 
 					{ 
 					  $netamount = 0;
-					   
+					   	
 				    }else
 				    {
 				    	$netamount = $netordervalue1-$commission - $penalty - $reimb; 
@@ -331,8 +331,9 @@
 				 	echo "Rejected by $username";
 					 ?>
 					 <!-- Not acted yet -->
-					<?php }elseif($order->delivery_partner_status == "Accepted"){
-						echo "$order->status ";
+					<?php 
+				// }elseif($order->delivery_partner_status == "Accepted"){
+				// 		echo "$order->status ";
 					}else if($order->restaurant_manager_status == "Accepted" && $order->status == "order cancelled" ){
 						if($order->order_type!="I'll pickup")
 						{
@@ -347,13 +348,17 @@
 						echo "Rejected by $order->restaurant_name";
 					}elseif($order->restaurant_manager_status == "Accepted"){
 						// echo "Restaurant manager accepted";
-						if($order->order_type!="I'll pickup")
+						// if($order->order_type!="I'll pickup")
+						// {
+						// echo "Restaurant manager accepted";
+					 //    }
+					 //    else{
+					 //    	echo "Delivered";
+					 //    }
+						if($order->status == "Shipped" || $order->status == "Delivered" )
 						{
-						echo "Restaurant manager accepted";
-					    }
-					    else{
-					    	echo "Delivered";
-					    }
+							echo "Delivered";
+						}
 
 					}
 					// elseif($order->status=='order cancelled'){

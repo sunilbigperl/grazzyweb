@@ -640,7 +640,8 @@ function excel($id)
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('Order_type','Ordered date','Order number','Customer name','Customer mobileno','Order value(Rs)','Discount(%)','Discount(Rs)','Net Order Value','GST on Net Order Value','Net Order Value fulfilled','GST on Net Order Value fulfilled','Commission','Penalty','Reimbursement of delivery charges','Net amount','Keep amount for eatsapp','Give to Restaurant','Status','Passcode'); //set title in excel sheet
+    $heading=array('Order type','Delivered On','Order number','Customer Name','Customer Mobile','Delivery Boy',
+    	'Delivery Location','Order value(Rs)','Discount(%)','Discount(Rs)','Net Order Value','Net Order Value fulfilled','Commission','Penalty','Reimbursement of delivery charges','Payment Mode','Customer Payment','Eatsapp to Store','Store to Eatsapp','Store Earnings','Status','Passcode'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
    
@@ -676,12 +677,48 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $netordervalue=$excel['netordervalue']+$excel['coupon_discount']; 
         $gstonnetordervalue=$excel['tax'];
 
+        if($excel['delivered_by'] == "0"){ 
+			$deliveryboy="No Deliveryboy";
+		 }else{
+						
+		    $deliveryboy= $excel['delivered_name'];
+		}
+
+
+		 if($excel['order_type'] == 1 && $excel['pitstop_id ']!= ""){
+					$pitstop = $this->Pitstop_model->get_pitstop($excel['pitstop_id']);
+					$data['toaddress'] = $pitstop->address;
+				}else{
+					$data['toaddress'] = $excel['delivery_location'];
+				}
+
+		if($excel['payment_mode'] ==0) 
+		{ 
+			$paymentmode="Paid Online";
+		}else{
+             $paymentmode= "Collect Cash";
+	    }
+
+	    if($excel['payment_mode'] ==1 && ($excel['status']=='order cancelled' || $excel['status']=='Rejected')) 
+		{ 
+			$payment= 0;
+					   
+		}else
+		{
+				    	
+			$payment=$excel['total_cost'];
+	   }
+
+
+
         if($excel['order_type'] !="I'll pickup"){ 
 			$Conviencecharge = $deliverycharge;
 					}else{
 						
 						$Conviencecharge= 0;
 		} 
+
+
 
 	   if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'){
 						$netordervalue1 = 0;
@@ -727,36 +764,58 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 						} 
 		}
 
-	  if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
-				 	$excel['restaurant_manager_status'] == "Accepted"){
-						$netamount = 0;
-		}else{
-				$netamount = $commission + $penalty + $reimb; ; 
-			}
+	 //  if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+		// 		 	$excel['restaurant_manager_status'] == "Accepted"){
+		// 				$netamount = 0;
+		// }else{
+		// 		$netamount = $commission + $penalty + $reimb; ; 
+		// 	}
+
+		if($excel['payment_mode'] ==1) 
+		{ 
+			$netamount = 0;
+					   
+		}else
+		{
+			$netamount = $netordervalue1-$commission - $penalty - $reimb; 
+	    }
 
 
-	   if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
-				 	$excel['restaurant_manager_status'] == "Accepted"){
-						$keepamt = 0;
+	 //   if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+		// 		 	$excel['restaurant_manager_status'] == "Accepted"){
+		// 				$keepamt = 0;
+		// }
+		// // elseif($excel['restaurant_manager_status'] == "Rejected" || $excel['status']=='order cancelled' )
+		// // 			{
+		// // 				$keepamt =  $netamount;
+		// // 			}
+		// else{
+		// 		$keepamt =  $netamount;
+		// 	}
+
+
+		if($excel['payment_mode'] ==1) 
+		{ 
+			$keepamt = $payment-$netordervalue1+$commission + $penalty + $reimb;
+					   
+		}else
+		{
+			$keepamt = 0;
+				    	 
 		}
-		// elseif($excel['restaurant_manager_status'] == "Rejected" || $excel['status']=='order cancelled' )
-		// 			{
-		// 				$keepamt =  $netamount;
-		// 			}
-		else{
-				$keepamt =  $netamount;
-			}
 
 
-		if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
-				 	$excel['restaurant_manager_status'] == "Accepted"){
-						$givetorest=0;
-					}elseif($excel['restaurant_manager_status'] == "Accepted"){
-						//echo $order->total_cost - $keepamt;
-						$givetorest=$netordervalue+$gstonnetordervalue-$keepamt;
-					}else{
-						$givetorest="-".$keepamt;
-					}	
+		// if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+		// 		 	$excel['restaurant_manager_status'] == "Accepted"){
+		// 				$givetorest=0;
+		// 			}elseif($excel['restaurant_manager_status'] == "Accepted"){
+		// 				//echo $order->total_cost - $keepamt;
+		// 				$givetorest=$netordervalue+$gstonnetordervalue-$keepamt;
+		// 			}else{
+		// 				$givetorest="-".$keepamt;
+		// 			}	
+
+	     $givetorest=$netordervalue1-$commission - $penalty - $reimb;
 
 
 		 if($excel['restaurant_manager_status'] == "Rejected"){
@@ -813,24 +872,28 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['order_number']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['firstname']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['phone']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $excel['total_amount']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $deliveryboy);
+        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $data['toaddress']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, $excel['total_amount']);
         // $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,  $Conviencecharge);
-        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['discount1']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$excel['discount2']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$excel['discount1']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$excel['discount2']); 
         // $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$excel['coupon_discount']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$netordervalue);
-        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$gstonnetordervalue); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$netordervalue1);
-        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$gstonnetordervalue1); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$netordervalue);
+        //$objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$gstonnetordervalue); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$netordervalue1);
+        //$objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$gstonnetordervalue1); 
         $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $commission); 
         $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount, $penalty);
         $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$reimb); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$netamount); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$keepamt);
-        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$givetorest); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$paymentmode);
+        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$payment);
+        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$netamount); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$keepamt);
+        $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount,$givetorest); 
         //$objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$givetocust);
-        $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$status);
-        $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount,$excel['passcode']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$status);
+        $objPHPExcel->getActiveSheet()->SetCellValue('V'.$rowCount,$excel['passcode']);
          
         
         
@@ -892,7 +955,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('Order_type','Delivered On','Order number','Order value(Rs)','Discount(%)','Discount(Rs)','Net Order Value','GST on Net Order Value','Net Order Value fulfilled','GST on Net Order Value fulfilled','Commission','Penalty','Reimbursement of delivery charges','Net amount','Keep amount for eatsapp','For Restaurant','Status','Passcode'); //set title in excel sheet
+    $heading=array('Order type','Delivered On','Order number','Customer Name','Customer Mobile','Delivery Boy',
+    	'Delivery Location','Order value(Rs)','Discount(%)','Discount(Rs)','Net Order Value','Net Order Value fulfilled','Commission','Penalty','Reimbursement of delivery charges','Payment Mode','Customer Payment','Eatsapp to Store','Store to Eatsapp','Store Earnings','Status','Passcode'); //set title in excel sheet
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
    
@@ -911,7 +975,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 
 	
   $userdata = $this->session->userdata('admin');
-  $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id  
+  $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id  
 		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager='".$userdata['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on < '".$data['todate']."' and a.status IN ('Delivered', 'Shipped','Rejected','order cancelled') order by ordered_on desc")->result_array();
 
 
@@ -926,6 +990,21 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
     
         $netordervalue=$excel['netordervalue']+$excel['coupon_discount'];
         $gstonnetordervalue=$excel['tax'];
+
+
+        if($excel['delivered_by'] == "0"){
+        	$deliveryboy="No Deliveryboy";
+        }else{
+        	$deliveryboy=$excel['delivered_name'];
+        	
+        }
+
+        if($excel['order_type'] == 1 && $excel['pitstop_id ']!= ""){
+					$pitstop = $this->Pitstop_model->get_pitstop($excel['pitstop_id']);
+					$data['toaddress'] = $pitstop->address;
+				}else{
+					$data['toaddress'] = $excel['delivery_location'];
+				}
 
 
         if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'){
@@ -968,33 +1047,76 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 						    $reimb = 0;
 						} 
 					}
+
+
+		if($excel['payment_mode'] ==0) 
+		{ 
+		   $paymentmode="Paid Online";
+	    }else{
+              
+           $paymentmode="Collect Cash";
+         }
+
+
+        if($excel['payment_mode'] ==1 && ($excel['status']=='order cancelled' || $excel['status']=='Rejected')) 
+		{ 
+		   $payment= 0;
+				   
+		}else
+	    {
+			 $payment=$excel['total_cost'];
+		}
 					
 
-	    if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
-				 	$excel['restaurant_manager_status'] == "Accepted"){
-						$netamount = 0;
-		}else{
-				$netamount = $commission + $penalty + $reimb; ; 
-			}
+	 //    if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+		// 		 	$excel['restaurant_manager_status'] == "Accepted"){
+		// 				$netamount = 0;
+		// }else{
+		// 		$netamount = $commission + $penalty + $reimb; ; 
+		// 	}
+
+		if($excel['payment_mode'] ==1) 
+		{ 
+			$netamount = 0;
+					   	
+		}else
+		{
+		    $netamount = $netordervalue1-$commission - $penalty - $reimb; 
+		}
+					
 
 
-	  if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
-				 	$excel['restaurant_manager_status'] == "Accepted"){
-						$keepamt = 0;
-		}else{
-				$keepamt =  $netamount;
-			}
+	 //  if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+		// 		 	$excel['restaurant_manager_status'] == "Accepted"){
+		// 				$keepamt = 0;
+		// }else{
+		// 		$keepamt =  $netamount;
+		// 	}
 
 
-		if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
-				 	$excel['restaurant_manager_status'] == "Accepted"){
-						$givetorest=0;
-					}elseif($excel['restaurant_manager_status'] == "Accepted"){
-						//echo $order->total_cost - $keepamt;
-						$givetorest=$netordervalue+$gstonnetordervalue-$keepamt;
-					}else{
-						$givetorest="-".$keepamt;
-					}	
+		if($excel['payment_mode'] ==1) 
+		{ 
+			$keepamt = $payment-$netordervalue1+$commission + $penalty + $reimb;
+					   
+		}else
+	    {
+			$keepamt = 0;
+				    	 
+		}
+
+
+		// if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
+		// 		 	$excel['restaurant_manager_status'] == "Accepted"){
+		// 				$givetorest=0;
+		// 			}elseif($excel['restaurant_manager_status'] == "Accepted"){
+		// 				//echo $order->total_cost - $keepamt;
+		// 				$givetorest=$netordervalue+$gstonnetordervalue-$keepamt;
+		// 			}else{
+		// 				$givetorest="-".$keepamt;
+		// 			}	
+
+
+		$givetorest=$netordervalue1-$commission - $penalty - $reimb;
 
 
 				if($excel['delivery_partner_status'] == "Rejected"){
@@ -1041,22 +1163,28 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount,$excel['order_type']);
 		$objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $Delivered); 
         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['order_number']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['total_amount']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount,$excel['discount1']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount,$excel['discount2']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['firstname']); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['phone']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $deliveryboy); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $data['toaddress']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, $excel['total_amount']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$excel['discount1']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$excel['discount2']); 
         //$objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$excel['coupon_discount']); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount,$netordervalue);
-        $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$gstonnetordervalue); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$netordervalue1);
-        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$gstonnetordervalue1); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, $commission); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, $penalty);
-        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount,$reimb); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount,$netamount); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$keepamt);
-        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$givetorest); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$status);
-        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$excel['passcode']);
+        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$netordervalue);
+        //$objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount,$gstonnetordervalue); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$netordervalue1);
+        //$objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$gstonnetordervalue1); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $commission); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount, $penalty);
+        $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$reimb); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$paymentmode);
+        $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$payment );
+        $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$netamount); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$keepamt);
+        $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount,$givetorest); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$status);
+        $objPHPExcel->getActiveSheet()->SetCellValue('V'.$rowCount,$excel['passcode']);
         
          
         

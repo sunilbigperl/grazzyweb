@@ -348,9 +348,10 @@
 				 	    echo "Rejected by $username";
                  	?>
 						<!-- Not acted yet -->
-					<?php }elseif($order->delivery_partner_status == "Accepted"){
-						// echo "Delivery manager Accepted";
-						 echo "$order->status";
+					<?php 
+				  //   }elseif($order->delivery_partner_status == "Accepted"){
+						// // echo "Delivery manager Accepted";
+						//  echo "$order->status";
 					}else if($order->restaurant_manager_status == "Accepted" && $order->status == "order cancelled" ){
 						if($order->order_type!="I'll pickup")
 						{
@@ -361,7 +362,11 @@
 					    	  echo "Rejected by $order->restaurant_name";
 					    }
 					}elseif($order->restaurant_manager_status == "Accepted"){
-						echo "$order->status ";
+						// echo "$order->status ";
+						if($order->status == "Shipped" || $order->status == "Delivered" )
+						{
+							echo "Delivered";
+						}
 					}else if($order->restaurant_manager_status == "Rejected"){
 						echo "Rejected by $order->restaurant_name";
 					}
