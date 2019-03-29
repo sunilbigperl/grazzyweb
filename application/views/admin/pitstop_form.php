@@ -152,7 +152,7 @@ google.maps.event.addListener(marker, 'dragend', function (event) {
 						
 								function run_product_query()
 								{
-									$.post("<?php echo site_url($this->config->item('admin_folder').'/pitstop/restaurants_autocomplete/');?>", { name: $('#product_search').val(), limit:10},
+									$.post("<?php echo site_url($this->config->item('admin_folder').'/pitstop/restaurants_autocomplete/');?>", { name: $('#product_search').val()},
 										function(data) {
 									
 											$('#product_list').html('');

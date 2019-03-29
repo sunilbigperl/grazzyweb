@@ -24,7 +24,10 @@ function areyousure()
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($admins as $admin):?>
+
+
+<?php if($admins>0)
+foreach ($admins as $admin):?>
 		<tr>
 			<td><?php echo isset($admin->firstname) ? $admin->firstname : ''; echo "<br/>"; echo  isset($admin->lastname) ? $admin->lastname : '';?></td>
 			<td><a href="mailto:<?php echo $admin->email;?>"><?php echo $admin->email; ?></a></td>

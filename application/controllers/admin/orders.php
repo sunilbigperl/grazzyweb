@@ -668,7 +668,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
     $rowCount = 2; // set the starting row from which the data should be printed
     foreach($export_excel as $excel)
     {  
-    	
+    	 
+    	$Delivered=date("Y-m-d", strtotime($excel['ordered_on']));
 		$charges = $this->Order_model->GetChargesForOrder($excel['ordered_on']);
 	    $deliverycharge = $charges['deliverycharge'];
         
@@ -837,8 +838,8 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 				 if( $excel['delivery_partner_status'] == "Rejected"){ 
 				      $username=$orders1[0]->firstname;
 						$status= "Rejected by $username";
-                 }elseif($excel['delivery_partner_status'] == "Accepted"){
-						$status=$excel['status'];
+      //            }elseif($excel['delivery_partner_status'] == "Accepted"){
+						// $status=$excel['status'];
 				 }else if($excel['restaurant_manager_status'] == "Accepted" && $excel['status'] == "order cancelled" ){
 						//  $username=$orders1[0]->firstname;
 						// $status= "Rejected by $username";
@@ -852,7 +853,11 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 						     $status="Rejected by $restname";
 					    }
 					}elseif($excel['restaurant_manager_status'] == "Accepted"){
-						$status=$excel['status'];
+						//$status=$excel['status'];
+						if($excel['status'] == "Shipped" || $excel['status'] == "Delivered" )
+						{
+							 $status= "Delivered";
+						}
 					}else if($excel['restaurant_manager_status'] == "Rejected"){
 						$restname=$excel['restaurant_name'];
 						$status="Rejected by $restname";
@@ -868,7 +873,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 
 
         $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $excel['order_type']); 
-		$objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $excel['ordered_on']); 
+		$objPHPExcel->getActiveSheet()->SetCellValue('B'.$rowCount, $Delivered); 
         $objPHPExcel->getActiveSheet()->SetCellValue('C'.$rowCount, $excel['order_number']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $excel['firstname']); 
         $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $excel['phone']);
@@ -976,7 +981,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 	
   $userdata = $this->session->userdata('admin');
   $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.restaurant_name,e.firstname,e.phone FROM `orders` a, restaurant b, order_type d, admin c,customers e WHERE  a.`restaurant_id` = b.restaurant_id and a.`customer_id` = e.id  
-		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager='".$userdata['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on < '".$data['todate']."' and a.status IN ('Delivered', 'Shipped','Rejected','order cancelled') order by ordered_on desc")->result_array();
+		and d.ordertype_id =a.order_type and b.restaurant_manager = c.id and b.restaurant_manager='".$userdata['id']."' and a.ordered_on >= '".$data['fromdate']."' and a.ordered_on <= '".$data['todate']."' and a.status IN ('Delivered', 'Shipped','Rejected','order cancelled') order by ordered_on desc")->result_array();
 
 
 		
@@ -1123,9 +1128,9 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 					$username=$orders1[0]->firstname;
 					$status= "Rejected by $username";
 					
-					 }elseif($excel['delivery_partner_status'] == "Accepted"){
-						$status=$excel['status'];
-					}else if($excel['restaurant_manager_status'] == "Accepted" &&$excel['status'] == "order cancelled" ){
+					 // }elseif($excel['delivery_partner_status'] == "Accepted"){
+						// $status=$excel['status'];
+					}else if($excel['restaurant_manager_status'] == "Accepted" && $excel['status'] == "order cancelled" ){
 						// $username=$orders1[0]->firstname;
 					 //    $status= "Rejected by $username";
 						if($excel['order_type']!="I'll pickup")
@@ -1142,14 +1147,19 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 						$status="Rejected by $restname";
 					}elseif($excel['restaurant_manager_status'] == "Accepted"){
 						// echo "Restaurant manager accepted";
-						if($excel['order_type']!="I'll pickup")
+						// if($excel['order_type']!="I'll pickup")
+						// {
+						// $status="Restaurant manager accepted";
+					 //    }
+					 //    else{
+					 //    	//echo "Delivered";
+						// 	$status="Delivered";
+					 //    }
+
+						if($excel['status'] == "Shipped" || $excel['status'] == "Delivered" )
 						{
-						$status="Restaurant manager accepted";
-					    }
-					    else{
-					    	//echo "Delivered";
-							$status="Delivered";
-					    }
+								$status="Delivered";
+						}
 
 					}
 					
