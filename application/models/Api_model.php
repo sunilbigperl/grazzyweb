@@ -1201,7 +1201,7 @@ class Api_model extends CI_Model
 						$gst= "";
 					}else{
 						
-						$gst= "<tr><td>GST</td><td>".$result[$i]['gstonfood']."</td></tr>";
+						$gst= "<tr><td>GST</td><td align=right>".$result[$i]['gstonfood']."</td></tr>";
 					}
 					$result[$i]['netordervalue'] = $row['netordervalue'];
 					$netordervalue=$result[$i]['netordervalue']+$result[$i]['coupon_discount'];
@@ -1605,7 +1605,7 @@ table, th, td {
 						$gst= "";
 					}else{
 						
-						$gst= "<tr><td>GST</td><td>".$result[$i]['gstonfood']."</td></tr>";
+						$gst= "<tr><td>GST</td><td align=right>".$result[$i]['gstonfood']."</td></tr>";
 					}
 					
 					
@@ -1851,7 +1851,7 @@ table, th, td {
 						$gst= "";
 					}else{
 						
-						$gst= "<tr><td>GST</td><td>".$result[$i]['gstonfood']."</td></tr>";
+						$gst= "<tr><td>GST</td><td align=right>".$result[$i]['gstonfood']."</td></tr>";
 					}
 					
 				$result[$i]['netordervalue'] = $row['netordervalue'];
