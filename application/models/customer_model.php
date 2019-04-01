@@ -160,6 +160,22 @@ Class Customer_model extends CI_Model
             return $this->db->insert_id();
         }
     }
+
+
+    function save1($customer1)
+    {
+        if ($customer1['id'])
+        {
+            $this->db->where('id', $customer1['id']);
+            $this->db->update('admin', $customer1);
+            return $customer1['id'];
+        }
+        else
+        {
+            $this->db->insert('admin', $customer1);
+            return $this->db->insert_id();
+        }
+    }
     
     function deactivate($id)
     {
@@ -363,6 +379,7 @@ Class Customer_model extends CI_Model
     {
         $this->load->library('encrypt');
         $customer = $this->get_admin_by_email($email);
+        $customer1 = $this->get_restaurant_by_email($email);
 		
         if ($customer)
         {
@@ -390,6 +407,31 @@ Class Customer_model extends CI_Model
 			$this->email->message('Your password has been reset to <strong>'. $new_password .'</strong>.');
 			$this->email->send();
             return true;
+        }else if($customer1)
+        {
+            $new_password       = random_string('alnum', 8);
+            $customer1['password']   = sha1($new_password);
+            $this->save1($customer1);
+             $config = Array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'ssl://smtp.gmail.com',
+                'smtp_port' => 465,
+                'smtp_user' => 'support@eatsapp.in',
+                'smtp_pass' => 'Devang123d',
+                'mailtype'  => 'html', 
+                'charset'   => 'iso-8859-1',
+                'crlf' => "\r\n",
+                'newline' => "\r\n"
+            );
+            $this->load->library('email',$config);
+            $this->email->from('support@eatsapp.in', 'EatsApp');
+            $this->email->to($email);
+            
+            $this->email->bcc('gkamatagi@gmail.com');
+            $this->email->subject('EatsApp: Password Reset');
+            $this->email->message('Your password has been reset to <strong>'. $new_password .'</strong>.');
+            $this->email->send();
+            return true;
         }
         else
         {
@@ -407,6 +449,15 @@ Class Customer_model extends CI_Model
     {
         $result = $this->db->get_where('admin', array('email'=>$email));
         return $result->row_array();
+    }
+
+
+    function get_restaurant_by_email($email)
+    {
+        $result=$this->db->query("SELECT a.id FROM admin a,restaurant b where a.id = b.restaurant_manager and b.restaurant_email='".$email."' ");
+        return $result->row_array();
+
+       
     }
 
     private function aes256Encrypt($data)

@@ -61,7 +61,7 @@ class Restaurant extends Admin_Controller {
         $data['restaurant_latitude']          = '';
         $data['restaurant_langitude']      = '';
         $data['restaurant_branch']           = '';
-        $data['del_partner']           = '';
+       // $data['del_partner']           = '';
 		$data['restaurant_manager']           = '';
         $data['enabled']        = '';
         $data['gst'] = '';
@@ -113,7 +113,7 @@ class Restaurant extends Admin_Controller {
             $data['restaurant_langitude']      = $restaurant->restaurant_langitude;
             $data['image']          = $restaurant->image;
             $data['restaurant_branch']      = $restaurant->restaurant_branch;
-            $data['del_partner']           = $restaurant->del_partner;
+           // $data['del_partner']           = $restaurant->del_partner;
             $data['restaurant_manager']           = $restaurant->restaurant_manager;
 			$data['preparation_time'] = $restaurant->preparation_time;
             $data['enabled']        = $restaurant->enabled;
@@ -278,7 +278,7 @@ class Restaurant extends Admin_Controller {
             $save['restaurant_latitude']   = $this->input->post('restaurant_latitude');
             $save['restaurant_langitude']  = $this->input->post('restaurant_langitude');
             $save['restaurant_branch']     = $this->input->post('restaurant_branch');
-            $save['del_partner']           = $this->input->post('del_partner');
+            //$save['del_partner']           = $this->input->post('del_partner');
 			$save['restaurant_manager']    = $restid;
 			$save['servicetax']			   = $this->input->post('servicetax');
 			$save['commission'] 		   = $this->input->post('commission');

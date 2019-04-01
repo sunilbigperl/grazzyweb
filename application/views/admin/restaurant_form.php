@@ -87,7 +87,7 @@
                     
 			     </div>  
 
-			     <div class="form-group">
+			     <!-- <div class="form-group">
 				  <label for="restaurant_address">Select Deliverypartner</label>
 				  <select name="del_partner" class="form-control" required>
 
@@ -100,7 +100,7 @@
                       <?php endforeach;?> 
                       </select>
                     
-			     </div>
+			     </div> -->
 
 
 

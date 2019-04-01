@@ -69,7 +69,8 @@ echo "" . date("jS F Y") . "<br>";
 					<?=$cost; ?> 
 				</td> -->
 				<td>
-					<?=$order->ordered_on; ?>
+					<!-- <?=$order->ordered_on; ?> -->
+					<?=date("Y-m-d", strtotime($order->ordered_on));?>
 				</td>
 			
 				<td>
