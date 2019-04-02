@@ -85,7 +85,7 @@ function remove_option(id)
 				echo form_input($data);
 				?>
 			</div>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for="name">Item preparation time(In mins)</label>
 				<select class="form-control" name="itemPreparation_time" style="width:70%;!">
 					<option value="1" <?php if($itemPreparation_time == 1){echo "selected=selected"; }?>>1</option>
@@ -100,7 +100,13 @@ function remove_option(id)
 					<option value="30" <?php if($itemPreparation_time == 30){echo "selected=selected"; }?>>30</option>
 				</select>
 				
-			</div>
+			</div> -->
+
+			<div class="form-group">	
+					<label for="name">Item preparation time(In mins)</label>
+					<input type="number" name="itemPreparation_time" value="<?=$itemPreparation_time?>" class="form-control" style="width:70%;!">
+					
+				</div>
 			<div class="form-group">
 				<label for="description">Description</label>
 				<textarea name="description" class="form-control" style="width:400px;!"><?=$description;?></textarea>

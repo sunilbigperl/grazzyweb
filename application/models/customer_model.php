@@ -399,11 +399,11 @@ Class Customer_model extends CI_Model
 				'newline' => "\r\n"
 			);
 			$this->load->library('email',$config);
-			$this->email->from('support@eatsapp.in', 'EatsApp');
+			$this->email->from('support@eatsapp.in', 'eatsapp');
 			$this->email->to($email);
 			
 			$this->email->bcc('gkamatagi@gmail.com');
-			$this->email->subject('EatsApp: Password Reset');
+			$this->email->subject('eatsapp: Password Reset');
 			$this->email->message('Your password has been reset to <strong>'. $new_password .'</strong>.');
 			$this->email->send();
             return true;
@@ -424,11 +424,11 @@ Class Customer_model extends CI_Model
                 'newline' => "\r\n"
             );
             $this->load->library('email',$config);
-            $this->email->from('support@eatsapp.in', 'EatsApp');
+            $this->email->from('support@eatsapp.in', 'eatsapp');
             $this->email->to($email);
             
             $this->email->bcc('gkamatagi@gmail.com');
-            $this->email->subject('EatsApp: Password Reset');
+            $this->email->subject('eatsapp: Password Reset');
             $this->email->message('Your password has been reset to <strong>'. $new_password .'</strong>.');
             $this->email->send();
             return true;

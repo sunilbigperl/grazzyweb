@@ -507,7 +507,7 @@ Class order_model extends CI_Model
 						$this->email->from('orders@eatsapp.in', 'eatsapp');
 						$this->email->to($row['email']);
 						$this->email->bcc('eatsapp.orders@gmail.com');
-						$this->email->subject('eatsapp:Thanks for Placing Order on eatsapp');
+						$this->email->subject('eatsapp: Thanks for Placing Order on eatsapp');
 						$this->email->message($message);
 						$this->email->send();
 						

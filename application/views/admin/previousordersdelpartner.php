@@ -83,25 +83,26 @@
 			<th>Discount(Rs)</th>
 			<th>Vocher Discount</th>
 			<th>Net Order Value</th>
-			<th>GST on Net Order Value </th>
+			<!-- <th>GST on Net Order Value </th> -->
 			<th>Net Order Value fulfilled</th>
-			<th>GST on Net Order Value fulfilled</th>
+			<!-- <th>GST on Net Order Value fulfilled</th> -->
 			<th>Commission</th>
 			<th>Penalty</th>
 			<th>Reimbursement of delivery charges</th>
+			<th>Payment Mode</th>
 			<th>Net amount</th>
 			<!-- <th>GST</th> -->
 			<th>Keep amount for eatsapp</th>
 			<th>Give to Restaurant</th>
 			<th>Give to Customer</th>
 			<?php } ?>
-			<th data-field="price">Delivery Charge</th>
-				<!-- <th data-field="delprice">Reimbursement of Delivery charge</th> -->
+			<!-- <th data-field="price">Delivery Charge</th>
+				
 			<th data-field="distance">KM</th>
 			<th data-field="Penalty">Penalty</th>
-			<!-- <th>Net amount</th>
-			<th>GST</th> -->
-			<th>Total Amount</th>
+			<th>Net amount</th>
+			<th>GST</th>
+			<th>Total Amount</th> -->
 			<!-- <th>Remarks</th> -->
 			
 			<th>Status</th>
@@ -215,10 +216,10 @@
 				   <?php $netordervalue=$order->netordervalue+$order->coupon_discount;?> 
 					<?=$netordervalue;?>
 				</td>
-				<td>
+				<!-- <td>
 				<?php $gstonnetordervalue=$order->tax;?> 
 				<?=$gstonnetordervalue; ?>
-				</td>
+				</td> -->
 				<td>
 					<?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'){
 						$netordervalue1 = 0;
@@ -227,13 +228,13 @@
 					?>
 				</td>
 
-				<td>
+				<!-- <td>
 					<?php  if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'){
 						$gstonnetordervalue1 = 0;
 					}elseif($order->restaurant_manager_status == "Accepted"){ $gstonnetordervalue1=$gstonnetordervalue; }else{ $gstonnetordervalue1 = "0"; }
 					echo $gstonnetordervalue1;
 					?>
-				</td>
+				</td> -->
 				
 				<td>
 					<?php  if($order->delivery_partner_status == "Rejected" || $order->status=='order cancelled'){
@@ -284,6 +285,16 @@
 					echo $reimb;
 					?>
 				</td>
+
+				<td>
+					<?php if($order->payment_mode ==0) 
+					{ 
+						echo "Paid Online";
+				    }else{
+                         echo "Collect Cash";
+					    }
+					?>
+				</td>
 				<td><?php if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
 				 	$order->restaurant_manager_status == "Accepted"){
 						$netamount = 0;
@@ -314,7 +325,7 @@
 						echo  "-".$keepamt;
 					}						?></td>
 				
-				<td><?php if($order->restaurant_manager_status == "Rejected"){
+				<!-- <td><?php if($order->restaurant_manager_status == "Rejected"){
 					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2-$order->coupon_discount;
 				      echo $givetocust;
 					}elseif($order->delivery_partner_status== "Rejected"){
@@ -326,10 +337,19 @@
 					}
 					else{
 						echo  0;
+					}?></td> -->
+
+
+					<td><?php if($order->payment_mode ==0 && ($order->restaurant_manager_status == "Rejected" || $order->status=='order cancelled')){
+					 $givetocust=$netordervalue+$gstonnetordervalue+$deliverycharge2-$order->coupon_discount;
+				      echo $givetocust;
+					
+					}else{
+						echo  0;
 					}?></td>
 				<?php } ?>
 
-				<td>
+				<!-- <td>
 					 <?php if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'){
 						$delivery  =  0;
 						
@@ -342,17 +362,17 @@
 					}
 					echo $delivery;
 					?>
-			<!-- 	</td> 
-			<td>
+				</td>  -->
+			<!--<td>
 					<?php 
 						echo $deliverycharge['rate'];
 						
 					 ?>
 					
 				</td>  -->
-				<td>
+				<!-- <td>
 					<?php echo isset($order->distance) ?  $order->distance : '';?>
-				</td>
+				</td> -->
 				
 				<!-- <td>
 					<?php if($order->delivery_partner_status == "Accepted" || $order->restaurant_manager_status == "Accepted" || $order->status == "Order Placed"){
@@ -363,7 +383,7 @@
 					?>
 				</td> -->
 
-				<td>
+				<!-- <td>
 					<?php if($order->delivery_partner_status == "Rejected" ||  
 						$order->status=='order cancelled'&&$order->restaurant_manager_status == "Accepted"){
 						$penalty1 = ($order->del_partner_penalty);
@@ -372,9 +392,9 @@
 					}
 					echo $penalty1;
 					?>
-				</td>
+				</td> -->
 				
-				<td> <?php if($order->delivery_partner_status == "Accepted" || $order->status == "Order Placed"){
+				<!-- <td> <?php if($order->delivery_partner_status == "Accepted" || $order->status == "Order Placed"){
 						//$netamount = $deliverycharge['rate'];
 					$netamount = $order->delpartner_delivery_charge;
 					}else{
@@ -385,7 +405,7 @@
 					} 
 					echo $netamount;
 					?>
-				</td>
+				</td> -->
 				<!--
 				<td><?php $servicetax1 = (($netamount*$servicetax)/100); echo $servicetax1; ?></td> -->
 				<!-- <td>

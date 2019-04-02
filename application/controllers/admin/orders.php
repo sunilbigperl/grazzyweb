@@ -1257,7 +1257,7 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
     // Set the active Excel worksheet to sheet 0
     $objPHPExcel->setActiveSheetIndex(0); 
 
-    $heading=array('Order_type','Delivered On','Order number','Customer Name','Customer Mobile','Delivery Boy Name','Pickup Location','Delivery Location','Delivery Charge','KM','Penalty','Total Amount','Status','Passcode'); //set title in excel sheet
+    $heading=array('Order type','Delivered On','Order number','Customer Name','Customer Mobile','Delivery Boy Name','Pickup Location','Delivery Location','Status','Passcode'); //set title in excel sheet
     
     $rowNumberH = 1; //set in which row title is to be printed
     $colH = 'A'; //set in which column title is to be printed
@@ -1272,22 +1272,23 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 
         $objPHPExcel->getActiveSheet()->setCellValue($colH.$rowNumberH,$h);
         if($this->auth->check_access('Admin') && !isset($url)){ 
-         $objPHPExcel->getActiveSheet()->setCellValue('O'.$rowNumberH,'Order value(Rs)');
-         $objPHPExcel->getActiveSheet()->setCellValue('P'.$rowNumberH,'Convenience Charge');
-         $objPHPExcel->getActiveSheet()->setCellValue('Q'.$rowNumberH,'Discount(%)');
-         $objPHPExcel->getActiveSheet()->setCellValue('R'.$rowNumberH,'Discount(Rs)');
-         $objPHPExcel->getActiveSheet()->setCellValue('S'.$rowNumberH,'Vocher Discount');
-         $objPHPExcel->getActiveSheet()->setCellValue('T'.$rowNumberH,'Net Order Value');
-         $objPHPExcel->getActiveSheet()->setCellValue('U'.$rowNumberH,'GST on Net Order Value ');
-         $objPHPExcel->getActiveSheet()->setCellValue('V'.$rowNumberH,'Net Order Value fulfilled');
-         $objPHPExcel->getActiveSheet()->setCellValue('W'.$rowNumberH,'GST on Net Order Value fulfilled');
-         $objPHPExcel->getActiveSheet()->setCellValue('X'.$rowNumberH,'Commission');
-         $objPHPExcel->getActiveSheet()->setCellValue('Y'.$rowNumberH,'Penalty');
-         $objPHPExcel->getActiveSheet()->setCellValue('Z'.$rowNumberH,'Reimbursement of delivery charges');
-         $objPHPExcel->getActiveSheet()->setCellValue('AA'.$rowNumberH,'Net amount');
-         $objPHPExcel->getActiveSheet()->setCellValue('AB'.$rowNumberH,'Keep amount for eatsapp');
-         $objPHPExcel->getActiveSheet()->setCellValue('AC'.$rowNumberH,'Give to Restaurant');
-         $objPHPExcel->getActiveSheet()->setCellValue('AD'.$rowNumberH,'Give to Customer');
+         $objPHPExcel->getActiveSheet()->setCellValue('K'.$rowNumberH,'Order value(Rs)');
+         $objPHPExcel->getActiveSheet()->setCellValue('L'.$rowNumberH,'Convenience Charge');
+         $objPHPExcel->getActiveSheet()->setCellValue('M'.$rowNumberH,'Discount(%)');
+         $objPHPExcel->getActiveSheet()->setCellValue('N'.$rowNumberH,'Discount(Rs)');
+         $objPHPExcel->getActiveSheet()->setCellValue('O'.$rowNumberH,'Vocher Discount');
+         $objPHPExcel->getActiveSheet()->setCellValue('P'.$rowNumberH,'Net Order Value');
+         // $objPHPExcel->getActiveSheet()->setCellValue('U'.$rowNumberH,'GST on Net Order Value ');
+         $objPHPExcel->getActiveSheet()->setCellValue('Q'.$rowNumberH,'Net Order Value fulfilled');
+         // $objPHPExcel->getActiveSheet()->setCellValue('W'.$rowNumberH,'GST on Net Order Value fulfilled');
+         $objPHPExcel->getActiveSheet()->setCellValue('R'.$rowNumberH,'Commission');
+         $objPHPExcel->getActiveSheet()->setCellValue('S'.$rowNumberH,'Penalty');
+         $objPHPExcel->getActiveSheet()->setCellValue('T'.$rowNumberH,'Reimbursement of delivery charges');
+         $objPHPExcel->getActiveSheet()->setCellValue('U'.$rowNumberH,'Payment Mode');
+         $objPHPExcel->getActiveSheet()->setCellValue('V'.$rowNumberH,'Net amount');
+         $objPHPExcel->getActiveSheet()->setCellValue('W'.$rowNumberH,'Keep amount for eatsapp');
+         $objPHPExcel->getActiveSheet()->setCellValue('X'.$rowNumberH,'Give to Restaurant');
+         $objPHPExcel->getActiveSheet()->setCellValue('Y'.$rowNumberH,'Give to Customer');
 
       }
 
@@ -1416,6 +1417,16 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 					}
 
 
+	  if($excel['payment_mode'] ==0) 
+		{ 
+			$paymentmode="Paid Online";
+		}else{
+              
+             $paymentmode="Collect Cash";
+	    }
+			
+
+
        if($excel['delivery_partner_status'] == "Rejected" ||$excel['status']=='order cancelled'&& 
 				 	$excel['restaurant_manager_status'] == "Accepted"){
 						$netamount = 0;
@@ -1447,19 +1458,29 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
 						
 			}		
 
-		if($excel['restaurant_manager_status']== "Rejected"){
-					 $givetocust=$netordervalue+$gstonnetordervalue+$delcharge-$excel['coupon_discount'];
+		// if($excel['restaurant_manager_status']== "Rejected"){
+		// 			 $givetocust=$netordervalue+$gstonnetordervalue+$delcharge-$excel['coupon_discount'];
 				      
-					}elseif($excel['delivery_partner_status']== "Rejected"){
-						$givetocust=$netordervalue+$gstonnetordervalue+$delcharge-$excel['coupon_discount'];
+		// 			}elseif($excel['delivery_partner_status']== "Rejected"){
+		// 				$givetocust=$netordervalue+$gstonnetordervalue+$delcharge-$excel['coupon_discount'];
 						
-					}elseif($excel['status']=='order cancelled'){
-						$givetocust=$netordervalue+$gstonnetordervalue+$delcharge-$excel['coupon_discount'];
+		// 			}elseif($excel['status']=='order cancelled'){
+		// 				$givetocust=$netordervalue+$gstonnetordervalue+$delcharge-$excel['coupon_discount'];
 				      
-					}else{
-						$givetocust=0;
+		// 			}else{
+		// 				$givetocust=0;
 						
-					}
+		// 			}
+
+
+		if($excel['payment_mode'] ==0 && ($excel['restaurant_manager_status'] == "Rejected" || 
+			$excel['status']=='order cancelled')){
+				$givetocust=$netordervalue+$gstonnetordervalue+$delcharge-$excel['coupon_discount'];
+			     
+				
+				}else{
+					$givetocust=0;
+				}
 		
 
 		// if($excel['delivery_partner_status'] == "Rejected"){
@@ -1554,29 +1575,30 @@ $export_excel = $this->db->query("SELECT a.*,d.order_type,d.ordertype_id,b.resta
         $objPHPExcel->getActiveSheet()->SetCellValue('F'.$rowCount, $deliveryboy);
         $objPHPExcel->getActiveSheet()->SetCellValue('G'.$rowCount, $data['fromaddress']);
         $objPHPExcel->getActiveSheet()->SetCellValue('H'.$rowCount, $data['toaddress']);
-        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$delivery);
-        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$km); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$penalty1);
-        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$netamount1); 
-        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount,$status);
-        $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount,$excel['passcode']);
+        // $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$delivery);
+        // $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$km); 
+        // $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$penalty1);
+        // $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$netamount1); 
+        $objPHPExcel->getActiveSheet()->SetCellValue('I'.$rowCount,$status);
+        $objPHPExcel->getActiveSheet()->SetCellValue('J'.$rowCount,$excel['passcode']);
          if($this->auth->check_access('Admin') && !isset($url)){ 
-         $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$excel['total_amount']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$delcharge);
-         $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$excel['discount1']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$excel['discount2']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$excel['coupon_discount']);
-         $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount,$netordervalue);
-         $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$gstonnetordervalue);
-         $objPHPExcel->getActiveSheet()->SetCellValue('V'.$rowCount,$netordervalue1);
-         $objPHPExcel->getActiveSheet()->SetCellValue('W'.$rowCount,$gstonnetordervalue1);
-         $objPHPExcel->getActiveSheet()->SetCellValue('X'.$rowCount,$commission);
-         $objPHPExcel->getActiveSheet()->SetCellValue('Y'.$rowCount,$penalty);
-         $objPHPExcel->getActiveSheet()->SetCellValue('Z'.$rowCount,$reimb);
-         $objPHPExcel->getActiveSheet()->SetCellValue('AA'.$rowCount,$netamount);
-         $objPHPExcel->getActiveSheet()->SetCellValue('AB'.$rowCount,$keepamt);
-         $objPHPExcel->getActiveSheet()->SetCellValue('AC'.$rowCount,$givetorest);
-         $objPHPExcel->getActiveSheet()->SetCellValue('AD'.$rowCount,$givetocust); 
+         $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount,$excel['total_amount']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount,$delcharge);
+         $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount,$excel['discount1']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('N'.$rowCount,$excel['discount2']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('O'.$rowCount,$excel['coupon_discount']);
+         $objPHPExcel->getActiveSheet()->SetCellValue('P'.$rowCount,$netordervalue);
+         //$objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$gstonnetordervalue);
+         $objPHPExcel->getActiveSheet()->SetCellValue('Q'.$rowCount,$netordervalue1);
+         //$objPHPExcel->getActiveSheet()->SetCellValue('W'.$rowCount,$gstonnetordervalue1);
+         $objPHPExcel->getActiveSheet()->SetCellValue('R'.$rowCount,$commission);
+         $objPHPExcel->getActiveSheet()->SetCellValue('S'.$rowCount,$penalty);
+         $objPHPExcel->getActiveSheet()->SetCellValue('T'.$rowCount,$reimb); 
+         $objPHPExcel->getActiveSheet()->SetCellValue('U'.$rowCount,$paymentmode);
+         $objPHPExcel->getActiveSheet()->SetCellValue('V'.$rowCount,$netamount);
+         $objPHPExcel->getActiveSheet()->SetCellValue('W'.$rowCount,$keepamt);
+         $objPHPExcel->getActiveSheet()->SetCellValue('X'.$rowCount,$givetorest);
+         $objPHPExcel->getActiveSheet()->SetCellValue('Y'.$rowCount,$givetocust); 
         }
         
         
