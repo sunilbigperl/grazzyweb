@@ -90,6 +90,7 @@
 			<th>Penalty</th>
 			<th>Reimbursement of delivery charges</th>
 			<th>Payment Mode</th>
+			<th>Customer Payment</th>
 			<th>Net amount</th>
 			<!-- <th>GST</th> -->
 			<th>Keep amount for eatsapp</th>
@@ -293,6 +294,20 @@
 				    }else{
                          echo "Collect Cash";
 					    }
+					?>
+				</td>
+
+				 <td>
+				<?php if($order->payment_mode ==1 && ($order->status=='order cancelled' || $order->status=='Rejected')) 
+					{ 
+					   $payment= 0;
+					   
+				    }else
+				    {
+				    	
+					   	 $payment=$order->total_cost;
+					}
+					echo $payment
 					?>
 				</td>
 				<td><?php if($order->delivery_partner_status == "Rejected" ||$order->status=='order cancelled'&& 
