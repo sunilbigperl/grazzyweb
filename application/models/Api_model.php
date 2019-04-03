@@ -176,7 +176,8 @@ class Api_model extends CI_Model
 					$days1 = Array (1 => 'monday', 2 => 'tuesday', 3 => 'wednesday', 4 => 'thursday', 5 => 'friday', 6 => 'saturday', 7 => 'sunday' );
 					$day =  $days1[date("N")];
 					
-					if(in_array($day,$days)  && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && ($row['totime']) >= $time)){
+					// if(in_array($day,$days)  && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && ($row['totime']) >= $time)){
+					if(in_array($days,array($day))  && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && ($row['totime']) >= $time)){
 					    $result[] = $row;
 						// $result[$i]['restaurant_id'] = $row['restaurant_id'];
 						// $result[$i]['restaurant_name'] = $row['restaurant_name'];
@@ -795,17 +796,18 @@ class Api_model extends CI_Model
 	// }
 
 	public function pitstopsuser1($data){
+		 $date = date("Y-m-d");
 		 $this->load->helper('file');
 		 $txtFileData = $data;
-        
-       
+    
 	 
 		$sql = $this->db->query("select * from pitstops where enabled=1 and `delete`=0");
 		if($sql->num_rows()>0){
 			$data = $sql->result_array();
 			$i=0;
 			foreach($data as $pitstop){
-			 $sql2 = $this->db->query("select * from pitstop_restaurants a,restaurant b where a.pitstop_id='".$pitstop['pitstop_id']."' and a.restaurants_id=b.restaurant_id and b.enabled=1");
+			 // $sql2 = $this->db->query("select * from pitstop_restaurants a,restaurant b where a.pitstop_id='".$pitstop['pitstop_id']."' and a.restaurants_id=b.restaurant_id and b.enabled=1");
+			 $sql2 = $this->db->query("select * from pitstop_restaurants a,restaurant b,admin c where a.pitstop_id='".$pitstop['pitstop_id']."'and  c.id = b.restaurant_manager and c.NextRenewalDate >= '".$date."' and a.restaurants_id=b.restaurant_id and b.enabled=1");
 			 //print_r($sql2->result_array());exit;
 		  
 			  if($sql2->num_rows()>0){

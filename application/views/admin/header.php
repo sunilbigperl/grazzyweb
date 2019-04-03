@@ -14,7 +14,7 @@
  <?php }elseif($this->auth->check_access('Deliver manager')) { ?>
          <title>DBOS eatsapp</title>
  <?php }else{ ?>
- <title>Eatsapp…</title>
+ <title>eatsapp</title>
     
  <?php } ?>
     

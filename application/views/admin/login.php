@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Eatsapp...</title>
+    <title>eatsapp</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url('vendors/css/bootstrap.css');?>" rel="stylesheet">
