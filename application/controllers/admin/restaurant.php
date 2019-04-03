@@ -26,6 +26,7 @@ class Restaurant extends Admin_Controller {
     
     function form($id = false)
     {
+    	$date = date("Y-m-d");
         $config['upload_path']      = 'uploads/images/full';
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']         = $this->config->item('size_limit');
@@ -295,6 +296,7 @@ class Restaurant extends Admin_Controller {
 			$save['days'] 				   = serialize($this->input->post('days'));
 			$save['delivery_charge'] = $this->input->post('delivery_charge');
 			$save['tags'] = $this->input->post('tags');
+			$save['createdAt '] = $date;
 			if($this->input->post('related_pitstops'))
 			{
 				$related_pitstops = $this->input->post('related_pitstops');

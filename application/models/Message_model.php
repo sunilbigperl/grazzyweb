@@ -3,8 +3,11 @@ class Message_model extends CI_Model
 {
 	
 	public function get_restmessage($id){
-		$query = $this->db->query("select a.*,b.restaurant_name from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and a.restaurant_id=".$id." ORDER BY date DESC");
-		$query1 = $this->db->query("select * from restaurant_messages where restaurant_id = 0");
+		$query = $this->db->query("select a.*,b.restaurant_name from restaurant_messages a, restaurant b where a.restaurant_id = b.restaurant_id and a.restaurant_id=".$id." ORDER BY a.date DESC");
+		 $res = $query->result_array();
+		 
+		 $query1 = $this->db->query("select * from restaurant_messages where restaurant_id = 0 and date>='".$res[0]['createdAt']."'order by date desc ");
+		//$query1 = $this->db->query("select * from restaurant_messages where restaurant_id = 0");
 		$result1 = array();
 		if($query1->num_rows() > 0){
 			
