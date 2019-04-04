@@ -806,8 +806,8 @@ class Api_model extends CI_Model
 			$data = $sql->result_array();
 			$i=0;
 			foreach($data as $pitstop){
-			 // $sql2 = $this->db->query("select * from pitstop_restaurants a,restaurant b where a.pitstop_id='".$pitstop['pitstop_id']."' and a.restaurants_id=b.restaurant_id and b.enabled=1");
-			 $sql2 = $this->db->query("select * from pitstop_restaurants a,restaurant b,admin c where a.pitstop_id='".$pitstop['pitstop_id']."'and  c.id = b.restaurant_manager and c.NextRenewalDate >= '".$date."' and a.restaurants_id=b.restaurant_id and b.enabled=1");
+			 $sql2 = $this->db->query("select * from pitstop_restaurants a,restaurant b where a.pitstop_id='".$pitstop['pitstop_id']."' and a.restaurants_id=b.restaurant_id and b.enabled=1");
+			 // $sql2 = $this->db->query("select * from pitstop_restaurants a,restaurant b,admin c where a.pitstop_id='".$pitstop['pitstop_id']."'and  c.id = b.restaurant_manager and c.NextRenewalDate >= '".$date."' and a.restaurants_id=b.restaurant_id and b.enabled=1");
 			 //print_r($sql2->result_array());exit;
 		  
 			  if($sql2->num_rows()>0){
