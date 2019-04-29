@@ -180,6 +180,13 @@ Class Restaurant_model extends CI_Model
     
     function delete($id)
     {
+        $sql = $this->db->query("select * from restaurant where restaurant_id='".$id."' ");
+		
+		$result	= $sql->result_array();
+			
+		$this->db->where('id', $result[0]['restaurant_manager']);
+        $this->db->delete('admin'); 
+
         $this->db->where('restaurant_id', $id);
         $this->db->delete('restaurant'); 
 		 $data['delete'] = 1;
