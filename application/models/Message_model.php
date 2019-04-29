@@ -509,7 +509,7 @@ class Message_model extends CI_Model
 			return 0;
 		} 
 	}else{
-		 $query = $this->db->query("select *  from restaurant_messages where restaurant_id = 0 ORDER BY date DESC");
+		 $query = $this->db->query("select *  from restaurant_messages ORDER BY date DESC");
 	   
 
 		if($query->num_rows() > 0){
