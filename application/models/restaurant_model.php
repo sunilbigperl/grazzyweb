@@ -274,6 +274,30 @@ Class Restaurant_model extends CI_Model
         }
     }
 
+
+
+    function check_username($str, $id=false)
+    {
+        $this->db->select('username');
+        $this->db->from('admin');
+        $this->db->where('username', $str);
+        if ($id)
+        {
+            $this->db->where('id !=', $id);
+        }
+        $count = $this->db->count_all_results();
+        
+        if ($count > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
 //     public function getrestaurant()
 // {
       

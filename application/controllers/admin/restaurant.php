@@ -2,6 +2,7 @@
 
 class Restaurant extends Admin_Controller { 
     
+    var $admin_id	= false;
     function __construct()
     {       
         parent::__construct();
@@ -149,7 +150,7 @@ class Restaurant extends Admin_Controller {
         
 		
 		
-		//$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
+		$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
         $this->form_validation->set_rules('restaurant_name', 'lang:restaurant_name', 'trim|required|max_length[64]');
         $this->form_validation->set_rules('restaurant_address', 'lang:restaurant_address', 'trim|required');
         $this->form_validation->set_rules('restaurant_mobile', 'lang:restaurant_mobile', 'trim|required|max_length[11]|callback_validate_phone_number');
@@ -400,9 +401,24 @@ class Restaurant extends Admin_Controller {
 		
 	}
 	
+	// function check_username($str)
+	// {
+	// 	$email = $this->auth->check_username($str, $this->admin_id);
+	// 	if ($email)
+	// 	{
+	// 		$this->form_validation->set_message('check_username', lang('error_username_taken'));
+	// 		return FALSE;
+	// 	}
+	// 	else
+	// 	{
+	// 		return TRUE;
+	// 	}
+	// }
+
+
 	function check_username($str)
 	{
-		$email = $this->auth->check_username($str, $this->admin_id);
+		$email = $this->Restaurant_model->check_username($str, $this->admin_id);
 		if ($email)
 		{
 			$this->form_validation->set_message('check_username', lang('error_username_taken'));
