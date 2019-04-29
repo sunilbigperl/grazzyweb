@@ -476,7 +476,7 @@ class Message_model extends CI_Model
         $sql=$this->db->query("select * from restaurant where restaurant_manager='".$userdata['id']."' ");
 		
         $res = $sql->result_array();
-	    $query = $this->db->query("select * from restaurant a,restaurant_messages b where a.restaurant_id=b.restaurant_id and a.restaurant_manager='".$userdata['id']."' ");
+	    $query = $this->db->query("select * from restaurant a,restaurant_messages b where a.restaurant_id=b.restaurant_id and a.restaurant_manager='".$userdata['id']."' ORDER BY b.date DESC ");
          
 		 //$res = $query->result_array();
 
