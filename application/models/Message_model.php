@@ -480,7 +480,7 @@ class Message_model extends CI_Model
          
 		 //$res = $query->result_array();
 
-		 $query1 = $this->db->query("select * from restaurant_messages where restaurant_id = 0 and date>='".$res[0]['createdAt']."'order by date desc ");
+		 $query1 = $this->db->query("select * from restaurant_messages where restaurant_id = 0 and date>='".$res[0]['createdAt']."'order by date DESC ");
 		
 		$result1 = array();
 		if($query1->num_rows() > 0){

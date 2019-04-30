@@ -163,6 +163,13 @@ class Restaurant extends Admin_Controller {
 			$this->form_validation->set_rules('password', 'lang:password', 'required|min_length[6]|sha1');
 			$this->form_validation->set_rules('confirm', 'lang:confirm_password', 'required|matches[password]|sha1');
 		}
+
+		
+		if (!$id)
+		{
+			$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
+			
+		}
 		
         if($this->input->post('submit'))
 		{
@@ -401,24 +408,9 @@ class Restaurant extends Admin_Controller {
 		
 	}
 	
-	// function check_username($str)
-	// {
-	// 	$email = $this->auth->check_username($str, $this->admin_id);
-	// 	if ($email)
-	// 	{
-	// 		$this->form_validation->set_message('check_username', lang('error_username_taken'));
-	// 		return FALSE;
-	// 	}
-	// 	else
-	// 	{
-	// 		return TRUE;
-	// 	}
-	// }
-
-
 	function check_username($str)
 	{
-		$email = $this->Restaurant_model->check_username($str, $this->admin_id);
+		$email = $this->auth->check_username($str, $this->admin_id);
 		if ($email)
 		{
 			$this->form_validation->set_message('check_username', lang('error_username_taken'));
@@ -429,6 +421,21 @@ class Restaurant extends Admin_Controller {
 			return TRUE;
 		}
 	}
+
+
+	// function check_username($str)
+	// {
+	// 	$email = $this->Restaurant_model->check_username($str, $this->admin_id);
+	// 	if ($email)
+	// 	{
+	// 		$this->form_validation->set_message('check_username', lang('error_username_taken'));
+	// 		return FALSE;
+	// 	}
+	// 	else
+	// 	{
+	// 		return TRUE;
+	// 	}
+	// }
 	
 	function validate_phone_number($value) {
 		
