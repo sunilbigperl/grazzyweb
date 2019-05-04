@@ -165,7 +165,7 @@ class Restaurant extends Admin_Controller {
 		}
 
 		
-		if (!$id)
+		if (!$id || $id)
 		{
 			$this->form_validation->set_rules('username', 'lang:username', 'trim|required|max_length[128]|callback_check_username');
 			
