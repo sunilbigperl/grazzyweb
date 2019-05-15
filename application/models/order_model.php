@@ -447,6 +447,244 @@ Class order_model extends CI_Model
 			$data = "Delivered"; 
 			$sql = $this->db->query('update orders set status="'.$data.'",actualdelivery_time=
 				"'.$date.'",actualpickup_time="'.$date.'" where id="'.$id.'"');
+
+		   $sql2=$this->db->query("select * from orders where id='".$id."'");
+		   //print_r( $sql1->result_array());exit;
+           $message="";
+		if($sql2->num_rows()>0){
+			$res = $sql2->result_array();
+			// print_r($res[0]['status']);
+			// print_r($res[0]['payment_mode']);exit;
+			//$result = $res[0]['status'];
+			if($res[0]['status']=='Delivered' && $res[0]['payment_mode'])
+			{
+			$i=0;
+				foreach($res as $row){ 
+
+				$sql1 = "select restaurant_name,restaurant_phone,GST from restaurant where restaurant_id='".$row['restaurant_id']."'";
+
+				$query1 = $this->db->query($sql1);
+
+				if($query1->num_rows()>0){
+
+					$res1 = $query1->result_array();
+					$result[$i]['restaurant_name'] = $res1[0]['restaurant_name'];
+					$result[$i]['restaurant_phone'] = $res1[0]['restaurant_phone'];
+					$result[$i]['GST'] = $res1[0]['GST'];
+					
+				}else{
+					$result[$i]['restaurant_name'] = "";
+					$result[$i]['restaurant_phone'] = "";
+					$result[$i]['GST'] = "";
+					
+				}
+
+				$sql2 = "select firstname,email from customers where id='".$row['customer_id']."'";
+
+				$query2 = $this->db->query($sql2);
+
+				if($query2->num_rows()>0){
+
+					$res2 = $query2->result_array();
+					$result[$i]['firstname'] = $res2[0]['firstname'];
+					$result[$i]['email'] = $res2[0]['email'];
+				}else{
+					$result[$i]['firstname'] = "";
+					$result[$i]['email'] = "";
+				}
+				    $logo1='http://eatsapp.in/login/uploads/images/3.png';
+			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo' >";
+					//$result[$i]['id'] = $row['id'];
+					$result[$i]['order_id'] = $row['id'];
+					$result[$i]['order_number'] = $row['order_number'];
+					$result[$i]['shipping'] = $row['shipping'];
+					$result[$i]['total_amount'] = $row['total_amount'];
+					$result[$i]['coupon_discount'] = $row['coupon_discount'];
+					$result[$i]['discount1'] = $row['discount1'];
+					$result[$i]['discount2'] = $row['discount2'];
+
+					$result[$i]['gstonfood'] = $row['gstonfood'];
+					if($row['discount1']==0){
+						$discount1= "";
+					}else{
+						
+						$discount1= "<tr><td>Discount</td><td align=right>".$result[$i]['discount1']."</td></tr>";
+					}
+					if($row['discount2']==0){
+						$discount2= "";
+					}else{
+						
+						$discount2= "<tr><td>Discount</td><td align=right>".$result[$i]['discount2']."</td></tr>";
+					}
+					if($row['gstonfood']==0){
+						$gst= "";
+					}else{
+						
+						$gst= "<tr><td>GST</td><td align=right>".$result[$i]['gstonfood']."</td></tr>";
+					}
+					$result[$i]['netordervalue'] = $row['netordervalue'];
+					$netordervalue=$result[$i]['netordervalue']+$result[$i]['coupon_discount'];
+					
+					$result[$i]['ordered_on'] = date("d-m-Y", strtotime($row['ordered_on']));
+					$result[$i]['delivery_location'] = $row['delivery_location'];
+					if($row['order_type']!=3){
+						$delivery_location="<p style=text-align:center;>Delivery Address: ".$result[$i]['delivery_location']."</p>";
+					
+					}else{
+						
+							$delivery_location ="";
+					}
+					$result[$i]['total_cost'] = $row['total_cost'];
+                   
+					
+					
+					$sql1 = "select contents,cost from order_items  where order_id='".$row['id']."' ";
+				$data1 = $this->db->query($sql1);
+				
+				if($data1->num_rows()>0){
+					$j=0;
+					foreach($data1->result_array() as $row1){
+						$result[$i]['items'][]=$row1['contents'];
+						$result[$i]['cost'][]=$row1['cost'];
+					$j++;
+					}
+
+				}
+				
+				if(isset($result[$i]['items'])){	
+					$result[$i]['items']= implode("<br>",$result[$i]['items']);
+				}
+				if(isset($result[$i]['cost'])){	
+					$result[$i]['cost']= implode("<br>",$result[$i]['cost']);
+				}
+
+				
+         $message.="<p style=text-align:center;>".$image1."  </p>
+		  <p style=text-align:center;>Dear ".$result[$i]['firstname'].",</p>
+		  <p style=text-align:center;>Thank you for placing the order with eatsapp</p>
+		  <p style=text-align:center;>Order No: ".$result[$i]['order_number']."</p>
+		  <p style=text-align:center;>Order Placed On: ".$result[$i]['ordered_on']."</p>
+		  ".$delivery_location." 
+		  <p style=text-align:center;>Store: ".$result[$i]['restaurant_name']."</p>
+		
+		  
+		  
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+	
+}
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+}
+
+
+</style>			
+		
+
+<table align=center>
+  <tr>
+    <th>Item Name</th>
+    <th>Price (INR)</th>
+   </tr>
+  <tr>
+    <td>".$result[$i]['items']."</td>
+    <td align=right>".$result[$i]['cost']."</td>
+   </tr>
+  <tr>
+    <td>Total</td>
+    <td align=right>".$result[$i]['total_amount']."</td>
+  </tr>
+  ".$discount1."  
+  
+   ".$discount2."
+
+   <tr>
+    <td>Vocher Discount</td>
+    <td align=right>".$result[$i]['coupon_discount']."</td>
+  </tr>
+  <tr>
+    <td>Net Order Value</td>
+    <td align=right>".$netordervalue."</td>
+  </tr>
+  ".$gst."  
+  <tr>
+    <td>Convenience Charge</td>
+    <td align=right>".$result[$i]['shipping']."</td>
+  </tr>
+  
+   <tr>
+    <td>Total</td>
+    <td align=right>".$result[$i]['total_cost']."</td>
+  </tr>
+  
+  
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<div class=footer>	   
+<hr>
+<p style=font-size:10px;>Disclaimer: This is an acknowledgement of the Order and not an actual invoice. Details mentioned above including the menu prices and taxes (as applicable) as provided by the Store to Eatsapp. It has been assumed that the said prices include GST. Responsibility of charging (or not charging) taxes lies with the Store and Eatsapp disclaims any liability that may arise in this respect.</p>
+</div>
+         
+		";
+		
+	
+		 $i++;
+		
+		$message1=" <center>".$image1." 
+					          <p>Dear ".$res2[0]['firstname'].",</p>
+							 <p>Thank you for using eatsapp.</p>
+							 <p>The Bill(s) are attached herewith.</p>
+							 <p><b>Looking forward to serve you soon again.</b></p>
+							 <p style=color:#bdbdbf;>152, 15th Floor, Mittal Court (B), Nariman Point, Mumbai 400021<br><a href=http://eatsapp.in style=text-decoration:none;color:#bdbdbf;>eatsapp.in</a></p>
+                             </center>
+							 <p><b>Attachments:</b> </p>
+					          ";
+
+			$config = Array(
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.gmail.com',
+				'smtp_port' => 465,
+				'smtp_user' => 'billing@eatsapp.in',
+				'smtp_pass' => 'DEVANG123d',
+				'mailtype'  => 'html', 
+				'charset'   => 'iso-8859-1',
+				'crlf' => "\r\n",
+				'newline' => "\r\n"
+			);
+
+			
+			$this->load->library('email',$config);
+			$this->email->from('billing@eatsapp.in', 'eatsapp');
+			$this->email->to($res2[0]['email']);
+			$this->email->bcc('eatsapp.customer.billing@gmail.com');
+			$this->email->subject('Your Requested Bill(s)');
+			//$filename  = "orderbill.pdf";
+			$filename1  = $row['order_number'];
+			$filename  = "$filename1.pdf";
+            $this->load->library('m_pdf');
+            $this->m_pdf->pdf->WriteHTML($message);
+		    $this->m_pdf->pdf->Output($filename, "F");
+		    $this->email->attach($filename);
+			$this->email->message($message1);
+			$this->email->send(); 
+		    //print($this->email->print_debugger());exit;
+			//return true;
+		  
+			
+		}
+		}
+		$result = $res[0]['status'];	
+		}else{
+			$result = '';	
+		}
+			//return $result;
 		}
 		else if($status == "3"){ 
 			$data = "Shipped"; 
