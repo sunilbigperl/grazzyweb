@@ -39,12 +39,33 @@ class Login extends Base_Controller {
 				if ($redirect == '')
 				{
 					$userdata = $this->session->userdata('admin');
+					//print_r($userdata['enabled']);exit;
 					if($this->auth->check_access('Restaurant manager')){
+						if($userdata['enabled']==1)
+						{
+                     
+
+						$date = date('Y-m-d');
+						// $sql = $this->db->query("select * from admin where  username='".$username."'");
+						 $sql = $this->db->query("select * from admin a,restaurant b where  a.username='".$username."' and  b.restaurant_manager=a.id and b.enabled=1  ");
 						
+						//print_r("select * from admin where NextRenewalDate > '".$date."' and username='".$username."'"); exit;
+                    	if($sql->num_rows() > 0){
+							$redirect = $this->config->item('admin_folder').'/orders/dashboard';
+						}else{
+							$this->auth->logout();
+							//$this->session->set_flashdata('error', 'Your renewal date expired');
+							$this->session->set_flashdata('error','It appears that your access to the Portal has been restricted by the Administrator. Please write to contact@eatsapp.in or contact on +919820076457');
+							redirect($this->config->item('admin_folder').'/login');
+						}
+					 }else{
+
+                        
 						$date = date('Y-m-d');
 						// $sql = $this->db->query("select * from admin where  username='".$username."'");
 						$sql = $this->db->query("select * from admin a,restaurant b where  a.username='".$username."' and  b.restaurant_manager=a.id and b.enabled=1  ");
 						//print_r("select * from admin where NextRenewalDate > '".$date."' and username='".$username."'"); exit;
+
 						if($sql->num_rows() > 0){
 							$redirect = $this->config->item('admin_folder').'/orders/dashboard';
 						}else{
@@ -53,6 +74,8 @@ class Login extends Base_Controller {
 							$this->session->set_flashdata('error','It appears that your access to the Portal has been restricted by the Administrator. Please write to contact@eatsapp.in or contact on +919820076457');
 							redirect($this->config->item('admin_folder').'/login');
 						}
+
+					 }
 						
 					}elseif($this->auth->check_access('Admin')){
 						$redirect = $this->config->item('admin_folder').'/dashboard';

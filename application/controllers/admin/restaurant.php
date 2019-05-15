@@ -18,6 +18,7 @@ class Restaurant extends Admin_Controller {
     {
 		$data['page_title1'] = 'Restaurants';
         $data['restaurants'] = $this->Restaurant_model->get_restaurants();
+       
         $name = isset($data['restaurants'][0]->restaurant_name) ? $data['restaurants'][0]->restaurant_name : '';
 		$data['page_title'] = $name;
         $this->view($this->config->item('admin_folder').'/restaurant', $data);
@@ -379,6 +380,25 @@ class Restaurant extends Admin_Controller {
 		$data['deactivateto'] = date('Y-m-d',strtotime($this->input->post('ToDate')));
 		
 		$this->Restaurant_model->RestaurantStatusChange($data);
+		redirect('admin/restaurant', 'refresh');
+		
+	}
+
+
+	function RestaurantStatusChange1($id=false,$enabled=0){
+		$enabl = $this->input->post('enabled');
+		
+		$enabled = isset($enabled) ? $enabled : 0;
+
+		$data['restaurant_id'] = false == $this->input->post('id') ? $id : $this->input->post('id');
+		
+		$data['enabled'] = isset($enabl) ? $enabl : $enabled;
+		//print_r($data['enabled']);exit;
+		
+		$data['deactivatefrom'] = date('Y-m-d',strtotime($this->input->post('FromDate')));
+		$data['deactivateto'] = date('Y-m-d',strtotime($this->input->post('ToDate')));
+		
+		$this->Restaurant_model->RestaurantStatusChange1($data);
 		redirect('admin/restaurant', 'refresh');
 		
 	}

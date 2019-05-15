@@ -67,14 +67,29 @@
 				
 									<?php } ?>
 					<a class="btn btn-xs btn-primary" href="<?php echo site_url($this->config->item('admin_folder').'/menus/index/'.$restaurant->restaurant_id); ?>">Menu</a></br>
-				
+				 
+				   <?php if($this->auth->check_access('Admin')) {?>
 					<?php if($restaurant->enabled == 1){ ?> 
 						<a class="btn btn-xs btn-danger" style="color: white;" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a></br>
 
 					<?php }else{ ?>
 						
+						<a class="btn btn-xs btn-success" style="color:white;" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange1/'.$restaurant->restaurant_id."/1"); ?>" >Activate</a>
+					<?php } ?>
+					<?php } ?>
+					 <?php if($this->auth->check_access('Restaurant manager')) {
+					 	$userdata = $this->session->userdata('admin');
+					 	?>
+
+					<?php if($restaurant->enabled == 1){ ?> 
+						<a class="btn btn-xs btn-danger" style="color: white;" data-toggle="modal" data-target="#DeactivateRest" onclick="$('#restid').val('<?=$restaurant->restaurant_id;?>')">Deactivate</a></br>
+						<!-- <a class="btn btn-xs btn-danger" style="color:white;" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id."/0"); ?>" >Deactivate</a>
+ -->
+					<?php }else{ ?>
+						
 						<a class="btn btn-xs btn-success" style="color:white;" href="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange/'.$restaurant->restaurant_id."/1"); ?>" >Activate</a>
 					<?php } ?>
+						<?php } ?>
                     
 					</span>
 				</td>
@@ -117,7 +132,38 @@
 <div class="modal-dialog">
 
   <!-- Modal content-->
+   <?php if($this->auth->check_access('Admin')) {?>
   <div class="modal-content">
+	<form action="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange1'); ?>" method="post">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Deactivate Restaurant</h4>
+		</div>
+		<div class="modal-body">
+		  <div class="form-group">
+			<input type="hidden" name="id" id="restid" value="">
+			<label><strong>From date</strong></label>
+			<input type="date" name="FromDate" id="FromDate">
+			<label><strong>To date</strong></label>
+			<input type="date" name="ToDate" id="ToDate"><br/><br/>
+			<label><strong>Deactivate Permanently</strong></label>
+			<input type="checkbox"  name="enabled" value="2">
+			
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <input type="submit" name="submit" value="submit" class="btn btn-primary">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	</form>
+  </div>
+<?php } ?>
+
+  
+
+
+ <?php if($this->auth->check_access('Restaurant manager')) {?>
+   <div class="modal-content">
 	<form action="<?php echo site_url($this->config->item('admin_folder').'/restaurant/RestaurantStatusChange'); ?>" method="post">
 		<div class="modal-header">
 		  <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -141,6 +187,7 @@
 		</div>
 	</form>
   </div>
+  <?php } ?>
   
 </div>
 </div>

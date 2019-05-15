@@ -5,6 +5,7 @@ Class Restaurant_model extends CI_Model
     function get_restaurants()
     {
 		$userdata = $this->session->userdata('admin');
+		
         $this->db->select('*');
 		if($this->auth->check_access('Restaurant manager')){ 
 		 $this->db->where('restaurant_manager', $userdata['id']);
@@ -210,8 +211,24 @@ Class Restaurant_model extends CI_Model
 		
 		 if ($data['restaurant_id'])
         {
+        	
             $this->db->where('restaurant_id', $data['restaurant_id']);
             $this->db->update('restaurant', $data);
+        }
+	}
+
+	function RestaurantStatusChange1($data){
+		
+		 if ($data['restaurant_id'])
+        {
+        	//print_r($data['enabled']);exit;
+   //      	$sql=$this->db->query("SELECT *,b.enabled as enabled FROM restaurant a,admin b where 
+   //      		a.restaurant_id=".$data['restaurant_id']." and a.restaurant_manager=b.id ");
+			// $result= $sql->result_array();
+
+
+			
+            $query = $this->db->query("update restaurant a,admin b set a.enabled=".$data['enabled']." , b.enabled='".$data['enabled']."' where a.restaurant_id='".$data['restaurant_id']."' and a.restaurant_manager=b.id");
         }
 	}
 

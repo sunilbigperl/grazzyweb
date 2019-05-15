@@ -143,6 +143,7 @@ class Auth
             $admin['admin']['lastname'] = $result['lastname'];
             $admin['admin']['email'] = $result['email'];
             $admin['admin']['username'] = $result['username'];
+            $admin['admin']['enabled'] = $result['enabled'];
             
             if($remember)
             {
