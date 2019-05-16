@@ -11,6 +11,7 @@ class Restaurant extends Admin_Controller {
         $this->lang->load('category');
 		$this->lang->load('admin');
         $this->load->model('Restaurant_model');
+        $this->load->model('Order_model');
 		$this->load->library('user_agent');
     }
     
@@ -18,6 +19,8 @@ class Restaurant extends Admin_Controller {
     {
 		$data['page_title1'] = 'Restaurants';
         $data['restaurants'] = $this->Restaurant_model->get_restaurants();
+        // print_r( $data['restaurants'][0]->enabled);
+        // print_r( $data['restaurants'][0]->b_enabled);exit;
        
         $name = isset($data['restaurants'][0]->restaurant_name) ? $data['restaurants'][0]->restaurant_name : '';
 		$data['page_title'] = $name;

@@ -1,3 +1,4 @@
+
 <script src="<?php echo base_url('vendors/js/typeahead.jquery.js');?>"></script>
 <style>
 .tt-menu,
@@ -264,4 +265,6 @@ function CheckRestAll(){
 	}
 }
 </script>
+
+<?php $this->load->view('admin/autoredirect'); ?>
 

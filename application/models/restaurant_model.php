@@ -5,11 +5,27 @@ Class Restaurant_model extends CI_Model
     function get_restaurants()
     {
 		$userdata = $this->session->userdata('admin');
+		if($this->auth->check_access('Admin')){ 
+
+		$sql = $this->db->query("select *,b.enabled as b_enabled from restaurant a, admin b where a.restaurant_manager = b.id order by  a.restaurant_name ASC");
+
+		 $result = $sql->result_array();
+		  $restaurants = array();
+        foreach($sql->result() as $rest)
+        {
+            $restaurants[]   = $rest;
+        }
+        
+        return $restaurants;
+		}
 		
         $this->db->select('*');
 		if($this->auth->check_access('Restaurant manager')){ 
 		 $this->db->where('restaurant_manager', $userdata['id']);
 		}
+
+		
+
         $this->db->order_by('restaurant_name', 'ASC');
 		 // $this->db->where('delete',0);
         $result = $this->db->get('restaurant');

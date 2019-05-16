@@ -343,3 +343,5 @@ function drawColColors(array1) {
       chart.draw(data, options);
     }
 </script>
+
+<?php $this->load->view('admin/autoredirect'); ?>

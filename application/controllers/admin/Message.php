@@ -8,6 +8,7 @@ class Message extends Admin_Controller {
         
         //$this->auth->check_access('Admin', true);
         $this->load->model('Message_model');
+         $this->load->model('Order_model');
     }
 	
     function index($id){
