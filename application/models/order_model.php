@@ -456,7 +456,7 @@ Class order_model extends CI_Model
 			// print_r($res[0]['status']);
 			// print_r($res[0]['payment_mode']);exit;
 			//$result = $res[0]['status'];
-			if($res[0]['status']=='Delivered' && $res[0]['payment_mode']==0)
+			if($res[0]['status']=='Delivered' && $res[0]['payment_mode']==1)
 			{
 			$i=0;
 				foreach($res as $row){ 
@@ -700,7 +700,7 @@ table, th, td {
 			// print_r($res[0]['status']);
 			// print_r($res[0]['payment_mode']);exit;
 			//$result = $res[0]['status'];
-			if($res[0]['status']=='Shipped' && $res[0]['payment_mode']==0)
+			if($res[0]['status']=='Shipped' && $res[0]['payment_mode']==1)
 			{
 			$i=0;
 				foreach($res as $row){ 
