@@ -1,17 +1,40 @@
 <?php if($this->auth->check_access('Restaurant manager')) : ?>
-<?php $orders = $this->Order_model->get_neworders(); 
-// print_r($orders[0]->enabled);exit;
-if($orders[0]->enabled==0)
-{
-   $this->session->sess_expiration = '30'; //~ 30 seconds
-   $this->session->sess_expire_on_close = 'false';
-   $this->auth->logout();
 
-	//when someone logs out, automatically redirect them to the login page.
-	$this->session->set_flashdata('message', lang('message_logged_out'));
-	redirect($this->config->item('admin_folder').'/login');
-}
+<?php 
+$userdata = $this->session->userdata('admin');
+ $sql = $this->db->query("select b.enabled,a.enabled as b_enabled from admin a,restaurant b where  a.username='".$userdata['username']."' and  b.restaurant_manager=a.id ");
+
+ $results= $sql->result_array();
+ // print_r( $results[0]['enabled']);
+ // print_r( $results[0]['b_enabled']);exit;
+
+ if($results[0]['enabled']==1){
+
+ 	if($results[0]['b_enabled']==0)
+ 	{
+ 		 $this->session->sess_expiration = '30'; //~ 30 seconds
+        $this->session->sess_expire_on_close = 'false';
+         $this->auth->logout();
+		//$this->session->set_flashdata('error', 'Your renewal date expired');
+		$this->session->set_flashdata('error','It appears that your access to the Portal has been restricted by the Administrator. Please write to contact@eatsapp.in or contact on +919820076457');
+		redirect($this->config->item('admin_folder').'/login');
+ 	}
+
+   $redirect = $this->config->item('admin_folder').'/orders/dashboard';
+ }
+
+
+
+
+
+
+
+
+
 ?>
+
+
+
 
 <script>
        setTimeout(function(){
