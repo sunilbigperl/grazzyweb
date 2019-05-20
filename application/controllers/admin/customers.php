@@ -760,6 +760,17 @@ class Customers extends Admin_Controller {
 					$html.="There is a new order : ".$res['order_number']."\n";
 				}
 			}
+		}else{
+			$date = date('Y-m-d H:i:s'); 
+			$date1 = date("Y-m-d H:i:s",strtotime($date." -1 minutes"));
+			$userdata = $this->session->userdata('admin');
+			$sql = $this->db->query("select * from pitstop_suggest where date >= '".$date1."'");
+			if($sql->num_rows() > 0){
+				$result =  $sql->result_array();
+				foreach($result as $res){
+					$html.="";
+					
+				}
 		}
 		// else{
 		// 	$date = date('Y-m-d H:i:s'); 
