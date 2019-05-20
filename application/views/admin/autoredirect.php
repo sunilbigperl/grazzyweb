@@ -6,11 +6,17 @@ $userdata = $this->session->userdata('admin');
 
  $results= $sql->result_array();
  // print_r( $results[0]['enabled']);
- // print_r( $results[0]['b_enabled']);exit;
+ //print_r( $results[0]['b_enabled']);exit;
 
- if($results[0]['enabled']==1){
+ //if($results[0]['enabled']==1){
 
- 	if($results[0]['b_enabled']==0)
+ 	if($results[0]['b_enabled']==1)
+ 	{
+
+ 		 $redirect = $this->config->item('admin_folder').'/orders/dashboard';
+
+ 		
+ 	}else
  	{
  		 $this->session->sess_expiration = '30'; //~ 30 seconds
         $this->session->sess_expire_on_close = 'false';
@@ -20,8 +26,8 @@ $userdata = $this->session->userdata('admin');
 		redirect($this->config->item('admin_folder').'/login');
  	}
 
-   $redirect = $this->config->item('admin_folder').'/orders/dashboard';
- }
+  
+ //}
 
 
 
