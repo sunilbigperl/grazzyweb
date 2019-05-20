@@ -100,7 +100,7 @@ class Menus extends Admin_Controller {
 		
         $this->form_validation->set_rules('menu', 'lang:menu', 'trim|required');
 		$this->form_validation->set_rules('type', 'lang:type', 'trim|required');
-		$this->form_validation->set_rules('type', 'lang:itemPreparation_time', 'trim|required');
+		$this->form_validation->set_rules('itemPreparation_time', 'lang:itemPreparation_time', 'trim|required');
         $this->form_validation->set_rules('price', 'lang:price', 'trim');
 		$this->form_validation->set_rules('image', 'lang:image', 'trim');
 		 
