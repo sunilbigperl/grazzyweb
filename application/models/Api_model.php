@@ -240,7 +240,7 @@ class Api_model extends CI_Model
 
 			if($threadmsg->num_rows()>0){
 				
-				$result = array();
+				//$result = array();
 				$i=0;
 				foreach($threadmsg->result_array() as $row){ 
 					
@@ -251,15 +251,15 @@ class Api_model extends CI_Model
 					
 					if(in_array($day,$days) && ($row['fromtime'] == "00:00:00" && $row['totime'] == "00:00:00") || ($row['fromtime'] <= $time && ($row['totime']) >= $time)){
 					
-						 $result[] = $row;
-						//$result[$i]['restaurant_id'] = $row['restaurant_id'];
-						//$result[$i]['restaurant_name'] = $row['restaurant_name'];
-						//$result[$i]['restaurant_latitude'] = $row['restaurant_latitude'];
-						//$result[$i]['restaurant_langitude'] = $row['restaurant_langitude'];
-						//$result[$i]['commission']= $row['commission'];
-						//$result[$i]['penalty'] = $row['penalty'];
-						//$result[$i]['servicetax'] = $row['servicetax'];
-						//$result[$i]['image'] = 'uploads/images/thumbnails/'.$row['image']; 
+						 //$result[] = $row;
+						$result[$i]['restaurant_id'] = $row['restaurant_id'];
+						$result[$i]['restaurant_name'] = $row['restaurant_name'];
+						$result[$i]['restaurant_latitude'] = $row['restaurant_latitude'];
+						$result[$i]['restaurant_langitude'] = $row['restaurant_langitude'];
+						$result[$i]['commission']= $row['commission'];
+						$result[$i]['penalty'] = $row['penalty'];
+						$result[$i]['servicetax'] = $row['servicetax'];
+						$result[$i]['image'] = 'uploads/images/thumbnails/'.$row['image']; 
 					}
 				$i++;
 				}
