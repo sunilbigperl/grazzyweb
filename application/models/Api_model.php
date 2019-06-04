@@ -231,6 +231,8 @@ class Api_model extends CI_Model
 	}
 	
 	public function getRestaurants($id){
+		$this->load->helper('file');
+		$txtFileData = $id;
 		$date = date("Y-m-d");
 		date_default_timezone_set('Asia/Calcutta');
 		$time = date('H:i:s',time());
@@ -263,6 +265,17 @@ class Api_model extends CI_Model
 					}
 				$i++;
 				}
+				$txtFileData = json_encode($txtFileData) ."\n \n".json_encode($result);
+         
+	             if ( ! write_file('./text1.php',  $txtFileData))
+				   {
+				       // echo 'Unable to write the file';
+				   }
+				   else
+				   {
+				        //echo 'File written!';
+				  	
+				   }
 				return $result;
 			}else{
 			
