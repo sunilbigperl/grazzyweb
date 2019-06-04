@@ -772,6 +772,7 @@ class Customers extends Admin_Controller {
 					
 				}
 		}
+	}
 		// else{
 		// 	$date = date('Y-m-d H:i:s'); 
 		// 	$date1 = date("Y-m-d H:i:s",strtotime($date." -1 minutes"));
