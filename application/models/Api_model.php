@@ -392,8 +392,23 @@ class Api_model extends CI_Model
 	}
 	
 	public function adduserslocation($data){
-		$sql = "insert into customer_locations (customer_id,latitude,langitude) values('".$data['customer_id']."','".$data['latitude']."','".$data['langitude']."')";
-		//echo $sql; exit;
+		date_default_timezone_set('Asia/Calcutta');
+        $date = date("Y-m-d H:i:s");
+
+		$query1=$this->db->query("select * from customer_locations where customer_id='".$data['customer_id']."' ");
+		//print($query->num_rows());exit;
+		if($query1->num_rows()==0)
+		{
+			$sql = "insert into customer_locations (customer_id,latitude,langitude,date) values('".$data['customer_id']."','".$data['latitude']."','".$data['langitude']."','".$date."')";
+		    //echo $sql; exit;
+
+		}else{
+
+			$sql = "update customer_locations set latitude='".$data['latitude']."',langitude='".$data['langitude']."',date='".$date."'  where customer_id='".$data['customer_id']."'";
+	       //echo $sql; exit;
+			
+		}
+		
 		$query = $this->db->query($sql);
 		if($query){
 			return true;
@@ -1538,6 +1553,8 @@ table, th, td {
 			
 			$result['langitude'] = $data[0]['langitude'];
 			$result['latitude'] = $data[0]['latitude'];
+			$result['date'] = $data[0]['date'];
+
 			
 		}else{
 				$result = false;
