@@ -396,7 +396,7 @@ class Api_model extends CI_Model
         $date = date("Y-m-d H:i:s");
 
 		$query1=$this->db->query("select * from customer_locations where customer_id='".$data['customer_id']."' ");
-		//print($query->num_rows());exit;
+		//print($query1->num_rows());exit;
 		if($query1->num_rows()==0)
 		{
 			$sql = "insert into customer_locations (customer_id,latitude,langitude,date) values('".$data['customer_id']."','".$data['latitude']."','".$data['langitude']."','".$date."')";
@@ -643,7 +643,7 @@ class Api_model extends CI_Model
 			if($sql1->num_rows() > 0){
 				foreach($sql1->result_array() as $row){ 
 					// print_r($row['firstname']);exit;
-					$logo1='http://eatsapp.in/login/uploads/images/3.png';
+					$logo1='https://eatsapp.in/login/uploads/images/3.png';
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 				   
 					$message=" <center>".$image1." 
@@ -891,7 +891,7 @@ class Api_model extends CI_Model
 			// echo "select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' ";exit;
          $i=0;
 		if($sql1->num_rows()>0){
-                $logo1='http://eatsapp.in/login/uploads/images/3.png';
+                $logo1='https://eatsapp.in/login/uploads/images/3.png';
 			    $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 				foreach($sql1->result_array() as $row){ 
 					$user_data['firstname'] = $row['firstname'];
@@ -980,7 +980,7 @@ class Api_model extends CI_Model
 			// echo "select firstname from customers a,restaurant_suggest b where a.id='".$data['customer']."' ";exit;
          $i=0;
 		if($sql1->num_rows()>0){
-                $logo1='http://eatsapp.in/login/uploads/images/3.png';
+                $logo1='https://eatsapp.in/login/uploads/images/3.png';
 			    $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 				foreach($sql1->result_array() as $row){ 
 					$user_data['firstname'] = $row['firstname'];
@@ -1204,7 +1204,7 @@ class Api_model extends CI_Model
 					$result[$i]['firstname'] = "";
 					$result[$i]['email'] = "";
 				}
-				    $logo1='http://eatsapp.in/login/uploads/images/3.png';
+				    $logo1='https://eatsapp.in/login/uploads/images/3.png';
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo' >";
 					//$result[$i]['id'] = $row['id'];
 					$result[$i]['order_id'] = $row['id'];
@@ -1409,7 +1409,7 @@ table, th, td {
 			if($sql1->num_rows() > 0){
 				foreach($sql1->result_array() as $row){ 
 					// print_r($row['firstname']);exit;
-					$logo1='http://eatsapp.in/login/uploads/images/3.png';
+					$logo1='https://eatsapp.in/login/uploads/images/3.png';
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 				   
 					$message=" <center>".$image1." 
@@ -1608,7 +1608,7 @@ table, th, td {
 			//print_r($sql->result_array());exit;
 			$i=0;
 				foreach($data as $row){ 
-				    $logo1='http://eatsapp.in/login/uploads/images/3.png';
+				    $logo1='https://eatsapp.in/login/uploads/images/3.png';
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo' >";
 					//$result[$i]['id'] = $row['id'];
 					$result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
@@ -1857,7 +1857,7 @@ table, th, td {
 				}
 			//print_r($query->result_array());exit;
 			//foreach($query->result_array() as $row){ 
-				$logo1='http://eatsapp.in/login/uploads/images/3.png';
+				$logo1='https://eatsapp.in/login/uploads/images/3.png';
 			    $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 			    $result[$i]['servicetax'] =  $servicetax[0]['servicetax'];
 			    $result[$i]['delivery_charge'] =  $servicetax[0]['deliverycharge'];

@@ -492,7 +492,7 @@ Class order_model extends CI_Model
 					$result[$i]['firstname'] = "";
 					$result[$i]['email'] = "";
 				}
-				    $logo1='http://eatsapp.in/login/uploads/images/3.png';
+				    $logo1='https://eatsapp.in/login/uploads/images/3.png';
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo' >";
 					//$result[$i]['id'] = $row['id'];
 					$result[$i]['order_id'] = $row['id'];
@@ -736,7 +736,7 @@ table, th, td {
 					$result[$i]['firstname'] = "";
 					$result[$i]['email'] = "";
 				}
-				    $logo1='http://eatsapp.in/login/uploads/images/3.png';
+				    $logo1='https://eatsapp.in/login/uploads/images/3.png';
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo' >";
 					//$result[$i]['id'] = $row['id'];
 					$result[$i]['order_id'] = $row['id'];
@@ -958,7 +958,7 @@ table, th, td {
             $query2 = $this->db->query("SELECT * FROM `customers` a,orders b where b.customer_id=a.id and b.id=".$id." ");
 			if($query2->num_rows() > 0){
 				foreach($query2->result_array() as $row){ 
-					$logo1='http://eatsapp.in/login/uploads/images/3.png';
+					$logo1='https://eatsapp.in/login/uploads/images/3.png';
 			        $image1="<img src='".$logo1."' height='150' width='150'  alt='logo'>";
 					$message=" <center>".$image1." 
 					         <p>Dear ".$row['firstname'].",</p>
